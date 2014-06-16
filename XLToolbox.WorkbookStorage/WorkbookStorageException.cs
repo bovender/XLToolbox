@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace XLToolbox.Core
+namespace XLToolbox.WorkbookStorage
 {
     [Serializable]
     public class WorkbookStorageException : Exception

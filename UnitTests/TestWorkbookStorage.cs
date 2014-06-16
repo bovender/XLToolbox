@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using XLToolbox.Core;
+using XLToolbox.WorkbookStorage;
 using Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox.Test
@@ -14,7 +14,7 @@ namespace XLToolbox.Test
             Assert.DoesNotThrow(delegate()
             {
                 Application excel = new Application();
-                WorkbookStorage storage = new WorkbookStorage(excel);
+                Store storage = new Store(excel);
             });
         }
 
@@ -22,19 +22,21 @@ namespace XLToolbox.Test
         [ExpectedException(typeof(WorkbookStorageException), ExpectedMessage = "Invalid storage context")]
         public void InvalidContextCausesException()
         {
-            WorkbookStorage storage = new WorkbookStorage(TestContext.Workbook);
+            Store storage = new Store(TestContext.Workbook);
             storage.Context = "made-up context that does not exist";
         }
 
         [Test]
         public void StoreAndRetrieveInteger()
         {
-            WorkbookStorage storage = new WorkbookStorage(TestContext.Workbook);
+            Store storage1 = new Store(TestContext.Workbook);
+            Store storage2 = new Store(TestContext.Workbook);
             string key = "Some property key";
             int i = 123;
-            storage.UseActiveSheet();
-            storage.Store(key, i);
-            int j = storage.Retrieve(key);
+            storage1.UseActiveSheet();
+            storage1.Put(key, i);
+            storage2.Context = storage1.Context;
+            int j = storage2.Get(key);
             Assert.AreEqual(i, j);
         }
     }

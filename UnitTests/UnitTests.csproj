@@ -68,17 +68,17 @@
     <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XLToolbox.Core\XLToolbox.Core.csproj">
-      <Project>{b391711c-2b81-4001-a6c6-bda0d624d2e0}</Project>
-      <Name>XLToolbox.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XLToolbox.WorkbookStorage\XLToolbox.WorkbookStorage.csproj">
+      <Project>{e1a7d57d-fefb-46b5-adae-58eec3100871}</Project>
+      <Name>XLToolbox.WorkbookStorage</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
