@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using System;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -48,7 +49,12 @@ namespace XLToolbox.WorkbookStorage
 
         internal void ReadFromSheet(Worksheet sheet, int row)
         {
-            context = sheet.Cells[row, 1].Value();
+            // In order to deal with the global context, we need to
+            // first fetch the cell value as an object, then convert
+            // it to a string using String.Format, which accepts
+            // null values.
+            object contextValue = sheet.Cells[row, 1].Value();
+            context = String.Format("{0}", contextValue);
             key = sheet.Cells[row, 2].Value();
             value = sheet.Cells[row, 3].Value();
         }

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace XLToolbox.WorkbookStorage
 {
-    public class Store : Object
+    public class Store : Object, IDisposable
     {
         private Dictionary<string, ContextItems> _contexts;
         private const string STORESHEETNAME = "_xltb_storage_";
@@ -142,7 +142,6 @@ namespace XLToolbox.WorkbookStorage
         public Store(Application application) : this()
         {
             Workbook = application.ActiveWorkbook;
-            UseActiveSheet();
         }
 
         /// <summary>
@@ -152,15 +151,33 @@ namespace XLToolbox.WorkbookStorage
         public Store(Workbook workbook) : this()
         {
             this.Workbook = workbook;
-            UseActiveSheet();
+        }
+
+        private bool disposed = false;
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+                disposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (Dirty)
+                {
+                    WriteToWorksheet();
+                }
+            }
         }
 
         ~Store()
         {
-            if (Dirty)
-            {
-                WriteToWorksheet();
-            }
+            Dispose(false);
         }
 
         /// <summary>
@@ -169,13 +186,49 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         /// <param name="key">Key to look up.</param>
         /// <returns>Integer value</returns>
-        public int Get(string key)
+        public int Get(string key, int def, int min, int max)
         {
-            dynamic v = GetDynamicValue(key);
-            if (v == null) {
-                throw new UnkownKeyException(String.Format("Context {0} has no key {1}", _context, key));
+            if (HasKey(key))
+            {
+                int i = (int)GetDynamicValue(key);
+                if (i < min)
+                {
+                    i = min;
+                }
+                else if (i > max)
+                {
+                    i = max;
+                }
+                return i;
             }
-            return (int)v;
+            else
+            {
+                return def;
+            }
+        }
+
+        public string Get(string key, string def)
+        {
+            if (HasKey(key))
+            {
+                return (string)GetDynamicValue(key);
+            }
+            else
+            {
+                return def;
+            }
+        }
+
+        public bool Get(string key, bool def)
+        {
+            if (HasKey(key))
+            {
+                return (bool)GetDynamicValue(key);
+            }
+            else
+            {
+                return def;
+            }
         }
 
         public void Put(string key, int i)
@@ -200,6 +253,14 @@ namespace XLToolbox.WorkbookStorage
         /// <param name="o">Object to store.</param>
         protected void PutObject(string key, object o)
         {
+            if (key.Length == 0)
+            {
+                throw new EmptyKeyException();
+            };
+            if (HasKey(key))
+            {
+                Items.Remove(key);
+            };
             Item item = new Item(key, Context, o);
             Items.Add(item.key, item);
             Dirty = true;
@@ -220,6 +281,10 @@ namespace XLToolbox.WorkbookStorage
         /// <returns>True if key exists in current context, false if not.</returns>
         public bool HasKey(string key)
         {
+            if (key.Length == 0)
+            {
+                throw new EmptyKeyException();
+            }
             return Items.ContainsKey(key);
         }
 
@@ -236,14 +301,14 @@ namespace XLToolbox.WorkbookStorage
 
         protected dynamic GetDynamicValue(string key)
         {
-            ContextItems c = Items;
-            if (c.ContainsKey(key))
+            Item item;
+            if (Items.TryGetValue(key, out item))
             {
-                return c[key].value;
+                return item.value;
             }
             else
             {
-                return null;
+                throw new UnkownKeyException(String.Format("Context {0} has no key {1}", _context, key));
             }
         }
 
