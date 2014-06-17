@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace XLToolbox.WorkbookStorage
 {
     [Serializable]
-    class InvalidContextException : WorkbookStorageException
+    public class InvalidContextException : WorkbookStorageException
     {
         public InvalidContextException() { }
         public InvalidContextException(string message) : base(message) { }

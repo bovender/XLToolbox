@@ -19,7 +19,7 @@ namespace XLToolbox.Test
         }
 
         [Test]
-        [ExpectedException(typeof(WorkbookStorageException), ExpectedMessage = "Invalid storage context")]
+        [ExpectedException(typeof(InvalidContextException))]
         public void InvalidContextCausesException()
         {
             Store storage = new Store(TestContext.Workbook);
@@ -30,11 +30,11 @@ namespace XLToolbox.Test
         public void StoreAndRetrieveInteger()
         {
             Store storage1 = new Store(TestContext.Workbook);
-            Store storage2 = new Store(TestContext.Workbook);
             string key = "Some property key";
             int i = 123;
-            storage1.UseActiveSheet();
             storage1.Put(key, i);
+            storage1.Flush();
+            Store storage2 = new Store(TestContext.Workbook);
             storage2.Context = storage1.Context;
             int j = storage2.Get(key);
             Assert.AreEqual(i, j);

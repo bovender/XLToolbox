@@ -48,9 +48,9 @@ namespace XLToolbox.WorkbookStorage
 
         internal void ReadFromSheet(Worksheet sheet, int row)
         {
-            context = sheet.Cells[row, 1];
-            key = sheet.Cells[row, 2];
-            value = sheet.Cells[row, 3];
+            context = sheet.Cells[row, 1].Value();
+            key = sheet.Cells[row, 2].Value();
+            value = sheet.Cells[row, 3].Value();
         }
 
         public int AsInt()
