@@ -7,15 +7,6 @@ namespace XLToolbox.WorkbookStorage
 {
     public class Store : Object, IDisposable
     {
-        private Dictionary<string, ContextItems> _contexts;
-        private const string STORESHEETNAME = "_xltb_storage_";
-        private const string STORESHEETINFO = "XL Toolbox Settings";
-        private const int FIRSTROW = 2;
-        private string _context;
-        protected bool Dirty { get; set; }
-
-        private Workbook _workbook;
-
         /// <summary>
         /// Gets or sets the associated workbook. If a new workbook is set,
         /// writes the values to the old workbook, then reads the values from
@@ -42,35 +33,6 @@ namespace XLToolbox.WorkbookStorage
                 {
                     _contexts.Clear();
                 }
-            }
-        }
-
-        private Worksheet _storeSheet;
-        protected Worksheet StoreSheet {
-            get {
-                if (_storeSheet == null) {
-                    if (Workbook == null)
-                    {
-                        throw new WorkbookStorageException("Cannot access storage worksheet: no workbook is associated");
-                    }
-                    try
-                    {
-                        _storeSheet = Workbook.Worksheets[STORESHEETNAME];
-                    }
-                    catch (System.Runtime.InteropServices.COMException)
-                    {
-                        // If the COMException is raised, the worksheet likely does not exist
-                        _storeSheet = Workbook.Worksheets.Add();
-
-                        // xlSheetVeryHidden hides the sheet so much that it cannot be made
-                        // visible from the Excel graphical user interface
-                        _storeSheet.Visible = XlSheetVisibility.xlSheetVeryHidden;
-
-                        // Give the worksheet a special name
-                        _storeSheet.Name = STORESHEETNAME;
-                    }
-                }
-                return _storeSheet;
             }
         }
 
@@ -107,7 +69,48 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
-        internal ContextItems Items
+        protected Worksheet StoreSheet {
+            get {
+                if (_storeSheet == null) {
+                    if (Workbook == null)
+                    {
+                        throw new WorkbookStorageException("Cannot access storage worksheet: no workbook is associated");
+                    }
+                    try
+                    {
+                        _storeSheet = Workbook.Worksheets[STORESHEETNAME];
+                    }
+                    catch (System.Runtime.InteropServices.COMException)
+                    {
+                        bool wasSaved = Workbook.Saved;
+
+                        // If the COMException is raised, the worksheet likely does not exist
+                        _storeSheet = Workbook.Worksheets.Add();
+
+                        // xlSheetVeryHidden hides the sheet so much that it cannot be made
+                        // visible from the Excel graphical user interface
+                        _storeSheet.Visible = XlSheetVisibility.xlSheetVeryHidden;
+
+                        // Give the worksheet a special name
+                        _storeSheet.Name = STORESHEETNAME;
+
+                        Workbook.Saved = wasSaved;
+                    }
+                }
+                return _storeSheet;
+            }
+        }
+        protected bool Dirty { get; set; }
+        private Dictionary<string, ContextItems> _contexts;
+        private const string STORESHEETNAME = "_xltb_storage_";
+        private const string STORESHEETINFO = "XL Toolbox Settings";
+        private const int FIRSTROW = 2;
+        private string _context;
+        private Workbook _workbook;
+        private Worksheet _storeSheet;
+        private bool disposed = false;
+
+        private ContextItems Items
         {
             get
             {
@@ -126,12 +129,6 @@ namespace XLToolbox.WorkbookStorage
                     return c;
                 }
             }
-        }
-
-        protected Store()
-        {
-            _context = "";
-            _contexts = new Dictionary<string, ContextItems>();
         }
 
         /// <summary>
@@ -153,7 +150,17 @@ namespace XLToolbox.WorkbookStorage
             this.Workbook = workbook;
         }
 
-        private bool disposed = false;
+        protected Store()
+        {
+            _context = "";
+            _contexts = new Dictionary<string, ContextItems>();
+        }
+
+        ~Store()
+        {
+            Dispose(false);
+        }
+
         public void Dispose()
         {
             if (!disposed)
@@ -173,11 +180,6 @@ namespace XLToolbox.WorkbookStorage
                     WriteToWorksheet();
                 }
             }
-        }
-
-        ~Store()
-        {
-            Dispose(false);
         }
 
         /// <summary>
@@ -247,26 +249,6 @@ namespace XLToolbox.WorkbookStorage
         }
 
         /// <summary>
-        /// Central method to put objects into the store.
-        /// </summary>
-        /// <param name="key">Key to store the object under.</param>
-        /// <param name="o">Object to store.</param>
-        protected void PutObject(string key, object o)
-        {
-            if (key.Length == 0)
-            {
-                throw new EmptyKeyException();
-            };
-            if (HasKey(key))
-            {
-                Items.Remove(key);
-            };
-            Item item = new Item(key, Context, o);
-            Items.Add(item.key, item);
-            Dirty = true;
-        }
-
-        /// <summary>
         /// Sets the active sheet of the current workbook as the context.
         /// </summary>
         public void UseActiveSheet()
@@ -297,6 +279,26 @@ namespace XLToolbox.WorkbookStorage
             {
                 WriteToWorksheet();
             };
+        }
+
+        /// <summary>
+        /// Central method to put objects into the store.
+        /// </summary>
+        /// <param name="key">Key to store the object under.</param>
+        /// <param name="o">Object to store.</param>
+        protected void PutObject(string key, object o)
+        {
+            if (key.Length == 0)
+            {
+                throw new EmptyKeyException();
+            };
+            if (HasKey(key))
+            {
+                Items.Remove(key);
+            };
+            Item item = new Item(key, Context, o);
+            Items.Add(item.key, item);
+            Dirty = true;
         }
 
         protected dynamic GetDynamicValue(string key)
