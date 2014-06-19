@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox.WorkbookStorage", "XLToolbox.WorkbookStorage\XLToolbox.WorkbookStorage.csproj", "{E1A7D57D-FEFB-46B5-ADAE-58EEC3100871}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox.Version", "XLToolbox.Version\XLToolbox.Version.csproj", "{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E1A7D57D-FEFB-46B5-ADAE-58EEC3100871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A7D57D-FEFB-46B5-ADAE-58EEC3100871}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A7D57D-FEFB-46B5-ADAE-58EEC3100871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0} = {C2FDF7B3-BF2D-42DD-BF4A-F152BC77DAAA}
 		{33E4E826-A540-4249-B9FC-04197590FBC8} = {186F9918-A41E-455B-B722-B43F90B37BA9}
 		{E1A7D57D-FEFB-46B5-ADAE-58EEC3100871} = {6C3B4D54-19F3-4B6B-B8FF-1F64E7955AFD}
+		{FD9C57E1-70BD-4FA9-90C1-47912C2AFDA9} = {6C3B4D54-19F3-4B6B-B8FF-1F64E7955AFD}
 	EndGlobalSection
 EndGlobal
