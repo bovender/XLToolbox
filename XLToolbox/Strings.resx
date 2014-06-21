@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnErrorHasOccurred" xml:space="preserve">
+    <value>An error has occurred!</value>
+  </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Check for updates</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="FetchingVersionInformationFailed" xml:space="preserve">
     <value>Unable to fetch the current version information from the internet.
@@ -126,5 +132,8 @@ The error was:
 {0}
 
 Is your internet connection working?</value>
+  </data>
+  <data name="XLToolboxError" xml:space="preserve">
+    <value>XL Toolbox Error!</value>
   </data>
 </root>

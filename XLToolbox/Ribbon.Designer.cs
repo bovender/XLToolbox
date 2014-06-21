@@ -38,6 +38,7 @@
             this.TabXlToolbox = this.Factory.CreateRibbonTab();
             this.GroupXlToolbox = this.Factory.CreateRibbonGroup();
             this.ButtonCheckForUpdate = this.Factory.CreateRibbonButton();
+            this.ButtonTestError = this.Factory.CreateRibbonButton();
             this.TabXlToolbox.SuspendLayout();
             this.GroupXlToolbox.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             // GroupXlToolbox
             // 
             this.GroupXlToolbox.Items.Add(this.ButtonCheckForUpdate);
+            this.GroupXlToolbox.Items.Add(this.ButtonTestError);
             resources.ApplyResources(this.GroupXlToolbox, "GroupXlToolbox");
             this.GroupXlToolbox.Name = "GroupXlToolbox";
             // 
@@ -58,6 +60,12 @@
             resources.ApplyResources(this.ButtonCheckForUpdate, "ButtonCheckForUpdate");
             this.ButtonCheckForUpdate.Name = "ButtonCheckForUpdate";
             this.ButtonCheckForUpdate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonCheckForUpdate_Click);
+            // 
+            // ButtonTestError
+            // 
+            resources.ApplyResources(this.ButtonTestError, "ButtonTestError");
+            this.ButtonTestError.Name = "ButtonTestError";
+            this.ButtonTestError.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonTestError_Click);
             // 
             // Ribbon
             // 
@@ -77,6 +85,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab TabXlToolbox;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup GroupXlToolbox;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton ButtonCheckForUpdate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton ButtonTestError;
     }
 
     partial class ThisRibbonCollection

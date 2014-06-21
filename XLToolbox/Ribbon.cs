@@ -15,8 +15,12 @@ namespace XLToolbox
 
         private void ButtonCheckForUpdate_Click(object sender, RibbonControlEventArgs e)
         {
-            WindowCheckForUpdate w = new WindowCheckForUpdate();
-            w.ShowDialog();
+            Dispatcher.Execute(Command.CheckForUpdates);
+        }
+
+        private void ButtonTestError_Click(object sender, RibbonControlEventArgs e)
+        {
+            Dispatcher.Execute(Command.ThrowError);
         }
     }
 }

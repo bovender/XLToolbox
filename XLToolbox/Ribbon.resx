@@ -132,6 +132,21 @@
   <data name="&gt;&gt;ButtonCheckForUpdate.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="ButtonTestError.Label" xml:space="preserve">
+    <value>Test error</value>
+  </data>
+  <data name="&gt;&gt;ButtonTestError.Name" xml:space="preserve">
+    <value>ButtonTestError</value>
+  </data>
+  <data name="&gt;&gt;ButtonTestError.Type" xml:space="preserve">
+    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.ButtonView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="&gt;&gt;ButtonTestError.Parent" xml:space="preserve">
+    <value>GroupXlToolbox</value>
+  </data>
+  <data name="&gt;&gt;ButtonTestError.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="GroupXlToolbox.Label" xml:space="preserve">
     <value>XL Toolbox</value>
   </data>

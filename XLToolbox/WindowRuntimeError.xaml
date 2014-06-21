@@ -1,0 +1,17 @@
+﻿<Window x:Class="XLToolbox.WindowRuntimeError"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:l="clr-namespace:XLToolbox"
+            SizeToContent="WidthAndHeight"
+            WindowStartupLocation="CenterScreen"
+            Title="{x:Static l:Strings.XLToolboxError}"
+            >
+    <StackPanel Margin="10">
+        <TextBlock Text="{x:Static l:Strings.AnErrorHasOccurred}" Margin="0,0,0,10"/>
+        <TextBox Name="ErrorMessage" Margin="0,0,0,10">Dummy error</TextBox>
+        <TextBlock Name="ErrorDescription" Margin="0,0,0,10">Dummy description</TextBlock>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="ButtonClose" Content="{x:Static l:Strings.Close}" IsCancel="True" Padding="10,0,10,0" />
+        </StackPanel>
+    </StackPanel>
+</Window>

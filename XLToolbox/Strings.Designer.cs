@@ -61,11 +61,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred!.
+        /// </summary>
+        public static string AnErrorHasOccurred {
+            get {
+                return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for updates.
         /// </summary>
         public static string CheckForUpdates {
             get {
                 return ResourceManager.GetString("CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -79,6 +97,15 @@ namespace XLToolbox {
         public static string FetchingVersionInformationFailed {
             get {
                 return ResourceManager.GetString("FetchingVersionInformationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XL Toolbox Error!.
+        /// </summary>
+        public static string XLToolboxError {
+            get {
+                return ResourceManager.GetString("XLToolboxError", resourceCulture);
             }
         }
     }
