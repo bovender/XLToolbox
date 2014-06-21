@@ -45,6 +45,8 @@
     <Compile Include="InvalidVersionStringException.cs" />
     <Compile Include="SemanticVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateAvailableEventArgs.cs" />
+    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\VERSION">
