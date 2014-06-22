@@ -194,6 +194,9 @@
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowUpdateAvailable.xaml.cs">
+      <DependentUpon>WindowUpdateAvailable.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -253,12 +256,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowUpdateAvailable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XLToolbox.Version\XLToolbox.Version.csproj">
       <Project>{fd9c57e1-70bd-4fa9-90c1-47912c2afda9}</Project>
       <Name>XLToolbox.Version</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="xltoolbox-blender-icon.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -283,7 +293,7 @@
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="Excel" HostPackage="{20A848B8-E01F-4801-962E-25DB0FF57389}" OfficeVersion="14.0" VstxVersion="4.0" ApplicationType="Excel" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\14.0\Excel\InstallRoot\Path#excel.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
         <Host Name="Excel" GeneratedCodeNamespace="XLToolbox" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
-          <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" PublishedHash="5A661CFB5890B4AD30C2090998BDF262077FC700" />
+          <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" PublishedHash="5A661CFB5890B4AD30C2090998BDF262077FC700" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
         </Host>
       </FlavorProperties>
     </VisualStudio>

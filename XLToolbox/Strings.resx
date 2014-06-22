@@ -120,11 +120,20 @@
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>An error has occurred!</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>Check for updates</value>
   </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Checking for updates</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="DownloadNow" xml:space="preserve">
+    <value>Download now</value>
   </data>
   <data name="FetchingVersionInformationFailed" xml:space="preserve">
     <value>Unable to fetch the current version information from the internet.
@@ -133,7 +142,22 @@ The error was:
 
 Is your internet connection working?</value>
   </data>
+  <data name="NewVersion" xml:space="preserve">
+    <value>New version:</value>
+  </data>
+  <data name="NewVersionAvailableForDownload" xml:space="preserve">
+    <value>A new version of the XL Toolbox is available for download.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
   <data name="XLToolboxError" xml:space="preserve">
     <value>XL Toolbox Error!</value>
+  </data>
+  <data name="YouHave" xml:space="preserve">
+    <value>You have:</value>
   </data>
 </root>

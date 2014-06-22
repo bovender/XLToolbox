@@ -70,6 +70,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for updates.
         /// </summary>
         public static string CheckForUpdates {
@@ -79,11 +88,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking for updates.
+        /// </summary>
+        public static string CheckingForUpdates {
+            get {
+                return ResourceManager.GetString("CheckingForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download now.
+        /// </summary>
+        public static string DownloadNow {
+            get {
+                return ResourceManager.GetString("DownloadNow", resourceCulture);
             }
         }
         
@@ -101,11 +128,56 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New version:.
+        /// </summary>
+        public static string NewVersion {
+            get {
+                return ResourceManager.GetString("NewVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A new version of the XL Toolbox is available for download..
+        /// </summary>
+        public static string NewVersionAvailableForDownload {
+            get {
+                return ResourceManager.GetString("NewVersionAvailableForDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string UpdateAvailable {
+            get {
+                return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XL Toolbox Error!.
         /// </summary>
         public static string XLToolboxError {
             get {
                 return ResourceManager.GetString("XLToolboxError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have:.
+        /// </summary>
+        public static string YouHave {
+            get {
+                return ResourceManager.GetString("YouHave", resourceCulture);
             }
         }
     }
