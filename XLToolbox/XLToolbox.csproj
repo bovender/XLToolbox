@@ -194,6 +194,9 @@
     <Compile Include="WindowDownloadUpdate.xaml.cs">
       <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowGreeter.xaml.cs">
+      <DependentUpon>WindowGreeter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowDownloadUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowGreeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

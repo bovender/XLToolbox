@@ -173,4 +173,22 @@ Is your internet connection working?</value>
     <value>The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click "Cancel".
 You can find the installer in {0}.</value>
   </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="ThisIsVersion" xml:space="preserve">
+    <value>This is version {0}.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="WelcomeToXLToolbox" xml:space="preserve">
+    <value>Welcome to the XL Toolbox add-in!</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>What's new?</value>
+  </data>
+  <data name="YourVoluntaryPaymentIsAppreciated" xml:space="preserve">
+    <value>Your voluntary payment ('donation') is greatly appreciated. To donate, click the button below.</value>
+  </data>
 </root>

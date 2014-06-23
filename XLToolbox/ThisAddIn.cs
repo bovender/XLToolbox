@@ -7,6 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using XLToolbox.Version;
+using System.Threading;
 
 namespace XLToolbox
 {
@@ -19,6 +20,7 @@ namespace XLToolbox
 #if !DEBUG
             Globals.Ribbons.Ribbon.GroupDebug.Visible = false;
 #endif
+            GreetUser();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -26,6 +28,20 @@ namespace XLToolbox
             if (Updater != null)
             {
                 Updater.InstallUpdate();
+            }
+        }
+
+        private void GreetUser()
+        {
+            SemanticVersion lastSeenVersion = new SemanticVersion(
+                Properties.Settings.Default.LastVersionSeen);
+            SemanticVersion currentVersion = SemanticVersion.CurrentVersion();
+            if (currentVersion > lastSeenVersion)
+            {
+                WindowGreeter w = new WindowGreeter();
+                w.Show();
+                Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
+                Properties.Settings.Default.Save();
             }
         }
 

@@ -34,5 +34,53 @@ namespace XLToolbox.Properties {
                 this["DownloadPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
+        public string LastUpdateSeen {
+            get {
+                return ((string)(this["LastUpdateSeen"]));
+            }
+            set {
+                this["LastUpdateSeen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastUpdateCheck {
+            get {
+                return ((string)(this["LastUpdateCheck"]));
+            }
+            set {
+                this["LastUpdateCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int UpdateCheckInterval {
+            get {
+                return ((int)(this["UpdateCheckInterval"]));
+            }
+            set {
+                this["UpdateCheckInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
+        public string LastVersionSeen {
+            get {
+                return ((string)(this["LastVersionSeen"]));
+            }
+            set {
+                this["LastVersionSeen"] = value;
+            }
+        }
     }
 }

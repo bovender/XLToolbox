@@ -115,6 +115,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Donate.
+        /// </summary>
+        public static string Donate {
+            get {
+                return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The downloaded file cannot be installed because it is different from the official update file. This can be caused by errors in the network connection, a faulty disk drive on your computer, or by someone hampering with the update process. The update will not be installed..
         /// </summary>
         public static string DownloadedFileCannotBeInstalled {
@@ -182,6 +191,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is version {0}..
+        /// </summary>
+        public static string ThisIsVersion {
+            get {
+                return ResourceManager.GetString("ThisIsVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update available.
         /// </summary>
         public static string UpdateAvailable {
@@ -201,6 +219,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to the XL Toolbox add-in!.
+        /// </summary>
+        public static string WelcomeToXLToolbox {
+            get {
+                return ResourceManager.GetString("WelcomeToXLToolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What&apos;s new?.
+        /// </summary>
+        public static string WhatsNew {
+            get {
+                return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XL Toolbox Error!.
         /// </summary>
         public static string XLToolboxError {
@@ -215,6 +260,15 @@ namespace XLToolbox {
         public static string YouHave {
             get {
                 return ResourceManager.GetString("YouHave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your voluntary payment (&apos;donation&apos;) is greatly appreciated. To donate, click the button below..
+        /// </summary>
+        public static string YourVoluntaryPaymentIsAppreciated {
+            get {
+                return ResourceManager.GetString("YourVoluntaryPaymentIsAppreciated", resourceCulture);
             }
         }
     }
