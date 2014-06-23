@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using XLToolbox.Version;
 
 namespace XLToolbox
 {
@@ -19,9 +21,43 @@ namespace XLToolbox
     /// </summary>
     public partial class WindowUpdateAvailable : Window
     {
-        public WindowUpdateAvailable()
+        private Updater Updater { get; set; }
+
+        public WindowUpdateAvailable(Updater updater)
         {
             InitializeComponent();
+            Updater = updater;
+            CurrentVersion.Text = SemanticVersion.CurrentVersion().ToString();
+            NewVersion.Text = updater.NewVersion.ToString();
+            UpdateDescription.Text = updater.UpdateDescription;
         }
+
+        private void Download_Click(object sender, RoutedEventArgs e)
+        {
+            string defaultPath = Properties.Settings.Default.DownloadPath;
+            if (defaultPath.Length == 0)
+            {
+                System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            };
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            f.SelectedPath = defaultPath;
+            f.ShowNewFolderButton = true;
+            f.ShowDialog();
+            if (f.SelectedPath.Length > 0)
+            {
+                Properties.Settings.Default.DownloadPath = f.SelectedPath;
+                Properties.Settings.Default.Save();
+
+                WindowDownloadUpdate w = new WindowDownloadUpdate(Updater, f.SelectedPath);
+                w.Show();
+                this.Close();
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

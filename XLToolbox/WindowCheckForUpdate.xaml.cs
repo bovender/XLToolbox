@@ -40,8 +40,7 @@ namespace XLToolbox
         private void updater_OnUpdateAvailable(object sender, UpdateAvailableEventArgs e)
         {
             stopProgressBar();
-            MessageBox.Show(String.Format("New version available!\n{0}\n{1}\n{2}",
-                e.NewVersion.ToString(), e.DownloadUrl.ToString(), e.NewVersionInfo));
+            showUpdateAvailable(sender as Updater);
             dispatchClose();
         }
 
@@ -57,6 +56,16 @@ namespace XLToolbox
         private void dispatchClose()
         {
             this.Dispatcher.Invoke(new Action(this.Close));
+        }
+
+        private void showUpdateAvailable(Updater updater)
+        {
+            Action action = delegate()
+            {
+                WindowUpdateAvailable w = new WindowUpdateAvailable(updater);
+                w.Show();
+            };
+            this.Dispatcher.Invoke(new Action(action));
         }
     }
 }

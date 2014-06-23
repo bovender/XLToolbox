@@ -97,11 +97,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose where to save the update file.
+        /// </summary>
+        public static string ChooseWhereToSaveUpdateFile {
+            get {
+                return ResourceManager.GetString("ChooseWhereToSaveUpdateFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The downloaded file cannot be installed because it is different from the official update file. This can be caused by errors in the network connection, a faulty disk drive on your computer, or by someone hampering with the update process. The update will not be installed..
+        /// </summary>
+        public static string DownloadedFileCannotBeInstalled {
+            get {
+                return ResourceManager.GetString("DownloadedFileCannotBeInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading XL Toolbox update.
+        /// </summary>
+        public static string DownloadingXLToolboxUpdate {
+            get {
+                return ResourceManager.GetString("DownloadingXLToolboxUpdate", resourceCulture);
             }
         }
         
@@ -160,6 +187,16 @@ namespace XLToolbox {
         public static string UpdateAvailable {
             get {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click &quot;Cancel&quot;.
+        ///You can find the installer in {0}..
+        /// </summary>
+        public static string UpdateHasBeenDownloaded {
+            get {
+                return ResourceManager.GetString("UpdateHasBeenDownloaded", resourceCulture);
             }
         }
         

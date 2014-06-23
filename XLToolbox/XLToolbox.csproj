@@ -191,6 +191,9 @@
     <Compile Include="WindowCheckForUpdate.xaml.cs">
       <DependentUpon>WindowCheckForUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowDownloadUpdate.xaml.cs">
+      <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -220,6 +224,7 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Ribbon.cs">
       <SubType>Component</SubType>
@@ -252,6 +257,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowDownloadUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowRuntimeError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,7 +277,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="xltoolbox-blender-icon.png" />
+    <Resource Include="xltoolbox-blender-icon.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

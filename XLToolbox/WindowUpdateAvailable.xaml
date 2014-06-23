@@ -24,11 +24,12 @@
                 <Label Grid.Column="0" Grid.Row="1" Content="{x:Static l:Strings.NewVersion}" />
                 <TextBox Name="NewVersion" Grid.Column="1" Grid.Row="1">New Version dummy</TextBox>
             </Grid>
+            <TextBlock Name="UpdateDescription" Margin="0,10,0,10">Dummy description of update</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <Button Name="Download" Content="{x:Static l:Strings.DownloadNow}"
-                        Margin="0,0,10,0" Padding="10,5,10,5" />
+                        Margin="0,0,10,0" Padding="10,5,10,5" Click="Download_Click" />
                 <Button Name="Cancel" IsCancel="True" Content="{x:Static l:Strings.Cancel}"
-                        Padding="10,5,10,5" />
+                        Padding="10,5,10,5" Click="Cancel_Click" />
             </StackPanel>
         </StackPanel>
     </StackPanel>

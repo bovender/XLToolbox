@@ -6,17 +6,27 @@ using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
+using XLToolbox.Version;
 
 namespace XLToolbox
 {
     public partial class ThisAddIn
     {
+        public Updater Updater { get; set; }
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+#if !DEBUG
+            Globals.Ribbons.Ribbon.GroupDebug.Visible = false;
+#endif
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            if (Updater != null)
+            {
+                Updater.InstallUpdate();
+            }
         }
 
         #region VSTO generated code

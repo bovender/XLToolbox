@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace XLToolbox.Version
 {
@@ -22,9 +23,26 @@ namespace XLToolbox.Version
     /// </remarks>
     public class Updater
     {
+        public string DownloadPath { get; set; }
+        public SemanticVersion NewVersion
+        {
+            get
+            {
+                return UpdateArgs.NewVersion;
+            }
+        }
+
+        public string UpdateDescription
+        {
+            get
+            {
+                return UpdateArgs.NewVersionInfo;
+            }
+        }
+
+        private WebClient _client;
         private const string VERSIONINFOURL = "http://xltoolbox.sourceforge.net/version-ng.txt";
         private UpdateAvailableEventArgs UpdateArgs { get; set; }
-        private string FileName { get; set; }
         private string Sha1 { get; set; }
 
         /// <summary>
@@ -67,13 +85,30 @@ namespace XLToolbox.Version
         /// <summary>
         /// Downloads the current release from the internet.
         /// </summary>
-        public void DownloadUpdate(string fileName)
+        public void DownloadUpdate(string targetDir)
         {
-            FileName = fileName;
-            WebClient downloadExe = new WebClient();
-            downloadExe.DownloadProgressChanged += downloadExe_DownloadProgressChanged;
-            downloadExe.DownloadFileCompleted += downloadExe_DownloadFileCompleted;
-            downloadExe.DownloadFileAsync(UpdateArgs.DownloadUrl, fileName);
+            // Extract the file name from the SourceForge URL
+            string fn;
+            Regex r = new Regex(@"(?<fn>[^/]+?exe)");
+            Match m = r.Match(UpdateArgs.DownloadUrl.ToString());
+            if (m.Success)
+            {
+                fn = m.Groups["fn"].Value;
+            }
+            else
+            {
+                fn = String.Format("XL_Toolbox_{0}.exe", NewVersion.ToString());
+            };
+            DownloadPath = Path.Combine(targetDir, fn);
+            _client = new WebClient();
+            _client.DownloadProgressChanged += _client_DownloadProgressChanged;
+            _client.DownloadFileCompleted += _client_DownloadFileCompleted;
+            _client.DownloadFileAsync(UpdateArgs.DownloadUrl, DownloadPath);
+        }
+
+        public void CancelDownload()
+        {
+            _client.CancelAsync();
         }
 
         public void InstallUpdate()
@@ -82,7 +117,7 @@ namespace XLToolbox.Version
             ComputeSha1();
             if (Sha1 == UpdateArgs.Sha1)
             {
-                System.Diagnostics.Process.Start(FileName, "/UPDATE");
+                System.Diagnostics.Process.Start(DownloadPath, "/UPDATE");
             }
             else
             {
@@ -90,23 +125,29 @@ namespace XLToolbox.Version
             }
         }
 
-        void downloadExe_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        void _client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            ComputeSha1();
-            if (Sha1 == UpdateArgs.Sha1)
-            {
-                OnDownloadInstallable();
+            if (!e.Cancelled) {
+                ComputeSha1();
+                if (Sha1 == UpdateArgs.Sha1)
+                {
+                    OnDownloadInstallable();
+                }
+                else
+                {
+                    OnDownloadFailedVerification();
+                    /* throw new DownloadCorruptException(String.Format(
+                        "Checksum of downloaded file {0} does not match expected checksum {1}",
+                        Sha1, UpdateArgs.Sha1)); */
+                };
             }
             else
             {
-                OnDownloadFailedVerification();
-                /* throw new DownloadCorruptException(String.Format(
-                    "Checksum of downloaded file {0} does not match expected checksum {1}",
-                    Sha1, UpdateArgs.Sha1)); */
-            };
+                System.IO.File.Delete(DownloadPath);
+            }
         }
 
-        void downloadExe_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        void _client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             if (DownloadProgressChanged != null)
             {
@@ -181,7 +222,7 @@ namespace XLToolbox.Version
         /// <returns></returns>
         private void ComputeSha1()
         {
-            using (FileStream fs = new FileStream(FileName, FileMode.Open))
+            using (FileStream fs = new FileStream(DownloadPath, FileMode.Open))
             using (BufferedStream bs = new BufferedStream(fs))
             {
                 using (SHA1Managed sha1 = new SHA1Managed())
@@ -190,7 +231,7 @@ namespace XLToolbox.Version
                     StringBuilder formatted = new StringBuilder(2 * hash.Length);
                     foreach (byte b in hash)
                     {
-                        formatted.AppendFormat("{0:X2}", b);
+                        formatted.AppendFormat("{0:x2}", b);
                     }
                     Sha1 = formatted.ToString();
                 }

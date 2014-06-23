@@ -129,8 +129,17 @@
   <data name="CheckingForUpdates" xml:space="preserve">
     <value>Checking for updates</value>
   </data>
+  <data name="ChooseWhereToSaveUpdateFile" xml:space="preserve">
+    <value>Please choose where to save the update file</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="DownloadedFileCannotBeInstalled" xml:space="preserve">
+    <value>The downloaded file cannot be installed because it is different from the official update file. This can be caused by errors in the network connection, a faulty disk drive on your computer, or by someone hampering with the update process. The update will not be installed.</value>
+  </data>
+  <data name="DownloadingXLToolboxUpdate" xml:space="preserve">
+    <value>Downloading XL Toolbox update</value>
   </data>
   <data name="DownloadNow" xml:space="preserve">
     <value>Download now</value>
@@ -159,5 +168,9 @@ Is your internet connection working?</value>
   </data>
   <data name="YouHave" xml:space="preserve">
     <value>You have:</value>
+  </data>
+  <data name="UpdateHasBeenDownloaded" xml:space="preserve">
+    <value>The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click "Cancel".
+You can find the installer in {0}.</value>
   </data>
 </root>
