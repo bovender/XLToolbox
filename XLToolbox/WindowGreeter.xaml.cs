@@ -36,11 +36,13 @@ namespace XLToolbox
         private void ButtonDonate_Click(object sender, RoutedEventArgs e)
         {
             Provider.Show(Topic.Donate);
+            Close();
         }
 
         private void ButtonWhatsNew_Click(object sender, RoutedEventArgs e)
         {
             Provider.Show(Topic.WhatsNew);
+            Close();
         }
     }
 }
