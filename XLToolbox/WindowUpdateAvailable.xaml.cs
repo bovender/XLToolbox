@@ -49,7 +49,16 @@ namespace XLToolbox
                 Properties.Settings.Default.Save();
 
                 WindowDownloadUpdate w = new WindowDownloadUpdate(Updater, f.SelectedPath);
-                w.Show();
+                /* If the update file was previously downloaded, the WindowDownloadUpdate window
+                 * will be closed by the ensuing event handlers before we even get a chance to
+                 * Show() it. To prevent this race condition, a flag Downloaded was introduced
+                 * in the Updater class that signals if the file is downloaded or not. If it is,
+                 * we won't Show() the window.
+                 */
+                if (!Updater.Downloaded)
+                {
+                    w.Show();
+                }
                 this.Close();
             }
         }

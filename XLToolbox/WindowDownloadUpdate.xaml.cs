@@ -33,6 +33,7 @@ namespace XLToolbox
             updater.DownloadUpdate(targetDir);
         }
 
+
         void updater_DownloadFailedVerification(object sender, UpdateAvailableEventArgs e)
         {
             System.Windows.MessageBox.Show(Strings.DownloadedFileCannotBeInstalled,

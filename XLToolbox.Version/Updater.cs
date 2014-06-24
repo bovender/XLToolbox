@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Windows;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
@@ -24,6 +25,7 @@ namespace XLToolbox.Version
     public class Updater
     {
         public string DownloadPath { get; set; }
+        public bool Downloaded { get; private set; }
         public SemanticVersion NewVersion
         {
             get
@@ -100,6 +102,21 @@ namespace XLToolbox.Version
                 fn = String.Format("XL_Toolbox_{0}.exe", NewVersion.ToString());
             };
             DownloadPath = Path.Combine(targetDir, fn);
+
+            /* Check if the file exists already. If the Sha1 is identical,
+             * do not download it again. If the Sha1 is different, it is a file
+             * with the same name, but different content (broken download?).
+             */
+            if (File.Exists(DownloadPath))
+            {
+                ComputeSha1();
+                if (Sha1 == UpdateArgs.Sha1)
+                {
+                    OnDownloadInstallable();
+                    return;
+                }
+            }
+
             _client = new WebClient();
             _client.DownloadProgressChanged += _client_DownloadProgressChanged;
             _client.DownloadFileCompleted += _client_DownloadFileCompleted;
@@ -186,6 +203,7 @@ namespace XLToolbox.Version
 
         protected virtual void OnDownloadInstallable()
         {
+            Downloaded = true;
             if (DownloadInstallable != null)
             {
                 DownloadInstallable(this, UpdateArgs);
