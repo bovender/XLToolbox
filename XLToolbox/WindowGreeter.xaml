@@ -22,11 +22,12 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Padding="10,5,10,5" Margin="0,0,5,0" Content="{x:Static l:Strings.WhatsNew}" />
-            <Button Grid.Column="1" Padding="10,5,10,5" Margin="5,0,5,0" Content="{x:Static l:Strings.Donate}"
-                    IsDefault="True" />
-            <Button Grid.Column="2" Padding="10,5,10,5" Margin="5,0,0,0" Content="{x:Static l:Strings.Close}"
-                    IsCancel="True" Click="Button_Click" />
+            <Button Name="ButtonWhatsNew" Grid.Column="0" Padding="10,5,10,5" Margin="0,0,5,0" Content="{x:Static l:Strings.WhatsNew}"
+                    Click="ButtonWhatsNew_Click" />
+            <Button Name="ButtonDonate" Grid.Column="1" Padding="10,5,10,5" Margin="5,0,5,0" Content="{x:Static l:Strings.Donate}"
+                    IsDefault="True" Click="ButtonDonate_Click" />
+            <Button Name="ButtonClose" Grid.Column="2" Padding="10,5,10,5" Margin="5,0,0,0" Content="{x:Static l:Strings.Close}"
+                    IsCancel="True" Click="ButtonClose_Click" />
         </Grid>
     </StackPanel>
 </Window>

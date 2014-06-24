@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using XLToolbox.Version;
+using XLToolbox.Help;
 
 namespace XLToolbox
 {
@@ -27,9 +28,19 @@ namespace XLToolbox
                 Strings.ThisIsVersion, SemanticVersion.CurrentVersion());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ButtonDonate_Click(object sender, RoutedEventArgs e)
+        {
+            Provider.Show(Topic.Donate);
+        }
+
+        private void ButtonWhatsNew_Click(object sender, RoutedEventArgs e)
+        {
+            Provider.Show(Topic.WhatsNew);
         }
     }
 }
