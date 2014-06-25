@@ -16,26 +16,22 @@ using XLToolbox.Error;
 namespace XLToolbox
 {
     /// <summary>
-    /// Interaction logic for WindowRuntimeError.xaml
+    /// Interaction logic for WindowErrorReport.xaml
     /// </summary>
-    public partial class WindowRuntimeError : Window
+    public partial class WindowErrorReport : Window
     {
-        Reporter Reporter { get; set; }
-        public WindowRuntimeError()
+        public Reporter Reporter { get; private set; }
+
+        public WindowErrorReport(Reporter r)
         {
             InitializeComponent();
-        }
-
-        public WindowRuntimeError(Reporter r) : this()
-        {
             Reporter = r;
             this.DataContext = r;
         }
 
-        private void ButtonInfo_Click(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            WindowErrorReport w = new WindowErrorReport(Reporter);
-            w.ShowDialog();
+            Close();
         }
     }
 }

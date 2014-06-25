@@ -194,6 +194,9 @@
     <Compile Include="WindowDownloadUpdate.xaml.cs">
       <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowErrorReport.xaml.cs">
+      <DependentUpon>WindowErrorReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowGreeter.xaml.cs">
       <DependentUpon>WindowGreeter.xaml</DependentUpon>
     </Compile>
@@ -256,11 +259,19 @@
     <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="WindowCheckForUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowDownloadUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowErrorReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,6 +289,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XLToolbox.Error\XLToolbox.Error.csproj">
+      <Project>{74f6e1e4-6372-477c-8d91-6640a0292138}</Project>
+      <Name>XLToolbox.Error</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XLToolbox.Help\XLToolbox.Help.csproj">
       <Project>{d1e70677-44b9-4922-b5d5-6e2827a14e8f}</Project>
       <Name>XLToolbox.Help</Name>

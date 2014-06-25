@@ -1,0 +1,10 @@
+<ResourceDictionary  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Padding" Value="10,5,10,5" />
+    </Style>
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="0,0,0,10" />
+    </Style>
+</ResourceDictionary>

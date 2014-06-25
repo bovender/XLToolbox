@@ -82,5 +82,41 @@ namespace XLToolbox.Properties {
                 this["LastVersionSeen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UsersName {
+            get {
+                return ((string)(this["UsersName"]));
+            }
+            set {
+                this["UsersName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UsersEmail {
+            get {
+                return ((string)(this["UsersEmail"]));
+            }
+            set {
+                this["UsersEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CcUser {
+            get {
+                return ((bool)(this["CcUser"]));
+            }
+            set {
+                this["CcUser"] = value;
+            }
+        }
     }
 }

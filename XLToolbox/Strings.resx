@@ -191,4 +191,62 @@ You can find the installer in {0}.</value>
   <data name="YourVoluntaryPaymentIsAppreciated" xml:space="preserve">
     <value>Your voluntary payment ('donation') is greatly appreciated. To donate, click the button below.</value>
   </data>
+  <data name="ClearForm" xml:space="preserve">
+    <value>Clear form</value>
+  </data>
+  <data name="EMailOptional" xml:space="preserve">
+    <value>E-Mail (optional)</value>
+  </data>
+  <data name="NameOptional" xml:space="preserve">
+    <value>Name (optional)</value>
+  </data>
+  <data name="PleaseSendCrashReport" xml:space="preserve">
+    <value>Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click "Technical information..." to view the contents of the bug report.
+Privacy statement: Your name and e-mail will not be shared.</value>
+  </data>
+  <data name="SendCrashReport" xml:space="preserve">
+    <value>Send crash report</value>
+  </data>
+  <data name="TechnicalInformationEllipsis" xml:space="preserve">
+    <value>Technical information...</value>
+  </data>
+  <data name="SendMeACopy" xml:space="preserve">
+    <value>Send me a copy of the e-mail to the developer</value>
+  </data>
+  <data name="ClrVersion" xml:space="preserve">
+    <value>CLR version</value>
+  </data>
+  <data name="ExcelBitness" xml:space="preserve">
+    <value>Excel bitness</value>
+  </data>
+  <data name="ExcelVersion" xml:space="preserve">
+    <value>Excel version</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="InnerException" xml:space="preserve">
+    <value>Inner exception</value>
+  </data>
+  <data name="InnerMessage" xml:space="preserve">
+    <value>Inner message</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="OSBitness" xml:space="preserve">
+    <value>OS bitness</value>
+  </data>
+  <data name="OSVersion" xml:space="preserve">
+    <value>OS version</value>
+  </data>
+  <data name="StackTrace" xml:space="preserve">
+    <value>Stack trace</value>
+  </data>
+  <data name="TechnicalInformation" xml:space="preserve">
+    <value>Technical information</value>
+  </data>
+  <data name="XLToolboxVersion" xml:space="preserve">
+    <value>XL Toolbox version</value>
+  </data>
 </root>
