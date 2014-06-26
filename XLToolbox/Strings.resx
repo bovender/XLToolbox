@@ -249,4 +249,15 @@ Privacy statement: Your name and e-mail will not be shared.</value>
   <data name="XLToolboxVersion" xml:space="preserve">
     <value>XL Toolbox version</value>
   </data>
+  <data name="SendingErrorReportFailed" xml:space="preserve">
+    <value>Failed to submit the error report.
+The following error occurred:
+{0}</value>
+  </data>
+  <data name="SendingErrorReportSuccessful" xml:space="preserve">
+    <value>The error report was successfully submitted.</value>
+  </data>
+  <data name="SendingEllipsis" xml:space="preserve">
+    <value>Sending...</value>
+  </data>
 </root>

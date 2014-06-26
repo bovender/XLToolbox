@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Reporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnexpectedResponseException.cs" />
+    <Compile Include="UploadFailedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XLToolbox.Version\XLToolbox.Version.csproj">

@@ -303,7 +303,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="xltoolbox-blender-icon.png" />
+    <Resource Include="images\xltoolbox-blender-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\error.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

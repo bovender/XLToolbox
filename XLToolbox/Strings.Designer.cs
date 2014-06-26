@@ -318,6 +318,35 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sending....
+        /// </summary>
+        public static string SendingEllipsis {
+            get {
+                return ResourceManager.GetString("SendingEllipsis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to submit the error report.
+        ///The following error occurred:
+        ///{0}.
+        /// </summary>
+        public static string SendingErrorReportFailed {
+            get {
+                return ResourceManager.GetString("SendingErrorReportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The error report was successfully submitted..
+        /// </summary>
+        public static string SendingErrorReportSuccessful {
+            get {
+                return ResourceManager.GetString("SendingErrorReportSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send me a copy of the e-mail to the developer.
         /// </summary>
         public static string SendMeACopy {
