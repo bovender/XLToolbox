@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ButtonAbout.Label" xml:space="preserve">
+    <value>About XL Toolbox</value>
+  </data>
+  <data name="&gt;&gt;ButtonAbout.Name" xml:space="preserve">
+    <value>ButtonAbout</value>
+  </data>
+  <data name="&gt;&gt;ButtonAbout.Type" xml:space="preserve">
+    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.ButtonView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="&gt;&gt;ButtonAbout.Parent" xml:space="preserve">
+    <value>GroupXlToolbox</value>
+  </data>
+  <data name="&gt;&gt;ButtonAbout.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ButtonCheckForUpdate.Label" xml:space="preserve">
     <value>Check for update</value>
   </data>
@@ -130,7 +145,7 @@
     <value>GroupXlToolbox</value>
   </data>
   <data name="&gt;&gt;ButtonCheckForUpdate.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="GroupXlToolbox.Label" xml:space="preserve">
     <value>XL Toolbox</value>

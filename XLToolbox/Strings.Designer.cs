@@ -61,6 +61,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About Daniel&apos;s XL Toolbox.
+        /// </summary>
+        public static string AboutXLToolbox {
+            get {
+                return ResourceManager.GetString("AboutXLToolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
@@ -433,6 +442,15 @@ namespace XLToolbox {
         public static string UpdateWillBeInstalledNow {
             get {
                 return ResourceManager.GetString("UpdateWillBeInstalledNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        public static string VersionParametrized {
+            get {
+                return ResourceManager.GetString("VersionParametrized", resourceCulture);
             }
         }
         

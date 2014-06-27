@@ -38,8 +38,9 @@
             this.TabXlToolbox = this.Factory.CreateRibbonTab();
             this.GroupXlToolbox = this.Factory.CreateRibbonGroup();
             this.ButtonCheckForUpdate = this.Factory.CreateRibbonButton();
-            this.ButtonTestError = this.Factory.CreateRibbonButton();
             this.GroupDebug = this.Factory.CreateRibbonGroup();
+            this.ButtonTestError = this.Factory.CreateRibbonButton();
+            this.ButtonAbout = this.Factory.CreateRibbonButton();
             this.TabXlToolbox.SuspendLayout();
             this.GroupXlToolbox.SuspendLayout();
             this.GroupDebug.SuspendLayout();
@@ -53,6 +54,7 @@
             // 
             // GroupXlToolbox
             // 
+            this.GroupXlToolbox.Items.Add(this.ButtonAbout);
             this.GroupXlToolbox.Items.Add(this.ButtonCheckForUpdate);
             resources.ApplyResources(this.GroupXlToolbox, "GroupXlToolbox");
             this.GroupXlToolbox.Name = "GroupXlToolbox";
@@ -63,17 +65,23 @@
             this.ButtonCheckForUpdate.Name = "ButtonCheckForUpdate";
             this.ButtonCheckForUpdate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonCheckForUpdate_Click);
             // 
+            // GroupDebug
+            // 
+            this.GroupDebug.Items.Add(this.ButtonTestError);
+            resources.ApplyResources(this.GroupDebug, "GroupDebug");
+            this.GroupDebug.Name = "GroupDebug";
+            // 
             // ButtonTestError
             // 
             resources.ApplyResources(this.ButtonTestError, "ButtonTestError");
             this.ButtonTestError.Name = "ButtonTestError";
             this.ButtonTestError.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonTestError_Click);
             // 
-            // GroupDebug
+            // ButtonAbout
             // 
-            this.GroupDebug.Items.Add(this.ButtonTestError);
-            resources.ApplyResources(this.GroupDebug, "GroupDebug");
-            this.GroupDebug.Name = "GroupDebug";
+            resources.ApplyResources(this.ButtonAbout, "ButtonAbout");
+            this.ButtonAbout.Name = "ButtonAbout";
+            this.ButtonAbout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonAbout_Click);
             // 
             // Ribbon
             // 
@@ -97,6 +105,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton ButtonCheckForUpdate;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton ButtonTestError;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup GroupDebug;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton ButtonAbout;
     }
 
     partial class ThisRibbonCollection

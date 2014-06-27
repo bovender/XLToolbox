@@ -271,4 +271,10 @@ The following error occurred:
   <data name="YouHaveTheLatestVersion" xml:space="preserve">
     <value>You already have the latest version of the XL Toolbox. No update available at this time.</value>
   </data>
+  <data name="AboutXLToolbox" xml:space="preserve">
+    <value>About Daniel's XL Toolbox</value>
+  </data>
+  <data name="VersionParametrized" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
 </root>

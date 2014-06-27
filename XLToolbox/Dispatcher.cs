@@ -8,6 +8,7 @@ namespace XLToolbox
 {
     enum Command
     {
+        About,
         CheckForUpdates,
         ThrowError
     };
@@ -34,9 +35,11 @@ namespace XLToolbox
             {
                 switch (cmd)
                 {
+                    case Command.About:
+                        (new WindowAbout()).ShowDialog();
+                        break;
                     case Command.CheckForUpdates:
-                        WindowCheckForUpdate w = new WindowCheckForUpdate();
-                        w.ShowDialog();
+                        (new WindowCheckForUpdate()).ShowDialog();
                         break;
                     case Command.ThrowError:
                         throw new InsufficientMemoryException();

@@ -22,5 +22,10 @@ namespace XLToolbox
         {
             Dispatcher.Execute(Command.ThrowError);
         }
+
+        private void ButtonAbout_Click(object sender, RibbonControlEventArgs e)
+        {
+            Dispatcher.Execute(Command.About);
+        }
     }
 }
