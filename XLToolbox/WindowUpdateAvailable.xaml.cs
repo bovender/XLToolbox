@@ -37,7 +37,7 @@ namespace XLToolbox
             string defaultPath = Properties.Settings.Default.DownloadPath;
             if (defaultPath.Length == 0)
             {
-                System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             };
             FolderBrowserDialog f = new FolderBrowserDialog();
             f.SelectedPath = defaultPath;
