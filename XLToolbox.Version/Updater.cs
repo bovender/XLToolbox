@@ -53,6 +53,12 @@ namespace XLToolbox.Version
         public event EventHandler<UpdateAvailableEventArgs> UpdateAvailable;
 
         /// <summary>
+        /// Signals that an update check was successfully performed, but no new
+        /// update is available.
+        /// </summary>
+        public event EventHandler<UpdateAvailableEventArgs> NoUpdateAvailable;
+
+        /// <summary>
         /// Signals that the version information could not be downloaded from the internet.
         /// </summary>
         public event EventHandler<DownloadStringCompletedEventArgs> FetchingVersionFailed;
@@ -77,6 +83,11 @@ namespace XLToolbox.Version
         /// Downloads the current version information file asynchronously from the project
         /// home page.
         /// </summary>
+        /// <remarks>
+        /// Eventually triggers the UpdateAvailable or NoUpdateAvailable events if the current version
+        /// information was downloaded successfully; and triggers the FetchingVersionFailed
+        /// event if the version information could not be downloaded.
+        /// </remarks>
         public void FetchVersionInformation()
         {
             WebClient downloadTxt = new WebClient();
@@ -175,8 +186,8 @@ namespace XLToolbox.Version
         /// <summary>
         /// Inspects the downloaded version information.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">System.Net.WebClient instance</param>
+        /// <param name="e">Event arguments</param>
         void downloadTxt_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error == null)
@@ -188,10 +199,14 @@ namespace XLToolbox.Version
                 string info = r.ReadLine();
 
                 // If a new version is available, raise the corresponding event.
-                if (v != SemanticVersion.CurrentVersion())
+                if (v > SemanticVersion.CurrentVersion())
                 {
                     UpdateArgs = new UpdateAvailableEventArgs(v, info, url, sha1);
                     OnUpdateAvailable();
+                }
+                else
+                {
+                    OnNoUpdateAvailable();
                 }
             }
             else
@@ -223,6 +238,14 @@ namespace XLToolbox.Version
             if (UpdateAvailable != null)
             {
                 UpdateAvailable(this, UpdateArgs);
+            }
+        }
+
+        protected virtual void OnNoUpdateAvailable()
+        {
+            if (NoUpdateAvailable != null)
+            {
+                NoUpdateAvailable(this, UpdateArgs);
             }
         }
 

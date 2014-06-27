@@ -49,10 +49,9 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastUpdateCheck {
+        public global::System.DateTime LastUpdateCheck {
             get {
-                return ((string)(this["LastUpdateCheck"]));
+                return ((global::System.DateTime)(this["LastUpdateCheck"]));
             }
             set {
                 this["LastUpdateCheck"] = value;

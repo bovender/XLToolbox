@@ -8,7 +8,7 @@
     <Setting Name="LastUpdateSeen" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0.0</Value>
     </Setting>
-    <Setting Name="LastUpdateCheck" Type="System.String" Scope="User">
+    <Setting Name="LastUpdateCheck" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UpdateCheckInterval" Type="System.Int32" Scope="User">

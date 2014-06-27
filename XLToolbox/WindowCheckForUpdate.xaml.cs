@@ -26,7 +26,16 @@ namespace XLToolbox
             Updater updater = new Updater();
             updater.UpdateAvailable += updater_OnUpdateAvailable;
             updater.FetchingVersionFailed += updater_FetchingVersionFailed;
+            updater.NoUpdateAvailable += updater_NoUpdateAvailable;
             updater.FetchVersionInformation();
+        }
+
+        void updater_NoUpdateAvailable(object sender, UpdateAvailableEventArgs e)
+        {
+            stopProgressBar();
+            MessageBox.Show(Strings.YouHaveTheLatestVersion, Strings.CheckForUpdates,
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            dispatchClose();
         }
 
         void updater_FetchingVersionFailed(object sender, System.Net.DownloadStringCompletedEventArgs e)

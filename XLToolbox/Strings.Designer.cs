@@ -491,6 +491,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You already have the latest version of the XL Toolbox. No update available at this time..
+        /// </summary>
+        public static string YouHaveTheLatestVersion {
+            get {
+                return ResourceManager.GetString("YouHaveTheLatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your voluntary payment (&apos;donation&apos;) is greatly appreciated. To donate, click the button below..
         /// </summary>
         public static string YourVoluntaryPaymentIsAppreciated {

@@ -268,4 +268,7 @@ The following error occurred:
   <data name="UpdateWillBeInstalledNow" xml:space="preserve">
     <value>The update that you downloaded earlier will be installed now.</value>
   </data>
+  <data name="YouHaveTheLatestVersion" xml:space="preserve">
+    <value>You already have the latest version of the XL Toolbox. No update available at this time.</value>
+  </data>
 </root>
