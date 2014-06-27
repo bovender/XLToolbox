@@ -428,6 +428,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The update that you downloaded earlier will be installed now..
+        /// </summary>
+        public static string UpdateWillBeInstalledNow {
+            get {
+                return ResourceManager.GetString("UpdateWillBeInstalledNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome.
         /// </summary>
         public static string Welcome {

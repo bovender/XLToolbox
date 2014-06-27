@@ -265,4 +265,7 @@ The following error occurred:
   <data name="CrashReportPrivacy" xml:space="preserve">
     <value>Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online.</value>
   </data>
+  <data name="UpdateWillBeInstalledNow" xml:space="preserve">
+    <value>The update that you downloaded earlier will be installed now.</value>
+  </data>
 </root>

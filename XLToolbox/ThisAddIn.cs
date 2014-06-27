@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
@@ -27,7 +28,12 @@ namespace XLToolbox
         {
             if (Updater != null)
             {
-                Updater.InstallUpdate();
+                MessageBoxResult r = MessageBox.Show(Strings.UpdateWillBeInstalledNow,
+                    Strings.UpdateAvailable, MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                if (r == MessageBoxResult.OK)
+                {
+                    Updater.InstallUpdate();
+                }
             }
         }
 
