@@ -34,6 +34,8 @@ namespace XLToolbox
         public WindowRuntimeError(Reporter r) : this()
         {
             Reporter = r;
+            Reporter.UploadSuccessful += Reporter_UploadSuccessful;
+            Reporter.UploadFailed += Reporter_UploadFailed;
             this.DataContext = r;
         }
 
@@ -45,8 +47,6 @@ namespace XLToolbox
 
         private void ButtonSend_Click(object sender, RoutedEventArgs e)
         {
-            Reporter.UploadSuccessful += Reporter_UploadSuccessful;
-            Reporter.UploadFailed += Reporter_UploadFailed;
             ButtonSend.Content = Strings.SendingEllipsis;
             Cursor = Cursors.Wait;
             ButtonSend.IsEnabled = false;

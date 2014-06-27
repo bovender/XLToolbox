@@ -133,6 +133,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Public comment (optional).
+        /// </summary>
+        public static string CommentOptional {
+            get {
+                return ResourceManager.GetString("CommentOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online..
+        /// </summary>
+        public static string CrashReportPrivacy {
+            get {
+                return ResourceManager.GetString("CrashReportPrivacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
@@ -299,8 +317,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click &quot;Technical information...&quot; to view the contents of the bug report.
-        ///Privacy statement: Your name and e-mail will not be shared..
+        ///   Looks up a localized string similar to Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click &quot;Technical information...&quot; to view the contents of the bug report..
         /// </summary>
         public static string PleaseSendCrashReport {
             get {

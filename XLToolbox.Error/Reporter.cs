@@ -22,6 +22,7 @@ namespace XLToolbox.Error
         public string User { get; set; }
         public string Email { get; set; }
         public bool CcUser { get; set; }
+        public string Comment { get; set; }
 
         public string Exception { get; private set; }
         public string Message { get; private set; }
@@ -119,6 +120,7 @@ namespace XLToolbox.Error
                 v["ccUser"] = CcUser.ToString();
                 v["exception"] = Exception;
                 v["message"] = Message;
+                v["comment"] = Comment;
                 v["inner_exception"] = InnerException;
                 v["inner_message"] = InnerMessage;
                 v["stack_trace"] = StackTrace;

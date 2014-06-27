@@ -201,8 +201,7 @@ You can find the installer in {0}.</value>
     <value>Name (optional)</value>
   </data>
   <data name="PleaseSendCrashReport" xml:space="preserve">
-    <value>Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click "Technical information..." to view the contents of the bug report.
-Privacy statement: Your name and e-mail will not be shared.</value>
+    <value>Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click "Technical information..." to view the contents of the bug report.</value>
   </data>
   <data name="SendCrashReport" xml:space="preserve">
     <value>Send crash report</value>
@@ -259,5 +258,11 @@ The following error occurred:
   </data>
   <data name="SendingEllipsis" xml:space="preserve">
     <value>Sending...</value>
+  </data>
+  <data name="CommentOptional" xml:space="preserve">
+    <value>Public comment (optional)</value>
+  </data>
+  <data name="CrashReportPrivacy" xml:space="preserve">
+    <value>Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online.</value>
   </data>
 </root>
