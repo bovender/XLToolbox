@@ -8,7 +8,7 @@
         >
     <StackPanel Orientation="Vertical" Margin="10">
         <StackPanel Orientation="Horizontal">
-            <Image Source="/XLToolbox;component/xltoolbox-blender-icon.png" Stretch="None" />
+            <Image Source="/XLToolbox;component/images/xltoolbox-blender-icon.png" Stretch="None" />
             <StackPanel Width="240">
                 <TextBlock Text="{x:Static l:Strings.WelcomeToXLToolbox}" FontWeight="Bold" />
                 <TextBlock Name="VersionInfo" Text="{x:Static l:Strings.ThisIsVersion}" Margin="0,0,0,10" />
