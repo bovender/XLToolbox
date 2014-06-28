@@ -203,6 +203,9 @@
     <Compile Include="WindowGreeter.xaml.cs">
       <DependentUpon>WindowGreeter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowLicense.xaml.cs">
+      <DependentUpon>WindowLicense.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
@@ -286,6 +289,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowLicense.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowRuntimeError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -296,6 +303,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XLToolbox.Core\XLToolbox.Core.csproj">
+      <Project>{b391711c-2b81-4001-a6c6-bda0d624d2e0}</Project>
+      <Name>XLToolbox.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XLToolbox.Error\XLToolbox.Error.csproj">
       <Project>{74f6e1e4-6372-477c-8d91-6640a0292138}</Project>
       <Name>XLToolbox.Error</Name>
@@ -317,6 +328,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\xltoolbox-blender-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="licenses\GPLv3.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

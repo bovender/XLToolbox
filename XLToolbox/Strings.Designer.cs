@@ -160,6 +160,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credits.
+        /// </summary>
+        public static string Credits {
+            get {
+                return ResourceManager.GetString("Credits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
@@ -259,6 +268,15 @@ namespace XLToolbox {
         public static string InnerMessage {
             get {
                 return ResourceManager.GetString("InnerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License.
+        /// </summary>
+        public static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
             }
         }
         
@@ -455,6 +473,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string Website {
+            get {
+                return ResourceManager.GetString("Website", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome.
         /// </summary>
         public static string Welcome {
@@ -487,6 +514,15 @@ namespace XLToolbox {
         public static string XLToolboxError {
             get {
                 return ResourceManager.GetString("XLToolboxError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XL Toolbox License.
+        /// </summary>
+        public static string XLToolboxLicense {
+            get {
+                return ResourceManager.GetString("XLToolboxLicense", resourceCulture);
             }
         }
         

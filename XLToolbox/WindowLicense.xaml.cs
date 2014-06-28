@@ -11,36 +11,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using XLToolbox.Version;
-using XLToolbox.Core;
+using System.Windows.Resources;
+using System.IO;
 
 namespace XLToolbox
 {
     /// <summary>
-    /// Interaction logic for WindowAbout.xaml
+    /// Interaction logic for WindowLicense.xaml
     /// </summary>
-    public partial class WindowAbout : Window
+    public partial class WindowLicense : Window
     {
-        public WindowAbout()
+        public WindowLicense()
         {
             InitializeComponent();
-            TextVersion.Text = String.Format(Strings.VersionParametrized,
-                SemanticVersion.CurrentVersion());
+            StreamResourceInfo i = Application.GetResourceStream(new Uri(
+                @"pack://application:,,,/XLToolbox;component/licenses/GPLv3.html"));
+            Browser.NavigateToStream(i.Stream);
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void ButtonWebsite_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(Constants.WEBSITE);
-        }
-
-        private void ButtonLicense_Click(object sender, RoutedEventArgs e)
-        {
-            (new WindowLicense()).ShowDialog();
         }
     }
 }
