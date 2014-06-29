@@ -9,7 +9,7 @@
 #define YEAR "2014"
 #define LOGFILE "INST-LOG.TXT"
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox"
-#define APPNAME "XL Toolbox NG"
+#define APPNAME "Daniel's XL Toolbox NG"
 
 ; Specific AppID
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
@@ -24,7 +24,7 @@ SolidCompression=true
 
 ; Application name, version, etc.
 AppName={#APPNAME}
-AppVerName=Daniel's XL Toolbox {#SEMVER}
+AppVerName={#APPNAME} {#SEMVER}
 AppPublisher=Daniel Kraus
 AppCopyright=2008-{#YEAR} Daniel Kraus
 VersionInfoDescription=Scientific add-in for Microsoft Excel.
@@ -76,15 +76,15 @@ Source: ..\XLToolbox\bin\Release\*; DestDir: {app}; Flags: ignoreversion
 Check: not IsMultiUserInstall; ValueName: Description; ValueData: {#APPNAME}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 3; ValueType: dword; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
-Check: not IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 1; ValueType: dword; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
+Check: not IsMultiUserInstall; ValueName: Warmup; ValueData: 1; ValueType: dword; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/XLToolbox.vsto|vstolocal; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 
 ; Same keys again, this time for multi-user install (HKLM)
 Check: IsMultiUserInstall; ValueName: Description; ValueData: {#APPNAME}; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 3; ValueType: dword; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
-Check: IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
-Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/XLToolbox.vsto|vstolocal; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
+Check: IsMultiUserInstall; ValueName: Warmup; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
+Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/XLToolbox.vsto|vstolocal; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 
 [Run]
 ; Filename: http://xltoolbox.sourceforge.net/welcome.html; Flags: shellexec nowait; Check: ShowWelcomePageInBrowser
