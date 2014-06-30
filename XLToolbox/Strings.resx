@@ -289,6 +289,9 @@ The following error occurred:
   <data name="XLToolboxLicense" xml:space="preserve">
     <value>XL Toolbox License</value>
   </data>
+  <data name="DataAnalysisAndVisualizationForExcelForFree" xml:space="preserve">
+    <value>Data analysis and visualization for Excel, for free.</value>
+  </data>
   <data name="ThisIsFreeSoftware" xml:space="preserve">
     <value>This is free software.</value>
   </data>

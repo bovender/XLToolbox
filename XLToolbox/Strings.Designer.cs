@@ -169,6 +169,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data analysis and visualization for Excel, for free..
+        /// </summary>
+        public static string DataAnalysisAndVisualizationForExcelForFree {
+            get {
+                return ResourceManager.GetString("DataAnalysisAndVisualizationForExcelForFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {

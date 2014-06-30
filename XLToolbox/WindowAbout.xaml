@@ -12,12 +12,14 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
                 <Image Source="/XLToolbox;component/images/xltoolbox-blender-small.png" Stretch="None" />
                 <TextBlock FontFamily="Segoe UI" FontSize="32" FontWeight="Bold" FontStyle="Italic"
-                           Foreground="DodgerBlue" TextAlignment="Center" Margin="0,0,0,10">
+                           Foreground="DodgerBlue" TextAlignment="Center" Margin="0,0,0,0">
                     Daniel’s XL Toolbox
                     <TextBlock.Effect>
                         <DropShadowEffect BlurRadius="5" Opacity="0.2" ShadowDepth="2" />
                     </TextBlock.Effect>
                 </TextBlock>
+                <TextBlock Text="{x:Static l:Strings.DataAnalysisAndVisualizationForExcelForFree}"
+                    TextAlignment="Center" FontWeight="Bold" Foreground="DarkGray" Margin="0,0,0,10"/>
                 <TextBlock TextAlignment="Center" FontWeight="Bold" Foreground="DodgerBlue">
                     NG – Next Generation
                 </TextBlock>
