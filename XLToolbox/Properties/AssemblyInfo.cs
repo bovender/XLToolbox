@@ -8,7 +8,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XLToolbox")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Data analysis and visualization for Excel, for free.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel Kraus")]
 [assembly: AssemblyProduct("XLToolbox")]
