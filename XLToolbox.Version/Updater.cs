@@ -7,6 +7,8 @@ using System.IO;
 using System.Windows;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Security;
+using System.Security.Permissions;
 
 namespace XLToolbox.Version
 {
@@ -42,6 +44,14 @@ namespace XLToolbox.Version
             }
         }
 
+        public Uri DownloadUri
+        {
+            get
+            {
+                return UpdateArgs.DownloadUrl;
+            }
+        }
+
         private WebClient _client;
         private const string VERSIONINFOURL = "http://xltoolbox.sourceforge.net/version-ng.txt";
         private UpdateAvailableEventArgs UpdateArgs { get; set; }
@@ -72,12 +82,39 @@ namespace XLToolbox.Version
         /// <summary>
         /// Signals that the new release has been downloaded, verified and is ready to install.
         /// </summary>
-        public event EventHandler<UpdateAvailableEventArgs> DownloadInstallable;
+        public event EventHandler<UpdateAvailableEventArgs> UpdateInstallable;
 
         /// <summary>
         /// Signals that the downloaded file could not be verified.
         /// </summary>
         public event EventHandler<UpdateAvailableEventArgs> DownloadFailedVerification;
+
+        /// <summary>
+        /// Determines whether the current user is authorized to write to the folder
+        /// where the addin files are stored. If the user does not have write permissions,
+        /// he/she cannot update the addin by herself/hisself.
+        /// </summary>
+        public bool IsAuthorized
+        {
+            get
+            {
+                string addinPath = AppDomain.CurrentDomain.BaseDirectory;
+                /* Todo: compute permissions, rather than try and catch */
+                try
+                {
+                    using (FileStream f = new FileStream(Path.Combine(addinPath, "xltbupd.test"),
+                        FileMode.Create, FileAccess.Write))
+                    {
+                        f.WriteByte(0xff);
+                    };
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
 
         /// <summary>
         /// Downloads the current version information file asynchronously from the project
@@ -123,7 +160,7 @@ namespace XLToolbox.Version
                 ComputeSha1();
                 if (Sha1 == UpdateArgs.Sha1)
                 {
-                    OnDownloadInstallable();
+                    OnUpdateInstallable();
                     return;
                 }
             }
@@ -159,7 +196,7 @@ namespace XLToolbox.Version
                 ComputeSha1();
                 if (Sha1 == UpdateArgs.Sha1)
                 {
-                    OnDownloadInstallable();
+                    OnUpdateInstallable();
                 }
                 else
                 {
@@ -216,12 +253,12 @@ namespace XLToolbox.Version
             }
         }
 
-        protected virtual void OnDownloadInstallable()
+        protected virtual void OnUpdateInstallable()
         {
             Downloaded = true;
-            if (DownloadInstallable != null)
+            if (UpdateInstallable != null)
             {
-                DownloadInstallable(this, UpdateArgs);
+                UpdateInstallable(this, UpdateArgs);
             }
         }
 

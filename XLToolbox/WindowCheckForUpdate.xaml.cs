@@ -67,13 +67,28 @@ namespace XLToolbox
             this.Dispatcher.Invoke(new Action(this.Close));
         }
 
+        /// <summary>
+        /// Thread-safe method to show the update information window; can
+        /// be called from event handlers that run in non-UI threads.
+        /// </summary>
+        /// <param name="updater"></param>
         private void showUpdateAvailable(Updater updater)
         {
-            Action action = delegate()
+            Action action;
+            if (updater.IsAuthorized)
             {
-                WindowUpdateAvailable w = new WindowUpdateAvailable(updater);
-                w.Show();
-            };
+                action = delegate()
+                {
+                    (new WindowUpdateAvailable(updater)).Show();
+                };
+            }
+            else
+            {
+                action = delegate()
+                {
+                    (new WindowNotAuthorizedForUpdate(updater)).Show();
+                };
+            }
             this.Dispatcher.Invoke(new Action(action));
         }
     }

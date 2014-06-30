@@ -214,6 +214,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The download URL is:.
+        /// </summary>
+        public static string DownloadUrlIs {
+            get {
+                return ResourceManager.GetString("DownloadUrlIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
@@ -259,6 +268,15 @@ namespace XLToolbox {
         public static string FetchingVersionInformationFailed {
             get {
                 return ResourceManager.GetString("FetchingVersionInformationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you are the owner of this computer, you can download the update manually, then right-click the update installer and choose &quot;Run as administrator&quot; to acquire appropriate permissions to install..
+        /// </summary>
+        public static string IfYouAreTheOwnerOfThisComputer {
+            get {
+                return ResourceManager.GetString("IfYouAreTheOwnerOfThisComputer", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace XLToolbox {
         public static string NewVersionAvailableForDownload {
             get {
                 return ResourceManager.GetString("NewVersionAvailableForDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not authorized to update.
+        /// </summary>
+        public static string NotAuthorizedToUpdate {
+            get {
+                return ResourceManager.GetString("NotAuthorizedToUpdate", resourceCulture);
             }
         }
         
@@ -550,6 +577,15 @@ namespace XLToolbox {
         public static string XLToolboxVersion {
             get {
                 return ResourceManager.GetString("XLToolboxVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to However, you do not have write permissions to the folder that the XL Toolbox add-in was installed. Therefore you will not be able to automatically update this add-in. Please ask your system administrator to perform the update for you..
+        /// </summary>
+        public static string YouDoNotHaveWritePermissionsUpdate {
+            get {
+                return ResourceManager.GetString("YouDoNotHaveWritePermissionsUpdate", resourceCulture);
             }
         }
         

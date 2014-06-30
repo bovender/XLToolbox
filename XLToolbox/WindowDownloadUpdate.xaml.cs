@@ -28,7 +28,7 @@ namespace XLToolbox
             InitializeComponent();
             Updater = updater;
             updater.DownloadProgressChanged += updater_DownloadProgressChanged;
-            updater.DownloadInstallable += updater_DownloadInstallable;
+            updater.UpdateInstallable += updater_DownloadInstallable;
             updater.DownloadFailedVerification += updater_DownloadFailedVerification;
             updater.DownloadUpdate(targetDir);
         }

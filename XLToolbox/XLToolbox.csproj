@@ -206,6 +206,9 @@
     <Compile Include="WindowLicense.xaml.cs">
       <DependentUpon>WindowLicense.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowNotAuthorizedForUpdate.xaml.cs">
+      <DependentUpon>WindowNotAuthorizedForUpdate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
@@ -293,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowNotAuthorizedForUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowRuntimeError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -337,7 +344,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>XLToolbox_TemporaryKey.pfx</ManifestKeyFile>

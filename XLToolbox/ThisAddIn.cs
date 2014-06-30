@@ -71,9 +71,12 @@ namespace XLToolbox
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
                 Updater = new Updater();
-                Updater.UpdateAvailable += Updater_UpdateAvailable;
-                Updater.NoUpdateAvailable += Updater_NoUpdateAvailable;
-                Updater.FetchVersionInformation();
+                if (Updater.IsAuthorized)
+                {
+                    Updater.UpdateAvailable += Updater_UpdateAvailable;
+                    Updater.NoUpdateAvailable += Updater_NoUpdateAvailable;
+                    Updater.FetchVersionInformation();
+                }
             }
         }
 

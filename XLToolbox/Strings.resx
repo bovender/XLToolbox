@@ -292,7 +292,19 @@ The following error occurred:
   <data name="DataAnalysisAndVisualizationForExcelForFree" xml:space="preserve">
     <value>Data analysis and visualization for Excel, for free.</value>
   </data>
+  <data name="DownloadUrlIs" xml:space="preserve">
+    <value>The download URL is:</value>
+  </data>
+  <data name="IfYouAreTheOwnerOfThisComputer" xml:space="preserve">
+    <value>If you are the owner of this computer, you can download the update manually, then right-click the update installer and choose "Run as administrator" to acquire appropriate permissions to install.</value>
+  </data>
+  <data name="NotAuthorizedToUpdate" xml:space="preserve">
+    <value>Not authorized to update</value>
+  </data>
   <data name="ThisIsFreeSoftware" xml:space="preserve">
     <value>This is free software.</value>
+  </data>
+  <data name="YouDoNotHaveWritePermissionsUpdate" xml:space="preserve">
+    <value>However, you do not have write permissions to the folder that the XL Toolbox add-in was installed. Therefore you will not be able to automatically update this add-in. Please ask your system administrator to perform the update for you.</value>
   </data>
 </root>
