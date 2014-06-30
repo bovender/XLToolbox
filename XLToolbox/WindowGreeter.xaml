@@ -12,6 +12,8 @@
             <StackPanel Width="240">
                 <TextBlock Text="{x:Static l:Strings.WelcomeToXLToolbox}" FontWeight="Bold" />
                 <TextBlock Name="VersionInfo" Text="{x:Static l:Strings.ThisIsVersion}" Margin="0,0,0,10" />
+                <TextBlock Text="{x:Static l:Strings.ThisIsFreeSoftware}"
+                           TextWrapping="Wrap" TextAlignment="Justify" />
                 <TextBlock Text="{x:Static l:Strings.YourVoluntaryPaymentIsAppreciated}"
                            TextWrapping="Wrap" TextAlignment="Justify" />
             </StackPanel>

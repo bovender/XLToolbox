@@ -289,4 +289,7 @@ The following error occurred:
   <data name="XLToolboxLicense" xml:space="preserve">
     <value>XL Toolbox License</value>
   </data>
+  <data name="ThisIsFreeSoftware" xml:space="preserve">
+    <value>This is free software.</value>
+  </data>
 </root>

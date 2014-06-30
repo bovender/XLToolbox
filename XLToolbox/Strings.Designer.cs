@@ -427,6 +427,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is free software..
+        /// </summary>
+        public static string ThisIsFreeSoftware {
+            get {
+                return ResourceManager.GetString("ThisIsFreeSoftware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is version {0}..
         /// </summary>
         public static string ThisIsVersion {
