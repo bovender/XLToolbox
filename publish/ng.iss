@@ -1,6 +1,7 @@
 ; Inno Setup script for Daniel's XL Toolbox
 ; (c) 2008-2014 Daniel Kraus
 ; GNU General Public License v2
+; TODO: Include license file
 
 [Setup]
 
@@ -104,6 +105,7 @@ English.SingleOrMultiSubcaption=Install for the current user only or for all use
 English.SingleOrMultiDesc=Please indicate the scope of this installation:
 English.SingleOrMultiSingle=Single user (only for me)
 English.SingleOrMultiAll=All users (system-wide)
+English.Excel2007Required=This add-in only works with Excel 2007 or later.
 
 Deutsch.DevVer=Entwicklerversion
 Deutsch.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
@@ -115,6 +117,7 @@ Deutsch.SingleOrMultiSubcaption=Geben Sie an, für wen die Installation sein soll
 Deutsch.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für alle Benutzer installiert werden soll.
 Deutsch.SingleOrMultiSingle=Ein Benutzer (nur für mich)
 Deutsch.SingleOrMultiAll=Alle Benutzer (systemweit)
+Deutsch.Excel2007Required=Diese Addin erfordert Excel 2007 oder eine neuere Version.
 
 [Code]
 var
@@ -146,6 +149,53 @@ begin
 		PageSingleOrMultiUser.Values[0] := True;
 	end;
 end;
+
+/// Checks if a given Excel version is installed
+function IsExcelVersionInstalled(version: integer): boolean;
+var key, wowNode: string;
+var lookup1, lookup2: boolean;
+begin
+	key := 'SOFTWARE\Microsoft\Office\' + IntToStr(version) + '.0\Excel\InstallRoot';
+	// The registry keys are located i different places depending
+	// whether or not this is a 64-bit system.
+	if IsWin64 then
+	begin
+		wowNode := 'Wow6432Node\';
+	end;
+	lookup1 := RegKeyExists(HKEY_LOCAL_MACHINE, wowNode + key);
+	
+	// If checking for version >= 14.0 ("2010"), which was the first version
+	// that was produced in both 32-bit and 64-bit, on a 64-bit system we
+	// also need to check a path without  'Wow6434Node'.
+	if IsWin64 and (version >= 14) then
+	begin
+		lookup2 := RegKeyExists(HKEY_LOCAL_MACHINE, key);
+	end;
+	
+	result := lookup1 or lookup2;
+end;
+
+function InitializeSetup(): boolean;
+var
+	minExcelInstalled: boolean;
+	i: integer;
+begin
+	// The minimum required version of Excel is 2007 (12.0)
+	for i := 12 to 24 do
+	begin
+		minExcelInstalled := minExcelInstalled or IsExcelVersionInstalled(i);
+	end;
+
+	if not minExcelInstalled then
+	begin
+		result := False;
+		MsgBox(CustomMessage('Excel2007Required'), mbInformation, MB_OK);
+	end
+	else
+	begin
+		result := True;
+	end
+end;
 	
 procedure InitializeWizard();
 begin
@@ -162,7 +212,7 @@ begin
 		begin
 			if PageDevelopmentInfo.Values[0] = False then
 			begin
-				MsgBox(CustomMessage('DevVerMsgBox'), mbConfirmation, MB_OK);
+				MsgBox(CustomMessage('DevVerMsgBox'), mbInformation, MB_OK);
 				result := False;
 			end;
 		end;
@@ -213,4 +263,3 @@ begin
 	StringChangeEx(Value, '\', '/', True);
 	Result := Value;
 end;
-
