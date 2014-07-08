@@ -12,6 +12,9 @@
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox"
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
+#define RUNTIMEURL "http://vhost/vstor_redist.exe"
+; "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
+#define RUNTIMESHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
 ; Specific AppID
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
@@ -62,12 +65,18 @@ SetupLogging=true
 ; Uninstall
 ; UninstallDisplayIcon={app}\img\xltoolbox.ico
 UninstallFilesDir={app}\uninstall
+	
+; Inno Downloader Plugin is required for this
+; Note that this include directive MUST be located at the end of the [setup]
+; section.
+#include <idp.iss>
 
 [Languages]
-Name: English; MessagesFile: compiler:Default.isl; 
-Name: Deutsch; MessagesFile: compiler:Languages\German.isl; 
+Name: en; MessagesFile: compiler:Default.isl; 
+Name: de; MessagesFile: compiler:Languages\German.isl; 
 ; Name: Brasileiro; MessagesFile: compiler:Languages\BrazilianPortuguese.isl;
 ; Name: Portugues; MessagesFile: compiler:Languages\Portuguese.isl;
+#include "c:\Program Files (x86)\Inno Download Plugin\Unicode\idplang\german.iss"
 
 [Files]
 Source: ..\XLToolbox\bin\Release\*; DestDir: {app}; Flags: ignoreversion
@@ -95,60 +104,37 @@ Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:Convert
 ; Filename: http://xltoolbox.sourceforge.net/uninstall.html; Flags: shellexec nowait
 
 [CustomMessages]
-English.DevVer=Developmental version
-English.DevVerSubcaption=Please acknowledge that this is development in progress.
-English.DevVerDesc=Please acknowledge that this is development in progress. Please note that this is a developmental version of the XL Toolbox. Expect things to work differently from what you expect to not work at all, to crash your system, and to change in any subsequent version.
-English.DevVerCheckbox=I understand and expect things to not work and to crash at any time.
-English.DevVerMsgBox=You must check the box to acknowledge that this is a development version in order to proceed.
-English.SingleOrMulti=Single-user or system-wide install
-English.SingleOrMultiSubcaption=Install for the current user only or for all users
-English.SingleOrMultiDesc=Please indicate the scope of this installation:
-English.SingleOrMultiSingle=Single user (only for me)
-English.SingleOrMultiAll=All users (system-wide)
-English.Excel2007Required=This add-in only works with Excel 2007 or later.
+en.DevVer=Developmental version
+en.DevVerSubcaption=Please acknowledge that this is development in progress.
+en.DevVerDesc=Please acknowledge that this is development in progress. Please note that this is a developmental version of the XL Toolbox. Expect things to work differently from what you expect to not work at all, to crash your system, and to change in any subsequent version.
+en.DevVerCheckbox=I understand and expect things to not work and to crash at any time.
+en.DevVerMsgBox=You must check the box to acknowledge that this is a development version in order to proceed.
+en.SingleOrMulti=Single-user or system-wide install
+en.SingleOrMultiSubcaption=Install for the current user only or for all users
+en.SingleOrMultiDesc=Please indicate the scope of this installation:
+en.SingleOrMultiSingle=Single user (only for me)
+en.SingleOrMultiAll=All users (system-wide)
+en.Excel2007Required=Daniel's XL Toolbox NG requires Excel 2007 or later. Please download and install the legacy version (e.g. 6.52) of this add-in which also works with Excel 2003. Setup will now terminate.
 
-Deutsch.DevVer=Entwicklerversion
-Deutsch.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
-Deutsch.DevVerDesc=Beachten Sie bitte, daß es sich hierbei um eine Entwicklerversion handelt. Das Add-in kann sich anders verhalten, als Sie es erwarten, kann vielleicht Ihren Computer zum Absturz bringen, und kann in der nächsten Version ganz anders sein.
-Deutsch.DevVerCheckbox=Ich verstehe, daß es sich um eine instabile Entwicklerversion handelt.
-Deutsch.DevVerMsgBox=Sie müssen bestätigen, daß Sie die Entwicklerversion installieren wollen.
-Deutsch.SingleOrMulti=Einzelner oder alle Benutzer
-Deutsch.SingleOrMultiSubcaption=Geben Sie an, für wen die Installation sein soll
-Deutsch.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für alle Benutzer installiert werden soll.
-Deutsch.SingleOrMultiSingle=Ein Benutzer (nur für mich)
-Deutsch.SingleOrMultiAll=Alle Benutzer (systemweit)
-Deutsch.Excel2007Required=Diese Addin erfordert Excel 2007 oder eine neuere Version.
+de.DevVer=Entwicklerversion
+de.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
+de.DevVerDesc=Beachten Sie bitte, daß es sich hierbei um eine Entwicklerversion handelt. Das Add-in kann sich anders verhalten, als Sie es erwarten, kann vielleicht Ihren Computer zum Absturz bringen, und kann in der nächsten Version ganz anders sein.
+de.DevVerCheckbox=Ich verstehe, daß es sich um eine instabile Entwicklerversion handelt.
+de.DevVerMsgBox=Sie müssen bestätigen, daß Sie die Entwicklerversion installieren wollen.
+de.SingleOrMulti=Einzelner oder alle Benutzer
+de.SingleOrMultiSubcaption=Geben Sie an, für wen die Installation sein soll
+de.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für alle Benutzer installiert werden soll.
+de.SingleOrMultiSingle=Ein Benutzer (nur für mich)
+de.SingleOrMultiAll=Alle Benutzer (systemweit)
+de.Excel2007Required=Daniel's XL Toolbox NG erfordert 
 
 [Code]
+const
+	maxExcel = 24; //< highest Excel version number to check for.
+	
 var
 	PageDevelopmentInfo: TInputOptionWizardPage;
 	PageSingleOrMultiUser: TInputOptionWizardPage;
-
-procedure CreateDevelopmentInfoPage();
-begin
-	PageDevelopmentInfo := CreateInputOptionPage(wpWelcome,
-		CustomMessage('DevVer'), CustomMessage('DevVerSubcaption'),
-		CustomMessage('DevVerDesc'), False, False);
-	PageDevelopmentInfo.Add(CustomMessage('DevVerCheckbox'));
-	PageDevelopmentInfo.Values[0] := False;
-end;
-
-procedure CreateSingleOrAllUserPage();
-begin
-	PageSingleOrMultiUser := CreateInputOptionPage(PageDevelopmentInfo.ID,
-		CustomMessage('SingleOrMulti'), CustomMessage('SingleOrMultiSubcaption'),
-		CustomMessage('SingleOrMultiDesc'), True, False);
-	PageSingleOrMultiUser.Add(CustomMessage('SingleOrMultiSingle'));
-	PageSingleOrMultiUser.Add(CustomMessage('SingleOrMultiAll'));
-	if IsAdminLoggedOn then
-	begin
-		PageSingleOrMultiUser.Values[1] := True;
-	end
-	else
-	begin
-		PageSingleOrMultiUser.Values[0] := True;
-	end;
-end;
 
 /// Checks if a given Excel version is installed
 function IsExcelVersionInstalled(version: integer): boolean;
@@ -175,13 +161,92 @@ begin
 	result := lookup1 or lookup2;
 end;
 
+/// Checks if only Excel 2007 is installed
+function IsOnlyExcel2007Installed(): boolean;
+var
+	i: integer;
+begin
+	result := IsExcelVersionInstalled(12);
+	
+	// Iterate through all
+	for i := 14 to maxExcel do
+	begin
+		if IsExcelVersionInstalled(i) then
+		begin
+			result := false;
+			break;
+		end;
+	end;
+end;
+
+/// Checks if hotfix KB976477 is installed. This hotfix
+/// is required to make Excel 2007 recognize add-ins in
+/// the HKLM hive as well.
+function IsHotfixInstalled(): boolean;
+begin
+  result := RegKeyExists(HKEY_LOCAL_MACHINE,
+		'SOFTWARE\Microsoft\Windows\Current Version\Uninstall\KB976477');
+end;
+
+/// Determines whether or not a system-wide installation
+/// is possible. This depends on whether the current user
+/// is an administrator, and whether the hotfix KB976477
+/// is present on the system if Excel 2007 is the only version
+/// of Excel that is present (without that hotfix, Excel
+/// 2007 does not load add-ins that are registered in the
+/// HKLM hive).
+function CanInstallSystemWide(): boolean;
+begin
+	if IsAdminLoggedOn then
+	begin
+		if IsOnlyExcel2007Installed then
+		begin
+			result := IsHotfixInstalled;
+		end
+		else
+		begin
+			result := true;
+		end;
+	end
+	else
+	begin
+		result := false;
+	end;
+end;
+
+procedure CreateDevelopmentInfoPage();
+begin
+	PageDevelopmentInfo := CreateInputOptionPage(wpWelcome,
+		CustomMessage('DevVer'), CustomMessage('DevVerSubcaption'),
+		CustomMessage('DevVerDesc'), False, False);
+	PageDevelopmentInfo.Add(CustomMessage('DevVerCheckbox'));
+	PageDevelopmentInfo.Values[0] := False;
+end;
+
+procedure CreateSingleOrAllUserPage();
+begin
+	PageSingleOrMultiUser := CreateInputOptionPage(PageDevelopmentInfo.ID,
+		CustomMessage('SingleOrMulti'), CustomMessage('SingleOrMultiSubcaption'),
+		CustomMessage('SingleOrMultiDesc'), True, False);
+	PageSingleOrMultiUser.Add(CustomMessage('SingleOrMultiSingle'));
+	PageSingleOrMultiUser.Add(CustomMessage('SingleOrMultiAll'));
+	if CanInstallSystemWide then
+	begin
+		PageSingleOrMultiUser.Values[1] := True;
+	end
+	else
+	begin
+		PageSingleOrMultiUser.Values[0] := True;
+	end;
+end;
+
 function InitializeSetup(): boolean;
 var
 	minExcelInstalled: boolean;
 	i: integer;
 begin
 	// The minimum required version of Excel is 2007 (12.0)
-	for i := 12 to 24 do
+	for i := 12 to maxExcel do
 	begin
 		minExcelInstalled := minExcelInstalled or IsExcelVersionInstalled(i);
 	end;
@@ -201,6 +266,9 @@ procedure InitializeWizard();
 begin
 	CreateDevelopmentInfoPage();
 	CreateSingleOrAllUserPage();
+	
+	idpAddFile('{#RUNTIMEURL}', ExpandConstant('{tmp}\xltb_vstor.exe'));
+	idpDownloadAfter(wpWelcome);
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
