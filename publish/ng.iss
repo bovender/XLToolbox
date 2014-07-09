@@ -155,8 +155,8 @@ function IsExcelVersionInstalled(version: integer): boolean;
 var key: string;
 var lookup1, lookup2: boolean;
 begin
-	key := 'SOFTWARE\Microsoft\Office\' + IntToStr(version) + '.0\Excel\InstallRoot';
-	lookup1 := RegKeyExists(HKEY_LOCAL_MACHINE, GetWowNode + key);
+	key := 'Microsoft\Office\' + IntToStr(version) + '.0\Excel\InstallRoot';
+	lookup1 := RegKeyExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\' + GetWowNode + key);
 	
 	// If checking for version >= 14.0 ("2010"), which was the first version
 	// that was produced in both 32-bit and 64-bit, on a 64-bit system we
