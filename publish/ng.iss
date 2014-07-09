@@ -115,6 +115,12 @@ en.SingleOrMultiDesc=Please indicate the scope of this installation:
 en.SingleOrMultiSingle=Single user (only for me)
 en.SingleOrMultiAll=All users (system-wide)
 en.Excel2007Required=Daniel's XL Toolbox NG requires Excel 2007 or later. Please download and install the legacy version (e.g. 6.52) of this add-in which also works with Excel 2003. Setup will now terminate.
+en.ClrDownloadCaption=Runtime files required
+en.ClrDownloadDesc=The required Visual Studio Tools for Office (VSTO) 4.0 runtime files were not found on your system.
+en.ClrDownloadMsg=Click 'Next' to start downloading the installer file (about 38 MB) from the Microsoft servers.
+en.ClrInstallCaption=Runtime files downloaded
+en.ClrInstallDesc=The Visual Studio Tools for Office (VSTO) 4.0 runtime files are ready to install.
+en.ClrInstallMsg=Click 'Next' to beginn the installation of the runtime files.
 
 de.DevVer=Entwicklerversion
 de.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
@@ -127,6 +133,12 @@ de.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für all
 de.SingleOrMultiSingle=Ein Benutzer (nur für mich)
 de.SingleOrMultiAll=Alle Benutzer (systemweit)
 de.Excel2007Required=Daniel's XL Toolbox NG erfordert 
+de.ClrDownloadCaption=Laufzeitdateien erforderlich
+de.ClrDownloadDesc=Die benötigten Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 wurden nicht auf Ihrem System gefunden.
+de.ClrDownloadMsg=Klicken Sie 'Weiter', um mit dem Download der Installationsdatei von den Microsoft-Servern zu beginnen.
+de.ClrInstallCaption=Laufzeitdateien wurden heruntergeladen
+de.ClrInstallDesc=Die Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 können jetzt installiert werden.
+de.ClrInstallMsg=Klicken Sie 'Weiter', um mit der Installation zu beginnen.
 
 [Code]
 const
@@ -135,6 +147,8 @@ const
 var
 	PageDevelopmentInfo: TInputOptionWizardPage;
 	PageSingleOrMultiUser: TInputOptionWizardPage;
+	PageClrDownloadInfo: TOutputMsgWizardPage;
+	PageClrInstallInfo: TOutputMsgWizardPage;
 
 /// Returns the path for the Wow6432Node registry tree if the current operating
 /// system is 64-bit.
@@ -205,7 +219,7 @@ end;
 /// HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4R (32-bit, VSTO installed from redistributable)
 /// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4 (64-bit, VSTO installed from Office 2010 installation)
 /// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4R (64-bit, VSTO installed from redistributable)
-function IsCLRInstalled(): boolean;
+function IsClrInstalled(): boolean;
 var
 	software, clrPath, wowNode: string;
 begin
@@ -214,6 +228,28 @@ begin
 	wowNode := GetWowNode;
 	result := RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath) or
 		RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath + 'R');
+end;
+
+/// Returns the path to the downloaded VSTO runtime installer.
+function GetClrInstallerPath(): string;
+begin
+	result := ExpandConstant('{%temp}\vstor_redist_40.exe');
+end;
+
+/// Checks if the CLR redistributable setup file has already been
+/// downloaded by comparing SHA1 checksums.
+function IsClrDownloaded(): boolean;
+var
+	downloadedSha1: string;
+begin
+	try
+		if FileExists(GetClrInstallerPath) then
+		begin
+			downloadedSha1 := GetSHA1OfFile(GetClrInstallerPath);
+		end;
+	finally
+		result := downloadedSha1 = '{#RUNTIMESHA1}';
+	end;
 end;
 
 /// Determines whether or not a system-wide installation
@@ -268,6 +304,22 @@ begin
 	end;
 end;
 
+procedure CreateClrDownloadInfoPage();
+begin
+	PageClrDownloadInfo := CreateOutputMsgPage(PageSingleOrMultiUser.Id,
+		CustomMessage('ClrDownloadCaption'),
+		CustomMessage('ClrDownloadDesc'),
+		CustomMessage('ClrDownloadMsg'));
+end;
+
+procedure CreateClrInstallInfoPage();
+begin
+	PageClrInstallInfo := CreateOutputMsgPage(PageClrDownloadInfo.Id,
+		CustomMessage('ClrInstallCaption'),
+		CustomMessage('ClrInstallDesc'),
+		CustomMessage('ClrInstallMsg'));
+end;
+
 function InitializeSetup(): boolean;
 var
 	minExcelInstalled: boolean;
@@ -295,8 +347,13 @@ begin
 	CreateDevelopmentInfoPage();
 	CreateSingleOrAllUserPage();
 	
-	idpAddFile('{#RUNTIMEURL}', ExpandConstant('{tmp}\xltb_vstor.exe'));
-	idpDownloadAfter(wpWelcome);
+	if not IsCLRInstalled then
+	begin
+		CreateClrDownloadInfoPage;
+		CreateClrInstallInfoPage;
+		idpAddFile('{#RUNTIMEURL}', GetClrInstallerPath);
+		idpDownloadAfter(PageClrDownloadInfo.Id);
+	end;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
@@ -327,6 +384,10 @@ begin
 		begin
 			result := True;
 		end
+	end;
+	if (PageID = IDPForm.Page.ID) and IsClrDownloaded then
+	begin
+		result := True;
 	end;
 end;
 
