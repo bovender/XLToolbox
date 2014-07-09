@@ -136,19 +136,27 @@ var
 	PageDevelopmentInfo: TInputOptionWizardPage;
 	PageSingleOrMultiUser: TInputOptionWizardPage;
 
+/// Returns the path for the Wow6432Node registry tree if the current operating
+/// system is 64-bit.
+function GetWowNode(): string;
+begin
+	if IsWin64 then
+	begin
+		result := 'Wow6432Node\';
+	end
+	else
+	begin
+		result := '';
+	end;
+end;
+	
 /// Checks if a given Excel version is installed
 function IsExcelVersionInstalled(version: integer): boolean;
-var key, wowNode: string;
+var key: string;
 var lookup1, lookup2: boolean;
 begin
 	key := 'SOFTWARE\Microsoft\Office\' + IntToStr(version) + '.0\Excel\InstallRoot';
-	// The registry keys are located i different places depending
-	// whether or not this is a 64-bit system.
-	if IsWin64 then
-	begin
-		wowNode := 'Wow6432Node\';
-	end;
-	lookup1 := RegKeyExists(HKEY_LOCAL_MACHINE, wowNode + key);
+	lookup1 := RegKeyExists(HKEY_LOCAL_MACHINE, GetWowNode + key);
 	
 	// If checking for version >= 14.0 ("2010"), which was the first version
 	// that was produced in both 32-bit and 64-bit, on a 64-bit system we
@@ -186,6 +194,26 @@ function IsHotfixInstalled(): boolean;
 begin
   result := RegKeyExists(HKEY_LOCAL_MACHINE,
 		'SOFTWARE\Microsoft\Windows\Current Version\Uninstall\KB976477');
+end;
+
+/// Checks if the CLR is installed. This is relevant if only
+/// Excel 2007 is installed. Since Office 2010, the CLR is
+/// automatically included.
+/// The presence of the 4.0 CLR is indicated by the presence one of
+/// four possible registry keys (cf. http://stackoverflow.com/a/15311013/270712):
+/// HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4 (32-bit, VSTO installed from Office 2010 installation)
+/// HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4R (32-bit, VSTO installed from redistributable)
+/// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4 (64-bit, VSTO installed from Office 2010 installation)
+/// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4R (64-bit, VSTO installed from redistributable)
+function IsCLRInstalled(): boolean;
+var
+	software, clrPath, wowNode: string;
+begin
+	software := 'SOFTWARE\';
+	clrPath := 'Microsoft\VSTO Runtime Setup\v4';
+	wowNode := GetWowNode;
+	result := RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath) or
+		RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath + 'R');
 end;
 
 /// Determines whether or not a system-wide installation
