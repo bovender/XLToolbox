@@ -121,6 +121,11 @@ en.ClrDownloadMsg=Click 'Next' to start downloading the installer file (about 38
 en.ClrInstallCaption=Runtime files downloaded
 en.ClrInstallDesc=The Visual Studio Tools for Office (VSTO) 4.0 runtime files are ready to install.
 en.ClrInstallMsg=Click 'Next' to beginn the installation of the runtime files.
+en.ClrCannotInstallCaption=Administrator privileges required
+en.ClrCannotInstallDesc=You do not have the administrative rights to install the required Visual Studio for Office (VSTO) 4.0 runtime files.
+en.ClrCannotInstallMsg=You may continue the installation, but the XL Toolbox won't start unless the required VSTO runtime files are installed by an administrator.
+en.ClrCannotInstallCont=Continue anyway, although it won't work without the runtime files
+en.ClrCannotInstallAbort=Abort the installation (come back when the admin has installed the files)
 
 de.DevVer=Entwicklerversion
 de.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
@@ -138,7 +143,12 @@ de.ClrDownloadDesc=Die benötigten Laufzeitdateien der Visual Studio Tools for Of
 de.ClrDownloadMsg=Klicken Sie 'Weiter', um mit dem Download der Installationsdatei von den Microsoft-Servern zu beginnen.
 de.ClrInstallCaption=Laufzeitdateien wurden heruntergeladen
 de.ClrInstallDesc=Die Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 können jetzt installiert werden.
-de.ClrInstallMsg=Klicken Sie 'Weiter', um mit der Installation zu beginnen.
+de.ClrInstallMsg=Klicken Sie 'Weiter', um die Installation der Laufzeitdateien zu starten.
+de.ClrCannotInstallCaption=Administratorrechte benötigt
+de.ClrCannotInstallDesc=Sie sind kein Admin und daher nicht autorisiert, die erforderlichen Laufzeitdateien von Visual Studio for Office (VSTO) 4.0 zu installieren.
+de.ClrCannotInstallMsg=Sie können mit der Installation fortfahren, aber die Toolbox wird nicht starten, solange die VSTO-Laufzeitdateien nicht von einem Admin installiert wurden.
+de.ClrCannotInstallCont=Trotzdem installieren, obwohl es nicht funktionieren wird
+de.ClrCannotInstallAbort=Installation abbrechen
 
 [Code]
 const
@@ -147,6 +157,7 @@ const
 var
 	PageDevelopmentInfo: TInputOptionWizardPage;
 	PageSingleOrMultiUser: TInputOptionWizardPage;
+	PageClrCannotInstall: TInputOptionWizardPage;
 	PageClrDownloadInfo: TOutputMsgWizardPage;
 	PageClrInstallInfo: TOutputMsgWizardPage;
 
@@ -304,6 +315,17 @@ begin
 	end;
 end;
 
+procedure CreateClrCannotInstallPage();
+begin
+	PageClrCannotInstall := CreateInputOptionPage(wpWelcome,
+		CustomMessage('ClrCannotInstallCaption'),
+		CustomMessage('ClrCannotInstallDesc'),
+		CustomMessage('ClrCannotInstallMsg'), True, False);
+	PageClrCannotInstall.Add(CustomMessage('ClrCannotInstallCont'));
+	PageClrCannotInstall.Add(CustomMessage('ClrCannotInstallAbort'));
+	PageClrCannotInstall.Values[1] := True;
+end;
+
 procedure CreateClrDownloadInfoPage();
 begin
 	PageClrDownloadInfo := CreateOutputMsgPage(PageSingleOrMultiUser.Id,
@@ -349,6 +371,10 @@ begin
 	
 	if not IsCLRInstalled then
 	begin
+		if not IsAdminLoggedOn then
+		begin
+			CreateClrCannotInstallPage;
+		end;
 		CreateClrDownloadInfoPage;
 		CreateClrInstallInfoPage;
 		idpAddFile('{#RUNTIMEURL}', GetClrInstallerPath);
@@ -361,13 +387,24 @@ begin
 	result := True;
 	if not WizardSilent then
 	begin
-		if CurPageID = PageDevelopmentInfo.ID then
+		if CurPageID = PageDevelopmentInfo.Id then
 		begin
 			if PageDevelopmentInfo.Values[0] = False then
 			begin
 				MsgBox(CustomMessage('DevVerMsgBox'), mbInformation, MB_OK);
 				result := False;
 			end;
+		end;
+	end;
+	
+	// Abort the installation if the VSTO runtime is missing, the user
+	// is not an administrator, and requested to abort the installation.
+	if CurPageID = PageClrCannotInstall.Id then
+	begin
+		if PageClrCannotInstall.Values[1] = true then
+		begin
+			WizardForm.Close;
+			result := False;
 		end;
 	end;
 end;
