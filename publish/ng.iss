@@ -126,6 +126,8 @@ en.ClrCannotInstallDesc=You do not have the administrative rights to install the
 en.ClrCannotInstallMsg=You may continue the installation, but the XL Toolbox won't start unless the required VSTO runtime files are installed by an administrator.
 en.ClrCannotInstallCont=Continue anyway, although it won't work without the runtime files
 en.ClrCannotInstallAbort=Abort the installation (come back when the admin has installed the files)
+en.ClrStillNotInstalled=The required VSTO runtime is still not installed. Setup cannot continue. You may try again, or abort the XL Toolbox installation.
+en.ClrNotValidated=The downloaded file has unexpected content. It may have not been downloaded correctly, or someone might have hampered with it. You may click 'Back' and then 'Next' to download it again.
 
 de.DevVer=Entwicklerversion
 de.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
@@ -137,7 +139,7 @@ de.SingleOrMultiSubcaption=Geben Sie an, für wen die Installation sein soll
 de.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für alle Benutzer installiert werden soll.
 de.SingleOrMultiSingle=Ein Benutzer (nur für mich)
 de.SingleOrMultiAll=Alle Benutzer (systemweit)
-de.Excel2007Required=Daniel's XL Toolbox NG erfordert 
+de.Excel2007Required=Daniel's XL Toolbox NG erfordert mindestens Excel 2007. Um das Add-in auch mit Excel 2003 zu verwenden, laden Sie bitte die alte, stabile Version 6.52 herunter.
 de.ClrDownloadCaption=Laufzeitdateien erforderlich
 de.ClrDownloadDesc=Die benötigten Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 wurden nicht auf Ihrem System gefunden.
 de.ClrDownloadMsg=Klicken Sie 'Weiter', um mit dem Download der Installationsdatei von den Microsoft-Servern zu beginnen.
@@ -149,6 +151,8 @@ de.ClrCannotInstallDesc=Sie sind kein Admin und daher nicht autorisiert, die erf
 de.ClrCannotInstallMsg=Sie können mit der Installation fortfahren, aber die Toolbox wird nicht starten, solange die VSTO-Laufzeitdateien nicht von einem Admin installiert wurden.
 de.ClrCannotInstallCont=Trotzdem installieren, obwohl es nicht funktionieren wird
 de.ClrCannotInstallAbort=Installation abbrechen
+de.ClrStillNotInstalled=Die benötigten VSTO-Laufzeitdateien sind immer noch nicht installiert. Sie können es noch einmal versuchen oder die Installation der XL Toolbox abbrechen.
+de.ClrNotValidated=Die heruntergeladene Datei enthält unerwartete Daten. Vielleicht wurde sie nicht korrekt heruntergeladen, oder sie wurde von jemandem manipuliert. Sie können 'Zurück' und dann 'Weiter' klicken, um sie erneut herunterzuladen.
 
 [Code]
 const
@@ -188,7 +192,7 @@ begin
 	// also need to check a path without  'Wow6434Node'.
 	if IsWin64 and (version >= 14) then
 	begin
-		lookup2 := RegKeyExists(HKEY_LOCAL_MACHINE, key);
+		lookup2 := RegKeyExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\' + key);
 	end;
 	
 	result := lookup1 or lookup2;
@@ -366,23 +370,18 @@ end;
 	
 procedure InitializeWizard();
 begin
-	CreateDevelopmentInfoPage();
-	CreateSingleOrAllUserPage();
-	
-	if not IsCLRInstalled then
-	begin
-		if not IsAdminLoggedOn then
-		begin
-			CreateClrCannotInstallPage;
-		end;
-		CreateClrDownloadInfoPage;
-		CreateClrInstallInfoPage;
-		idpAddFile('{#RUNTIMEURL}', GetClrInstallerPath);
-		idpDownloadAfter(PageClrDownloadInfo.Id);
-	end;
+	CreateDevelopmentInfoPage;
+	CreateSingleOrAllUserPage;
+	CreateClrCannotInstallPage;
+	CreateClrDownloadInfoPage;
+	CreateClrInstallInfoPage;
+	idpAddFile('{#RUNTIMEURL}', GetClrInstallerPath);
+	idpDownloadAfter(PageClrDownloadInfo.Id);
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
+var
+	exitCode: integer;
 begin
 	result := True;
 	if not WizardSilent then
@@ -399,7 +398,7 @@ begin
 	
 	// Abort the installation if the VSTO runtime is missing, the user
 	// is not an administrator, and requested to abort the installation.
-	if CurPageID = PageClrCannotInstall.Id then
+	if CurPageID = PageClrCannotInstall.ID then
 	begin
 		if PageClrCannotInstall.Values[1] = true then
 		begin
@@ -407,25 +406,84 @@ begin
 			result := False;
 		end;
 	end;
+
+	// Trigger the VSTO runtime installation
+	if CurPageID = PageClrInstallInfo.ID then
+	begin
+		if IsClrDownloaded then
+		begin
+			Exec(GetClrInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			BringToFrontAndRestore;
+			if not IsClrInstalled then
+			begin
+				MsgBox(CustomMessage('ClrStillNotInstalled'), mbInformation, MB_OK);
+				result := False;
+			end;
+		end
+		else
+		begin
+				MsgBox(CustomMessage('ClrNotValidated'), mbInformation, MB_OK);
+				result := False;
+		end;
+	end;
 end;
 
 /// Skips the folder selection, single/multi user, and ready pages for
-/// normal users without power privileges..
+/// normal users without power privileges.
+/// This function also takes care of dynamically determining what wizard
+/// pages to install, depending on the current system setup and whether
+/// the current user is an administrator.
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
 	result := False;
-	if not IsAdminLoggedOn then
+
+	if (PageID = PageClrInstallInfo.ID) or (PageID = PageClrDownloadInfo.ID) then
 	begin
-		if (PageID = wpSelectDir) or (PageID = wpReady) or
-			(PageID = PageSingleOrMultiUser.ID) then
+		// Skip the pages to download and install the VSTO runtime. 
+		result := IsClrInstalled;
+	end;
+	
+	if PageID = PageClrCannotInstall.ID then
+	begin
+		// Only warn the user about the missing VSTO runtime that cannot be 
+		// installed if the runtime is really missing and the user is not
+		// an admin.
+		if not IsClrInstalled then
 		begin
+			// Skip the page if the user is an admin.
+			result := IsAdminLoggedOn;
+		end
+		else
+		begin
+			// Do not show the warning if the runtime is installed, regardless
+			// if the user is an admin or not.
+			result := True;
+		end;
+	end;
+	
+	if PageID = IDPForm.Page.ID then
+	begin
+		if IsClrInstalled then
+		begin
+			// Skip the download page if the VSTO runtime is already installed.
 			result := True;
 		end
+		else
+		begin
+			// Skip the download page if the runtime installer has already been
+			// downloaded.
+			result := IsClrDownloaded;
+		end;
 	end;
-	if (PageID = IDPForm.Page.ID) and IsClrDownloaded then
+	
+	if (PageID = wpSelectDir) or (PageID = wpReady) or
+		(PageID = PageSingleOrMultiUser.ID) then
 	begin
-		result := True;
-	end;
+		// Do not show the pages to install for single user or system wide,
+		// select the target directory, and the ready page if the user
+		// is not an admin.
+		result := not IsAdminLoggedOn;
+	end
 end;
 
 /// Helper function that evaluates the custom PageSingleOrMultiUser page.
