@@ -360,6 +360,7 @@ begin
 	if not minExcelInstalled then
 	begin
 		result := False;
+		Log('Informing user that Excel 2007 or newer is required.');
 		MsgBox(CustomMessage('Excel2007Required'), mbInformation, MB_OK);
 	end
 	else
@@ -390,6 +391,7 @@ begin
 		begin
 			if PageDevelopmentInfo.Values[0] = False then
 			begin
+				Log('Requesting user to acknowledge use of a developmental version.');
 				MsgBox(CustomMessage('DevVerMsgBox'), mbInformation, MB_OK);
 				result := False;
 			end;
@@ -404,6 +406,10 @@ begin
 		begin
 			WizardForm.Close;
 			result := False;
+		end
+		else
+			Log('Non-admin user continues although VSTO runtime is not installed.');
+		begin
 		end;
 	end;
 
@@ -412,6 +418,7 @@ begin
 	begin
 		if IsClrDownloaded then
 		begin
+			Log('Valid VSTO runtime download found, installing.');
 			Exec(GetClrInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
 			BringToFrontAndRestore;
 			if not IsClrInstalled then
@@ -422,8 +429,9 @@ begin
 		end
 		else
 		begin
-				MsgBox(CustomMessage('ClrNotValidated'), mbInformation, MB_OK);
-				result := False;
+			Log('Invalid VSTO runtime download found, will not install.');
+			MsgBox(CustomMessage('ClrNotValidated'), mbInformation, MB_OK);
+			result := False;
 		end;
 	end;
 end;
@@ -439,7 +447,7 @@ begin
 
 	if (PageID = PageClrInstallInfo.ID) or (PageID = PageClrDownloadInfo.ID) then
 	begin
-		// Skip the pages to download and install the VSTO runtime. 
+		// Skip the pages to download and install the VSTO runtime.
 		result := IsClrInstalled;
 	end;
 	
@@ -451,7 +459,15 @@ begin
 		if not IsClrInstalled then
 		begin
 			// Skip the page if the user is an admin.
-			result := IsAdminLoggedOn;
+			if IsAdminLoggedOn then
+			begin
+				result := True;
+			end
+			else
+			begin
+				Log('Warning user that VSTO runtime cannot be installed due to missing privileges');
+				result := False;
+			end;
 		end
 		else
 		begin
@@ -467,21 +483,62 @@ begin
 		begin
 			// Skip the download page if the VSTO runtime is already installed.
 			result := True;
+			Log('VSTO runtime is already installed on this system.');
 		end
 		else
 		begin
+			Log('VSTO runtime is not installed on this system.');
+
 			// Skip the download page if the runtime installer has already been
 			// downloaded.
-			result := IsClrDownloaded;
+			if IsClrDownloaded then
+			begin
+				Log('VSTO runtime installer found, skipping download.');
+				result := True;
+			end
+			else
+			begin
+				Log('Downloading VSTO runtime installer.');
+				Log('URL: {#RUNTIMEURL}');
+				result := False;
+			end;
 		end;
 	end;
 	
-	if (PageID = wpSelectDir) or (PageID = wpReady) or
-		(PageID = PageSingleOrMultiUser.ID) then
+	if PageID = PageSingleOrMultiUser.ID then
 	begin
-		// Do not show the pages to install for single user or system wide,
-		// select the target directory, and the ready page if the user
-		// is not an admin.
+		if IsOnlyExcel2007Installed then
+		begin
+			Log('Only Excel 2007 appears to be installed on this system.');
+			if IsHotfixInstalled then
+			begin
+				Log('Hotfix KB976477 found; can install for all users.');
+			end
+			else
+			begin
+				Log('Hotfix KB976477 not found; cannot install for all users.');
+			end;
+		end
+		else
+		begin
+			Log('Excel 2010 or newer found on this system.');
+		end;
+		if CanInstallSystemWide then
+		begin
+			Log('Offer installation for all users.');
+			result := False;
+		end
+		else
+		begin
+			Log('Offer single-user installation only.');
+			result := True;
+		end;
+	end;
+	
+	if (PageID = wpSelectDir) or (PageID = wpReady) then
+	begin
+		// Do not show the pages to select the target directory, and the ready 
+		// page if the user is not an admin.
 		result := not IsAdminLoggedOn;
 	end
 end;
