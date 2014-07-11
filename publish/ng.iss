@@ -9,7 +9,7 @@
 #define VER "7.0.0.0" ; The version in four-number format (Windows style)
 #define YEAR "2014"
 #define LOGFILE "INST-LOG.TXT"
-#define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox"
+#define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox NG"
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
 #define RUNTIMEURL "http://vhost/vstor_redist.exe"
