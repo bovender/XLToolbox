@@ -1,22 +1,22 @@
 ; Inno Setup script for Daniel's XL Toolbox
 ; (c) 2008-2014 Daniel Kraus
-; GNU General Public License v2
-; TODO: Include license file
+; GNU General Public License v3
 
 [Setup]
-
 #define SEMVER "7.0.0-alpha.1" ; Semantic version version
 #define VER "7.0.0.0" ; The version in four-number format (Windows style)
 #define YEAR "2014"
+#define DEV "Daniel Kraus"
 #define LOGFILE "INST-LOG.TXT"
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox NG"
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
+#define UNINSTALLDIR "{app}\setup"
 #define RUNTIMEURL "http://vhost/vstor_redist.exe"
 ; "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
 #define RUNTIMESHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
-; Specific AppID
+; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
                       
 ; Compiler info
@@ -25,27 +25,28 @@ OutputBaseFilename=XL_Toolbox_{#SEMVER}
 Compression=lzma
 InternalCompressLevel=max
 SolidCompression=true
-; LicenseFile=release\install license.rtf
+LicenseFile=setup-files/gpl-3.0.rtf
 
 ; Application name, version, etc.
 AppName={#APPNAME}
-AppVerName={#APPNAME} {#SEMVER}
-AppPublisher=Daniel Kraus
-AppCopyright=2008-{#YEAR} Daniel Kraus
+AppVersion={#SEMVER}
+AppPublisher={#DEV}
+AppCopyright=2008-{#YEAR} {#DEV}
+AppComments={#SLOGAN}
 VersionInfoDescription={#SLOGAN}
 VersionInfoVersion={#VER}
 VersionInfoProductVersion={#VER}
 VersionInfoTextVersion={#SEMVER}
 VersionInfoProductTextVersion={#SEMVER}
-
+AppContact={#DEV}
 AppPublisherURL=http://xltoolbox.sf.net
 AppSupportURL=http://xltoolbox.sf.net/support.html
 AppUpdatesURL=http://sf.net/projects/xltoolbox/files/latest
 
 ; Setup wizard
-SetupIconFile=..\..\images\ico\xltoolbox.ico
-WizardImageFile=..\..\images\installer\installbanner.bmp
-WizardSmallImageFile=..\..\images\ico\icon-48.bmp
+SetupIconFile=setup-files\xltoolbox.ico
+WizardImageFile=setup-files\installbanner.bmp
+WizardSmallImageFile=setup-files\icon-48.bmp
 ArchitecturesAllowed=x86 x64
 ArchitecturesInstallIn64BitMode=x64
 DisableProgramGroupPage=true
@@ -60,11 +61,12 @@ WizardImageBackColor=clWhite
 AppendDefaultDirName=false
 DefaultDirName={code:SuggestInstallDir}
 CreateAppDir=true
-SetupLogging=true
+CloseApplicationsFilter=*.*
+DefaultDialogFontName=Segoe UI
 
 ; Uninstall
-; UninstallDisplayIcon={app}\img\xltoolbox.ico
-UninstallFilesDir={app}\uninstall
+UninstallDisplayIcon={#UNINSTALLDIR}\xltoolbox.ico
+UninstallFilesDir={#UNINSTALLDIR}
 	
 ; Inno Downloader Plugin is required for this
 ; Note that this include directive MUST be located at the end of the [setup]
@@ -80,6 +82,7 @@ Name: de; MessagesFile: compiler:Languages\German.isl;
 
 [Files]
 Source: ..\XLToolbox\bin\Release\*; DestDir: {app}; Flags: ignoreversion
+Source: setup-files\xltoolbox.ico; DestDir: {#UNINSTALLDIR}
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
