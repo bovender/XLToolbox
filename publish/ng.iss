@@ -555,7 +555,7 @@ function SuggestInstallDir(Param: string): string;
 var
 	dir: string;
 begin
-	if IsAdminLoggedOn then
+	if CanInstallSystemWide then
 	begin
 		dir := ExpandConstant('{pf}');
 	end
