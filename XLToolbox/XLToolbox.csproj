@@ -262,6 +262,7 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <None Include="XLTB.pfx" />
     <None Include="XLToolbox_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +352,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>6B1E213A8D9AB75AE6505764D5E5554A9E0C09D8</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>XLTB.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
