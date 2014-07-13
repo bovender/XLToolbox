@@ -203,8 +203,8 @@
     <Compile Include="WindowGreeter.xaml.cs">
       <DependentUpon>WindowGreeter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowLicense.xaml.cs">
-      <DependentUpon>WindowLicense.xaml</DependentUpon>
+    <Compile Include="WindowHtmlViewer.xaml.cs">
+      <DependentUpon>WindowHtmlViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowNotAuthorizedForUpdate.xaml.cs">
       <DependentUpon>WindowNotAuthorizedForUpdate.xaml</DependentUpon>
@@ -293,7 +293,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WindowLicense.xaml">
+    <Page Include="WindowHtmlViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,7 +338,10 @@
     <Resource Include="images\xltoolbox-blender-small.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="licenses\GPLv3.html" />
+    <Resource Include="html\GPLv3.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="html\credits.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

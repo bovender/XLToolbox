@@ -1,4 +1,4 @@
-﻿<Window x:Class="XLToolbox.WindowLicense"
+﻿<Window x:Class="XLToolbox.WindowHtmlViewer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:XLToolbox"

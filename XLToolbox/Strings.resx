@@ -307,4 +307,7 @@ The following error occurred:
   <data name="YouDoNotHaveWritePermissionsUpdate" xml:space="preserve">
     <value>However, you do not have write permissions to the folder that the XL Toolbox add-in was installed. Therefore you will not be able to automatically update this add-in. Please ask your system administrator to perform the update for you.</value>
   </data>
+  <data name="NoThanks" xml:space="preserve">
+    <value>No, thanks</value>
+  </data>
 </root>

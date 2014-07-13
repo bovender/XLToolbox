@@ -40,7 +40,14 @@ namespace XLToolbox
 
         private void ButtonLicense_Click(object sender, RoutedEventArgs e)
         {
-            (new WindowLicense()).ShowDialog();
+            WindowHtmlViewer w = new WindowHtmlViewer(Strings.License, "html/GPLv3.html");
+            w.ShowDialog();
+        }
+
+        private void ButtonCredits_Click(object sender, RoutedEventArgs e)
+        {
+            WindowHtmlViewer w = new WindowHtmlViewer(Strings.Credits, "html/credits.html");
+            w.ShowDialog();
         }
     }
 }

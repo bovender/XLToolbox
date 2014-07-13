@@ -17,15 +17,16 @@ using System.IO;
 namespace XLToolbox
 {
     /// <summary>
-    /// Interaction logic for WindowLicense.xaml
+    /// Interaction logic for WindowHtmlViewer.xaml
     /// </summary>
-    public partial class WindowLicense : Window
+    public partial class WindowHtmlViewer : Window
     {
-        public WindowLicense()
+        public WindowHtmlViewer(string title, string docPath)
         {
             InitializeComponent();
+            Title = title;
             StreamResourceInfo i = Application.GetResourceStream(new Uri(
-                @"pack://application:,,,/XLToolbox;component/licenses/GPLv3.html"));
+                @"pack://application:,,,/XLToolbox;component/" + docPath));
             Browser.NavigateToStream(i.Stream);
         }
 
