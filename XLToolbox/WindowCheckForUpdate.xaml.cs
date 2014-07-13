@@ -20,14 +20,16 @@ namespace XLToolbox
     /// </summary>
     public partial class WindowCheckForUpdate : Window
     {
+        private Updater _updater;
+
         public WindowCheckForUpdate()
         {
             InitializeComponent();
-            Updater updater = new Updater();
-            updater.UpdateAvailable += updater_OnUpdateAvailable;
-            updater.FetchingVersionFailed += updater_FetchingVersionFailed;
-            updater.NoUpdateAvailable += updater_NoUpdateAvailable;
-            updater.FetchVersionInformation();
+            _updater = new Updater();
+            _updater.UpdateAvailable += updater_OnUpdateAvailable;
+            _updater.FetchingVersionFailed += updater_FetchingVersionFailed;
+            _updater.NoUpdateAvailable += updater_NoUpdateAvailable;
+            _updater.FetchVersionInformation();
         }
 
         void updater_NoUpdateAvailable(object sender, UpdateAvailableEventArgs e)
@@ -90,6 +92,12 @@ namespace XLToolbox
                 };
             }
             this.Dispatcher.Invoke(new Action(action));
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            _updater.CancelFetchVersionInformation();
+            Close();
         }
     }
 }

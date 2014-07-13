@@ -53,6 +53,7 @@ namespace XLToolbox.Version
         }
 
         private WebClient _client;
+        private WebClient _infoClient;
         private const string VERSIONINFOURL = "http://xltoolbox.sourceforge.net/version-ng.txt";
         private UpdateAvailableEventArgs UpdateArgs { get; set; }
         private string Sha1 { get; set; }
@@ -127,9 +128,17 @@ namespace XLToolbox.Version
         /// </remarks>
         public void FetchVersionInformation()
         {
-            WebClient downloadTxt = new WebClient();
-            downloadTxt.DownloadStringCompleted += downloadTxt_DownloadStringCompleted;
-            downloadTxt.DownloadStringAsync(new Uri(VERSIONINFOURL));
+            _infoClient = new WebClient();
+            _infoClient.DownloadStringCompleted += downloadTxt_DownloadStringCompleted;
+            _infoClient.DownloadStringAsync(new Uri(VERSIONINFOURL));
+        }
+
+        public void CancelFetchVersionInformation()
+        {
+            if (_infoClient != null)
+            {
+                _infoClient.CancelAsync();
+            }
         }
 
         /// <summary>
