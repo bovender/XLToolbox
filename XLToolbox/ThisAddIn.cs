@@ -53,8 +53,7 @@ namespace XLToolbox
             SemanticVersion currentVersion = SemanticVersion.CurrentVersion();
             if (currentVersion > lastSeenVersion)
             {
-                WindowGreeter w = new WindowGreeter();
-                w.Show();
+                WpfHelpers.ShowModelessInExcel<WindowGreeter>();
                 Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
                 Properties.Settings.Default.Save();
             }
@@ -105,8 +104,15 @@ namespace XLToolbox
         /// </summary>
         void ShowUpdateInformation()
         {
-            WindowUpdateAvailable w = new WindowUpdateAvailable(Updater);
-            w.Show();
+            Thread thread = new Thread(() =>
+            {
+                WindowUpdateAvailable w = new WindowUpdateAvailable(Updater);
+                w.Show();
+                w.Closed += (sender2, e2) => w.Dispatcher.InvokeShutdown();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            thread.SetApartmentState( ApartmentState.STA);
+            thread.Start();
         }
 
         /// <summary>
