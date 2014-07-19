@@ -117,103 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonAbout.Label" xml:space="preserve">
-    <value>About XL Toolbox</value>
+  <data name="ButtonAboutLabel" xml:space="preserve">
+    <value>About this add-in</value>
   </data>
-  <data name="&gt;&gt;ButtonAbout.Name" xml:space="preserve">
-    <value>ButtonAbout</value>
+  <data name="ButtonAboutSupertip" xml:space="preserve">
+    <value>Information about the XL Toolbox version, license, and credits</value>
   </data>
-  <data name="&gt;&gt;ButtonAbout.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.ButtonView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="&gt;&gt;ButtonAbout.Parent" xml:space="preserve">
-    <value>GroupXlToolbox</value>
-  </data>
-  <data name="&gt;&gt;ButtonAbout.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ButtonCheckForUpdate.Label" xml:space="preserve">
+  <data name="ButtonCheckForUpdateLabel" xml:space="preserve">
     <value>Check for update</value>
   </data>
-  <data name="&gt;&gt;ButtonCheckForUpdate.Name" xml:space="preserve">
-    <value>ButtonCheckForUpdate</value>
+  <data name="ButtonCheckForUpdateSupertip" xml:space="preserve">
+    <value>Checks if an update to the XL Toolbox addin is available.</value>
   </data>
-  <data name="&gt;&gt;ButtonCheckForUpdate.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.ButtonView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonExportBatchLabel" xml:space="preserve">
+    <value>Batch Export</value>
   </data>
-  <data name="&gt;&gt;ButtonCheckForUpdate.Parent" xml:space="preserve">
-    <value>GroupXlToolbox</value>
+  <data name="ButtonExportBatchSupertip" xml:space="preserve">
+    <value>Export all graphical objects on this worksheet or in the current workbook using the last settings.</value>
   </data>
-  <data name="&gt;&gt;ButtonCheckForUpdate.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="ButtonExportSelectionLabel" xml:space="preserve">
+    <value>Export selection</value>
   </data>
-  <data name="GroupXlToolbox.Label" xml:space="preserve">
-    <value>XL Toolbox</value>
+  <data name="ButtonExportSelectionSupertip" xml:space="preserve">
+    <value>Export the currently selected graphical object(s) using the last settings</value>
   </data>
-  <data name="&gt;&gt;GroupXlToolbox.Name" xml:space="preserve">
-    <value>GroupXlToolbox</value>
+  <data name="ButtonExportSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="&gt;&gt;GroupXlToolbox.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.GroupView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ButtonExportSettingsSupertip" xml:space="preserve">
+    <value>View and edit settings for graphic export.</value>
   </data>
-  <data name="&gt;&gt;GroupXlToolbox.Parent" xml:space="preserve">
-    <value>TabXlToolbox</value>
-  </data>
-  <data name="&gt;&gt;GroupXlToolbox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ButtonTestError.Label" xml:space="preserve">
-    <value>Test error</value>
-  </data>
-  <data name="&gt;&gt;ButtonTestError.Name" xml:space="preserve">
-    <value>ButtonTestError</value>
-  </data>
-  <data name="&gt;&gt;ButtonTestError.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.ButtonView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="&gt;&gt;ButtonTestError.Parent" xml:space="preserve">
-    <value>GroupDebug</value>
-  </data>
-  <data name="&gt;&gt;ButtonTestError.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="GroupDebug.Label" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="&gt;&gt;GroupDebug.Name" xml:space="preserve">
-    <value>GroupDebug</value>
-  </data>
-  <data name="&gt;&gt;GroupDebug.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.GroupView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="&gt;&gt;GroupDebug.Parent" xml:space="preserve">
-    <value>TabXlToolbox</value>
-  </data>
-  <data name="&gt;&gt;GroupDebug.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabXlToolbox.Label" xml:space="preserve">
-    <value>XL Toolbox NG</value>
-  </data>
-  <data name="&gt;&gt;TabXlToolbox.Name" xml:space="preserve">
-    <value>TabXlToolbox</value>
-  </data>
-  <data name="&gt;&gt;TabXlToolbox.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.TabView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="&gt;&gt;Ribbon.OfficeMenu.Name" xml:space="preserve">
-    <value>Ribbon.OfficeMenu</value>
-  </data>
-  <data name="&gt;&gt;Ribbon.OfficeMenu.Type" xml:space="preserve">
-    <value>Microsoft.VisualStudio.Tools.Office.Ribbon.View.OfficeMenuView, Microsoft.VisualStudio.Tools.Office.Designer, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="&gt;&gt;Ribbon.OfficeMenu.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Ribbon.OfficeMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="GroupExportLabel" xml:space="preserve">
+    <value>Graphic Export</value>
   </data>
 </root>

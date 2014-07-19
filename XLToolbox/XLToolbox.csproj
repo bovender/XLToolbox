@@ -189,6 +189,14 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ribbon.cs">
+      <XmlRibbon>true</XmlRibbon>
+    </Compile>
+    <Compile Include="RibbonStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RibbonStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
     </Compile>
@@ -226,8 +234,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Ribbon.resx">
-      <DependentUpon>Ribbon.cs</DependentUpon>
+    <EmbeddedResource Include="RibbonStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RibbonStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -242,12 +251,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Ribbon.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Ribbon.Designer.cs">
-      <DependentUpon>Ribbon.cs</DependentUpon>
     </Compile>
     <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -266,9 +269,6 @@
     <AppDesigner Include="Properties\" />
     <None Include="XLTB.pfx" />
     <None Include="XLToolbox_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Style.xaml">
@@ -344,6 +344,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="html\credits.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ribbon.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\export-selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\export-batch-small.png" />
+    <Resource Include="images\export-selection-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\cogwheel-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\xltb-icon-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\check-update-small.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

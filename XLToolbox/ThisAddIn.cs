@@ -21,7 +21,7 @@ namespace XLToolbox
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
 #if !DEBUG
-            Globals.Ribbons.Ribbon.GroupDebug.Visible = false;
+            // Globals.Ribbons.GroupDebug.Visible = false;
 #endif
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
@@ -127,6 +127,11 @@ namespace XLToolbox
         {
                 Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
                 Properties.Settings.Default.Save();
+        }
+
+        protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
+        {
+            return new Ribbon();
         }
 
         #region VSTO generated code
