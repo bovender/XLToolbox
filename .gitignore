@@ -13,3 +13,7 @@ packages/
 ~*
 publish/release/
 *.~*
+x64/
+win32/
+[Rr]elease/
+[Dd]debug/
