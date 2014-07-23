@@ -75,13 +75,13 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\$(Platform)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>freeimage-$(Platform)</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\$(Platform)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>freeimage-$(Platform)</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\$(ProjectName)\$(Platform)\</OutDir>
