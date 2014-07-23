@@ -72,8 +72,6 @@ namespace FreeImageAPI.Metadata
 		/// invoking this method. This effectively enables the newly created global palette.
 		/// </summary>
 		/// <param name="size">The size of the newly created global palette.</param>
-		/// <exception cref="ArgumentNullException">
-		/// <paramref name="palette"/> is a null reference.</exception>
 		public void CreateGlobalPalette(int size)
 		{
 			CreateGlobalPalette(new Palette(dib), size);

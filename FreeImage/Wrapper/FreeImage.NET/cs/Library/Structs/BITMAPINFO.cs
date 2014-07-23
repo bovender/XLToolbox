@@ -158,7 +158,7 @@ namespace FreeImageAPI
 		/// Tests whether the specified <see cref="BITMAPINFO"/> structure is equivalent to this <see cref="BITMAPINFO"/> structure.
 		/// </summary>
 		/// <param name="other">A <see cref="BITMAPINFO"/> structure to compare to this instance.</param>
-		/// <returns><b>true</b> if <paramref name="obj"/> is a <see cref="BITMAPINFO"/> structure
+		/// <returns><b>true</b> if <paramref name="other"/> is a <see cref="BITMAPINFO"/> structure
 		/// equivalent to this <see cref="BITMAPINFO"/> structure; otherwise, <b>false</b>.</returns>
 		public bool Equals(BITMAPINFO other)
 		{

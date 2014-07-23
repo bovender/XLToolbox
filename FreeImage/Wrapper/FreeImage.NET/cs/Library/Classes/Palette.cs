@@ -67,7 +67,6 @@ namespace FreeImageAPI
 		/// a palette.
 		/// </summary>
 		/// <param name="tag">The tag containing the palette.</param>
-		/// <exception cref="ArgumentNullException"><paramref name="dib"/> is null.</exception>
 		/// <exception cref="ArgumentException"><paramref name="tag"/> is not
 		/// <see cref="FREE_IMAGE_MDTYPE.FIDT_PALETTE"/>.</exception>
 		public Palette(MetadataTag tag)

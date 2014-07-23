@@ -671,7 +671,7 @@ namespace FreeImageAPI.Metadata
 		/// Tests whether the specified <see cref="MetadataTag"/> instance is equivalent to this <see cref="MetadataTag"/> instance.
 		/// </summary>
 		/// <param name="other">A <see cref="MetadataTag"/> instance to compare to this instance.</param>
-		/// <returns><b>true</b> if <paramref name="obj"/> equivalent to this <see cref="MetadataTag"/> instance;
+		/// <returns><b>true</b> if <paramref name="other"/> equivalent to this <see cref="MetadataTag"/> instance;
 		/// otherwise, <b>false</b>.</returns>
 		public bool Equals(MetadataTag other)
 		{

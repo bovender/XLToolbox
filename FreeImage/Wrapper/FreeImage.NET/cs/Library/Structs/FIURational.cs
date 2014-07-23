@@ -979,7 +979,7 @@ namespace FreeImageAPI
 		/// Tests whether the specified <see cref="FIURational"/> structure is equivalent to this <see cref="FIURational"/> structure.
 		/// </summary>
 		/// <param name="other">A <see cref="FIURational"/> structure to compare to this instance.</param>
-		/// <returns><b>true</b> if <paramref name="obj"/> is a <see cref="FIURational"/> structure
+		/// <returns><b>true</b> if <paramref name="other"/> is a <see cref="FIURational"/> structure
 		/// equivalent to this <see cref="FIURational"/> structure; otherwise, <b>false</b>.</returns>
 		public bool Equals(FIURational other)
 		{
