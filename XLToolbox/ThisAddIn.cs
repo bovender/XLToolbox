@@ -13,23 +13,26 @@ using Threading = System.Windows.Threading;
 
 namespace XLToolbox
 {
-    public partial class ThisAddIn
+    public partial class ThisAddIn : IDisposable
     {
         public Updater Updater { get; set; }
         private Threading.Dispatcher _dispatcher;
+        private Unmanaged.DllManager _dllManager;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-#if !DEBUG
-            // Globals.Ribbons.GroupDebug.Visible = false;
-#endif
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
             _dispatcher = Threading.Dispatcher.CurrentDispatcher;
 
+            // Distract the user :-)
             MaybeCheckForUpdate();
             GreetUser();
+
+            // Load the FreeImage DLL
+            _dllManager = new Unmanaged.DllManager();
+            _dllManager.LoadDll("FreeImage");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -43,7 +46,7 @@ namespace XLToolbox
                 {
                     Updater.InstallUpdate();
                 }
-            }
+            };
         }
 
         private void GreetUser()
@@ -133,6 +136,38 @@ namespace XLToolbox
         {
             return new Ribbon();
         }
+
+        ///// <summary>
+        ///// Registers an event handler that takes care of loading the FreeImage DLL that
+        ///// is appropriate for the current platform (x64 or Win32).
+        ///// </summary>
+        //private void RegisterDllLoader()
+        //{
+        //    System.AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+        //}
+
+        ///// <summary>
+        ///// Event handler that is called when a DLL could not be found. Loads the FreeImage
+        ///// DLL that is appropriate for the current platform (x64 or Win32).
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="args"></param>
+        ///// <returns>True if loading the DLL was successful.</returns>
+        //private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        //{
+        //    if (args.Name.StartsWith("FreeImage"))
+        //    {
+        //        string fileName = System.IO.Path.GetFullPath(
+        //            "lib\\"
+        //            + System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE")
+        //            + "\\FreeImage.dll");
+        //        if (System.IO.File.Exists(fileName))
+        //        {
+        //            return DllLoader.Load(fileName);
+        //        }
+        //    }
+        //    return null;
+        //}
 
         #region VSTO generated code
 

@@ -189,7 +189,6 @@
   -->
   <ItemGroup>
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="DllLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -328,6 +327,10 @@
     <ProjectReference Include="..\XLToolbox.Help\XLToolbox.Help.csproj">
       <Project>{d1e70677-44b9-4922-b5d5-6e2827a14e8f}</Project>
       <Name>XLToolbox.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XLToolbox.Unmanaged\XLToolbox.Unmanaged.csproj">
+      <Project>{34564951-c37b-4acb-9bba-96ca6afb9e4a}</Project>
+      <Name>XLToolbox.Unmanaged</Name>
     </ProjectReference>
     <ProjectReference Include="..\XLToolbox.Version\XLToolbox.Version.csproj">
       <Project>{fd9c57e1-70bd-4fa9-90c1-47912c2afda9}</Project>

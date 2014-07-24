@@ -102,6 +102,15 @@ namespace XLToolbox
             this.ribbon = ribbonUI;
         }
 
+        public bool Group_IsVisibleInDebugOnly(Office.IRibbonControl control)
+        {
+#if DEBUG
+            return true;
+#else
+            return false;
+#endif
+        }
+
         #endregion
 
         #region Helpers
