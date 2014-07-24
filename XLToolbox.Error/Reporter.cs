@@ -72,6 +72,21 @@ namespace XLToolbox.Error
             }
         }
 
+        public string FreeImageVersion
+        {
+            get
+            {
+                if (FreeImageAPI.FreeImage.IsAvailable())
+                {
+                    return FreeImageAPI.FreeImage.GetVersion();
+                }
+                else
+                {
+                    return "Not available";
+                }
+            }
+        }
+
         public string ReportID { get; private set; }
 
         /// <summary>

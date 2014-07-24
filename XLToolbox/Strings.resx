@@ -310,4 +310,10 @@ The following error occurred:
   <data name="NoThanks" xml:space="preserve">
     <value>No, thanks</value>
   </data>
+  <data name="FreeImageVersion" xml:space="preserve">
+    <value>FreeImage version</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
 </root>

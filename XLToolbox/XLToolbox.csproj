@@ -189,6 +189,7 @@
   -->
   <ItemGroup>
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="DllLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -368,6 +369,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\check-update-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\Win32\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\x64\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

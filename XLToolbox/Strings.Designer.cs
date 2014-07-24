@@ -272,6 +272,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FreeImage version.
+        /// </summary>
+        public static string FreeImageVersion {
+            get {
+                return ResourceManager.GetString("FreeImageVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you are the owner of this computer, you can download the update manually, then right-click the update installer and choose &quot;Run as administrator&quot; to acquire appropriate permissions to install..
         /// </summary>
         public static string IfYouAreTheOwnerOfThisComputer {
@@ -349,6 +358,15 @@ namespace XLToolbox {
         public static string NotAuthorizedToUpdate {
             get {
                 return ResourceManager.GetString("NotAuthorizedToUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
             }
         }
         
