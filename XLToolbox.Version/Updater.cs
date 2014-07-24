@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
-using System.Windows;
-using System.Security.Cryptography;
+using System.Net;
 using System.Text.RegularExpressions;
-using System.Security;
-using System.Security.Permissions;
+using XLToolbox.Helpers;
 
 namespace XLToolbox.Version
 {
@@ -306,23 +300,9 @@ namespace XLToolbox.Version
         /// <summary>
         /// Computes the Sha1 hash of the downloaded file.
         /// </summary>
-        /// <returns></returns>
         private void ComputeSha1()
         {
-            using (FileStream fs = new FileStream(DownloadPath, FileMode.Open))
-            using (BufferedStream bs = new BufferedStream(fs))
-            {
-                using (SHA1Managed sha1 = new SHA1Managed())
-                {
-                    byte[] hash = sha1.ComputeHash(bs);
-                    StringBuilder formatted = new StringBuilder(2 * hash.Length);
-                    foreach (byte b in hash)
-                    {
-                        formatted.AppendFormat("{0:x2}", b);
-                    }
-                    Sha1 = formatted.ToString();
-                }
-            }
+            Sha1 = Files.Sha1Hash(DownloadPath);
         }
     }
 }
