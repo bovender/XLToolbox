@@ -145,6 +145,7 @@ namespace XLToolbox.Error
                 v["operating_system"] = OS;
                 v["os_bitness"] = OSBitness;
                 v["clr_version"] = CLR;
+                v["freeimage_version"] = FreeImageVersion;
                 client.UploadValuesCompleted += client_UploadValuesCompleted;
                 client.UploadValuesAsync(new Uri(_postUrl), v);
             }
