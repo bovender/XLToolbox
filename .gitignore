@@ -18,3 +18,5 @@ win32/
 [Rr]elease/
 [Dd]debug/
 Dist/
+build/
+lib/
