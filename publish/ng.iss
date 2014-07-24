@@ -81,8 +81,8 @@ Name: de; MessagesFile: compiler:Languages\German.isl;
 #include "c:\Program Files (x86)\Inno Download Plugin\Unicode\idplang\german.iss"
 
 [Files]
-Source: ..\XLToolbox\bin\Release\*; DestDir: {app}; Flags: ignoreversion
-Source: setup-files\xltoolbox.ico; DestDir: {#UNINSTALLDIR}
+Source: "..\XLToolbox\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
