@@ -22,7 +22,8 @@
 
 ; ZIP the source files
 ; The -u switch is used to achieve archive synchronization (see 7-Zip help)
-#expr Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ -xr!build\ -xr!obj\ setup-files\source.zip ../")
+#expr Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ " + \
+	"-xr!build\ -xr!obj\ -xr!*~ setup-files\source.zip ../")
 
 ; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
