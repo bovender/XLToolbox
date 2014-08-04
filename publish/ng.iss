@@ -3,13 +3,11 @@
 ; GNU General Public License v3
 
 [Setup]
-; Read the semantic version from the VERSION file
+; Read the semantic and the installer file version from the VERSION file
 #define FILE_HANDLE FileOpen("..\VERSION")
 #define SEMVER FileRead(FILE_HANDLE)
+#define VER FileRead(FILE_HANDLE)
 #expr FileClose(FILE_HANDLE)
-
-; Construct a MAJOR.MINOR.PATCH version number as Windows expects it
-#define VER Copy(SEMVER, 1, Pos("-", SEMVER)-1)
 
 #define YEAR "2014"
 #define DEV "Daniel Kraus"
