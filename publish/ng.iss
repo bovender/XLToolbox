@@ -16,8 +16,8 @@
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
 #define UNINSTALLDIR "{app}\setup"
-#define RUNTIMEURL "http://vhost/vstor_redist.exe"
-; "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
+; #define RUNTIMEURL "http://vhost/vstor_redist.exe"
+#define RUNTIMEURL "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
 #define RUNTIMESHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
 ; ZIP the source files
