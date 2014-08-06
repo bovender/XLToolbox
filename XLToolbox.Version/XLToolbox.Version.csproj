@@ -33,7 +33,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XLTB.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="XLTB.pfx" />
+    <None Include="xltb.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XLToolbox.Helpers\XLToolbox.Helpers.csproj">

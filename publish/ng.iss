@@ -3,8 +3,12 @@
 ; GNU General Public License v3
 
 [Setup]
-#define SEMVER "7.0.0-alpha.1" ; Semantic version version
-#define VER "7.0.0.0" ; The version in four-number format (Windows style)
+; Read the semantic and the installer file version from the VERSION file
+#define FILE_HANDLE FileOpen("..\VERSION")
+#define SEMVER FileRead(FILE_HANDLE)
+#define VER FileRead(FILE_HANDLE)
+#expr FileClose(FILE_HANDLE)
+
 #define YEAR "2014"
 #define DEV "Daniel Kraus"
 #define LOGFILE "INST-LOG.TXT"
@@ -12,9 +16,16 @@
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
 #define UNINSTALLDIR "{app}\setup"
-#define RUNTIMEURL "http://vhost/vstor_redist.exe"
-; "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
+; #define RUNTIMEURL "http://vhost/vstor_redist.exe"
+#define RUNTIMEURL "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
 #define RUNTIMESHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
+
+; ZIP the source files
+; The -u switch is used to achieve archive synchronization (see 7-Zip help)
+#if	Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ " + \
+			"-xr!build\ -xr!obj\ -xr!*~ -xr!*.snk setup-files\source.zip ../")
+		#error Failed to create or update source.zip!
+#endif
 
 ; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
@@ -82,6 +93,7 @@ Name: de; MessagesFile: compiler:Languages\German.isl;
 
 [Files]
 Source: "..\XLToolbox\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "setup-files\source.zip"; DestDir: "{app}"
 Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

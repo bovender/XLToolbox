@@ -33,7 +33,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XLTB.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -59,7 +59,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Topics.Designer.cs</LastGenOutput>
     </None>
-    <None Include="XLTB.pfx" />
+    <None Include="xltb.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

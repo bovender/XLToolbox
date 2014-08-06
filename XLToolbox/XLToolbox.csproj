@@ -270,8 +270,7 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-    <None Include="XLTB.pfx" />
-    <None Include="XLToolbox_TemporaryKey.pfx" />
+    <None Include="xltb.snk" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Style.xaml">
@@ -398,7 +397,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XLTB.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
