@@ -3,7 +3,7 @@
     <ribbon>
         <tabs>
             <tab id="TabXLToolbox" label="XL Toolbox NG">
-				<group id="GroupExport" getLabel="Control_GetLabel">
+				<group id="GroupExport" getLabel="Control_GetLabel" visible="false">
 					<splitButton id="SplitButtonExportSelection">
 						<button id="ButtonExportSelection" image="export-selection-small.png"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
