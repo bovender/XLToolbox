@@ -7,9 +7,10 @@ using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
-using XLToolbox.Version;
 using System.Threading;
 using Threading = System.Windows.Threading;
+using XLToolbox.Version;
+using XLToolbox.Core;
 
 namespace XLToolbox
 {
@@ -25,6 +26,10 @@ namespace XLToolbox
             // update notification window from a different thread
             // when checking for updates.
             _dispatcher = Threading.Dispatcher.CurrentDispatcher;
+
+            // Make the current Excel instance globally available
+            // even for the non-VSTO components of this addin
+            ExcelInstance.Application = Globals.ThisAddIn.Application;
 
             // Distract the user :-)
             MaybeCheckForUpdate();
