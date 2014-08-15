@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Office.Interop.Excel;
+
+namespace XLToolbox.Core
+{
+    /// <summary>
+    /// Provide access to an instance of Excel that the
+    /// components are to work with.
+    /// </summary>
+    /// <remarks>
+    /// This class uses static fields to make sure only one
+    /// instance of Excel is invoked. An internal counter records
+    /// the number of class instances that are currently in use;
+    /// when the last instance of this class is disposed of, the
+    /// Excel instance will be closed.
+    /// </remarks>
+    public class ExcelInstance : IDisposable
+    {
+        #region Private fields
+
+        private bool _disposed;
+        private static bool _static;
+        private static int _numClassInstances;
+
+        /// <summary>
+        /// Holds the current Excel instance; static field as only one instance
+        /// is allowed to be connected with the XL Toolbox at a time.
+        /// </summary>
+        private static Application _application;
+
+        #endregion
+
+        #region Static methods
+
+        /// <summary>
+        /// Provides access to the current Excel instance.
+        /// </summary>
+        public static Application Application
+        {
+            get
+            {
+                if (_application == null)
+                {
+                    throw new ExcelInstanceException();
+                }
+                return _application;
+            }
+            set
+            {
+                if (_application != null)
+                {
+                    throw new ExcelInstanceAlreadySetException();
+                }
+                _application = value;
+            }
+        }
+
+        /// <summary>
+        /// Starts a new instance of Excel. Does nothing if there already is an instance.
+        /// </summary>
+        public static void Start()
+        {
+            Start(true);
+        }
+
+        /// <summary>
+        /// Shuts down the current instance of Excel; no warning message will be shown.
+        /// If an instance of this class exists, an error will be thrown.
+        /// </summary>
+        public static void Shutdown()
+        {
+            if (_numClassInstances != 0)
+            {
+                throw new ExcelInstanceException(String.Format(
+                    "There are still {0} class instances.",
+                    _numClassInstances));
+            }
+            Application.DisplayAlerts = false;
+            Application.Quit();
+            _static = false;
+            _application = null;
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Instantiates this class. Invokes a new Excel instance if none is running.
+        /// </summary>
+        /// <remarks>The number of class instances is recorded in the private field
+        /// <see cref="_numClassInstances"/>.</remarks>
+        public ExcelInstance()
+        {
+            _numClassInstances += 1;
+            Start(false);
+        }
+
+        #endregion
+
+        #region Disposing
+
+        ~ExcelInstance()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+                _disposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _numClassInstances -= 1;
+                // Only shut down Excel if there are no other instances of
+                // this class *and* if Excel has not been invoked by the
+                // static methods of this class.
+                if (_numClassInstances == 0 && !_static)
+                {
+                    Shutdown();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private static void Start(bool isStatic)
+        {
+            _static |= isStatic;
+            if (_application == null)
+            {
+                Application = new Application();
+                Application.Workbooks.Add();
+            }
+        }
+
+        #endregion
+    }
+}

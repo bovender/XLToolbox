@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="ExcelInstance.cs" />
+    <Compile Include="ExcelInstanceAlreadySetException.cs" />
+    <Compile Include="ExcelInstanceException.cs" />
+    <Compile Include="NoExcelInstanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
