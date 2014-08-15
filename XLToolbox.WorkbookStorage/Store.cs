@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using XLToolbox.Core;
 
 namespace XLToolbox.WorkbookStorage
 {
     public class Store : Object, IDisposable
     {
+        #region Public properties
+
         /// <summary>
         /// Gets or sets the associated workbook. If a new workbook is set,
         /// writes the values to the old workbook, then reads the values from
@@ -69,6 +72,10 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        #endregion
+
+        #region Protected properties
+
         protected Worksheet StoreSheet {
             get {
                 if (_storeSheet == null) {
@@ -101,6 +108,11 @@ namespace XLToolbox.WorkbookStorage
             }
         }
         protected bool Dirty { get; set; }
+
+        #endregion
+
+        #region Private properties
+
         private Dictionary<string, ContextItems> _contexts;
         private const string STORESHEETNAME = "_xltb_storage_";
         private const string STORESHEETINFO = "XL Toolbox Settings";
@@ -108,7 +120,7 @@ namespace XLToolbox.WorkbookStorage
         private string _context;
         private Workbook _workbook;
         private Worksheet _storeSheet;
-        private bool disposed = false;
+        private bool _disposed = false;
 
         private ContextItems Items
         {
@@ -131,14 +143,21 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// Instantiates the class and associates it with the active workbook of the
-        /// given application.
+        /// Instantiates the class and associates it with the active
+        /// workbook of the Excel instance that is currently associated
+        /// with the add-in.
         /// </summary>
-        /// <param name="application">Instance of an Excel application.</param>
-        public Store(Application application) : this()
+        /// <exception cref="NoExcelInstanceException">If no Excel
+        /// instance is running (see <see cref="ExcelInstance"/>).</exception>
+        public Store()
         {
-            Workbook = application.ActiveWorkbook;
+            Initialize();
+            Workbook = ExcelInstance.Application.ActiveWorkbook;
         }
 
         /// <summary>
@@ -147,14 +166,13 @@ namespace XLToolbox.WorkbookStorage
         /// <param name="workbook">Workbook object to associate the storage with.</param>
         public Store(Workbook workbook) : this()
         {
+            Initialize();
             this.Workbook = workbook;
         }
 
-        protected Store()
-        {
-            _context = "";
-            _contexts = new Dictionary<string, ContextItems>();
-        }
+        #endregion
+
+        #region Disposing and destructing
 
         ~Store()
         {
@@ -163,11 +181,11 @@ namespace XLToolbox.WorkbookStorage
 
         public void Dispose()
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 Dispose(true);
                 GC.SuppressFinalize(this);
-                disposed = true;
+                _disposed = true;
             }
         }
 
@@ -181,6 +199,10 @@ namespace XLToolbox.WorkbookStorage
                 }
             }
         }
+
+        #endregion
+
+        #region Public methods
 
         /// <summary>
         /// Retrieves an integer from the storage, given a key. Throws a
@@ -281,6 +303,16 @@ namespace XLToolbox.WorkbookStorage
             };
         }
 
+        #endregion
+
+        #region Protected methods
+
+        protected void Initialize()
+        {
+            _context = "";
+            _contexts = new Dictionary<string, ContextItems>();
+        }
+
         /// <summary>
         /// Central method to put objects into the store.
         /// </summary>
@@ -363,6 +395,11 @@ namespace XLToolbox.WorkbookStorage
             Dirty = false;
         }
 
+
+        #endregion
+
+        #region Private methods
+
         private void PrepareStoreSheet()
         {
             _storeSheet.UsedRange.Clear();
@@ -372,5 +409,7 @@ namespace XLToolbox.WorkbookStorage
             // the correct range.
             _storeSheet.Cells[1, 1] = STORESHEETINFO;
         }
+
+        #endregion
     }
 }

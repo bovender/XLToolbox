@@ -9,16 +9,6 @@ namespace XLToolbox.Test
     public class TestWorkbookStorage
     {
         [Test]
-        public void AppWithoutWorkbookDoesNotCrashStorage()
-        {
-            Assert.DoesNotThrow(delegate()
-            {
-                Application excel = new Application();
-                Store storage = new Store(excel);
-            });
-        }
-
-        [Test]
         [ExpectedException(typeof(InvalidContextException))]
         public void InvalidContextCausesException()
         {
