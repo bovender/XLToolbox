@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DelegatingCommand.cs" />
     <Compile Include="ExcelInstance.cs" />
     <Compile Include="ExcelInstanceAlreadySetException.cs" />
     <Compile Include="ExcelInstanceException.cs" />
