@@ -11,15 +11,22 @@ namespace XLToolbox.Core
     /// components are to work with.
     /// </summary>
     /// <remarks>
-    /// This class uses static fields to make sure only one
+    /// <para>This class uses static fields to make sure only one
     /// instance of Excel is invoked. An internal counter records
     /// the number of class instances that are currently in use;
     /// when the last instance of this class is disposed of, the
-    /// Excel instance will be closed.
+    /// Excel instance will be closed.</para>
+    /// <para>Note that this class will only reference one single
+    /// Excel instance, regardless whether this was started using
+    /// a static method or by instantiating the class. Thus, there
+    /// is no instance property to access the Exce instance, just
+    /// the static property. Instantiating this class mainly serves
+    /// the purpose of being able to automatically close Excel when
+    /// the work is done by using Using() structures.</para>
     /// </remarks>
     public class ExcelInstance : IDisposable
     {
-        #region Private fields
+        #region Private members
 
         private bool _disposed;
         private static bool _static;
