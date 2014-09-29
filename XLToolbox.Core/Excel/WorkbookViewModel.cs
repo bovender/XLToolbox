@@ -137,7 +137,17 @@ namespace XLToolbox.Core.Excel
 
         private void DoMoveSheetUp()
         {
-            throw new NotImplementedException();
+            // When iterating over the worksheet view models in the Sheets collection
+            // as well as over the sheets collection of the workbook, keep in mind
+            // that Excel workbook collections are 1-based.
+            for (int i = 1; i < Sheets.Count; i++)
+            {
+                if (Sheets[i].IsSelected)
+                {
+                    Workbook.Sheets[i+1].Move(before: Workbook.Sheets[i]);
+                    Sheets.Move(i, i - 1);
+                }
+            }
         }
 
         private bool CanMoveSheetUp()

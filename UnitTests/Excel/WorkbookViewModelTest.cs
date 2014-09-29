@@ -76,7 +76,7 @@ namespace XLToolbox.Test.Excel
                 "Move command is enabled, should be disabled if the very first sheet is selected.");
 
             // Check the the move was performed on the workbook too.
-            Assert.AreEqual(sheetName, wb.Sheets[0].Name,
+            Assert.AreEqual(sheetName, wb.Sheets[1].Name,
                 "Moving the sheet was not performed on the actual workbook");
         }
     }
