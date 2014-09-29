@@ -62,7 +62,7 @@ namespace XLToolbox.Test.Excel
             // With no sheets selected, the move-up command should
             // be disabled.
             Assert.IsFalse(wvm.MoveSheetUp.CanExecute(null),
-                "Move command is enabled, should be disabled with not sheets selected.");
+                "Move command is enabled, should be disabled with no sheets selected.");
 
             svm.IsSelected = true;
             Assert.IsTrue(wvm.MoveSheetUp.CanExecute(null),

@@ -7,6 +7,7 @@ namespace XLToolbox.Core
         #region Private members
 
         private string _displayString;
+        private bool _isSelected;
 
         #endregion
 
@@ -25,6 +26,19 @@ namespace XLToolbox.Core
                     _displayString = value;
                     OnPropertyChanged("DisplayString");
                 }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
             }
         }
 

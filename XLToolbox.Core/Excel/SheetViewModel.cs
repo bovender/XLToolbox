@@ -15,7 +15,6 @@ namespace XLToolbox.Core.Excel
         #region Private members
 
         private dynamic _sheet;
-        private bool _isSelected;
 
         #endregion
 
@@ -49,18 +48,6 @@ namespace XLToolbox.Core.Excel
             }
         }
 
-        public bool IsSelected
-        {
-            get
-            {
-                return _isSelected;
-            }
-            set
-            {
-                _isSelected = value;
-                OnPropertyChanged("IsSelected");
-            }
-        }
 
         #endregion
 
