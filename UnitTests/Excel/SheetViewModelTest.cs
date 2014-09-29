@@ -7,10 +7,13 @@ using XLToolbox.Core;
 using XLToolbox.Core.Excel;
 using NUnit.Framework;
 
-namespace XLToolbox.Test.Core
+namespace XLToolbox.Test.Excel
 {
+    /// <summary>
+    /// Unit tests for the XLToolbox.Core.Excel namespace.
+    /// </summary>
     [TestFixture]
-    class CoreTests
+    class SheetViewModelTest
     {
         [SetUp]
         public static void SetUp()
@@ -25,7 +28,7 @@ namespace XLToolbox.Test.Core
         }
 
         [Test]
-        public static void TestSheetViewModel()
+        public static void Properties()
         {
             Worksheet ws = ExcelInstance.Application.Sheets.Add();
             SheetViewModel svm = new SheetViewModel(ws);
@@ -34,20 +37,6 @@ namespace XLToolbox.Test.Core
             svm.DisplayString = "HelloWorld";
             Assert.AreEqual(ws.Name, svm.DisplayString,
                 "DisplayString is not written through to sheet object.");
-        }
-
-        [Test]
-        public static void TestWorkbookViewModel()
-        {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            WorkbookViewModel wvm = new WorkbookViewModel(wb);
-            Assert.AreEqual(wvm.DisplayString, wb.Name,
-                "WorkbookViewModel does not give workbook name as display string");
-
-            // When accessing sheets in a collection, keep in mind that
-            // the Sheets collection of a Workbook instance is 1-based.
-            Assert.AreEqual(wvm.Sheets[0].DisplayString, wb.Sheets[1].Name,
-                "SheetViewModel in WorkbookViewModel has incorrect sheet name");
         }
     }
 }

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox.Core.Excel
 {
     /// <summary>
-    /// View model for an Excel workbook containing a list of sheets (worksheets, charts).
+    /// View model for an Excel workbook containing a list of sheets (worksheets, charts)
+    /// that can be managed (moved around, added, deleted, renamed).
     /// </summary>
     public class WorkbookViewModel : ViewModelBase
     {
@@ -17,6 +19,9 @@ namespace XLToolbox.Core.Excel
 
         private Workbook _workbook;
         private ObservableCollection<SheetViewModel> _sheets;
+        private DelegatingCommand _moveSheetUp;
+        private DelegatingCommand _moveSheetDown;
+        private int _numSelectedSheets = 0;
 
         #endregion
 
@@ -56,6 +61,40 @@ namespace XLToolbox.Core.Excel
 
         #endregion
 
+        #region Commands
+
+        public DelegatingCommand MoveSheetUp
+        {
+            get
+            {
+                if (_moveSheetUp == null)
+                {
+                    _moveSheetUp = new DelegatingCommand(
+                        parameter => { DoMoveSheetUp(); },
+                        parameter => { return CanMoveSheetUp(); }
+                        );
+                }
+                return _moveSheetUp;
+            }
+        }
+
+        public DelegatingCommand MoveSheetDown
+        {
+            get
+            {
+                if (_moveSheetDown == null)
+                {
+                    _moveSheetDown = new DelegatingCommand(
+                        parameter => { DoMoveSheetDown(); },
+                        parameter => { return CanMoveSheetDown(); }
+                        );
+                }
+                return _moveSheetDown;
+            }
+        }
+
+        #endregion
+
         #region Constructors
 
         public WorkbookViewModel() {}
@@ -73,11 +112,47 @@ namespace XLToolbox.Core.Excel
         protected void BuildSheetList()
         {
             ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
+            SheetViewModel svm;
             foreach (dynamic sheet in Workbook.Sheets)
             {
-                sheets.Add(new SheetViewModel(sheet));
+                svm = new SheetViewModel(sheet);
+                svm.PropertyChanged += svm_PropertyChanged;
+                sheets.Add(svm);
             };
             this.Sheets = sheets;
+        }
+
+        private void svm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsSelected")
+            {
+                SheetViewModel svm = sender as SheetViewModel;
+                _numSelectedSheets += (svm.IsSelected) ? 1 : -1;
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void DoMoveSheetUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanMoveSheetUp()
+        {
+            return ((_numSelectedSheets > 0) && !Sheets[0].IsSelected);
+        }
+
+        private void DoMoveSheetDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanMoveSheetDown()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
