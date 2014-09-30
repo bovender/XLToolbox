@@ -79,5 +79,42 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(sheetName, wb.Sheets[1].Name,
                 "Moving the sheet was not performed on the actual workbook");
         }
+
+        [Test]
+        public static void MoveSheetsDown()
+        {
+            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            for (int i = 0; i < 2; i++)
+            {
+                wb.Sheets.Add();
+            }
+
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+
+            // Select the second-to-last sheet in the collection
+            SheetViewModel svm = wvm.Sheets[wvm.Sheets.Count - 2];
+            string sheetName = svm.DisplayString;
+
+            // With no sheets selected, the move-down command should
+            // be disabled.
+            Assert.IsFalse(wvm.MoveSheetDown.CanExecute(null),
+                "Move-down command is enabled, should be disabled with no sheets selected.");
+
+            svm.IsSelected = true;
+            Assert.IsTrue(wvm.MoveSheetDown.CanExecute(null),
+                "Move-down command is disabled, should be enabled with one sheet selected.");
+            wvm.MoveSheetDown.Execute(null);
+
+            // The selected sheet should now be the first sheet,
+            // which cannot be moved 'up' as it is at the 'top'
+            // already; so the command should be disabled again.
+            Assert.IsFalse(wvm.MoveSheetDown.CanExecute(null),
+                "Move-down command is enabled, should be disabled if the very last sheet is selected.");
+
+            // Check the the move was performed on the workbook too.
+            Assert.AreEqual(sheetName, wb.Sheets[wb.Sheets.Count].Name,
+                "Moving the sheet down was not performed on the actual workbook");
+        }
+
     }
 }

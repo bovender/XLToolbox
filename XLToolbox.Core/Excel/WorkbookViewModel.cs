@@ -157,12 +157,22 @@ namespace XLToolbox.Core.Excel
 
         private void DoMoveSheetDown()
         {
-            throw new NotImplementedException();
+            // When iterating over the worksheet view models in the Sheets collection
+            // as well as over the sheets collection of the workbook, keep in mind
+            // that Excel workbook collections are 1-based.
+            for (int i = Sheets.Count - 2; i > 0; i--)
+            {
+                if (Sheets[i].IsSelected)
+                {
+                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[i + 2]);
+                    Sheets.Move(i, i + 1);
+                }
+            }
         }
 
         private bool CanMoveSheetDown()
         {
-            throw new NotImplementedException();
+            return ((_numSelectedSheets > 0) && !Sheets[Sheets.Count - 1].IsSelected);
         }
 
         #endregion
