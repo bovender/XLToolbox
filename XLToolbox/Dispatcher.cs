@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XLToolbox.Error;
+using XLToolbox.Core;
+using XLToolbox.Core.Excel;
 
 namespace XLToolbox
 {
@@ -10,7 +12,8 @@ namespace XLToolbox
     {
         About,
         CheckForUpdates,
-        ThrowError
+        ThrowError,
+        SheetList
     };
 
     /// <summary>
@@ -40,6 +43,12 @@ namespace XLToolbox
                         break;
                     case Command.CheckForUpdates:
                         (new WindowCheckForUpdate()).ShowDialog();
+                        break;
+                    case Command.SheetList:
+                        WindowSheetManager w = new WindowSheetManager();
+                        WorkbookViewModel vm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
+                        w.DataContext = vm;
+                        w.Show();
                         break;
                     case Command.ThrowError:
                         throw new InsufficientMemoryException();

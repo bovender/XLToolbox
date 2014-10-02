@@ -239,6 +239,9 @@
     <Compile Include="WindowRuntimeError.xaml.cs">
       <DependentUpon>WindowRuntimeError.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowSheetManager.xaml.cs">
+      <DependentUpon>WindowSheetManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowUpdateAvailable.xaml.cs">
       <DependentUpon>WindowUpdateAvailable.xaml</DependentUpon>
     </Compile>
@@ -325,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowSheetManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowUpdateAvailable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -395,6 +402,7 @@
     <Content Include="lib\x64\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="images\sheets.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -151,11 +151,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Worksheets.
+        /// </summary>
+        internal static string ButtonSheetListLabel {
+            get {
+                return ResourceManager.GetString("ButtonSheetListLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage worksheets..
+        /// </summary>
+        internal static string ButtonSheetListSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSheetListSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graphic Export.
         /// </summary>
         internal static string GroupExportLabel {
             get {
                 return ResourceManager.GetString("GroupExportLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work Flow.
+        /// </summary>
+        internal static string GroupWorkflowLabel {
+            get {
+                return ResourceManager.GetString("GroupWorkflowLabel", resourceCulture);
             }
         }
     }

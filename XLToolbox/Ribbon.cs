@@ -59,6 +59,8 @@ namespace XLToolbox
                     break;
                 case "ButtonTestError": Dispatcher.Execute(Command.ThrowError);
                     break;
+                case "ButtonSheetList": Dispatcher.Execute(Command.SheetList);
+                    break;
                 default:
                     break;
             }

@@ -316,4 +316,19 @@ The following error occurred:
   <data name="NotAvailable" xml:space="preserve">
     <value>Not available</value>
   </data>
+  <data name="WorksheetManager" xml:space="preserve">
+    <value>Worksheet Manager</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
 </root>

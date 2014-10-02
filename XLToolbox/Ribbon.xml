@@ -3,6 +3,10 @@
     <ribbon>
         <tabs>
             <tab id="TabXLToolbox" label="XL Toolbox NG">
+				<group id="GroupWorkflow" getLabel="Control_GetLabel">
+					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"/>
+				</group>
 				<group id="GroupExport" getLabel="Control_GetLabel" visible="false">
 					<splitButton id="SplitButtonExportSelection">
 						<button id="ButtonExportSelection" image="export-selection-small.png"

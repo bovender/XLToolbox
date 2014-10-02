@@ -147,7 +147,16 @@
   <data name="ButtonExportSettingsSupertip" xml:space="preserve">
     <value>View and edit settings for graphic export.</value>
   </data>
+  <data name="ButtonSheetListLabel" xml:space="preserve">
+    <value>Worksheets</value>
+  </data>
+  <data name="ButtonSheetListSupertip" xml:space="preserve">
+    <value>Manage worksheets.</value>
+  </data>
   <data name="GroupExportLabel" xml:space="preserve">
     <value>Graphic Export</value>
+  </data>
+  <data name="GroupWorkflowLabel" xml:space="preserve">
+    <value>Work Flow</value>
   </data>
 </root>
