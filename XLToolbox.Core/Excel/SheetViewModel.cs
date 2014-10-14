@@ -35,7 +35,7 @@ namespace XLToolbox.Core.Excel
             }
         }
 
-        public object Sheet
+        public dynamic Sheet
         {
             get
             {

@@ -177,7 +177,15 @@ namespace XLToolbox.Core.Excel
             if (e.PropertyName == "IsSelected")
             {
                 SheetViewModel svm = sender as SheetViewModel;
-                NumSelectedSheets += (svm.IsSelected) ? 1 : -1;
+                if (svm.IsSelected)
+                {
+                    NumSelectedSheets++;
+                    svm.Sheet.Activate();
+                }
+                else
+                {
+                    NumSelectedSheets--;
+                }
             }
         }
 

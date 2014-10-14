@@ -230,5 +230,21 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(oldCount - numSelected, wb.Sheets.Count,
                 "After deleting sheets, the workbook has unexpected number of sheets.");
         }
+
+        [Test]
+        public static void SelectSheet()
+        {
+            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            for (int i = 0; i < 6; i++)
+            {
+                wb.Sheets.Add();
+            }
+
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+            wvm.Sheets[2].IsSelected = true;
+            Assert.AreEqual(wvm.Sheets[2].DisplayString, wb.ActiveSheet.Name);
+            wvm.Sheets[4].IsSelected = true;
+            Assert.AreEqual(wvm.Sheets[4].DisplayString, wb.ActiveSheet.Name);
+        }
     }
 }
