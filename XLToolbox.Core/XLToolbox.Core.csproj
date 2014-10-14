@@ -57,6 +57,10 @@
     <Compile Include="ExcelInstance.cs" />
     <Compile Include="ExcelInstanceAlreadySetException.cs" />
     <Compile Include="ExcelInstanceException.cs" />
+    <Compile Include="Mvvm\IViewModelMessage.cs" />
+    <Compile Include="Mvvm\ViewModelMessage.cs" />
+    <Compile Include="Mvvm\ViewModelMessageArgs.cs" />
+    <Compile Include="Mvvm\ViewModelMessageConfirmation.cs" />
     <Compile Include="NoExcelInstanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Excel\WorkbookViewModel.cs" />
