@@ -20,9 +20,11 @@
     <Grid>
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Right" Margin="10 0 0 0">
+                <Button Command="{Binding MoveSheetsToTop}" Content="{x:Static l:Strings.Top}" Margin="0 0 0 5" />
                 <Button Command="{Binding MoveSheetUp}" Content="{x:Static l:Strings.Up}" Margin="0 0 0 5" />
-                <Button Command="{Binding Path=MoveSheetDown}" Content="{x:Static l:Strings.Down}" Margin="0 0 0 5" />
-                <Button Name="CloseButton" Click="CloseButton_Click" Content="{x:Static l:Strings.Close}" Margin="0 0 0 5" />
+                <Button Command="{Binding MoveSheetDown}" Content="{x:Static l:Strings.Down}" Margin="0 0 0 5" />
+                <Button Command="{Binding MoveSheetsToBottom}" Content="{x:Static l:Strings.Bottom}" Margin="0 0 0 5" />
+                <Button Name="CloseButton" Click="CloseButton_Click" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5" />
             </StackPanel>
             <ListBox
                 SelectionMode="Extended"
