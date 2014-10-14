@@ -203,5 +203,32 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(sheetName4, wb.Sheets[wb.Sheets.Count].Name,
                 "Moving the sheets to bottom was not performed for all sheets on the actual workbook");
         }
+
+        [Test]
+        public static void DeleteSheets()
+        {
+            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            for (int i = 0; i < 6; i++)
+            {
+                wb.Sheets.Add();
+            }
+
+            int oldCount = wb.Sheets.Count;
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+            Assert.IsFalse(wvm.DeleteSheets.CanExecute(null),
+                "Delete sheets command should be disabled with no sheets selected.");
+            wvm.Sheets[2].IsSelected = true;
+            wvm.Sheets[4].IsSelected = true;
+            int numSelected = wvm.NumSelectedSheets;
+            Assert.IsTrue(wvm.DeleteSheets.CanExecute(null),
+                "Delete sheets command should be enabled with some sheets selected.");
+            wvm.DeleteSheets.Execute(null);
+
+            wvm.DeleteSheets.Execute(null);
+            Assert.AreEqual(oldCount - numSelected, wvm.Sheets.Count,
+                "After deleting sheets, the workbook view model has unexpected number of sheet view models.");
+            Assert.AreEqual(oldCount - numSelected, wb.Sheets.Count,
+                "After deleting sheets, the workbook has unexpected number of sheets.");
+        }
     }
 }

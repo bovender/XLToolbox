@@ -24,7 +24,7 @@ namespace XLToolbox.Core.Excel
         private DelegatingCommand _moveSheetsToTop;
         private DelegatingCommand _moveSheetDown;
         private DelegatingCommand _moveSheetsToBottom;
-        private int _numSelectedSheets = 0;
+        private DelegatingCommand _deleteSheets;
 
         #endregion
 
@@ -48,6 +48,8 @@ namespace XLToolbox.Core.Excel
         #endregion
 
         #region Public properties
+
+        public int NumSelectedSheets { get; private set; }
 
         public ObservableCollection<SheetViewModel> Sheets
         {
@@ -126,6 +128,21 @@ namespace XLToolbox.Core.Excel
             }
         }
 
+        public DelegatingCommand DeleteSheets
+        {
+            get
+            {
+                if (_deleteSheets == null)
+                {
+                    _deleteSheets = new DelegatingCommand(
+                        parameter => { DoDeleteSheets(); },
+                        parameter => { return CanDeleteSheets(); }
+                        );
+                }
+                return _deleteSheets;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -160,7 +177,7 @@ namespace XLToolbox.Core.Excel
             if (e.PropertyName == "IsSelected")
             {
                 SheetViewModel svm = sender as SheetViewModel;
-                _numSelectedSheets += (svm.IsSelected) ? 1 : -1;
+                NumSelectedSheets += (svm.IsSelected) ? 1 : -1;
             }
         }
 
@@ -199,7 +216,7 @@ namespace XLToolbox.Core.Excel
 
         private bool CanMoveSheetUp()
         {
-            return ((_numSelectedSheets > 0) && !Sheets[0].IsSelected);
+            return ((NumSelectedSheets > 0) && !Sheets[0].IsSelected);
         }
 
         private bool CanMoveSheetsToTop()
@@ -238,12 +255,29 @@ namespace XLToolbox.Core.Excel
 
         private bool CanMoveSheetDown()
         {
-            return ((_numSelectedSheets > 0) && !Sheets[Sheets.Count - 1].IsSelected);
+            return ((NumSelectedSheets > 0) && !Sheets[Sheets.Count - 1].IsSelected);
         }
 
         private bool CanMoveSheetsToBottom()
         {
             return CanMoveSheetDown();
+        }
+
+        private void DoDeleteSheets()
+        {
+            for (int i = 0; i < Sheets.Count; i++)
+            {
+                if (Sheets[i].IsSelected)
+                {
+                    Sheets.RemoveAt(i);
+                    Workbook.Sheets[i].Delete();
+                }
+            }
+        }
+
+        private bool CanDeleteSheets()
+        {
+            return (NumSelectedSheets > 0);
         }
 
         #endregion
