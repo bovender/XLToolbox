@@ -331,4 +331,7 @@ The following error occurred:
   <data name="Up" xml:space="preserve">
     <value>Up</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
