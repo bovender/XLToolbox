@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
+using XLToolbox.Core.Mvvm;
 
 namespace XLToolbox.Core.Excel
 {

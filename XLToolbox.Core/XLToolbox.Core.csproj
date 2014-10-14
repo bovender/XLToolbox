@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="DelegatingCommand.cs" />
+    <Compile Include="Mvvm\DelegatingCommand.cs" />
     <Compile Include="ExcelInstance.cs" />
     <Compile Include="ExcelInstanceAlreadySetException.cs" />
     <Compile Include="ExcelInstanceException.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Excel\WorkbookViewModel.cs" />
     <Compile Include="Excel\SheetViewModel.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Mvvm\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace XLToolbox.Core
+namespace XLToolbox.Core.Mvvm
 {
     /// <summary>
     /// Command that implements ICommand and accepts delegates

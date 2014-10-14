@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace XLToolbox.Core
+namespace XLToolbox.Core.Mvvm
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
