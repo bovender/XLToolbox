@@ -116,5 +116,92 @@ namespace XLToolbox.Test.Excel
                 "Moving the sheet down was not performed on the actual workbook");
         }
 
+        [Test]
+        public static void MoveSheetsToTop()
+        {
+            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            for (int i = 0; i < 6; i++)
+            {
+                wb.Sheets.Add();
+            }
+
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+            
+            // Without sheets selected, the Move-to-top command should be disabled
+            Assert.IsFalse(wvm.MoveSheetsToTop.CanExecute(null),
+                "The Move-to-top command should be disabled without selected sheets.");
+
+            // Select the fourth and sixth sheets and remember their names
+            SheetViewModel svm4 = wvm.Sheets[3];
+            svm4.IsSelected = true;
+            string sheetName4 = svm4.DisplayString;
+
+            SheetViewModel svm6 = wvm.Sheets[5];
+            svm6.IsSelected = true;
+            string sheetName6 = svm6.DisplayString;
+
+            // With sheets selected, the Move-to-top command should be disabled
+            Assert.IsTrue(wvm.MoveSheetsToTop.CanExecute(null),
+                "The Move-to-top command should be enabled with selected sheets.");
+
+            wvm.MoveSheetsToTop.Execute(null);
+
+            // Since a selected sheet was moved to the top, the command should
+            // now be disabled again.
+            Assert.IsFalse(wvm.MoveSheetsToTop.CanExecute(null),
+                "The Move-to-top command should be disabled if the first sheet is selected.");
+
+            // Verify that the display strings of the view models correspond to
+            // the names of the worksheets in the workbook, to make sure that
+            // the worksheets have indeed been rearranged as well.
+            Assert.AreEqual(sheetName4, wb.Sheets[1].Name,
+                "Moving the sheets to top was not performed on the actual workbook");
+            Assert.AreEqual(sheetName6, wb.Sheets[2].Name,
+                "Moving the sheets to top was not performed for all sheets on the actual workbook");
+        }
+
+        [Test]
+        public static void MoveSheetsToBottom()
+        {
+            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            for (int i = 0; i < 6; i++)
+            {
+                wb.Sheets.Add();
+            }
+
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+
+            // Without sheets selected, the Move-to-bottom command should be disabled
+            Assert.IsFalse(wvm.MoveSheetsToBottom.CanExecute(null),
+                "The Move-to-bottom command should be disabled without selected sheets.");
+
+            // Select the fourth and sixth sheets and remember their names
+            SheetViewModel svm2 = wvm.Sheets[1];
+            svm2.IsSelected = true;
+            string sheetName2 = svm2.DisplayString;
+
+            SheetViewModel svm4 = wvm.Sheets[3];
+            svm4.IsSelected = true;
+            string sheetName4 = svm4.DisplayString;
+
+            // With sheets selected, the Move-to-bottom command should be disabled
+            Assert.IsTrue(wvm.MoveSheetsToBottom.CanExecute(null),
+                "The Move-to-bottom command should be enabled with selected sheets.");
+
+            wvm.MoveSheetsToBottom.Execute(null);
+
+            // Since a selected sheet was moved to the bottom, the command should
+            // now be disabled again.
+            Assert.IsFalse(wvm.MoveSheetsToBottom.CanExecute(null),
+                "The Move-to-Bottom command should be disabled if the last sheet is selected.");
+
+            // Verify that the display strings of the view models correspond to
+            // the names of the worksheets in the workbook, to make sure that
+            // the worksheets have indeed been rearranged as well.
+            Assert.AreEqual(sheetName2, wb.Sheets[wb.Sheets.Count-1].Name,
+                "Moving the sheets to bottom was not performed on the actual workbook");
+            Assert.AreEqual(sheetName4, wb.Sheets[wb.Sheets.Count].Name,
+                "Moving the sheets to bottom was not performed for all sheets on the actual workbook");
+        }
     }
 }

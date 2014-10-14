@@ -20,7 +20,9 @@ namespace XLToolbox.Core.Excel
         private Workbook _workbook;
         private ObservableCollection<SheetViewModel> _sheets;
         private DelegatingCommand _moveSheetUp;
+        private DelegatingCommand _moveSheetsToTop;
         private DelegatingCommand _moveSheetDown;
+        private DelegatingCommand _moveSheetsToBottom;
         private int _numSelectedSheets = 0;
 
         #endregion
@@ -78,6 +80,21 @@ namespace XLToolbox.Core.Excel
             }
         }
 
+        public DelegatingCommand MoveSheetsToTop
+        {
+            get
+            {
+                if (_moveSheetsToTop == null)
+                {
+                    _moveSheetsToTop = new DelegatingCommand(
+                        parameter => { DoMoveSheetsToTop(); },
+                        parameter => { return CanMoveSheetsToTop(); }
+                        );
+                }
+                return _moveSheetsToTop;
+            }
+        }
+
         public DelegatingCommand MoveSheetDown
         {
             get
@@ -90,6 +107,21 @@ namespace XLToolbox.Core.Excel
                         );
                 }
                 return _moveSheetDown;
+            }
+        }
+
+        public DelegatingCommand MoveSheetsToBottom
+        {
+            get
+            {
+                if (_moveSheetsToBottom == null)
+                {
+                    _moveSheetsToBottom = new DelegatingCommand(
+                        parameter => { DoMoveSheetsToBottom(); },
+                        parameter => { return CanMoveSheetsToBottom(); }
+                        );
+                }
+                return _moveSheetsToBottom;
             }
         }
 
@@ -150,9 +182,28 @@ namespace XLToolbox.Core.Excel
             }
         }
 
+        private void DoMoveSheetsToTop()
+        {
+            int currentTop = 0;
+            for (int i = 1; i < Sheets.Count; i++)
+            {
+                if (Sheets[i].IsSelected)
+                {
+                    Workbook.Sheets[i + 1].Move(before: Workbook.Sheets[currentTop+1]);
+                    Sheets.Move(i, currentTop);
+                    currentTop++;
+                }
+            }
+        }
+
         private bool CanMoveSheetUp()
         {
             return ((_numSelectedSheets > 0) && !Sheets[0].IsSelected);
+        }
+
+        private bool CanMoveSheetsToTop()
+        {
+            return CanMoveSheetUp();
         }
 
         private void DoMoveSheetDown()
@@ -170,11 +221,31 @@ namespace XLToolbox.Core.Excel
             }
         }
 
+        private void DoMoveSheetsToBottom()
+        {
+            int currentBottom = Sheets.Count - 1;
+            for (int i = currentBottom-1; i > 0; i--)
+            {
+                if (Sheets[i].IsSelected)
+                {
+                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[currentBottom+1]);
+                    Sheets.Move(i, currentBottom);
+                    currentBottom--;
+                }
+            }
+        }
+
         private bool CanMoveSheetDown()
         {
             return ((_numSelectedSheets > 0) && !Sheets[Sheets.Count - 1].IsSelected);
         }
 
+        private bool CanMoveSheetsToBottom()
+        {
+            return CanMoveSheetDown();
+        }
+
         #endregion
+
     }
 }
