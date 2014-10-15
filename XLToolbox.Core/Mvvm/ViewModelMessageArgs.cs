@@ -7,10 +7,10 @@ namespace XLToolbox.Core.Mvvm
 {
     public class ViewModelMessageArgs : EventArgs
     {
-        public object Content { get; set; }
+        public ViewModelMessageConfirmation Content { get; set; }
         public Action Respond { get; set; }
 
-        public ViewModelMessageArgs(object content, Action respond)
+        public ViewModelMessageArgs(ViewModelMessageConfirmation content, Action respond)
         {
             Content = content;
             Respond = respond;

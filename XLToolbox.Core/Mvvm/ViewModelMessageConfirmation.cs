@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XLToolbox.Core.Mvvm
 {
-    class ViewModelMessageConfirmation
+    public class ViewModelMessageConfirmation
     {
         public bool Confirmed { get; set; }
     }

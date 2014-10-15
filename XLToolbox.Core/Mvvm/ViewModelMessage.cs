@@ -10,7 +10,7 @@ namespace XLToolbox.Core.Mvvm
     /// that has subscribed to the Sent event.
     /// </summary>
     /// <typeparam name="T">Type of the content of the message.</typeparam>
-    class ViewModelMessage<T> : IViewModelMessage
+    public class ViewModelMessage<T> : IViewModelMessage
     {
         #region IViewModelMessage interface
 
@@ -29,8 +29,11 @@ namespace XLToolbox.Core.Mvvm
         /// and a callback method that can be used by the View to send a return signal.
         /// </summary>
         /// <param name="messageContent">Content of the message.</param>
-        /// <param name="respond">Callback method that accepts a parameter of same type as <paramref name="messageContent"/>.</param>
-        protected virtual void Send(T messageContent, Action<T> respond)
+        /// <param name="respond">Callback method that accepts a parameter of same type
+        /// as <paramref name="messageContent"/>.</param>
+        public virtual void Send(
+            ViewModelMessageConfirmation messageContent,
+            Action<ViewModelMessageConfirmation> respond)
         {
             if (Sent != null)
             {

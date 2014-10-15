@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Mvvm\Confirmation.cs" />
     <Compile Include="Mvvm\DelegatingCommand.cs" />
     <Compile Include="ExcelInstance.cs" />
     <Compile Include="ExcelInstanceAlreadySetException.cs" />

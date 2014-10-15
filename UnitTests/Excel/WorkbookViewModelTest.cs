@@ -222,8 +222,22 @@ namespace XLToolbox.Test.Excel
             int numSelected = wvm.NumSelectedSheets;
             Assert.IsTrue(wvm.DeleteSheets.CanExecute(null),
                 "Delete sheets command should be enabled with some sheets selected.");
-            wvm.DeleteSheets.Execute(null);
 
+            bool messageSent = false;
+            bool confirmDelete = false;
+            wvm.ConfirmDeleteMessage.Sent += (sender, message) =>
+            {
+                messageSent = true;
+                message.Content.Confirmed = confirmDelete;
+                message.Respond();
+            };
+
+            wvm.DeleteSheets.Execute(null);
+            Assert.IsTrue(messageSent, "No ViewModelMessage was sent.");
+            Assert.AreEqual(oldCount, wvm.Sheets.Count,
+                "Number of sheets was changed even though deletion was not confirmed.");
+
+            confirmDelete = true;
             wvm.DeleteSheets.Execute(null);
             Assert.AreEqual(oldCount - numSelected, wvm.Sheets.Count,
                 "After deleting sheets, the workbook view model has unexpected number of sheet view models.");
