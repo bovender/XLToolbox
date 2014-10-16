@@ -1,9 +1,12 @@
 ﻿<Window x:Class="XLToolbox.WindowSheetManager"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         Width="400" Height="560"
         Title="{x:Static l:Strings.WorksheetManager}"
+        x:Name="windowSheetManager"
     >
     <Window.Resources>
         <ResourceDictionary>
@@ -25,7 +28,13 @@
                 <Button Command="{Binding MoveSheetDown}" Content="{x:Static l:Strings.Down}" Margin="0 0 0 5" />
                 <Button Command="{Binding MoveSheetsToBottom}" Content="{x:Static l:Strings.Bottom}" Margin="0 0 0 5" />
                 <Button Command="{Binding DeleteSheets}" Content="{x:Static l:Strings.Delete}" Margin="0 5 0 5" />
-                <Button Name="CloseButton" Click="CloseButton_Click" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5" />
+                <Button Name="CloseButton" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding ElementName=windowSheetManager}" MethodName="Close" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
             <ListBox
                 SelectionMode="Extended"
