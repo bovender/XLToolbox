@@ -1,0 +1,35 @@
+﻿<Window x:Class="XLToolbox.Mvvm.WindowConfirmation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="clr-namespace:XLToolbox"
+        x:Name="windowConfirmation"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Path=Caption}">
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+    </Window.Resources>
+    <StackPanel Margin="5">
+        <TextBlock Text="{Binding Message}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
+            <Button Content="{x:Static l:Strings.OK}" Margin="0 0 5 0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:ChangePropertyAction TargetObject="{Binding Path=Content}" PropertyName="Confirmed" Value="true" />
+                        <ei:CallMethodAction TargetObject="{Binding ElementName=windowConfirmation}" MethodName="Close" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Content="{x:Static l:Strings.Cancel}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:ChangePropertyAction TargetObject="{Binding Path=Content}" PropertyName="Confirmed" Value="false" />
+                        <ei:CallMethodAction TargetObject="{Binding ElementName=windowConfirmation}" MethodName="Close" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

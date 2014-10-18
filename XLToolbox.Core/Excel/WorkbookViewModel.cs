@@ -25,7 +25,7 @@ namespace XLToolbox.Core.Excel
         private DelegatingCommand _moveSheetDown;
         private DelegatingCommand _moveSheetsToBottom;
         private DelegatingCommand _deleteSheets;
-        private ViewModelMessage<ViewModelMessageConfirmation> _confirmDeleteMessage;
+        private Message<MessageContent> _confirmDeleteMessage;
 
         #endregion
 
@@ -65,13 +65,13 @@ namespace XLToolbox.Core.Excel
             }
         }
 
-        public ViewModelMessage<ViewModelMessageConfirmation> ConfirmDeleteMessage
+        public Message<MessageContent> ConfirmDeleteMessage
         {
             get
             {
                 if (_confirmDeleteMessage == null)
                 {
-                    _confirmDeleteMessage = new ViewModelMessage<ViewModelMessageConfirmation>();
+                    _confirmDeleteMessage = new Message<MessageContent>();
                 };
                 return _confirmDeleteMessage;
             }
@@ -287,14 +287,14 @@ namespace XLToolbox.Core.Excel
         private void DoDeleteSheets()
         {
             ConfirmDeleteMessage.Send(
-                new ViewModelMessageConfirmation(),
+                new MessageContent(),
                 (confirmation) =>
                 {
                     ConfirmDeleteSheets(confirmation);
                 });
         }
 
-        private void ConfirmDeleteSheets(ViewModelMessageConfirmation confirmation)
+        private void ConfirmDeleteSheets(MessageContent confirmation)
         {
             if (confirmation.Confirmed)
             {

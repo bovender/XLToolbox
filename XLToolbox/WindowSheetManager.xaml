@@ -4,6 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:mvvm="clr-namespace:XLToolbox.Mvvm"
         Width="400" Height="560"
         Title="{x:Static l:Strings.WorksheetManager}"
         x:Name="windowSheetManager"
@@ -20,6 +21,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
+                                         Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Right" Margin="10 0 0 0">

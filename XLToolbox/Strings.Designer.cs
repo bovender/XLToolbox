@@ -250,6 +250,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete? This operation cannot be  undone..
+        /// </summary>
+        public static string DoYouReallyWantToDeleteCannotBeUndone {
+            get {
+                return ResourceManager.GetString("DoYouReallyWantToDeleteCannotBeUndone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
@@ -376,6 +385,15 @@ namespace XLToolbox {
         public static string NewVersionAvailableForDownload {
             get {
                 return ResourceManager.GetString("NewVersionAvailableForDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -658,6 +676,15 @@ namespace XLToolbox {
         public static string XLToolboxVersion {
             get {
                 return ResourceManager.GetString("XLToolboxVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

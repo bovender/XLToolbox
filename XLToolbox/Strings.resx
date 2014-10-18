@@ -334,4 +334,13 @@ The following error occurred:
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DoYouReallyWantToDeleteCannotBeUndone" xml:space="preserve">
+    <value>Do you really want to delete? This operation cannot be  undone.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

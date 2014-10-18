@@ -5,12 +5,12 @@ using System.Text;
 
 namespace XLToolbox.Core.Mvvm
 {
-    public class ViewModelMessageArgs : EventArgs
+    public class MessageArgs : EventArgs
     {
-        public ViewModelMessageConfirmation Content { get; set; }
+        public MessageContent Content { get; set; }
         public Action Respond { get; set; }
 
-        public ViewModelMessageArgs(ViewModelMessageConfirmation content, Action respond)
+        public MessageArgs(MessageContent content, Action respond)
         {
             Content = content;
             Respond = respond;

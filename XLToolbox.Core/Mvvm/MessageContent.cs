@@ -2,9 +2,9 @@
 {
     /// <summary>
     /// Simple object that encapsulates a boolean value; to be used
-    /// in MVVM interaction with <see cref="ViewModelMessageArgs"/>.
+    /// in MVVM interaction with <see cref="MessageArgs"/>.
     /// </summary>
-    class Confirmation
+    public class MessageContent
     {
         public bool Confirmed { get; set; }
     }

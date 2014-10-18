@@ -9,8 +9,8 @@ namespace XLToolbox.Core.Mvvm
     /// Defines a Sent event that consumers of a view model can
     /// subscribe to in order to listen to the view model's message.
     /// </summary>
-    public interface IViewModelMessage
+    public interface IMessage
     {
-        event EventHandler<ViewModelMessageArgs> Sent;
+        event EventHandler<MessageArgs> Sent;
     }
 }
