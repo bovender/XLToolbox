@@ -303,7 +303,7 @@ namespace XLToolbox.Core.Excel
                     if (Sheets[i].IsSelected)
                     {
                         Sheets.RemoveAt(i);
-                        Workbook.Sheets[i].Delete();
+                        Workbook.Sheets[i+1].Delete();
                     }
                 }
             }
