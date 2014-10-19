@@ -30,7 +30,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void WorkbookViewModelProperties()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
+            Workbook wb = ExcelInstance.CreateWorkbook();
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             Assert.AreEqual(wvm.DisplayString, wb.Name,
                 "WorkbookViewModel does not give workbook name as display string");
@@ -47,12 +47,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void MoveSheetsUp()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 2; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(3);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Select the second sheet in the collection (index #1)
@@ -83,12 +78,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void MoveSheetsDown()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 2; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(6);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Select the second-to-last sheet in the collection
@@ -119,12 +109,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void MoveSheetsToTop()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 6; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             
             // Without sheets selected, the Move-to-top command should be disabled
@@ -163,12 +148,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void MoveSheetsToBottom()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 6; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Without sheets selected, the Move-to-bottom command should be disabled
@@ -207,12 +187,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void DeleteSheets()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 6; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(8);
             int oldCount = wb.Sheets.Count;
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             Assert.IsFalse(wvm.DeleteSheets.CanExecute(null),
@@ -263,12 +238,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public static void SelectSheet()
         {
-            Workbook wb = ExcelInstance.Application.Workbooks.Add();
-            for (int i = 0; i < 6; i++)
-            {
-                wb.Sheets.Add();
-            }
-
+            Workbook wb = ExcelInstance.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             wvm.Sheets[2].IsSelected = true;
             Assert.AreEqual(wvm.Sheets[2].DisplayString, wb.ActiveSheet.Name);
