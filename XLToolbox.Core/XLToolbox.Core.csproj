@@ -61,6 +61,7 @@
     <Compile Include="Mvvm\IMessage.cs" />
     <Compile Include="Mvvm\Message.cs" />
     <Compile Include="Mvvm\MessageArgs.cs" />
+    <Compile Include="Mvvm\StringMessageContent.cs" />
     <Compile Include="NoExcelInstanceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Excel\WorkbookViewModel.cs" />

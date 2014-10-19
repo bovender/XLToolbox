@@ -95,6 +95,34 @@ namespace XLToolbox.Core
             _application = null;
         }
 
+        /// <summary>
+        /// Creates and returns a new workbook containing exactly one worksheet.
+        /// </summary>
+        /// <returns>Workbook with only one worksheet.</returns>
+        public static Workbook CreateWorkbook()
+        {
+            // Calling the Workbooks.Add method with a XlWBATemplate constand
+            // creates a workbook that contains only one sheet.
+            return ExcelInstance.Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+        }
+
+        /// <summary>
+        /// Creates a workbook containing the specified number of sheets (not less than 1).
+        /// </summary>
+        /// <remarks>If <paramref name="numberOfSheets"/> is less than 1, the workbook will still
+        /// contain one worksheet.</remarks>
+        /// <param name="numberOfSheets">Number of sheets in the new workbook.</param>
+        /// <returns>Workbook containing the specified number of sheets (not less than 1).</returns>
+        public static Workbook CreateWorkbook(int numberOfSheets)
+        {
+            Workbook wb = CreateWorkbook();
+            for (int i = 2; i <= numberOfSheets; i++)
+            {
+                wb.Sheets.Add();
+            };
+            return wb;
+        }
+
         #endregion
 
         #region Constructor
