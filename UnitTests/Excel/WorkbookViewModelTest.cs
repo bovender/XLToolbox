@@ -219,6 +219,8 @@ namespace XLToolbox.Test.Excel
                 "Delete sheets command should be disabled with no sheets selected.");
             wvm.Sheets[2].IsSelected = true;
             wvm.Sheets[4].IsSelected = true;
+            string sheetName3 = wvm.Sheets[2].DisplayString;
+            string sheetName5 = wvm.Sheets[4].DisplayString;
             int numSelected = wvm.NumSelectedSheets;
             Assert.IsTrue(wvm.DeleteSheets.CanExecute(null),
                 "Delete sheets command should be enabled with some sheets selected.");
@@ -243,6 +245,19 @@ namespace XLToolbox.Test.Excel
                 "After deleting sheets, the workbook view model has unexpected number of sheet view models.");
             Assert.AreEqual(oldCount - numSelected, wb.Sheets.Count,
                 "After deleting sheets, the workbook has unexpected number of sheets.");
+            object obj;
+            Assert.Throws(typeof(System.Runtime.InteropServices.COMException), () =>
+                {
+                    obj = wb.Sheets[sheetName3];
+                },
+                String.Format("Sheet {0} (sheetName3) should have been deleted but is still there.", sheetName3)
+            );
+            Assert.Throws(typeof(System.Runtime.InteropServices.COMException), () =>
+            {
+                obj = wb.Sheets[sheetName5];
+            },
+                String.Format("Sheet {0} (sheetName5) should have been deleted but is still there.", sheetName5)
+            );
         }
 
         [Test]
