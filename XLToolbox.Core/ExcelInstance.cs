@@ -40,7 +40,7 @@ namespace XLToolbox.Core
 
         #endregion
 
-        #region Static methods
+        #region Public properties
 
         /// <summary>
         /// Provides access to the current Excel instance.
@@ -51,7 +51,7 @@ namespace XLToolbox.Core
             {
                 if (_application == null)
                 {
-                    throw new ExcelInstanceException();
+                    throw new ExcelInstanceException("No instance running.");
                 }
                 return _application;
             }
@@ -64,6 +64,10 @@ namespace XLToolbox.Core
                 _application = value;
             }
         }
+
+        #endregion
+
+        #region Static methods
 
         /// <summary>
         /// Starts a new instance of Excel. Does nothing if there already is an instance.
