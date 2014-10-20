@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Excel\InvalidSheetNameException.cs" />
     <Compile Include="Mvvm\MessageContent.cs" />
     <Compile Include="Mvvm\DelegatingCommand.cs" />
     <Compile Include="ExcelInstance.cs" />

@@ -20,12 +20,15 @@ namespace XLToolbox.Core.Excel
 
         private Workbook _workbook;
         private ObservableCollection<SheetViewModel> _sheets;
+        private SheetViewModel _lastSelectedSheet;
         private DelegatingCommand _moveSheetUp;
         private DelegatingCommand _moveSheetsToTop;
         private DelegatingCommand _moveSheetDown;
         private DelegatingCommand _moveSheetsToBottom;
         private DelegatingCommand _deleteSheets;
+        private DelegatingCommand _renameSheet;
         private Message<MessageContent> _confirmDeleteMessage;
+        private Message<StringMessageContent> _renameSheetMessage;
 
         #endregion
 
@@ -74,6 +77,18 @@ namespace XLToolbox.Core.Excel
                     _confirmDeleteMessage = new Message<MessageContent>();
                 };
                 return _confirmDeleteMessage;
+            }
+        }
+
+        public Message<StringMessageContent> RenameSheetMessage
+        {
+            get
+            {
+                if (_renameSheetMessage == null)
+                {
+                    _renameSheetMessage = new Message<StringMessageContent>();
+                };
+                return _renameSheetMessage;
             }
         }
 
@@ -156,6 +171,21 @@ namespace XLToolbox.Core.Excel
             }
         }
 
+        public DelegatingCommand RenameSheet
+        {
+            get
+            {
+                if (_renameSheet == null)
+                {
+                    _renameSheet = new DelegatingCommand(
+                        parameter => { DoRenameSheet(); },
+                        parameter => { return CanRenameSheet(); }
+                        );
+                }
+                return _renameSheet;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -185,6 +215,10 @@ namespace XLToolbox.Core.Excel
             this.Sheets = sheets;
         }
 
+        #endregion
+
+        #region Event handlers
+
         private void svm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsSelected")
@@ -193,6 +227,7 @@ namespace XLToolbox.Core.Excel
                 if (svm.IsSelected)
                 {
                     NumSelectedSheets++;
+                    _lastSelectedSheet = svm;
                     svm.Sheet.Activate();
                 }
                 else
@@ -314,7 +349,30 @@ namespace XLToolbox.Core.Excel
             return (NumSelectedSheets > 0);
         }
 
-        #endregion
+        private void DoRenameSheet()
+        {
+            RenameSheetMessage.Send(
+                new StringMessageContent(),
+                (stringMessage) =>
+                    {
+                        ConfirmRenameSheet(stringMessage);
+                    }
+            );
+        }
 
+        private void ConfirmRenameSheet(StringMessageContent stringMessage)
+        {
+            if (CanRenameSheet())
+            {
+                _lastSelectedSheet.DisplayString = stringMessage.Value;
+            }
+        }
+
+        private bool CanRenameSheet()
+        {
+            return (NumSelectedSheets > 0);
+        }
+
+        #endregion
     }
 }

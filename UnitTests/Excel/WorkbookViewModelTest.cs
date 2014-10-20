@@ -245,5 +245,40 @@ namespace XLToolbox.Test.Excel
             wvm.Sheets[4].IsSelected = true;
             Assert.AreEqual(wvm.Sheets[4].DisplayString, wb.ActiveSheet.Name);
         }
+
+        [Test]
+        public static void RenameSheet()
+        {
+            Workbook wb = ExcelInstance.CreateWorkbook();
+            WorkbookViewModel wvm = new WorkbookViewModel(wb);
+            string oldName = wvm.Sheets[0].DisplayString;
+            string newName = "valid new name";
+            bool messageSent = false;
+            Assert.False(wvm.RenameSheet.CanExecute(null),
+                "Rename sheet command should be disabled with no sheet selected.");
+            wvm.Sheets[0].IsSelected = true;
+            Assert.True(wvm.RenameSheet.CanExecute(null),
+                "Rename sheet command should be enabled with one sheet selected.");
+            wvm.RenameSheetMessage.Sent += (sender, args) =>
+                {
+                    messageSent = true;
+                    args.Content.Value = newName;
+                    args.Respond();
+                };
+            wvm.RenameSheet.Execute(null);
+            Assert.True(messageSent, "Rename sheet message was not sent.");
+            Assert.AreEqual(newName, wvm.Sheets[0].DisplayString,
+                String.Format(
+                    "Worksheet name is '{0}', should have been renamed to '{1}'.",
+                    wvm.Sheets[0].DisplayString, newName
+                )
+            );
+
+            Assert.Throws<InvalidSheetNameException>(() =>
+            {
+                newName = "invalid\\sheet\\name";
+                wvm.RenameSheet.Execute(null);
+            });
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
 using XLToolbox.Core.Mvvm;
 
 namespace XLToolbox.Core.Excel
@@ -29,7 +30,13 @@ namespace XLToolbox.Core.Excel
             }
             set
             {
-                // Todo: Make sure this does not throw a COM exception if invalid name is used
+                if (!IsValidName(value))
+                {
+                    throw new InvalidSheetNameException(
+                        String.Format("The string '{0}' is not a valid sheet name",
+                        value)
+                    );
+                };
                 _sheet.Name = value;
                 base.DisplayString = value;
             }
@@ -60,6 +67,24 @@ namespace XLToolbox.Core.Excel
             : this()
         {
             this.Sheet = sheet;
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Tests whether a string represents a valid Excel sheet name.
+        /// </summary>
+        /// <remarks>Excel sheet names must be 1 to 31 characters long and must
+        /// not contain the characters ":/\[]*?".</remarks>
+        /// <param name="name">String to test.</param>
+        /// <returns>True if <paramref name="name"/> can be used as a sheet name,
+        /// false if not.</returns>
+        public static bool IsValidName(string name)
+        {
+            Regex r = new Regex(@"^[^:/\\*?[\]]{1,31}$");
+            return r.IsMatch(name);
         }
 
         #endregion

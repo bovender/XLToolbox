@@ -11,7 +11,7 @@ namespace XLToolbox.Core.Mvvm
     /// </summary>
     /// <typeparam name="T">Type of the content of the message (must be a
     /// <see cref="MessageContent"/> object or a descendant.</typeparam>
-    public class Message<T> : IMessage where T : MessageContent 
+    public class Message<T> : IMessage<T> where T : MessageContent 
     {
         #region IViewModelMessage interface
 
@@ -19,7 +19,7 @@ namespace XLToolbox.Core.Mvvm
         /// Consumers of the view model subscribe to this event if they want
         /// to listen for the message.
         /// </summary>
-        public event EventHandler<MessageArgs> Sent;
+        public event EventHandler<MessageArgs<T>> Sent;
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace XLToolbox.Core.Mvvm
             if (Sent != null)
             {
                 Sent(this,
-                    new MessageArgs(
+                    new MessageArgs<T>(
                         messageContent,
                         () => respond(messageContent)
                     )

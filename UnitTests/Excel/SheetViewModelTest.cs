@@ -38,5 +38,23 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(ws.Name, svm.DisplayString,
                 "DisplayString is not written through to sheet object.");
         }
+
+        [Test]
+        // Ruler:           1         2         3
+        //         1---5----0---------0---------01
+        [TestCase("valid name", true)]
+        [TestCase("valid, name; - special !", true)]
+        [TestCase("very long name that is invalid because it exceeds 31 characters", false)]
+        [TestCase("invalid: characters *", false)]
+        [TestCase("/more [invalid] characters\\", false)]
+        [TestCase("", false)]
+        public static void ValidSheetNames(string testName, bool isValid)
+        {
+            string s = isValid ? "" : "not ";
+            Assert.AreEqual(
+                isValid,
+                SheetViewModel.IsValidName(testName)
+            );
+        }
     }
 }

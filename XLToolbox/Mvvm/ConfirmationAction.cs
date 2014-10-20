@@ -16,7 +16,7 @@ namespace XLToolbox.Mvvm
 
         protected override void Invoke(object parameter)
         {
-            MessageArgs args = parameter as MessageArgs;
+            MessageArgs<MessageContent> args = parameter as MessageArgs<MessageContent>;
             if (args != null)
             {
                 Content = args.Content;
