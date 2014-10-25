@@ -199,6 +199,7 @@
   <ItemGroup>
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Mvvm\ConfirmationAction.cs" />
+    <Compile Include="Mvvm\StringMessageAction.cs" />
     <Compile Include="Mvvm\WindowConfirmation.xaml.cs">
       <DependentUpon>WindowConfirmation.xaml</DependentUpon>
     </Compile>
@@ -212,6 +213,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RibbonStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StringMessageContentView.xaml.cs">
+      <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
@@ -295,6 +299,10 @@
       <SubType>Designer</SubType>
     </Resource>
     <Page Include="Mvvm\WindowConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StringMessageContentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

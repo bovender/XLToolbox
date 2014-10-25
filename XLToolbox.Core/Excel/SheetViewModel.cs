@@ -52,7 +52,10 @@ namespace XLToolbox.Core.Excel
             {
                 _sheet = value;
                 OnPropertyChanged("Sheet");
-                this.DisplayString = _sheet.Name;
+                // Set the base class' DisplayString property to prevent
+                // renaming the worksheet that is triggered by writing this
+                // class' DisplayString property.
+                base.DisplayString = _sheet.Name;
             }
         }
 
@@ -83,8 +86,15 @@ namespace XLToolbox.Core.Excel
         /// false if not.</returns>
         public static bool IsValidName(string name)
         {
-            Regex r = new Regex(@"^[^:/\\*?[\]]{1,31}$");
-            return r.IsMatch(name);
+            if (!String.IsNullOrEmpty(name))
+            {
+                Regex r = new Regex(@"^[^:/\\*?[\]]{1,31}$");
+                return r.IsMatch(name);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion

@@ -351,8 +351,21 @@ namespace XLToolbox.Core.Excel
 
         private void DoRenameSheet()
         {
+            StringMessageContent content = new StringMessageContent();
+            content.Validator = (value) =>
+            {
+                if (SheetViewModel.IsValidName(value))
+                {
+                    return String.Empty;
+                }
+                else
+                {
+                    // TODO: Find a way that does not require human language here
+                    return "1-21, not () /\\ [] *?";
+                }
+            };
             RenameSheetMessage.Send(
-                new StringMessageContent(),
+                content,
                 (stringMessage) =>
                     {
                         ConfirmRenameSheet(stringMessage);
@@ -362,7 +375,7 @@ namespace XLToolbox.Core.Excel
 
         private void ConfirmRenameSheet(StringMessageContent stringMessage)
         {
-            if (CanRenameSheet())
+            if (CanRenameSheet() && stringMessage.Confirmed)
             {
                 _lastSelectedSheet.DisplayString = stringMessage.Value;
             }

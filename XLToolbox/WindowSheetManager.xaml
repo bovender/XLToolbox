@@ -28,6 +28,12 @@
                                          Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding RenameSheetMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:StringMessageAction Caption="{x:Static l:Strings.WorksheetManager}"
+                                          Message="{x:Static l:Strings.EnterNewSheetName}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel Margin="10">
@@ -37,6 +43,7 @@
                 <Button Command="{Binding MoveSheetDown}" Content="{x:Static l:Strings.Down}" Margin="0 0 0 5" />
                 <Button Command="{Binding MoveSheetsToBottom}" Content="{x:Static l:Strings.Bottom}" Margin="0 0 0 5" />
                 <Button Command="{Binding DeleteSheets}" Content="{x:Static l:Strings.Delete}" Margin="0 5 0 5" />
+                <Button Command="{Binding RenameSheet}" Content="{x:Static l:Strings.Rename}" Margin="0 5 0 5" />
                 <Button Name="CloseButton" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">

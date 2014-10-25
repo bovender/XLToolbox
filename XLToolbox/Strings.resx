@@ -343,4 +343,10 @@ The following error occurred:
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="EnterNewSheetName" xml:space="preserve">
+    <value>Please enter the desired new sheet name (1-31 characters, must not contain any of : [] /\ *?</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
 </root>

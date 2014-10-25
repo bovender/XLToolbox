@@ -268,6 +268,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the desired new sheet name (1-31 characters, must not contain any of : [] /\ *?.
+        /// </summary>
+        public static string EnterNewSheetName {
+            get {
+                return ResourceManager.GetString("EnterNewSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel bitness.
         /// </summary>
         public static string ExcelBitness {
@@ -457,6 +466,15 @@ namespace XLToolbox {
         public static string PleaseSendCrashReport {
             get {
                 return ResourceManager.GetString("PleaseSendCrashReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
             }
         }
         

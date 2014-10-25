@@ -16,11 +16,11 @@ namespace XLToolbox.Mvvm
 
         protected override void Invoke(object parameter)
         {
-            MessageArgs<MessageContent> args = parameter as MessageArgs<MessageContent>;
+            dynamic args = parameter;
             if (args != null)
             {
                 Content = args.Content;
-                WindowConfirmation window = new WindowConfirmation();
+                Window window = CreateView();
                 window.DataContext = this;
                 EventHandler closeHandler = null;
                 closeHandler = (sender, e) =>
@@ -31,7 +31,15 @@ namespace XLToolbox.Mvvm
                 window.Closed += closeHandler;
                 window.Show();
             }
- 
+        }
+
+        /// <summary>
+        /// Returns a view that can bind to expected message contents.
+        /// </summary>
+        /// <returns>Descendant of Window.</returns>
+        protected virtual Window CreateView()
+        {
+            return new WindowConfirmation();
         }
     }
 }
