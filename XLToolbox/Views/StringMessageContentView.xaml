@@ -5,15 +5,18 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         x:Name="stringMessageContentView"
-        SizeToContent="WidthAndHeight"
+        SizeToContent="Height" Width="260"
         WindowStartupLocation="CenterOwner"
         Title="{Binding Path=Caption}">
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
-    <StackPanel Margin="5">
-        <TextBlock Text="{Binding Message}" />
-        <TextBox Text="{Binding FallbackValue, ValidatesOnDataErrors=True}" />
+    <StackPanel Margin="5" FocusManager.FocusedElement="{Binding ElementName=value}">
+        <Label Target="{Binding ElementName=value}">
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+        </Label>
+        <TextBox Name="value" DataContext="{Binding Path=Content}"
+                 Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
             <Button Content="{x:Static l:Strings.OK}" Margin="0 0 5 0">
                 <i:Interaction.Triggers>

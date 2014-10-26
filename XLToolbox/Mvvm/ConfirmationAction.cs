@@ -29,7 +29,7 @@ namespace XLToolbox.Mvvm
                     args.Respond();
                 };
                 window.Closed += closeHandler;
-                window.Show();
+                window.ShowDialog();
             }
         }
 

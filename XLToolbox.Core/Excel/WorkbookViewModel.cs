@@ -352,6 +352,7 @@ namespace XLToolbox.Core.Excel
         private void DoRenameSheet()
         {
             StringMessageContent content = new StringMessageContent();
+            content.Value = _lastSelectedSheet.DisplayString;
             content.Validator = (value) =>
             {
                 if (SheetViewModel.IsValidName(value))
