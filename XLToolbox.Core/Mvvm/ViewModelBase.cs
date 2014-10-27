@@ -33,7 +33,7 @@ namespace XLToolbox.Core.Mvvm
                 if (_closeViewCommand == null)
                 {
                     _closeViewCommand = new DelegatingCommand(
-                        parameter => { OnCloseView(); },
+                        parameter => { DoCloseView(); },
                         parameter => { return CanCloseView(); }
                         );
                 };
@@ -97,7 +97,7 @@ namespace XLToolbox.Core.Mvvm
             return true;
         }
 
-        protected void OnCloseView()
+        protected void DoCloseView()
         {
             if (RequestCloseView != null && CanCloseView())
             {
