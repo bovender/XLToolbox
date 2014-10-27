@@ -25,10 +25,11 @@ namespace XLToolbox.Mvvm
                 EventHandler closeHandler = null;
                 closeHandler = (sender, e) =>
                 {
-                    window.Closed -= closeHandler;
+                    Content.RequestCloseView -= closeHandler;
+                    window.Close();
                     args.Respond();
                 };
-                window.Closed += closeHandler;
+                Content.RequestCloseView += closeHandler;
                 window.ShowDialog();
             }
         }

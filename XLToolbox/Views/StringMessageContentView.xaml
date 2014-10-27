@@ -11,29 +11,15 @@
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
-    <StackPanel Margin="5" FocusManager.FocusedElement="{Binding ElementName=value}">
+    <StackPanel Margin="10" FocusManager.FocusedElement="{Binding ElementName=value}">
         <Label Target="{Binding ElementName=value}">
             <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
         </Label>
-        <TextBox Name="value" DataContext="{Binding Path=Content}"
+        <TextBox Name="value" DataContext="{Binding Path=Content}" Margin="0 5 0 0"
                  Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0">
-            <Button Content="{x:Static l:Strings.OK}" Margin="0 0 5 0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <ei:ChangePropertyAction TargetObject="{Binding Path=Content}" PropertyName="Confirmed" Value="true" />
-                        <ei:CallMethodAction TargetObject="{Binding ElementName=stringMessageContentView}" MethodName="Close" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
-            <Button Content="{x:Static l:Strings.Cancel}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <ei:ChangePropertyAction TargetObject="{Binding Path=Content}" PropertyName="Confirmed" Value="false" />
-                        <ei:CallMethodAction TargetObject="{Binding ElementName=stringMessageContentView}" MethodName="Close" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Command="{Binding Path=Content.ConfirmCommand}" Content="{x:Static l:Strings.OK}" Margin="0 0 5 0" />
+            <Button Command="{Binding Path=Content.CloseViewCommand}" Content="{x:Static l:Strings.Cancel}" />
         </StackPanel>
     </StackPanel>
 </Window>

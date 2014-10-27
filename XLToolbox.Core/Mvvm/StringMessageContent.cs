@@ -13,8 +13,18 @@ namespace XLToolbox.Core.Mvvm
     /// </summary>
     public class StringMessageContent : MessageContent, IDataErrorInfo
     {
+        #region Public properties
+
         public string Value { get; set; }
+
+        /// <summary>
+        /// Delegate function that returns error information on the Value field.
+        /// </summary>
         public Func<string, string> Validator { get; set; }
+
+        #endregion
+
+        #region IDataErrorInfo implementation
 
         string IDataErrorInfo.Error
         {
@@ -35,5 +45,20 @@ namespace XLToolbox.Core.Mvvm
                 }
             }
         }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// Disables the Confirm command if the Value is invalid.
+        /// </summary>
+        /// <returns>True if the Value is valid and the dialog can be closed.</returns>
+        protected override bool CanConfirm()
+        {
+            return String.IsNullOrEmpty((this as IDataErrorInfo)["Value"]);
+        }
+
+        #endregion
     }
 }
