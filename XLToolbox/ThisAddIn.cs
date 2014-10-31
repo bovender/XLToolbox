@@ -9,16 +9,20 @@ using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using System.Threading;
 using Threading = System.Windows.Threading;
-using XLToolbox.Version;
-using XLToolbox.Core;
+using XLToolbox.Excel.Instance;
+using Bovender.Versioning;
+using Bovender.Unmanaged;
+using Bovender.Mvvm;
+using XLToolbox.Mvvm.ViewModels;
+using XLToolbox.Mvvm.Views;
 
 namespace XLToolbox
 {
     public partial class ThisAddIn : IDisposable
     {
-        public Updater Updater { get; set; }
+        public XLToolbox.Versioning.Updater Updater { get; set; }
         private Threading.Dispatcher _dispatcher;
-        private Unmanaged.DllManager _dllManager;
+        private DllManager _dllManager;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -36,7 +40,7 @@ namespace XLToolbox
             GreetUser();
 
             // Load the FreeImage DLL
-            _dllManager = new Unmanaged.DllManager();
+            _dllManager = new DllManager();
             _dllManager.LoadDll("FreeImage");
         }
 
@@ -61,7 +65,8 @@ namespace XLToolbox
             SemanticVersion currentVersion = SemanticVersion.CurrentVersion();
             if (currentVersion > lastSeenVersion)
             {
-                WpfHelpers.ShowModelessInExcel<WindowGreeter>();
+                GreeterViewModel greeter = new GreeterViewModel();
+                Workarounds.ShowModelessInExcel<GreeterView>(greeter);
                 Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
                 Properties.Settings.Default.Save();
             }
@@ -77,7 +82,7 @@ namespace XLToolbox
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
-                Updater = new Updater();
+                Updater = new XLToolbox.Versioning.Updater();
                 if (Updater.IsAuthorized)
                 {
                     Updater.UpdateAvailable += Updater_UpdateAvailable;

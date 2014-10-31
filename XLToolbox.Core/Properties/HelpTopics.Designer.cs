@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XLToolbox.HelpSystem.Properties {
+namespace XLToolbox.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
-    internal sealed partial class Topics : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class HelpTopics : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Topics defaultInstance = ((Topics)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Topics())));
+        private static HelpTopics defaultInstance = ((HelpTopics)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new HelpTopics())));
         
-        public static Topics Default {
+        public static HelpTopics Default {
             get {
                 return defaultInstance;
             }

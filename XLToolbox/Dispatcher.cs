@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XLToolbox.Error;
-using XLToolbox.Core;
-using XLToolbox.Core.Excel;
+using Bovender.Mvvm;
+using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewMmodels;
+using XLToolbox.Mvvm.Views;
+using XLToolbox.Mvvm.ViewModels;
 
 namespace XLToolbox
 {
+    #region Commands enumeration
+
     enum Command
     {
         About,
@@ -15,6 +19,8 @@ namespace XLToolbox
         ThrowError,
         SheetList
     };
+
+    #endregion
 
     /// <summary>
     /// Central dispatcher for all UI-initiated XL Toolbox commands.
@@ -39,16 +45,15 @@ namespace XLToolbox
                 switch (cmd)
                 {
                     case Command.About:
-                        (new WindowAbout()).ShowDialog();
+                        AboutViewModel avm = new AboutViewModel();
+                        avm.InjectInto<AboutView>().ShowDialog();
                         break;
                     case Command.CheckForUpdates:
                         (new WindowCheckForUpdate()).ShowDialog();
                         break;
                     case Command.SheetList:
-                        WindowSheetManager w = new WindowSheetManager();
-                        WorkbookViewModel vm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
-                        w.DataContext = vm;
-                        w.Show();
+                        WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
+                        Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
                         break;
                     case Command.ThrowError:
                         throw new InsufficientMemoryException();
@@ -56,7 +61,7 @@ namespace XLToolbox
             }
             catch (Exception e)
             {
-                Reporter r = new Reporter(Globals.ThisAddIn.Application, e);
+                ExceptionViewModel r = new ExceptionViewModel(Globals.ThisAddIn.Application, e);
                 r.User = Properties.Settings.Default.UsersName;
                 r.Email = Properties.Settings.Default.UsersEmail;
                 r.CcUser = Properties.Settings.Default.CcUser;

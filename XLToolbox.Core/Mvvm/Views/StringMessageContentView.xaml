@@ -1,0 +1,25 @@
+﻿<Window x:Class="XLToolbox.Mvvm.Views.StringMessageContentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="clr-namespace:XLToolbox"
+        x:Name="stringMessageContentView"
+        SizeToContent="Height" Width="260"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Path=Caption}">
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+    </Window.Resources>
+    <StackPanel Margin="10" FocusManager.FocusedElement="{Binding ElementName=value}">
+        <Label Target="{Binding ElementName=value}">
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+        </Label>
+        <TextBox Name="value" DataContext="{Binding Path=Content}" Margin="0 5 0 0"
+                 Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Command="{Binding Path=Content.ConfirmCommand}" Content="{x:Static l:Strings.OK}" Margin="0 0 5 0" />
+            <Button Command="{Binding Path=Content.CloseViewCommand}" Content="{x:Static l:Strings.Cancel}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

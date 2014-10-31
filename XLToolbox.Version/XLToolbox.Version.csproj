@@ -65,12 +65,6 @@
     <None Include="app.config" />
     <None Include="xltb.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XLToolbox.Helpers\XLToolbox.Helpers.csproj">
-      <Project>{3cd8be11-f954-4e25-83f8-ff5f0485dfdf}</Project>
-      <Name>XLToolbox.Helpers</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
