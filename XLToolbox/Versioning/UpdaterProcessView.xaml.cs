@@ -11,19 +11,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using XLToolbox.Versioning;
+using Bovender.Versioning;
 
-namespace XLToolbox
+namespace XLToolbox.Versioning
 {
     /// <summary>
-    /// Interaction logic for WindowCheckForUpdate.xaml
+    /// Interaction logic for UpdaterProcessView.xaml
     /// </summary>
-    public partial class WindowCheckForUpdate : Window
+    public partial class UpdaterProcessView : Window
     {
-        private Updater _updater;
-
-        public WindowCheckForUpdate()
+        public UpdaterProcessView()
         {
+        }
+        /*
             InitializeComponent();
             _updater = new Updater();
             _updater.UpdateAvailable += updater_OnUpdateAvailable;
@@ -99,5 +99,6 @@ namespace XLToolbox
             _updater.CancelFetchVersionInformation();
             Close();
         }
+        */
     }
 }

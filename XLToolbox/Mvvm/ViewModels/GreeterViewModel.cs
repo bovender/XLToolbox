@@ -77,11 +77,11 @@ namespace XLToolbox.Mvvm.ViewModels
         {
             get
             {
-                if (_donateCommand == null)
+                if (_donateMessage == null)
                 {
-                    _donateCommand = new Message<MessageContent>();
+                    _donateMessage = new Message<MessageContent>();
                 }
-                return _donateCommand;
+                return _donateMessage;
             }
         }
 

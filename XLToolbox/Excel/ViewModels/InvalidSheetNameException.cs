@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace XLToolbox.Excel.ViewMmodels
+namespace XLToolbox.Excel.ViewModels
 {
     [Serializable]
     public class InvalidSheetNameException : Exception

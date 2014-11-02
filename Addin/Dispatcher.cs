@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Bovender.Mvvm;
 using XLToolbox.Excel.Instance;
-using XLToolbox.Excel.ViewMmodels;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.Mvvm.Views;
 using XLToolbox.Mvvm.ViewModels;
 
@@ -49,7 +49,8 @@ namespace XLToolbox
                         avm.InjectInto<AboutView>().ShowDialog();
                         break;
                     case Command.CheckForUpdates:
-                        (new WindowCheckForUpdate()).ShowDialog();
+                        // TODO: Implement MVVM here
+                        // (new WindowCheckForUpdate()).ShowDialog();
                         break;
                     case Command.SheetList:
                         WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
@@ -61,6 +62,8 @@ namespace XLToolbox
             }
             catch (Exception e)
             {
+                // TODO: Implement global exception handler here
+                /*
                 ExceptionViewModel r = new ExceptionViewModel(Globals.ThisAddIn.Application, e);
                 r.User = Properties.Settings.Default.UsersName;
                 r.Email = Properties.Settings.Default.UsersEmail;
@@ -71,6 +74,7 @@ namespace XLToolbox
                 Properties.Settings.Default.UsersEmail = r.Email;
                 Properties.Settings.Default.CcUser = r.CcUser;
                 Properties.Settings.Default.Save();
+                */
             }
         }
     }

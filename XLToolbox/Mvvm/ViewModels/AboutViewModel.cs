@@ -76,7 +76,7 @@ namespace XLToolbox.Mvvm.ViewModels
             {
                 if (_showWebsiteMessage == null)
                 {
-                    _showWebsiteMessage = new Message<StringMessageContent>();
+                    _showWebsiteMessage = new Message<MessageContent>();
                 }
                 return _showWebsiteMessage;
             }
@@ -88,7 +88,7 @@ namespace XLToolbox.Mvvm.ViewModels
             {
                 if (_showLicenseMessage == null)
                 {
-                    _showLicenseMessage = new Message<StringMessageContent>();
+                    _showLicenseMessage = new Message<MessageContent>();
                 }
                 return _showLicenseMessage;
             }
@@ -100,7 +100,7 @@ namespace XLToolbox.Mvvm.ViewModels
             {
                 if (_showCreditsMessage == null)
                 {
-                    _showCreditsMessage = new Message<StringMessageContent>();
+                    _showCreditsMessage = new Message<MessageContent>();
                 }
                 return _showCreditsMessage;
             }

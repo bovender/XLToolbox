@@ -21,11 +21,11 @@ namespace XLToolbox
     /// </summary>
     public partial class WindowDownloadUpdate : Window
     {
-        public Updater Updater { get; private set; }
-
         public WindowDownloadUpdate(Updater updater, string targetDir)
         {
             InitializeComponent();
+        }
+        /*
             Updater = updater;
             updater.DownloadProgressChanged += updater_DownloadProgressChanged;
             updater.UpdateInstallable += updater_DownloadInstallable;
@@ -77,5 +77,7 @@ namespace XLToolbox
         {
             this.Dispatcher.Invoke(new Action(Close));
         }
+        
+        */
     }
 }

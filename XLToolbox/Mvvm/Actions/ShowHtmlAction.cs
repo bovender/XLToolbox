@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
+using Bovender.HtmlFiles;
+using XLToolbox.Mvvm.Views;
 
 namespace XLToolbox.Mvvm.Actions
 {

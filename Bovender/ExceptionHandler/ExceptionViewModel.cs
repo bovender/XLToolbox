@@ -16,18 +16,46 @@ namespace Bovender.ExceptionHandler
     /// </summary>
     public abstract class ExceptionViewModel : ViewModelBase
     {
-        #region Events
-
-        public event EventHandler<UploadValuesCompletedEventArgs> UploadSuccessful;
-        public event EventHandler<UploadFailedEventArgs> UploadFailed;
-
-        #endregion
-
         #region Public properties
 
-        public string User { get; set; }
-        public string Email { get; set; }
-        public bool CcUser { get; set; }
+        public string User
+        {
+            get { return _user; }
+            set
+            {
+                _user = value;
+                OnPropertyChanged("User");
+            }
+        }
+
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                _email = value; OnPropertyChanged("Email");
+            }
+        }
+
+        public bool CcUser
+        {
+            get { return _ccUser; }
+            set
+            {
+                _ccUser = value;
+                OnPropertyChanged("CcUser");
+            }
+        }
+
+        public bool IsCcUserEnabled
+        {
+            get
+            {
+                // TODO: Check if it is really an e-mail address
+                return !String.IsNullOrEmpty(Email);
+            }
+        }
+
         public string Comment { get; set; }
 
         public string Exception { get; private set; }
@@ -102,6 +130,20 @@ namespace Bovender.ExceptionHandler
                 return _viewDetailsCommand;
             }
         }
+
+        public DelegatingCommand ClearFormCommand
+        {
+            get {
+            if (_clearFormCommand == null) {
+                _clearFormCommand = new DelegatingCommand(
+                    (param) => DoClearForm(),
+                    (param) => CanClearForm()
+                    );
+            }
+            return _clearFormCommand;
+            }
+
+        }
         #endregion
 
         #region MVVM messages
@@ -169,6 +211,10 @@ namespace Bovender.ExceptionHandler
                 InnerMessage = "";
             }
             StackTrace = e.StackTrace;
+
+            User = Settings.User;
+            Email = Settings.Email;
+            CcUser = Settings.CcUser;
         }
 
         #endregion
@@ -185,45 +231,49 @@ namespace Bovender.ExceptionHandler
 
         #region Private methods
 
-        /// <summary>
-        /// Sends a POST request with the exception data to the web service
-        /// at http://xltoolbox.sourceforge.net/receive.php
-        /// </summary>
-        public void Send()
+        private void webClient_UploadValuesCompleted(object sender, UploadValuesCompletedEventArgs e)
         {
-            using (WebClient client = new WebClient())
+            SubmissionProcessMessageContent.WasSuccessful = false;
+            if (!e.Cancelled)
             {
-                NameValueCollection v = GetPostValues();
-                client.UploadValuesCompleted += client_UploadValuesCompleted;
-                client.UploadValuesAsync(GetPostUri(), v);
-            }
-        }
-
-        private void client_UploadValuesCompleted(object sender, UploadValuesCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                string result = Encoding.UTF8.GetString(e.Result);
-                if (result == ReportID)
+                SubmissionProcessMessageContent.WasCancelled = false;
+                if (e.Error == null)
                 {
-                    OnUploadSuccessful(e);
+                    string result = Encoding.UTF8.GetString(e.Result);
+                    if (result == ReportID)
+                    {
+                        SubmissionProcessMessageContent.WasSuccessful = true;
+                    }
+                    else
+                    {
+                        SubmissionProcessMessageContent.Exception = new UnexpectedResponseException(
+                            String.Format(
+                                "Received an unexpected return value from the web service (should be report ID {0}).",
+                                ReportID
+                            )
+                        );
+                    }
                 }
                 else
                 {
-                    /* To signal that the return value has unexpected content,
-                     * we add a new instance of an exception to the UploadValuesCompletedEventArgs
-                     * variable.
-                     */
-                    UnexpectedResponseException error = new UnexpectedResponseException(
-                        "Received an unexpected response from the web service.");
-                    UploadFailedEventArgs args = new UploadFailedEventArgs(error);
-                    OnUploadFailed(args);
+                    SubmissionProcessMessageContent.Exception = e.Error;
                 }
-            } else
-	        {
-                UploadFailedEventArgs args = new UploadFailedEventArgs(e.Error);
-                OnUploadFailed(args);
-	        }
+            }
+            else
+            {
+                SubmissionProcessMessageContent.WasCancelled = true;
+            }
+            SubmissionProcessMessageContent.Processing = false;
+            // Notify any subscribed views that the process is completed.
+            SubmissionProcessMessageContent.CompletedMessage.Send(SubmissionProcessMessageContent, null);
+        }
+
+        private void CancelSubmission()
+        {
+            if (_webClient != null)
+            {
+                _webClient.CancelAsync();
+            }
         }
 
         #endregion
@@ -232,13 +282,39 @@ namespace Bovender.ExceptionHandler
 
         protected virtual void DoSubmitReport()
         {
-            _sendingReport = true;
-            Send();
+            Settings.User = User;
+            Settings.Email = Email;
+            Settings.CcUser = CcUser;
+            Settings.Save();
+
+            using (_webClient = new WebClient())
+            {
+                SubmissionProcessMessageContent.Processing = true;
+                SubmissionProcessMessageContent.CancelProcess = new Action(CancelSubmission);
+                NameValueCollection v = GetPostValues();
+                _webClient.UploadValuesCompleted += webClient_UploadValuesCompleted;
+                _webClient.UploadValuesAsync(GetPostUri(), v);
+            }
         }
 
         protected virtual bool CanSubmitReport()
         {
-            return ((GetPostUri() != null) && !_sendingReport);
+            return ((GetPostUri() != null) && !SubmissionProcessMessageContent.Processing);
+        }
+
+        protected virtual void DoClearForm()
+        {
+            User = "";
+            Email = "";
+            CcUser = true;
+        }
+
+        protected virtual bool CanClearForm()
+        {
+            return !(
+                String.IsNullOrEmpty(User) &&
+                String.IsNullOrEmpty(Email)
+                );
         }
 
         /// <summary>
@@ -266,32 +342,39 @@ namespace Bovender.ExceptionHandler
             return v;
         }
 
-        protected virtual void OnUploadSuccessful(UploadValuesCompletedEventArgs e)
-        {
-            if (UploadSuccessful != null)
-            {
-                UploadSuccessful(this, e);
-            }
-        }
+        #endregion
 
-        protected virtual void OnUploadFailed(UploadFailedEventArgs e)
+        #region Protected properties
+
+        protected ProcessMessageContent SubmissionProcessMessageContent
         {
-            if (UploadFailed != null)
+            get
             {
-                UploadFailed(this, e);
+                if (_submissionProcessMessageContent == null)
+                {
+                    _submissionProcessMessageContent = new ProcessMessageContent(
+                        new Action(CancelSubmission)
+                        );
+                }
+                return _submissionProcessMessageContent;
             }
         }
 
         #endregion
 
+
         #region Private fields
 
+        private string _user;
+        private string _email;
+        private bool _ccUser;
+        private WebClient _webClient;
         private DelegatingCommand _submitReportCommand;
         private DelegatingCommand _viewDetailsCommand;
+        private DelegatingCommand _clearFormCommand;
         private Message<MessageContent> _submitReportMessage;
         private Message<MessageContent> _viewDetailsMessage;
         private ProcessMessageContent _submissionProcessMessageContent;
-        private bool _sendingReport;
 
         #endregion
     }

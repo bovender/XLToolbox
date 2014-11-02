@@ -6,7 +6,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 
-namespace XLToolbox.Excel.ViewMmodels
+namespace XLToolbox.Excel.ViewModels
 {
     /// <summary>
     /// View model for an Excel workbook containing a list of sheets (worksheets, charts)

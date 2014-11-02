@@ -7,7 +7,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using Bovender.Mvvm.ViewModels;
 
-namespace XLToolbox.Excel.ViewMmodels
+namespace XLToolbox.Excel.ViewModels
 {
     /// <summary>
     /// A view model for Excel sheets (worksheets, charts).

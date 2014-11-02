@@ -119,10 +119,11 @@ namespace XLToolbox
         {
             Thread thread = new Thread(() =>
             {
-                WindowUpdateAvailable w = new WindowUpdateAvailable(Updater);
-                w.Show();
-                w.Closed += (sender2, e2) => w.Dispatcher.InvokeShutdown();
-                System.Windows.Threading.Dispatcher.Run();
+                // TODO: Use MVVM here
+                // WindowUpdateAvailable w = new WindowUpdateAvailable(Updater);
+                // w.Show();
+                // w.Closed += (sender2, e2) => w.Dispatcher.InvokeShutdown();
+                // System.Windows.Threading.Dispatcher.Run();
             });
             thread.SetApartmentState( ApartmentState.STA);
             thread.Start();

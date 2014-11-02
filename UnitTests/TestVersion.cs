@@ -1,5 +1,5 @@
 ﻿using System;
-using XLToolbox.Version;
+using Bovender.Versioning;
 using NUnit.Framework;
 
 namespace XLToolbox.Test

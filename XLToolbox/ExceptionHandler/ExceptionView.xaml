@@ -38,26 +38,27 @@
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" TextAlignment="Justify"
                                Text="{x:Static l:Strings.CrashReportPrivacy}" Margin="0,0,0,10" />
                     <Label Grid.Column="0" Grid.Row="1" Content="{x:Static l:Strings.NameOptional}" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Name="UsersName" Text="{Binding Path=User}" Margin="0,0,0,10" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=User}" Margin="0,0,0,10" />
                     <Label Grid.Column="0" Grid.Row="2" Content="{x:Static l:Strings.EMailOptional}" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Name="UsersEmail" Text="{Binding Path=Email}" />
-                    <CheckBox Grid.Column="1" Grid.Row="3" Content="{x:Static l:Strings.SendMeACopy}" IsChecked="{Binding Path=CcUser}"
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Email}" />
+                    <CheckBox Grid.Column="1" Grid.Row="3" Content="{x:Static l:Strings.SendMeACopy}"
+                              IsChecked="{Binding Path=CcUser}" IsEnabled="{Binding IsCcUserEnabled}"
                               Margin="0,10,0,10" />
                     <Label Grid.Column="0" Grid.Row="4" Content="{x:Static l:Strings.CommentOptional}" />
                     <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Comment}" TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto" Height="48" AcceptsReturn="True" />
                     <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,10,0,10" HorizontalAlignment="Center">
-                        <Button Name="ButtonSend" Content="{x:Static l:Strings.SendCrashReport}" IsDefault="True"
-                                Padding="10,5,10,5" Margin="0,0,10,0" Click="ButtonSend_Click"/>
-                        <Button Name="ButtonInfo" Content="{x:Static l:Strings.TechnicalInformationEllipsis}"
-                                Padding="10,5,10,5" Margin="0,0,10,0" Click="ButtonInfo_Click"/>
-                        <Button Name="ButtonClear" Content="{x:Static l:Strings.ClearForm}"
+                        <Button Command="{Binding SubmitReportCommand}" Content="{x:Static l:Strings.SendCrashReport}"
+                                IsDefault="True" Padding="10,5,10,5" Margin="0,0,10,0" />
+                        <Button Command="{Binding ViewDetailsCommand}" Content="{x:Static l:Strings.TechnicalInformationEllipsis}"
+                                Padding="10,5,10,5" Margin="0,0,10,0" />
+                        <Button Command="{Binding ClearFormCommand}" Content="{x:Static l:Strings.ClearForm}"
                                 Padding="10,5,10,5" />
                     </WrapPanel>
                 </Grid>
             </GroupBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Name="ButtonClose" Content="{x:Static l:Strings.Close}" IsCancel="True" Padding="10,5,10,5" />
+                <Button Command="{Binding CloseViewCommand}" Content="{x:Static l:Strings.Close}" IsCancel="True" Padding="10,5,10,5" />
             </StackPanel>
         </StackPanel>
     </Grid>

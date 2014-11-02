@@ -11,9 +11,19 @@ namespace Bovender.Mvvm.Messaging
     /// Holds information about percent completion of a process
     /// and defines events that occur when the process is finished.
     /// </summary>
-    public class ProcessMessageContent : MessageContent, INotifyPropertyChanged
+    public class ProcessMessageContent : MessageContent
     {
         #region Public properties
+
+        public bool Processing
+        {
+            get { return _processing; }
+            set
+            {
+                _processing = value;
+                OnPropertyChanged("Processing");
+            }
+        }
 
         public double PercentCompleted
         {
@@ -27,13 +37,56 @@ namespace Bovender.Mvvm.Messaging
                 OnPropertyChanged("PercentCompleted");
             }
         }
-        public bool WasSuccessful { get; protected set; }
-        public bool WasCancelled { get; protected set; }
+        
+        public bool WasSuccessful
+        {
+            get { return _wasSuccessful; }
+            set
+            {
+                _wasSuccessful = value;
+                OnPropertyChanged("WasSuccessful");
+            }
+        }
+
+        public bool WasCancelled
+        {
+            get { return _wasCancelled; }
+            set
+            {
+                _wasCancelled = value;
+                OnPropertyChanged("WasCancelled");
+            }
+        }
+
+        /// <summary>
+        /// If something in the process went wrong, this will be the corresponding
+        /// exception.
+        /// </summary>
+        public Exception Exception
+        {
+            get { return _exception; }
+            set
+            {
+                _exception = value;
+                OnPropertyChanged("Exception");
+            }
+        }
 
         /// <summary>
         /// Delegate that can be called to cancel the current process.
         /// </summary>
-        public Action CancelProcess { get; set; }
+        public Action CancelProcess
+        {
+            get
+            {
+                return _cancelProcess;
+            }
+            set
+            {
+                _cancelProcess = value;
+                OnPropertyChanged("CancelProcess");
+            }
+        }
 
         #endregion
 
@@ -128,6 +181,11 @@ namespace Bovender.Mvvm.Messaging
         private double _percentCompleted;
         private DelegatingCommand _cancelCommand;
         private Message<ProcessMessageContent> _completedMessage;
+        private bool _processing;
+        private bool _wasCancelled;
+        private bool _wasSuccessful;
+        private Exception _exception;
+        private Action _cancelProcess;
 
         #endregion
     }

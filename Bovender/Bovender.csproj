@@ -52,10 +52,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="FileHelpers.cs" />
     <Compile Include="Mvvm\Actions\MessageActionBase.cs" />
     <Compile Include="Mvvm\DelegatingCommand.cs" />
+    <Compile Include="Mvvm\Messaging\ProcessMessageContent.cs" />
     <Compile Include="Mvvm\Workarounds.cs" />
     <Compile Include="Mvvm\Messaging\IMessage.cs" />
     <Compile Include="Mvvm\Messaging\Message.cs" />
@@ -63,10 +66,15 @@
     <Compile Include="Mvvm\Messaging\MessageContent.cs" />
     <Compile Include="Mvvm\Messaging\StringMessageContent.cs" />
     <Compile Include="Mvvm\ViewModels\ViewModelBase.cs" />
-    <Compile Include="Mvvm\ViewModels\HtmlFileViewModel.cs" />
+    <Compile Include="HtmlFiles\HtmlFileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExceptionHandler\UnexpectedResponseException.cs" />
     <Compile Include="ExceptionHandler\UploadFailedEventArgs.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Versioning.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -86,12 +94,18 @@
     <None Include="app.config" />
     <None Include="bovender.snk" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Versioning.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Versioning.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Mvvm\Views\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

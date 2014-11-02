@@ -88,16 +88,16 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\UpdaterView.xaml.cs">
+    <Compile Include="Versioning\UpdaterView.xaml.cs">
       <DependentUpon>UpdaterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\WindowCheckForUpdate.xaml.cs">
-      <DependentUpon>WindowCheckForUpdate.xaml</DependentUpon>
+    <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
+      <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\WindowDownloadUpdate.xaml.cs">
+    <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
       <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\ExceptionDetailView.xaml.cs">
+    <Compile Include="ExceptionHandler\ExceptionDetailView.xaml.cs">
       <DependentUpon>ExceptionDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\Views\GreeterView.xaml.cs">
@@ -106,7 +106,7 @@
     <Compile Include="Mvvm\Views\NotAuthorizedForUpdateView.xaml.cs">
       <DependentUpon>NotAuthorizedForUpdateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\ExceptionView.xaml.cs">
+    <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
       <DependentUpon>ExceptionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\Views\WorkbookView.xaml.cs">
@@ -232,19 +232,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\UpdaterView.xaml">
+    <Page Include="Versioning\UpdaterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\WindowCheckForUpdate.xaml">
+    <Page Include="Versioning\UpdaterProcessView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\WindowDownloadUpdate.xaml">
+    <Page Include="Versioning\WindowDownloadUpdate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\ExceptionDetailView.xaml">
+    <Page Include="ExceptionHandler\ExceptionDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -256,7 +256,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\ExceptionView.xaml">
+    <Page Include="ExceptionHandler\ExceptionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

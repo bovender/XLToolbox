@@ -10,7 +10,7 @@ namespace XLToolbox.Mvvm.Actions
         /// Returns a view that can bind to expected message contents.
         /// </summary>
         /// <returns>Descendant of Window.</returns>
-        protected virtual Window CreateView()
+        protected override Window CreateView()
         {
             return new MessageContentView();
         }

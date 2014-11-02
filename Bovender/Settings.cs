@@ -16,7 +16,7 @@ namespace Bovender
     /// </remarks>
     public static class Settings
     {
-        public string User
+        public static string User
         {
             get { return Properties.Settings.Default.User; }
             set
@@ -25,7 +25,7 @@ namespace Bovender
             }
         }
 
-        public string Email
+        public static string Email
         {
             get { return Properties.Settings.Default.Email; }
             set
@@ -34,7 +34,7 @@ namespace Bovender
             }
         }
 
-        public bool CcUser
+        public static bool CcUser
         {
             get { return Properties.Settings.Default.CcUser; }
             set
@@ -43,7 +43,7 @@ namespace Bovender
             }
         }
 
-        public void Save()
+        public static void Save()
         {
             Properties.Settings.Default.Save();
         }
