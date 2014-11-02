@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.WorkbookStorage;
-using XLToolbox.Core;
+using XLToolbox.Excel.Instance;
 
 namespace XLToolbox.Test
 {

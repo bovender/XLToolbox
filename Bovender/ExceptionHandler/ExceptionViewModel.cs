@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Collections.Specialized;
+using Bovender.Mvvm;
+using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 
 namespace Bovender.ExceptionHandler
@@ -67,6 +69,73 @@ namespace Bovender.ExceptionHandler
         }
 
         public string ReportID { get; private set; }
+
+        #endregion
+
+        #region Commands
+
+        public DelegatingCommand SubmitReportCommand
+        {
+            get
+            {
+                if (_submitReportCommand == null)
+                {
+                    _submitReportCommand = new DelegatingCommand(
+                        (param) => DoSubmitReport(),
+                        (param) => CanSubmitReport()
+                        );
+                }
+                return _submitReportCommand;
+            }
+        }
+
+        public DelegatingCommand ViewDetailsCommand
+        {
+            get
+            {
+                if (_viewDetailsCommand == null)
+                {
+                    _viewDetailsCommand = new DelegatingCommand(
+                        (param) => ViewDetailsMessage.Send()
+                        );
+                }
+                return _viewDetailsCommand;
+            }
+        }
+        #endregion
+
+        #region MVVM messages
+
+        /// <summary>
+        /// Signals that more details about the exception are requested to be shown.
+        /// </summary>
+        public Message<MessageContent> ViewDetailsMessage
+        {
+            get
+            {
+                if (_viewDetailsMessage == null)
+                {
+                    _viewDetailsMessage = new Message<MessageContent>();
+                }
+                return _viewDetailsMessage;
+            }
+        }
+
+        /// <summary>
+        /// Signals that an exception report is being posted to the online
+        /// issue tracker.
+        /// </summary>
+        public Message<MessageContent> SubmitReportMessage
+        {
+            get
+            {
+                if (_submitReportMessage == null)
+                {
+                    _submitReportMessage = new Message<MessageContent>();
+                }
+                return _submitReportMessage;
+            }
+        }
 
         #endregion
 
@@ -161,6 +230,17 @@ namespace Bovender.ExceptionHandler
 
         #region Protected methods
 
+        protected virtual void DoSubmitReport()
+        {
+            _sendingReport = true;
+            Send();
+        }
+
+        protected virtual bool CanSubmitReport()
+        {
+            return ((GetPostUri() != null) && !_sendingReport);
+        }
+
         /// <summary>
         /// Returns a collection of key-value pairs of exception context information
         /// that will be submitted to the exception reporting server.
@@ -201,6 +281,17 @@ namespace Bovender.ExceptionHandler
                 UploadFailed(this, e);
             }
         }
+
+        #endregion
+
+        #region Private fields
+
+        private DelegatingCommand _submitReportCommand;
+        private DelegatingCommand _viewDetailsCommand;
+        private Message<MessageContent> _submitReportMessage;
+        private Message<MessageContent> _viewDetailsMessage;
+        private ProcessMessageContent _submissionProcessMessageContent;
+        private bool _sendingReport;
 
         #endregion
     }

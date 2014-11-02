@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox", "XLToolbox.Core\XLToolbox.csproj", "{B391711C-2B81-4001-A6C6-BDA0D624D2E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox", "XLToolbox\XLToolbox.csproj", "{B391711C-2B81-4001-A6C6-BDA0D624D2E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolboxAddin", "XLToolbox\XLToolboxAddin.csproj", "{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolboxAddin", "Addin\XLToolboxAddin.csproj", "{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{33E4E826-A540-4249-B9FC-04197590FBC8}"
 EndProject

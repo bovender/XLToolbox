@@ -79,6 +79,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bovender\Bovender.csproj">
+      <Project>{52405856-03aa-4961-a60a-e8619ad43030}</Project>
+      <Name>Bovender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XLToolbox\XLToolbox.csproj">
+      <Project>{b391711c-2b81-4001-a6c6-bda0d624d2e0}</Project>
+      <Name>XLToolbox</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

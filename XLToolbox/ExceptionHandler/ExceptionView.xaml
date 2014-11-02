@@ -1,0 +1,64 @@
+﻿<Window x:Class="XLToolbox.ExceptionHandler.ExceptionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:XLToolbox"
+        SizeToContent="WidthAndHeight" 
+        WindowStartupLocation="CenterScreen"
+        Title="{x:Static l:Strings.XLToolboxError}"
+        >
+    <Grid  Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="520" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Image Source="/XLToolbox;component/images/error.png" Stretch="None" Margin="0,0,10,0" VerticalAlignment="Top" />
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <TextBlock Text="{x:Static l:Strings.AnErrorHasOccurred}" Foreground="Red" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Left" FontSize="16"
+                       FontWeight="Bold" Foreground="Red" Text="{Binding Path=Message, Mode=OneTime}" />
+            <TextBox Margin="0,0,0,10" Text="{Binding Path=Exception, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" />
+            <TextBlock Text="{x:Static l:Strings.PleaseSendCrashReport}" TextWrapping="Wrap" TextAlignment="Justify" />
+            <GroupBox Header="{x:Static l:Strings.SendCrashReport}" Margin="0,10,0,10" Padding="5,10,5,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" TextAlignment="Justify"
+                               Text="{x:Static l:Strings.CrashReportPrivacy}" Margin="0,0,0,10" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="{x:Static l:Strings.NameOptional}" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="UsersName" Text="{Binding Path=User}" Margin="0,0,0,10" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="{x:Static l:Strings.EMailOptional}" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Name="UsersEmail" Text="{Binding Path=Email}" />
+                    <CheckBox Grid.Column="1" Grid.Row="3" Content="{x:Static l:Strings.SendMeACopy}" IsChecked="{Binding Path=CcUser}"
+                              Margin="0,10,0,10" />
+                    <Label Grid.Column="0" Grid.Row="4" Content="{x:Static l:Strings.CommentOptional}" />
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Comment}" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto" Height="48" AcceptsReturn="True" />
+                    <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,10,0,10" HorizontalAlignment="Center">
+                        <Button Name="ButtonSend" Content="{x:Static l:Strings.SendCrashReport}" IsDefault="True"
+                                Padding="10,5,10,5" Margin="0,0,10,0" Click="ButtonSend_Click"/>
+                        <Button Name="ButtonInfo" Content="{x:Static l:Strings.TechnicalInformationEllipsis}"
+                                Padding="10,5,10,5" Margin="0,0,10,0" Click="ButtonInfo_Click"/>
+                        <Button Name="ButtonClear" Content="{x:Static l:Strings.ClearForm}"
+                                Padding="10,5,10,5" />
+                    </WrapPanel>
+                </Grid>
+            </GroupBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="ButtonClose" Content="{x:Static l:Strings.Close}" IsCancel="True" Padding="10,5,10,5" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -23,6 +23,42 @@ namespace XLToolbox.Properties {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sf.net")]
+        public string WebsiteUrl {
+            get {
+                return ((string)(this["WebsiteUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/version-ng.txt")]
+        public string VersionInfoUrl {
+            get {
+                return ((string)(this["VersionInfoUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sf.net/")]
+        public string HelpUrl {
+            get {
+                return ((string)(this["HelpUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/receive.php")]
+        public string ExceptionPostUrl {
+            get {
+                return ((string)(this["ExceptionPostUrl"]));
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -32,89 +68,6 @@ namespace XLToolbox.Properties {
             }
             set {
                 this["DownloadPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastUpdateSeen {
-            get {
-                return ((string)(this["LastUpdateSeen"]));
-            }
-            set {
-                this["LastUpdateSeen"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.DateTime LastUpdateCheck {
-            get {
-                return ((global::System.DateTime)(this["LastUpdateCheck"]));
-            }
-            set {
-                this["LastUpdateCheck"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public int UpdateCheckInterval {
-            get {
-                return ((int)(this["UpdateCheckInterval"]));
-            }
-            set {
-                this["UpdateCheckInterval"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastVersionSeen {
-            get {
-                return ((string)(this["LastVersionSeen"]));
-            }
-            set {
-                this["LastVersionSeen"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersName {
-            get {
-                return ((string)(this["UsersName"]));
-            }
-            set {
-                this["UsersName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersEmail {
-            get {
-                return ((string)(this["UsersEmail"]));
-            }
-            set {
-                this["UsersEmail"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CcUser {
-            get {
-                return ((bool)(this["CcUser"]));
-            }
-            set {
-                this["CcUser"] = value;
             }
         }
     }
