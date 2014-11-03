@@ -33,6 +33,8 @@ namespace Bovender.Versioning
         /// the current version information, which must be contained in a file called
         /// "VERSION" on the root level of the current *entry* assembly.
         /// </summary>
+        /// <remarks>Note that this will throw an exception if called inside
+        /// a VSTO addin.</remarks>
         /// <returns>Instance of Version</returns>
         public static SemanticVersion CurrentVersion()
         {
@@ -43,13 +45,18 @@ namespace Bovender.Versioning
         /// <summary>
         /// Factory method that creates an instance of the Version class with
         /// the current version information, which must be contained in a file called
-        /// "VERSION" on the root level of the current *entry* assembly.
+        /// "VERSION" that is built as an embedded resource. The first embedded "RESOURCE"
+        /// file that is found in all the namespaces of <paramref name="assembly"/> will
+        /// be used.
         /// </summary>
         /// <param name="assembly">Assembly that contains the VERSION file.</param>
         /// <returns>Instance of Version</returns>
         public static SemanticVersion CurrentVersion(Assembly assembly)
         {
-            Stream stream = assembly.GetManifestResourceStream("VERSION");
+            var versionFile = from resources in assembly.GetManifestResourceNames()
+                                      where resources.EndsWith(".VERSION")
+                                      select resources;
+            Stream stream = assembly.GetManifestResourceStream(versionFile.First());
             StreamReader text = new StreamReader(stream);
             return new SemanticVersion(text.ReadLine());
         }
@@ -85,6 +92,8 @@ namespace Bovender.Versioning
         {
             ParseString(version);
         }
+
+        public SemanticVersion() { }
 
         #endregion
 

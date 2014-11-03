@@ -213,9 +213,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RibbonStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\VERSION">
-      <Link>VERSION</Link>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

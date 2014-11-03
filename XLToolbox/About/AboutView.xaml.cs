@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace XLToolbox.Mvvm.Views
+namespace XLToolbox.About
 {
     /// <summary>
     /// Interaction logic for AboutView.xaml

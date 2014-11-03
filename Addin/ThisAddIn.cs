@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Windows;
+using System.Reflection;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
@@ -62,7 +63,7 @@ namespace XLToolbox
         {
             SemanticVersion lastSeenVersion = new SemanticVersion(
                 Properties.Settings.Default.LastVersionSeen);
-            SemanticVersion currentVersion = SemanticVersion.CurrentVersion();
+            SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             if (currentVersion > lastSeenVersion)
             {
                 GreeterViewModel greeter = new GreeterViewModel();

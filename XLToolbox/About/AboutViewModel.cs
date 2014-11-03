@@ -7,7 +7,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 
-namespace XLToolbox.Mvvm.ViewModels
+namespace XLToolbox.About
 {
     public class AboutViewModel : ViewModelBase
     {
@@ -17,7 +17,7 @@ namespace XLToolbox.Mvvm.ViewModels
         {
             get
             {
-                return SemanticVersion.CurrentVersion();
+                return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             }
         }
 

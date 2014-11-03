@@ -5,6 +5,7 @@ using System.Text;
 using Bovender.Mvvm;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
+using XLToolbox.About;
 using XLToolbox.Mvvm.Views;
 using XLToolbox.Mvvm.ViewModels;
 

@@ -74,9 +74,9 @@
     <Compile Include="Mvvm\Actions\MessageAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
-    <Compile Include="Mvvm\ViewModels\AboutViewModel.cs" />
+    <Compile Include="About\AboutViewModel.cs" />
     <Compile Include="Mvvm\ViewModels\GreeterViewModel.cs" />
-    <Compile Include="Mvvm\Views\AboutView.xaml.cs">
+    <Compile Include="About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\Views\HtmlFileView.xaml.cs">
@@ -88,6 +88,7 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\UpdaterView.xaml.cs">
       <DependentUpon>UpdaterView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +152,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="VERSION" />
     <None Include="xltb.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +218,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Mvvm\Views\AboutView.xaml">
+    <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

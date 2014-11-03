@@ -142,6 +142,8 @@ namespace Bovender.Versioning
         /// <returns>URI for version info file.</returns>
         protected abstract Uri GetVersionInfoUri();
 
+        protected abstract SemanticVersion CurrentVersion();
+
         #endregion
 
         #region Public methods
@@ -305,7 +307,7 @@ namespace Bovender.Versioning
                 string info = r.ReadLine();
 
                 // If a new version is available, raise the corresponding event.
-                if (v > SemanticVersion.CurrentVersion())
+                if (v > CurrentVersion())
                 {
                     UpdateArgs = new UpdateAvailableEventArgs(v, info, url, sha1);
                     OnUpdateAvailable();

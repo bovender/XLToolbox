@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Reflection;
 using Bovender.Versioning;
 using NUnit.Framework;
 
 namespace XLToolbox.Test
 {
     [TestFixture]
-    public class TestVersion
+    public class VersioningTest
     {
         [Test]
         [TestCase("0.1.2", 0, 1, 2, "", "")]
@@ -26,7 +27,8 @@ namespace XLToolbox.Test
         [Test]
         public void GetCurrentVersion()
         {
-            SemanticVersion v = SemanticVersion.CurrentVersion();
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            SemanticVersion v = SemanticVersion.CurrentVersion(assembly);
             Assert.AreEqual(7, v.Major);
         }
 

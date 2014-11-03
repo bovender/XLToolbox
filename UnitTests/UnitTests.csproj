@@ -72,7 +72,7 @@
     <Compile Include="TestExcelInstance.cs" />
     <Compile Include="TestWorkbookStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestVersion.cs" />
+    <Compile Include="VersioningTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -80,6 +80,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="VERSION" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bovender\Bovender.csproj">

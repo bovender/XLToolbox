@@ -80,7 +80,7 @@ namespace XLToolbox
         {
             string initPackScheme = System.IO.Packaging.PackUriHelper.UriSchemePack;
             StreamResourceInfo sri = Application.GetResourceStream(
-                new Uri(@"pack://application:,,,/XLToolbox;component/images/" + imageId));
+                new Uri(@"pack://application:,,,/XLToolbox;component/Resources/images/" + imageId));
             return Image.FromStream(sri.Stream);
         }
 
