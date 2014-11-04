@@ -12,19 +12,21 @@ namespace XLToolbox.Mvvm.Actions
 {
     class ShowHtmlAction : StringMessageAction
     {
+        public string HtmlResource { get; set; }
+
         protected override Window CreateView()
         {
-            StringMessageContent smc = Content as StringMessageContent;
-            if (smc != null)
+            if (!string.IsNullOrEmpty(HtmlResource))
             {
-                HtmlFileViewModel vm = new HtmlFileViewModel(smc.Value);
+                HtmlFileViewModel vm = new HtmlFileViewModel(HtmlResource);
+                vm.Caption = Caption;
                 Window view = vm.InjectInto<HtmlFileView>();
                 return view;
             }
             else
             {
-                throw new InvalidOperationException(
-                    "Message content for ShowHtmlAction must be a StringMessageContent");
+                throw new ArgumentNullException(
+                    "Must assign HtmlResource field in ShowHtmlAction tag.");
             }
         }
     }

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
+    <Compile Include="Mvvm\BindingWebBrowser.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="FileHelpers.cs" />

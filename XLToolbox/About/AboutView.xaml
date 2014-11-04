@@ -1,12 +1,34 @@
 ﻿<Window x:Class="XLToolbox.About.AboutView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.AboutXLToolbox}">
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding ShowWebsiteMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.License}"
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/GPLv3.html" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ShowCreditsMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.Credits}"
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/credits.html" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <StackPanel Orientation="Horizontal" Margin="10">
         <DockPanel VerticalAlignment="Stretch" LastChildFill="False">
             <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
@@ -36,12 +58,14 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Grid.Column="0" Content="{x:Static l:Strings.Website}" Margin="0,0,5,0" />
-                <Button Grid.Row="0" Grid.Column="1" Content="{x:Static l:Strings.License}" Margin="5,0,5,0" />
-                <Button Grid.Row="0" Grid.Column="2" Content="{x:Static l:Strings.Credits}" Margin="5,0,0,0" />
+                <Button Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"
+                        Command="{Binding ShowWebsiteCommand}" Content="{x:Static l:Strings.Website}" />
+                <Button Grid.Row="0" Grid.Column="1" Margin="5,0,5,0" 
+                        Command="{Binding ShowLicenseCommand}" Content="{x:Static l:Strings.License}" />
+                <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,0" 
+                        Command="{Binding ShowCreditsCommand}" Content="{x:Static l:Strings.Credits}" />
                 <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,10,0,0"
-                        Command="{Binding CloseViewCommand}"
-                        IsCancel="True" Content="{x:Static l:Strings.Close}" />
+                        Command="{Binding CloseViewCommand}" IsCancel="True" Content="{x:Static l:Strings.Close}" />
             </Grid>
         </DockPanel>
     </StackPanel>

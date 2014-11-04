@@ -6,6 +6,7 @@ using Bovender.Mvvm;
 using System.Windows.Resources;
 using System.Windows;
 using Bovender.Mvvm.ViewModels;
+using System.IO;
 
 namespace Bovender.HtmlFiles
 {
@@ -24,7 +25,7 @@ namespace Bovender.HtmlFiles
         /// <remarks>The build action of the file to be loaded must be "Resource".</remarks>
         public HtmlFileViewModel(string packUri)
         {
-            Html = Application.GetResourceStream(new Uri(packUri));
+            HtmlStream = Application.GetResourceStream(new Uri(packUri)).Stream;
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace Bovender.HtmlFiles
         #region Properties
 
         public string Caption { get; set; }
-        public StreamResourceInfo Html { get; protected set; }
+        public Stream HtmlStream { get; set; }
 
         #endregion
     }

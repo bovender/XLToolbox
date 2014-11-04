@@ -29,7 +29,12 @@ namespace Bovender.Mvvm.Actions
             {
                 Content = args.Content;
                 Window window = CreateView();
-                window.DataContext = this;
+                // Only set the window's DataContext if it has not already been
+                // assigned.
+                if (window.DataContext == null)
+                {
+                    window.DataContext = this;
+                }
                 EventHandler closeHandler = null;
                 closeHandler = (sender, e) =>
                 {

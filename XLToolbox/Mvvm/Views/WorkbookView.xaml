@@ -11,7 +11,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="style.xaml" />
+                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
                 <ResourceDictionary>
                     <Style x:Key="Worksheet" TargetType="{x:Type ListBoxItem}">
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
