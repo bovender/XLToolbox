@@ -4,6 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:bov="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.AboutXLToolbox}">
@@ -11,11 +12,6 @@
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ShowWebsiteMessage}" EventName="Sent">
-            <i:EventTrigger.Actions>
-                <mvvm:ShowHtmlAction />
-            </i:EventTrigger.Actions>
-        </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.License}"

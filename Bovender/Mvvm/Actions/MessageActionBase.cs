@@ -16,7 +16,7 @@ namespace Bovender.Mvvm.Actions
 
         public string Caption { get; set; }
         public string Message { get; set; }
-        public MessageContent Content { get; private set; }
+        public MessageContent Content { get; protected set; }
 
         #endregion
 

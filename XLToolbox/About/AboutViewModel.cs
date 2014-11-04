@@ -31,7 +31,12 @@ namespace XLToolbox.About
             {
                 if (_showWebsiteCommand == null) {
                     _showWebsiteCommand = new DelegatingCommand(
-                        (param) => ShowWebsiteMessage.Send() 
+                        (param) =>
+                        {
+                            System.Diagnostics.Process.Start(Properties.Settings.Default.WebsiteUrl);
+                            DoCloseView();
+                        },
+                        null
                         );
                 };
                 return _showWebsiteCommand;
@@ -70,18 +75,6 @@ namespace XLToolbox.About
 
         #region MVVM messaging events
 
-        public Message<MessageContent> ShowWebsiteMessage
-        {
-            get
-            {
-                if (_showWebsiteMessage == null)
-                {
-                    _showWebsiteMessage = new Message<MessageContent>();
-                }
-                return _showWebsiteMessage;
-            }
-        }
-
         public Message<MessageContent> ShowLicenseMessage
         {
             get
@@ -108,12 +101,24 @@ namespace XLToolbox.About
 
         #endregion
 
+        #region Private methods
+
+        /// <summary>
+        /// Response action for the <see cref="ShowWebsiteMessage"/> message.
+        /// </summary>
+        /// <param name="messageContent"></param>
+        private void WebsiteMessageResponse(StringMessageContent messageContent)
+        {
+            DoCloseView();
+        }
+
+        #endregion
+
         #region Private fields
 
         private DelegatingCommand _showWebsiteCommand;
         private DelegatingCommand _showLicenseCommand;
         private DelegatingCommand _showCreditsCommand;
-        private Message<MessageContent> _showWebsiteMessage;
         private Message<MessageContent> _showLicenseMessage;
         private Message<MessageContent> _showCreditsMessage;
 
