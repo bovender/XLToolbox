@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Bovender.Mvvm;
+using XLToolbox.ExceptionHandler;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
@@ -63,6 +64,8 @@ namespace XLToolbox
             }
             catch (Exception e)
             {
+                ExceptionViewModel vm = new ExceptionViewModel(e);
+                vm.InjectInto<ExceptionView>().ShowDialog();
                 // TODO: Implement global exception handler here
                 /*
                 ExceptionViewModel r = new ExceptionViewModel(Globals.ThisAddIn.Application, e);

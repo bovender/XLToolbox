@@ -1,11 +1,21 @@
 ﻿<Window x:Class="XLToolbox.ExceptionHandler.ExceptionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         SizeToContent="WidthAndHeight" 
         WindowStartupLocation="CenterScreen"
         Title="{x:Static l:Strings.XLToolboxError}"
         >
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding ViewDetailsMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <actions:ShowViewAction Assembly="XLToolbox" View="XLToolbox.ExceptionHandler.ExceptionDetailView" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid  Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -14,7 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Image Source="/XLToolbox;component/images/error.png" Stretch="None" Margin="0,0,10,0" VerticalAlignment="Top" />
+        <Image Source="/XLToolbox;component/Resources/images/error.png" Stretch="None" Margin="0,0,10,0" VerticalAlignment="Top" />
         <StackPanel Grid.Column="1" Grid.Row="0">
             <TextBlock Text="{x:Static l:Strings.AnErrorHasOccurred}" Foreground="Red" FontWeight="Bold" Margin="0,0,0,10"/>
             <TextBlock Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Left" FontSize="16"
@@ -38,14 +48,14 @@
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" TextWrapping="Wrap" TextAlignment="Justify"
                                Text="{x:Static l:Strings.CrashReportPrivacy}" Margin="0,0,0,10" />
                     <Label Grid.Column="0" Grid.Row="1" Content="{x:Static l:Strings.NameOptional}" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=User}" Margin="0,0,0,10" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=User,UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
                     <Label Grid.Column="0" Grid.Row="2" Content="{x:Static l:Strings.EMailOptional}" />
-                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Email}" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Email,UpdateSourceTrigger=PropertyChanged}" />
                     <CheckBox Grid.Column="1" Grid.Row="3" Content="{x:Static l:Strings.SendMeACopy}"
                               IsChecked="{Binding Path=CcUser}" IsEnabled="{Binding IsCcUserEnabled}"
                               Margin="0,10,0,10" />
                     <Label Grid.Column="0" Grid.Row="4" Content="{x:Static l:Strings.CommentOptional}" />
-                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Comment}" TextWrapping="Wrap"
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto" Height="48" AcceptsReturn="True" />
                     <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,10,0,10" HorizontalAlignment="Center">
                         <Button Command="{Binding SubmitReportCommand}" Content="{x:Static l:Strings.SendCrashReport}"

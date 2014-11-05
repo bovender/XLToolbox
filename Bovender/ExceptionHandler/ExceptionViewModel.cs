@@ -33,7 +33,9 @@ namespace Bovender.ExceptionHandler
             get { return _email; }
             set
             {
-                _email = value; OnPropertyChanged("Email");
+                _email = value;
+                OnPropertyChanged("Email");
+                OnPropertyChanged("IsCcUserEnabled");
             }
         }
 
@@ -52,11 +54,22 @@ namespace Bovender.ExceptionHandler
             get
             {
                 // TODO: Check if it is really an e-mail address
-                return !String.IsNullOrEmpty(Email);
+                        return !String.IsNullOrEmpty(Email);
             }
         }
 
-        public string Comment { get; set; }
+        public string Comment
+        {
+            get
+            {
+                return _comment;
+            }
+            set
+            {
+                _comment = value;
+                OnPropertyChanged("Comment");
+            }
+        }
 
         public string Exception { get; private set; }
         public string Message { get; private set; }
@@ -124,7 +137,9 @@ namespace Bovender.ExceptionHandler
                 if (_viewDetailsCommand == null)
                 {
                     _viewDetailsCommand = new DelegatingCommand(
-                        (param) => ViewDetailsMessage.Send()
+                        (param) => ViewDetailsMessage.Send(
+                            new ViewModelMessageContent(this),
+                            null)
                         );
                 }
                 return _viewDetailsCommand;
@@ -151,13 +166,13 @@ namespace Bovender.ExceptionHandler
         /// <summary>
         /// Signals that more details about the exception are requested to be shown.
         /// </summary>
-        public Message<MessageContent> ViewDetailsMessage
+        public Message<ViewModelMessageContent> ViewDetailsMessage
         {
             get
             {
                 if (_viewDetailsMessage == null)
                 {
-                    _viewDetailsMessage = new Message<MessageContent>();
+                    _viewDetailsMessage = new Message<ViewModelMessageContent>();
                 }
                 return _viewDetailsMessage;
             }
@@ -304,8 +319,9 @@ namespace Bovender.ExceptionHandler
 
         protected virtual void DoClearForm()
         {
-            User = "";
-            Email = "";
+            User = String.Empty;
+            Email = String.Empty;
+            Comment = String.Empty;
             CcUser = true;
         }
 
@@ -313,7 +329,8 @@ namespace Bovender.ExceptionHandler
         {
             return !(
                 String.IsNullOrEmpty(User) &&
-                String.IsNullOrEmpty(Email)
+                String.IsNullOrEmpty(Email) &&
+                String.IsNullOrEmpty(Comment)
                 );
         }
 
@@ -362,18 +379,18 @@ namespace Bovender.ExceptionHandler
 
         #endregion
 
-
         #region Private fields
 
         private string _user;
         private string _email;
+        private string _comment;
         private bool _ccUser;
         private WebClient _webClient;
         private DelegatingCommand _submitReportCommand;
         private DelegatingCommand _viewDetailsCommand;
         private DelegatingCommand _clearFormCommand;
         private Message<MessageContent> _submitReportMessage;
-        private Message<MessageContent> _viewDetailsMessage;
+        private Message<ViewModelMessageContent> _viewDetailsMessage;
         private ProcessMessageContent _submissionProcessMessageContent;
 
         #endregion

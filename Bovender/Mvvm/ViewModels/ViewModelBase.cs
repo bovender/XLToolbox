@@ -130,6 +130,17 @@ namespace Bovender.Mvvm.ViewModels
         public Window InjectInto<T>() where T : Window, new()
         {
             T view = new T();
+            return InjectInto(view);
+        }
+
+        /// <summary>
+        /// Injects the view model into an existing view by setting
+        /// the view's DataContext.
+        /// </summary>
+        /// <param name="view">View that shall be dependency injected.</param>
+        /// <returns>View with current view model injected.</returns>
+        public Window InjectInto(Window view)
+        {
             EventHandler h = null;
             h = (sender, args) =>
             {
