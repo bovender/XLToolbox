@@ -22,6 +22,21 @@ namespace Bovender.Mvvm.Actions
 
         #region TriggerAction overrides
 
+        /// <summary>
+        /// Creates a view that has its dependent view model injected
+        /// into it.
+        /// </summary>
+        /// <remarks>
+        /// This methods delegates the creation of the view instance to
+        /// the virtual <see cref="CreateView"/> method. If this method
+        /// injects a view model into the view's DataContext, the view
+        /// will simply be shown (as a dialog). If the CreateView method
+        /// does not inject the dependeny, the Invoke method will inject
+        /// 'this' (i.e., the MessageActionBase object or a descendant)
+        /// into the view and sets the RequestClose event handler.
+        /// </remarks>
+        /// <param name="parameter"><see cref="MessageArgs"/> argument
+        /// for the <see cref="Message.Sent"/> event.</param>
         protected override void Invoke(object parameter)
         {
             dynamic args = parameter;
@@ -29,20 +44,23 @@ namespace Bovender.Mvvm.Actions
             {
                 Content = args.Content;
                 Window window = CreateView();
-                // Only set the window's DataContext if it has not already been
-                // assigned.
+                // Only set the window's DataContext and handler for the
+                // RequestClose event if the DataContext has not already been
+                // assigned. We assume here that if a DataContext has been
+                // assigned, it will have been done by a view models InjectInto
+                // method, which also takes care of the close handler.
                 if (window.DataContext == null)
                 {
                     window.DataContext = this;
+                    EventHandler closeHandler = null;
+                    closeHandler = (sender, e) =>
+                    {
+                        Content.RequestCloseView -= closeHandler;
+                        window.Close();
+                        args.Respond();
+                    };
+                    Content.RequestCloseView += closeHandler;
                 }
-                EventHandler closeHandler = null;
-                closeHandler = (sender, e) =>
-                {
-                    Content.RequestCloseView -= closeHandler;
-                    window.Close();
-                    args.Respond();
-                };
-                Content.RequestCloseView += closeHandler;
                 window.ShowDialog();
             }
         }

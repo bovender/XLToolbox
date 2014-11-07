@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
-using Bovender.Versioning;
+using System.Reflection;
+using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler
 {

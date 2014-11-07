@@ -98,7 +98,7 @@ namespace Bovender.Mvvm.ViewModels
             return true;
         }
 
-        protected void DoCloseView()
+        protected virtual void DoCloseView()
         {
             if (RequestCloseView != null && CanCloseView())
             {
@@ -145,7 +145,8 @@ namespace Bovender.Mvvm.ViewModels
             h = (sender, args) =>
             {
                 this.RequestCloseView -= h;
-                view.Close();
+                // view.Close();
+                view.Dispatcher.Invoke(new Action(view.Close));
             };
             this.RequestCloseView += h;
             view.DataContext = this;

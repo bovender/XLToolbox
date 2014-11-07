@@ -8,16 +8,38 @@ using Bovender.Mvvm.Messaging;
 namespace Bovender.Mvvm.Actions
 {
     /// <summary>
-    /// Simple WPF action that closes a progress window.
+    /// Abstract WPF action that invokes different views depending on the status
+    /// of a completed process.
     /// </summary>
-    class ProcessCompletedAction : MessageActionBase
+    public abstract class ProcessCompletedAction : MessageActionBase
     {
-        protected override void Invoke(object parameter)
+        #region Abstract methods
+
+        protected abstract Window CreateSuccessWindow();
+        protected abstract Window CreateFailureWindow();
+        protected abstract Window CreateCancelledWindow();
+
+        #endregion
+
+        #region Overrides
+
+        protected override Window CreateView()
         {
-            MessageArgs<ProcessMessageContent> args = parameter as MessageArgs<ProcessMessageContent>;
-            if (args != null)
+            ProcessMessageContent content = Content as ProcessMessageContent;
+            if (Content is ProcessMessageContent)
             {
-                args.Content.CloseViewCommand.Execute(null);
+                if (content.WasCancelled)
+                {
+                    return content.InjectInto(CreateCancelledWindow());
+                }
+                else if (content.WasSuccessful)
+                {
+                    return content.InjectInto(CreateSuccessWindow());
+                }
+                else
+                {
+                    return content.InjectInto(CreateFailureWindow());
+                }
             }
             else
             {
@@ -26,10 +48,6 @@ namespace Bovender.Mvvm.Actions
             }
         }
 
-        protected override System.Windows.Window CreateView()
-        {
-            throw new InvalidOperationException(
-                "This MessageAction derivative does not create new views.");
-        }
+        #endregion
     }
 }

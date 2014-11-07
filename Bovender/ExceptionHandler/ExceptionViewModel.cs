@@ -244,10 +244,25 @@ namespace Bovender.ExceptionHandler
 
         #endregion
 
+        #region Overrides
+
+        protected override void DoCloseView()
+        {
+            Settings.User = User;
+            Settings.Email = Email;
+            Settings.CcUser = CcUser;
+            Settings.Save();
+            base.DoCloseView();
+        }
+
+        #endregion
+
         #region Private methods
 
         private void webClient_UploadValuesCompleted(object sender, UploadValuesCompletedEventArgs e)
         {
+            // Set 'IsIndeterminate' to false to stop the ProgressBar animation.
+            SubmissionProcessMessageContent.IsIndeterminate = false;
             SubmissionProcessMessageContent.WasSuccessful = false;
             if (!e.Cancelled)
             {
@@ -280,7 +295,7 @@ namespace Bovender.ExceptionHandler
             }
             SubmissionProcessMessageContent.Processing = false;
             // Notify any subscribed views that the process is completed.
-            SubmissionProcessMessageContent.CompletedMessage.Send(SubmissionProcessMessageContent, null);
+            SubmissionProcessMessageContent.CompletedMessage.Send(SubmissionProcessMessageContent);
         }
 
         private void CancelSubmission()
@@ -297,19 +312,13 @@ namespace Bovender.ExceptionHandler
 
         protected virtual void DoSubmitReport()
         {
-            Settings.User = User;
-            Settings.Email = Email;
-            Settings.CcUser = CcUser;
-            Settings.Save();
-
-            using (_webClient = new WebClient())
-            {
-                SubmissionProcessMessageContent.Processing = true;
-                SubmissionProcessMessageContent.CancelProcess = new Action(CancelSubmission);
-                NameValueCollection v = GetPostValues();
-                _webClient.UploadValuesCompleted += webClient_UploadValuesCompleted;
-                _webClient.UploadValuesAsync(GetPostUri(), v);
-            }
+            SubmissionProcessMessageContent.CancelProcess = new Action(CancelSubmission);
+            SubmissionProcessMessageContent.Processing = true;
+            _webClient = new WebClient();
+            NameValueCollection v = GetPostValues();
+            _webClient.UploadValuesCompleted += webClient_UploadValuesCompleted;
+            _webClient.UploadValuesAsync(GetPostUri(), v);
+            SubmitReportMessage.Send(SubmissionProcessMessageContent);
         }
 
         protected virtual bool CanSubmitReport()
@@ -372,6 +381,7 @@ namespace Bovender.ExceptionHandler
                     _submissionProcessMessageContent = new ProcessMessageContent(
                         new Action(CancelSubmission)
                         );
+                    _submissionProcessMessageContent.IsIndeterminate = true;
                 }
                 return _submissionProcessMessageContent;
             }

@@ -1,0 +1,25 @@
+﻿<Window x:Class="XLToolbox.ExceptionHandler.SubmissionProcessView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:XLToolbox"
+        xmlns:ex="clr-namespace:XLToolbox.ExceptionHandler"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        Title="{x:Static l:Strings.AnErrorHasOccurred}"
+        SizeToContent="WidthAndHeight"
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding CompletedMessage}" EventName="Sent">
+            <ex:SubmissionCompletedAction />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel Margin="10">
+        <ProgressBar Width="240" Value="{Binding PercentCompleted}" IsIndeterminate="{Binding IsIndeterminate}" />
+        <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Center">
+            <Button Command="{Binding CancelCommand}" Content="{x:Static l:Strings.Cancel}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

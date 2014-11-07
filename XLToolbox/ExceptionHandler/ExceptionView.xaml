@@ -4,6 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:ex="clr-namespace:XLToolbox.ExceptionHandler"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         SizeToContent="WidthAndHeight" 
         WindowStartupLocation="CenterScreen"
@@ -13,6 +14,11 @@
         <i:EventTrigger SourceObject="{Binding ViewDetailsMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <actions:ShowViewAction Assembly="XLToolbox" View="XLToolbox.ExceptionHandler.ExceptionDetailView" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding SubmitReportMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <ex:SubmissionProcessAction />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
     </i:Interaction.Triggers>

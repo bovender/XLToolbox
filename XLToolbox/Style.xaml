@@ -7,4 +7,7 @@
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Margin" Value="0,0,0,10" />
     </Style>
+    <Style TargetType="{x:Type ProgressBar}">
+        <Setter Property="Height" Value="24" />
+    </Style>
 </ResourceDictionary>

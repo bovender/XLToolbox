@@ -63,6 +63,14 @@
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
+    <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
+      <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
+      <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
@@ -216,6 +224,14 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionSuccessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
       <Generator>MSBuild:Compile</Generator>

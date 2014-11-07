@@ -66,19 +66,6 @@ namespace XLToolbox
             {
                 ExceptionViewModel vm = new ExceptionViewModel(e);
                 vm.InjectInto<ExceptionView>().ShowDialog();
-                // TODO: Implement global exception handler here
-                /*
-                ExceptionViewModel r = new ExceptionViewModel(Globals.ThisAddIn.Application, e);
-                r.User = Properties.Settings.Default.UsersName;
-                r.Email = Properties.Settings.Default.UsersEmail;
-                r.CcUser = Properties.Settings.Default.CcUser;
-                WindowRuntimeError w = new WindowRuntimeError(r);
-                w.ShowDialog();
-                Properties.Settings.Default.UsersName = r.User;
-                Properties.Settings.Default.UsersEmail = r.Email;
-                Properties.Settings.Default.CcUser = r.CcUser;
-                Properties.Settings.Default.Save();
-                */
             }
         }
     }

@@ -25,6 +25,16 @@ namespace Bovender.Mvvm.Messaging
             }
         }
 
+        public bool IsIndeterminate
+        {
+            get { return _isIndeterminate; }
+            set
+            {
+                _isIndeterminate = value;
+                OnPropertyChanged("IsInfinite");
+            }
+        }
+
         public double PercentCompleted
         {
             get
@@ -186,6 +196,7 @@ namespace Bovender.Mvvm.Messaging
         private bool _wasSuccessful;
         private Exception _exception;
         private Action _cancelProcess;
+        private bool _isIndeterminate;
 
         #endregion
     }

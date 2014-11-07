@@ -349,4 +349,10 @@ The following error occurred:
   <data name="Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="ReportNotSuccessfullySubmitted" xml:space="preserve">
+    <value>Unable to submit the report.</value>
+  </data>
+  <data name="ReportSuccessfullySubmitted" xml:space="preserve">
+    <value>The report was successfully submitted.</value>
+  </data>
 </root>
