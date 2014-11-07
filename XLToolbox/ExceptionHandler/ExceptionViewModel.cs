@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Specialized;
-using Bovender.Versioning;
+using System.Reflection;
+using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler
 {
-    class ExceptionViewModel : Bovender.ExceptionHandler.ExceptionViewModel
+    public class ExceptionViewModel : Bovender.ExceptionHandler.ExceptionViewModel
     {
+        #region Additional properties for the exception report
+
         public string ExcelVersion
         {
             get
@@ -37,7 +40,15 @@ namespace XLToolbox.ExceptionHandler
             }
         }
 
+        #endregion
+
+        #region constructor
+
         public ExceptionViewModel(Exception e) : base(e) { }
+
+        #endregion
+
+        #region Overrides
 
         protected override NameValueCollection GetPostValues()
         {
@@ -53,5 +64,7 @@ namespace XLToolbox.ExceptionHandler
         {
             return new Uri(Properties.Settings.Default.ExceptionPostUrl);
         }
+
+        #endregion
     }
 }

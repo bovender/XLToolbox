@@ -43,17 +43,12 @@
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net40-client\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,6 +63,14 @@
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
+    <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
+      <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
+      <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
@@ -221,6 +224,14 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionSuccessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
       <Generator>MSBuild:Compile</Generator>

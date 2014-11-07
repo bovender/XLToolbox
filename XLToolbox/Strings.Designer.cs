@@ -479,6 +479,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to submit the report..
+        /// </summary>
+        public static string ReportNotSuccessfullySubmitted {
+            get {
+                return ResourceManager.GetString("ReportNotSuccessfullySubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The report was successfully submitted..
+        /// </summary>
+        public static string ReportSuccessfullySubmitted {
+            get {
+                return ResourceManager.GetString("ReportSuccessfullySubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send crash report.
         /// </summary>
         public static string SendCrashReport {

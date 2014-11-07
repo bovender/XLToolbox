@@ -48,6 +48,17 @@ namespace Bovender.Mvvm.Messaging
         }
 
         /// <summary>
+        /// Raises the Sent event with a <see cref="MessageArgs"/> instance that
+        /// encapsulates the <paramref name="messageContent"/>
+        /// </summary>
+        /// <param name="messageContent">Derivate of MessageContent that defines the
+        /// message content.</param>
+        public virtual void Send(T messageContent)
+        {
+            Send(messageContent, null);
+        }
+
+        /// <summary>
         /// Sends a simple message that does not need responding to.
         /// </summary>
         public virtual void Send()
