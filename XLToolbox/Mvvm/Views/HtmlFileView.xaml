@@ -1,0 +1,18 @@
+﻿<Window x:Class="XLToolbox.Mvvm.Views.HtmlFileView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:XLToolbox"
+        xmlns:b="clr-namespace:Bovender.Mvvm;assembly=Bovender"
+        Width="640" Height="480"
+        Title="{Binding Caption}">
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+    </Window.Resources>
+    <DockPanel LastChildFill="True" Margin="10">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Command="{Binding CloseViewCommand}" Content="{x:Static l:Strings.Close}" IsCancel="True" />
+        </StackPanel>
+        <WebBrowser b:BindingWebBrowser.Stream="{Binding HtmlStream}" DockPanel.Dock="Top" />
+    </DockPanel>
+</Window>

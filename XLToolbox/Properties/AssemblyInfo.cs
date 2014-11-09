@@ -1,17 +1,15 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Daniel's XL Toolbox NG")]
-[assembly: AssemblyDescription("Data analysis and visualization for Excel, for free.")]
+[assembly: AssemblyTitle("XLToolbox.Core")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel Kraus")]
-[assembly: AssemblyProduct("XLToolboxNG")]
+[assembly: AssemblyProduct("XLToolbox.Core")]
 [assembly: AssemblyCopyright("Copyright © Daniel Kraus 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +20,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09aad966-9ac5-4628-95f1-c677363a22fc")]
+[assembly: Guid("a2fe2dc9-9a96-477f-859c-242c40638e96")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -36,5 +34,3 @@ using System.Resources;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: NeutralResourcesLanguageAttribute("en-US")]

@@ -316,4 +316,43 @@ The following error occurred:
   <data name="NotAvailable" xml:space="preserve">
     <value>Not available</value>
   </data>
+  <data name="WorksheetManager" xml:space="preserve">
+    <value>Worksheet Manager</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DoYouReallyWantToDeleteCannotBeUndone" xml:space="preserve">
+    <value>Do you really want to delete? This operation cannot be  undone.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="EnterNewSheetName" xml:space="preserve">
+    <value>Please enter the desired new sheet name (1-31 characters, must not contain any of : [] /\ *?</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="ReportNotSuccessfullySubmitted" xml:space="preserve">
+    <value>Unable to submit the report.</value>
+  </data>
+  <data name="ReportSuccessfullySubmitted" xml:space="preserve">
+    <value>The report was successfully submitted.</value>
+  </data>
 </root>

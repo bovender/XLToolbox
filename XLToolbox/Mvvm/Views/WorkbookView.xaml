@@ -1,0 +1,56 @@
+﻿<Window x:Class="XLToolbox.Mvvm.Views.WorkbookView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="clr-namespace:XLToolbox"
+        xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
+        Width="400" Height="560"
+        Title="{x:Static l:Strings.WorksheetManager}"
+    >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+                <ResourceDictionary>
+                    <Style x:Key="Worksheet" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:MessageAction Caption="{x:Static l:Strings.WorksheetManager}"
+                                    Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding RenameSheetMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:StringMessageAction Caption="{x:Static l:Strings.WorksheetManager}"
+                                          Message="{x:Static l:Strings.EnterNewSheetName}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Right" Margin="10 0 0 0">
+                <Button Command="{Binding MoveSheetsToTop}" Content="{x:Static l:Strings.Top}" Margin="0 0 0 5" />
+                <Button Command="{Binding MoveSheetUp}" Content="{x:Static l:Strings.Up}" Margin="0 0 0 5" />
+                <Button Command="{Binding MoveSheetDown}" Content="{x:Static l:Strings.Down}" Margin="0 0 0 5" />
+                <Button Command="{Binding MoveSheetsToBottom}" Content="{x:Static l:Strings.Bottom}" Margin="0 0 0 5" />
+                <Button Command="{Binding DeleteSheets}" Content="{x:Static l:Strings.Delete}" Margin="0 5 0 5" />
+                <Button Command="{Binding RenameSheet}" Content="{x:Static l:Strings.Rename}" Margin="0 5 0 5" />
+                <Button Command="{Binding CloseViewCommand}" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5" />
+            </StackPanel>
+            <ListBox
+                SelectionMode="Extended"
+                ItemsSource="{Binding Path=Sheets}"
+                DisplayMemberPath="DisplayString"
+                ItemContainerStyle="{StaticResource Worksheet}"
+            />
+        </DockPanel>
+    </Grid>
+</Window>

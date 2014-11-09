@@ -79,6 +79,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom.
+        /// </summary>
+        public static string Bottom {
+            get {
+                return ResourceManager.GetString("Bottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -178,11 +187,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
             get {
                 return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        public static string Down {
+            get {
+                return ResourceManager.GetString("Down", resourceCulture);
             }
         }
         
@@ -223,11 +250,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete? This operation cannot be  undone..
+        /// </summary>
+        public static string DoYouReallyWantToDeleteCannotBeUndone {
+            get {
+                return ResourceManager.GetString("DoYouReallyWantToDeleteCannotBeUndone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
             get {
                 return ResourceManager.GetString("EMailOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the desired new sheet name (1-31 characters, must not contain any of : [] /\ *?.
+        /// </summary>
+        public static string EnterNewSheetName {
+            get {
+                return ResourceManager.GetString("EnterNewSheetName", resourceCulture);
             }
         }
         
@@ -353,6 +398,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not authorized to update.
         /// </summary>
         public static string NotAuthorizedToUpdate {
@@ -412,6 +466,33 @@ namespace XLToolbox {
         public static string PleaseSendCrashReport {
             get {
                 return ResourceManager.GetString("PleaseSendCrashReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to submit the report..
+        /// </summary>
+        public static string ReportNotSuccessfullySubmitted {
+            get {
+                return ResourceManager.GetString("ReportNotSuccessfullySubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The report was successfully submitted..
+        /// </summary>
+        public static string ReportSuccessfullySubmitted {
+            get {
+                return ResourceManager.GetString("ReportSuccessfullySubmitted", resourceCulture);
             }
         }
         
@@ -508,6 +589,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        public static string Top {
+            get {
+                return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        public static string Up {
+            get {
+                return ResourceManager.GetString("Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update available.
         /// </summary>
         public static string UpdateAvailable {
@@ -581,6 +680,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Worksheet Manager.
+        /// </summary>
+        public static string WorksheetManager {
+            get {
+                return ResourceManager.GetString("WorksheetManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XL Toolbox Error!.
         /// </summary>
         public static string XLToolboxError {
@@ -604,6 +712,15 @@ namespace XLToolbox {
         public static string XLToolboxVersion {
             get {
                 return ResourceManager.GetString("XLToolboxVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         
