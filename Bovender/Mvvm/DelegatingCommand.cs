@@ -57,7 +57,14 @@ namespace Bovender.Mvvm
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            try
+            {
+                _execute(parameter);
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.CentralHandler.Manage(this, e);
+            }
         }
 
         #endregion // ICommand Members

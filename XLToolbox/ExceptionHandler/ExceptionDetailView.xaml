@@ -40,7 +40,7 @@
         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=InnerMessage, Mode=OneWay}" TextWrapping="Wrap" />
         <Label Grid.Column="0" Grid.Row="4" Content="{x:Static l:Strings.StackTrace}" />
         <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=StackTrace, Mode=OneWay}"
-                 VerticalScrollBarVisibility="Auto"  Height="60" TextWrapping="Wrap" />
+                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Height="60" />
         <Label Grid.Column="0" Grid.Row="5" Content="{x:Static l:Strings.XLToolboxVersion}" />
         <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=ToolboxVersion, Mode=OneWay}" />
         <Label Grid.Column="0" Grid.Row="6" Content="{x:Static l:Strings.ExcelVersion}" />

@@ -51,6 +51,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionHandler\CentralHandler.cs" />
+    <Compile Include="ExceptionHandler\ManageExceptionEventArgs.cs" />
+    <Compile Include="ExceptionHandler\UnhandledException.cs" />
     <Compile Include="Mvvm\Actions\ProcessAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
     <Compile Include="Mvvm\Actions\ShowViewAction.cs" />

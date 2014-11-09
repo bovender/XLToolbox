@@ -16,14 +16,26 @@ using Bovender.Unmanaged;
 using Bovender.Mvvm;
 using XLToolbox.Mvvm.ViewModels;
 using XLToolbox.Mvvm.Views;
+using XLToolbox.ExceptionHandler;
 
 namespace XLToolbox
 {
     public partial class ThisAddIn : IDisposable
     {
+        #region Public properties
+
         public XLToolbox.Versioning.Updater Updater { get; set; }
+
+        #endregion
+
+        #region Private fields
+
         private Threading.Dispatcher _dispatcher;
         private DllManager _dllManager;
+
+        #endregion
+
+        #region Startup/Shutdown
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -35,6 +47,8 @@ namespace XLToolbox
             // Make the current Excel instance globally available
             // even for the non-VSTO components of this addin
             ExcelInstance.Application = Globals.ThisAddIn.Application;
+
+            Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
 
             // Distract the user :-)
             MaybeCheckForUpdate();
@@ -58,6 +72,10 @@ namespace XLToolbox
                 }
             };
         }
+
+        #endregion
+
+        #region Private methods
 
         private void GreetUser()
         {
@@ -92,6 +110,17 @@ namespace XLToolbox
                 }
             }
         }
+
+        void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
+        {
+            e.IsHandled = true;
+            ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
+            vm.InjectInto<ExceptionView>().ShowDialog();
+        }
+
+        #endregion
+
+        #region Updates
 
         void Updater_NoUpdateAvailable(object sender, UpdateAvailableEventArgs e)
         {
@@ -144,42 +173,16 @@ namespace XLToolbox
                 Properties.Settings.Default.Save();
         }
 
+        #endregion
+
+        #region Ribbon
+
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
             return new Ribbon();
         }
 
-        ///// <summary>
-        ///// Registers an event handler that takes care of loading the FreeImage DLL that
-        ///// is appropriate for the current platform (x64 or Win32).
-        ///// </summary>
-        //private void RegisterDllLoader()
-        //{
-        //    System.AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-        //}
-
-        ///// <summary>
-        ///// Event handler that is called when a DLL could not be found. Loads the FreeImage
-        ///// DLL that is appropriate for the current platform (x64 or Win32).
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="args"></param>
-        ///// <returns>True if loading the DLL was successful.</returns>
-        //private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        //{
-        //    if (args.Name.StartsWith("FreeImage"))
-        //    {
-        //        string fileName = System.IO.Path.GetFullPath(
-        //            "lib\\"
-        //            + System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE")
-        //            + "\\FreeImage.dll");
-        //        if (System.IO.File.Exists(fileName))
-        //        {
-        //            return DllLoader.Load(fileName);
-        //        }
-        //    }
-        //    return null;
-        //}
+        #endregion
 
         #region VSTO generated code
 
