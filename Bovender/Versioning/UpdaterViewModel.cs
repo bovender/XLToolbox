@@ -20,7 +20,7 @@ namespace Bovender.Versioning
     /// Updater classes provide project-specific information such as
     /// the download URI.
     /// </remarks>
-    class UpdaterViewModel : ViewModelBase
+    public class UpdaterViewModel : ViewModelBase
     {
         #region Public properties
 
@@ -70,6 +70,18 @@ namespace Bovender.Versioning
         #endregion
 
         #region MVVM messages
+
+        public Message<ViewModelMessageContent> CheckForUpdateMessage
+        {
+            get
+            {
+                if (_checkForUpdateMessage == null)
+                {
+                    _checkForUpdateMessage = new Message<ViewModelMessageContent>();
+                }
+                return _checkForUpdateMessage;
+            }
+        }
 
         public Message<ViewModelMessageContent> UpdateAvailableMessage
         {
@@ -174,7 +186,7 @@ namespace Bovender.Versioning
             CheckProcessMessageContent.CancelProcess = _updater.CancelCheckForUpdate;
             _updater.CheckForUpdateFinished += _updater_CheckForUpdateFinished;
             _updater.CheckForUpdate();
-            UpdateAvailableMessage.Send(CheckProcessMessageContent);
+            CheckForUpdateMessage.Send(CheckProcessMessageContent);
         }
 
         void _updater_CheckForUpdateFinished(object sender, EventArgs e)
@@ -211,6 +223,7 @@ namespace Bovender.Versioning
             DownloadProcessMessageContent.CancelProcess = _updater.CancelDownload;
             _updater.DownloadProgressChanged += _updater_DownloadProgressChanged;
             _updater.DownloadUpdateFinished += _updater_DownloadUpdateFinished;
+            _updater.DownloadUpdate();
             DownloadUpdateMessage.Send(DownloadProcessMessageContent);
         }
 
@@ -222,7 +235,7 @@ namespace Bovender.Versioning
                 {
                     if (_updater.IsVerifiedDownload)
                     {
-                        UpdateAvailableMessage.Send(DownloadProcessMessageContent);
+                        UpdateInstallableMessage.Send(DownloadProcessMessageContent);
                     }
                     else
                     {
@@ -281,6 +294,7 @@ namespace Bovender.Versioning
         private Updater _updater;
         private DelegatingCommand _checkForUpdateCommand;
         private DelegatingCommand _downloadUpdateCommand;
+        private Message<ViewModelMessageContent> _checkForUpdateMessage;
         private Message<ViewModelMessageContent> _updateAvailableMessage;
         private Message<ViewModelMessageContent> _updateAvailableButNotAuthorizedMessage;
         private Message<ViewModelMessageContent> _noUpdateAvailableMessage;

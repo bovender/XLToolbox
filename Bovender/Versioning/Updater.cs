@@ -60,7 +60,7 @@ namespace Bovender.Versioning
         /// where the addin files are stored. If the user does not have write permissions,
         /// he/she cannot update the addin by herself/hisself.
         /// </summary>
-        public bool IsAuthorized
+        public virtual bool IsAuthorized
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Bovender.Versioning
         /// <summary>
         /// Downloads the current release from the internet.
         /// </summary>
-        public void DownloadUpdate(string targetDir)
+        public void DownloadUpdate()
         {
             _destinationFileName = BuildDestinationFileName();
 
@@ -292,6 +292,7 @@ namespace Bovender.Versioning
             if (!e.Cancelled)
             {
                 DownloadException = e.Error;
+                IsVerifiedDownload = FileHelpers.Sha1Hash(_destinationFileName) == UpdateSha1;
                 OnDownloadUpdateFinished();
             }
             else
@@ -324,7 +325,7 @@ namespace Bovender.Versioning
                     SemanticVersion v = new SemanticVersion(r.ReadLine());
                     DownloadUri = new Uri(r.ReadLine());
                     UpdateSha1 = r.ReadLine();
-                    UpdateSha1 = r.ReadLine();
+                    UpdateSummary = r.ReadLine();
                     UpdateAvailable = v > CurrentVersion();
                 }
                 else
