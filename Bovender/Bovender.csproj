@@ -96,8 +96,8 @@
     <Compile Include="Versioning\DownloadCorruptException.cs" />
     <Compile Include="Versioning\InvalidVersionStringException.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
-    <Compile Include="Versioning\UpdateAvailableEventArgs.cs" />
     <Compile Include="Versioning\Updater.cs" />
+    <Compile Include="Versioning\UpdaterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

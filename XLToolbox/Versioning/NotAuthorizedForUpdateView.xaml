@@ -1,4 +1,4 @@
-﻿<Window x:Class="XLToolbox.Mvvm.Views.NotAuthorizedForUpdateView"
+﻿<Window x:Class="XLToolbox.Versioning.NotAuthorizedForUpdateView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:XLToolbox"
@@ -6,7 +6,7 @@
         WindowStartupLocation="CenterScreen"
         Title="{x:Static l:Strings.NotAuthorizedToUpdate}">
     <Window.Resources>
-        <ResourceDictionary Source="Style.xaml" />
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
     <StackPanel Orientation="Vertical" Margin="10">
         <TextBlock Text="{x:Static l:Strings.NewVersionAvailableForDownload}" FontWeight="Bold" />
@@ -16,11 +16,8 @@
                    TextAlignment="Justify" Margin="0,10,0,0" />
         <TextBlock Text="{x:Static l:Strings.DownloadUrlIs}" Margin="0,10,0,0" />
         <TextBlock>
-            <Hyperlink Name="DownloadUrl" NavigateUri="https://sf.net/projects/xltoolbox/files"
-                       RequestNavigate="DownloadUrl_RequestNavigate">
-                <TextBlock Name="DownloadUrlLabel" TextWrapping="Wrap">
-                    https://sf.net/projects/xltoolbox/files
-                </TextBlock>
+            <Hyperlink NavigateUri="{Binding DownloadUri}">
+                <TextBlock Name="DownloadUrlLabel" TextWrapping="Wrap" Text="{Binding DownloadUri}" />
             </Hyperlink>
         </TextBlock>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">

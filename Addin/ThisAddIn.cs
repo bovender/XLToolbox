@@ -62,7 +62,7 @@ namespace XLToolbox
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
             // Use && to perform lazy evaluation
-            if (Updater != null && Updater.Downloaded)
+            /* if (Updater != null && Updater.Downloaded)
             {
                 MessageBoxResult r = MessageBox.Show(Strings.UpdateWillBeInstalledNow,
                     Strings.UpdateAvailable, MessageBoxButton.OKCancel, MessageBoxImage.Information);
@@ -71,6 +71,7 @@ namespace XLToolbox
                     Updater.InstallUpdate();
                 }
             };
+            */
         }
 
         #endregion
@@ -104,9 +105,9 @@ namespace XLToolbox
                 Updater = new XLToolbox.Versioning.Updater();
                 if (Updater.IsAuthorized)
                 {
-                    Updater.UpdateAvailable += Updater_UpdateAvailable;
-                    Updater.NoUpdateAvailable += Updater_NoUpdateAvailable;
-                    Updater.FetchVersionInformation();
+                    //Updater.UpdateAvailable += Updater_UpdateAvailable;
+                    //Updater.NoUpdateAvailable += Updater_NoUpdateAvailable;
+                    //Updater.FetchVersionInformation();
                 }
             }
         }
@@ -122,7 +123,7 @@ namespace XLToolbox
 
         #region Updates
 
-        void Updater_NoUpdateAvailable(object sender, UpdateAvailableEventArgs e)
+        void Updater_NoUpdateAvailable(object sender, EventArgs e)
         {
             RememberUpdateCheck();
             Updater = null;
@@ -133,7 +134,7 @@ namespace XLToolbox
         /// </summary>
         /// <param name="sender">Instance of Updater.</param>
         /// <param name="e">Relevant arguments.</param>
-        void Updater_UpdateAvailable(object sender, UpdateAvailableEventArgs e)
+        void Updater_UpdateAvailable(object sender, EventArgs e)
         {
             RememberUpdateCheck();
             /* For thread-safe execution, we must defer the update notification

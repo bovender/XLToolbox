@@ -8,12 +8,6 @@ namespace Bovender.Mvvm.Messaging
     /// </summary>
     public class MessageContent : ViewModelBase
     {
-        #region Private properties
-
-        private DelegatingCommand _confirmCommand;
-
-        #endregion
-
         #region Public properties
 
         public bool Confirmed { get; set; }
@@ -43,19 +37,44 @@ namespace Bovender.Mvvm.Messaging
 
         #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new, empty message content.
+        /// </summary>
+        public MessageContent() : base() { }
+
+        #endregion
+
         #region Protected methods
 
+        /// <summary>
+        /// Executes the confirmation logic: sets <see cref="Confirmed"/> to True
+        /// and calls <see cref="DoCloseView()"/> to issue a RequestCloseView
+        /// message.
+        /// </summary>
         protected virtual void DoConfirm()
         {
             Confirmed = true;
             DoCloseView();
         }
 
+        /// <summary>
+        /// Determines whether the ConfirmCommand can be executed.
+        /// </summary>
+        /// <returns>True if the ConfirmCommand can be executed.</returns>
         protected virtual bool CanConfirm()
         {
             return true;
         }
 
         #endregion
+
+        #region Private properties
+
+        private DelegatingCommand _confirmCommand;
+
+        #endregion
+
     }
 }

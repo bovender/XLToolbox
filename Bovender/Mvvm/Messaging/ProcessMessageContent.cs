@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Bovender.Mvvm;
+using Bovender.Mvvm.ViewModels;
 
 namespace Bovender.Mvvm.Messaging
 {
@@ -11,7 +12,7 @@ namespace Bovender.Mvvm.Messaging
     /// Holds information about percent completion of a process
     /// and defines events that occur when the process is finished.
     /// </summary>
-    public class ProcessMessageContent : MessageContent
+    public class ProcessMessageContent : ViewModelMessageContent
     {
         #region Public properties
 
@@ -139,8 +140,16 @@ namespace Bovender.Mvvm.Messaging
 
         public ProcessMessageContent() : base() { }
 
+        public ProcessMessageContent(ViewModelBase viewModel) : base(viewModel) { }
+
         public ProcessMessageContent(Action cancelProcess)
             : this()
+        {
+            CancelProcess = cancelProcess;
+        }
+
+        public ProcessMessageContent(ViewModelBase viewModel, Action cancelProcess)
+            : base(viewModel)
         {
             CancelProcess = cancelProcess;
         }

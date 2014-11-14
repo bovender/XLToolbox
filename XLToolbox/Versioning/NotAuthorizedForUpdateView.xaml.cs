@@ -11,28 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using XLToolbox.Versioning;
 
-namespace XLToolbox.Mvvm.Views
+namespace XLToolbox.Versioning
 {
     /// <summary>
     /// Interaction logic for NotAuthorizedForUpdateView.xaml
     /// </summary>
     public partial class NotAuthorizedForUpdateView : Window
     {
-        public Updater Updater { get; private set; }
-
-        public NotAuthorizedForUpdateView(Updater updater)
+        public NotAuthorizedForUpdateView()
         {
             InitializeComponent();
-            Updater = updater;
-            DownloadUrl.NavigateUri = Updater.DownloadUri;
-            DownloadUrlLabel.Text = Updater.DownloadUri.ToString();
-        }
-
-        private void DownloadUrl_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            System.Diagnostics.Process.Start(Updater.DownloadUri.ToString());
         }
     }
 }

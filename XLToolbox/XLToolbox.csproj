@@ -107,7 +107,7 @@
     <Compile Include="Mvvm\Views\GreeterView.xaml.cs">
       <DependentUpon>GreeterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\NotAuthorizedForUpdateView.xaml.cs">
+    <Compile Include="Versioning\NotAuthorizedForUpdateView.xaml.cs">
       <DependentUpon>NotAuthorizedForUpdateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
@@ -265,7 +265,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\NotAuthorizedForUpdateView.xaml">
+    <Page Include="Versioning\NotAuthorizedForUpdateView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
