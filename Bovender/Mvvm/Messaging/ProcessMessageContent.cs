@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bovender.Mvvm.ViewModels;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Bovender.Mvvm;
-using Bovender.Mvvm.ViewModels;
 
 namespace Bovender.Mvvm.Messaging
 {
@@ -15,6 +11,10 @@ namespace Bovender.Mvvm.Messaging
     public class ProcessMessageContent : ViewModelMessageContent
     {
         #region Public properties
+
+        public string Caption { get; set; }
+
+        public string Message { get; set; }
 
         public bool Processing
         {
@@ -32,7 +32,7 @@ namespace Bovender.Mvvm.Messaging
             set
             {
                 _isIndeterminate = value;
-                OnPropertyChanged("IsInfinite");
+                OnPropertyChanged("IsIndeterminate");
             }
         }
 

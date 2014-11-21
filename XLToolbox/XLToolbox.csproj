@@ -92,8 +92,11 @@
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Versioning\SemanticVersion.cs" />
-    <Compile Include="Versioning\UpdaterView.xaml.cs">
-      <DependentUpon>UpdaterView.xaml</DependentUpon>
+    <Compile Include="Versioning\InstallUpdateView.xaml.cs">
+      <DependentUpon>InstallUpdateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\UpdateAvailableView.xaml.cs">
+      <DependentUpon>UpdateAvailableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
       <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
@@ -245,7 +248,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Versioning\UpdaterView.xaml">
+    <Page Include="Versioning\InstallUpdateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\UpdateAvailableView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

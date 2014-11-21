@@ -27,10 +27,12 @@ namespace Bovender.Versioning
 
         public SemanticVersion NewVersion { get; protected set; }
 
+        public SemanticVersion CurrentVersion { get { return GetCurrentVersion(); } }
+
         /// <summary>
         /// If true, an updated version is available for download.
         /// </summary>
-        public bool UpdateAvailable { get; protected set; }
+        public bool IsUpdateAvailable { get; protected set; }
 
         /// <summary>
         /// The URI of the remote file.
@@ -200,7 +202,7 @@ namespace Bovender.Versioning
         /// </summary>
         /// <returns>Instance of <see cref="SemanticVersion"/> representing
         /// the current version number.</returns>
-        protected abstract SemanticVersion CurrentVersion();
+        protected abstract SemanticVersion GetCurrentVersion();
 
         #endregion
 
@@ -322,16 +324,16 @@ namespace Bovender.Versioning
                 if (e.Error == null )
                 {
                     StringReader r = new StringReader(e.Result);
-                    SemanticVersion v = new SemanticVersion(r.ReadLine());
+                    NewVersion = new SemanticVersion(r.ReadLine());
                     DownloadUri = new Uri(r.ReadLine());
                     UpdateSha1 = r.ReadLine();
                     UpdateSummary = r.ReadLine();
-                    UpdateAvailable = v > CurrentVersion();
+                    IsUpdateAvailable = NewVersion > GetCurrentVersion();
                 }
                 else
                 {
                     DownloadException = e.Error;
-                    UpdateAvailable = false;
+                    IsUpdateAvailable = false;
                 }
                 OnCheckForUpdateFinished();
             }

@@ -58,5 +58,17 @@ namespace Bovender.Properties {
                 this["CcUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UpdateDestinationFolder {
+            get {
+                return ((string)(this["UpdateDestinationFolder"]));
+            }
+            set {
+                this["UpdateDestinationFolder"] = value;
+            }
+        }
     }
 }

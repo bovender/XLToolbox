@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Bovender.Mvvm.ViewModels
 {
@@ -75,6 +77,18 @@ namespace Bovender.Mvvm.ViewModels
             }
         }
 
+        public Dispatcher ViewDispatcher { get; set; }
+
+        #endregion
+
+        #region Protected properties
+
+        /// <summary>
+        /// Captures the dispatcher of the thread that the
+        /// object was created in.
+        /// </summary>
+        protected Dispatcher Dispatcher { get; private set; }
+
         #endregion
 
         #region INotifyPropertyChanged interface
@@ -113,11 +127,17 @@ namespace Bovender.Mvvm.ViewModels
         /// <summary>
         /// Does not allow public instantiation of this class.
         /// </summary>
-        protected ViewModelBase() { }
+        protected ViewModelBase()
+        {
+            // Capture the current dispatcher to enable
+            // asynchronous operations that a view can
+            // react to dispite running in another thread.
+            Dispatcher = Dispatcher.CurrentDispatcher;
+        }
 
         #endregion
 
-        #region Injector
+        #region Injectors
 
         /// <summary>
         /// Injects the ViewModel into a newly created View and wires the RequestCloseView
@@ -145,12 +165,42 @@ namespace Bovender.Mvvm.ViewModels
             h = (sender, args) =>
             {
                 this.RequestCloseView -= h;
+                view.DataContext = null;
                 // view.Close();
                 view.Dispatcher.Invoke(new Action(view.Close));
             };
             this.RequestCloseView += h;
             view.DataContext = this;
+            ViewDispatcher = view.Dispatcher;
             return view;
+        }
+
+        /// <summary>
+        /// Creates a new thread that creates a new instance of the view <typeparamref name="T"/>
+        /// and shows it modelessly. Use this to show views during asynchronous operations.
+        /// </summary>
+        /// <typeparam name="T">View (descendant of Window).</typeparam>
+        public void InjectAndShowInThread<T>() where T: Window, new()
+        {
+            Thread t = new Thread(() =>
+            {
+                T view = new T();
+                EventHandler h = null;
+                h = (sender, args) =>
+                {
+                    this.RequestCloseView -= h;
+                    // view.Close();
+                    view.Dispatcher.Invoke(new Action(view.Close));
+                };
+                this.RequestCloseView += h;
+                ViewDispatcher = view.Dispatcher;
+                view.DataContext = this;
+                view.Closed += (sender, args) => view.Dispatcher.InvokeShutdown();
+                view.Show();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
         }
 
         #endregion

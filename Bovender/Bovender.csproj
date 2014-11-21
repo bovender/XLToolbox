@@ -41,6 +41,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -54,11 +55,17 @@
     <Compile Include="ExceptionHandler\CentralHandler.cs" />
     <Compile Include="ExceptionHandler\ManageExceptionEventArgs.cs" />
     <Compile Include="ExceptionHandler\UnhandledException.cs" />
+    <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
+    <Compile Include="Mvvm\Actions\NotificationAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
     <Compile Include="Mvvm\Actions\ShowViewAction.cs" />
     <Compile Include="Mvvm\BindingWebBrowser.cs" />
+    <Compile Include="Mvvm\Converters\SimpleExceptionConverter.cs" />
     <Compile Include="Mvvm\Messaging\ViewModelMessageContent.cs" />
+    <Compile Include="Mvvm\Views\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Mvvm\Views\ProcessView.xaml.cs">
       <DependentUpon>ProcessView.xaml</DependentUpon>
     </Compile>
@@ -114,6 +121,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Mvvm\Views\NotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Mvvm\Views\ProcessView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

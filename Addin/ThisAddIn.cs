@@ -1,37 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using System.Windows;
-using System.Reflection;
-using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
-using Microsoft.Office.Tools.Excel;
-using System.Threading;
-using Threading = System.Windows.Threading;
-using XLToolbox.Excel.Instance;
-using Bovender.Versioning;
+﻿using Bovender.Mvvm;
 using Bovender.Unmanaged;
-using Bovender.Mvvm;
+using Bovender.Versioning;
+using System;
+using XLToolbox.Excel.Instance;
+using XLToolbox.ExceptionHandler;
 using XLToolbox.Mvvm.ViewModels;
 using XLToolbox.Mvvm.Views;
-using XLToolbox.ExceptionHandler;
+using Threading = System.Windows.Threading;
 
 namespace XLToolbox
 {
     public partial class ThisAddIn : IDisposable
     {
-        #region Public properties
-
-        public XLToolbox.Versioning.Updater Updater { get; set; }
-
-        #endregion
-
         #region Private fields
 
         private Threading.Dispatcher _dispatcher;
         private DllManager _dllManager;
+        private UpdaterViewModel _updaterVM;
 
         #endregion
 
@@ -62,16 +47,10 @@ namespace XLToolbox
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
             // Use && to perform lazy evaluation
-            /* if (Updater != null && Updater.Downloaded)
+            if (_updaterVM != null && _updaterVM.InstallUpdateCommand.CanExecute(null))
             {
-                MessageBoxResult r = MessageBox.Show(Strings.UpdateWillBeInstalledNow,
-                    Strings.UpdateAvailable, MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                if (r == MessageBoxResult.OK)
-                {
-                    Updater.InstallUpdate();
-                }
+                _updaterVM.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
             };
-            */
         }
 
         #endregion
@@ -85,11 +64,23 @@ namespace XLToolbox
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             if (currentVersion > lastSeenVersion)
             {
-                GreeterViewModel greeter = new GreeterViewModel();
-                Workarounds.ShowModelessInExcel<GreeterView>(greeter);
+                Workarounds.ShowModelessInExcel<GreeterView>(new GreeterViewModel());
                 Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
                 Properties.Settings.Default.Save();
             }
+        }
+
+        /// <summary>
+        /// Shows an error message to the user when the central exception handler
+        /// (implemented in Bovender.dll) raises the ManageExceptionCallback event.
+        /// </summary>
+        /// <param name="sender">Object where the exception occurred.</param>
+        /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
+        void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
+        {
+            e.IsHandled = true;
+            ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
+            vm.InjectInto<ExceptionView>().ShowDialog();
         }
 
         /// <summary>
@@ -102,76 +93,18 @@ namespace XLToolbox
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
-                Updater = new XLToolbox.Versioning.Updater();
-                if (Updater.IsAuthorized)
+                _updaterVM = new UpdaterViewModel(new XLToolbox.Versioning.Updater());
+                if (_updaterVM.IsUserAuthorized)
                 {
-                    //Updater.UpdateAvailable += Updater_UpdateAvailable;
-                    //Updater.NoUpdateAvailable += Updater_NoUpdateAvailable;
-                    //Updater.FetchVersionInformation();
+                    _updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
+                    {
+                        Workarounds.ShowModelessInExcel<XLToolbox.Versioning.UpdateAvailableView>(_updaterVM);
+                    };
+                    _updaterVM.CheckForUpdateCommand.Execute(null);
                 }
-            }
-        }
-
-        void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
-        {
-            e.IsHandled = true;
-            ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
-            vm.InjectInto<ExceptionView>().ShowDialog();
-        }
-
-        #endregion
-
-        #region Updates
-
-        void Updater_NoUpdateAvailable(object sender, EventArgs e)
-        {
-            RememberUpdateCheck();
-            Updater = null;
-        }
-
-        /// <summary>
-        /// Is called when a new update is available.
-        /// </summary>
-        /// <param name="sender">Instance of Updater.</param>
-        /// <param name="e">Relevant arguments.</param>
-        void Updater_UpdateAvailable(object sender, EventArgs e)
-        {
-            RememberUpdateCheck();
-            /* For thread-safe execution, we must defer the update notification
-             * to the UI thread.
-             */
-            _dispatcher.Invoke(new System.Action(ShowUpdateInformation));
-        }
-
-        /// <summary>
-        /// Thread-safe method that notifies the user of an available update.
-        /// </summary>
-        void ShowUpdateInformation()
-        {
-            Thread thread = new Thread(() =>
-            {
-                // TODO: Use MVVM here
-                // WindowUpdateAvailable w = new WindowUpdateAvailable(Updater);
-                // w.Show();
-                // w.Closed += (sender2, e2) => w.Dispatcher.InvokeShutdown();
-                // System.Windows.Threading.Dispatcher.Run();
-            });
-            thread.SetApartmentState( ApartmentState.STA);
-            thread.Start();
-        }
-
-        /// <summary>
-        /// Save the current date as the last date an update check was performed.
-        /// </summary>
-        /// <remarks>
-        /// This method is only called by the event handlers Updater_NoUpdateAvailable
-        /// and Updater_UpdateAvailable. If checking for updates failed, neither of these
-        /// will be called, and we can check again whenever the add-in is started again.
-        /// </remarks>
-        void RememberUpdateCheck()
-        {
                 Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
                 Properties.Settings.Default.Save();
+            }
         }
 
         #endregion

@@ -277,6 +277,19 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while downloading the file:
+        ///
+        ///&quot;{0}&quot;.
+        ///
+        ///You may want to try again..
+        /// </summary>
+        public static string ErrorOccurredWhileDownloading {
+            get {
+                return ResourceManager.GetString("ErrorOccurredWhileDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel bitness.
         /// </summary>
         public static string ExcelBitness {
@@ -580,7 +593,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is version {0}..
+        ///   Looks up a localized string similar to This is version:.
         /// </summary>
         public static string ThisIsVersion {
             get {

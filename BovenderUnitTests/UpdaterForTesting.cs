@@ -79,7 +79,7 @@ namespace Bovender.UnitTests
         /// <see cref="TestVersion"/>.
         /// </summary>
         /// <returns>Semantic version created with <see cref="TestVersion"/></returns>
-        protected override SemanticVersion CurrentVersion()
+        protected override SemanticVersion GetCurrentVersion()
         {
             return new SemanticVersion(TestVersion);
         }

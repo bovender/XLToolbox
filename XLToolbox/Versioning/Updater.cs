@@ -14,7 +14,7 @@ namespace XLToolbox.Versioning
             return new Uri(Properties.Settings.Default.VersionInfoUrl);
         }
 
-        protected override Bovender.Versioning.SemanticVersion CurrentVersion()
+        protected override Bovender.Versioning.SemanticVersion GetCurrentVersion()
         {
             return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
         }
