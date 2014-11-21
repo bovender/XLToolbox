@@ -177,7 +177,7 @@ You can find the installer in {0}.</value>
     <value>Donate</value>
   </data>
   <data name="ThisIsVersion" xml:space="preserve">
-    <value>This is version {0}.</value>
+    <value>This is version:</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
@@ -354,5 +354,12 @@ The following error occurred:
   </data>
   <data name="ReportSuccessfullySubmitted" xml:space="preserve">
     <value>The report was successfully submitted.</value>
+  </data>
+  <data name="ErrorOccurredWhileDownloading" xml:space="preserve">
+    <value>An error occurred while downloading the file:
+
+"{0}".
+
+You may want to try again.</value>
   </data>
 </root>

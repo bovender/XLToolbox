@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using Bovender.Mvvm;
+using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
 using XLToolbox.Mvvm.Views;
 using XLToolbox.Mvvm.ViewModels;
+using XLToolbox.Versioning;
 
 namespace XLToolbox
 {
@@ -51,8 +54,22 @@ namespace XLToolbox
                         avm.InjectInto<AboutView>().ShowDialog();
                         break;
                     case Command.CheckForUpdates:
-                        // TODO: Implement MVVM here
-                        // (new WindowCheckForUpdate()).ShowDialog();
+                        Bovender.Versioning.UpdaterViewModel uvm = new Bovender.Versioning.UpdaterViewModel(
+                            new Updater()
+                            );
+                        System.Windows.Threading.Dispatcher d = System.Windows.Threading.Dispatcher.CurrentDispatcher;
+                        uvm.CheckForUpdateMessage.Sent += (object sender, MessageArgs<ProcessMessageContent> args) =>
+                        {
+                            Window view = args.Content.InjectInto<UpdaterProcessView>();
+                            args.Content.ViewModel.ViewDispatcher = view.Dispatcher;
+                            view.Show();
+                            //d.Invoke(
+                            //    new Action(() =>
+                            //        args.Content.InjectAndShowInThread<UpdaterProcessView>()
+                            //        )
+                            //    );
+                        };
+                        uvm.CheckForUpdateCommand.Execute(null);
                         break;
                     case Command.SheetList:
                         WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);

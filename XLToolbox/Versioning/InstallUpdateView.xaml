@@ -1,0 +1,19 @@
+﻿<Window x:Class="XLToolbox.Versioning.InstallUpdateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:XLToolbox"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Title="Daniel's XL Toolbox" ResizeMode="NoResize"
+    >
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+    </Window.Resources>
+    <StackPanel Margin="10,10,10,5">
+        <TextBlock Text="{x:Static l:Strings.UpdateWillBeInstalledNow}" />
+        <UniformGrid HorizontalAlignment="Center" Margin="0,10,0,0" Columns="2" Rows="1">
+            <Button Command="{Binding InstallUpdateCommand}" Content="{x:Static l:Strings.OK}" Margin="5" />
+            <Button Command="{Binding CloseViewCommand}" IsCancel="True" Content="{x:Static l:Strings.Cancel}" Margin="5" />
+        </UniformGrid>
+    </StackPanel>
+</Window>

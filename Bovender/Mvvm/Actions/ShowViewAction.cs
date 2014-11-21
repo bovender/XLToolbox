@@ -22,7 +22,7 @@ namespace Bovender.Mvvm.Actions
 
         #region Overrides
 
-        protected override System.Windows.Window CreateView()
+        protected override Window CreateView()
         {
             object obj = Activator.CreateInstance(Assembly, View).Unwrap();
             Window view = obj as Window;
@@ -38,6 +38,11 @@ namespace Bovender.Mvvm.Actions
                     "Class name '{0}' in assembly '{1}' is not derived from Window.",
                     Assembly, View));
             }
+        }
+
+        protected override void ShowView(Window view)
+        {
+            view.Show();
         }
 
         #endregion

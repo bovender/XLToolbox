@@ -17,5 +17,8 @@
     <Setting Name="DownloadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AddinName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Daniel's XL Toolbox</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -61,8 +61,24 @@ namespace Bovender.Mvvm.Actions
                     };
                     Content.RequestCloseView += closeHandler;
                 }
-                window.ShowDialog();
+                ShowView(window);
             }
+        }
+
+        #endregion
+
+        #region Virtual methods
+
+        /// <summary>
+        /// Shows the view as a modal dialog. Override this to do something
+        /// else with the view.
+        /// </summary>
+        /// <param name="view">Window object previously created by <see cref="CreateView"/>.</param>
+        /// <remarks>This method is called internally by the <see cref="Invoke"/>
+        /// method.</remarks>
+        protected virtual void ShowView(Window view)
+        {
+            view.ShowDialog();
         }
 
         #endregion

@@ -16,89 +16,15 @@ using Bovender.Versioning;
 namespace XLToolbox.Versioning
 {
     /// <summary>
-    /// Interaction logic for UpdaterProcessView.xaml
+    /// Interaction logic for UpdaterProcessView.xaml. This view can be
+    /// used to display a progress bar while checking for update availability,
+    /// or while downloading an update.
     /// </summary>
     public partial class UpdaterProcessView : Window
     {
         public UpdaterProcessView()
         {
-        }
-        /*
             InitializeComponent();
-            _updater = new Updater();
-            _updater.UpdateAvailable += updater_OnUpdateAvailable;
-            _updater.FetchingVersionFailed += updater_FetchingVersionFailed;
-            _updater.NoUpdateAvailable += updater_NoUpdateAvailable;
-            _updater.FetchVersionInformation();
         }
-
-        void updater_NoUpdateAvailable(object sender, UpdateAvailableEventArgs e)
-        {
-            stopProgressBar();
-            MessageBox.Show(Strings.YouHaveTheLatestVersion, Strings.CheckForUpdates,
-                MessageBoxButton.OK, MessageBoxImage.Information);
-            dispatchClose();
-        }
-
-        void updater_FetchingVersionFailed(object sender, System.Net.DownloadStringCompletedEventArgs e)
-        {
-            stopProgressBar();
-            MessageBox.Show(String.Format(Strings.FetchingVersionInformationFailed, e.Error.Message),
-                Strings.CheckForUpdates, MessageBoxButton.OK);
-            dispatchClose();
-        }
-
-        private void updater_OnUpdateAvailable(object sender, UpdateAvailableEventArgs e)
-        {
-            stopProgressBar();
-            showUpdateAvailable(sender as Updater);
-            dispatchClose();
-        }
-
-        private void stopProgressBar()
-        {
-            Action stopProgressBar = delegate()
-            {
-                ProgressBar.IsIndeterminate = false;
-            };
-            this.Dispatcher.Invoke(new Action(stopProgressBar));
-        }
-
-        private void dispatchClose()
-        {
-            this.Dispatcher.Invoke(new Action(this.Close));
-        }
-
-        /// <summary>
-        /// Thread-safe method to show the update information window; can
-        /// be called from event handlers that run in non-UI threads.
-        /// </summary>
-        /// <param name="updater"></param>
-        private void showUpdateAvailable(Updater updater)
-        {
-            Action action;
-            if (updater.IsAuthorized)
-            {
-                action = delegate()
-                {
-                    (new WindowUpdateAvailable(updater)).Show();
-                };
-            }
-            else
-            {
-                action = delegate()
-                {
-                    (new WindowNotAuthorizedForUpdate(updater)).Show();
-                };
-            }
-            this.Dispatcher.Invoke(new Action(action));
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            _updater.CancelFetchVersionInformation();
-            Close();
-        }
-        */
     }
 }

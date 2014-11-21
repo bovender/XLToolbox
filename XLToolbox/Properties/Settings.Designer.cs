@@ -70,5 +70,14 @@ namespace XLToolbox.Properties {
                 this["DownloadPath"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        public string AddinName {
+            get {
+                return ((string)(this["AddinName"]));
+            }
+        }
     }
 }
