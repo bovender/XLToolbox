@@ -2,9 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:v="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         Title="{x:Static l:Strings.Welcome}"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" Topmost="True"
+        v:WindowState.CenterScreen="True"
         >
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />

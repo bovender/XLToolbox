@@ -5,9 +5,12 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:bov="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
+        xmlns:vs="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
-        Title="{x:Static l:Strings.AboutXLToolbox}">
+        Title="{x:Static l:Strings.AboutXLToolbox}"
+        vs:WindowState.Save="True" vs:WindowState.CenterScreen="True"
+        >
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>

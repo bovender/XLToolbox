@@ -1,9 +1,11 @@
 ﻿<Window x:Class="Bovender.Mvvm.Views.NotificationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vs="clr-namespace:Bovender.Mvvm.Views.Settings"
         SizeToContent="Height" Width="320"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Caption}" ResizeMode="NoResize"
+        vs:WindowState.CenterScreen="True"
     >
     <StackPanel Margin="10">
         <TextBlock Text="{Binding FormattedText}" TextWrapping="Wrap" TextAlignment="Justify" />
