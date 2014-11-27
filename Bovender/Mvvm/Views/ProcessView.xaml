@@ -1,9 +1,11 @@
 ﻿<Window x:Class="Bovender.Mvvm.Views.ProcessView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vs="clr-namespace:Bovender.Mvvm.Views.Settings"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Caption}" ResizeMode="NoResize"
+        vs:WindowState.CenterScreen="True"
     >
     <StackPanel Margin="10">
         <ProgressBar Value="{Binding Content.PercentCompleted}" IsIndeterminate="{Binding Content.IsIndeterminate}"
