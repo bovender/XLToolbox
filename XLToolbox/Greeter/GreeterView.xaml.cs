@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows;
 using XLToolbox.Versioning;
 
-namespace XLToolbox.Mvvm.Views
+namespace XLToolbox.Greeter
 {
     /// <summary>
     /// Interaction logic for GreeterView.xaml

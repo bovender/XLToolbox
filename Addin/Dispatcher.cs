@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
@@ -9,9 +6,8 @@ using XLToolbox.ExceptionHandler;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
-using XLToolbox.Mvvm.Views;
-using XLToolbox.Mvvm.ViewModels;
 using XLToolbox.Versioning;
+using XLToolbox.SheetManager;
 
 namespace XLToolbox
 {

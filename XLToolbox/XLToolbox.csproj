@@ -78,7 +78,7 @@
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
     <Compile Include="About\AboutViewModel.cs" />
-    <Compile Include="Mvvm\ViewModels\GreeterViewModel.cs" />
+    <Compile Include="Greeter\GreeterViewModel.cs" />
     <Compile Include="About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
@@ -107,7 +107,7 @@
     <Compile Include="ExceptionHandler\ExceptionDetailView.xaml.cs">
       <DependentUpon>ExceptionDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\GreeterView.xaml.cs">
+    <Compile Include="Greeter\GreeterView.xaml.cs">
       <DependentUpon>GreeterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Versioning\NotAuthorizedForUpdateView.xaml.cs">
@@ -116,7 +116,7 @@
     <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
       <DependentUpon>ExceptionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\Views\WorkbookView.xaml.cs">
+    <Compile Include="SheetManager\WorkbookView.xaml.cs">
       <DependentUpon>WorkbookView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,7 +268,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\GreeterView.xaml">
+    <Page Include="Greeter\GreeterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -280,7 +280,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Mvvm\Views\WorkbookView.xaml">
+    <Page Include="SheetManager\WorkbookView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
