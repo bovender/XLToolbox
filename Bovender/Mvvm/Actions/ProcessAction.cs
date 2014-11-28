@@ -35,7 +35,7 @@ namespace Bovender.Mvvm.Actions
                 {
                     view = base.CreateView();
                 }
-                catch (Exception e)
+                catch
                 {
                     view = new ProcessView();
                 }
