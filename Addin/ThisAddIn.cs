@@ -4,8 +4,8 @@ using Bovender.Versioning;
 using System;
 using XLToolbox.Excel.Instance;
 using XLToolbox.ExceptionHandler;
-using XLToolbox.Mvvm.ViewModels;
 using XLToolbox.Mvvm.Views;
+using XLToolbox.Greeter;
 using Threading = System.Windows.Threading;
 
 namespace XLToolbox

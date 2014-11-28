@@ -1,4 +1,4 @@
-﻿<Window x:Class="XLToolbox.Mvvm.Views.GreeterView"
+﻿<Window x:Class="XLToolbox.Greeter.GreeterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:XLToolbox"

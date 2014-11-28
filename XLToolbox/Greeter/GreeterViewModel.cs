@@ -7,7 +7,7 @@ using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm;
 using Bovender.Versioning;
 
-namespace XLToolbox.Mvvm.ViewModels
+namespace XLToolbox.Greeter
 {
     /// <summary>
     /// View model for the greeter screen.

@@ -11,8 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XLToolbox.Mvvm.Actions;
 
-namespace XLToolbox.Mvvm.Views
+namespace XLToolbox.SheetManager
 {
     /// <summary>
     /// Interaction logic for WorkbookView.xaml
