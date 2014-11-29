@@ -5,9 +5,12 @@
         xmlns:mvvm="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:conv="clr-namespace:Bovender.Mvvm.Converters;assembly=Bovender"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:actions="clr-namespace:XLToolbox.Mvvm.Actions"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Caption}" ResizeMode="NoResize"
+        settings:WindowState.CenterScreen="True"
     >
     <Window.Resources>
         <conv:SimpleExceptionConverter x:Key="ExConv" />
@@ -18,7 +21,8 @@
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.NoUpdateAvailableMessage}" EventName="Sent">
-            <mvvm:ShowViewAction View="XLToolbox.Versioning.NoUpdateAvailableView" Assembly="XLToolbox" />
+            <actions:NotificationAction Caption="{x:Static l:Strings.CheckForUpdates}"
+                                   Message="{x:Static l:Strings.YouHaveTheLatestVersion}" />
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.UpdateInstallableMessage}" EventName="Sent">

@@ -385,22 +385,30 @@ namespace Bovender.Versioning
                         {
                             if (_updater.IsAuthorized)
                             {
-                                UpdateAvailableMessage.Send(CheckProcessMessageContent);
+                                UpdateAvailableMessage.Send(
+                                    CheckProcessMessageContent,
+                                    (content) => InstallUpdateCommand.Execute(null));
                             }
                             else
                             {
-                                UpdateAvailableButNotAuthorizedMessage.Send();
+                                UpdateAvailableButNotAuthorizedMessage.Send(
+                                    CheckProcessMessageContent,
+                                    (content) => CloseViewCommand.Execute(null));
                             }
                         }
                         else
                         {
-                            NoUpdateAvailableMessage.Send(CheckProcessMessageContent);
+                            NoUpdateAvailableMessage.Send(
+                                CheckProcessMessageContent,
+                                (content) => CloseViewCommand.Execute(null));
                         }
                     }
                     else
                     {
                         OnPropertyChanged("DownloadException");
-                        NetworkFailureMessage.Send(CheckProcessMessageContent);
+                        NetworkFailureMessage.Send(
+                            CheckProcessMessageContent,
+                            (content) => CloseViewCommand.Execute(null));
                     }
                 });
 
