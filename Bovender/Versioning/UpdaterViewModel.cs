@@ -374,8 +374,7 @@ namespace Bovender.Versioning
 
         void _updater_CheckForUpdateFinished(object sender, EventArgs e)
         {
-            ViewDispatcher.Invoke(
-                new Action(() =>
+            Action action = new Action(() =>
                 { 
                     // Set the 'IsIndeterminate' property of the process message content to false
                     // so that the progress bar stops its animation.
@@ -403,8 +402,19 @@ namespace Bovender.Versioning
                         OnPropertyChanged("DownloadException");
                         NetworkFailureMessage.Send(CheckProcessMessageContent);
                     }
-                })
-            );
+                });
+
+            // Asynchronous operations that interact with GUI views must be invoked
+            // via the view's dispatcher. If there is no GUI view and hence no
+            // dispatcher, simply invoke the action itself (e.g., if the view
+            // is a non-GUI object).
+            if (ViewDispatcher != null)
+            {
+                ViewDispatcher.Invoke(action);
+            }
+            else {
+                action.Invoke();
+            }
         }
 
         private void DoChooseDestinationFolder()

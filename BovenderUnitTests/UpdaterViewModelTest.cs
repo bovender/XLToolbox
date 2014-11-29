@@ -101,6 +101,7 @@ namespace Bovender.UnitTests
                 UpdaterViewModel relayedViewModel = args.Content.ViewModel as UpdaterViewModel;
                 relayedViewModel.DownloadUpdateCommand.Execute(null);
             };
+            bool cancelTask = false;
             bool updateInstallable = false;
             vm.UpdateInstallableMessage.Sent += (object sender, MessageArgs<ViewModelMessageContent> args) => {
                 UpdaterViewModel relayedViewModel = args.Content.ViewModel as UpdaterViewModel;
@@ -110,11 +111,13 @@ namespace Bovender.UnitTests
 
             Task checkInstallableTask = new Task(() =>
             {
-                while (!updateInstallable) ;
+                while (!updateInstallable && !cancelTask) ;
             });
 
             checkInstallableTask.Start();
             checkInstallableTask.Wait(10000);
+            // Cancel the task in case the timeout was reached but the event was not raised
+            cancelTask = !updateInstallable;
             Assert.True(updateInstallable, "Update should have been downloaded and be installable, but isn't.");
         }
     }
