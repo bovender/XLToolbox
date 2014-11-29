@@ -4,9 +4,11 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         x:Name="stringMessageContentView"
-        SizeToContent="Height" Width="260"
+        SizeToContent="Height" Width="300" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
+        settings:WindowState.CenterScreen="True"
         Title="{Binding Path=Caption}">
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
@@ -17,9 +19,15 @@
         </Label>
         <TextBox Name="value" DataContext="{Binding Path=Content}" Margin="0 5 0 0"
                  Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
-            <Button Command="{Binding Path=Content.ConfirmCommand}" Content="{x:Static l:Strings.OK}" Margin="0 0 5 0" />
-            <Button Command="{Binding Path=Content.CloseViewCommand}" Content="{x:Static l:Strings.Cancel}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <UniformGrid>
+                <Button Command="{Binding Path=Content.ConfirmCommand}"
+                        Content="{x:Static l:Strings.OK}"
+                        Margin="5 0 5 0" />
+                <Button Command="{Binding Path=Content.CloseViewCommand}"
+                        Content="{x:Static l:Strings.Cancel}"
+                        Margin="5 0 5 0" />
+            </UniformGrid>
         </StackPanel>
     </StackPanel>
 </Window>
