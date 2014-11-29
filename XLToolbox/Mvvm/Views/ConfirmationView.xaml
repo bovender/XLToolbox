@@ -1,11 +1,12 @@
-﻿<Window x:Class="XLToolbox.Mvvm.Views.MessageContentView"
+﻿<Window x:Class="XLToolbox.Mvvm.Views.ConfirmationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:l="clr-namespace:XLToolbox"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterOwner"
+        settings:WindowState.CenterScreen="True"
         Title="{Binding Path=Caption}">
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />

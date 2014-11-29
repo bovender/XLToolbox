@@ -26,7 +26,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
-                <mvvm:MessageAction Caption="{x:Static l:Strings.WorksheetManager}"
+                <mvvm:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
                                     Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>

@@ -4,7 +4,7 @@ using XLToolbox.Mvvm.Views;
 
 namespace XLToolbox.Mvvm.Actions
 {
-    public class MessageAction : MessageActionBase
+    public class ConfirmationAction : MessageActionBase
     {
         /// <summary>
         /// Returns a view that can bind to expected message contents.
@@ -12,7 +12,7 @@ namespace XLToolbox.Mvvm.Actions
         /// <returns>Descendant of Window.</returns>
         protected override Window CreateView()
         {
-            return new MessageContentView();
+            return new ConfirmationView();
         }
     }
 }

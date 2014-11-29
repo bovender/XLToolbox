@@ -3,11 +3,11 @@
 namespace XLToolbox.Mvvm.Views
 {
     /// <summary>
-    /// Interaction logic for MessageContentView.xaml
+    /// Interaction logic for ConfirmationView.xaml
     /// </summary>
-    public partial class MessageContentView : Window
+    public partial class ConfirmationView : Window
     {
-        public MessageContentView()
+        public ConfirmationView()
         {
             InitializeComponent();
         }
