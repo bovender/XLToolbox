@@ -63,7 +63,12 @@ namespace Bovender.Mvvm
             }
             catch (Exception e)
             {
-                ExceptionHandler.CentralHandler.Manage(this, e);
+                // Let the central exception manager do its work.
+                // If the exception was not managed, rethrow it.
+                if (!ExceptionHandler.CentralHandler.Manage(this, e))
+                {
+                    throw;
+                }
             }
         }
 

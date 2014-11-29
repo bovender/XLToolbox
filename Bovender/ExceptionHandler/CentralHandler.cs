@@ -27,17 +27,23 @@ namespace Bovender.ExceptionHandler
 
         #region Static methods
 
-        public static void Manage(object origin, Exception e)
+        /// <summary>
+        /// Central exception managing method; can be called in try...catch
+        /// statements of user entry points.
+        /// </summary>
+        /// <param name="origin">Object where the exception occurred.</param>
+        /// <param name="e">Exception that occurred in <see cref="origin"/>.</param>
+        /// <returns>True if central exception management was performed, false if not.
+        /// If the exception was not managed, the calling method may want to rethrow
+        /// the exception.</returns>
+        public static bool Manage(object origin, Exception e)
         {
             ManageExceptionEventArgs args = new ManageExceptionEventArgs(e);
             if (ManageExceptionCallback != null)
             {
                 ManageExceptionCallback(origin, args);
             }
-            if (!args.IsHandled)
-            {
-                throw new UnhandledException("No central handler managed the exception", e);
-            }
+            return args.IsHandled;
         }
 
         #endregion

@@ -275,21 +275,12 @@ namespace XLToolbox.Test.Excel
                 )
             );
 
-            // Assigning in valid name causes an InvalidSheetNameException
-            // However, the central exception handler will wrap this exception
-            // in a Bovender.ExceptionHandler.UnhandledException, so we cannot
-            // simply Assert.Throws here.
-            try
+            Assert.Throws<InvalidSheetNameException>(() =>
             {
                 newName = "invalid\\sheet\\name";
                 wvm.RenameSheet.Execute(null);
                 Assert.Fail("Assigning an invalid name should cause an exception.");
-            }
-            catch (Exception e)
-            {
-                Assert.IsInstanceOf<InvalidSheetNameException>(e.InnerException,
-                    "Assigning an invalid name should cause an InvalidSheetNameException");
-            }
+            });
         }
     }
 }
