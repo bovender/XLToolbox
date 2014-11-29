@@ -4,9 +4,12 @@
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         SizeToContent="Height" Width="640"
         x:Name="exceptionDetailView"
-        Title="{x:Static l:Strings.TechnicalInformation}">
+        Title="{x:Static l:Strings.TechnicalInformation}"
+        settings:WindowState.Save="True"
+        >
     <Window.Resources>
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>

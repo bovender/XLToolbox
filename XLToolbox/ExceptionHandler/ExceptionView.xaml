@@ -6,9 +6,11 @@
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:ex="clr-namespace:XLToolbox.ExceptionHandler"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         SizeToContent="WidthAndHeight" ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Title="{x:Static l:Strings.XLToolboxError}"
+        settings:WindowState.Save="True"
         >
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ViewDetailsMessage}" EventName="Sent">
