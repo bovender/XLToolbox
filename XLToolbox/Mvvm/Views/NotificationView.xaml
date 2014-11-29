@@ -13,7 +13,9 @@
         <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
     </Window.Resources>
     <StackPanel Margin="10">
-        <TextBlock Text="{Binding Message}" Margin="0 00 0 10" />
-        <Button Command="{Binding Path=Content.CloseViewCommand}" Content="{x:Static l:Strings.OK}" />
+        <TextBlock Text="{Binding Message}" Margin="0 0 0 10" TextWrapping="Wrap" />
+        <Button Command="{Binding Path=Content.CloseViewCommand}"
+                Content="{x:Static l:Strings.OK}"
+                MinWidth="80"/>
     </StackPanel>
 </Window>
