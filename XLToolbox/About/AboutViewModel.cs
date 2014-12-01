@@ -123,5 +123,6 @@ namespace XLToolbox.About
         private Message<MessageContent> _showCreditsMessage;
 
         #endregion
+
     }
 }

@@ -563,5 +563,14 @@ namespace Bovender.Versioning
         private ProcessMessageContent _downloadProcessMessageContent;
 
         #endregion
+
+        #region Implementation of ViewModelBase's abstract methods
+
+        public override bool IsViewModelOf(object model)
+        {
+            return _updater.Equals(model);
+        }
+
+        #endregion
     }
 }

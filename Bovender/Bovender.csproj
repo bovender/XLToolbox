@@ -64,6 +64,7 @@
     <Compile Include="Mvvm\BindingWebBrowser.cs" />
     <Compile Include="Mvvm\Converters\SimpleExceptionConverter.cs" />
     <Compile Include="Mvvm\Messaging\ViewModelMessageContent.cs" />
+    <Compile Include="Mvvm\ViewModels\ViewModelCollection.cs" />
     <Compile Include="Mvvm\Views\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>

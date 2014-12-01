@@ -75,6 +75,5 @@ namespace Bovender.Mvvm.Messaging
         private DelegatingCommand _confirmCommand;
 
         #endregion
-
     }
 }

@@ -81,6 +81,23 @@ namespace Bovender.Mvvm.ViewModels
 
         #endregion
 
+        #region Public virtual methods
+
+        /// <summary>
+        /// Determines whether the current object is a view model
+        /// of a particular model object. In the base class, this
+        /// always returns false and derived classes must override
+        /// the method as appropriate.
+        /// </summary>
+        /// <param name="model">The model to check.</param>
+        /// <returns>Always false in the base class.</returns>
+        public virtual bool IsViewModelOf(object model)
+        {
+            return false;
+        }
+
+        #endregion
+
         #region Protected properties
 
         /// <summary>
@@ -119,7 +136,7 @@ namespace Bovender.Mvvm.ViewModels
                 RequestCloseView(this, EventArgs.Empty);
             }
         }
-        
+
         #endregion
 
         #region Constructor
