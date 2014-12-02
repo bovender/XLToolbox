@@ -566,9 +566,9 @@ namespace Bovender.Versioning
 
         #region Implementation of ViewModelBase's abstract methods
 
-        public override bool IsViewModelOf(object model)
+        public override object RevealModelObject()
         {
-            return _updater.Equals(model);
+            return _updater;
         }
 
         #endregion

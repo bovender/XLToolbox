@@ -71,11 +71,12 @@ namespace Bovender.HtmlFiles
 
         #region Implementation of ViewModelBase's abstract methods
 
-        public override bool IsViewModelOf(object model)
+        public override object RevealModelObject()
         {
-            return String.Equals(model, _packUri);
+            return _packUri;
         }
 
         #endregion
+
     }
 }

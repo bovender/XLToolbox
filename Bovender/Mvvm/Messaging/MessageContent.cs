@@ -75,5 +75,10 @@ namespace Bovender.Mvvm.Messaging
         private DelegatingCommand _confirmCommand;
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

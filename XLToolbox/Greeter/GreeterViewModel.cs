@@ -95,5 +95,10 @@ namespace XLToolbox.Greeter
         private Message<MessageContent> _donateMessage;
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

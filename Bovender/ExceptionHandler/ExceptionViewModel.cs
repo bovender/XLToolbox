@@ -404,10 +404,5 @@ namespace Bovender.ExceptionHandler
         private ProcessMessageContent _submissionProcessMessageContent;
 
         #endregion
-
-        public override bool IsViewModelOf(object model)
-        {
-            return Exception.Equals(model);
-        }
     }
 }

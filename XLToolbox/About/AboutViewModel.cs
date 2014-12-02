@@ -124,5 +124,9 @@ namespace XLToolbox.About
 
         #endregion
 
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

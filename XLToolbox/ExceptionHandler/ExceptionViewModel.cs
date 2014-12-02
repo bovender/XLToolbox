@@ -66,5 +66,10 @@ namespace XLToolbox.ExceptionHandler
         }
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return Exception;
+        }
     }
 }

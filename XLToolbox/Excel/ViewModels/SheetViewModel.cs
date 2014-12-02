@@ -101,9 +101,9 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Implementation of ViewModelBase's abstract methods
 
-        public override bool IsViewModelOf(object model)
+        public override object RevealModelObject()
         {
-            return ((object)_sheet).Equals(model);
+            return _sheet;
         }
 
         #endregion
