@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Bovender.Mvvm.ViewModels;
 using System.ComponentModel;
+using System.Collections;
 
 namespace Bovender.Mvvm.ViewModels
 {
@@ -29,8 +30,10 @@ namespace Bovender.Mvvm.ViewModels
         public ViewModelCollection(ObservableCollection<TModel> modelCollection)
         {
             _modelCollection = modelCollection;
-            _modelCollection.CollectionChanged += _modelCollection_CollectionChanged;
-            this.CollectionChanged += ViewModelCollection_CollectionChanged;
+            // The BuildViewModelCollection adds the event handlers
+            // when done, so there is no need to add the event handlers
+            // via SynchronizeOn() in the constructor. Avoid adding the
+            // handlers twice...
             BuildViewModelCollection();
         }
 
@@ -45,25 +48,27 @@ namespace Bovender.Mvvm.ViewModels
         /// <param name="e"></param>
         void ViewModelCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_working) return;
-        
-            _working = true;
+            SynchronizeOff();
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (TViewModel vm in e.NewItems)
-                    {
-                        _modelCollection.Add((TModel)vm.RevealModelObject());
-                    }
+                    DoAddModelObjects(e.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (TViewModel vm in e.OldItems)
-                    {
-                        _modelCollection.Remove((TModel)vm.RevealModelObject());
-                    }
+                    DoRemoveModelObjects(e.OldItems);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    // Don't do anything if items are moved.
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    DoRemoveModelObjects(e.OldItems);
+                    DoAddModelObjects(e.NewItems);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    BuildModelCollection();
                     break;
             }
-            _working = false;
+            SynchronizeOn();
         }
 
         /// <summary>
@@ -73,42 +78,58 @@ namespace Bovender.Mvvm.ViewModels
         /// <param name="e"></param>
         void _modelCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_working) return;
-
-            _working = true;
+            SynchronizeOff();
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (TModel m in e.NewItems)
-                    {
-                        Add(CreateViewModel(m));
-                    }
+                    DoAddViewModelObjects(e.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (TModel m in e.OldItems)
-                    {
-                        Items.Remove(
-                            Items.FirstOrDefault(
-                                (TViewModel vm) => vm.IsViewModelOf(m)
-                            )
-                        );
-                    }
+                    DoRemoveViewModelObjects(e.OldItems);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    // No need to synchronize, we don't care about order
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    DoRemoveViewModelObjects(e.OldItems);
+                    DoAddViewModelObjects(e.NewItems);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    BuildViewModelCollection();
                     break;
             }
-            _working = false;
+            SynchronizeOn();
         }
 
         #endregion
 
         #region Private methods
 
+        /// <summary>
+        /// Turns on synchronization of the view model collection and the
+        /// model collection by adding appropriate event handles.
+        /// </summary>
+        protected void SynchronizeOn()
+        {
+            _modelCollection.CollectionChanged += _modelCollection_CollectionChanged;
+            this.CollectionChanged += ViewModelCollection_CollectionChanged;
+        }
+
+        /// <summary>
+        /// Turns off synchronization of the view model collection and the
+        /// model collection by removing the event handles.
+        /// </summary>
+        protected void SynchronizeOff()
+        {
+            _modelCollection.CollectionChanged -= _modelCollection_CollectionChanged;
+            this.CollectionChanged -= ViewModelCollection_CollectionChanged;
+        }
+
         protected void BuildViewModelCollection()
         {
-            if (_working) return;
-
-            _working = true;
             try
             {
+                SynchronizeOff();
                 this.Clear();
                 foreach (TModel m in _modelCollection)
                 {
@@ -117,16 +138,69 @@ namespace Bovender.Mvvm.ViewModels
             }
             finally
             {
-                _working = false;
+                SynchronizeOn();
             }
         }
+
+        private void DoAddViewModelObjects(IList modelObjects)
+        {
+            foreach (TModel m in modelObjects)
+            {
+                Add(CreateViewModel(m));
+            }
+        }
+
+        private void DoRemoveViewModelObjects(IList modelObjects)
+        {
+            foreach (TModel m in modelObjects)
+            {
+                Items.Remove(
+                    Items.FirstOrDefault(
+                        (TViewModel vm) => vm.IsViewModelOf(m)
+                    )
+                );
+            }
+        }
+
+        private void BuildModelCollection()
+        {
+            try
+            {
+                SynchronizeOff();
+                this.Clear();
+                foreach (TViewModel vm in Items)
+                {
+                    _modelCollection.Add((TModel)vm.RevealModelObject());
+                }
+            }
+            finally
+            {
+                SynchronizeOn();
+            }
+        }
+
+        private void DoAddModelObjects(IList viewModelObjects)
+        {
+            foreach (TViewModel vm in viewModelObjects)
+            {
+                _modelCollection.Add((TModel)vm.RevealModelObject());
+            }
+        }
+
+        private void DoRemoveModelObjects(IList viewModelObjects)
+        {
+            foreach (TViewModel vm in viewModelObjects)
+            {
+                _modelCollection.Remove((TModel)vm.RevealModelObject());
+            }
+        }
+
 
         #endregion
 
         #region Private fields
 
         readonly ObservableCollection<TModel> _modelCollection;
-        bool _working;
 
         #endregion
     }

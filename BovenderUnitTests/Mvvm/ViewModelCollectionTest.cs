@@ -46,6 +46,7 @@ namespace Bovender.UnitTests.Mvvm
             TestModel m = new TestModel(testValue);
             TestViewModel vm = new TestViewModel(m);
             vmc.Add(vm);
+            Assert.AreEqual(1, mc.Count);
             TestModel testm = mc[0];
             Assert.AreEqual(m.Value, testm.Value);
         }
