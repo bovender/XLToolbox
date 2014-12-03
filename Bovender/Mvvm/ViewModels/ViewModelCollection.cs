@@ -31,6 +31,16 @@ namespace Bovender.Mvvm.ViewModels
             }
         }
 
+        public TViewModel LastSelected
+        {
+            get { return _lastSelected; }
+            set
+            {
+                _lastSelected = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("LastSelected"));
+            }
+        }
+
         #endregion
 
         #region Public methods
@@ -139,6 +149,23 @@ namespace Bovender.Mvvm.ViewModels
             SynchronizeOn();
         }
 
+        private void viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsSelected")
+            {
+                if (((TViewModel)sender).IsSelected)
+                {
+                    LastSelected = sender as TViewModel;
+                    CountSelected++;
+                }
+                else
+                {
+                    LastSelected = null;
+                    CountSelected--;
+                }
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -242,20 +269,13 @@ namespace Bovender.Mvvm.ViewModels
             Add(viewModel);
         }
 
-        private void viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsSelected")
-            {
-                CountSelected += ((TViewModel)sender).IsSelected ? 1 : -1;
-            }
-        }
-
         #endregion
 
         #region Private fields
 
         readonly ObservableCollection<TModel> _modelCollection;
         private int _countSelected;
+        private TViewModel _lastSelected;
 
         #endregion
     }

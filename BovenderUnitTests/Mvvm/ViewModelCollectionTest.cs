@@ -73,8 +73,14 @@ namespace Bovender.UnitTests.Mvvm
             }
             // Select 's' number of view model objects. There's probably a more elegant way to do this.
             vmc[1].IsSelected = true;
+            Assert.True(vmc[1].Equals(vmc.LastSelected),
+                "View model at index 1 should be the LastSelected view model but isn't.");
             vmc[4].IsSelected = true;
+            Assert.True(vmc[4].Equals(vmc.LastSelected),
+                "View model at index 4 should be the LastSelected view model but isn't.");
             vmc[5].IsSelected = true;
+            Assert.True(vmc[5].Equals(vmc.LastSelected),
+                "View model at index 5 should be the LastSelected view model but isn't.");
             Assert.AreEqual(s, vmc.CountSelected, "Incorrect number of selected view models.");
             vmc.RemoveSelected();
             Assert.AreEqual(0, vmc.CountSelected,
