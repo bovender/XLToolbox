@@ -19,6 +19,44 @@ namespace Bovender.Mvvm.ViewModels
     public abstract class ViewModelCollection<TModel, TViewModel>
         : ObservableCollection<TViewModel> where TViewModel : ViewModelBase
     {
+        #region Public properties
+
+        public int CountSelected
+        {
+            get { return _countSelected; }
+            set
+            {
+                _countSelected = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("CountSelected"));
+            }
+        }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Removes all selected view models from the collection.
+        /// </summary>
+        /// <remarks>
+        /// Inspired by http://stackoverflow.com/a/26523396/270712
+        /// </remarks>
+        public void RemoveSelected()
+        {
+            var selected = Items.Where<TViewModel>((vm) => vm.IsSelected).ToList<TViewModel>();
+            // Use Items.Remove() which does not trigger the CollectionChanged event.
+            selected.ForEach((vm) => Items.Remove(vm));
+            CountSelected = 0;
+            OnPropertyChanged(new PropertyChangedEventArgs("Count"));
+            OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(
+                NotifyCollectionChangedAction.Remove, selected
+                )
+            );
+        }
+
+        #endregion
+
         #region Abstract methods
 
         protected abstract TViewModel CreateViewModel(TModel model);
@@ -133,7 +171,7 @@ namespace Bovender.Mvvm.ViewModels
                 this.Clear();
                 foreach (TModel m in _modelCollection)
                 {
-                    this.Add(CreateViewModel(m));
+                    AddViewModelWithEvent(m);
                 }
             }
             finally
@@ -146,7 +184,7 @@ namespace Bovender.Mvvm.ViewModels
         {
             foreach (TModel m in modelObjects)
             {
-                Add(CreateViewModel(m));
+                AddViewModelWithEvent(m);
             }
         }
 
@@ -183,6 +221,7 @@ namespace Bovender.Mvvm.ViewModels
         {
             foreach (TViewModel vm in viewModelObjects)
             {
+                vm.PropertyChanged += viewModel_PropertyChanged;
                 _modelCollection.Add((TModel)vm.RevealModelObject());
             }
         }
@@ -191,16 +230,32 @@ namespace Bovender.Mvvm.ViewModels
         {
             foreach (TViewModel vm in viewModelObjects)
             {
+                vm.PropertyChanged -= viewModel_PropertyChanged;
                 _modelCollection.Remove((TModel)vm.RevealModelObject());
             }
         }
 
+        private void AddViewModelWithEvent(TModel model)
+        {
+            TViewModel viewModel = CreateViewModel(model);
+            viewModel.PropertyChanged += viewModel_PropertyChanged;
+            Add(viewModel);
+        }
+
+        private void viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsSelected")
+            {
+                CountSelected += ((TViewModel)sender).IsSelected ? 1 : -1;
+            }
+        }
 
         #endregion
 
         #region Private fields
 
         readonly ObservableCollection<TModel> _modelCollection;
+        private int _countSelected;
 
         #endregion
     }

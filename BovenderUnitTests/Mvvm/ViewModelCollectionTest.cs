@@ -61,5 +61,28 @@ namespace Bovender.UnitTests.Mvvm
             ViewModelCollectionForTesting c = new ViewModelCollectionForTesting(mc);
             Assert.AreEqual(0, mc.Count);
         }
+
+        [Test]
+        public void SelectViewModels()
+        {
+            int n = 10;
+            int s = 3;
+            for (int i = 0; i < n; i++)
+            {
+                vmc.Add(new TestViewModel(new TestModel()));
+            }
+            // Select 's' number of view model objects. There's probably a more elegant way to do this.
+            vmc[1].IsSelected = true;
+            vmc[4].IsSelected = true;
+            vmc[5].IsSelected = true;
+            Assert.AreEqual(s, vmc.CountSelected, "Incorrect number of selected view models.");
+            vmc.RemoveSelected();
+            Assert.AreEqual(0, vmc.CountSelected,
+                "After deleting selected view models, CountSelected should be 0.");
+            Assert.AreEqual(n - s, vmc.Count,
+                String.Format("There should be only {0} *view model* objects left.", n - s));
+            Assert.AreEqual(n - s, mc.Count,
+                String.Format("There should be only {0} *model* objects left.", n - s));
+        }
     }
 }
