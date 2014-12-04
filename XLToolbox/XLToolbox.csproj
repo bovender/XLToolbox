@@ -71,6 +71,16 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Export\ColorSpace.cs" />
+    <Compile Include="Export\Exporter.cs" />
+    <Compile Include="Export\ExporterViewModel.cs" />
+    <Compile Include="Export\SettingsRepositoryViewModel.cs" />
+    <Compile Include="Export\Settings.cs" />
+    <Compile Include="Export\SettingsRepository.cs" />
+    <Compile Include="Export\SettingsViewModelCollection.cs" />
+    <Compile Include="Export\StoreException.cs" />
+    <Compile Include="Export\SettingsViewModel.cs" />
+    <Compile Include="Export\FileType.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />

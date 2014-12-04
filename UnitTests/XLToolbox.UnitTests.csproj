@@ -76,6 +76,12 @@
   <ItemGroup>
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
+    <Compile Include="Export\ExporterTest.cs" />
+    <Compile Include="Export\ExporterViewModelTest.cs" />
+    <Compile Include="Export\SettingsRepositoryForTesting.cs" />
+    <Compile Include="Export\SettingsRepositoryTest.cs" />
+    <Compile Include="Export\SettingsRepositoryViewModelTest.cs" />
+    <Compile Include="Export\SettingsViewModelTest.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
