@@ -18,7 +18,8 @@ namespace XLToolbox
         About,
         CheckForUpdates,
         ThrowError,
-        SheetList
+        SheetList,
+        ExportSelection
     };
 
     #endregion
@@ -70,6 +71,13 @@ namespace XLToolbox
                     case Command.SheetList:
                         WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
                         Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
+                        break;
+                    case Command.ExportSelection:
+                        Export.Exporter exporter = new Export.Exporter();
+                        Export.Settings settings = new Export.Settings(Export.FileType.Png, 600, Export.ColorSpace.Rgb);
+                        exporter.ExportSelection(settings, System.IO.Path.Combine(
+                            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                            "export-from-dispatcher.png"));
                         break;
                     case Command.ThrowError:
                         throw new InsufficientMemoryException();

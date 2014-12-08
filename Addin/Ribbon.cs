@@ -61,6 +61,8 @@ namespace XLToolbox
                     break;
                 case "ButtonSheetList": Dispatcher.Execute(Command.SheetList);
                     break;
+                case "ButtonExportSelection": Dispatcher.Execute(Command.ExportSelection);
+                    break;
                 default:
                     break;
             }

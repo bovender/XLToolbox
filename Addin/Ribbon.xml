@@ -7,15 +7,17 @@
 					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"/>
 				</group>
-				<group id="GroupExport" getLabel="Control_GetLabel" visible="false">
+				<group id="GroupExport" getLabel="Control_GetLabel" visible="true">
 					<splitButton id="SplitButtonExportSelection">
 						<button id="ButtonExportSelection" image="export-selection-small.png"
+								onAction="Button_OnAction"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 						<menu id="MenuExportSelection">
 						</menu>
 					</splitButton>
 					<splitButton id="SplitButtonExportBatch">
 						<button id="ButtonExportBatch" image="export-batch-small.png"
+								onAction="Button_OnAction"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 						<menu id="MenuExportBatch">
 						</menu>
