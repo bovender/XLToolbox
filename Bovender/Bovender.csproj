@@ -104,6 +104,7 @@
     <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="Unmanaged\DllNotFoundException.cs" />
     <Compile Include="Unmanaged\DllSha1MismatchException.cs" />
+    <Compile Include="Unmanaged\Pinvoke.cs" />
     <Compile Include="Versioning\DownloadCorruptException.cs" />
     <Compile Include="Versioning\InvalidVersionStringException.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
