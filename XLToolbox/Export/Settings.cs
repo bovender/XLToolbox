@@ -17,12 +17,28 @@ namespace XLToolbox.Export
         public int Dpi { get; set; }
         public FileType FileType { get; set; }
         public ColorSpace ColorSpace { get; set; }
-
         public bool IsVectorType
         {
             get
             {
                 return FileType == Export.FileType.Emf || FileType == Export.FileType.Svg;
+            }
+        }
+        public int Bpp
+        {
+            get
+            {
+                switch (ColorSpace)
+                {
+                    case Export.ColorSpace.Cmyk: return 32;
+                    case Export.ColorSpace.Rgb: return 24;
+                    case Export.ColorSpace.GrayScale: return 16;
+                    case Export.ColorSpace.Monochrome: return 1;
+                    default:
+                        throw new NotImplementedException(String.Format(
+                            "ColorSpace to BPP conversion not implemented for {0}",
+                            this.ColorSpace.ToString()));
+                }
             }
         }
 

@@ -40,7 +40,13 @@ namespace XLToolbox.Excel.Instance
 
         #endregion
 
-        #region Public properties
+        #region Public instance properties
+
+        public Application App { get { return ExcelInstance.Application; } }
+
+        #endregion
+
+        #region Public static properties
 
         /// <summary>
         /// Provides access to the current Excel instance.
@@ -49,7 +55,7 @@ namespace XLToolbox.Excel.Instance
         {
             get
             {
-                if (_application == null)
+                if (!Running)
                 {
                     throw new ExcelInstanceException("No instance running.");
                 }
@@ -57,11 +63,19 @@ namespace XLToolbox.Excel.Instance
             }
             set
             {
-                if (_application != null)
+                if (Running)
                 {
                     throw new ExcelInstanceAlreadySetException();
                 }
                 _application = value;
+            }
+        }
+
+        public static bool Running
+        {
+            get
+            {
+                return _application != null;
             }
         }
 

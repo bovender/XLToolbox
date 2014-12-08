@@ -74,6 +74,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
     <Compile Include="Export\ExporterTest.cs" />
@@ -110,6 +111,17 @@
       <Project>{b391711c-2b81-4001-a6c6-bda0d624d2e0}</Project>
       <Name>XLToolbox</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

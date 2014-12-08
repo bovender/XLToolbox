@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Windows;
 using Bovender.Unmanaged;
 using FreeImageAPI;
+using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.Export
 {
@@ -22,7 +28,26 @@ namespace XLToolbox.Export
         /// <param name="fileName">Target file name.</param>
         public void ExportSelection(Settings exportSettings, string fileName)
         {
-            throw new NotImplementedException();
+            // Copy current selection to clipboard
+            SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+            svm.CopyToClipboard();
+            WorkingClipboard clipboard = new WorkingClipboard();
+            Metafile emf = clipboard.GetMetafile();
+            string tempFile = System.IO.Path.GetTempFileName();
+            // Analyze size of selection
+            // Determine bpp
+            int px = 4000;
+            int py = 3000;
+            Bitmap b = new Bitmap(px, py);
+            Graphics g = Graphics.FromImage(b);
+            g.FillRectangle(Brushes.White, 0, 0, px, py);
+            g.DrawImage(emf, 0, 0, px, py);
+            // b.MakeTransparent(Color.White);
+            FreeImageBitmap fib = new FreeImageBitmap(b);
+            // Convert color space
+            // Attach color profile
+            fib.SetResolution(exportSettings.Dpi, exportSettings.Dpi);
+            fib.Save(fileName);
         }
 
         #endregion
@@ -31,7 +56,8 @@ namespace XLToolbox.Export
 
         public Exporter()
         {
-            _freeimageDllHandle = DllManager.LoadLibrary("freeimage.dll");
+            _dllManager = new DllManager();
+            _dllManager.LoadDll("freeimage.dll");
         }
 
         ~Exporter()
@@ -47,20 +73,37 @@ namespace XLToolbox.Export
 
         protected void Dispose(bool calledFromDispose)
         {
-            DllManager.FreeLibrary(_freeimageDllHandle);
+            if (calledFromDispose && !_disposed)
+            {
+                _dllManager.UnloadDll("freeimage.dll");
+                _disposed = true;
+            }
         }
 
         #endregion
 
+        #region Protected properties
+        #endregion
+
         #region Private methods
 
+        /// <summary>
+        /// Analyzes the dimensions of the current selection in Excel
+        /// </summary>
+        private void AnalyzeSelection()
+        {
+            object selection = ExcelInstance.Application.Selection;
+
+        }
 
         #endregion
 
         #region Private fields
 
-        IntPtr _freeimageDllHandle;
+        DllManager _dllManager;
+        bool _disposed;
 
         #endregion
+
     }
 }

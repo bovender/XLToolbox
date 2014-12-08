@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using XLToolbox.Export;
+using XLToolbox.Excel.Instance;
 using Bovender.Mvvm.Messaging;
 
 namespace XLToolbox.UnitTests.Export
@@ -17,9 +18,9 @@ namespace XLToolbox.UnitTests.Export
             ExporterViewModel evm = new ExporterViewModel();
             Assert.IsFalse(evm.ExportCommand.CanExecute(null),
                 "Export command should be disabled if there is no selection.");
-            using (new Excel.Instance.ExcelInstance())
+            using (new ExcelInstance())
             {
-                Excel.Instance.ExcelInstance.CreateWorkbook();
+                ExcelInstance.CreateWorkbook();
                 Assert.IsTrue(evm.ExportCommand.CanExecute(null),
                     "Export command should be enabled if something is selected.");
             }
@@ -28,9 +29,9 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void ExportCommand()
         {
-            using (new Excel.Instance.ExcelInstance())
+            using (new ExcelInstance())
             {
-                Excel.Instance.ExcelInstance.CreateWorkbook();
+                ExcelInstance.CreateWorkbook();
                 ExporterViewModel evm = new ExporterViewModel();
                 bool fnMsgSent = false;
                 evm.ChooseFileNameMessage.Sent +=

@@ -63,6 +63,7 @@
     <Compile Include="Excel\Instance\ExcelInstance.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
+    <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
