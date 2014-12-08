@@ -26,7 +26,7 @@ namespace XLToolbox.Export
         /// </summary>
         /// <param name="exportSettings">Parameters for the graphic export.</param>
         /// <param name="fileName">Target file name.</param>
-        public void ExportSelection(Settings exportSettings, string fileName)
+        public void ExportSelection(Preset exportSettings, string fileName)
         {
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);

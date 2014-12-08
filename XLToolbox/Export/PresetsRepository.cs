@@ -13,11 +13,11 @@ namespace XLToolbox.Export
     /// retrieving a collection of <see cref="ExportSettings"/>.
     /// </summary>
     [Serializable]
-    public class SettingsRepository : IDisposable
+    public class PresetsRepository : IDisposable
     {
         #region Public properties
 
-        public ObservableCollection<Settings> ExportSettings { get; set; }
+        public ObservableCollection<Preset> ExportSettings { get; set; }
 
         #endregion
 
@@ -27,12 +27,12 @@ namespace XLToolbox.Export
 
         #region Constructor
 
-        public SettingsRepository()
+        public PresetsRepository()
             : base ()
         {
             // Must initialize the ExportSettings property, lest a null pointer
             // exception is thrown in the LoadSettings() method.
-            ExportSettings = new ObservableCollection<Export.Settings>();
+            ExportSettings = new ObservableCollection<Export.Preset>();
             LoadSettings();
         }
 
@@ -40,12 +40,12 @@ namespace XLToolbox.Export
 
         #region Add and remove
 
-        public void Add(Settings exportSettings)
+        public void Add(Preset exportSettings)
         {
             ExportSettings.Add(exportSettings);
         }
 
-        public void Remove(Settings exportSettings)
+        public void Remove(Preset exportSettings)
         {
             ExportSettings.Remove(exportSettings);
         }
@@ -67,12 +67,12 @@ namespace XLToolbox.Export
                         // The line below would fail if ExportSettings is null; however,
                         // the property is initialized in the constructor.
                         XmlSerializer serializer = new XmlSerializer(ExportSettings.GetType());
-                        ExportSettings = serializer.Deserialize(stream) as ObservableCollection<Settings>;
+                        ExportSettings = serializer.Deserialize(stream) as ObservableCollection<Preset>;
                         stream.Close();
                     }
                     else
                     {
-                        ExportSettings = new ObservableCollection<Settings>();
+                        ExportSettings = new ObservableCollection<Preset>();
                     }
                 }
                 catch (Exception e)
@@ -125,7 +125,7 @@ namespace XLToolbox.Export
             }
         }
 
-        ~SettingsRepository()
+        ~PresetsRepository()
         {
             Dispose(false);
         }

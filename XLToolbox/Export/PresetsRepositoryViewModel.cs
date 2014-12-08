@@ -11,28 +11,28 @@ namespace XLToolbox.Export
     /// <summary>
     /// View model for an export settings repository.
     /// </summary>
-    public class SettingsRepositoryViewModel : ViewModelBase
+    public class PresetsRepositoryViewModel : ViewModelBase
     {
         #region Public properties
 
-        public SettingsViewModelCollection ExportSettings { get; private set; }
+        public PresetsViewModelCollection ExportSettings { get; private set; }
 
         #endregion
 
         #region Constructor
 
-        public SettingsRepositoryViewModel()
+        public PresetsRepositoryViewModel()
             : base()
         {
-            _repository = new SettingsRepository();
-            ExportSettings = new SettingsViewModelCollection(_repository);
+            _repository = new PresetsRepository();
+            ExportSettings = new PresetsViewModelCollection(_repository);
         }
 
-        public SettingsRepositoryViewModel(SettingsRepository repository)
+        public PresetsRepositoryViewModel(PresetsRepository repository)
             : base()
         {
             _repository = repository;
-            ExportSettings = new SettingsViewModelCollection(_repository);
+            ExportSettings = new PresetsViewModelCollection(_repository);
         }
 
         #endregion
@@ -119,8 +119,8 @@ namespace XLToolbox.Export
 
         private void DoAddSettings()
         {
-            Export.Settings s = new Export.Settings();
-            SettingsViewModel svm = new SettingsViewModel(s);
+            Export.Preset s = new Export.Preset();
+            PresetsViewModel svm = new PresetsViewModel(s);
             ExportSettings.Add(svm);
             svm.IsSelected = true;
             OnPropertyChanged("ExportSettings");
@@ -165,7 +165,7 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        SettingsRepository _repository;
+        PresetsRepository _repository;
         DelegatingCommand _addSettingsCommand;
         DelegatingCommand _removeSettingsCommand;
         DelegatingCommand _editSettingsCommand;

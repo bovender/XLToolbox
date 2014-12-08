@@ -9,7 +9,7 @@ namespace XLToolbox.Export
     /// Model for graphic export settings.
     /// </summary>
     [Serializable]
-    public class Settings 
+    public class Preset 
     {
         #region Properties
 
@@ -46,12 +46,12 @@ namespace XLToolbox.Export
 
         #region Constructors
 
-        public Settings()
+        public Preset()
         {
             Name = GetDefaultName();
         }
 
-        public Settings(FileType fileType, int dpi, ColorSpace colorSpace)
+        public Preset(FileType fileType, int dpi, ColorSpace colorSpace)
         {
             FileType = fileType;
             Dpi = dpi;

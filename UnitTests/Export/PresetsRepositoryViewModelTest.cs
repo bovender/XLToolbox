@@ -9,13 +9,13 @@ using XLToolbox.Export;
 namespace XLToolbox.UnitTests.Export
 {
     [TestFixture]
-    public class SettingsRepositoryViewModelTest
+    public class PresetsRepositoryViewModelTest
     {
         [Test]
         public void AddCommand()
         {
-            SettingsRepositoryForTesting sr = new SettingsRepositoryForTesting();
-            SettingsRepositoryViewModel srvm = new SettingsRepositoryViewModel(sr);
+            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
             int numSettings = sr.ExportSettings.Count;
             srvm.AddSettingsCommand.Execute(null);
             Assert.AreEqual(numSettings + 1, sr.ExportSettings.Count,
@@ -27,14 +27,14 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void RemoveCommand()
         {
-            SettingsRepositoryForTesting sr = new SettingsRepositoryForTesting();
+            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
             for (int i = 0; i < 3; i++)
             {
-                sr.Add(new Settings());
+                sr.Add(new Preset());
             };
             int oldCount = sr.ExportSettings.Count;
-            SettingsRepositoryViewModel srvm = new SettingsRepositoryViewModel(sr);
-            Settings s = sr.ExportSettings[2];
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            Preset s = sr.ExportSettings[2];
             Assert.IsFalse(srvm.RemoveSettingsCommand.CanExecute(null),
                 "Remove command should be disabled if no export settings objects are selected.");
             srvm.ExportSettings[2].IsSelected = true;
@@ -52,16 +52,16 @@ namespace XLToolbox.UnitTests.Export
             srvm.RemoveSettingsCommand.Execute(null);
             Assert.AreEqual(oldCount - 1, srvm.ExportSettings.Count,
                 "Number of view model messages was not reduced by 1 after delete command.");
-            Assert.IsFalse(((SettingsRepository)srvm.RevealModelObject()).ExportSettings.Contains(s),
+            Assert.IsFalse(((PresetsRepository)srvm.RevealModelObject()).ExportSettings.Contains(s),
                 "Settings object was supposed to be removed but still exists in SettingsRepository.");
         }
 
         [Test]
         public void EditCommand()
         {
-            Settings s = new Settings() { Name = "test settings" };
-            SettingsRepositoryForTesting sr = new SettingsRepositoryForTesting();
-            SettingsRepositoryViewModel srvm = new SettingsRepositoryViewModel(sr);
+            Preset s = new Preset() { Name = "test settings" };
+            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
             sr.Add(s);
             Assert.IsFalse(srvm.EditSettingsCommand.CanExecute(null),
                 "Edit settings command should be disabled if nothing is selected.");

@@ -10,7 +10,7 @@ namespace XLToolbox.UnitTests.Export
     /// Overrides the LoadSettings() and SaveSettings() methods of the
     /// base class so the settings storage is not hampered during testing.
     /// </summary>
-    class SettingsRepositoryForTesting : SettingsRepository
+    class PresetsRepositoryForTesting : PresetsRepository
     {
         protected override void LoadSettings() { }
         protected override void SaveSettings() { }

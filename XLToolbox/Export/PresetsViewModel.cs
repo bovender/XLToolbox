@@ -9,7 +9,7 @@ namespace XLToolbox.Export
     /// <summary>
     /// View model for graphic export settings.
     /// </summary>
-    public class SettingsViewModel : ViewModelBase
+    public class PresetsViewModel : ViewModelBase
     {
         #region Properties
 
@@ -95,7 +95,7 @@ namespace XLToolbox.Export
 
         #region Constructor
 
-        public SettingsViewModel(Settings exportSettings)
+        public PresetsViewModel(Preset exportSettings)
             : base()
         {
             _exportSettings = exportSettings;
@@ -119,7 +119,7 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        Settings _exportSettings;
+        Preset _exportSettings;
         bool _customName;
 
         #endregion

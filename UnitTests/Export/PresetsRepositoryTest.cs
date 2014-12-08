@@ -8,20 +8,20 @@ using NUnit.Framework;
 namespace XLToolbox.UnitTests.Export
 {
     [TestFixture]
-    public class SettingsRepositoryTest
+    public class PresetsRepositoryTest
     {
         [Test]
         public void StoreAndRetrieve()
         {
             string testName = "test settings";
-            using (SettingsRepository repository = new SettingsRepository())
+            using (PresetsRepository repository = new PresetsRepository())
             {
-                Settings settings = new Settings() { Dpi = 300, ColorSpace = ColorSpace.Cmyk, Name = testName };
+                Preset settings = new Preset() { Dpi = 300, ColorSpace = ColorSpace.Cmyk, Name = testName };
                 repository.Add(settings);
             }
-            using (SettingsRepository repository = new SettingsRepository())
+            using (PresetsRepository repository = new PresetsRepository())
             {
-                Settings settings = repository.ExportSettings[0];
+                Preset settings = repository.ExportSettings[0];
                 Assert.AreEqual(testName, settings.Name,
                     "Retrieved export settings have different name than previously stored.");
             }

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace XLToolbox.UnitTests.Export
 {
     [TestFixture]
-    class SettingsViewModelTest
+    class PresetsViewModelTest
     {
         [Test]
         [TestCase(FileType.Emf, false)]
@@ -17,8 +17,8 @@ namespace XLToolbox.UnitTests.Export
         [TestCase(FileType.Tiff, true)]
         public void DpiDisabledForVectors(FileType fileType, bool dpiEnabled)
         {
-            Settings s = new Settings() { FileType = fileType };
-            SettingsViewModel svm = new SettingsViewModel(s);
+            Preset s = new Preset() { FileType = fileType };
+            PresetsViewModel svm = new PresetsViewModel(s);
             Assert.AreEqual(dpiEnabled, svm.IsDpiEnabled);
         }
 
@@ -29,15 +29,15 @@ namespace XLToolbox.UnitTests.Export
         [TestCase(FileType.Tiff, true)]
         public void ColorSpaceDisabledForVectors(FileType fileType, bool csEnabled)
         {
-            Settings s = new Settings() { FileType = fileType };
-            SettingsViewModel svm = new SettingsViewModel(s);
+            Preset s = new Preset() { FileType = fileType };
+            PresetsViewModel svm = new PresetsViewModel(s);
             Assert.AreEqual(csEnabled, svm.IsColorSpaceEnabled);
         }
     
         [Test]
         public void DefaultNameIsUpdatedWhenSettingsChange()
         {
-            SettingsViewModel svm = new SettingsViewModel(new Settings());
+            PresetsViewModel svm = new PresetsViewModel(new Preset());
             svm.FileType = FileType.Emf;
             string originalName = svm.Name;
             svm.FileType = FileType.Png;
@@ -48,7 +48,7 @@ namespace XLToolbox.UnitTests.Export
         public void NameIsNotUpdatedOnceEdited()
         {
             string testName = "test name";
-            SettingsViewModel svm = new SettingsViewModel(new Settings());
+            PresetsViewModel svm = new PresetsViewModel(new Preset());
             svm.FileType = FileType.Emf;
             // Simulate manually editing the settings name
             svm.Name = testName;

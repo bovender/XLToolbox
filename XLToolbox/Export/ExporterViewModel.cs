@@ -16,7 +16,7 @@ namespace XLToolbox.Export
     {
         #region Public properties
 
-        public SettingsRepositoryViewModel SettingsRepository
+        public PresetsRepositoryViewModel SettingsRepository
         {
             get { return _settings; }
             protected set
@@ -42,12 +42,12 @@ namespace XLToolbox.Export
             _exporter = new Exporter();
 
             // Define standard export settings if none exist
-            SettingsRepository sr = new SettingsRepository();
+            PresetsRepository sr = new PresetsRepository();
             if (sr.ExportSettings.Count == 0)
             {
-                sr.Add(new Settings(FileType.Png, 300, ColorSpace.Rgb));
+                sr.Add(new Preset(FileType.Png, 300, ColorSpace.Rgb));
             }
-            _settings = new SettingsRepositoryViewModel(sr);
+            _settings = new PresetsRepositoryViewModel(sr);
         }
 
         #endregion
@@ -149,8 +149,8 @@ namespace XLToolbox.Export
         {
             if (messageContent.Confirmed && CanExport())
             {
-                Settings exportSettings = SettingsRepository.ExportSettings.LastSelected
-                    .RevealModelObject() as Settings;
+                Preset exportSettings = SettingsRepository.ExportSettings.LastSelected
+                    .RevealModelObject() as Preset;
                 _exporter.ExportSelection(exportSettings, messageContent.Value);
             }
         }
@@ -203,7 +203,7 @@ namespace XLToolbox.Export
         private DelegatingCommand _editSettingsCommand;
         private Message<StringMessageContent> _chooseFileNameMessage;
         private Message<ViewModelMessageContent> _editSettingsMessage;
-        private SettingsRepositoryViewModel _settings;
+        private PresetsRepositoryViewModel _settings;
         private WorkbookStorage.Store _workbookStore; 
 
         #endregion

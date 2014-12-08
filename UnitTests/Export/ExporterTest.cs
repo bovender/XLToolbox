@@ -37,7 +37,7 @@ namespace XLToolbox.UnitTests.Export
                     //     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                     //     "test.xlsx"));
                     // wb.Worksheets[1].ChartObjects[1].Chart.ChartArea.Select();
-                    Settings settings = new Settings(FileType.Png, 300, ColorSpace.Rgb);
+                    Preset settings = new Preset(FileType.Png, 300, ColorSpace.Rgb);
                     Exporter exporter = new Exporter();
                     exporter.ExportSelection(settings,
                         System.IO.Path.Combine(

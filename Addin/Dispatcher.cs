@@ -74,7 +74,7 @@ namespace XLToolbox
                         break;
                     case Command.ExportSelection:
                         Export.Exporter exporter = new Export.Exporter();
-                        Export.Settings settings = new Export.Settings(Export.FileType.Png, 600, Export.ColorSpace.Rgb);
+                        Export.Preset settings = new Export.Preset(Export.FileType.Png, 600, Export.ColorSpace.Rgb);
                         exporter.ExportSelection(settings, System.IO.Path.Combine(
                             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                             "export-from-dispatcher.png"));

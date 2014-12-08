@@ -53,7 +53,7 @@ namespace XLToolbox.UnitTests.Export
             evm.EditSettingsMessage.Sent += (object sender, MessageArgs<ViewModelMessageContent> args) =>
             {
                 messageSent = true;
-                Assert.IsTrue(args.Content.ViewModel is SettingsRepositoryViewModel);
+                Assert.IsTrue(args.Content.ViewModel is PresetsRepositoryViewModel);
             };
             evm.EditSettingsCommand.Execute(null);
             Assert.IsTrue(messageSent, "EditSettingsMessage was not sent.");
