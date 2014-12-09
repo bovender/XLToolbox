@@ -20,32 +20,26 @@ namespace XLToolbox.UnitTests.Export
         {
             using (ExcelInstance excel = new ExcelInstance())
             {
-                using (DllManager dllManager = new DllManager())
-                {
-                    dllManager.LoadDll("freeimage.dll");
-                    Workbook wb = ExcelInstance.CreateWorkbook();
-                    Worksheet ws = wb.Worksheets[1];
-                    ws.Cells[1,1] = 1;
-                    ws.Cells[2,1] = 2;
-                    ws.Cells[3,1] = 3;
-                    ChartObjects cos = ws.ChartObjects();
-                    ChartObject co = cos.Add(20, 20, 300, 200);
-                    SeriesCollection sc = co.Chart.SeriesCollection();
-                    sc.Add(ws.Range["A1:A3"]);
-                    co.Chart.ChartArea.Select();
-                    // Workbook wb = ExcelInstance.Application.Workbooks.Open(System.IO.Path.Combine(
-                    //     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    //     "test.xlsx"));
-                    // wb.Worksheets[1].ChartObjects[1].Chart.ChartArea.Select();
-                    Preset settings = new Preset(FileType.Png, 300, ColorSpace.Rgb);
-                    Exporter exporter = new Exporter();
-                    exporter.ExportSelection(settings,
-                        System.IO.Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                            "XL Toolbox Export Test.png"
-                        )
+                Workbook wb = ExcelInstance.CreateWorkbook();
+                Worksheet ws = wb.Worksheets[1];
+                ws.Cells[1, 1] = 1;
+                ws.Cells[2, 1] = 2;
+                ws.Cells[3, 1] = 3;
+                ChartObjects cos = ws.ChartObjects();
+                ChartObject co = cos.Add(20, 20, 300, 200);
+                SeriesCollection sc = co.Chart.SeriesCollection();
+                sc.Add(ws.Range["A1:A3"]);
+                co.Chart.ChartArea.Select();
+                Preset preset = new Preset(FileType.Png, 300, ColorSpace.Rgb);
+                SingleExportSettings settings = new SingleExportSettings(preset,
+                    co.Width, co.Height, true);
+                settings.FileName = 
+                    System.IO.Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                        "XL Toolbox Export Test.png"
                     );
-                }
+                Exporter exporter = new Exporter();
+                exporter.ExportSelection(settings);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace XLToolbox.UnitTests.Export
         public void DpiDisabledForVectors(FileType fileType, bool dpiEnabled)
         {
             Preset s = new Preset() { FileType = fileType };
-            PresetsViewModel svm = new PresetsViewModel(s);
+            PresetViewModel svm = new PresetViewModel(s);
             Assert.AreEqual(dpiEnabled, svm.IsDpiEnabled);
         }
 
@@ -30,14 +30,14 @@ namespace XLToolbox.UnitTests.Export
         public void ColorSpaceDisabledForVectors(FileType fileType, bool csEnabled)
         {
             Preset s = new Preset() { FileType = fileType };
-            PresetsViewModel svm = new PresetsViewModel(s);
+            PresetViewModel svm = new PresetViewModel(s);
             Assert.AreEqual(csEnabled, svm.IsColorSpaceEnabled);
         }
     
         [Test]
         public void DefaultNameIsUpdatedWhenSettingsChange()
         {
-            PresetsViewModel svm = new PresetsViewModel(new Preset());
+            PresetViewModel svm = new PresetViewModel(new Preset());
             svm.FileType = FileType.Emf;
             string originalName = svm.Name;
             svm.FileType = FileType.Png;
@@ -48,7 +48,7 @@ namespace XLToolbox.UnitTests.Export
         public void NameIsNotUpdatedOnceEdited()
         {
             string testName = "test name";
-            PresetsViewModel svm = new PresetsViewModel(new Preset());
+            PresetViewModel svm = new PresetViewModel(new Preset());
             svm.FileType = FileType.Emf;
             // Simulate manually editing the settings name
             svm.Name = testName;

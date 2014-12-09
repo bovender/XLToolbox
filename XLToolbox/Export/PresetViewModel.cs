@@ -9,16 +9,16 @@ namespace XLToolbox.Export
     /// <summary>
     /// View model for graphic export settings.
     /// </summary>
-    public class PresetsViewModel : ViewModelBase
+    public class PresetViewModel : ViewModelBase
     {
         #region Properties
 
         public string Name
         {
-            get { return _exportSettings.Name; }
+            get { return _preset.Name; }
             set
             {
-                _exportSettings.Name = value;
+                _preset.Name = value;
                 _customName = true;
                 OnPropertyChanged("Name");
             }
@@ -26,10 +26,10 @@ namespace XLToolbox.Export
 
         public int Dpi
         {
-            get { return _exportSettings.Dpi; }
+            get { return _preset.Dpi; }
             set
             {
-                _exportSettings.Dpi = value;
+                _preset.Dpi = value;
                 UpdateName();
                 OnPropertyChanged("Dpi");
             }
@@ -39,16 +39,16 @@ namespace XLToolbox.Export
         {
             get
             {
-                return !_exportSettings.IsVectorType;
+                return !_preset.IsVectorType;
             }
         }
 
         public FileType FileType
         {
-            get { return _exportSettings.FileType; }
+            get { return _preset.FileType; }
             set
             {
-                _exportSettings.FileType = value;
+                _preset.FileType = value;
                 UpdateName();
                 OnPropertyChanged("FileType");
                 OnPropertyChanged("IsColorSpaceEnabled");
@@ -58,10 +58,10 @@ namespace XLToolbox.Export
 
         public ColorSpace ColorSpace
         {
-            get { return _exportSettings.ColorSpace; }
+            get { return _preset.ColorSpace; }
             set
             {
-                _exportSettings.ColorSpace = value;
+                _preset.ColorSpace = value;
                 UpdateName();
                 OnPropertyChanged("ColorSpace");
             }
@@ -71,7 +71,7 @@ namespace XLToolbox.Export
         {
             get
             {
-                return !_exportSettings.IsVectorType;
+                return !_preset.IsVectorType;
             }
         }
 
@@ -93,13 +93,19 @@ namespace XLToolbox.Export
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
-        public PresetsViewModel(Preset exportSettings)
+        public PresetViewModel()
             : base()
         {
-            _exportSettings = exportSettings;
-            _customName = !String.Equals(Name, _exportSettings.GetDefaultName());
+            _preset = new Preset();
+        }
+
+        public PresetViewModel(Preset preset)
+            : base()
+        {
+            _preset = preset;
+            _customName = !String.Equals(Name, _preset.GetDefaultName());
         }
 
         #endregion
@@ -110,7 +116,7 @@ namespace XLToolbox.Export
         {
             if (!_customName)
             {
-                Name = _exportSettings.GetDefaultName();
+                Name = _preset.GetDefaultName();
                 _customName = false;
             }
         }
@@ -119,7 +125,7 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        Preset _exportSettings;
+        Preset _preset;
         bool _customName;
 
         #endregion
@@ -128,7 +134,7 @@ namespace XLToolbox.Export
 
         public override object RevealModelObject()
         {
-            return _exportSettings;
+            return _preset;
         }
 
         #endregion

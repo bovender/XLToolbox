@@ -20,5 +20,11 @@
     <Setting Name="AddinName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
+    <Setting Name="LastSingleExportSetting" Type="XLToolbox.Export.SingleExportSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastBatchExportSetting" Type="XLToolbox.Export.BatchExportSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

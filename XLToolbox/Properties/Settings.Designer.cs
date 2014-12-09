@@ -79,5 +79,27 @@ namespace XLToolbox.Properties {
                 return ((string)(this["AddinName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.SingleExportSettings LastSingleExportSetting {
+            get {
+                return ((global::XLToolbox.Export.SingleExportSettings)(this["LastSingleExportSetting"]));
+            }
+            set {
+                this["LastSingleExportSetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.BatchExportSettings LastBatchExportSetting {
+            get {
+                return ((global::XLToolbox.Export.BatchExportSettings)(this["LastBatchExportSetting"]));
+            }
+            set {
+                this["LastBatchExportSetting"] = value;
+            }
+        }
     }
 }

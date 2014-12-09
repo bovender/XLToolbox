@@ -15,7 +15,7 @@ namespace XLToolbox.Export
     {
         #region Public properties
 
-        public PresetsViewModelCollection ExportSettings { get; private set; }
+        public PresetViewModelCollection ExportSettings { get; private set; }
 
         #endregion
 
@@ -25,14 +25,14 @@ namespace XLToolbox.Export
             : base()
         {
             _repository = new PresetsRepository();
-            ExportSettings = new PresetsViewModelCollection(_repository);
+            ExportSettings = new PresetViewModelCollection(_repository);
         }
 
         public PresetsRepositoryViewModel(PresetsRepository repository)
             : base()
         {
             _repository = repository;
-            ExportSettings = new PresetsViewModelCollection(_repository);
+            ExportSettings = new PresetViewModelCollection(_repository);
         }
 
         #endregion
@@ -120,7 +120,7 @@ namespace XLToolbox.Export
         private void DoAddSettings()
         {
             Export.Preset s = new Export.Preset();
-            PresetsViewModel svm = new PresetsViewModel(s);
+            PresetViewModel svm = new PresetViewModel(s);
             ExportSettings.Add(svm);
             svm.IsSelected = true;
             OnPropertyChanged("ExportSettings");

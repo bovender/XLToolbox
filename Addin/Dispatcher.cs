@@ -73,11 +73,13 @@ namespace XLToolbox
                         Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
                         break;
                     case Command.ExportSelection:
+                        /*
                         Export.Exporter exporter = new Export.Exporter();
                         Export.Preset settings = new Export.Preset(Export.FileType.Png, 600, Export.ColorSpace.Rgb);
                         exporter.ExportSelection(settings, System.IO.Path.Combine(
                             Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                             "export-from-dispatcher.png"));
+                         */
                         break;
                     case Command.ThrowError:
                         throw new InsufficientMemoryException();

@@ -3,25 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
 using XLToolbox.Excel.Instance;
-using Bovender.Mvvm.Messaging;
 
 namespace XLToolbox.UnitTests.Export
 {
     [TestFixture]
-    public class ExporterViewModelTest
+    class SingleExportSettingsViewModelTest
     {
+        SingleExportSettingsViewModel svm;
+
+        [SetUp]
+        void SetUp()
+        {
+            svm = new SingleExportSettingsViewModel();
+        }
+
+        [Test]
+        public void PreserveAspectWidth()
+        {
+            svm.Height = 100;
+            svm.Width = 200;
+            svm.PreserveAspect = true;
+            svm.Height = 200;
+            Assert.AreEqual(svm.Height * 2, svm.Width,
+                "Width was not correctly changed.");
+        }
+
+        [Test]
+        public void PreserveAspectHeight()
+        {
+            svm.Height = 100;
+            svm.Width = 200;
+            svm.PreserveAspect = true;
+            svm.Width = 400;
+            Assert.AreEqual(svm.Width / 2, svm.Height,
+                "Height was not correctly changed.");
+        }
+        
         [Test]
         public void ExportCommandDisabledWithoutSelection()
         {
-            ExporterViewModel evm = new ExporterViewModel();
-            Assert.IsFalse(evm.ExportCommand.CanExecute(null),
+            Assert.IsFalse(svm.ExportCommand.CanExecute(null),
                 "Export command should be disabled if there is no selection.");
             using (new ExcelInstance())
             {
                 ExcelInstance.CreateWorkbook();
-                Assert.IsTrue(evm.ExportCommand.CanExecute(null),
+                Assert.IsTrue(svm.ExportCommand.CanExecute(null),
                     "Export command should be enabled if something is selected.");
             }
         }
@@ -32,31 +61,16 @@ namespace XLToolbox.UnitTests.Export
             using (new ExcelInstance())
             {
                 ExcelInstance.CreateWorkbook();
-                ExporterViewModel evm = new ExporterViewModel();
                 bool fnMsgSent = false;
-                evm.ChooseFileNameMessage.Sent +=
+                svm.ChooseFileNameMessage.Sent +=
                     (object sender, MessageArgs<StringMessageContent> args) =>
                     {
                         fnMsgSent = true;
                         // args.Respond();
                     };
-                evm.ExportCommand.Execute(null);
+                svm.ExportCommand.Execute(null);
                 Assert.IsTrue(fnMsgSent, "ChooseFileNameMessage was not sent.");
             }
-        }
-
-        [Test]
-        public void EditSettings()
-        {
-            ExporterViewModel evm = new ExporterViewModel();
-            bool messageSent = false;
-            evm.EditSettingsMessage.Sent += (object sender, MessageArgs<ViewModelMessageContent> args) =>
-            {
-                messageSent = true;
-                Assert.IsTrue(args.Content.ViewModel is PresetsRepositoryViewModel);
-            };
-            evm.EditSettingsCommand.Execute(null);
-            Assert.IsTrue(messageSent, "EditSettingsMessage was not sent.");
         }
     }
 }
