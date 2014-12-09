@@ -62,6 +62,7 @@
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
     <Compile Include="Mvvm\Actions\ShowViewAction.cs" />
     <Compile Include="Mvvm\BindingWebBrowser.cs" />
+    <Compile Include="Mvvm\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Mvvm\Converters\SimpleExceptionConverter.cs" />
     <Compile Include="Mvvm\Messaging\ViewModelMessageContent.cs" />
     <Compile Include="Mvvm\ViewModels\ViewModelCollection.cs" />
