@@ -79,6 +79,7 @@
     <Compile Include="Export\BatchExportSettings.cs" />
     <Compile Include="Export\Settings.cs" />
     <Compile Include="Export\SettingsViewModelBase.cs" />
+    <Compile Include="Export\BatchExportSettingsViewModel.cs" />
     <Compile Include="Export\SingleExportSettingsViewModel.cs" />
     <Compile Include="Export\SingleExportSettings.cs" />
     <Compile Include="Export\WorkingClipboard.cs" />

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
+using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export
 {
@@ -45,6 +47,7 @@ namespace XLToolbox.Export
                 OnPropertyChanged("FileName");
             }
         }
+        
         #endregion
 
         #region Protected properties 
@@ -110,7 +113,6 @@ namespace XLToolbox.Export
             }
         }
 
-
         #endregion
 
         #region Abstract methods
@@ -125,12 +127,38 @@ namespace XLToolbox.Export
 
         #endregion
 
+        #region Protected methods
+
+        /// <summary>
+        /// Returns the default path for export; this is either the previously saved
+        /// path, or the path of the current workbook, or the path for 'My Documents'.
+        /// </summary>
+        /// <returns>Default export path.</returns>
+        protected string GetExportPath()
+        {
+            Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
+            Store store = new Store(wb);
+            string defaultPath;
+            if (wb != null && !String.IsNullOrEmpty(wb.Path))
+            {
+                defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
+            }
+            else
+            {
+                defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
+            return store.Get("export_path", defaultPath);
+        }
+
+        #endregion
+
         #region Implementation of ViewModelBase
 
         public override object RevealModelObject()
         {
             return Settings;
         }
+
         #endregion
 
         #region Private methods

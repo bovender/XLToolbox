@@ -151,20 +151,8 @@ namespace XLToolbox.Export
         /// </summary>
         protected override void DoExport()
         {
-            Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
-            Store store = new Store(wb); 
-            string defaultPath;
-            if (wb != null && !String.IsNullOrEmpty(wb.Path))
-            {
-                defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
-            } 
-            else
-            {
-                defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            }
-            string path = store.Get("single_export_path", defaultPath);
             ChooseFileNameMessage.Send(
-                new StringMessageContent(path),
+                new StringMessageContent(GetExportPath()),
                 (content) => DoConfirmFileName(content)
             );
         }
