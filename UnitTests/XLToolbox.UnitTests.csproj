@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +79,7 @@
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
     <Compile Include="Export\ExporterTest.cs" />
+    <Compile Include="Export\ExportFileNameTest.cs" />
     <Compile Include="Export\PresetsRepositoryForTesting.cs" />
     <Compile Include="Export\PresetsRepositoryTest.cs" />
     <Compile Include="Export\PresetsRepositoryViewModelTest.cs" />

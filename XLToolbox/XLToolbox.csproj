@@ -77,6 +77,8 @@
     <Compile Include="Export\BatchExportObjects.cs" />
     <Compile Include="Export\BatchExportScope.cs" />
     <Compile Include="Export\BatchExportSettings.cs" />
+    <Compile Include="Export\ExportFileName.cs" />
+    <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
     <Compile Include="Export\Settings.cs" />
     <Compile Include="Export\SettingsViewModelBase.cs" />
     <Compile Include="Export\BatchExportSettingsViewModel.cs" />
