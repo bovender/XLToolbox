@@ -24,10 +24,7 @@ namespace Bovender.Unmanaged
 
         public static void CloseClipboard()
         {
-            if (!Win32_CloseClipboard())
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
+            Win32_CloseClipboard();
         }
 
         public static IntPtr GetClipboardData(uint uFormat)
