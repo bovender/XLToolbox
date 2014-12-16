@@ -33,6 +33,7 @@ namespace XLToolbox.Export
             {
                 case FileType.Tiff: return ".tif";
                 case FileType.Png: return ".png";
+                case FileType.Emf: return ".emf";
                 default:
                     throw new InvalidOperationException("No file name extension defined for " + fileType.ToString());
             }

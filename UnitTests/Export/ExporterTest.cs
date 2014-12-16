@@ -16,8 +16,11 @@ namespace XLToolbox.UnitTests.Export
     class ExporterTest
     {
         [Test]
-        // [RequiresSTA]
-        public void ExportChartObject()
+        [TestCase(FileType.Emf, 0, ColorSpace.Rgb)]
+        [TestCase(FileType.Png, 300, ColorSpace.Rgb)]
+        [TestCase(FileType.Tiff, 1200, ColorSpace.Monochrome)]
+        [TestCase(FileType.Png, 300, ColorSpace.GrayScale)]
+        public void ExportChartObject(FileType fileType, int dpi, ColorSpace colorSpace)
         {
             using (ExcelInstance excel = new ExcelInstance())
             {
@@ -32,13 +35,12 @@ namespace XLToolbox.UnitTests.Export
                 SeriesCollection sc = co.Chart.SeriesCollection();
                 sc.Add(ws.Range["A1:A3"]);
                 co.Chart.ChartArea.Select();
-                Preset preset = new Preset(FileType.Png, 300, ColorSpace.Rgb);
+                Preset preset = new Preset(fileType, dpi, colorSpace);
                 SingleExportSettings settings = new SingleExportSettings(preset,
                     co.Width, co.Height, true);
-                settings.FileName = 
-                    System.IO.Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                        "XL Toolbox Export Test.png"
+                settings.FileName = Path.Combine(
+                    Path.GetTempPath(),
+                    Path.GetTempFileName() + fileType.ToFileNameExtension()
                     );
                 File.Delete(settings.FileName);
                 Exporter exporter = new Exporter();
@@ -48,7 +50,6 @@ namespace XLToolbox.UnitTests.Export
         }
 
         [Test]
-        // [RequiresSTA]
         public void ExportChartSheet()
         {
             using (ExcelInstance excel = new ExcelInstance())
