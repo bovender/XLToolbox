@@ -132,7 +132,7 @@ namespace XLToolbox.Excel.Instance
             Workbook wb = CreateWorkbook();
             for (int i = 2; i <= numberOfSheets; i++)
             {
-                wb.Sheets.Add();
+                wb.Sheets.Add(After: wb.Sheets[wb.Sheets.Count]);
             };
             return wb;
         }
