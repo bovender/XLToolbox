@@ -63,9 +63,37 @@ namespace XLToolbox.Export
             }
         }
 
+        public string Path
+        {
+            get { return ((BatchExportSettings)Settings).Path; }
+            set
+            {
+                ((BatchExportSettings)Settings).Path = value;
+                OnPropertyChanged("Path");
+            }
+        }
+       
         #endregion
 
         #region Commands
+
+        /// <summary>
+        /// Causes the <see cref="ChooseFolderMessage"/> to be sent.
+        /// Upon confirmation of the message by a view, the Export
+        /// process will be started.
+        /// </summary>
+        public DelegatingCommand ChooseFolderCommand
+        {
+            get
+            {
+                if (_chooseFolderCommand == null)
+                {
+                    _chooseFolderCommand = new DelegatingCommand(
+                        param => DoChooseFolder());
+                }
+                return _chooseFolderCommand;
+            }
+        }
 
         #endregion
 
@@ -104,15 +132,29 @@ namespace XLToolbox.Export
         #region Implementation of SettingsViewModelBase
 
         /// <summary>
-        /// Determins the suggested target directory and sends the
+        /// Determines the suggested target directory and sends the
         /// ChooseFileNameMessage.
         /// </summary>
-        protected override void DoExport()
+        private void DoChooseFolder()
         {
             ChooseFolderMessage.Send(
                 new StringMessageContent(GetExportPath()),
-                (content) => DoConfirmFolder(content)
+                (content) => ConfirmFolder(content)
             );
+        }
+
+        protected override void DoExport()
+        {
+            if (CanExport())
+            {
+                // TODO: Make export asynchronous
+                ProcessMessageContent pcm = new ProcessMessageContent();
+                pcm.IsIndeterminate = true;
+                ExportProcessMessage.Send(pcm);
+                Exporter exporter = new Exporter();
+                exporter.ExportBatch(Settings as BatchExportSettings);
+                pcm.CompletedMessage.Send(pcm);
+            }
         }
 
         protected override bool CanExport()
@@ -125,23 +167,12 @@ namespace XLToolbox.Export
 
         #region Private methods
 
-        /// <summary>
-        /// Called by Message.Respond() if the user has confirmed a file name
-        /// in a view subscribed to the ChooseFileNameMessage. Performs the
-        /// actual export with the file name contained in the message content.
-        /// </summary>
-        /// <param name="messageContent"></param>
-        private void DoConfirmFolder(StringMessageContent messageContent)
+        private void ConfirmFolder(StringMessageContent messageContent)
         {
-            if (messageContent.Confirmed && CanExport())
+            if (messageContent.Confirmed)
             {
-                // TODO: Make export asynchronous
-                ProcessMessageContent pcm = new ProcessMessageContent();
-                pcm.IsIndeterminate = true;
-                ExportProcessMessage.Send(pcm);
-                Exporter exporter = new Exporter();
-                exporter.ExportSelection(Settings as SingleExportSettings);
-                pcm.CompletedMessage.Send(pcm);
+                ((BatchExportSettings)Settings).Path = messageContent.Value;
+                DoExport();
             }
         }
 
@@ -149,6 +180,7 @@ namespace XLToolbox.Export
 
         #region Private fields
 
+        private DelegatingCommand _chooseFolderCommand;
         private Message<StringMessageContent> _chooseFolderMessage;
 
         #endregion

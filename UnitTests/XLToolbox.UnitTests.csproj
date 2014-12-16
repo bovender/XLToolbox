@@ -85,6 +85,7 @@
     <Compile Include="Export\PresetsRepositoryViewModelTest.cs" />
     <Compile Include="Export\PresetsViewModelTest.cs" />
     <Compile Include="Export\SingleExportSettingsViewModelTest.cs" />
+    <Compile Include="Export\SingleExportSettingsViewModelTestNoSel.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -348,6 +348,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to index.
+        /// </summary>
+        public static string Index {
+            get {
+                return ResourceManager.GetString("Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inner exception.
         /// </summary>
         public static string InnerException {
@@ -689,6 +698,24 @@ namespace XLToolbox {
         public static string WhatsNew {
             get {
                 return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to workbook.
+        /// </summary>
+        public static string Workbook {
+            get {
+                return ResourceManager.GetString("Workbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to worksheet.
+        /// </summary>
+        public static string Worksheet {
+            get {
+                return ResourceManager.GetString("Worksheet", resourceCulture);
             }
         }
         

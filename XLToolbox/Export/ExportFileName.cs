@@ -17,6 +17,8 @@ namespace XLToolbox.Export
 
         public int Counter { get; protected set; }
 
+        public string Directory { get; private set; }
+
         #endregion
 
         #region Constructor
@@ -31,6 +33,13 @@ namespace XLToolbox.Export
                 { Strings.Worksheet.ToUpper(), () => { return this.CurrentWorksheetName; } },
                 { Strings.Index.ToUpper(), () => { return String.Format("{0:000}", Counter); } },
             };
+            Directory = String.Empty;
+        }
+
+        public ExportFileName(string directory, string template)
+            : this(template)
+        {
+            Directory = directory;
         }
 
         #endregion
@@ -42,15 +51,15 @@ namespace XLToolbox.Export
         /// internal counter.
         /// </summary>
         /// <returns></returns>
-        public string GenerateNext(Workbook workbook, dynamic worksheet)
+        public string GenerateNext(dynamic worksheet)
         {
-            CurrentWorkbookName = workbook.Name;
+            CurrentWorkbookName = worksheet.Parent.Name;
             CurrentWorksheetName = worksheet.Name;
             Counter++;
             Regex r = new Regex(@"{[^}]+}");
             string s = r.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.
-            return InsertIndexIfMissing(Template, s);
+            return Path.Combine(Directory, InsertIndexIfMissing(Template, s));
         }
 
         #endregion

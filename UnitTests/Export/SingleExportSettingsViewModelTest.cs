@@ -15,9 +15,17 @@ namespace XLToolbox.UnitTests.Export
         SingleExportSettingsViewModel svm;
 
         [SetUp]
-        void SetUp()
+        public void SetUp()
         {
+            ExcelInstance.Start();
             svm = new SingleExportSettingsViewModel();
+            svm.Preset = new PresetViewModel(new Preset());
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            ExcelInstance.Shutdown();
         }
 
         [Test]
@@ -43,34 +51,16 @@ namespace XLToolbox.UnitTests.Export
         }
         
         [Test]
-        public void ExportCommandDisabledWithoutSelection()
+        public void ChooseFileNameCommand()
         {
-            Assert.IsFalse(svm.ExportCommand.CanExecute(null),
-                "Export command should be disabled if there is no selection.");
-            using (new ExcelInstance())
-            {
-                ExcelInstance.CreateWorkbook();
-                Assert.IsTrue(svm.ExportCommand.CanExecute(null),
-                    "Export command should be enabled if something is selected.");
-            }
-        }
-
-        [Test]
-        public void ExportCommand()
-        {
-            using (new ExcelInstance())
-            {
-                ExcelInstance.CreateWorkbook();
-                bool fnMsgSent = false;
-                svm.ChooseFileNameMessage.Sent +=
-                    (object sender, MessageArgs<StringMessageContent> args) =>
-                    {
-                        fnMsgSent = true;
-                        // args.Respond();
-                    };
-                svm.ExportCommand.Execute(null);
-                Assert.IsTrue(fnMsgSent, "ChooseFileNameMessage was not sent.");
-            }
+            bool fnMsgSent = false;
+            svm.ChooseFileNameMessage.Sent +=
+                (object sender, MessageArgs<StringMessageContent> args) =>
+                {
+                    fnMsgSent = true;
+                };
+            svm.ChooseFileNameCommand.Execute(null);
+            Assert.IsTrue(fnMsgSent, "ChooseFileNameMessage was not sent.");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Export;
@@ -15,11 +16,12 @@ namespace XLToolbox.UnitTests.Export
     class ExporterTest
     {
         [Test]
-        [RequiresSTA]
+        // [RequiresSTA]
         public void ExportChartObject()
         {
             using (ExcelInstance excel = new ExcelInstance())
             {
+                // ExcelInstance.Application.Visible = true;
                 Workbook wb = ExcelInstance.CreateWorkbook();
                 Worksheet ws = wb.Worksheets[1];
                 ws.Cells[1, 1] = 1;
@@ -38,8 +40,71 @@ namespace XLToolbox.UnitTests.Export
                         Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                         "XL Toolbox Export Test.png"
                     );
+                File.Delete(settings.FileName);
                 Exporter exporter = new Exporter();
                 exporter.ExportSelection(settings);
+                Assert.IsTrue(File.Exists(settings.FileName));
+            }
+        }
+
+        [Test]
+        // [RequiresSTA]
+        public void ExportChartSheet()
+        {
+            using (ExcelInstance excel = new ExcelInstance())
+            {
+                Workbook wb = ExcelInstance.CreateWorkbook();
+                Chart ch = wb.Charts.Add();
+                ((_Chart)ch).Activate();
+                Preset preset = new Preset(FileType.Png, 300, ColorSpace.Rgb);
+                SingleExportSettings settings = new SingleExportSettings();
+                settings.Preset = preset;
+                settings.FileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName())
+                    + preset.FileType.ToFileNameExtension();
+                File.Delete(settings.FileName);
+                Exporter exporter = new Exporter();
+                exporter.ExportSelectionQuick(settings);
+                Assert.IsTrue(File.Exists(settings.FileName), "Output file was not created.");
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(BatchExportScope.ActiveSheet, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 1)]
+        [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 7)]
+        [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SheetLayout, 4)]
+        [TestCase(BatchExportScope.ActiveSheet, BatchExportObjects.ChartsAndShapes, BatchExportLayout.SingleItems, 4)]
+        [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.ChartsAndShapes, BatchExportLayout.SingleItems, 13)]
+        [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.ChartsAndShapes, BatchExportLayout.SheetLayout, 4)]
+        public void BatchExport(
+            BatchExportScope scope, BatchExportObjects objects, 
+            BatchExportLayout layout, int expectedNumberOfFiles)
+        {
+            using (ExcelInstance excel = new ExcelInstance())
+            {
+                // ExcelInstance.Application.Visible = true;
+                Workbook wb = ExcelInstance.CreateWorkbook(3);
+                Helpers.CreateSomeCharts(wb.Worksheets[1], 1);
+                Helpers.CreateSomeCharts(wb.Worksheets[2], 2);
+                Helpers.CreateSomeCharts(wb.Worksheets[3], 3);
+                Helpers.CreateSomeShapes(wb.Worksheets[1], 3);
+                Helpers.CreateSomeShapes(wb.Worksheets[2], 2);
+                Helpers.CreateSomeShapes(wb.Worksheets[3], 1);
+                wb.Charts.Add(After: wb.Sheets[wb.Sheets.Count]);
+                wb.Sheets[1].Activate();
+                BatchExportSettings settings = new BatchExportSettings();
+                settings.Path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                Directory.CreateDirectory(settings.Path);
+                settings.FileName = "{workbook}_{worksheet}_{index}";
+                settings.Preset = new Preset(FileType.Png, 300, ColorSpace.Rgb);
+                settings.Layout = layout;
+                settings.Objects = objects;
+                settings.Scope = scope;
+                Exporter exporter = new Exporter();
+                exporter.ExportBatch(settings);
+                Assert.AreEqual(expectedNumberOfFiles,
+                    Directory.GetFiles(settings.Path).Length);
+                Directory.Delete(settings.Path, true);
             }
         }
     }

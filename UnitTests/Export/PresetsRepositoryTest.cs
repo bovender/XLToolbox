@@ -16,12 +16,12 @@ namespace XLToolbox.UnitTests.Export
             string testName = "test settings";
             using (PresetsRepository repository = new PresetsRepository())
             {
-                Preset settings = new Preset() { Dpi = 300, ColorSpace = ColorSpace.Cmyk, Name = testName };
+                Preset settings = new Preset() { Dpi = 300, ColorSpace = ColorSpace.GrayScale, Name = testName };
                 repository.Add(settings);
             }
             using (PresetsRepository repository = new PresetsRepository())
             {
-                Preset settings = repository.ExportSettings[0];
+                Preset settings = repository.Presets[0];
                 Assert.AreEqual(testName, settings.Name,
                     "Retrieved export settings have different name than previously stored.");
             }

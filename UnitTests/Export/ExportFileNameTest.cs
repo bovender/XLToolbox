@@ -39,10 +39,10 @@ namespace XLToolbox.UnitTests.Export
                 "{" + Strings.Worksheet + "}",
                 "{" + Strings.Index + "}");
             ExportFileName efn = new ExportFileName(exportTemplate);
-            string result = efn.GenerateNext(wb, ws);
+            string result = efn.GenerateNext(ws);
             string expectedResult = String.Format(basicTemplate, wb.Name, ws.Name, "001");
             Assert.AreEqual(expectedResult, result);
-            result = efn.GenerateNext(wb, ws);
+            result = efn.GenerateNext(ws);
             expectedResult = String.Format(basicTemplate, wb.Name, ws.Name, "002");
             Assert.AreEqual(expectedResult, result);
         }
@@ -53,10 +53,10 @@ namespace XLToolbox.UnitTests.Export
             string basicTemplate = "templateWithoutIndex{0}.tif";
             string exportTemplate = String.Format(basicTemplate, "");
             ExportFileName efn = new ExportFileName(exportTemplate);
-            string result = efn.GenerateNext(wb, ws);
+            string result = efn.GenerateNext(ws);
             string expectedResult = String.Format(basicTemplate, "001");
             Assert.AreEqual(expectedResult, result);
-            result = efn.GenerateNext(wb, ws);
+            result = efn.GenerateNext(ws);
             expectedResult = String.Format(basicTemplate, "002");
             Assert.AreEqual(expectedResult, result);
         }
@@ -67,10 +67,10 @@ namespace XLToolbox.UnitTests.Export
             string basicTemplate = "templateWithoutIndex{0}";
             string exportTemplate = String.Format(basicTemplate, "");
             ExportFileName efn = new ExportFileName(exportTemplate);
-            string result = efn.GenerateNext(wb, ws);
+            string result = efn.GenerateNext(ws);
             string expectedResult = String.Format(basicTemplate, "001");
             Assert.AreEqual(expectedResult, result);
-            result = efn.GenerateNext(wb, ws);
+            result = efn.GenerateNext(ws);
             expectedResult = String.Format(basicTemplate, "002");
             Assert.AreEqual(expectedResult, result);
         }

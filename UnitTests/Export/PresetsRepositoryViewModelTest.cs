@@ -16,9 +16,9 @@ namespace XLToolbox.UnitTests.Export
         {
             PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
             PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
-            int numSettings = sr.ExportSettings.Count;
+            int numSettings = sr.Presets.Count;
             srvm.AddSettingsCommand.Execute(null);
-            Assert.AreEqual(numSettings + 1, sr.ExportSettings.Count,
+            Assert.AreEqual(numSettings + 1, sr.Presets.Count,
                 "Export settings repository should have new settings.");
             Assert.AreEqual(numSettings + 1, srvm.ExportSettings.Count,
                 "Settings repository view model should have new settings view model.");
@@ -32,9 +32,9 @@ namespace XLToolbox.UnitTests.Export
             {
                 sr.Add(new Preset());
             };
-            int oldCount = sr.ExportSettings.Count;
+            int oldCount = sr.Presets.Count;
             PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
-            Preset s = sr.ExportSettings[2];
+            Preset s = sr.Presets[2];
             Assert.IsFalse(srvm.RemoveSettingsCommand.CanExecute(null),
                 "Remove command should be disabled if no export settings objects are selected.");
             srvm.ExportSettings[2].IsSelected = true;
@@ -52,7 +52,7 @@ namespace XLToolbox.UnitTests.Export
             srvm.RemoveSettingsCommand.Execute(null);
             Assert.AreEqual(oldCount - 1, srvm.ExportSettings.Count,
                 "Number of view model messages was not reduced by 1 after delete command.");
-            Assert.IsFalse(((PresetsRepository)srvm.RevealModelObject()).ExportSettings.Contains(s),
+            Assert.IsFalse(((PresetsRepository)srvm.RevealModelObject()).Presets.Contains(s),
                 "Settings object was supposed to be removed but still exists in SettingsRepository.");
         }
 

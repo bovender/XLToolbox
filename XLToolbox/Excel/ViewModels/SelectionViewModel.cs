@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.Office.Interop.Excel;
 using Windows = System.Windows;
@@ -16,7 +17,16 @@ namespace XLToolbox.Excel.ViewModels
     {
         #region Properties
 
-        public dynamic Selection { get; protected set; }
+        /// <summary>
+        /// Exposes the bound application's Selection property.
+        /// </summary>
+        public dynamic Selection
+        {
+            get
+            {
+                return _app.Selection;
+            }
+        }
 
         public Windows.Rect Bounds
         {
@@ -24,6 +34,11 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (_bounds == Windows.Rect.Empty)
                 {
+                    if (Selection == null)
+                    {
+                        throw new InvalidOperationException(
+                            "Cannot compute bounds of selection because nothing is selected in Excel.");
+                    }
                     _bounds = ComputeBounds();
                 }
                 return _bounds;

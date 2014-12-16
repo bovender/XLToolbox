@@ -71,7 +71,7 @@ namespace XLToolbox.Export
                         Presets = new ObservableCollection<Preset>();
                     }
                 }
-                catch (Exception e)
+                catch 
                 {
                     Presets = new ObservableCollection<Preset>();
                     // throw new StoreException("Cannot read export settings.", e);

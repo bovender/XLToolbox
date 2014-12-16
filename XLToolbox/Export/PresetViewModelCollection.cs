@@ -9,7 +9,7 @@ namespace XLToolbox.Export
     public class PresetViewModelCollection : ViewModelCollection<Preset, PresetViewModel>
     {
         public PresetViewModelCollection(PresetsRepository settingsRepository)
-            : base(settingsRepository.ExportSettings)
+            : base(settingsRepository.Presets)
         { }
 
         protected override PresetViewModel CreateViewModel(Preset model)

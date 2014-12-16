@@ -71,6 +71,10 @@ namespace XLToolbox.Export
 
         #region Commands
 
+        /// <summary>
+        /// Resets the Height and Width properties to the dimensions
+        /// of the current selection in Excel.
+        /// </summary>
         public DelegatingCommand ResetDimensionsCommand
         {
             get
@@ -83,6 +87,24 @@ namespace XLToolbox.Export
                     );
                 }
                 return _resetDimensionsCommand;
+            }
+        }
+
+        /// <summary>
+        /// Causes the <see cref="ChooseFileNameMessage"/> to be sent.
+        /// Upon confirmation of this message, the Export process will
+        /// be started.
+        /// </summary>
+        public DelegatingCommand ChooseFileNameCommand
+        {
+            get
+            {
+                if (_chooseFileNameCommand == null)
+                {
+                    _chooseFileNameCommand = new DelegatingCommand(
+                        param => DoChooseFileName());
+                }
+                return _chooseFileNameCommand;
             }
         }
 
@@ -151,31 +173,7 @@ namespace XLToolbox.Export
         /// </summary>
         protected override void DoExport()
         {
-            ChooseFileNameMessage.Send(
-                new StringMessageContent(GetExportPath()),
-                (content) => DoConfirmFileName(content)
-            );
-        }
-
-        protected override bool CanExport()
-        {
-            SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-            return svm.Selection != null;
-        }
-
-        #endregion
-
-        #region Private methods
-
-        /// <summary>
-        /// Called by Message.Respond() if the user has confirmed a file name
-        /// in a view subscribed to the ChooseFileNameMessage. Performs the
-        /// actual export with the file name contained in the message content.
-        /// </summary>
-        /// <param name="messageContent"></param>
-        private void DoConfirmFileName(StringMessageContent messageContent)
-        {
-            if (messageContent.Confirmed && CanExport())
+            if (CanExport())
             {
                 // TODO: Make export asynchronous
                 ProcessMessageContent pcm = new ProcessMessageContent();
@@ -184,6 +182,46 @@ namespace XLToolbox.Export
                 Exporter exporter = new Exporter();
                 exporter.ExportSelection(Settings as SingleExportSettings);
                 pcm.CompletedMessage.Send(pcm);
+            }
+        }
+
+        protected override bool CanExport()
+        {
+            if (ExcelInstance.Running)
+            {
+                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+                return svm.Selection != null;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void DoChooseFileName()
+        {
+            ChooseFileNameMessage.Send(
+                new StringMessageContent(GetExportPath()),
+                (content) => DoConfirmFileName(content)
+            );
+        }
+
+        /// <summary>
+        /// Called by Message.Respond() if the user has confirmed a file name
+        /// in a view subscribed to the ChooseFileNameMessage. Triggers the
+        /// actual export with the file name contained in the message content.
+        /// </summary>
+        /// <param name="messageContent"></param>
+        private void DoConfirmFileName(StringMessageContent messageContent)
+        {
+            if (messageContent.Confirmed)
+            {
+                ((SingleExportSettings)Settings).FileName = messageContent.Value;
+                DoExport();
             }
         }
 
@@ -211,8 +249,9 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        bool _dimensionsChanged;
+        DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _resetDimensionsCommand;
+        bool _dimensionsChanged;
         private Message<StringMessageContent> _chooseFileNameMessage;
 
         #endregion

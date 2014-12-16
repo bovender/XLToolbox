@@ -39,7 +39,7 @@ namespace XLToolbox.Export
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
         }
 
         void Dispose(bool calledFromDispose)

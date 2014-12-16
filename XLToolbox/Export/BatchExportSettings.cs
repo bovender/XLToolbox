@@ -24,6 +24,7 @@ namespace XLToolbox.Export
         public BatchExportScope Scope { get; set; }
         public BatchExportObjects Objects { get; set; }
         public BatchExportLayout Layout { get; set; }
+        public String Path { get; set; }
 
         #endregion
 

@@ -28,17 +28,7 @@ namespace XLToolbox.Export
         {
             get
             {
-                switch (ColorSpace)
-                {
-                    case Export.ColorSpace.Cmyk: return 32;
-                    case Export.ColorSpace.Rgb: return 24;
-                    case Export.ColorSpace.GrayScale: return 16;
-                    case Export.ColorSpace.Monochrome: return 1;
-                    default:
-                        throw new NotImplementedException(String.Format(
-                            "ColorSpace to BPP conversion not implemented for {0}",
-                            this.ColorSpace.ToString()));
-                }
+                return ColorSpace.ToBPP();
             }
         }
 

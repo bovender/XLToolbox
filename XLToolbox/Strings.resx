@@ -362,4 +362,16 @@ The following error occurred:
 
 You may want to try again.</value>
   </data>
+  <data name="Index" xml:space="preserve">
+    <value>index</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
+  <data name="Workbook" xml:space="preserve">
+    <value>workbook</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
+  <data name="Worksheet" xml:space="preserve">
+    <value>worksheet</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
 </root>

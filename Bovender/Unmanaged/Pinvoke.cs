@@ -16,7 +16,15 @@ namespace Bovender.Unmanaged
 
         public static void OpenClipboard(IntPtr hWndNewOwner)
         {
-            if (!Win32_OpenClipboard(hWndNewOwner))
+            int attempts = 0;
+            bool opened = Win32_OpenClipboard(hWndNewOwner);
+            while (!opened && attempts < CLIPBOARD_MAX_ATTEMPTS)
+            {
+                attempts++;
+                System.Threading.Thread.Sleep(CLIPBOARD_WAIT_MS);
+                opened = Win32_OpenClipboard(hWndNewOwner);
+            }
+            if (!opened && !Win32_OpenClipboard(hWndNewOwner))
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
@@ -49,10 +57,7 @@ namespace Bovender.Unmanaged
 
         public static void DeleteEnhMetaFile(IntPtr hemf)
         {
-            if (!Win32_DeleteEnhMetaFile(hemf))
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
+            Win32_DeleteEnhMetaFile(hemf);
         }
 
         #endregion
@@ -71,6 +76,9 @@ namespace Bovender.Unmanaged
         [DllImport("user32.dll", EntryPoint = "CloseClipboard", SetLastError = true)]
         static extern bool Win32_CloseClipboard();
 
+        [DllImport("user32.dll", EntryPoint = "GetClipboardOwner", SetLastError = true)]
+        static extern IntPtr Win32_GetClipboardOwner();
+
         [DllImport("user32.dll", EntryPoint = "GetClipboardData", SetLastError = true)]
         static extern IntPtr Win32_GetClipboardData(uint uFormat);
 
@@ -79,6 +87,13 @@ namespace Bovender.Unmanaged
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteEnhMetaFile", SetLastError = true)]
         static extern bool Win32_DeleteEnhMetaFile(IntPtr hemf);
+
+        #endregion
+
+        #region Private constants
+
+        private const int CLIPBOARD_MAX_ATTEMPTS = 5;
+        private const int CLIPBOARD_WAIT_MS = 200;
 
         #endregion
     }
