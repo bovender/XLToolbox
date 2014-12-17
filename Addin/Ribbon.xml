@@ -22,8 +22,6 @@
 						<menu id="MenuExportBatch">
 						</menu>
 					</splitButton>
-					<button id="ButtonExportSettings" image="cogwheel-small.png"
-							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 				</group>
                 <group id="GroupXlToolbox" label="XL Toolbox">
                     <button id="ButtonAbout" image="xltb-icon-small.png"
