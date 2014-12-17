@@ -59,6 +59,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\Instance\ExcelInstance.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />

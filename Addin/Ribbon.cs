@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -31,11 +32,21 @@ namespace XLToolbox
     [ComVisible(true)]
     public class Ribbon : Office.IRibbonExtensibility
     {
-        private Office.IRibbonUI ribbon;
+        #region Constructor (add command dictionary entries here)
 
         public Ribbon()
         {
+            _commandDictionary = new Dictionary<string, Command>()
+            {
+                { "ButtonAbout", Command.About },
+                { "ButtonCheckForUpdate", Command.CheckForUpdates },
+                { "ButtonTestError", Command.ThrowError },
+                { "ButtonSheetList", Command.SheetManager },
+                { "ButtonExportSelection", Command.ExportSelection }
+            };
         }
+
+        #endregion
 
         #region IRibbonExtensibility Members
 
@@ -51,20 +62,14 @@ namespace XLToolbox
 
         public void Button_OnAction(Office.IRibbonControl control)
         {
-            switch (control.Id)
+            Command cmd;
+            if (_commandDictionary.TryGetValue(control.Id, out cmd))
             {
-                case "ButtonAbout": Dispatcher.Execute(Command.About);
-                    break;
-                case "ButtonCheckForUpdate": Dispatcher.Execute(Command.CheckForUpdates);
-                    break;
-                case "ButtonTestError": Dispatcher.Execute(Command.ThrowError);
-                    break;
-                case "ButtonSheetList": Dispatcher.Execute(Command.SheetList);
-                    break;
-                case "ButtonExportSelection": Dispatcher.Execute(Command.ExportSelection);
-                    break;
-                default:
-                    break;
+                Dispatcher.Execute(cmd);
+            }
+            else
+            {
+                throw new NotImplementedException("No matching command for " + control.Id);
             }
         }
 
@@ -103,7 +108,7 @@ namespace XLToolbox
 
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
-            this.ribbon = ribbonUI;
+            this._ribbon = ribbonUI;
         }
 
         public bool Group_IsVisibleInDebugOnly(Office.IRibbonControl control)
@@ -138,6 +143,13 @@ namespace XLToolbox
             }
             return null;
         }
+
+        #endregion
+
+        #region Fields
+
+        Office.IRibbonUI _ribbon;
+        Dictionary<string, Command> _commandDictionary;
 
         #endregion
     }

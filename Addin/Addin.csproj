@@ -190,7 +190,6 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Dispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
