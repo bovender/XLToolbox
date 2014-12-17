@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
@@ -14,6 +15,12 @@ namespace XLToolbox.Export
     /// Abstract base class for the <see cref="SingleExportSettingsViewModel"/>
     /// and <see cref="BatchExportSettingsViewModel"/> classes.
     /// </summary>
+    /// <remarks>
+    /// Rather than exposing a single PresetViewModel to subscribers, this
+    /// view model has a PresetsRepository property so that subscribed views
+    /// can select a preset from a preset repository. The last selected preset
+    /// will be relayed to the wrapped Settings object.
+    /// </remarks>
     public abstract class SettingsViewModelBase : ViewModelBase
     {
         #region Public properties
@@ -21,20 +28,20 @@ namespace XLToolbox.Export
         /// <summary>
         /// Preset to use for the graphic export.
         /// </summary>
-        public PresetViewModel Preset
+        public PresetsRepositoryViewModel PresetsRepository
         {
             get
             {
                 if (_preset == null)
                 {
-                    _preset = new PresetViewModel();
+                    _preset = new PresetsRepositoryViewModel();
                 }
                 return _preset;
             }
             set
             {
                 _preset = value;
-                OnPropertyChanged("Preset");
+                OnPropertyChanged("Presets");
             }
         }
 
@@ -58,15 +65,15 @@ namespace XLToolbox.Export
 
         #region Commands
 
-        public DelegatingCommand EditPresetCommand
+        public DelegatingCommand EditPresetsCommand
         {
             get
             {
-                if (_editPresetCommand == null)
+                if (_editPresetsCommand == null)
                 {
-                    _editPresetCommand = new DelegatingCommand(param => DoEditPreset());
+                    _editPresetsCommand = new DelegatingCommand(param => DoEditPresets());
                 }
-                return _editPresetCommand;
+                return _editPresetsCommand;
             }
         }
 
@@ -93,11 +100,11 @@ namespace XLToolbox.Export
         {
             get
             {
-                if (_editPresetMessage == null)
+                if (_editPresetsMessage == null)
                 {
-                    _editPresetMessage = new Message<ViewModelMessageContent>();
+                    _editPresetsMessage = new Message<ViewModelMessageContent>();
                 }
-                return _editPresetMessage;
+                return _editPresetsMessage;
             }
         }
 
@@ -111,6 +118,17 @@ namespace XLToolbox.Export
                 }
                 return _exportProcessMessage;
             }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public SettingsViewModelBase()
+            : base()
+        {
+            PresetsRepository = new PresetsRepositoryViewModel();
+            PresetsRepository.PropertyChanged += PresetsRepository_PropertyChanged;
         }
 
         #endregion
@@ -163,12 +181,21 @@ namespace XLToolbox.Export
 
         #region Private methods
 
-        private void DoEditPreset()
+        private void DoEditPresets()
         {
             EditPresetMessage.Send(
-                new ViewModelMessageContent(Preset),
-                content => OnPropertyChanged("Preset")
+                new ViewModelMessageContent(PresetsRepository),
+                content => OnPropertyChanged("Presets")
             );
+        }
+        
+        private void PresetsRepository_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "LastSelected")
+            {
+                // Relay the preset selected in the repository view model to the settings object
+                Settings.Preset = PresetsRepository.Presets.LastSelected.RevealModelObject() as Preset;
+            }
         }
 
         #endregion
@@ -176,10 +203,10 @@ namespace XLToolbox.Export
         #region Private fields
         
         DelegatingCommand _exportCommand;
-        DelegatingCommand _editPresetCommand;
-        Message<ViewModelMessageContent> _editPresetMessage;
+        DelegatingCommand _editPresetsCommand;
+        Message<ViewModelMessageContent> _editPresetsMessage;
         Message<ProcessMessageContent> _exportProcessMessage;
-        PresetViewModel _preset;
+        PresetsRepositoryViewModel _preset;
 
         #endregion
     }

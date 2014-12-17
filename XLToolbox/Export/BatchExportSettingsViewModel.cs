@@ -121,12 +121,6 @@ namespace XLToolbox.Export
             Settings = new BatchExportSettings();
         }
 
-        public BatchExportSettingsViewModel(PresetViewModel preset)
-            : this()
-        {
-            Preset = preset;
-        }
-
         #endregion
 
         #region Implementation of SettingsViewModelBase

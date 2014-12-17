@@ -19,7 +19,6 @@ namespace XLToolbox.UnitTests.Export
         {
             ExcelInstance.Start();
             svm = new SingleExportSettingsViewModel();
-            svm.Preset = new PresetViewModel(new Preset());
         }
 
         [TearDown]

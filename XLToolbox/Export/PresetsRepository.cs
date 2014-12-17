@@ -32,6 +32,17 @@ namespace XLToolbox.Export
             LoadPresets();
         }
 
+        /// <summary>
+        /// Creates a new Presets repository, loads previously saved presets
+        /// and adds the <paramref name="addPreset"/> to the repository.
+        /// </summary>
+        /// <param name="addPreset">Preset to add to the repository.</param>
+        public PresetsRepository(Preset addPreset)
+            : this()
+        {
+            Presets.Add(addPreset);
+        }
+
         #endregion
 
         #region Add and remove

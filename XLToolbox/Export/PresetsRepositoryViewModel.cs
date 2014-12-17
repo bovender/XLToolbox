@@ -5,6 +5,8 @@ using System.Text;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace XLToolbox.Export
 {
@@ -15,24 +17,50 @@ namespace XLToolbox.Export
     {
         #region Public properties
 
-        public PresetViewModelCollection ExportSettings { get; private set; }
+        public PresetViewModelCollection Presets { get; private set; }
+
+        public PresetViewModel LastSelected { get; private set; }
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
+        /// <summary>
+        /// Instantiates the view model and creates a new PresetRepository
+        /// instance which will load previously saved values in the background.
+        /// </summary>
         public PresetsRepositoryViewModel()
             : base()
         {
             _repository = new PresetsRepository();
-            ExportSettings = new PresetViewModelCollection(_repository);
+            Presets = new PresetViewModelCollection(_repository);
+            // Since the PropertyChanged event of the ObservableCollection<T> from which
+            // PresetViewModelCollection derives is protected, we need to access it
+            // explicitly via the INotifyPropertyChanged interface. The reason why the event
+            // is protected is because consumers are supposed to subscribe to
+            // INotifyCollectionChanged.CollectionChanged; but in this case, we want to
+            // know when the LastSelected property changes.
+            ((INotifyPropertyChanged)Presets).PropertyChanged += PresetsRepositoryViewModel_PropertyChanged;
+        }
+
+        /// <summary>
+        /// Instantiates the view model by creating a new repository instance
+        /// (which loads previously saved values, if they exist) and adding
+        /// the <paramref name="presetViewModel"/> to the repository.
+        /// </summary>
+        /// <param name="presetViewModel">Preset view model (and associated model)
+        /// to add to the repository.</param>
+        public PresetsRepositoryViewModel(PresetViewModel presetViewModel)
+            : this()
+        {
+            Presets.Add(presetViewModel);
         }
 
         public PresetsRepositoryViewModel(PresetsRepository repository)
             : base()
         {
             _repository = repository;
-            ExportSettings = new PresetViewModelCollection(_repository);
+            Presets = new PresetViewModelCollection(_repository);
         }
 
         #endregion
@@ -121,7 +149,7 @@ namespace XLToolbox.Export
         {
             Export.Preset s = new Export.Preset();
             PresetViewModel svm = new PresetViewModel(s);
-            ExportSettings.Add(svm);
+            Presets.Add(svm);
             svm.IsSelected = true;
             OnPropertyChanged("ExportSettings");
         }
@@ -138,27 +166,35 @@ namespace XLToolbox.Export
         {
             if (CanDeleteSettings() && messageContent.Confirmed)
             {
-                this.ExportSettings.RemoveSelected();
+                this.Presets.RemoveSelected();
                 OnPropertyChanged("ExportSettings");
             }
         }
 
         private bool CanDeleteSettings()
         {
-            return (this.ExportSettings.CountSelected > 0);
+            return (this.Presets.CountSelected > 0);
         }
 
         private void DoEditSettings()
         {
             EditSettingsMessage.Send(
-                new ViewModelMessageContent(ExportSettings.LastSelected),
+                new ViewModelMessageContent(Presets.LastSelected),
                 content => OnPropertyChanged("ExportSettings")
             );
         }
 
         private bool CanEditSettings()
         {
-            return (this.ExportSettings.CountSelected > 0);
+            return (this.Presets.CountSelected > 0);
+        }
+
+        private void PresetsRepositoryViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "LastSelected")
+            {
+                LastSelected = Presets.LastSelected;
+            }
         }
 
         #endregion

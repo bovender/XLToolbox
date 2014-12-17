@@ -134,10 +134,16 @@ namespace XLToolbox.Export
             Settings = new SingleExportSettings();
         }
 
-        public SingleExportSettingsViewModel(PresetViewModel preset)
+        /*
+        /// <summary>
+        /// Instantiates the view model and adds the <paramref name="presetViewModel"/>
+        /// to the Presets repository.
+        /// </summary>
+        /// <param name="presetViewModel">Preset view model to add to the repository.</param>
+        public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
             : this()
         {
-            Preset = preset;
+            PresetsRepository.Presets.Add(presetViewModel);
         }
 
         public SingleExportSettingsViewModel(PresetViewModel preset, double width, double height)
@@ -162,6 +168,7 @@ namespace XLToolbox.Export
             _dimensionsChanged = false;
             PreserveAspect = preserveAspect;
         }
+        */
 
         #endregion
 
