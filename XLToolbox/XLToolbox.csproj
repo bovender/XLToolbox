@@ -84,6 +84,9 @@
     <Compile Include="Export\Settings.cs" />
     <Compile Include="Export\SettingsViewModelBase.cs" />
     <Compile Include="Export\BatchExportSettingsViewModel.cs" />
+    <Compile Include="Export\SingleExportSettingsView.xaml.cs">
+      <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Export\SingleExportSettingsViewModel.cs" />
     <Compile Include="Export\SingleExportSettings.cs" />
     <Compile Include="Export\WorkingClipboard.cs" />
@@ -262,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExceptionHandler\SubmissionSuccessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Export\SingleExportSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

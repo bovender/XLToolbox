@@ -374,4 +374,34 @@ You may want to try again.</value>
     <value>worksheet</value>
     <comment>For use as placeholder in file name templates</comment>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="PreserveAspectRatio" xml:space="preserve">
+    <value>Preserve aspect ratio</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SingleGraphicExport" xml:space="preserve">
+    <value>Single graphic export</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
 </root>

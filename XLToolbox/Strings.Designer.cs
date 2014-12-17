@@ -259,6 +259,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
@@ -317,6 +326,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to fetch the current version information from the internet.
         ///The error was:
         ///{0}
@@ -335,6 +353,15 @@ namespace XLToolbox {
         public static string FreeImageVersion {
             get {
                 return ResourceManager.GetString("FreeImageVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string Height {
+            get {
+                return ResourceManager.GetString("Height", resourceCulture);
             }
         }
         
@@ -483,11 +510,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click &quot;Technical information...&quot; to view the contents of the bug report..
         /// </summary>
         public static string PleaseSendCrashReport {
             get {
                 return ResourceManager.GetString("PleaseSendCrashReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve aspect ratio.
+        /// </summary>
+        public static string PreserveAspectRatio {
+            get {
+                return ResourceManager.GetString("PreserveAspectRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preset.
+        /// </summary>
+        public static string Preset {
+            get {
+                return ResourceManager.GetString("Preset", resourceCulture);
             }
         }
         
@@ -515,6 +569,24 @@ namespace XLToolbox {
         public static string ReportSuccessfullySubmitted {
             get {
                 return ResourceManager.GetString("ReportSuccessfullySubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection.
+        /// </summary>
+        public static string Selection {
+            get {
+                return ResourceManager.GetString("Selection", resourceCulture);
             }
         }
         
@@ -562,6 +634,15 @@ namespace XLToolbox {
         public static string SendMeACopy {
             get {
                 return ResourceManager.GetString("SendMeACopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single graphic export.
+        /// </summary>
+        public static string SingleGraphicExport {
+            get {
+                return ResourceManager.GetString("SingleGraphicExport", resourceCulture);
             }
         }
         
@@ -698,6 +779,15 @@ namespace XLToolbox {
         public static string WhatsNew {
             get {
                 return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
             }
         }
         
