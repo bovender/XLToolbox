@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     [Serializable]
     public class StoreException : Exception

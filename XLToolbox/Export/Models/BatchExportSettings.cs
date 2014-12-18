@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     /// <summary>
     /// Holds settings for a specific batch export process.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     /// <summary>
     /// Model for graphic export settings.
@@ -21,7 +21,7 @@ namespace XLToolbox.Export
         {
             get
             {
-                return FileType == Export.FileType.Emf || FileType == Export.FileType.Svg;
+                return FileType == FileType.Emf || FileType == FileType.Svg;
             }
         }
         public int Bpp

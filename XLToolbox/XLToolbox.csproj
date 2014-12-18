@@ -75,31 +75,31 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Export\BatchExportLayout.cs" />
-    <Compile Include="Export\BatchExportObjects.cs" />
-    <Compile Include="Export\BatchExportScope.cs" />
-    <Compile Include="Export\BatchExportSettings.cs" />
+    <Compile Include="Export\Models\BatchExportLayout.cs" />
+    <Compile Include="Export\Models\BatchExportObjects.cs" />
+    <Compile Include="Export\Models\BatchExportScope.cs" />
+    <Compile Include="Export\Models\BatchExportSettings.cs" />
     <Compile Include="Export\ExportFileName.cs" />
     <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
     <Compile Include="Export\Models\Unit.cs" />
-    <Compile Include="Export\Settings.cs" />
-    <Compile Include="Export\SettingsViewModelBase.cs" />
-    <Compile Include="Export\BatchExportSettingsViewModel.cs" />
-    <Compile Include="Export\SingleExportSettingsView.xaml.cs">
+    <Compile Include="Export\Models\Settings.cs" />
+    <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
+    <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
+    <Compile Include="Export\Views\SingleExportSettingsView.xaml.cs">
       <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Export\SingleExportSettingsViewModel.cs" />
-    <Compile Include="Export\SingleExportSettings.cs" />
+    <Compile Include="Export\ViewModels\SingleExportSettingsViewModel.cs" />
+    <Compile Include="Export\Models\SingleExportSettings.cs" />
     <Compile Include="Export\WorkingClipboard.cs" />
-    <Compile Include="Export\ColorSpace.cs" />
+    <Compile Include="Export\Models\ColorSpace.cs" />
     <Compile Include="Export\Exporter.cs" />
-    <Compile Include="Export\PresetsRepositoryViewModel.cs" />
-    <Compile Include="Export\Preset.cs" />
-    <Compile Include="Export\PresetsRepository.cs" />
-    <Compile Include="Export\PresetViewModelCollection.cs" />
-    <Compile Include="Export\StoreException.cs" />
-    <Compile Include="Export\PresetViewModel.cs" />
-    <Compile Include="Export\FileType.cs" />
+    <Compile Include="Export\ViewModels\PresetsRepositoryViewModel.cs" />
+    <Compile Include="Export\Models\Preset.cs" />
+    <Compile Include="Export\Models\PresetsRepository.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModelCollection.cs" />
+    <Compile Include="Export\Models\StoreException.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModel.cs" />
+    <Compile Include="Export\Models\FileType.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
@@ -269,7 +269,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Export\SingleExportSettingsView.xaml">
+    <Page Include="Export\Views\SingleExportSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,10 +326,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Export\ViewModels\" />
-    <Folder Include="Export\Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

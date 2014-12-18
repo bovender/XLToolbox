@@ -1,4 +1,4 @@
-﻿<Window x:Class="XLToolbox.Export.SingleExportSettingsView"
+﻿<Window x:Class="XLToolbox.Export.Views.SingleExportSettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -10,11 +10,24 @@
         Title="{x:Static l:Strings.SingleGraphicExport}"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+                <ResourceDictionary>
+                    <Style x:Key="Preset" TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="ChooseFileNameMessage" EventName="Sent">
-            <actions:ChooseFolderAction />
+        <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
+            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <!--<actions:ChooseFolderAction />-->
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
+            <actions:ShowViewAction />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Margin="10">
@@ -22,7 +35,10 @@
             <DockPanel Margin="10">
                 <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
                         Command="{Binding EditPresetsCommand}" />
-                <ComboBox ItemsSource="{Binding PresetsRepository}" Margin="0,0,10,0"
+                <ComboBox ItemsSource="{Binding PresetsRepository.Presets}"
+                          DisplayMemberPath="DisplayString"
+                          ItemContainerStyle="{StaticResource ResourceKey=Preset}"
+                          Margin="0,0,10,0"
                           MinWidth="240" MaxWidth="480"/>
             </DockPanel>
         </GroupBox>    
@@ -36,11 +52,11 @@
                     <UniformGrid Columns="2" Rows="1" Margin="0,0,10,0">
                         <StackPanel>
                             <Label Content="{x:Static l:Strings.Width}" />
-                            <TextBox Text="{Binding Width,Mode=TwoWay}" Margin="0,0,5,0" />
+                            <TextBox Text="{Binding Width, Mode=TwoWay}" Margin="0,0,5,0" />
                         </StackPanel>
                         <StackPanel>
                             <Label Content="{x:Static l:Strings.Height}" />
-                            <TextBox Text="{Binding Height,Mode=TwoWay}" />
+                            <TextBox Text="{Binding Height, Mode=TwoWay}" />
                         </StackPanel>
                     </UniformGrid>
                     <CheckBox Content="{x:Static l:Strings.PreserveAspectRatio}"

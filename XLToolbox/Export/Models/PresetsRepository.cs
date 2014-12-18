@@ -6,7 +6,7 @@ using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     /// <summary>
     /// Repository for export settings, is concerned with storing and
@@ -28,7 +28,7 @@ namespace XLToolbox.Export
         {
             // Must initialize the ExportSettings property, lest a null pointer
             // exception is thrown in the LoadSettings() method.
-            Presets = new ObservableCollection<Export.Preset>();
+            Presets = new ObservableCollection<Preset>();
             LoadPresets();
         }
 

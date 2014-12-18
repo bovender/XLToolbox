@@ -8,8 +8,9 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 using XLToolbox.WorkbookStorage;
+using XLToolbox.Export.Models;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.ViewModels
 {
     /// <summary>
     /// Abstract base class for the <see cref="SingleExportSettingsViewModel"/>
@@ -96,7 +97,7 @@ namespace XLToolbox.Export
 
         #region Messages
 
-        public Message<ViewModelMessageContent> EditPresetMessage
+        public Message<ViewModelMessageContent> EditPresetsMessage
         {
             get
             {
@@ -183,7 +184,7 @@ namespace XLToolbox.Export
 
         private void DoEditPresets()
         {
-            EditPresetMessage.Send(
+            EditPresetsMessage.Send(
                 new ViewModelMessageContent(PresetsRepository),
                 content => OnPropertyChanged("Presets")
             );

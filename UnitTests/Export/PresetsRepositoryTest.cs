@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using XLToolbox.Export;
 using NUnit.Framework;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.UnitTests.Export
 {

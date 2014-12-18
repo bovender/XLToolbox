@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Bovender.Mvvm.Messaging;
-using XLToolbox.Export;
+using XLToolbox.Export.Models;
+using XLToolbox.Export.ViewModels;
 
 namespace XLToolbox.UnitTests.Export
 {

@@ -12,8 +12,9 @@ using Bovender.Mvvm.ViewModels;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Excel.Instance;
 using XLToolbox.WorkbookStorage;
+using XLToolbox.Export.Models;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.ViewModels
 {
     /// <summary>
     /// View model for the <see cref="Settings"/> class.

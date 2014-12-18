@@ -82,9 +82,9 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.SingleExportSettings LastSingleExportSetting {
+        public global::XLToolbox.Export.Models.SingleExportSettings LastSingleExportSetting {
             get {
-                return ((global::XLToolbox.Export.SingleExportSettings)(this["LastSingleExportSetting"]));
+                return ((global::XLToolbox.Export.Models.SingleExportSettings)(this["LastSingleExportSetting"]));
             }
             set {
                 this["LastSingleExportSetting"] = value;
@@ -93,9 +93,9 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.BatchExportSettings LastBatchExportSetting {
+        public global::XLToolbox.Export.Models.BatchExportSettings LastBatchExportSetting {
             get {
-                return ((global::XLToolbox.Export.BatchExportSettings)(this["LastBatchExportSetting"]));
+                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["LastBatchExportSetting"]));
             }
             set {
                 this["LastBatchExportSetting"] = value;

@@ -1,4 +1,4 @@
-﻿namespace XLToolbox.Export
+﻿namespace XLToolbox.Export.Models
 {
     public enum BatchExportLayout
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FreeImageAPI;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     // TODO: Add CMYK colorspace.
     public enum ColorSpace

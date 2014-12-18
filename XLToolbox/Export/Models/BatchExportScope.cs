@@ -1,4 +1,4 @@
-﻿namespace XLToolbox.Export
+﻿namespace XLToolbox.Export.Models
 {
     /// <summary>
     /// Enumeration of batch export scope settings.

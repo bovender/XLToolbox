@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
 using System.Configuration;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
     /// <summary>
     /// Holds settings for a particular graphic export process, including

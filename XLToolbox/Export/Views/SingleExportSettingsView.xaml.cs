@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Views
 {
     /// <summary>
     /// Interaction logic for SingleExportSettingsView.xaml

@@ -9,6 +9,7 @@ using XLToolbox.Export;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Excel.Instance;
 using Bovender.Unmanaged;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.UnitTests.Export
 {

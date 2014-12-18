@@ -7,6 +7,7 @@ using FreeImageAPI;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using System.Collections.Generic;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.Export
 {

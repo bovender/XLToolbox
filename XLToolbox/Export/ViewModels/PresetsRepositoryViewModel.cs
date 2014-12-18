@@ -7,8 +7,9 @@ using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using XLToolbox.Export.Models;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.ViewModels
 {
     /// <summary>
     /// View model for an export settings repository.
@@ -147,7 +148,7 @@ namespace XLToolbox.Export
 
         private void DoAddSettings()
         {
-            Export.Preset s = new Export.Preset();
+            Preset s = new Preset();
             PresetViewModel svm = new PresetViewModel(s);
             Presets.Add(svm);
             svm.IsSelected = true;

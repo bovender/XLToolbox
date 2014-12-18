@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
 using XLToolbox.Excel.Instance;
+using XLToolbox.Export.ViewModels;
 
 namespace XLToolbox.UnitTests.Export
 {

@@ -8,6 +8,7 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
 using XLToolbox.Versioning;
 using XLToolbox.SheetManager;
+using XLToolbox.Export.ViewModels;
 
 namespace XLToolbox
 {
@@ -81,8 +82,8 @@ namespace XLToolbox
 
         static void ExportSelection()
         {
-            Export.SingleExportSettingsViewModel vm = new Export.SingleExportSettingsViewModel();
-            vm.InjectInto<Export.SingleExportSettingsView>().ShowDialog();
+            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel();
+            vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialog();
         }
 
         #endregion
