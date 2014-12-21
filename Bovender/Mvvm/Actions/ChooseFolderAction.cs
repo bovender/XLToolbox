@@ -1,5 +1,6 @@
-﻿using Bovender.Mvvm.Messaging;
-using System;
+﻿using System;
+using System.Windows.Forms;
+using Bovender.Mvvm.Messaging;
 
 namespace Bovender.Mvvm.Actions
 {
@@ -9,37 +10,22 @@ namespace Bovender.Mvvm.Actions
     /// <remarks>
     /// To be used with MVVM messages that carry a <see cref="StringMessageContent"/>.
     /// </remarks>
-    public class ChooseFolderAction : MessageActionBase
+    public class ChooseFolderAction : FileFolderActionBase
     {
-        #region Public properties
-
-        public string Description { get; set; }
-
-        #endregion
-
-        #region Overrides
-
-        protected override void Invoke(object parameter)
+        protected override string GetDialogResult(string defaultString)
         {
-            MessageArgs<StringMessageContent> args = parameter as MessageArgs<StringMessageContent>;
-            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
-            dlg.SelectedPath = args.Content.Value;
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.SelectedPath = defaultString;
             dlg.ShowNewFolderButton = true;
             dlg.Description = Description;
-            dlg.ShowDialog();
-            args.Content.Confirmed = !string.IsNullOrEmpty(dlg.SelectedPath);
-            if (args.Content.Confirmed)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                args.Content.Value = dlg.SelectedPath;
-            };
-            args.Respond();
+                return dlg.SelectedPath;
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
-
-        protected override System.Windows.Window CreateView()
-        {
-            throw new InvalidOperationException("The ChooseFolderAction does not create an MVVM WPF - this method must not be called.");
-        }
-
-        #endregion
     }
 }
