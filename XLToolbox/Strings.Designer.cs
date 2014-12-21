@@ -70,6 +70,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
@@ -151,6 +160,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color space.
+        /// </summary>
+        public static string ColorSpace {
+            get {
+                return ResourceManager.GetString("ColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public comment (optional).
         /// </summary>
         public static string CommentOptional {
@@ -192,6 +210,15 @@ namespace XLToolbox {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -264,6 +291,15 @@ namespace XLToolbox {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit export preset.
+        /// </summary>
+        public static string EditExportPreset {
+            get {
+                return ResourceManager.GetString("EditExportPreset", resourceCulture);
             }
         }
         
@@ -348,11 +384,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File type.
+        /// </summary>
+        public static string FileType {
+            get {
+                return ResourceManager.GetString("FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FreeImage version.
         /// </summary>
         public static string FreeImageVersion {
             get {
                 return ResourceManager.GetString("FreeImageVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details..
+        /// </summary>
+        public static string GplDisclaimer {
+            get {
+                return ResourceManager.GetString("GplDisclaimer", resourceCulture);
             }
         }
         
@@ -398,6 +452,15 @@ namespace XLToolbox {
         public static string InnerMessage {
             get {
                 return ResourceManager.GetString("InnerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout.
+        /// </summary>
+        public static string Layout {
+            get {
+                return ResourceManager.GetString("Layout", resourceCulture);
             }
         }
         
@@ -479,6 +542,15 @@ namespace XLToolbox {
         public static string NoThanks {
             get {
                 return ResourceManager.GetString("NoThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objects.
+        /// </summary>
+        public static string Objects {
+            get {
+                return ResourceManager.GetString("Objects", resourceCulture);
             }
         }
         
@@ -578,6 +650,24 @@ namespace XLToolbox {
         public static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolution.
+        /// </summary>
+        public static string Resolution {
+            get {
+                return ResourceManager.GetString("Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scope.
+        /// </summary>
+        public static string Scope {
+            get {
+                return ResourceManager.GetString("Scope", resourceCulture);
             }
         }
         
