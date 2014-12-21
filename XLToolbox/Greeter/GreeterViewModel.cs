@@ -20,7 +20,7 @@ namespace XLToolbox.Greeter
         {
             get
             {
-                return SemanticVersion.CurrentVersion();
+                return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             }
         }
 
