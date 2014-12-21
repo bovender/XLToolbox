@@ -68,6 +68,7 @@
     <Compile Include="Mvvm\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Mvvm\Converters\SimpleExceptionConverter.cs" />
     <Compile Include="Mvvm\Converters\VisibilityBooleanConverter.cs" />
+    <Compile Include="Mvvm\EnumProvider.cs" />
     <Compile Include="Mvvm\Messaging\FileNameMessageContent.cs" />
     <Compile Include="Mvvm\Messaging\ViewModelMessageContent.cs" />
     <Compile Include="Mvvm\ViewModels\ViewModelCollection.cs" />
