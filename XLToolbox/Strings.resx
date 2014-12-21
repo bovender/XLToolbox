@@ -410,11 +410,17 @@ You may want to try again.</value>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All files</value>
+  </data>
   <data name="ColorSpace" xml:space="preserve">
     <value>Color space</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="EmfFiles" xml:space="preserve">
+    <value>EMF files</value>
   </data>
   <data name="FileType" xml:space="preserve">
     <value>File type</value>
@@ -428,10 +434,19 @@ You may want to try again.</value>
   <data name="Objects" xml:space="preserve">
     <value>Objects</value>
   </data>
+  <data name="PngFiles" xml:space="preserve">
+    <value>PNG files</value>
+  </data>
   <data name="Resolution" xml:space="preserve">
     <value>Resolution</value>
   </data>
   <data name="Scope" xml:space="preserve">
     <value>Scope</value>
+  </data>
+  <data name="SvgFiles" xml:space="preserve">
+    <value>SVG files</value>
+  </data>
+  <data name="TifFiles" xml:space="preserve">
+    <value>TIFF files</value>
   </data>
 </root>

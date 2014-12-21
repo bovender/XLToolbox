@@ -39,6 +39,22 @@ namespace XLToolbox.Export.Models
             }
         }
 
+        public static string ToFileFilter(this FileType fileType)
+        {
+            string result;
+            switch (fileType)
+            {
+                case FileType.Emf:  result = Strings.EmfFiles; break;
+                case FileType.Png:  result = Strings.PngFiles; break;
+                case FileType.Svg:  result = Strings.SvgFiles; break;
+                case FileType.Tiff: result = Strings.TifFiles; break;
+                default:
+                    throw new InvalidOperationException(
+                        "No file filter defined for " + fileType.ToString());
+            }
+            return result + "|*" + fileType.ToFileNameExtension();
+        }
+
         public static bool SupportsTransparency(this FileType fileType)
         {
             switch (fileType)

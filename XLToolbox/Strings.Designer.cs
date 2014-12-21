@@ -79,6 +79,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        public static string AllFiles {
+            get {
+                return ResourceManager.GetString("AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
@@ -309,6 +318,15 @@ namespace XLToolbox {
         public static string EMailOptional {
             get {
                 return ResourceManager.GetString("EMailOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EMF files.
+        /// </summary>
+        public static string EmfFiles {
+            get {
+                return ResourceManager.GetString("EmfFiles", resourceCulture);
             }
         }
         
@@ -600,6 +618,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PNG files.
+        /// </summary>
+        public static string PngFiles {
+            get {
+                return ResourceManager.GetString("PngFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preserve aspect ratio.
         /// </summary>
         public static string PreserveAspectRatio {
@@ -746,6 +773,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SVG files.
+        /// </summary>
+        public static string SvgFiles {
+            get {
+                return ResourceManager.GetString("SvgFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technical information.
         /// </summary>
         public static string TechnicalInformation {
@@ -778,6 +814,15 @@ namespace XLToolbox {
         public static string ThisIsVersion {
             get {
                 return ResourceManager.GetString("ThisIsVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TIFF files.
+        /// </summary>
+        public static string TifFiles {
+            get {
+                return ResourceManager.GetString("TifFiles", resourceCulture);
             }
         }
         
