@@ -75,6 +75,15 @@ namespace Bovender.ExceptionHandler
         public string Message { get; private set; }
         public string InnerException { get; private set; }
         public string InnerMessage { get; private set; }
+
+        public bool HasInnerException
+        {
+            get
+            {
+                return !String.IsNullOrEmpty(InnerException);
+            }
+        }
+
         public string StackTrace { get; private set; }
 
         public string OS
