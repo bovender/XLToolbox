@@ -101,5 +101,17 @@ namespace XLToolbox.Properties {
                 this["LastBatchExportSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportPreset {
+            get {
+                return ((string)(this["ExportPreset"]));
+            }
+            set {
+                this["ExportPreset"] = value;
+            }
+        }
     }
 }
