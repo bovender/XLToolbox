@@ -52,6 +52,7 @@
                             <TextBox Text="{Binding Width, Mode=TwoWay,
                                         UpdateSourceTrigger=PropertyChanged,
                                         StringFormat={}{0:0.###}}"
+                                     Height="{Binding ElementName=UnitBox, Path=ActualHeight}"
                                      Margin="0,0,5,0" TextAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
@@ -59,16 +60,19 @@
                             <TextBox Text="{Binding Height, Mode=TwoWay,
                                         UpdateSourceTrigger=PropertyChanged,
                                         StringFormat={}{0:0.###}}"
+                                     Height="{Binding ElementName=UnitBox, Path=ActualHeight}"
                                      Margin="0,0,5,0" TextAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
                             <Label Content="{x:Static l:Strings.Unit}" />
-                            <ComboBox ItemsSource="{Binding Path=Units.Choices}"
+                            <ComboBox x:Name="UnitBox"
+                                      ItemsSource="{Binding Path=Units.Choices}"
                                       SelectedItem="{Binding Path=Units.AsString}" />
                         </StackPanel>
                     </UniformGrid>
-                    <CheckBox Content="{x:Static l:Strings.PreserveAspectRatio}"
-                          IsChecked="{Binding PreserveAspect}" />
+                    <CheckBox Margin="0,5,0,0"
+                              Content="{x:Static l:Strings.PreserveAspectRatio}"
+                              IsChecked="{Binding PreserveAspect}" />
                 </StackPanel>
             </DockPanel>
         </GroupBox>

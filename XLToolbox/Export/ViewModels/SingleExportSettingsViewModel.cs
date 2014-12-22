@@ -246,7 +246,8 @@ namespace XLToolbox.Export.ViewModels
             if (ExcelInstance.Running)
             {
                 SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-                return svm.Selection != null;
+                return (svm.Selection != null) && (Settings.Preset.Dpi > 0) &&
+                    (Width > 0) && (Height > 0);
             }
             else
             {
@@ -320,8 +321,8 @@ namespace XLToolbox.Export.ViewModels
                     Excel.Instance.ExcelInstance.Application);
                 bool oldAspectSwitch = PreserveAspect;
                 PreserveAspect = false;
-                Width = selection.Bounds.Width;
-                Height = selection.Bounds.Height;
+                Width = Unit.Point.ConvertTo(selection.Bounds.Width, Unit);
+                Height = Unit.Point.ConvertTo(selection.Bounds.Height, Unit);
                 PreserveAspect = oldAspectSwitch;
                 _dimensionsChanged = false;
             }
