@@ -131,7 +131,8 @@ namespace XLToolbox.Export.ViewModels
                 if (_chooseFileNameCommand == null)
                 {
                     _chooseFileNameCommand = new DelegatingCommand(
-                        param => DoChooseFileName());
+                        param => DoChooseFileName(),
+                        parma => CanExport());
                 }
                 return _chooseFileNameCommand;
             }
