@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
 using XLToolbox.Excel.Instance;
@@ -19,6 +20,10 @@ namespace XLToolbox.UnitTests.Export
         public void SetUp()
         {
             ExcelInstance.Start();
+            Workbook wb = ExcelInstance.CreateWorkbook();
+            Worksheet ws = wb.Worksheets[1];
+            ChartObjects cos = ws.ChartObjects();
+            cos.Add(10, 10, 300, 200).Select();
             svm = new SingleExportSettingsViewModel();
         }
 
@@ -29,8 +34,16 @@ namespace XLToolbox.UnitTests.Export
         }
 
         [Test]
+        public void Dimensions()
+        {
+            Assert.AreEqual(300, svm.Width, "Export settings width is incorrect.");
+            Assert.AreEqual(200, svm.Height, "Export settings height is incorrect.");
+        }
+
+        [Test]
         public void PreserveAspectWidth()
         {
+            svm.PreserveAspect = false;
             svm.Height = 100;
             svm.Width = 200;
             svm.PreserveAspect = true;
@@ -42,6 +55,7 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void PreserveAspectHeight()
         {
+            svm.PreserveAspect = false;
             svm.Height = 100;
             svm.Width = 200;
             svm.PreserveAspect = true;
@@ -55,7 +69,7 @@ namespace XLToolbox.UnitTests.Export
         {
             bool fnMsgSent = false;
             svm.ChooseFileNameMessage.Sent +=
-                (object sender, MessageArgs<StringMessageContent> args) =>
+                (object sender, MessageArgs<FileNameMessageContent> args) =>
                 {
                     fnMsgSent = true;
                 };

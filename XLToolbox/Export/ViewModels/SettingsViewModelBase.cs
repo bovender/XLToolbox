@@ -33,15 +33,15 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                if (_preset == null)
+                if (_presetsRepositoryViewModel == null)
                 {
-                    _preset = new PresetsRepositoryViewModel();
+                    _presetsRepositoryViewModel = new PresetsRepositoryViewModel();
                 }
-                return _preset;
+                return _presetsRepositoryViewModel;
             }
             set
             {
-                _preset = value;
+                _presetsRepositoryViewModel = value;
                 OnPropertyChanged("Presets");
             }
         }
@@ -207,7 +207,7 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _editPresetsCommand;
         Message<ViewModelMessageContent> _editPresetsMessage;
         Message<ProcessMessageContent> _exportProcessMessage;
-        PresetsRepositoryViewModel _preset;
+        PresetsRepositoryViewModel _presetsRepositoryViewModel;
 
         #endregion
     }

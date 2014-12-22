@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FreeImageAPI;
+using System.Windows.Data;
 
 namespace XLToolbox.Export.Models
 {

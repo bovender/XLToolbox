@@ -1,0 +1,54 @@
+﻿<Window x:Class="XLToolbox.Export.Views.PresetsRepositoryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:XLToolbox"
+        xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
+        settings:WindowState.Save="True"
+        SizeToContent="WidthAndHeight"
+        Title="{x:Static l:Strings.EditExportPreset}"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <GroupBox Header="{x:Static l:Strings.Preset}" Padding="10">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0">
+                    <Button Command="{Binding AddPreset}" Content="{x:Static l:Strings.Add}" />
+                    <Button Command="{Binding DeletePreset}" Content="{x:Static l:Strings.Delete}"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+                <ListBox ItemsSource="{Binding Presets}" ItemContainerStyle="{StaticResource ViewModelListBox}"
+                         DisplayMemberPath="DisplayString"
+                         MinWidth="240" MaxWidth="480" />
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="{x:Static l:Strings.Details}" Margin="0,10,0,0" Padding="10"
+                  DataContext="{Binding LastSelected}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="{x:Static l:Strings.FileType}" Margin="0,0,0,5" />
+                <ComboBox Grid.Column="1" Grid.Row="0" SelectedItem="{Binding Objects}" Margin="0,0,0,5" />
+                <Label Grid.Column="0" Grid.Row="1" Content="{x:Static l:Strings.Resolution}" Margin="0,0,0,5" />
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Dpi}" Margin="0,0,0,5" />
+                <Label Grid.Column="0" Grid.Row="2" Content="{x:Static l:Strings.ColorSpace}" />
+                <ComboBox Grid.Column="1" Grid.Row="2" SelectedItem="{Binding ColorSpace}" />
+            </Grid>
+        </GroupBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="{x:Static l:Strings.Close}" Command="{Binding CloseViewCommand}" />
+        </StackPanel>    
+    </StackPanel>
+</Window>

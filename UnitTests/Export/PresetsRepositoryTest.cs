@@ -22,7 +22,7 @@ namespace XLToolbox.UnitTests.Export
             }
             using (PresetsRepository repository = new PresetsRepository())
             {
-                Preset settings = repository.Presets[0];
+                Preset settings = repository.Presets[repository.Presets.Count-1];
                 Assert.AreEqual(testName, settings.Name,
                     "Retrieved export settings have different name than previously stored.");
             }

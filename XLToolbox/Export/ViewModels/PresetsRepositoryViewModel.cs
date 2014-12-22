@@ -7,7 +7,9 @@ using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using Microsoft.Office.Interop.Excel;
 using XLToolbox.Export.Models;
+using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -144,6 +146,63 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
+        #region Public methods
+
+        /// <summary>
+        /// Selects the last used preset as stored in the workbook's
+        /// WorkbookStorage area or in the user settings, if any.
+        /// Selects the first preset in the collection if no previously
+        /// stored preset is found.
+        /// </summary>
+        /// <param name="workbook">Workbook whose stored settings to
+        /// search for a previously used preset.</param>
+        /// <exception cref="InvalidOperationException">If no presets
+        /// exist in the collection.</exception>
+        public void SelectLastUsedOrDefault(Workbook workbook)
+        {
+            if (Presets.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    "Cannot select a preset because there are no presets in the collection.");
+            }
+
+            Store workbookStore = new Store(workbook);
+            string presetName = workbookStore.Get(
+                STORAGEKEY,
+                Properties.Settings.Default.ExportPreset);
+            PresetViewModel pvm = null;
+            if (!String.IsNullOrEmpty(presetName))
+            {
+                pvm = Presets.FirstOrDefault(p => p.Name == presetName);
+            }
+            if (pvm != null)
+            {
+                pvm.IsSelected = true;
+            }
+            else
+            {
+                Presets[0].IsSelected = true;
+            }
+        }
+
+        /// <summary>
+        /// Stores the name of the last selected preset in the workbook's
+        /// storage area and in the user settings.
+        /// </summary>
+        /// <param name="workbook">Workbook to store the preset in.</param>
+        public void SaveLastUsed(Workbook workbook)
+        {
+            if (LastSelected != null)
+            {
+                Store store = new Store(workbook);
+                store.Put(STORAGEKEY, LastSelected.Name);
+                Properties.Settings.Default.ExportPreset = LastSelected.Name;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        #endregion
+
         #region Private methods
 
         private void DoAddSettings()
@@ -208,6 +267,12 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _editSettingsCommand;
         Message<MessageContent> _confirmRemoveMessage;
         Message<ViewModelMessageContent> _editSettingsMessage;
+
+        #endregion
+
+        #region Private contants
+
+        private const string STORAGEKEY = "ExportPreset";
 
         #endregion
 

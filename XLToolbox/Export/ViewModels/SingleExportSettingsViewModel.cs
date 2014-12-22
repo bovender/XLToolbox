@@ -13,6 +13,8 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.Excel.Instance;
 using XLToolbox.WorkbookStorage;
 using XLToolbox.Export.Models;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -24,6 +26,8 @@ namespace XLToolbox.Export.ViewModels
     public class SingleExportSettingsViewModel : SettingsViewModelBase
     {
         #region Public properties
+
+        public Collection<string> Test { get; set; }
 
         /// <summary>
         /// Gets or sets the desired width of the exported graphic.
@@ -52,6 +56,30 @@ namespace XLToolbox.Export.ViewModels
                 _dimensionsChanged = true;
                 OnPropertyChanged("Height");
                 if (PreserveAspect) OnPropertyChanged("Width");
+            }
+        }
+
+        /// <summary>
+        /// Returns an enumerable list of available units and provides
+        /// a bindable converter for a WPF ComboBox.
+        /// </summary>
+        public EnumProvider<Unit> Units
+        {
+            get
+            {
+                if (_unitString == null)
+                {
+                    _unitString = new EnumProvider<Unit>();
+                    _unitString.PropertyChanged +=
+                        (object sender, PropertyChangedEventArgs args) =>
+                        {
+                            if (args.PropertyName == "AsEnum")
+                            {
+                                this.Unit = _unitString.AsEnum;
+                            }
+                        };
+                }
+                return _unitString;
             }
         }
 
@@ -113,13 +141,13 @@ namespace XLToolbox.Export.ViewModels
 
         #region Messages
 
-        public Message<StringMessageContent> ChooseFileNameMessage
+        public Message<FileNameMessageContent> ChooseFileNameMessage
         {
             get
             {
                 if (_chooseFileNameMessage == null)
                 {
-                    _chooseFileNameMessage = new Message<StringMessageContent>();
+                    _chooseFileNameMessage = new Message<FileNameMessageContent>();
                 }
                 return _chooseFileNameMessage;
             }
@@ -132,10 +160,25 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel()
             : base()
         {
-            Settings = new SingleExportSettings();
+            _unit = Models.Unit.Point;
             if (PresetsRepository.Presets.Count == 0)
             {
                 PresetsRepository.Presets.Add(new PresetViewModel());
+            }
+            if (ExcelInstance.Running)
+            {
+                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+                if (ExcelInstance.Application.Workbooks.Count > 0)
+                {
+                    PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
+                }
+                Settings = new SingleExportSettings(
+                    PresetsRepository.LastSelected.RevealModelObject() as Preset,
+                    svm.Bounds.Width, svm.Bounds.Height, true);
+            }
+            if (Settings == null)
+            {
+                Settings = new SingleExportSettings();
             }
         }
 
@@ -188,6 +231,7 @@ namespace XLToolbox.Export.ViewModels
             if (CanExport())
             {
                 // TODO: Make export asynchronous
+                PresetsRepository.SaveLastUsed(ExcelInstance.Application.ActiveWorkbook);
                 ProcessMessageContent pcm = new ProcessMessageContent();
                 pcm.IsIndeterminate = true;
                 ExportProcessMessage.Send(pcm);
@@ -212,12 +256,43 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
+        #region Private properties
+
+        /// <summary>
+        /// Physical unit of the height and width properties.
+        /// </summary>
+        private Unit Unit
+        {
+            get
+            {
+                return _unit;
+            }
+            set
+            {
+                SingleExportSettings s = Settings as SingleExportSettings;
+                bool oldAspect = s.PreserveAspect;
+                s.PreserveAspect = false;
+                s.Height = Unit.ConvertTo(s.Height, value);
+                s.Width = Unit.ConvertTo(s.Width, value);
+                _unit = value;
+                s.PreserveAspect = oldAspect;
+                OnPropertyChanged("Width");
+                OnPropertyChanged("Height");
+                OnPropertyChanged("Unit");
+            }
+        }
+
+        #endregion
+
         #region Private methods
 
         private void DoChooseFileName()
         {
             ChooseFileNameMessage.Send(
-                new StringMessageContent(GetExportPath()),
+                new FileNameMessageContent(
+                    GetExportPath(),
+                    Settings.Preset.FileType.ToFileFilter()
+                    ),
                 (content) => DoConfirmFileName(content)
             );
         }
@@ -228,7 +303,7 @@ namespace XLToolbox.Export.ViewModels
         /// actual export with the file name contained in the message content.
         /// </summary>
         /// <param name="messageContent"></param>
-        private void DoConfirmFileName(StringMessageContent messageContent)
+        private void DoConfirmFileName(FileNameMessageContent messageContent)
         {
             if (messageContent.Confirmed)
             {
@@ -264,7 +339,9 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _resetDimensionsCommand;
         bool _dimensionsChanged;
-        private Message<StringMessageContent> _chooseFileNameMessage;
+        Unit _unit;
+        EnumProvider<Unit> _unitString;
+        private Message<FileNameMessageContent> _chooseFileNameMessage;
 
         #endregion
     }

@@ -449,4 +449,7 @@ You may want to try again.</value>
   <data name="TifFiles" xml:space="preserve">
     <value>TIFF files</value>
   </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
 </root>

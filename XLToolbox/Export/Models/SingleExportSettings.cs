@@ -12,6 +12,9 @@ namespace XLToolbox.Export.Models
     {
         #region Public properties
 
+        /// <summary>
+        /// Width of the selection in points.
+        /// </summary>
         public double Width
         {
             get { return _width; }
@@ -28,6 +31,9 @@ namespace XLToolbox.Export.Models
             }
         }
 
+        /// <summary>
+        /// Height of the selection in points.
+        /// </summary>
         public double Height
         {
             get { return _height; }
