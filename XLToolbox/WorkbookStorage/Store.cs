@@ -90,6 +90,8 @@ namespace XLToolbox.WorkbookStorage
                     catch (System.Runtime.InteropServices.COMException)
                     {
                         bool wasSaved = Workbook.Saved;
+                        dynamic previousSheet = Workbook.ActiveSheet;
+                        dynamic previousSel = Workbook.Application.Selection;
 
                         // If the COMException is raised, the worksheet likely does not exist
                         _storeSheet = Workbook.Worksheets.Add();
@@ -101,6 +103,8 @@ namespace XLToolbox.WorkbookStorage
                         // Give the worksheet a special name
                         _storeSheet.Name = STORESHEETNAME;
 
+                        previousSheet.Activate();
+                        previousSel.Select();
                         Workbook.Saved = wasSaved;
                     }
                 }
