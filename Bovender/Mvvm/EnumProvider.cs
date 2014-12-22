@@ -53,6 +53,14 @@ namespace Bovender.Mvvm
             }
         }
 
+        public string Tooltip
+        {
+            get
+            {
+                return GetTooltip(AsEnum);
+            }
+        }
+
         /// <summary>
         /// Returns an array of strings that represent the enum members.
         /// </summary>
@@ -100,6 +108,20 @@ namespace Bovender.Mvvm
             {
                 return member.ToString();
             }
+        }
+
+        /// <summary>
+        /// Returns a tooltip for the given enum member. Derived
+        /// classes may override this method to return localized
+        /// tooltips.
+        /// </summary>
+        /// <param name="member">Enum member for which to return
+        /// a tooltip.</param>
+        /// <returns>Tooltip string (may be localized in derived
+        /// classes).</returns>
+        protected virtual string GetTooltip(T member)
+        {
+            return GetDescription(member);
         }
 
         #endregion
