@@ -22,12 +22,12 @@ namespace XLToolbox.Export.Models
 
         public static double ConvertTo(this Unit unit, double fromValue, Unit targetUnit)
         {
-            Dictionary<Unit, double> inner;
-            double factor;
+            Dictionary<Unit, decimal> inner;
+            decimal factor;
             if (ConversionTable.TryGetValue(unit, out inner) &&
                 inner.TryGetValue(targetUnit, out factor))
             {
-                return fromValue * factor;
+                return Convert.ToDouble(factor * (decimal)fromValue);
             }
             else
             {
@@ -41,33 +41,33 @@ namespace XLToolbox.Export.Models
 
         #region Private static properties
 
-        private static Dictionary<Unit, Dictionary<Unit, double>> ConversionTable
+        private static Dictionary<Unit, Dictionary<Unit, decimal>> ConversionTable
         {
             get
             {
                 if (_conversionTable == null)
                 {
-                    _conversionTable = new Dictionary<Unit,Dictionary<Unit,double>>()
+                    _conversionTable = new Dictionary<Unit,Dictionary<Unit,decimal>>()
                     {
-                        { Unit.Inch, new Dictionary<Unit, double>()
+                        { Unit.Inch, new Dictionary<Unit, decimal>()
                             {
-                                { Unit.Inch, 1.0 },
-                                { Unit.Millimeter, 25.4 },
-                                { Unit.Point, 72.0 }
+                                { Unit.Inch, 1.0m },
+                                { Unit.Millimeter, 25.4m },
+                                { Unit.Point, 72.0m }
                             }
                         },
-                        { Unit.Millimeter, new Dictionary<Unit, double>()
+                        { Unit.Millimeter, new Dictionary<Unit, decimal>()
                             {
-                                { Unit.Inch, 1.0/25.4 },
-                                { Unit.Millimeter, 1.0 },
-                                { Unit.Point, 72.0/25.4 }
+                                { Unit.Inch, 1.0m/25.4m },
+                                { Unit.Millimeter, 1.0m },
+                                { Unit.Point, 72.0m/25.4m }
                             }
                         },
-                        { Unit.Point, new Dictionary<Unit, double>()
+                        { Unit.Point, new Dictionary<Unit, decimal>()
                             {
-                                { Unit.Inch, 1.0/72.0 },
-                                { Unit.Millimeter, 25.4/72.0 },
-                                { Unit.Point, 1.0 }
+                                { Unit.Inch, 1.0m/72.0m },
+                                { Unit.Millimeter, 25.4m/72.0m },
+                                { Unit.Point, 1.0m }
                             }
                         }
                     };
@@ -80,7 +80,7 @@ namespace XLToolbox.Export.Models
 
         #region Private static fields
 
-        private static Dictionary<Unit, Dictionary<Unit, double>> _conversionTable;
+        private static Dictionary<Unit, Dictionary<Unit, decimal>> _conversionTable;
 
         #endregion
 

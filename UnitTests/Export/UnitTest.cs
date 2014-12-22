@@ -25,7 +25,7 @@ namespace XLToolbox.UnitTests.Export
         [TestCase(25.4, Unit.Millimeter,  1, Unit.Inch)]
         public void ConvertUnit(double fromValue, Unit fromUnit, double expectedValue, Unit toUnit)
         {
-            Assert.AreEqual(expectedValue, Math.Round(fromUnit.ConvertTo(fromValue, toUnit)));
+            Assert.AreEqual(expectedValue, fromUnit.ConvertTo(fromValue, toUnit));
         }
     }
 }
