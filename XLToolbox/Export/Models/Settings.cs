@@ -23,15 +23,6 @@ namespace XLToolbox.Export.Models
 
         #endregion
 
-        #region Abstract methods
-
-        /// <summary>
-        /// Serializes this object into the user-scoped settings.
-        /// </summary>
-        public abstract void Store();
-
-        #endregion
-
         #region Constructors
 
         public Settings() { }

@@ -20,14 +20,14 @@
     <Setting Name="AddinName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
-    <Setting Name="LastSingleExportSetting" Type="XLToolbox.Export.Models.SingleExportSettings" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="LastBatchExportSetting" Type="XLToolbox.Export.Models.BatchExportSettings" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ExportPreset" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ExportUnit" Type="XLToolbox.Export.Models.Unit" Scope="User">
+      <Value Profile="(Default)">Point</Value>
     </Setting>
   </Settings>
 </SettingsFile>

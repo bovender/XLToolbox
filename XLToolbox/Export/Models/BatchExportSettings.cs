@@ -42,6 +42,7 @@ namespace XLToolbox.Export.Models
 
         #endregion
 
+        /*
         #region Implementation of Settings
 
         public override void Store()
@@ -49,7 +50,7 @@ namespace XLToolbox.Export.Models
             Properties.Settings.Default.LastBatchExportSetting = this;
             Properties.Settings.Default.Save();
         }
-
         #endregion
+        */
     }
 }

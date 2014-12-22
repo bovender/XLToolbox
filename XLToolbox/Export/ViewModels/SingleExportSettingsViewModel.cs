@@ -73,8 +73,16 @@ namespace XLToolbox.Export.ViewModels
                         {
                             if (args.PropertyName == "AsEnum")
                             {
-                                this.Unit = _unitString.AsEnum;
+                                SingleExportSettings s = Settings as SingleExportSettings;
+                                bool oldAspect = s.PreserveAspect;
+                                s.PreserveAspect = false;
+                                s.Height = _unit.ConvertTo(s.Height, Units.AsEnum);
+                                s.Width = _unit.ConvertTo(s.Width, Units.AsEnum);
+                                s.PreserveAspect = oldAspect;
+                                OnPropertyChanged("Width");
+                                OnPropertyChanged("Height");
                             }
+                            OnPropertyChanged("Units." + args.PropertyName);
                         };
                 }
                 return _unitString;
@@ -159,6 +167,7 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel()
             : base()
         {
+            // Set the _unit to Point first before setting the height and width properties.
             _unit = Models.Unit.Point;
             if (PresetsRepository.Presets.Count == 0)
             {
@@ -179,6 +188,9 @@ namespace XLToolbox.Export.ViewModels
             {
                 Settings = new SingleExportSettings();
             }
+            // Now that height and width may have been set, reuse the last Unit
+            // (which will convert the height and width values).
+            Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
         /*
@@ -231,6 +243,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 // TODO: Make export asynchronous
                 PresetsRepository.SaveLastUsed(ExcelInstance.Application.ActiveWorkbook);
+                Properties.Settings.Default.ExportUnit = Units.AsEnum;
+                Properties.Settings.Default.Save();
                 ProcessMessageContent pcm = new ProcessMessageContent();
                 pcm.IsIndeterminate = true;
                 ExportProcessMessage.Send(pcm);
@@ -251,34 +265,6 @@ namespace XLToolbox.Export.ViewModels
             else
             {
                 return false;
-            }
-        }
-
-        #endregion
-
-        #region Private properties
-
-        /// <summary>
-        /// Physical unit of the height and width properties.
-        /// </summary>
-        private Unit Unit
-        {
-            get
-            {
-                return _unit;
-            }
-            set
-            {
-                SingleExportSettings s = Settings as SingleExportSettings;
-                bool oldAspect = s.PreserveAspect;
-                s.PreserveAspect = false;
-                s.Height = Unit.ConvertTo(s.Height, value);
-                s.Width = Unit.ConvertTo(s.Width, value);
-                _unit = value;
-                s.PreserveAspect = oldAspect;
-                OnPropertyChanged("Width");
-                OnPropertyChanged("Height");
-                OnPropertyChanged("Unit");
             }
         }
 
@@ -320,8 +306,8 @@ namespace XLToolbox.Export.ViewModels
                     Excel.Instance.ExcelInstance.Application);
                 bool oldAspectSwitch = PreserveAspect;
                 PreserveAspect = false;
-                Width = Unit.Point.ConvertTo(selection.Bounds.Width, Unit);
-                Height = Unit.Point.ConvertTo(selection.Bounds.Height, Unit);
+                Width = Unit.Point.ConvertTo(selection.Bounds.Width, Units.AsEnum);
+                Height = Unit.Point.ConvertTo(selection.Bounds.Height, Units.AsEnum);
                 PreserveAspect = oldAspectSwitch;
                 _dimensionsChanged = false;
             }

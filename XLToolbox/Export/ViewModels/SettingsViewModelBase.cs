@@ -26,6 +26,30 @@ namespace XLToolbox.Export.ViewModels
     {
         #region Public properties
 
+        public PresetViewModelCollection Presets
+        {
+            get
+            {
+                return _presetsRepositoryViewModel.Presets;
+            }
+        }
+
+        public PresetViewModel SelectedPreset
+        {
+            get
+            {
+                return _presetsRepositoryViewModel.LastSelected;
+            }
+            set
+            {
+                _presetsRepositoryViewModel.LastSelected.IsSelected = false;
+                // Setting the IsSelected property to true will make this
+                // view model the LastSelected that is returned by the getter.
+                value.IsSelected = true;
+                OnPropertyChanged("SelectedPreset");
+            }
+        }
+
         /// <summary>
         /// Preset to use for the graphic export.
         /// </summary>

@@ -69,16 +69,6 @@ namespace XLToolbox.Export.Models
 
         #endregion
 
-        #region Implementation of Settings
-
-        public override void Store()
-        {
-            Properties.Settings.Default.LastSingleExportSetting = this;
-            Properties.Settings.Default.Save();
-        }
-
-        #endregion
-
         #region Private fields
 
         double _width;

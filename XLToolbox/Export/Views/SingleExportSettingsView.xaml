@@ -29,8 +29,8 @@
     <StackPanel Margin="10">
         <GroupBox Header="{x:Static l:Strings.Preset}">
             <DockPanel Margin="10">
-                <ComboBox ItemsSource="{Binding Path=PresetsRepository.Presets}"
-                          ItemContainerStyle="{StaticResource ViewModelComboBox}"
+                <ComboBox ItemsSource="{Binding Presets}"
+                          SelectedItem="{Binding SelectedPreset}"
                           DisplayMemberPath="DisplayString"
                           VerticalAlignment="Center" 
                           Margin="0,0,10,0"
