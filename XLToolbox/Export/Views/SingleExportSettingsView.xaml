@@ -77,10 +77,12 @@
             </DockPanel>
         </GroupBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="{x:Static l:Strings.Export}" Command="{Binding ChooseFileNameCommand}"
-                    IsDefault="True" Margin="0,0,10,0"/>
-            <Button Content="{x:Static l:Strings.Cancel}" Command="{Binding CloseViewCommand}"
-                    IsCancel="True"/>
+            <UniformGrid Columns="2">
+                <Button Content="{x:Static l:Strings.Export}" Command="{Binding ChooseFileNameCommand}"
+                        IsDefault="True" Margin="0,0,5,0"/>
+                <Button Content="{x:Static l:Strings.Cancel}" Command="{Binding CloseViewCommand}"
+                        IsCancel="True" Margin="5,0,0,0"/>
+            </UniformGrid>
         </StackPanel>
     </StackPanel>
 </Window>
