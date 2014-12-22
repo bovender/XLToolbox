@@ -467,4 +467,25 @@ You may want to try again.</value>
   <data name="Rgb" xml:space="preserve">
     <value>RGB</value>
   </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Transparency</value>
+  </data>
+  <data name="TransparentCanvas" xml:space="preserve">
+    <value>Transparent canvas</value>
+  </data>
+  <data name="TransparentCanvasTooltip" xml:space="preserve">
+    <value>Leaves the canvas transparent. If the graphics object (e.g. the chart) that is exported contains white background color, the transparency will not be evident. In this case, if you want transparency, choose "Transparent white".</value>
+  </data>
+  <data name="TransparentWhite" xml:space="preserve">
+    <value>Transparent white</value>
+  </data>
+  <data name="TransparentWhiteTooltip" xml:space="preserve">
+    <value>Forces all whites in the image file to become transparent.</value>
+  </data>
+  <data name="WhiteCanvas" xml:space="preserve">
+    <value>White canvas</value>
+  </data>
+  <data name="WhiteCanvasTooltip" xml:space="preserve">
+    <value>Paints the graphic object on a white canvas without transparency.</value>
+  </data>
 </root>

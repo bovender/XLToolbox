@@ -16,17 +16,6 @@ namespace XLToolbox.Export
     /// </summary>
     public class Exporter : IDisposable
     {
-        #region Public properties
-
-        /*
-        /// <summary>
-        /// The export preset (file type, resolution, color space)
-        /// to use for the graphic exports.
-        /// </summary>
-        public Preset Preset { get; set; }
-        */
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -217,13 +206,31 @@ namespace XLToolbox.Export
             int px = (int)Math.Round(width / 72 * preset.Dpi);
             int py = (int)Math.Round(height / 72 * preset.Dpi);
 
-            // Draw the image on a GDI+ bitmap
+            // Create a canvas (GDI+ bitmap) and associate it with a
+            // Graphics object.
             Bitmap b = new Bitmap(px, py);
             Graphics g = Graphics.FromImage(b);
-            g.FillRectangle(Brushes.White, 0, 0, px, py);
+
+            // Get a brush to paint the canvas
+            Brush brush;
+            if (preset.Transparency == Transparency.TransparentCanvas)
+            {
+                brush = Brushes.Transparent;
+            }
+            else
+            {
+                brush = Brushes.White;
+            }
+            g.FillRectangle(brush, 0, 0, px, py);
+
+            // Draw the image on the canvas
             g.DrawImage(metafile, 0, 0, px, py);
-            // TODO: Make transparency optional
-            b.MakeTransparent(Color.White);
+
+            // Make the white colors transparent if required
+            if (preset.Transparency == Transparency.TransparentWhite)
+            {
+                b.MakeTransparent(Color.White);
+            }
 
             // Create a FreeImage bitmap from the GDI+ bitmap
             FreeImageBitmap fib = new FreeImageBitmap(b);
@@ -481,6 +488,9 @@ namespace XLToolbox.Export
         int _numTotal;
         Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
 
+        #endregion
+
+        #region Private constants
         #endregion
     }
 }
