@@ -4,14 +4,19 @@ using System.Linq;
 using System.Text;
 using FreeImageAPI;
 using System.Windows.Data;
+using System.ComponentModel;
 
 namespace XLToolbox.Export.Models
 {
     public enum FileType
     {
+        [Description("TIFF")]
         Tiff,
+        [Description("PNG")]
         Png,
+        [Description("SVG")]
         Svg,
+        [Description("EMF")]
         Emf
     }
 

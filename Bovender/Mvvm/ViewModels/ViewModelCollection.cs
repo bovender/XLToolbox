@@ -57,6 +57,7 @@ namespace Bovender.Mvvm.ViewModels
             // Use Items.Remove() which does not trigger the CollectionChanged event.
             selected.ForEach((vm) => Items.Remove(vm));
             CountSelected = 0;
+            LastSelected = null;
             OnPropertyChanged(new PropertyChangedEventArgs("Count"));
             OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(
@@ -64,6 +65,15 @@ namespace Bovender.Mvvm.ViewModels
                 )
             );
         }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Relays property-changed events from the view models in the collection.
+        /// </summary>
+        public event EventHandler<PropertyChangedEventArgs> ViewModelPropertyChanged;
 
         #endregion
 
@@ -164,6 +174,7 @@ namespace Bovender.Mvvm.ViewModels
                     CountSelected--;
                 }
             }
+            OnViewModelPropertyChanged(sender, e);
         }
 
         #endregion
@@ -267,6 +278,14 @@ namespace Bovender.Mvvm.ViewModels
             TViewModel viewModel = CreateViewModel(model);
             viewModel.PropertyChanged += viewModel_PropertyChanged;
             Add(viewModel);
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (ViewModelPropertyChanged != null)
+            {
+                ViewModelPropertyChanged(sender, args);
+            }
         }
 
         #endregion

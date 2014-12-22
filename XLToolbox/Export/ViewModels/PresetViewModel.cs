@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using XLToolbox.Export.Models;
+using System.ComponentModel;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -36,6 +38,10 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        public int DpiMinimum { get { return 100;  } }
+        public int DpiMaximum { get { return 1200;  } }
+        public int DpiIncrements { get { return 50; } }
+
         public bool IsDpiEnabled
         {
             get
@@ -44,27 +50,45 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
-        public FileType FileType
+        public EnumProvider<FileType> FileType
         {
-            get { return _preset.FileType; }
-            set
+            get
             {
-                _preset.FileType = value;
-                UpdateName();
-                OnPropertyChanged("FileType");
-                OnPropertyChanged("IsColorSpaceEnabled");
-                OnPropertyChanged("IsDpiEnabled");
+                if (_fileTypeProvider == null)
+                {
+                    _fileTypeProvider = new EnumProvider<FileType>();
+                    _fileTypeProvider.AsEnum = _preset.FileType;
+                    _fileTypeProvider.PropertyChanged +=
+                        (object sender, PropertyChangedEventArgs args) =>
+                        {
+                            _preset.FileType = _fileTypeProvider.AsEnum;
+                            OnPropertyChanged("FileType." + args.PropertyName);
+                            OnPropertyChanged("IsColorSpaceEnabled");
+                            OnPropertyChanged("IsDpiEnabled");
+                            UpdateName();
+                        };
+                }
+                return _fileTypeProvider;
             }
         }
 
-        public ColorSpace ColorSpace
+        public ColorSpaceProvider ColorSpace
         {
-            get { return _preset.ColorSpace; }
-            set
+            get
             {
-                _preset.ColorSpace = value;
-                UpdateName();
-                OnPropertyChanged("ColorSpace");
+                if (_colorSpaceProvider == null)
+                {
+                    _colorSpaceProvider = new ColorSpaceProvider();
+                    _colorSpaceProvider.AsEnum = _preset.ColorSpace;
+                    _colorSpaceProvider.PropertyChanged +=
+                        (object sender, PropertyChangedEventArgs args) =>
+                        {
+                            _preset.ColorSpace = _colorSpaceProvider.AsEnum;
+                            OnPropertyChanged("ColorSpace." + args.PropertyName);
+                            UpdateName();
+                        };
+                }
+                return _colorSpaceProvider;
             }
         }
 
@@ -127,11 +151,13 @@ namespace XLToolbox.Export.ViewModels
         #region Private fields
 
         Preset _preset;
+        ColorSpaceProvider _colorSpaceProvider;
+        EnumProvider<FileType> _fileTypeProvider;
         bool _customName;
 
         #endregion
 
-        #region Implemenation of ViewModelBase's abstract methods
+        #region Implementation of ViewModelBase's abstract methods
 
         public override object RevealModelObject()
         {

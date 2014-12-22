@@ -169,6 +169,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CMYK.
+        /// </summary>
+        public static string Cmyk {
+            get {
+                return ResourceManager.GetString("Cmyk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color space.
         /// </summary>
         public static string ColorSpace {
@@ -429,6 +438,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grays.
+        /// </summary>
+        public static string GrayScale {
+            get {
+                return ResourceManager.GetString("GrayScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Height.
         /// </summary>
         public static string Height {
@@ -497,6 +515,24 @@ namespace XLToolbox {
         public static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Black &amp; white.
+        /// </summary>
+        public static string Monochrome {
+            get {
+                return ResourceManager.GetString("Monochrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -686,6 +722,15 @@ namespace XLToolbox {
         public static string Resolution {
             get {
                 return ResourceManager.GetString("Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RGB.
+        /// </summary>
+        public static string Rgb {
+            get {
+                return ResourceManager.GetString("Rgb", resourceCulture);
             }
         }
         

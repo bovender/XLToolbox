@@ -86,7 +86,7 @@ namespace Bovender.Mvvm
         /// <returns>Display string</returns>
         /// <remarks>See http://stackoverflow.com/a/1799401/270712
         /// for description of attribute accession.</remarks>
-        protected string GetDescription(T member)
+        protected virtual string GetDescription(T member)
         {
             Type type = typeof(T);
             MemberInfo[] memberInfo = type.GetMember(member.ToString());

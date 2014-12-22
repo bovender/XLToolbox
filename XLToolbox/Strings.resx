@@ -452,4 +452,19 @@ You may want to try again.</value>
   <data name="Unit" xml:space="preserve">
     <value>Unit</value>
   </data>
+  <data name="Cmyk" xml:space="preserve">
+    <value>CMYK</value>
+  </data>
+  <data name="GrayScale" xml:space="preserve">
+    <value>Grays</value>
+  </data>
+  <data name="Monochrome" xml:space="preserve">
+    <value>Black &amp; white</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Rgb" xml:space="preserve">
+    <value>RGB</value>
+  </data>
 </root>

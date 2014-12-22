@@ -138,7 +138,7 @@ namespace XLToolbox.Export.ViewModels
                 {
                     _chooseFileNameCommand = new DelegatingCommand(
                         param => DoChooseFileName(),
-                        parma => CanExport());
+                        parma => CanChooseFileName());
                 }
                 return _chooseFileNameCommand;
             }
@@ -181,7 +181,7 @@ namespace XLToolbox.Export.ViewModels
                     PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
                 }
                 Settings = new SingleExportSettings(
-                    PresetsRepository.LastSelected.RevealModelObject() as Preset,
+                    PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
                     svm.Bounds.Width, svm.Bounds.Height, true);
             }
             if (Settings == null)
@@ -242,9 +242,10 @@ namespace XLToolbox.Export.ViewModels
             if (CanExport())
             {
                 // TODO: Make export asynchronous
-                PresetsRepository.SaveLastUsed(ExcelInstance.Application.ActiveWorkbook);
+                PresetsRepository.SaveSelected(ExcelInstance.Application.ActiveWorkbook);
                 Properties.Settings.Default.ExportUnit = Units.AsEnum;
                 Properties.Settings.Default.Save();
+                Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();
                 pcm.IsIndeterminate = true;
                 ExportProcessMessage.Send(pcm);
@@ -259,8 +260,8 @@ namespace XLToolbox.Export.ViewModels
             if (ExcelInstance.Running)
             {
                 SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-                return (svm.Selection != null) && (Settings.Preset.Dpi > 0) &&
-                    (Width > 0) && (Height > 0);
+                return (svm.Selection != null) && (SelectedPreset != null) &&
+                    (Settings.Preset.Dpi > 0) && (Width > 0) && (Height > 0);
             }
             else
             {
@@ -274,13 +275,22 @@ namespace XLToolbox.Export.ViewModels
 
         private void DoChooseFileName()
         {
-            ChooseFileNameMessage.Send(
-                new FileNameMessageContent(
-                    GetExportPath(),
-                    Settings.Preset.FileType.ToFileFilter()
-                    ),
-                (content) => DoConfirmFileName(content)
-            );
+            if (CanChooseFileName())
+            {
+                Preset preset = SelectedPreset.RevealModelObject() as Preset;
+                ChooseFileNameMessage.Send(
+                    new FileNameMessageContent(
+                        GetExportPath(),
+                        preset.FileType.ToFileFilter()
+                        ),
+                    (content) => DoConfirmFileName(content)
+                );
+            }
+        }
+
+        private bool CanChooseFileName()
+        {
+            return CanExport();
         }
 
         /// <summary>

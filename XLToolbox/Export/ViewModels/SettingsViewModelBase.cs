@@ -30,7 +30,7 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return _presetsRepositoryViewModel.Presets;
+                return PresetsRepository.Presets;
             }
         }
 
@@ -38,21 +38,16 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return _presetsRepositoryViewModel.LastSelected;
+                return PresetsRepository.SelectedPreset;
             }
             set
             {
-                _presetsRepositoryViewModel.LastSelected.IsSelected = false;
-                // Setting the IsSelected property to true will make this
-                // view model the LastSelected that is returned by the getter.
-                value.IsSelected = true;
+                PresetsRepository.SelectedPreset = value;
+                Settings.Preset = value.RevealModelObject() as Preset;
                 OnPropertyChanged("SelectedPreset");
             }
         }
 
-        /// <summary>
-        /// Preset to use for the graphic export.
-        /// </summary>
         public PresetsRepositoryViewModel PresetsRepository
         {
             get
@@ -66,7 +61,7 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 _presetsRepositoryViewModel = value;
-                OnPropertyChanged("Presets");
+                OnPropertyChanged("PresetsRepository");
             }
         }
 
@@ -156,6 +151,14 @@ namespace XLToolbox.Export.ViewModels
             PresetsRepository.PropertyChanged += PresetsRepository_PropertyChanged;
         }
 
+        void PresetsRepository_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedPreset")
+            {
+                OnPropertyChanged("SelectedPreset");
+            }
+        }
+
         #endregion
 
         #region Abstract methods
@@ -214,15 +217,6 @@ namespace XLToolbox.Export.ViewModels
             );
         }
         
-        private void PresetsRepository_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "LastSelected")
-            {
-                // Relay the preset selected in the repository view model to the settings object
-                Settings.Preset = PresetsRepository.Presets.LastSelected.RevealModelObject() as Preset;
-            }
-        }
-
         #endregion
 
         #region Private fields

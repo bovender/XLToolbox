@@ -22,7 +22,19 @@ namespace XLToolbox.Export.ViewModels
 
         public PresetViewModelCollection Presets { get; private set; }
 
-        public PresetViewModel LastSelected { get; private set; }
+        public PresetViewModel SelectedPreset
+        {
+            get
+            {
+                return Presets.LastSelected;
+            }
+            set
+            {
+                Presets.LastSelected.IsSelected = false;
+                value.IsSelected = true;
+                OnPropertyChanged("SelectedPreset");
+            }
+        }
 
         #endregion
 
@@ -37,13 +49,16 @@ namespace XLToolbox.Export.ViewModels
         {
             _repository = new PresetsRepository();
             Presets = new PresetViewModelCollection(_repository);
-            // Since the PropertyChanged event of the ObservableCollection<T> from which
-            // PresetViewModelCollection derives is protected, we need to access it
-            // explicitly via the INotifyPropertyChanged interface. The reason why the event
-            // is protected is because consumers are supposed to subscribe to
-            // INotifyCollectionChanged.CollectionChanged; but in this case, we want to
-            // know when the LastSelected property changes.
-            ((INotifyPropertyChanged)Presets).PropertyChanged += PresetsRepositoryViewModel_PropertyChanged;
+            Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
+        }
+
+        void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Name": OnPropertyChanged("Presets"); break;
+                case "IsSelected": OnPropertyChanged("SelectedPreset"); break;
+            }
         }
 
         /// <summary>
@@ -70,44 +85,44 @@ namespace XLToolbox.Export.ViewModels
 
         #region Commands
 
-        public DelegatingCommand AddSettingsCommand
+        public DelegatingCommand AddCommand
         {
             get
             {
-                if (_addSettingsCommand == null)
+                if (_addCommand == null)
                 {
-                    _addSettingsCommand = new DelegatingCommand(
-                        (param) => DoAddSettings());
+                    _addCommand = new DelegatingCommand(
+                        (param) => DoAddPreset());
                 }
-                return _addSettingsCommand;
+                return _addCommand;
             }
         }
 
-        public DelegatingCommand RemoveSettingsCommand
+        public DelegatingCommand RemoveCommand
         {
             get
             {
-                if (_removeSettingsCommand == null)
+                if (_removeCommand == null)
                 {
-                    _removeSettingsCommand = new DelegatingCommand(
-                        (param) => DoDeleteSettings(),
-                        (param) => CanDeleteSettings());
+                    _removeCommand = new DelegatingCommand(
+                        (param) => DoDeletePreset(),
+                        (param) => CanDeletePreset());
                 }
-                return _removeSettingsCommand;
+                return _removeCommand;
             }
         }
 
-        public DelegatingCommand EditSettingsCommand
+        public DelegatingCommand EditCommand
         {
             get
             {
-                if (_editSettingsCommand == null)
+                if (_editCommand == null)
                 {
-                    _editSettingsCommand = new DelegatingCommand(
-                        (param) => DoEditSettings(),
-                        (param) => CanEditSettings());
+                    _editCommand = new DelegatingCommand(
+                        (param) => DoEditPreset(),
+                        (param) => CanEditPreset());
                 }
-                return _editSettingsCommand;
+                return _editCommand;
             }
         }
 
@@ -136,11 +151,11 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                if (_editSettingsMessage == null)
+                if (_editMessage == null)
                 {
-                    _editSettingsMessage = new Message<ViewModelMessageContent>();
+                    _editMessage = new Message<ViewModelMessageContent>();
                 };
-                return _editSettingsMessage;
+                return _editMessage;
             }
         }
 
@@ -190,13 +205,13 @@ namespace XLToolbox.Export.ViewModels
         /// storage area and in the user settings.
         /// </summary>
         /// <param name="workbook">Workbook to store the preset in.</param>
-        public void SaveLastUsed(Workbook workbook)
+        public void SaveSelected(Workbook workbook)
         {
-            if (LastSelected != null)
+            if (SelectedPreset != null)
             {
                 Store store = new Store(workbook);
-                store.Put(STORAGEKEY, LastSelected.Name);
-                Properties.Settings.Default.ExportPreset = LastSelected.Name;
+                store.Put(STORAGEKEY, SelectedPreset.Name);
+                Properties.Settings.Default.ExportPreset = SelectedPreset.Name;
                 Properties.Settings.Default.Save();
             }
         }
@@ -205,56 +220,48 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private methods
 
-        private void DoAddSettings()
+        private void DoAddPreset()
         {
             Preset s = new Preset();
             PresetViewModel svm = new PresetViewModel(s);
             Presets.Add(svm);
             svm.IsSelected = true;
-            OnPropertyChanged("ExportSettings");
+            OnPropertyChanged("Presets");
         }
 
-        private void DoDeleteSettings()
+        private void DoDeletePreset()
         {
             ConfirmRemoveMessage.Send(
                 new MessageContent(),
-                content => ConfirmDeleteSettings(content)
+                content => ConfirmDeletePreset(content)
             );
         }
 
-        private void ConfirmDeleteSettings(MessageContent messageContent)
+        private void ConfirmDeletePreset(MessageContent messageContent)
         {
-            if (CanDeleteSettings() && messageContent.Confirmed)
+            if (CanDeletePreset() && messageContent.Confirmed)
             {
                 this.Presets.RemoveSelected();
-                OnPropertyChanged("ExportSettings");
+                OnPropertyChanged("Presets");
             }
         }
 
-        private bool CanDeleteSettings()
+        private bool CanDeletePreset()
         {
-            return (this.Presets.CountSelected > 0);
+            return (SelectedPreset != null);
         }
 
-        private void DoEditSettings()
+        private void DoEditPreset()
         {
             EditSettingsMessage.Send(
-                new ViewModelMessageContent(Presets.LastSelected),
-                content => OnPropertyChanged("ExportSettings")
+                new ViewModelMessageContent(SelectedPreset),
+                content => OnPropertyChanged("Presets")
             );
         }
 
-        private bool CanEditSettings()
+        private bool CanEditPreset()
         {
-            return (this.Presets.CountSelected > 0);
-        }
-
-        private void PresetsRepositoryViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "LastSelected")
-            {
-                LastSelected = Presets.LastSelected;
-            }
+            return (SelectedPreset != null);
         }
 
         #endregion
@@ -262,11 +269,11 @@ namespace XLToolbox.Export.ViewModels
         #region Private fields
 
         PresetsRepository _repository;
-        DelegatingCommand _addSettingsCommand;
-        DelegatingCommand _removeSettingsCommand;
-        DelegatingCommand _editSettingsCommand;
+        DelegatingCommand _addCommand;
+        DelegatingCommand _removeCommand;
+        DelegatingCommand _editCommand;
         Message<MessageContent> _confirmRemoveMessage;
-        Message<ViewModelMessageContent> _editSettingsMessage;
+        Message<ViewModelMessageContent> _editMessage;
 
         #endregion
 

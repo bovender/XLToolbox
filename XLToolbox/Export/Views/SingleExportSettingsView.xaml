@@ -22,7 +22,7 @@
             <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.Export}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
-            <actions:ShowViewAction View="XLToolbox.Export.Views.PresetsRepositoryView"
+            <actions:ShowViewDialogAction View="XLToolbox.Export.Views.PresetsRepositoryView"
                                     Assembly="XLToolbox" />
         </i:EventTrigger>
     </i:Interaction.Triggers>

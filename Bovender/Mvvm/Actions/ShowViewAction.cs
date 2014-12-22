@@ -9,7 +9,7 @@ namespace Bovender.Mvvm.Actions
 {
     /// <summary>
     /// Injects a view with a view model that is referenced in a ViewModelMessageContent,
-    /// and shows the view modally.
+    /// and shows the view non-modally.
     /// </summary>
     public class ShowViewAction : MessageActionBase
     {
