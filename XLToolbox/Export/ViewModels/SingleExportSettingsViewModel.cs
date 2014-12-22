@@ -27,8 +27,6 @@ namespace XLToolbox.Export.ViewModels
     {
         #region Public properties
 
-        public Collection<string> Test { get; set; }
-
         /// <summary>
         /// Gets or sets the desired width of the exported graphic.
         /// </summary>
