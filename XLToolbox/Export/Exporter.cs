@@ -213,9 +213,6 @@ namespace XLToolbox.Export
             // Graphics object.
             Bitmap b = new Bitmap(px, py);
             Graphics g = Graphics.FromImage(b);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             // Get a brush to paint the canvas
             Brush brush;
@@ -244,7 +241,7 @@ namespace XLToolbox.Export
             fib.SetResolution(preset.Dpi, preset.Dpi);
             fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
             fib.Save(
-                SanitizeFileName(preset, fileName),
+                fileName,
                 preset.FileType.ToFreeImageFormat()
             );
         }
@@ -467,6 +464,7 @@ namespace XLToolbox.Export
 
         #region Private helper methods
 
+        /*
         /// <summary>
         /// Adds a file extension to the file name if missing.
         /// </summary>
@@ -481,6 +479,7 @@ namespace XLToolbox.Export
             }
             return fileName;
         }
+         */
 
         #endregion
 
