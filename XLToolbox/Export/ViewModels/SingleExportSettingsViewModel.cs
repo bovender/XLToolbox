@@ -73,12 +73,7 @@ namespace XLToolbox.Export.ViewModels
                         {
                             if (args.PropertyName == "AsEnum")
                             {
-                                SingleExportSettings s = Settings as SingleExportSettings;
-                                bool oldAspect = s.PreserveAspect;
-                                s.PreserveAspect = false;
-                                s.Height = _unit.ConvertTo(s.Height, Units.AsEnum);
-                                s.Width = _unit.ConvertTo(s.Width, Units.AsEnum);
-                                s.PreserveAspect = oldAspect;
+                                ((SingleExportSettings)Settings).Unit = Units.AsEnum;
                                 OnPropertyChanged("Width");
                                 OnPropertyChanged("Height");
                             }
@@ -167,8 +162,6 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel()
             : base()
         {
-            // Set the _unit to Point first before setting the height and width properties.
-            _unit = Models.Unit.Point;
             if (PresetsRepository.Presets.Count == 0)
             {
                 PresetsRepository.Presets.Add(new PresetViewModel());
@@ -188,8 +181,6 @@ namespace XLToolbox.Export.ViewModels
             {
                 Settings = new SingleExportSettings();
             }
-            // Now that height and width may have been set, reuse the last Unit
-            // (which will convert the height and width values).
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -335,7 +326,6 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _resetDimensionsCommand;
         bool _dimensionsChanged;
-        Unit _unit;
         EnumProvider<Unit> _unitString;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
 

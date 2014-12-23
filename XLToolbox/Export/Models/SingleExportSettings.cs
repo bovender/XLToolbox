@@ -50,13 +50,33 @@ namespace XLToolbox.Export.Models
 
         public bool PreserveAspect { get; set; }
 
+        public Unit Unit
+        {
+            get
+            {
+                return _unit;
+            }
+            set
+            {
+                bool oldAspect = PreserveAspect;
+                PreserveAspect = false;
+                Height = _unit.ConvertTo(Height, value);
+                Width = _unit.ConvertTo(Width, value);
+                _unit = value;
+                PreserveAspect = oldAspect;
+            }
+        }
+
         #endregion
 
         #region Constructors
 
         public SingleExportSettings()
             : base()
-        { }
+        {
+            _unit = Models.Unit.Point;
+            PreserveAspect = true;
+        }
 
         public SingleExportSettings(Preset preset, double width, double height, bool preserveAspect)
             : this()
@@ -73,6 +93,7 @@ namespace XLToolbox.Export.Models
 
         double _width;
         double _height;
+        Unit _unit;
 
         #endregion
     }
