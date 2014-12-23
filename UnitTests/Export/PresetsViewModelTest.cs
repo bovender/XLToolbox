@@ -40,9 +40,9 @@ namespace XLToolbox.UnitTests.Export
         public void DefaultNameIsUpdatedWhenSettingsChange()
         {
             PresetViewModel svm = new PresetViewModel(new Preset());
-            svm.FileType = FileType.Emf;
+            svm.FileType.AsEnum = FileType.Emf;
             string originalName = svm.Name;
-            svm.FileType = FileType.Png;
+            svm.FileType.AsEnum = FileType.Png;
             Assert.AreNotEqual(originalName, svm.Name);
         }
 
@@ -51,10 +51,10 @@ namespace XLToolbox.UnitTests.Export
         {
             string testName = "test name";
             PresetViewModel svm = new PresetViewModel(new Preset());
-            svm.FileType = FileType.Emf;
+            svm.FileType.AsEnum = FileType.Emf;
             // Simulate manually editing the settings name
             svm.Name = testName;
-            svm.FileType = FileType.Png;
+            svm.FileType.AsEnum = FileType.Png;
             Assert.AreEqual(testName, svm.Name);
         }
     

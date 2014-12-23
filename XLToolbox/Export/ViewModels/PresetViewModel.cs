@@ -24,6 +24,7 @@ namespace XLToolbox.Export.ViewModels
                 _preset.Name = value;
                 _customName = true;
                 OnPropertyChanged("Name");
+                OnPropertyChanged("DisplayString");
             }
         }
 
@@ -65,6 +66,7 @@ namespace XLToolbox.Export.ViewModels
                             OnPropertyChanged("FileType." + args.PropertyName);
                             OnPropertyChanged("IsColorSpaceEnabled");
                             OnPropertyChanged("IsDpiEnabled");
+                            OnPropertyChanged("IsTransparencyEnabled");
                             UpdateName();
                         };
                 }
@@ -97,6 +99,42 @@ namespace XLToolbox.Export.ViewModels
             get
             {
                 return !_preset.IsVectorType;
+            }
+        }
+
+        public TransparencyProvider Transparency
+        {
+            get
+            {
+                if (_transparencyProvider == null)
+                {
+                    _transparencyProvider = new TransparencyProvider();
+                    _transparencyProvider.AsEnum = _preset.Transparency;
+                    _transparencyProvider.PropertyChanged +=
+                        (object sender, PropertyChangedEventArgs args) =>
+                        {
+                            _preset.Transparency = _transparencyProvider.AsEnum;
+                            OnPropertyChanged("Transparency." + args.PropertyName);
+                            UpdateName();
+                        };
+                }
+                return _transparencyProvider;
+            }
+        }
+
+        public bool IsTransparencyEnabled
+        {
+            get
+            {
+                return !_preset.IsVectorType;
+            }
+        }
+
+        public string Tooltip
+        {
+            get
+            {
+                return _preset.GetDefaultName();
             }
         }
 
@@ -144,6 +182,7 @@ namespace XLToolbox.Export.ViewModels
                 Name = _preset.GetDefaultName();
                 _customName = false;
             }
+            OnPropertyChanged("Tooltip");
         }
 
         #endregion
@@ -153,6 +192,7 @@ namespace XLToolbox.Export.ViewModels
         Preset _preset;
         ColorSpaceProvider _colorSpaceProvider;
         EnumProvider<FileType> _fileTypeProvider;
+        TransparencyProvider _transparencyProvider;
         bool _customName;
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Bovender.Mvvm;
+using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Excel.Instance;
@@ -39,6 +40,9 @@ namespace XLToolbox
                     case Command.CheckForUpdates: CheckForUpdates(); break;
                     case Command.SheetManager: SheetManager(); break;
                     case Command.ExportSelection: ExportSelection(); break;
+                    case Command.ExportSelectionLast: ExportSelectionLast(); break;
+                    case Command.BatchExport: BatchExport(); break;
+                    case Command.BatchExportLast: BatchExportLast(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
                 }
             }
@@ -84,6 +88,38 @@ namespace XLToolbox
         {
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel();
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialog();
+        }
+
+        static void ExportSelectionLast()
+        {
+            Export.Models.SingleExportSettings settings = new Export.Models.SingleExportSettings();
+            settings.Preset = Properties.Settings.Default.ExportPreset;
+            Export.Exporter exporter = new Export.Exporter();
+            Bovender.Mvvm.Actions.ChooseFileSaveAction action = new Bovender.Mvvm.Actions.ChooseFileSaveAction();
+            StringMessageContent content = new StringMessageContent(Properties.Settings.Default.ExportPath);
+            action.Invoke(
+                new MessageArgs<StringMessageContent>(
+                    content,
+                    () =>
+                    {
+                        if (content.Confirmed)
+                        {
+                            settings.FileName = content.Value;
+                            exporter.ExportSelectionQuick(settings);
+                        }
+                    }
+                )
+            );
+        }
+
+        static void BatchExport()
+        {
+
+        }
+
+        static void BatchExportLast()
+        {
+
         }
 
         #endregion

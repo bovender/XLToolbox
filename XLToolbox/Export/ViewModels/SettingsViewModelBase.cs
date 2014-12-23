@@ -176,16 +176,17 @@ namespace XLToolbox.Export.ViewModels
         #region Protected methods
 
         /// <summary>
-        /// Returns the default path for export; this is either the previously saved
-        /// path, or the path of the current workbook, or the path for 'My Documents'.
+        /// Returns the default path for export; this is either the path that was previously
+        /// used to export from the current workbook, or the last used path, or the path of
+        /// the current workbook, or the path for 'My Documents'.
         /// </summary>
         /// <returns>Default export path.</returns>
         protected string GetExportPath()
         {
             Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
             Store store = new Store(wb);
-            string defaultPath;
-            if (wb != null && !String.IsNullOrEmpty(wb.Path))
+            string defaultPath = Properties.Settings.Default.ExportPath;
+            if (String.IsNullOrEmpty(defaultPath) && wb != null && !String.IsNullOrEmpty(wb.Path))
             {
                 defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
             }
@@ -194,6 +195,21 @@ namespace XLToolbox.Export.ViewModels
                 defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
             return store.Get("export_path", defaultPath);
+        }
+
+        /// <summary>
+        /// Saves the current export path for reuse.
+        /// </summary>
+        protected void SaveExportPath()
+        {
+            Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
+            using (Store store = new Store(wb))
+            {
+                string path = System.IO.Path.GetDirectoryName(Settings.FileName);
+                store.Put("export_path", path);
+                Properties.Settings.Default.ExportPath = path;
+                Properties.Settings.Default.Save();
+            }
         }
 
         #endregion

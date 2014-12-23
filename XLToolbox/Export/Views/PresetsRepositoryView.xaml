@@ -40,6 +40,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Target="{Binding ElementName=NameBox}"
                        Content="{x:Static l:Strings.Name}" Margin="0,0,0,5" />
@@ -64,13 +65,22 @@
                             TickPlacement="BottomRight"/>
                 </DockPanel>
                 <Label Grid.Column="0" Grid.Row="3" Target="{Binding ElementName=ColorSpaceBox}"
-                       IsEnabled="{Binding IsColorSpaceEnabled}"
+                       IsEnabled="{Binding IsColorSpaceEnabled}" Margin="0,0,0,5"
                        Content="{x:Static l:Strings.ColorSpace}" />
                 <ComboBox Grid.Column="1" Grid.Row="3" x:Name="ColorSpaceBox"
-                          HorizontalAlignment="Left"
+                          HorizontalAlignment="Left" Margin="0,0,0,5"
                           IsEnabled="{Binding IsColorSpaceEnabled}"
                           ItemsSource="{Binding ColorSpace.Choices}"
                           SelectedItem="{Binding ColorSpace.AsString}" />
+                <Label Grid.Column="0" Grid.Row="4" Target="{Binding ElementName=TransparencyBox}"
+                       IsEnabled="{Binding IsTransparencyEnabled}" Margin="0,0,0,5"
+                       Content="{x:Static l:Strings.Transparency}" />
+                <ComboBox Grid.Column="1" Grid.Row="4" x:Name="TransparencyBox"
+                          HorizontalAlignment="Left" Margin="0,0,0,5"
+                          IsEnabled="{Binding IsTransparencyEnabled}"
+                          ItemsSource="{Binding Transparency.Choices}"
+                          ToolTip="{Binding Transparency.Tooltip}"
+                          SelectedItem="{Binding Transparency.AsString}" />
             </Grid>
         </GroupBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">

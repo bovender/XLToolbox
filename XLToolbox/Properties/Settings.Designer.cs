@@ -94,12 +94,12 @@ namespace XLToolbox.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExportPreset {
+        public string ExportPresetName {
             get {
-                return ((string)(this["ExportPreset"]));
+                return ((string)(this["ExportPresetName"]));
             }
             set {
-                this["ExportPreset"] = value;
+                this["ExportPresetName"] = value;
             }
         }
         
@@ -112,6 +112,29 @@ namespace XLToolbox.Properties {
             }
             set {
                 this["ExportUnit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportPath {
+            get {
+                return ((string)(this["ExportPath"]));
+            }
+            set {
+                this["ExportPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.Models.Preset ExportPreset {
+            get {
+                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
+            }
+            set {
+                this["ExportPreset"] = value;
             }
         }
     }

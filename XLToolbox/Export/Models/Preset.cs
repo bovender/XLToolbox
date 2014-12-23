@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace XLToolbox.Export.Models
     /// Model for graphic export settings.
     /// </summary>
     [Serializable]
+    [SettingsSerializeAs(SettingsSerializeAs.Xml)]
     public class Preset 
     {
         #region Properties
@@ -31,6 +33,8 @@ namespace XLToolbox.Export.Models
                 return ColorSpace.ToBPP();
             }
         }
+
+        public Transparency Transparency { get; set; }
 
         #endregion
 
@@ -66,8 +70,12 @@ namespace XLToolbox.Export.Models
             }
             else
             {
-                return String.Format("{0}, {1} dpi, {2}",
-                    FileType.ToString(), Dpi, ColorSpace.ToString());
+                ViewModels.ColorSpaceProvider csp = new ViewModels.ColorSpaceProvider();
+                ViewModels.TransparencyProvider tp = new ViewModels.TransparencyProvider();
+                csp.AsEnum = ColorSpace;
+                tp.AsEnum = Transparency;
+                return String.Format("{0}, {1} dpi, {2}, {3}",
+                    FileType.ToString(), Dpi, csp.AsString, tp.AsString);
             }
         }
 

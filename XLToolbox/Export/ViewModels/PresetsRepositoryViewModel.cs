@@ -184,7 +184,7 @@ namespace XLToolbox.Export.ViewModels
             Store workbookStore = new Store(workbook);
             string presetName = workbookStore.Get(
                 STORAGEKEY,
-                Properties.Settings.Default.ExportPreset);
+                Properties.Settings.Default.ExportPresetName);
             PresetViewModel pvm = null;
             if (!String.IsNullOrEmpty(presetName))
             {
@@ -211,7 +211,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 Store store = new Store(workbook);
                 store.Put(STORAGEKEY, SelectedPreset.Name);
-                Properties.Settings.Default.ExportPreset = SelectedPreset.Name;
+                Properties.Settings.Default.ExportPresetName = SelectedPreset.Name;
                 Properties.Settings.Default.Save();
             }
         }

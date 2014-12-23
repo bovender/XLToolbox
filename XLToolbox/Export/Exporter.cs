@@ -52,7 +52,9 @@ namespace XLToolbox.Export
                 throw new ArgumentNullException("settings",
                     "Must have SingleExportSettings object for the export.");
             }
-            ExportSelection(settings.Preset, settings.Width, settings.Height, settings.FileName);
+            double w = settings.Unit.ConvertTo(settings.Width, Unit.Point);
+            double h = settings.Unit.ConvertTo(settings.Height, Unit.Point);
+            ExportSelection(settings.Preset, w, h, settings.FileName);
         }
 
         /// <summary>
@@ -165,10 +167,11 @@ namespace XLToolbox.Export
         /// called by the <see cref="ExportSelection"/> method and during
         /// a batch export process.
         /// </summary>
-        /// <param name="width">Width of the output graphic.</param>
-        /// <param name="height">Height of the output graphic.</param>
+        /// <param name="widthInPoints">Width of the output graphic.</param>
+        /// <param name="heightInPoints">Height of the output graphic.</param>
         /// <param name="fileName">Destination filename (must contain placeholders).</param>
-        private void ExportSelection(Preset preset, double width, double height, string fileName)
+        private void ExportSelection(Preset preset, double widthInPoints, double heightInPoints,
+            string fileName)
         {
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
@@ -188,7 +191,7 @@ namespace XLToolbox.Export
                         break;
                     case FileType.Png:
                     case FileType.Tiff:
-                        ExportViaFreeImage(emf, preset, width, height, fileName);
+                        ExportViaFreeImage(emf, preset, widthInPoints, heightInPoints, fileName);
                         break;
                     default:
                         throw new NotImplementedException(String.Format(
@@ -210,6 +213,9 @@ namespace XLToolbox.Export
             // Graphics object.
             Bitmap b = new Bitmap(px, py);
             Graphics g = Graphics.FromImage(b);
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             // Get a brush to paint the canvas
             Brush brush;
@@ -236,6 +242,7 @@ namespace XLToolbox.Export
             FreeImageBitmap fib = new FreeImageBitmap(b);
             // TODO: Attach color profile
             fib.SetResolution(preset.Dpi, preset.Dpi);
+            fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
             fib.Save(
                 SanitizeFileName(preset, fileName),
                 preset.FileType.ToFreeImageFormat()

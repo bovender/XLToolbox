@@ -31,8 +31,9 @@
             <DockPanel Margin="10">
                 <ComboBox ItemsSource="{Binding Presets}"
                           SelectedItem="{Binding SelectedPreset}"
-                          DisplayMemberPath="DisplayString"
+                          DisplayMemberPath="Name"
                           VerticalAlignment="Center" 
+                          ToolTip="{Binding SelectedPreset.Tooltip}"
                           Margin="0,0,10,0"
                           MinWidth="240" MaxWidth="480"/>
                 <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
