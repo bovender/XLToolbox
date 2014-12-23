@@ -60,6 +60,8 @@
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\FileDialogActionBase.cs" />
     <Compile Include="Mvvm\Actions\FileFolderActionBase.cs" />
+    <Compile Include="Mvvm\Actions\MessageActionExtensions.cs" />
+    <Compile Include="Mvvm\Actions\NonUiTrigger.cs" />
     <Compile Include="Mvvm\Actions\NotificationAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
