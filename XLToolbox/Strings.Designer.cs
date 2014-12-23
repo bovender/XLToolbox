@@ -881,6 +881,51 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transparency.
+        /// </summary>
+        public static string Transparency {
+            get {
+                return ResourceManager.GetString("Transparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparent canvas.
+        /// </summary>
+        public static string TransparentCanvas {
+            get {
+                return ResourceManager.GetString("TransparentCanvas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leaves the canvas transparent. If the graphics object (e.g. the chart) that is exported contains white background color, the transparency will not be evident. In this case, if you want transparency, choose &quot;Transparent white&quot;..
+        /// </summary>
+        public static string TransparentCanvasTooltip {
+            get {
+                return ResourceManager.GetString("TransparentCanvasTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparent white.
+        /// </summary>
+        public static string TransparentWhite {
+            get {
+                return ResourceManager.GetString("TransparentWhite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forces all whites in the image file to become transparent..
+        /// </summary>
+        public static string TransparentWhiteTooltip {
+            get {
+                return ResourceManager.GetString("TransparentWhiteTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {
@@ -968,6 +1013,24 @@ namespace XLToolbox {
         public static string WhatsNew {
             get {
                 return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White canvas.
+        /// </summary>
+        public static string WhiteCanvas {
+            get {
+                return ResourceManager.GetString("WhiteCanvas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paints the graphic object on a white canvas without transparency..
+        /// </summary>
+        public static string WhiteCanvasTooltip {
+            get {
+                return ResourceManager.GetString("WhiteCanvasTooltip", resourceCulture);
             }
         }
         
