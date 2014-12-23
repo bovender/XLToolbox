@@ -35,8 +35,7 @@ namespace Bovender.Mvvm
             set
             {
                 _enum = value;
-                OnPropertyChanged("AsEnum");
-                OnPropertyChanged("AsString");
+                AllPropertiesChanged();
             }
         }
 
@@ -48,8 +47,8 @@ namespace Bovender.Mvvm
             }
             set
             {
-                AsEnum = StringToEnum(value);
-                OnPropertyChanged("AsString");
+                _enum = StringToEnum(value);
+                AllPropertiesChanged();
             }
         }
 
@@ -152,6 +151,13 @@ namespace Bovender.Mvvm
             int index = GetIndex(text);
             T[] values = ((T[])System.Enum.GetValues(typeof(T)));
             return values[index];
+        }
+
+        private void AllPropertiesChanged()
+        {
+                OnPropertyChanged("AsString");
+                OnPropertyChanged("AsEnum");
+                OnPropertyChanged("Tooltip");
         }
 
         private void OnPropertyChanged(string propertyName)
