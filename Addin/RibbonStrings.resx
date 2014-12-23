@@ -130,16 +130,28 @@
     <value>Checks if an update to the XL Toolbox addin is available.</value>
   </data>
   <data name="ButtonExportBatchLabel" xml:space="preserve">
+    <value>Batch export with settings...</value>
+  </data>
+  <data name="ButtonExportBatchQuickLabel" xml:space="preserve">
     <value>Batch Export</value>
   </data>
+  <data name="ButtonExportBatchQuickSupertip" xml:space="preserve">
+    <value>Perform the last batch export again.</value>
+  </data>
   <data name="ButtonExportBatchSupertip" xml:space="preserve">
-    <value>Export all graphical objects on this worksheet or in the current workbook using the last settings.</value>
+    <value>Export all graphical objects on this worksheet or in the current workbook using detailed settings.</value>
   </data>
   <data name="ButtonExportSelectionLabel" xml:space="preserve">
+    <value>Export with settings...</value>
+  </data>
+  <data name="ButtonExportSelectionQuickLabel" xml:space="preserve">
     <value>Export selection</value>
   </data>
-  <data name="ButtonExportSelectionSupertip" xml:space="preserve">
+  <data name="ButtonExportSelectionQuickSupertip" xml:space="preserve">
     <value>Export the currently selected graphical object(s) using the last settings</value>
+  </data>
+  <data name="ButtonExportSelectionSupertip" xml:space="preserve">
+    <value>Export the currently selected graphical object(s) by indicating desired settings.</value>
   </data>
   <data name="ButtonExportSettingsLabel" xml:space="preserve">
     <value>Settings</value>

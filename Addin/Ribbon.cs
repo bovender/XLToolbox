@@ -42,7 +42,10 @@ namespace XLToolbox
                 { "ButtonCheckForUpdate", Command.CheckForUpdates },
                 { "ButtonTestError", Command.ThrowError },
                 { "ButtonSheetList", Command.SheetManager },
-                { "ButtonExportSelection", Command.ExportSelection }
+                { "ButtonExportSelection", Command.ExportSelection },
+                { "ButtonExportSelectionQuick", Command.ExportSelectionLast },
+                { "ButtonExportBatch", Command.BatchExport },
+                { "ButtonExportBatchQuick", Command.BatchExportLast },
             };
         }
 
