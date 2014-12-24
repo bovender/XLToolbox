@@ -32,7 +32,7 @@
     <Setting Name="ExportPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ExportPreset" Type="XLToolbox.Export.Models.Preset" Scope="User">
+    <Setting Name="ExportPresetViewModel" Type="XLToolbox.Export.ViewModels.PresetViewModel" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

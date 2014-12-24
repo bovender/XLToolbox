@@ -252,7 +252,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
                 return (svm.Selection != null) && (SelectedPreset != null) &&
-                    (Settings.Preset.Dpi > 0) && (Width > 0) && (Height > 0);
+                    (Settings.Preset != null) && (Settings.Preset.Dpi > 0) &&
+                    (Width > 0) && (Height > 0);
             }
             else
             {

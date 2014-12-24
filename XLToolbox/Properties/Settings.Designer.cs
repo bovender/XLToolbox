@@ -129,12 +129,12 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.Preset ExportPreset {
+        public global::XLToolbox.Export.ViewModels.PresetViewModel ExportPresetViewModel {
             get {
-                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
+                return ((global::XLToolbox.Export.ViewModels.PresetViewModel)(this["ExportPresetViewModel"]));
             }
             set {
-                this["ExportPreset"] = value;
+                this["ExportPresetViewModel"] = value;
             }
         }
     }

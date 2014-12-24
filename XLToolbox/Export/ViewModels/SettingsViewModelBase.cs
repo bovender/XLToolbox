@@ -43,7 +43,14 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 PresetsRepository.SelectedPreset = value;
-                Settings.Preset = value.RevealModelObject() as Preset;
+                if (value != null)
+                {
+                    Settings.Preset = value.RevealModelObject() as Preset;
+                }
+                else
+                {
+                    Settings.Preset = null;
+                }
                 OnPropertyChanged("SelectedPreset");
             }
         }
