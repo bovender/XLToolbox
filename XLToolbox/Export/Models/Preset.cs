@@ -42,6 +42,10 @@ namespace XLToolbox.Export.Models
 
         public Preset()
         {
+            FileType = Models.FileType.Png;
+            ColorSpace = Models.ColorSpace.Rgb;
+            Transparency = Models.Transparency.TransparentCanvas;
+            Dpi = 300;
             Name = GetDefaultName();
         }
 
