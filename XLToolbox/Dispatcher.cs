@@ -92,24 +92,8 @@ namespace XLToolbox
 
         static void ExportSelectionLast()
         {
-            Export.Models.SingleExportSettings settings = new Export.Models.SingleExportSettings();
-            settings.Preset = Properties.Settings.Default.ExportPreset;
-            Export.Exporter exporter = new Export.Exporter();
-            Bovender.Mvvm.Actions.ChooseFileSaveAction action = new Bovender.Mvvm.Actions.ChooseFileSaveAction();
-            StringMessageContent content = new StringMessageContent(Properties.Settings.Default.ExportPath);
-            action.Invoke(
-                new MessageArgs<StringMessageContent>(
-                    content,
-                    () =>
-                    {
-                        if (content.Confirmed)
-                        {
-                            settings.FileName = content.Value;
-                            exporter.ExportSelectionQuick(settings);
-                        }
-                    }
-                )
-            );
+            Export.QuickExporter quickExporter = new Export.QuickExporter();
+            quickExporter.ExportSelection();
         }
 
         static void BatchExport()
@@ -119,7 +103,8 @@ namespace XLToolbox
 
         static void BatchExportLast()
         {
-
+            Export.QuickExporter quickExporter = new Export.QuickExporter();
+            quickExporter.ExportBatch();
         }
 
         #endregion
