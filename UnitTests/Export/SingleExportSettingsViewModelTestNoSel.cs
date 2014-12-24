@@ -19,15 +19,19 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void ExportCommandDisabledWithoutSelection()
         {
-            SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel();
-            Assert.IsFalse(svm.ExportCommand.CanExecute(null),
-                "Export command should be disabled if there is no selection.");
+            SingleExportSettingsViewModel svm;
             using (new ExcelInstance())
             {
+                svm = new SingleExportSettingsViewModel();
                 ExcelInstance.CreateWorkbook();
+                PresetViewModel pvm = new PresetViewModel();
+                svm.Presets.Add(pvm);
+                pvm.IsSelected = true;
                 Assert.IsTrue(svm.ExportCommand.CanExecute(null),
                     "Export command should be enabled if something is selected.");
             }
+            Assert.IsFalse(svm.ExportCommand.CanExecute(null),
+                "Export command should be disabled if there is no selection.");
         }
 
     }
