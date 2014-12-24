@@ -10,7 +10,7 @@ namespace Bovender.Mvvm.Actions
     /// </summary>
     public class NotificationAction : MessageActionBase
     {
-        #region Public properties
+        #region Public (dependency) properties
 
         public string Param1
         {
@@ -56,7 +56,14 @@ namespace Bovender.Mvvm.Actions
         {
             get
             {
-                return String.Format(Message, Param1, Param2, Param3);
+                try
+                {
+                    return String.Format(Message, Param1, Param2, Param3);
+                }
+                catch
+                {
+                    return "*** No message text given! ***";
+                }
             }
         }
 
@@ -75,6 +82,16 @@ namespace Bovender.Mvvm.Actions
 
         public static readonly DependencyProperty OkButtonLabelProperty = DependencyProperty.Register(
             "OkButtonLabel", typeof(string), typeof(NotificationAction));
+
+        #endregion
+
+        #region Constructor
+
+        public NotificationAction()
+            : base()
+        {
+            OkButtonLabel = "OK";
+        }
 
         #endregion
 
