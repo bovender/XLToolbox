@@ -196,6 +196,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to remove this preset?.
+        /// </summary>
+        public static string ConfirmRemovePreset {
+            get {
+                return ResourceManager.GetString("ConfirmRemovePreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online..
         /// </summary>
         public static string CrashReportPrivacy {
@@ -677,6 +686,15 @@ namespace XLToolbox {
         public static string Preset {
             get {
                 return ResourceManager.GetString("Preset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove preset.
+        /// </summary>
+        public static string RemovePreset {
+            get {
+                return ResourceManager.GetString("RemovePreset", resourceCulture);
             }
         }
         

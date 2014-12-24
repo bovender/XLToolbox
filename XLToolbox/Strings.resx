@@ -488,4 +488,10 @@ You may want to try again.</value>
   <data name="WhiteCanvasTooltip" xml:space="preserve">
     <value>Paints the graphic object on a white canvas without transparency.</value>
   </data>
+  <data name="ConfirmRemovePreset" xml:space="preserve">
+    <value>Do you really want to remove this preset?</value>
+  </data>
+  <data name="RemovePreset" xml:space="preserve">
+    <value>Remove preset</value>
+  </data>
 </root>

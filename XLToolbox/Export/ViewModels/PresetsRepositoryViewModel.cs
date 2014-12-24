@@ -30,9 +30,18 @@ namespace XLToolbox.Export.ViewModels
             }
             set
             {
-                Presets.LastSelected.IsSelected = false;
-                value.IsSelected = true;
-                OnPropertyChanged("SelectedPreset");
+                if (Presets.LastSelected != null)
+                {
+                    Presets.LastSelected.IsSelected = false;
+                }
+                if (value != null)
+                {
+                    value.IsSelected = true;
+                }
+                // No need to raise PropertyChanged here,
+                // because we listen to the PresetViewModel's
+                // event and relay it (in Presets_ViewModelPropertyChanged).
+                // OnPropertyChanged("SelectedPreset");
             }
         }
 
@@ -242,7 +251,8 @@ namespace XLToolbox.Export.ViewModels
             if (CanDeletePreset() && messageContent.Confirmed)
             {
                 this.Presets.RemoveSelected();
-                OnPropertyChanged("Presets");
+                // OnPropertyChanged("Presets");
+                OnPropertyChanged("SelectedPreset");
             }
         }
 
