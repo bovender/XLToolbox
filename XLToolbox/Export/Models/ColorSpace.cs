@@ -34,7 +34,7 @@ namespace XLToolbox.Export.Models
         {
             switch (colorSpace)
             {
-                case ColorSpace.Monochrome: return FREE_IMAGE_COLOR_DEPTH.FICD_01_BPP;
+                case ColorSpace.Monochrome: return FREE_IMAGE_COLOR_DEPTH.FICD_01_BPP_THRESHOLD;
                 case ColorSpace.Rgb: return FREE_IMAGE_COLOR_DEPTH.FICD_32_BPP;
                 // case ColorSpace.Cmyk: return FREE_IMAGE_COLOR_DEPTH.FICD_32_BPP;
                 case ColorSpace.GrayScale:
