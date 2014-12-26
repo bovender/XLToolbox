@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using XLToolbox.Export.Models;
+using XLToolbox.WorkbookStorage;
 using System.ComponentModel;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -14,6 +18,29 @@ namespace XLToolbox.Export.ViewModels
     /// </summary>
     public class PresetViewModel : ViewModelBase
     {
+        #region Static factory method
+
+        public static PresetViewModel FromLastUsed()
+        {
+            return new PresetViewModel(Properties.Settings.Default.ExportPreset);
+        }
+
+        public static PresetViewModel FromLastUsed(Workbook workbookContext)
+        {
+            Store store = new Store(workbookContext);
+            Preset preset = store.Get<Preset>(typeof(Preset).ToString());
+            if (preset != null)
+            {
+                return new PresetViewModel(preset);
+            }
+            else
+            {
+                return PresetViewModel.FromLastUsed();
+            }
+        }
+
+        #endregion
+
         #region Properties
 
         public string Name
@@ -154,6 +181,34 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            PresetViewModel other = obj as PresetViewModel;
+            if (other == null)
+            {
+                return false;
+            }
+            return this.Equals(other);
+        }
+
+        public bool Equals(PresetViewModel other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return (String.Equals(this.Name, other.Name) &&
+                (this.FileType.AsEnum == other.FileType.AsEnum) &&
+                (this.ColorSpace.AsEnum == other.ColorSpace.AsEnum) &&
+                (this.Transparency.AsEnum == other.Transparency.AsEnum) &&
+                (this.Dpi == other.Dpi));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         #endregion
 
         #region Constructors
@@ -168,7 +223,29 @@ namespace XLToolbox.Export.ViewModels
             : base()
         {
             _preset = preset;
-            _customName = !String.Equals(Name, _preset.GetDefaultName());
+            if (_preset != null)
+            {
+                _customName = !String.Equals(Name, _preset.GetDefaultName());
+            }
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void Store(Workbook workbookContext)
+        {
+            Properties.Settings.Default.ExportPreset = _preset;
+            Properties.Settings.Default.Save();
+            using (Store store = new Store(workbookContext))
+            {
+                store.Put<Preset>(typeof(Preset).ToString(), _preset);
+            }
+        }
+
+        public void Store()
+        {
+            Store(Excel.Instance.ExcelInstance.Application.ActiveWorkbook);
         }
 
         #endregion

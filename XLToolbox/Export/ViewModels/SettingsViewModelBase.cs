@@ -193,13 +193,16 @@ namespace XLToolbox.Export.ViewModels
             Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
             Store store = new Store(wb);
             string defaultPath = Properties.Settings.Default.ExportPath;
-            if (String.IsNullOrEmpty(defaultPath) && wb != null && !String.IsNullOrEmpty(wb.Path))
+            if (String.IsNullOrEmpty(defaultPath))
             {
-                defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
-            }
-            else
-            {
-                defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                if (wb != null && !String.IsNullOrEmpty(wb.Path))
+                {
+                    defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
+                }
+                else
+                {
+                    defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
             }
             return store.Get("export_path", defaultPath);
         }

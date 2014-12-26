@@ -190,25 +190,36 @@ namespace XLToolbox.Export.ViewModels
                     "Cannot select a preset because there are no presets in the collection.");
             }
 
-            Store workbookStore = new Store(workbook);
-            string presetName = workbookStore.Get(
-                STORAGEKEY,
-                Properties.Settings.Default.ExportPresetName);
-            PresetViewModel pvm = null;
-            if (!String.IsNullOrEmpty(presetName))
+            PresetViewModel pvm = PresetViewModel.FromLastUsed(
+                Excel.Instance.ExcelInstance.Application.ActiveWorkbook);
+            if (!Select(pvm))
             {
-                pvm = Presets.FirstOrDefault(p => p.Name == presetName);
-            }
-            if (pvm != null)
+                Presets[0].IsSelected = true;
+            };
+        }
+
+        /// <summary>
+        /// Selects a preset view model similar to the presetViewModel argument.
+        /// </summary>
+        /// <param name="presetViewModel">Preset view model with properties
+        /// similar to the one to be selected.</param>
+        /// <returns>True if similar view model exists, false if not.</returns>
+        public bool Select(PresetViewModel presetViewModel)
+        {
+            PresetViewModel existing = Presets.FirstOrDefault(
+                obj => obj.Equals(presetViewModel));
+            if (existing != null)
             {
-                pvm.IsSelected = true;
+                existing.IsSelected = true;
+                return true;
             }
             else
             {
-                Presets[0].IsSelected = true;
+                return false;
             }
         }
 
+        /*
         /// <summary>
         /// Stores the name of the last selected preset in the workbook's
         /// storage area and in the user settings.
@@ -224,6 +235,7 @@ namespace XLToolbox.Export.ViewModels
                 Properties.Settings.Default.Save();
             }
         }
+         */
 
         #endregion
 
