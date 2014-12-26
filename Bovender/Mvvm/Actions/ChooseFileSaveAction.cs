@@ -18,7 +18,7 @@ namespace Bovender.Mvvm.Actions
             {
                 dlg.Filter = Path.GetFileName(defaultString);
             }
-            dlg.InitialDirectory = Path.GetDirectoryName(defaultString);
+            dlg.InitialDirectory = Bovender.FileHelpers.GetDirectoryName(defaultString);
             string fn = Path.GetFileNameWithoutExtension(defaultString);
             dlg.AddExtension = true;
             dlg.RestoreDirectory = true;

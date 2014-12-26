@@ -1,11 +1,19 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 using XLToolbox.Excel.Instance;
 
 namespace XLToolbox.WorkbookStorage
 {
+    /// <summary>
+    /// Stores stuff (strings, ints, objects) in a very hidden worksheet
+    /// of a workbook, and retrieves stuff from it. The store supports
+    /// 'namespaces' where a worksheet can be used as a 'context', i.e.
+    /// namespace. Empty context constitutes a global namespace.
+    /// Uses a cache that is automatically written to the worksheet when finalizing.
+    /// </summary>
     public class Store : Object, IDisposable
     {
         #region Public properties
@@ -259,6 +267,28 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        public T Get<T>(string key) where T : class, new()
+        {
+            string xml = Get(key, String.Empty);
+            if (!String.IsNullOrEmpty(xml))
+            {
+                StringReader sr = new StringReader(xml);
+                XmlSerializer xmlSer = new XmlSerializer(typeof(T));
+                try
+                {
+                    return xmlSer.Deserialize(sr) as T;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void Put(string key, int i)
         {
             PutObject(key, i);
@@ -272,6 +302,14 @@ namespace XLToolbox.WorkbookStorage
         public void Put(string key, bool b)
         {
             PutObject(key, b);
+        }
+
+        public void Put<T>(string key, T obj) where T: class, new()
+        {
+            XmlSerializer xmlSer = new XmlSerializer(typeof(T));
+            StringWriter sw = new StringWriter();
+            xmlSer.Serialize(sw, obj);
+            Put(key, sw.ToString());
         }
 
         /// <summary>

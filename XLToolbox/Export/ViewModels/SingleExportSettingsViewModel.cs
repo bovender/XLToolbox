@@ -166,21 +166,24 @@ namespace XLToolbox.Export.ViewModels
             {
                 PresetsRepository.Presets.Add(new PresetViewModel());
             }
-            if (ExcelInstance.Running)
+            if (ExcelInstance.Application.Workbooks.Count > 0)
             {
-                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-                if (ExcelInstance.Application.Workbooks.Count > 0)
-                {
-                    PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
-                }
-                Settings = new SingleExportSettings(
-                    PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
-                    svm.Bounds.Width, svm.Bounds.Height, true);
+                PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
             }
-            if (Settings == null)
-            {
-                Settings = new SingleExportSettings();
-            }
+            CreatSettingsInstance();
+            Units.AsEnum = Properties.Settings.Default.ExportUnit;
+        }
+
+        /// <summary>
+        /// Creates an instance and selects a preset similar to the presetViewModel.
+        /// If no such preset exists, presetViewModel is added to the repository.
+        /// </summary>
+        /// <param name="presetViewModel"></param>
+        public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
+            : base()
+        {
+            PresetsRepository.Select(presetViewModel);
+            CreatSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -233,7 +236,8 @@ namespace XLToolbox.Export.ViewModels
             if (CanExport())
             {
                 // TODO: Make export asynchronous
-                PresetsRepository.SaveSelected(ExcelInstance.Application.ActiveWorkbook);
+                SelectedPreset.Store();
+                SaveExportPath();
                 Properties.Settings.Default.ExportUnit = Units.AsEnum;
                 Properties.Settings.Default.Save();
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
@@ -264,6 +268,21 @@ namespace XLToolbox.Export.ViewModels
         #endregion
 
         #region Private methods
+
+        private void CreatSettingsInstance()
+        {
+            if (ExcelInstance.Running)
+            {
+                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+                Settings = new SingleExportSettings(
+                    PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
+                    svm.Bounds.Width, svm.Bounds.Height, true);
+            }
+            else 
+            {
+                Settings = new SingleExportSettings();
+            }
+        }
 
         private void DoChooseFileName()
         {

@@ -4,10 +4,10 @@ using Microsoft.Office.Interop.Excel;
 using XLToolbox.WorkbookStorage;
 using XLToolbox.Excel.Instance;
 
-namespace XLToolbox.Test
+namespace XLToolbox.Test.WorkbookStorage
 {
     [TestFixture]
-    public class TestWorkbookStorage
+    public class StoreTest
     {
         [SetUp]
         public void Setup()
@@ -91,6 +91,19 @@ namespace XLToolbox.Test
         {
             Store store = new Store();
             string s = store.Get("", "not possible");
+        }
+
+        [Test]
+        public void StoreRetrieveObject()
+        {
+            int number = 1234;
+            ClassForTesting c = new ClassForTesting() { TestInt = number };
+            Store store = new Store();
+            string key = "testclass";
+            store.Put<ClassForTesting>(key, c);
+            ClassForTesting retrieved = store.Get<ClassForTesting>(key);
+            Assert.NotNull(retrieved);
+            Assert.AreEqual(number, retrieved.TestInt);
         }
     }
 }

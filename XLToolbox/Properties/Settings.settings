@@ -23,16 +23,13 @@
     <Setting Name="LastBatchExportSetting" Type="XLToolbox.Export.Models.BatchExportSettings" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ExportPresetName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ExportUnit" Type="XLToolbox.Export.Models.Unit" Scope="User">
       <Value Profile="(Default)">Point</Value>
     </Setting>
     <Setting Name="ExportPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ExportPresetViewModel" Type="XLToolbox.Export.ViewModels.PresetViewModel" Scope="User">
+    <Setting Name="ExportPreset" Type="XLToolbox.Export.Models.Preset" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

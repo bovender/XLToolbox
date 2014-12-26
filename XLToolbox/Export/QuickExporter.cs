@@ -3,6 +3,7 @@ using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.Actions;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
+using XLToolbox.Excel.Instance;
 
 namespace XLToolbox.Export
 {
@@ -20,20 +21,19 @@ namespace XLToolbox.Export
         public void ExportSelection()
         {
             // Todo: Make this check if export is possible at all.
-            PresetViewModel pvm = Properties.Settings.Default.ExportPresetViewModel;
+            PresetViewModel pvm = PresetViewModel.FromLastUsed(
+                ExcelInstance.Application.ActiveWorkbook);
             if (pvm == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
             }
             else
             {
-                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel();
-                svm.SelectedPreset = pvm;
+                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(pvm);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent; 
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {
                     svm.ChooseFileNameCommand.Execute(null);
-                    svm.ExportCommand.Execute(null);
                 }
             }
         }

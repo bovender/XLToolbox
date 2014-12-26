@@ -93,18 +93,6 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExportPresetName {
-            get {
-                return ((string)(this["ExportPresetName"]));
-            }
-            set {
-                this["ExportPresetName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Point")]
         public global::XLToolbox.Export.Models.Unit ExportUnit {
             get {
@@ -129,12 +117,12 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.ViewModels.PresetViewModel ExportPresetViewModel {
+        public global::XLToolbox.Export.Models.Preset ExportPreset {
             get {
-                return ((global::XLToolbox.Export.ViewModels.PresetViewModel)(this["ExportPresetViewModel"]));
+                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
             }
             set {
-                this["ExportPresetViewModel"] = value;
+                this["ExportPreset"] = value;
             }
         }
     }
