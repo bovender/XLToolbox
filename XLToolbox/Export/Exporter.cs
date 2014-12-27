@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Unmanaged;
 using FreeImageAPI;
+using FreeImageAPI.Metadata;
 using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using System.Collections.Generic;
@@ -248,9 +249,11 @@ namespace XLToolbox.Export
             // TODO: Attach color profile
             fib.SetResolution(preset.Dpi, preset.Dpi);
 
+            fib.Comment = Versioning.SemanticVersion.BrandName;
             fib.Save(
                 fileName,
-                preset.FileType.ToFreeImageFormat()
+                preset.FileType.ToFreeImageFormat(),
+                GetSaveFlags(preset)
             );
         }
 
@@ -471,6 +474,26 @@ namespace XLToolbox.Export
         #endregion
 
         #region Private helper methods
+
+        private FREE_IMAGE_SAVE_FLAGS GetSaveFlags(Preset preset)
+        {
+            switch (preset.FileType)
+            {
+                case FileType.Png:
+                    return FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION |
+                           FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED;
+                case FileType.Tiff:
+                    switch (preset.ColorSpace)
+                    {
+                        case ColorSpace.Monochrome:
+                            return FREE_IMAGE_SAVE_FLAGS.TIFF_CCITTFAX4;
+                        default:
+                            return FREE_IMAGE_SAVE_FLAGS.TIFF_LZW;
+                    }
+                default:
+                    return FREE_IMAGE_SAVE_FLAGS.DEFAULT;
+            }
+        }
 
         /*
         /// <summary>
