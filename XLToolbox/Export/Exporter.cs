@@ -237,9 +237,17 @@ namespace XLToolbox.Export
 
             // Create a FreeImage bitmap from the GDI+ bitmap
             FreeImageBitmap fib = new FreeImageBitmap(b);
+
+            fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
+            if (preset.ColorSpace == ColorSpace.Monochrome)
+            {
+                fib.Palette.SetValue(new RGBQUAD(Color.Black), 1);
+                fib.Palette.SetValue(new RGBQUAD(Color.White), 0);
+            }
+
             // TODO: Attach color profile
             fib.SetResolution(preset.Dpi, preset.Dpi);
-            fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
+
             fib.Save(
                 fileName,
                 preset.FileType.ToFreeImageFormat()
