@@ -241,8 +241,8 @@ namespace XLToolbox.Export
             fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
             if (preset.ColorSpace == ColorSpace.Monochrome)
             {
-                fib.Palette.SetValue(new RGBQUAD(Color.Black), 1);
-                fib.Palette.SetValue(new RGBQUAD(Color.White), 0);
+                fib.Palette.SetValue(new RGBQUAD(Color.Black), 0);
+                fib.Palette.SetValue(new RGBQUAD(Color.White), 1);
             }
 
             // TODO: Attach color profile
