@@ -125,5 +125,16 @@ namespace XLToolbox.Properties {
                 this["ExportPreset"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.ViewModels.BatchExportSettingsViewModel BatchExportSettingsViewModel {
+            get {
+                return ((global::XLToolbox.Export.ViewModels.BatchExportSettingsViewModel)(this["BatchExportSettingsViewModel"]));
+            }
+            set {
+                this["BatchExportSettingsViewModel"] = value;
+            }
+        }
     }
 }

@@ -494,4 +494,28 @@ You may want to try again.</value>
   <data name="RemovePreset" xml:space="preserve">
     <value>Remove preset</value>
   </data>
+  <data name="ActiveSheet" xml:space="preserve">
+    <value>Active worksheet</value>
+  </data>
+  <data name="ActiveWorkbook" xml:space="preserve">
+    <value>Active workbook</value>
+  </data>
+  <data name="BatchExport" xml:space="preserve">
+    <value>Batch export</value>
+  </data>
+  <data name="ChartsAndShapes" xml:space="preserve">
+    <value>All graphic objects</value>
+  </data>
+  <data name="ChartsOnly" xml:space="preserve">
+    <value>Only charts</value>
+  </data>
+  <data name="OpenWorkbooks" xml:space="preserve">
+    <value>All open workbooks</value>
+  </data>
+  <data name="PreserveLayout" xml:space="preserve">
+    <value>Preserve layout on sheet</value>
+  </data>
+  <data name="SingleItems" xml:space="preserve">
+    <value>Individual items</value>
+  </data>
 </root>

@@ -23,44 +23,69 @@ namespace XLToolbox.Export.ViewModels
     [SettingsSerializeAs(SettingsSerializeAs.Xml)]
     public class BatchExportSettingsViewModel : SettingsViewModelBase
     {
+        #region Factory
+
+        public static BatchExportSettingsViewModel FromLastUsed()
+        {
+            return Properties.Settings.Default.BatchExportSettingsViewModel;
+        }
+
+        public static BatchExportSettingsViewModel FromLastUsed(Workbook workbookContext)
+        {
+            Store store = new Store(workbookContext);
+            BatchExportSettingsViewModel vm = store.Get<BatchExportSettingsViewModel>(
+                typeof(BatchExportSettingsViewModel).ToString()
+                );
+            if (vm != null)
+            {
+                return vm;
+            }
+            else
+            {
+                return BatchExportSettingsViewModel.FromLastUsed();
+            }
+        }
+
+        #endregion
+
         #region Public properties
 
-        public BatchExportLayout Layout
+        public EnumProvider<BatchExportScope> Scope
         {
             get
             {
-                return ((BatchExportSettings)Settings).Layout;
-            }
-            set
-            {
-                ((BatchExportSettings)Settings).Layout = value;
-                OnPropertyChanged("Layout");
+                if (_scope == null)
+                {
+                    _scope = new EnumProvider<BatchExportScope>();
+                    _scope.AsEnum = ((BatchExportSettings)Settings).Scope;
+                }
+                return _scope;
             }
         }
 
-        public BatchExportScope Scope
+        public EnumProvider<BatchExportLayout> Layout
         {
             get
             {
-                return ((BatchExportSettings)Settings).Scope;
-            }
-            set
-            {
-                ((BatchExportSettings)Settings).Scope = value;
-                OnPropertyChanged("Scope");
+                if (_layout == null)
+                {
+                    _layout = new EnumProvider<BatchExportLayout>();
+                    _layout.AsEnum = ((BatchExportSettings)Settings).Layout;
+                }
+                return _layout;
             }
         }
-
-        public BatchExportObjects Objects
+        
+        public EnumProvider<BatchExportObjects> Objects
         {
             get
             {
-                return ((BatchExportSettings)Settings).Objects;
-            }
-            set
-            {
-                ((BatchExportSettings)Settings).Objects = value;
-                OnPropertyChanged("Objects");
+                if (_objects == null)
+                {
+                    _objects = new EnumProvider<BatchExportObjects>();
+                    _objects.AsEnum = ((BatchExportSettings)Settings).Objects;
+                }
+                return _objects;
             }
         }
 
@@ -175,6 +200,9 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private fields
 
+        private EnumProvider<BatchExportScope> _scope;
+        private EnumProvider<BatchExportObjects> _objects;
+        private EnumProvider<BatchExportLayout> _layout;
         private DelegatingCommand _chooseFolderCommand;
         private Message<StringMessageContent> _chooseFolderMessage;
 

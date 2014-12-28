@@ -70,6 +70,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active worksheet.
+        /// </summary>
+        public static string ActiveSheet {
+            get {
+                return ResourceManager.GetString("ActiveSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active workbook.
+        /// </summary>
+        public static string ActiveWorkbook {
+            get {
+                return ResourceManager.GetString("ActiveWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -97,6 +115,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Batch export.
+        /// </summary>
+        public static string BatchExport {
+            get {
+                return ResourceManager.GetString("BatchExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bottom.
         /// </summary>
         public static string Bottom {
@@ -111,6 +138,24 @@ namespace XLToolbox {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All graphic objects.
+        /// </summary>
+        public static string ChartsAndShapes {
+            get {
+                return ResourceManager.GetString("ChartsAndShapes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only charts.
+        /// </summary>
+        public static string ChartsOnly {
+            get {
+                return ResourceManager.GetString("ChartsOnly", resourceCulture);
             }
         }
         
@@ -627,6 +672,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All open workbooks.
+        /// </summary>
+        public static string OpenWorkbooks {
+            get {
+                return ResourceManager.GetString("OpenWorkbooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OS bitness.
         /// </summary>
         public static string OSBitness {
@@ -677,6 +731,15 @@ namespace XLToolbox {
         public static string PreserveAspectRatio {
             get {
                 return ResourceManager.GetString("PreserveAspectRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve layout on sheet.
+        /// </summary>
+        public static string PreserveLayout {
+            get {
+                return ResourceManager.GetString("PreserveLayout", resourceCulture);
             }
         }
         
@@ -823,6 +886,15 @@ namespace XLToolbox {
         public static string SingleGraphicExport {
             get {
                 return ResourceManager.GetString("SingleGraphicExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Individual items.
+        /// </summary>
+        public static string SingleItems {
+            get {
+                return ResourceManager.GetString("SingleItems", resourceCulture);
             }
         }
         

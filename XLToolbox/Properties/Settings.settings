@@ -32,5 +32,8 @@
     <Setting Name="ExportPreset" Type="XLToolbox.Export.Models.Preset" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="BatchExportSettingsViewModel" Type="XLToolbox.Export.ViewModels.BatchExportSettingsViewModel" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

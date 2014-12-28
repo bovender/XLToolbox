@@ -92,6 +92,9 @@
     <Compile Include="Export\Views\PresetsRepositoryView.xaml.cs">
       <DependentUpon>PresetsRepositoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Export\Views\BatchExportSettingsView.xaml.cs">
+      <DependentUpon>BatchExportSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Export\Views\SingleExportSettingsView.xaml.cs">
       <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,10 @@
     <Page Include="Export\Views\PresetsRepositoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Export\Views\BatchExportSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Export\Views\SingleExportSettingsView.xaml">
       <SubType>Designer</SubType>

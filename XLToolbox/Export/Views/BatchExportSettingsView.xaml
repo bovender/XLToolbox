@@ -1,0 +1,89 @@
+﻿<Window x:Class="XLToolbox.Export.Views.BatchExportSettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="clr-namespace:XLToolbox"
+        xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
+        xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
+        xmlns:xm="clr-namespace:XLToolbox.Export.Models"
+        bov:WindowState.Save="True"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        Title="{x:Static l:Strings.BatchExport}"
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
+            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.Export}" />
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
+            <actions:ShowViewDialogAction View="XLToolbox.Export.Views.PresetsRepositoryView"
+                                    Assembly="XLToolbox" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel Margin="10">
+        <GroupBox Header="{x:Static l:Strings.Preset}">
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
+                        Command="{Binding EditPresetsCommand}" Width="Auto" />
+                <ComboBox 
+                    ItemsSource="{Binding Presets}"
+                    SelectedItem="{Binding SelectedPreset}"
+                    DisplayMemberPath="Name"
+                    VerticalAlignment="Center" 
+                    ToolTip="{Binding SelectedPreset.Tooltip}"
+                    Margin="0,0,10,0" />
+            </DockPanel>
+        </GroupBox>
+        <UniformGrid Columns="3" Margin="0,5,0,0">
+            <GroupBox Header="{x:Static l:Strings.Scope}" Margin="0,0,5,0">
+                <StackPanel>
+                    <RadioButton Content="{x:Static l:Strings.ActiveSheet}"
+                                 IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportScope.ActiveSheet}}"
+                                 Margin="0,0,0,5"/>
+                    <RadioButton Content="{x:Static l:Strings.ActiveWorkbook}"
+                                 IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportScope.ActiveWorkbook}}"
+                                 Margin="0,0,0,5" />
+                    <RadioButton Content="{x:Static l:Strings.OpenWorkbooks}"
+                                 IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportScope.OpenWorkbooks}}"
+                                 Margin="0,0,0,0" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static l:Strings.Objects}" Margin="0,0,5,0">
+                <StackPanel>
+                    <RadioButton Content="{x:Static l:Strings.ChartsOnly}"
+                                 IsChecked="{Binding Path=Objects.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportObjects.Charts}}"
+                                 Margin="0,0,0,5"/>
+                    <RadioButton Content="{x:Static l:Strings.ChartsAndShapes}"
+                                 IsChecked="{Binding Path=Objects.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportObjects.ChartsAndShapes}}"
+                                 Margin="0,0,0,0" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static l:Strings.Layout}">
+                <StackPanel>
+                    <RadioButton Content="{x:Static l:Strings.SingleItems}"
+                                 IsChecked="{Binding Path=Layout.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportLayout.SingleItems}}"
+                                 Margin="0,0,0,5"/>
+                    <RadioButton Content="{x:Static l:Strings.PreserveLayout}"
+                                 IsChecked="{Binding Path=Layout.AsEnum, Converter={StaticResource enumBoolConv},
+                                             ConverterParameter={x:Static xm:BatchExportLayout.SheetLayout}}"
+                                 Margin="0,0,0,0" />
+                </StackPanel>
+            </GroupBox>
+        </UniformGrid>
+        <UniformGrid Columns="2" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="{x:Static l:Strings.Export}" Command="{Binding ChooseFileNameCommand}"
+                IsDefault="True" Margin="0,0,5,0"/>
+            <Button Content="{x:Static l:Strings.Cancel}" Command="{Binding CloseViewCommand}"
+                IsCancel="True" Margin="5,0,0,0"/>
+        </UniformGrid>
+    </StackPanel>
+</Window>
