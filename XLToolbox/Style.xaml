@@ -18,8 +18,6 @@
     <Style x:Key="ViewModelListBox" TargetType="{x:Type ListBoxItem}">
         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
     </Style>
-    <Style x:Key="ViewModelComboBox" TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-    </Style>
+    <conv:EnumBooleanConverter x:Key="enumBoolConv" />
     <conv:VisibilityBooleanConverter x:Key="visBoolConv" />
 </ResourceDictionary>

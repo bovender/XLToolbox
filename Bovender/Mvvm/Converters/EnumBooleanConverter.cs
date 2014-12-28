@@ -27,7 +27,7 @@ namespace Bovender.Mvvm.Converters
     ///                      ConverterParameter={x:Static local:YourEnumType.Enum2}}" />
     ///     </StackPanel>    /// <Grid>
     /// ]]></code></example>
-    class EnumBooleanConverter : IValueConverter
+    public class EnumBooleanConverter : IValueConverter
     {
         #region IValueConverter interface
 
