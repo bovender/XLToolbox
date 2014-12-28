@@ -28,7 +28,9 @@
     </i:Interaction.Triggers>
     <StackPanel Margin="10">
         <GroupBox Header="{x:Static l:Strings.Preset}">
-            <DockPanel Margin="10">
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
+                        Command="{Binding EditPresetsCommand}" Width="Auto" />
                 <ComboBox ItemsSource="{Binding Presets}"
                           SelectedItem="{Binding SelectedPreset}"
                           DisplayMemberPath="Name"
@@ -36,12 +38,10 @@
                           ToolTip="{Binding SelectedPreset.Tooltip}"
                           Margin="0,0,10,0"
                           MinWidth="240" MaxWidth="480"/>
-                <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
-                        Command="{Binding EditPresetsCommand}" Width="Auto" />
             </DockPanel>
         </GroupBox>    
         <GroupBox Header="{x:Static l:Strings.Output}" Margin="0,10,0,0">
-            <DockPanel Margin="10">
+            <DockPanel>
                 <StackPanel DockPanel.Dock="Right" VerticalAlignment="Bottom">
                     <Button Content="{x:Static l:Strings.Reset}"
                             Command="{Binding ResetDimensionsCommand}"/>
