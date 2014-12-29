@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 
-namespace XLToolbox.UnitTests
+namespace XLToolbox.Test
 {
     static class Helpers
     {

@@ -11,7 +11,7 @@ using XLToolbox.Excel.Instance;
 using Bovender.Unmanaged;
 using XLToolbox.Export.Models;
 
-namespace XLToolbox.UnitTests.Export
+namespace XLToolbox.Test.Export
 {
     [TestFixture]
     class ExporterTest
