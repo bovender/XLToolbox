@@ -98,7 +98,9 @@ namespace XLToolbox
 
         static void BatchExport()
         {
-
+            BatchExportSettingsViewModel vm = BatchExportSettingsViewModel.FromLastUsed(
+                ExcelInstance.Application.ActiveWorkbook);
+            vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialog();
         }
 
         static void BatchExportLast()
