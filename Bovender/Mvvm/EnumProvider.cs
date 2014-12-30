@@ -22,6 +22,7 @@ namespace Bovender.Mvvm
     /// http://stackoverflow.com/q/79126/270712
     /// </para>
     /// </remarks>
+    [Serializable]
     public class EnumProvider<T> : INotifyPropertyChanged where T: struct, IConvertible
     {
         #region Public properties
