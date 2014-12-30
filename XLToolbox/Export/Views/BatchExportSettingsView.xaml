@@ -14,9 +14,9 @@
         <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
+        <i:EventTrigger SourceObject="{Binding ChooseFolderMessage}" EventName="Sent">
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
-            <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.Export}" />
+            <actions:ChooseFolderAction Caption="{x:Static l:Strings.Export}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
             <actions:ShowViewDialogAction View="XLToolbox.Export.Views.PresetsRepositoryView"
@@ -43,14 +43,17 @@
                     <RadioButton Content="{x:Static l:Strings.ActiveSheet}"
                                  IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportScope.ActiveSheet}}"
+                                 IsEnabled="{Binding IsActiveSheetEnabled}"
                                  Margin="0,0,0,5"/>
                     <RadioButton Content="{x:Static l:Strings.ActiveWorkbook}"
                                  IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportScope.ActiveWorkbook}}"
+                                 IsEnabled="{Binding IsActiveWorkbookEnabled}"
                                  Margin="0,0,0,5" />
                     <RadioButton Content="{x:Static l:Strings.OpenWorkbooks}"
                                  IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportScope.OpenWorkbooks}}"
+                                 IsEnabled="{Binding IsOpenWorkbooksEnabled}"
                                  Margin="0,0,0,0" />
                 </StackPanel>
             </GroupBox>
@@ -59,10 +62,12 @@
                     <RadioButton Content="{x:Static l:Strings.ChartsOnly}"
                                  IsChecked="{Binding Path=Objects.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportObjects.Charts}}"
+                                 IsEnabled="{Binding IsChartsEnabled}"
                                  Margin="0,0,0,5"/>
                     <RadioButton Content="{x:Static l:Strings.ChartsAndShapes}"
                                  IsChecked="{Binding Path=Objects.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportObjects.ChartsAndShapes}}"
+                                 IsEnabled="{Binding IsChartsAndShapesEnabled}"
                                  Margin="0,0,0,0" />
                 </StackPanel>
             </GroupBox>
@@ -71,16 +76,18 @@
                     <RadioButton Content="{x:Static l:Strings.SingleItems}"
                                  IsChecked="{Binding Path=Layout.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportLayout.SingleItems}}"
+                                 IsEnabled="{Binding IsSingleItemsEnabled}"
                                  Margin="0,0,0,5"/>
                     <RadioButton Content="{x:Static l:Strings.PreserveLayout}"
                                  IsChecked="{Binding Path=Layout.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportLayout.SheetLayout}}"
+                                 IsEnabled="{Binding IsSheetLayoutEnabled}"
                                  Margin="0,0,0,0" />
                 </StackPanel>
             </GroupBox>
         </UniformGrid>
         <UniformGrid Columns="2" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="{x:Static l:Strings.Export}" Command="{Binding ChooseFileNameCommand}"
+            <Button Content="{x:Static l:Strings.Export}" Command="{Binding ChooseFolderCommand}"
                 IsDefault="True" Margin="0,0,5,0"/>
             <Button Content="{x:Static l:Strings.Cancel}" Command="{Binding CloseViewCommand}"
                 IsCancel="True" Margin="5,0,0,0"/>
