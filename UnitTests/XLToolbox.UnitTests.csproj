@@ -78,6 +78,7 @@
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
+    <Compile Include="Export\BatchExportSettingsViewModelTest.cs" />
     <Compile Include="Export\ExporterTest.cs" />
     <Compile Include="Export\ExportFileNameTest.cs" />
     <Compile Include="Export\PresetsRepositoryForTesting.cs" />
