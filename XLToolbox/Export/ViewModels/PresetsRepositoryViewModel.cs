@@ -206,6 +206,8 @@ namespace XLToolbox.Export.ViewModels
         /// <returns>True if similar view model exists, false if not.</returns>
         public bool Select(PresetViewModel presetViewModel)
         {
+            if (presetViewModel == null) return false;
+
             PresetViewModel existing = Presets.FirstOrDefault(
                 obj => obj.Equals(presetViewModel));
             if (existing != null)
