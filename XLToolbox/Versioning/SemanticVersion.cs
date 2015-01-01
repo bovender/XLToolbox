@@ -27,7 +27,7 @@ namespace XLToolbox.Versioning
         {
             get
             {
-                return "Daniel's XL Toolbox " + CurrentVersion().ToString();
+                return Properties.Settings.Default.AddinName + " " + CurrentVersion().ToString();
             }
         }
     }
