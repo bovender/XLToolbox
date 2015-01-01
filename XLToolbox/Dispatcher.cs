@@ -100,6 +100,10 @@ namespace XLToolbox
         {
             BatchExportSettingsViewModel vm = BatchExportSettingsViewModel.FromLastUsed(
                 ExcelInstance.Application.ActiveWorkbook);
+            if (vm == null)
+            {
+                vm = new BatchExportSettingsViewModel();
+            }
             vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialog();
         }
 

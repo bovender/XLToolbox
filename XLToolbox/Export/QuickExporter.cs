@@ -20,16 +20,15 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportSelection()
         {
-            // Todo: Make this check if export is possible at all.
-            PresetViewModel pvm = PresetViewModel.FromLastUsed(
+            Preset p = Preset.FromLastUsed(
                 ExcelInstance.Application.ActiveWorkbook);
-            if (pvm == null)
+            if (p == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
             }
             else
             {
-                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(pvm);
+                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(p);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent; 
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {
@@ -43,15 +42,19 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportBatch()
         {
-            // Todo: Check if export is possible at all.
-            BatchExportSettings settings = Properties.Settings.Default.LastBatchExportSetting;
-            if (settings == null)
+            BatchExportSettingsViewModel bvm = BatchExportSettingsViewModel.FromLastUsed(
+                ExcelInstance.Application.ActiveWorkbook);
+            if (bvm == null)
             {
                 Dispatcher.Execute(Command.BatchExport);
             }
             else
             {
-                throw new NotImplementedException();
+                bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
+                if (bvm.ChooseFolderCommand.CanExecute(null))
+                {
+                    bvm.ChooseFolderCommand.Execute(null);
+                }
             }
         }
 
@@ -62,6 +65,12 @@ namespace XLToolbox.Export
         void ChooseFileNameMessage_Sent(object sender, MessageArgs<FileNameMessageContent> e)
         {
             ChooseFileSaveAction action = new ChooseFileSaveAction();
+            action.Invoke(e);
+        }
+
+        void ChooseFolderMessage_Sent(object sender, MessageArgs<StringMessageContent> e)
+        {
+            ChooseFolderAction action = new ChooseFolderAction();
             action.Invoke(e);
         }
 
