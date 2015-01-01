@@ -82,17 +82,6 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.BatchExportSettings LastBatchExportSetting {
-            get {
-                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["LastBatchExportSetting"]));
-            }
-            set {
-                this["LastBatchExportSetting"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Point")]
         public global::XLToolbox.Export.Models.Unit ExportUnit {
             get {
@@ -128,12 +117,12 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.ViewModels.BatchExportSettingsViewModel BatchExportSettingsViewModel {
+        public global::XLToolbox.Export.Models.BatchExportSettings BatchExportSettings {
             get {
-                return ((global::XLToolbox.Export.ViewModels.BatchExportSettingsViewModel)(this["BatchExportSettingsViewModel"]));
+                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["BatchExportSettings"]));
             }
             set {
-                this["BatchExportSettingsViewModel"] = value;
+                this["BatchExportSettings"] = value;
             }
         }
     }
