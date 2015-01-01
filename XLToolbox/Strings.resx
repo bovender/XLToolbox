@@ -518,4 +518,11 @@ You may want to try again.</value>
   <data name="SingleItems" xml:space="preserve">
     <value>Individual items</value>
   </data>
+  <data name="FileNameTemplate" xml:space="preserve">
+    <value>File name template</value>
+  </data>
+  <data name="FileNameTemplateHint" xml:space="preserve">
+    <value>Use {workbook}, {worksheet} and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click "Export".</value>
+    <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
+  </data>
 </root>
