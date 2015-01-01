@@ -68,7 +68,8 @@ namespace XLToolbox.Export
             _batchSettings = settings;
             _batchRunning = true;
             _cancelled = false;
-            _batchFileName = new ExportFileName(settings.Path, settings.FileName);
+            _batchFileName = new ExportFileName(settings.Path, settings.FileName,
+                settings.Preset.FileType);
             switch (settings.Scope)
             {
                 case BatchExportScope.ActiveSheet:

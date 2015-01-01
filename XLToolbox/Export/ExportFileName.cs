@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.Export
 {
@@ -21,12 +22,14 @@ namespace XLToolbox.Export
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
-        public ExportFileName(string template)
+        public ExportFileName(string template, FileType fileType)
         {
             Template = template;
             Counter = 0;
+            FileType = fileType;
+            SetExtension();
             _placeholderReplacements = new Dictionary<string, Func<string>>()
             {
                 { Strings.Workbook.ToUpper(), () => { return this.CurrentWorkbookName; } },
@@ -36,8 +39,8 @@ namespace XLToolbox.Export
             Directory = String.Empty;
         }
 
-        public ExportFileName(string directory, string template)
-            : this(template)
+        public ExportFileName(string directory, string template, FileType fileType)
+            : this(template, fileType)
         {
             Directory = directory;
         }
@@ -59,7 +62,7 @@ namespace XLToolbox.Export
             Regex r = new Regex(@"{[^}]+}");
             string s = r.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.
-            return Path.Combine(Directory, InsertIndexIfMissing(Template, s));
+            return Path.Combine(Directory, InsertIndexIfMissing(Template, s) + _extension);
         }
 
         #endregion
@@ -101,6 +104,18 @@ namespace XLToolbox.Export
             }
         }
 
+        private void SetExtension()
+        {
+            if (!Template.ToUpper().EndsWith(FileType.ToFileNameExtension().ToUpper()))
+            {
+                _extension = FileType.ToFileNameExtension();
+            }
+            else
+            {
+                _extension = String.Empty;
+            }
+        }
+
         #endregion
 
         #region Protected properties
@@ -108,12 +123,14 @@ namespace XLToolbox.Export
         protected string Template { get; private set; }
         protected string CurrentWorkbookName { get; set; }
         protected string CurrentWorksheetName { get; set; }
+        protected FileType FileType { get; private set; }
 
         #endregion
 
         #region Private fields
 
         Dictionary<string, Func<string>> _placeholderReplacements;
+        string _extension;
 
         #endregion
     }
