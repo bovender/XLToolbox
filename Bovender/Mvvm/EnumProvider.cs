@@ -82,6 +82,18 @@ namespace Bovender.Mvvm
 
         #endregion
 
+        #region Constructors
+
+        public EnumProvider() {}
+
+        public EnumProvider(T initialValue)
+            : this()
+        {
+            _enum = initialValue;
+        }
+
+        #endregion
+
         #region Virtual methods
 
         /// <summary>
