@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using XLToolbox.Excel.Instance;
+using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export.Models
 {
@@ -13,6 +16,29 @@ namespace XLToolbox.Export.Models
     [SettingsSerializeAs(SettingsSerializeAs.Xml)]
     public class Preset 
     {
+        #region Factory
+
+        public static Preset FromLastUsed()
+        {
+            return Properties.Settings.Default.ExportPreset;
+        }
+
+        public static Preset FromLastUsed(Workbook workbookContext)
+        {
+            Store store = new Store(workbookContext);
+            Preset preset = store.Get<Preset>(typeof(Preset).ToString());
+            if (preset != null)
+            {
+                return preset;
+            }
+            else
+            {
+                return Preset.FromLastUsed();
+            }
+        }
+
+        #endregion
+
         #region Properties
 
         public string Name { get; set; }
@@ -81,6 +107,21 @@ namespace XLToolbox.Export.Models
                 return String.Format("{0}, {1} dpi, {2}, {3}",
                     FileType.ToString(), Dpi, csp.AsString, tp.AsString);
             }
+        }
+        
+        public void Store(Workbook workbookContext)
+        {
+            Properties.Settings.Default.ExportPreset = this;
+            Properties.Settings.Default.Save();
+            using (Store store = new Store(workbookContext))
+            {
+                store.Put<Preset>(typeof(Preset).ToString(), this);
+            }
+        }
+
+        public void Store()
+        {
+            Store(ExcelInstance.Application.ActiveWorkbook);
         }
 
         #endregion

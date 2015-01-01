@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml;
-using System.Configuration;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
@@ -19,31 +18,44 @@ namespace XLToolbox.Export.ViewModels
     /// <summary>
     /// View model for the <see cref="Settings"/> class.
     /// </summary>
-    [Serializable]
-    [SettingsSerializeAs(SettingsSerializeAs.Xml)]
     public class BatchExportSettingsViewModel : SettingsViewModelBase
     {
         #region Factory
-
+        /// <summary>
+        /// Returns a BatchExportSettingsViewModel object that wraps
+        /// the last used BatchExportSettings stored in the assembly's
+        /// Properties, or Null if no stored object exists.
+        /// </summary>
+        /// <returns>BatchExportSettingsViewModel object with last
+        /// used settings model, or Null if no such object exists.</returns>
         public static BatchExportSettingsViewModel FromLastUsed()
         {
-            BatchExportSettingsViewModel vm = Properties.Settings.Default.BatchExportSettingsViewModel;
-            if (vm == null)
+            BatchExportSettings settings = BatchExportSettings.FromLastUsed();
+            if (settings != null)
             {
-                vm = new BatchExportSettingsViewModel();
+                return new BatchExportSettingsViewModel(settings);
             }
-            return vm;
+            else
+            {
+                return null;
+            }
         }
 
+        /// <summary>
+        /// Returns a BatchExportSettingsViewModel object that wraps
+        /// the last used BatchExportSettings stored in the
+        /// workbookContent's hidden storage area, or the one stored
+        /// in the assembly's Properties, or Null if no stored object exists.
+        /// </summary>
+        /// <param name="workbookContext"></param>
+        /// <returns>BatchExportSettingsViewModel object with last
+        /// used settings model, or Null if no such object exists.</returns>
         public static BatchExportSettingsViewModel FromLastUsed(Workbook workbookContext)
         {
-            Store store = new Store(workbookContext);
-            BatchExportSettingsViewModel vm = store.Get<BatchExportSettingsViewModel>(
-                typeof(BatchExportSettingsViewModel).ToString()
-                );
-            if (vm != null)
+            BatchExportSettings settings = BatchExportSettings.FromLastUsed(workbookContext);
+            if (settings != null)
             {
-                return vm;
+                return new BatchExportSettingsViewModel(settings);
             }
             else
             {
@@ -61,7 +73,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 if (_scope == null)
                 {
-                    _scope = new EnumProvider<BatchExportScope>();
+                    _scope = new EnumProvider<BatchExportScope>(
+                        ((BatchExportSettings)Settings).Scope);
                     _scope.AsEnum = ((BatchExportSettings)Settings).Scope;
                 }
                 return _scope;
@@ -74,7 +87,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 if (_layout == null)
                 {
-                    _layout = new EnumProvider<BatchExportLayout>();
+                    _layout = new EnumProvider<BatchExportLayout>(
+                        ((BatchExportSettings)Settings).Layout);
                     _layout.AsEnum = ((BatchExportSettings)Settings).Layout;
                 }
                 return _layout;
@@ -87,7 +101,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 if (_objects == null)
                 {
-                    _objects = new EnumProvider<BatchExportObjects>();
+                    _objects = new EnumProvider<BatchExportObjects>(
+                        ((BatchExportSettings)Settings).Objects);
                     _objects.AsEnum = ((BatchExportSettings)Settings).Objects;
                 }
                 return _objects;
@@ -242,9 +257,24 @@ namespace XLToolbox.Export.ViewModels
             : base()
         {
             Settings = new BatchExportSettings();
+            FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
+                Strings.Workbook, Strings.Worksheet, Strings.Index);
             Scope.PropertyChanged += Scope_PropertyChanged;
             Objects.PropertyChanged += Objects_PropertyChanged;
+            Layout.PropertyChanged += Layout_PropertyChanged;
             UpdateStates();
+        }
+
+        public BatchExportSettingsViewModel(BatchExportSettings settings)
+            : this()
+        {
+            Settings = settings;
+            PresetViewModel pvm = new PresetViewModel(settings.Preset);
+            if (!PresetsRepository.Select(pvm))
+            {
+                PresetsRepository.Presets.Add(pvm);
+                pvm.IsSelected = true;
+            }
         }
 
         #endregion
@@ -272,9 +302,10 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExport())
             {
+                ((BatchExportSettings)Settings).Store(
+                    ExcelInstance.Application.ActiveWorkbook);
                 // TODO: Make export asynchronous
                 ProcessMessageContent pcm = new ProcessMessageContent();
-                pcm.IsIndeterminate = true;
                 ExportProcessMessage.Send(pcm);
                 Exporter exporter = new Exporter();
                 exporter.ExportBatch(Settings as BatchExportSettings);
@@ -294,13 +325,20 @@ namespace XLToolbox.Export.ViewModels
 
         private void Scope_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            ((BatchExportSettings)Settings).Scope = Scope.AsEnum;
             SetObjectsState();
             SetLayoutState();
         }
 
         private void Objects_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            ((BatchExportSettings)Settings).Objects = Objects.AsEnum;
             SetLayoutState();
+        }
+
+        private void Layout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            ((BatchExportSettings)Settings).Layout = Layout.AsEnum;
         }
 
         #endregion

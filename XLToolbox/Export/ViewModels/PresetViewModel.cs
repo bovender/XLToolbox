@@ -18,25 +18,18 @@ namespace XLToolbox.Export.ViewModels
     /// </summary>
     public class PresetViewModel : ViewModelBase
     {
-        #region Static factory method
+        #region Factory
 
         public static PresetViewModel FromLastUsed()
         {
-            return new PresetViewModel(Properties.Settings.Default.ExportPreset);
+            Preset p = Preset.FromLastUsed();
+            return new PresetViewModel(p);
         }
-
+        
         public static PresetViewModel FromLastUsed(Workbook workbookContext)
         {
-            Store store = new Store(workbookContext);
-            Preset preset = store.Get<Preset>(typeof(Preset).ToString());
-            if (preset != null)
-            {
-                return new PresetViewModel(preset);
-            }
-            else
-            {
-                return PresetViewModel.FromLastUsed();
-            }
+            Preset p = Preset.FromLastUsed(workbookContext);
+            return new PresetViewModel(p);
         }
 
         #endregion
@@ -235,17 +228,12 @@ namespace XLToolbox.Export.ViewModels
 
         public void Store(Workbook workbookContext)
         {
-            Properties.Settings.Default.ExportPreset = _preset;
-            Properties.Settings.Default.Save();
-            using (Store store = new Store(workbookContext))
-            {
-                store.Put<Preset>(typeof(Preset).ToString(), _preset);
-            }
+            _preset.Store(workbookContext);
         }
 
         public void Store()
         {
-            Store(Excel.Instance.ExcelInstance.Application.ActiveWorkbook);
+            _preset.Store();
         }
 
         #endregion
