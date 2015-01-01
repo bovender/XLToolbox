@@ -32,7 +32,8 @@ namespace XLToolbox.Export
             SetExtension();
             _placeholderReplacements = new Dictionary<string, Func<string>>()
             {
-                { Strings.Workbook.ToUpper(), () => { return this.CurrentWorkbookName; } },
+                { Strings.Workbook.ToUpper(), () =>
+                    { return Path.GetFileNameWithoutExtension(this.CurrentWorkbookName); } },
                 { Strings.Worksheet.ToUpper(), () => { return this.CurrentWorksheetName; } },
                 { Strings.Index.ToUpper(), () => { return String.Format("{0:000}", Counter); } },
             };
