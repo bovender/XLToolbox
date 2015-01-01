@@ -21,8 +21,6 @@ namespace XLToolbox.Export.ViewModels
     /// <summary>
     /// View model for the <see cref="Settings"/> class.
     /// </summary>
-    [Serializable]
-    [SettingsSerializeAs(SettingsSerializeAs.Xml)]
     public class SingleExportSettingsViewModel : SettingsViewModelBase
     {
         #region Public properties
@@ -186,6 +184,10 @@ namespace XLToolbox.Export.ViewModels
             CreatSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
+
+        public SingleExportSettingsViewModel(Preset preset)
+            : this(new PresetViewModel(preset))
+        { }
 
         /*
         /// <summary>
