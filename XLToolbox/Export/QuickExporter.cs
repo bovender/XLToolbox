@@ -44,17 +44,14 @@ namespace XLToolbox.Export
         {
             BatchExportSettingsViewModel bvm = BatchExportSettingsViewModel.FromLastUsed(
                 ExcelInstance.Application.ActiveWorkbook);
-            if (bvm == null)
+            if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
-                Dispatcher.Execute(Command.BatchExport);
+                bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
+                bvm.ChooseFolderCommand.Execute(null);
             }
             else
             {
-                bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
-                if (bvm.ChooseFolderCommand.CanExecute(null))
-                {
-                    bvm.ChooseFolderCommand.Execute(null);
-                }
+                Dispatcher.Execute(Command.BatchExport);
             }
         }
 
