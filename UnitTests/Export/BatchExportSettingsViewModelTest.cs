@@ -13,7 +13,21 @@ namespace XLToolbox.Test.Export
     [TestFixture]
     class BatchExportSettingsViewModelTest
     {
+        BatchExportSettings settings = new BatchExportSettings(
+            new Preset());
+
+        #region Setup
+
+        [SetUp]
+        public void Setup()
+        {
+
+        }
+
+        #endregion
+
         #region Command state tests
+
         [Test]
         public void ExecuteWithoutExcel()
         {
@@ -38,6 +52,7 @@ namespace XLToolbox.Test.Export
             {
                 Helpers.CreateSomeCharts(excel.App.ActiveSheet, 1);
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -48,19 +63,19 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active sheet/charts and shapes/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -85,6 +100,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeCharts(excel.App.ActiveSheet, 1);
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -95,13 +111,13 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -132,6 +148,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeCharts(excel.App.ActiveSheet, 2);
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -142,13 +159,13 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -179,6 +196,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeCharts(excel.App.ActiveSheet, 1);
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 2);
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -189,13 +207,13 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -226,6 +244,7 @@ namespace XLToolbox.Test.Export
                 // Helpers.CreateSomeCharts(excel.App.ActiveSheet, 1);
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -274,6 +293,7 @@ namespace XLToolbox.Test.Export
                 // Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 excel.App.Worksheets.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -290,13 +310,13 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts and shapes/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
@@ -322,6 +342,7 @@ namespace XLToolbox.Test.Export
                 // Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 excel.App.Worksheets.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -338,13 +359,13 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts and shapes/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
@@ -356,7 +377,7 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SheetLayout;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "Active workbook/charts and shapes/layout");
             }
         }
@@ -370,6 +391,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 excel.App.Worksheets.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -386,7 +408,7 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
@@ -418,6 +440,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 2);
                 excel.App.Worksheets.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -434,7 +457,7 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
                     "All workbooks/charts/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
@@ -466,6 +489,7 @@ namespace XLToolbox.Test.Export
                 // Helpers.CreateSomeShapes(excel.App.ActiveSheet, 1);
                 excel.App.Workbooks.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -488,20 +512,20 @@ namespace XLToolbox.Test.Export
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SingleItems;
-                Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
-                    "Open workbook/charts and shapes/single items");
+                Assert.IsTrue(viewModel.ExportCommand.CanExecute(null),
+                    "Open workbooks/charts and shapes/single items");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 viewModel.Layout.AsEnum = BatchExportLayout.SheetLayout;
                 Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
-                    "Open workbook/charts/layout");
+                    "Open workbooks/charts/layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
                 viewModel.Layout.AsEnum = BatchExportLayout.SheetLayout;
                 Assert.IsFalse(viewModel.ExportCommand.CanExecute(null),
-                    "Open workbook/charts and shapes/layout");
+                    "Open workbooks/charts and shapes/layout");
             }
         }
 
@@ -514,6 +538,7 @@ namespace XLToolbox.Test.Export
                 Helpers.CreateSomeShapes(excel.App.ActiveSheet, 2);
                 excel.App.Workbooks.Add();
                 BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+                viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -604,10 +629,10 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsEnabled, "ActiveSheet/Charts");
                 Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "ActiveSheet/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Active Workbook/Charts");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Active Workbook/Charts");
                 Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
                 Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
@@ -616,23 +641,23 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsSingleItemsEnabled, "ActiveSheet/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "ActiveSheet/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "ActiveSheet/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "ActiveSheet/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "ActiveSheet/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
@@ -656,11 +681,11 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsEnabled, "ActiveSheet/Charts");
                 Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "ActiveSheet/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Active Workbook/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Active Workbook/Charts");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -673,19 +698,19 @@ namespace XLToolbox.Test.Export
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
 
@@ -708,11 +733,11 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsEnabled, "ActiveSheet/Charts");
                 Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "ActiveSheet/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Active Workbook/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Active Workbook/Charts");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -725,19 +750,19 @@ namespace XLToolbox.Test.Export
 
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
 
@@ -760,10 +785,10 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "ActiveSheet/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 Assert.IsFalse(viewModel.IsChartsEnabled, "Active Workbook/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -779,16 +804,16 @@ namespace XLToolbox.Test.Export
                 Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
                 Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
     
@@ -814,7 +839,7 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsEnabled, "Active Workbook/Charts");
                 Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
                 Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
@@ -831,16 +856,16 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts/Single Items");
                 Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Active Workbook/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Active Workbook/Charts and Shapes/Preserve Layout");
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
 
@@ -867,7 +892,7 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -891,7 +916,7 @@ namespace XLToolbox.Test.Export
                 Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
@@ -919,8 +944,8 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsChartsEnabled, "Active Workbook/Charts");
                 Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Active Workbook/Charts And Shapes");
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
-                Assert.IsFalse(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
-                Assert.IsFalse(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
+                Assert.IsTrue(viewModel.IsChartsEnabled, "Open Workbooks/Charts");
+                Assert.IsTrue(viewModel.IsChartsAndShapesEnabled, "Open Workbooks/Charts And Shapes");
 
                 // Assert layout states
                 viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
@@ -941,11 +966,11 @@ namespace XLToolbox.Test.Export
 
                 viewModel.Scope.AsEnum = BatchExportScope.OpenWorkbooks;
                 viewModel.Objects.AsEnum = BatchExportObjects.Charts;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
-                Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
 
@@ -996,7 +1021,7 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }
@@ -1050,7 +1075,7 @@ namespace XLToolbox.Test.Export
                 Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts/Preserve Layout");
                 viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
-                Assert.IsFalse(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
+                Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
                 Assert.IsFalse(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
             }
         }

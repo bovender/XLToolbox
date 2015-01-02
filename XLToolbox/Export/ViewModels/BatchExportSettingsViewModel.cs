@@ -212,6 +212,43 @@ namespace XLToolbox.Export.ViewModels
        
         #endregion
 
+        #region Public methods
+
+        /// <summary>
+        /// Makes sure that no disabled options are selected.
+        /// </summary>
+        /// <remarks>
+        /// This method is not automatically called in the constructor
+        /// in order to allow subscribed views to decide whether to
+        /// 'sanitize' or not. For example, the
+        /// <see cref="QuickExporter.ExportBatch()"/> method deliberately 
+        /// refrains from 'sanitizing' so that the user can see what
+        /// options are selected, but disabled.
+        /// </remarks>
+        public void SanitizeOptions()
+        {
+            if (!CanExport()) {
+                if ((Scope.AsEnum == BatchExportScope.ActiveSheet) && !IsActiveSheetEnabled)
+                    Scope.AsEnum = BatchExportScope.ActiveWorkbook;
+                if ((Scope.AsEnum == BatchExportScope.ActiveWorkbook) && !IsActiveWorkbookEnabled)
+                    Scope.AsEnum = BatchExportScope.OpenWorkbooks;
+                if ((Scope.AsEnum == BatchExportScope.OpenWorkbooks) && !IsOpenWorkbooksEnabled)
+                    Scope.AsEnum = BatchExportScope.ActiveSheet;
+
+                if ((Objects.AsEnum == BatchExportObjects.Charts) && !IsChartsEnabled)
+                    Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
+                if ((Objects.AsEnum == BatchExportObjects.ChartsAndShapes) && !IsChartsAndShapesEnabled)
+                    Objects.AsEnum = BatchExportObjects.Charts;
+
+                if ((Layout.AsEnum == BatchExportLayout.SingleItems) && !IsSingleItemsEnabled)
+                    Layout.AsEnum = BatchExportLayout.SheetLayout;
+                if ((Layout.AsEnum == BatchExportLayout.SheetLayout) && !IsSheetLayoutEnabled)
+                    Layout.AsEnum = BatchExportLayout.SingleItems;
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
@@ -368,25 +405,35 @@ namespace XLToolbox.Export.ViewModels
             if (ExcelInstance.Application.ActiveSheet != null)
             {
                 SheetViewModel sheetVM = new SheetViewModel(ExcelInstance.Application.ActiveSheet);
-                _numChartsActiveSheet = sheetVM.CountCharts();
-                _numShapesActiveSheet = sheetVM.CountShapes() - _numChartsActiveSheet;
+                int charts = sheetVM.CountCharts();
+                int shapes = sheetVM.CountShapes() - charts;
+                _activeSheetHasCharts = charts > 0;
+                _activeSheetHasManyCharts = charts > 1;
+                _activeSheetHasShapes = shapes > 0;
+                _activeSheetHasManyObjects = charts + shapes > 1;
                 _activeSheetName = sheetVM.DisplayString;
             }
         }
 
         private void AnalyzeOtherSheets()
         {
+            _otherSheetsHaveCharts = false;
+            _otherSheetsHaveManyCharts = false;
+            _otherSheetsHaveShapes = false;
+            _otherSheetsHaveManyObjects = false;
+            int charts;
+            int shapes;
             foreach (object sheet in ExcelInstance.Application.ActiveWorkbook.Sheets)
             {
                 SheetViewModel svm = new SheetViewModel(sheet);
                 if (svm.DisplayString != _activeSheetName)
                 {
-                    _maxChartsOtherSheets = Math.Max(
-                        _maxChartsOtherSheets, svm.CountCharts());
-                    _maxShapesOtherSheets = Math.Max(
-                        _maxShapesOtherSheets, svm.CountShapes() - svm.CountCharts());
-                    _hasSheetWithMultipleChartsAndShapes |=
-                        (svm.CountShapes() > 1) && (svm.CountShapes() > svm.CountCharts());
+                    charts = svm.CountCharts();
+                    shapes = svm.CountShapes() - charts;
+                    _otherSheetsHaveCharts |= charts > 0;
+                    _otherSheetsHaveManyCharts |= charts > 1;
+                    _otherSheetsHaveShapes |= shapes > 0;
+                    _otherSheetsHaveManyObjects |= charts + shapes > 1;
                 }
             }
         }
@@ -394,6 +441,12 @@ namespace XLToolbox.Export.ViewModels
         private void AnalyzeOtherWorkbooks()
         {
             string activeWorkbookName = ExcelInstance.Application.ActiveWorkbook.Name;
+            _otherWorkbooksHaveCharts = false;
+            _otherWorkbooksHaveManyCharts = false;
+            _otherWorkbooksHaveShapes = false;
+            _otherWorkbooksHaveManyObjects = false;
+            int charts;
+            int shapes;
             foreach (Workbook workbook in ExcelInstance.Application.Workbooks)
             {
                 if (workbook.Name != activeWorkbookName)
@@ -401,12 +454,12 @@ namespace XLToolbox.Export.ViewModels
                     foreach (object sheet in workbook.Sheets)
                     {
                         SheetViewModel svm = new SheetViewModel(sheet);
-                        _maxChartsOtherWorkbooks = Math.Max(
-                            _maxChartsOtherWorkbooks, svm.CountCharts());
-                        _maxShapesOtherWorkbooks = Math.Max(
-                            _maxShapesOtherWorkbooks, svm.CountShapes() - svm.CountCharts());
-                        _anyWorkbookMultipleChartsAndShapes |=
-                            (svm.CountShapes() > 1) && (svm.CountShapes() > svm.CountCharts());
+                        charts = svm.CountCharts();
+                        shapes = svm.CountShapes() - charts;
+                        _otherWorkbooksHaveCharts |= charts > 0;
+                        _otherWorkbooksHaveManyCharts |= charts > 1;
+                        _otherWorkbooksHaveShapes |= shapes > 0;
+                        _otherWorkbooksHaveManyObjects |= charts + shapes > 1;
                     }
                 }
             }
@@ -420,16 +473,16 @@ namespace XLToolbox.Export.ViewModels
                     {
                         { BatchExportObjects.Charts, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _numChartsActiveSheet > 0 },
-                                { BatchExportLayout.SheetLayout, _numChartsActiveSheet > 1 }
+                                { BatchExportLayout.SingleItems, _activeSheetHasCharts },
+                                { BatchExportLayout.SheetLayout, _activeSheetHasManyCharts }
                             }
                         },
                         { BatchExportObjects.ChartsAndShapes, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _numShapesActiveSheet > 0 },
+                                { BatchExportLayout.SingleItems,
+                                    _activeSheetHasCharts | _activeSheetHasShapes },
                                 { BatchExportLayout.SheetLayout,
-                                    (_numShapesActiveSheet + _numChartsActiveSheet > 1) &&
-                                    (_numShapesActiveSheet > 0) }
+                                    _activeSheetHasManyObjects }
                             }
                         },
                     }
@@ -438,14 +491,19 @@ namespace XLToolbox.Export.ViewModels
                     {
                         { BatchExportObjects.Charts, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _maxChartsOtherSheets > 0 },
-                                { BatchExportLayout.SheetLayout, _maxChartsOtherSheets > 1 }
+                                { BatchExportLayout.SingleItems, 
+                                    _activeSheetHasCharts | _otherSheetsHaveCharts },
+                                { BatchExportLayout.SheetLayout, 
+                                    _activeSheetHasManyCharts | _otherSheetsHaveManyCharts }
                             }
                         },
                         { BatchExportObjects.ChartsAndShapes, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _maxShapesOtherSheets > 0 },
-                                { BatchExportLayout.SheetLayout, _hasSheetWithMultipleChartsAndShapes }
+                                { BatchExportLayout.SingleItems, 
+                                    _activeSheetHasCharts | _otherSheetsHaveCharts |
+                                    _activeSheetHasShapes | _otherSheetsHaveShapes },
+                                { BatchExportLayout.SheetLayout, 
+                                    _activeSheetHasManyObjects | _otherSheetsHaveManyObjects }
                             }
                         },
                     }
@@ -454,14 +512,23 @@ namespace XLToolbox.Export.ViewModels
                     {
                         { BatchExportObjects.Charts, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _maxChartsOtherWorkbooks > 0 },
-                                { BatchExportLayout.SheetLayout, _maxChartsOtherWorkbooks > 1 }
+                                { BatchExportLayout.SingleItems, 
+                                    _activeSheetHasCharts | _otherSheetsHaveCharts |
+                                    _otherWorkbooksHaveCharts },
+                                { BatchExportLayout.SheetLayout, 
+                                    _activeSheetHasManyCharts | _otherSheetsHaveManyCharts |
+                                    _otherWorkbooksHaveManyCharts }
                             }
                         },
                         { BatchExportObjects.ChartsAndShapes, new LayoutStates()
                             {
-                                { BatchExportLayout.SingleItems, _maxShapesOtherWorkbooks > 0 },
-                                { BatchExportLayout.SheetLayout, _anyWorkbookMultipleChartsAndShapes }
+                                { BatchExportLayout.SingleItems, 
+                                    _activeSheetHasCharts | _otherSheetsHaveCharts |
+                                    _activeSheetHasShapes | _otherSheetsHaveShapes |
+                                    _otherWorkbooksHaveCharts | _otherWorkbooksHaveShapes },
+                                { BatchExportLayout.SheetLayout, 
+                                    _activeSheetHasManyObjects | _otherSheetsHaveManyObjects |
+                                    _otherWorkbooksHaveManyObjects }
                             }
                         },
                     }
@@ -477,9 +544,9 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         private void SetScopeState()
         {
-            IsActiveSheetEnabled = _numChartsActiveSheet + _numShapesActiveSheet > 0;
-            IsActiveWorkbookEnabled = _maxChartsOtherSheets + _maxShapesOtherSheets > 0;
-            IsOpenWorkbooksEnabled = _maxChartsOtherWorkbooks + _maxShapesOtherWorkbooks > 0;
+            IsActiveSheetEnabled = _activeSheetHasCharts | _activeSheetHasShapes;
+            IsActiveWorkbookEnabled = _otherSheetsHaveCharts | _otherSheetsHaveShapes;
+            IsOpenWorkbooksEnabled = _otherWorkbooksHaveCharts | _otherWorkbooksHaveShapes;
         }
 
         /// <summary>
@@ -491,16 +558,18 @@ namespace XLToolbox.Export.ViewModels
             switch (Scope.AsEnum)
             {
                 case BatchExportScope.ActiveSheet:
-                    IsChartsEnabled = _numChartsActiveSheet > 0;
-                    IsChartsAndShapesEnabled = _numShapesActiveSheet > 0;
+                    IsChartsEnabled = _activeSheetHasCharts;
+                    IsChartsAndShapesEnabled = _activeSheetHasShapes;
                     break;
                 case BatchExportScope.ActiveWorkbook:
-                    IsChartsEnabled = _maxChartsOtherSheets > 0;
-                    IsChartsAndShapesEnabled = _maxShapesOtherSheets > 0;
+                    IsChartsEnabled = _activeSheetHasCharts | _otherSheetsHaveCharts;
+                    IsChartsAndShapesEnabled = _activeSheetHasShapes | _otherSheetsHaveShapes;
                     break;
                 case BatchExportScope.OpenWorkbooks:
-                    IsChartsEnabled = _maxChartsOtherWorkbooks > 0;
-                    IsChartsAndShapesEnabled = _maxShapesOtherWorkbooks > 0;
+                    IsChartsEnabled = _activeSheetHasCharts | _otherSheetsHaveCharts |
+                        _otherWorkbooksHaveCharts;
+                    IsChartsAndShapesEnabled = _activeSheetHasShapes | _otherSheetsHaveShapes |
+                        _otherWorkbooksHaveShapes;
                     break;
                 default:
                     throw new InvalidOperationException(
@@ -520,14 +589,12 @@ namespace XLToolbox.Export.ViewModels
                     switch (Objects.AsEnum)
                     {
                         case BatchExportObjects.Charts:
-                            IsSingleItemsEnabled = _numChartsActiveSheet > 0;
-                            IsSheetLayoutEnabled = _numChartsActiveSheet > 1;
+                            IsSingleItemsEnabled = _activeSheetHasCharts;
+                            IsSheetLayoutEnabled = _activeSheetHasManyCharts;
                             break;
                         case BatchExportObjects.ChartsAndShapes:
-                            IsSingleItemsEnabled = _numShapesActiveSheet > 0;
-                            IsSheetLayoutEnabled =
-                                (_numChartsActiveSheet + _numShapesActiveSheet > 1) &&
-                                (_numShapesActiveSheet > 0);
+                            IsSingleItemsEnabled = _activeSheetHasCharts | _activeSheetHasShapes;
+                            IsSheetLayoutEnabled = _activeSheetHasManyObjects;
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
@@ -538,12 +605,15 @@ namespace XLToolbox.Export.ViewModels
                     switch (Objects.AsEnum)
                     {
                         case BatchExportObjects.Charts:
-                            IsSingleItemsEnabled = _maxChartsOtherSheets > 0;
-                            IsSheetLayoutEnabled = _maxChartsOtherSheets > 1;
+                            IsSingleItemsEnabled = _activeSheetHasCharts | _otherSheetsHaveCharts;
+                            IsSheetLayoutEnabled = _activeSheetHasManyCharts | _otherSheetsHaveManyCharts;
                             break;
                         case BatchExportObjects.ChartsAndShapes:
-                            IsSingleItemsEnabled = _maxShapesOtherSheets > 0;
-                            IsSheetLayoutEnabled = _hasSheetWithMultipleChartsAndShapes;
+                            IsSingleItemsEnabled =
+                                _activeSheetHasCharts | _otherSheetsHaveCharts |
+                                _activeSheetHasShapes | _otherSheetsHaveShapes;
+                            IsSheetLayoutEnabled =
+                                _activeSheetHasManyObjects | _otherSheetsHaveManyObjects;
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
@@ -554,12 +624,19 @@ namespace XLToolbox.Export.ViewModels
                     switch (Objects.AsEnum)
                     {
                         case BatchExportObjects.Charts:
-                            IsSingleItemsEnabled = _maxChartsOtherWorkbooks > 0;
-                            IsSheetLayoutEnabled = _maxChartsOtherWorkbooks > 1;
+                            IsSingleItemsEnabled =
+                                _activeSheetHasCharts | _otherSheetsHaveCharts | _otherWorkbooksHaveCharts;
+                            IsSheetLayoutEnabled =
+                                _activeSheetHasManyCharts | _otherSheetsHaveManyCharts | _otherWorkbooksHaveManyCharts;
                             break;
                         case BatchExportObjects.ChartsAndShapes:
-                            IsSingleItemsEnabled = _maxShapesOtherWorkbooks > 0;
-                            IsSheetLayoutEnabled = _anyWorkbookMultipleChartsAndShapes;
+                            IsSingleItemsEnabled =
+                                _activeSheetHasCharts | _otherSheetsHaveCharts |
+                                _activeSheetHasShapes | _otherSheetsHaveShapes |
+                                _otherWorkbooksHaveCharts | _otherWorkbooksHaveShapes;
+                            IsSheetLayoutEnabled =
+                                _activeSheetHasManyObjects | _otherSheetsHaveManyObjects |
+                                _otherWorkbooksHaveManyObjects;
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
@@ -640,14 +717,20 @@ namespace XLToolbox.Export.ViewModels
         private bool _isSingleItemsEnabled;
         private bool _isSheetLayoutEnabled;
 
-        private int _numChartsActiveSheet;
-        private int _numShapesActiveSheet;
-        private int _maxChartsOtherSheets;
-        private int _maxShapesOtherSheets;
-        private int _maxChartsOtherWorkbooks;
-        private int _maxShapesOtherWorkbooks;
-        private bool _hasSheetWithMultipleChartsAndShapes;
-        private bool _anyWorkbookMultipleChartsAndShapes;
+        private bool _activeSheetHasCharts;
+        private bool _activeSheetHasShapes;
+        private bool _activeSheetHasManyCharts;
+        private bool _activeSheetHasManyObjects;
+
+        private bool _otherSheetsHaveCharts;
+        private bool _otherSheetsHaveShapes;
+        private bool _otherSheetsHaveManyCharts;
+        private bool _otherSheetsHaveManyObjects;
+
+        private bool _otherWorkbooksHaveCharts;
+        private bool _otherWorkbooksHaveShapes;
+        private bool _otherWorkbooksHaveManyCharts;
+        private bool _otherWorkbooksHaveManyObjects;
 
         private string _activeSheetName;
 
