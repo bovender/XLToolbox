@@ -26,14 +26,6 @@ namespace XLToolbox.Export.ViewModels
     {
         #region Public properties
 
-        public PresetViewModelCollection Presets
-        {
-            get
-            {
-                return PresetsRepository.Presets;
-            }
-        }
-
         public PresetViewModel SelectedPreset
         {
             get

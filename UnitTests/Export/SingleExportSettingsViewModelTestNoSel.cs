@@ -25,7 +25,7 @@ namespace XLToolbox.UnitTests.Export
                 svm = new SingleExportSettingsViewModel();
                 ExcelInstance.CreateWorkbook();
                 PresetViewModel pvm = new PresetViewModel();
-                svm.Presets.Add(pvm);
+                svm.PresetsRepository.Presets.Add(pvm);
                 pvm.IsSelected = true;
                 Assert.IsTrue(svm.ExportCommand.CanExecute(null),
                     "Export command should be enabled if something is selected.");
