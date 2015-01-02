@@ -104,6 +104,7 @@ namespace XLToolbox
             {
                 vm = new BatchExportSettingsViewModel();
             }
+            vm.SanitizeOptions();
             vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialog();
         }
 

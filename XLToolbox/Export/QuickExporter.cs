@@ -51,7 +51,17 @@ namespace XLToolbox.Export
             }
             else
             {
-                Dispatcher.Execute(Command.BatchExport);
+                if (bvm != null)
+                {
+                    bvm = new BatchExportSettingsViewModel();
+                    // Do not 'sanitize' the export options, so that the user
+                    // can see the selected, but disabled options.
+                    bvm.InjectInto<Views.BatchExportSettingsView>().ShowDialog();
+                }
+                else
+                {
+                    Dispatcher.Execute(Command.BatchExport);
+                }
             }
         }
 
