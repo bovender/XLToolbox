@@ -31,7 +31,7 @@
             <DockPanel>
                 <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
                         Command="{Binding EditPresetsCommand}" Width="Auto" />
-                <ComboBox ItemsSource="{Binding Presets}"
+                <ComboBox ItemsSource="{Binding Path=PresetsRepository.Presets}"
                           SelectedItem="{Binding SelectedPreset}"
                           DisplayMemberPath="Name"
                           VerticalAlignment="Center" 
