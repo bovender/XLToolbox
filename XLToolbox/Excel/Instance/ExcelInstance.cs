@@ -26,20 +26,6 @@ namespace XLToolbox.Excel.Instance
     /// </remarks>
     public class ExcelInstance : IDisposable
     {
-        #region Private members
-
-        private bool _disposed;
-        private static bool _static;
-        private static int _numClassInstances;
-
-        /// <summary>
-        /// Holds the current Excel instance; static field as only one instance
-        /// is allowed to be connected with the XL Toolbox at a time.
-        /// </summary>
-        private static Application _application;
-
-        #endregion
-
         #region Public instance properties
 
         public Application App { get { return ExcelInstance.Application; } }
@@ -137,6 +123,31 @@ namespace XLToolbox.Excel.Instance
             return wb;
         }
 
+        /// <summary>
+        /// Disables screen updating. Increases an internal counter
+        /// to be able to handle cascading calls to this method.
+        /// </summary>
+        public static void DisableScreenUpdating()
+        {
+            Application.ScreenUpdating = false;
+            _preventScreenUpdating++;
+        }
+
+        /// <summary>
+        /// Decreases the internal screen updating counter by one;
+        /// if the counter reaches 0, the application's screen updating
+        /// will resume.
+        /// </summary>
+        public static void EnableScreenUpdating()
+        {
+            _preventScreenUpdating--;
+            if (_preventScreenUpdating <= 0)
+            {
+                _preventScreenUpdating = 0;
+                Application.ScreenUpdating = true;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -199,6 +210,21 @@ namespace XLToolbox.Excel.Instance
                 Application.Workbooks.Add();
             }
         }
+
+        #endregion
+       
+        #region Private fields
+
+        private bool _disposed;
+        private static bool _static;
+        private static int _numClassInstances;
+        private static int _preventScreenUpdating;
+
+        /// <summary>
+        /// Holds the current Excel instance; static field as only one instance
+        /// is allowed to be connected with the XL Toolbox at a time.
+        /// </summary>
+        private static Application _application;
 
         #endregion
     }
