@@ -10,6 +10,7 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.Excel.Instance;
 using Bovender.Unmanaged;
 using XLToolbox.Export.Models;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Test.Export
 {
@@ -103,7 +104,16 @@ namespace XLToolbox.Test.Export
                 settings.Objects = objects;
                 settings.Scope = scope;
                 Exporter exporter = new Exporter();
+                bool finished = false;
+                exporter.BatchExportFinished += (sender, args) => { finished = true; };
                 exporter.ExportBatchAsync(settings);
+                Task checkFinishedTask = new Task(() =>
+                {
+                    while (finished == false) ;
+                });
+                checkFinishedTask.Start();
+                checkFinishedTask.Wait(10000);
+                Assert.IsTrue(finished, "Export progress did not finish, timeout reached.");
                 Assert.AreEqual(expectedNumberOfFiles,
                     Directory.GetFiles(settings.Path).Length);
                 Directory.Delete(settings.Path, true);

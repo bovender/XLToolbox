@@ -24,7 +24,7 @@ namespace XLToolbox.UnitTests.Export
             Worksheet ws = wb.Worksheets[1];
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 300, 200).Select();
-            svm = new SingleExportSettingsViewModel();
+            svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
         }
 
         [TearDown]

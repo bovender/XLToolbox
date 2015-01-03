@@ -23,13 +23,27 @@ namespace XLToolbox.Export.ViewModels
         public static PresetViewModel FromLastUsed()
         {
             Preset p = Preset.FromLastUsed();
-            return new PresetViewModel(p);
+            if (p != null)
+            {
+                return new PresetViewModel(p);
+            }
+            else
+            {
+                return null;
+            }
         }
         
         public static PresetViewModel FromLastUsed(Workbook workbookContext)
         {
             Preset p = Preset.FromLastUsed(workbookContext);
-            return new PresetViewModel(p);
+            if (p != null)
+            {
+                return new PresetViewModel(p);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #endregion
