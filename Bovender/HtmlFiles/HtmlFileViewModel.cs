@@ -25,6 +25,7 @@ namespace Bovender.HtmlFiles
         /// <remarks>The build action of the file to be loaded must be "Resource".</remarks>
         public HtmlFileViewModel(string packUri)
         {
+            _packUri = packUri;
             HtmlStream = Application.GetResourceStream(new Uri(packUri)).Stream;
         }
 
@@ -61,5 +62,21 @@ namespace Bovender.HtmlFiles
         public Stream HtmlStream { get; set; }
 
         #endregion
+
+        #region Private fields
+
+        readonly string _packUri;
+
+        #endregion
+
+        #region Implementation of ViewModelBase's abstract methods
+
+        public override object RevealModelObject()
+        {
+            return _packUri;
+        }
+
+        #endregion
+
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Threading;
 
 namespace Bovender.Mvvm.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         #region Private members
 
@@ -81,6 +81,50 @@ namespace Bovender.Mvvm.ViewModels
 
         #endregion
 
+        #region Public methods
+
+        /// <summary>
+        /// Determines whether the current object is a view model
+        /// of a particular model object. Returns false if either
+        /// the <see cref="model"/> or the viewmodel's wrapped
+        /// model object is null.
+        /// </summary>
+        /// <param name="model">The model to check.</param>
+        /// <returns>True if <see cref="model"/> is wrapped by
+        /// this; false if not (including null objects).</returns>
+        public bool IsViewModelOf(object model)
+        {
+            object wrappedObject = RevealModelObject();
+            if (model == null || wrappedObject == null)
+            {
+                return false;
+            }
+            else
+            {
+                return wrappedObject.Equals(model);
+            }
+        }
+
+        #endregion
+
+        #region Public (abstract) methods
+
+        /// <summary>
+        /// Returns the model object that this view model wraps or null
+        /// if there is no wrapped model object.
+        /// </summary>
+        /// <remarks>
+        /// This is a method rather than a property to make data binding
+        /// more difficult (if not impossible), because binding directly
+        /// to the model object is discouraged. However, certain users
+        /// such as a ViewModelCollection might need access to the wrapped
+        /// model object.
+        /// </remarks>
+        /// <returns>Model object.</returns>
+        public abstract object RevealModelObject();
+
+        #endregion
+
         #region Protected properties
 
         /// <summary>
@@ -119,7 +163,7 @@ namespace Bovender.Mvvm.ViewModels
                 RequestCloseView(this, EventArgs.Empty);
             }
         }
-        
+
         #endregion
 
         #region Constructor

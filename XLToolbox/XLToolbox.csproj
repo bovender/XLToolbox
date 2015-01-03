@@ -47,6 +47,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
@@ -58,10 +59,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\Instance\ExcelInstance.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
+    <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
@@ -71,6 +75,42 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Export\ExportFinishedEventArgs.cs" />
+    <Compile Include="Export\Models\BatchExportLayout.cs" />
+    <Compile Include="Export\Models\BatchExportObjects.cs" />
+    <Compile Include="Export\Models\BatchExportScope.cs" />
+    <Compile Include="Export\Models\BatchExportSettings.cs" />
+    <Compile Include="Export\ExportFileName.cs" />
+    <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
+    <Compile Include="Export\Models\Transparency.cs" />
+    <Compile Include="Export\Models\Unit.cs" />
+    <Compile Include="Export\Models\Settings.cs" />
+    <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
+    <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
+    <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
+    <Compile Include="Export\ViewModels\TransparencyProvider.cs" />
+    <Compile Include="Export\Views\PresetsRepositoryView.xaml.cs">
+      <DependentUpon>PresetsRepositoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\Views\BatchExportSettingsView.xaml.cs">
+      <DependentUpon>BatchExportSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\Views\SingleExportSettingsView.xaml.cs">
+      <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\ViewModels\SingleExportSettingsViewModel.cs" />
+    <Compile Include="Export\Models\SingleExportSettings.cs" />
+    <Compile Include="Export\WorkingClipboard.cs" />
+    <Compile Include="Export\Models\ColorSpace.cs" />
+    <Compile Include="Export\Exporter.cs" />
+    <Compile Include="Export\ViewModels\PresetsRepositoryViewModel.cs" />
+    <Compile Include="Export\Models\Preset.cs" />
+    <Compile Include="Export\Models\PresetsRepository.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModelCollection.cs" />
+    <Compile Include="Export\Models\StoreException.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModel.cs" />
+    <Compile Include="Export\Models\FileType.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
@@ -240,6 +280,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Export\Views\PresetsRepositoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Export\Views\BatchExportSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Export\Views\SingleExportSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -293,6 +345,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

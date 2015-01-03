@@ -56,14 +56,29 @@
     <Compile Include="ExceptionHandler\CentralHandler.cs" />
     <Compile Include="ExceptionHandler\ManageExceptionEventArgs.cs" />
     <Compile Include="ExceptionHandler\UnhandledException.cs" />
+    <Compile Include="Mvvm\Actions\ChooseFileSaveAction.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
+    <Compile Include="Mvvm\Actions\ConfirmationAction.cs" />
+    <Compile Include="Mvvm\Actions\FileDialogActionBase.cs" />
+    <Compile Include="Mvvm\Actions\FileFolderActionBase.cs" />
+    <Compile Include="Mvvm\Actions\MessageActionExtensions.cs" />
+    <Compile Include="Mvvm\Actions\NonUiTrigger.cs" />
     <Compile Include="Mvvm\Actions\NotificationAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessAction.cs" />
     <Compile Include="Mvvm\Actions\ProcessCompletedAction.cs" />
     <Compile Include="Mvvm\Actions\ShowViewAction.cs" />
+    <Compile Include="Mvvm\Actions\ShowViewDialogAction.cs" />
     <Compile Include="Mvvm\BindingWebBrowser.cs" />
+    <Compile Include="Mvvm\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Mvvm\Converters\SimpleExceptionConverter.cs" />
+    <Compile Include="Mvvm\Converters\VisibilityBooleanConverter.cs" />
+    <Compile Include="Mvvm\EnumProvider.cs" />
+    <Compile Include="Mvvm\Messaging\FileNameMessageContent.cs" />
     <Compile Include="Mvvm\Messaging\ViewModelMessageContent.cs" />
+    <Compile Include="Mvvm\ViewModels\ViewModelCollection.cs" />
+    <Compile Include="Mvvm\Views\ConfirmationView.xaml.cs">
+      <DependentUpon>ConfirmationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Mvvm\Views\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
@@ -103,6 +118,7 @@
     <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="Unmanaged\DllNotFoundException.cs" />
     <Compile Include="Unmanaged\DllSha1MismatchException.cs" />
+    <Compile Include="Unmanaged\Pinvoke.cs" />
     <Compile Include="Versioning\DownloadCorruptException.cs" />
     <Compile Include="Versioning\InvalidVersionStringException.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
@@ -124,6 +140,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Mvvm\Views\ConfirmationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Mvvm\Views\NotificationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

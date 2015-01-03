@@ -7,6 +7,8 @@ namespace Bovender.Mvvm.Messaging
     /// <summary>
     /// Holds information about percent completion of a process
     /// and defines events that occur when the process is finished.
+    /// This message can optionally carry a view model with additional
+    /// events and capabilities.
     /// </summary>
     public class ProcessMessageContent : ViewModelMessageContent
     {
@@ -15,6 +17,8 @@ namespace Bovender.Mvvm.Messaging
         public string Caption { get; set; }
 
         public string Message { get; set; }
+
+        public string CancelButtonText { get; set; }
 
         public bool Processing
         {
@@ -138,33 +142,45 @@ namespace Bovender.Mvvm.Messaging
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new ProcessMessageContent.
+        /// </summary>
         public ProcessMessageContent() : base() { }
 
+        /// <summary>
+        /// Creates a new ProcessMessageContent that encapsulates
+        /// the given <paramref name="viewModel"/> to enable views
+        /// to access the encapsulated view model's members
+        /// (e.g. in order to bind to the view model's events).
+        /// </summary>
+        /// <param name="viewModel">View model to encapsulate</param>
         public ProcessMessageContent(ViewModelBase viewModel) : base(viewModel) { }
 
+        /// <summary>
+        /// Creates a new ProcessMessageContent that has the ability
+        /// to cancel a process.
+        /// </summary>
+        /// <param name="cancelProcess">Method to invoke when the Cancel button
+        /// is clicked</param>
         public ProcessMessageContent(Action cancelProcess)
             : this()
         {
             CancelProcess = cancelProcess;
         }
 
+        /// <summary>
+        /// Creates a new ProcessMessageContent that has the ability
+        /// to cancel a process and that encapsulates a view model to
+        /// provide a view easy access to the view model's members
+        /// (e.g. in order to bind to the view model's events).
+        /// </summary>
+        /// <param name="viewModel">View model to encapsulate</param>
+        /// <param name="cancelProcess">Method to invoke when the Cancel button
+        /// is clicked</param>
         public ProcessMessageContent(ViewModelBase viewModel, Action cancelProcess)
             : base(viewModel)
         {
             CancelProcess = cancelProcess;
-        }
-
-        #endregion
-
-        #region Overrides
-
-        /// <summary>
-        /// Disables the Confirm command if the Value is invalid.
-        /// </summary>
-        /// <returns>True if the Value is valid and the dialog can be closed.</returns>
-        protected override bool CanConfirm()
-        {
-            return String.IsNullOrEmpty((this as IDataErrorInfo)["Value"]);
         }
 
         #endregion

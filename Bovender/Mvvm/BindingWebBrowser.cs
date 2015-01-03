@@ -77,8 +77,11 @@ namespace Bovender.Mvvm
             if (browser != null)
             {
                 Stream s = e.NewValue as Stream;
-                s.Seek(0, SeekOrigin.Begin);
-                browser.NavigateToStream(s);
+                if (s != null)
+                {
+                    s.Seek(0, SeekOrigin.Begin);
+                    browser.NavigateToStream(s);
+                }
             }
         }
 

@@ -386,5 +386,14 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         #endregion
+
+        #region Implementation of ViewModelBase's abstract methods
+
+        public override object RevealModelObject()
+        {
+            return _workbook;
+        }
+
+        #endregion
     }
 }

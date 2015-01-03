@@ -70,11 +70,56 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active worksheet.
+        /// </summary>
+        public static string ActiveSheet {
+            get {
+                return ResourceManager.GetString("ActiveSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active workbook.
+        /// </summary>
+        public static string ActiveWorkbook {
+            get {
+                return ResourceManager.GetString("ActiveWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files.
+        /// </summary>
+        public static string AllFiles {
+            get {
+                return ResourceManager.GetString("AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
             get {
                 return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export.
+        /// </summary>
+        public static string BatchExport {
+            get {
+                return ResourceManager.GetString("BatchExport", resourceCulture);
             }
         }
         
@@ -93,6 +138,24 @@ namespace XLToolbox {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All graphic objects.
+        /// </summary>
+        public static string ChartsAndShapes {
+            get {
+                return ResourceManager.GetString("ChartsAndShapes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only charts.
+        /// </summary>
+        public static string ChartsOnly {
+            get {
+                return ResourceManager.GetString("ChartsOnly", resourceCulture);
             }
         }
         
@@ -151,11 +214,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CMYK.
+        /// </summary>
+        public static string Cmyk {
+            get {
+                return ResourceManager.GetString("Cmyk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color space.
+        /// </summary>
+        public static string ColorSpace {
+            get {
+                return ResourceManager.GetString("ColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public comment (optional).
         /// </summary>
         public static string CommentOptional {
             get {
                 return ResourceManager.GetString("CommentOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to remove this preset?.
+        /// </summary>
+        public static string ConfirmRemovePreset {
+            get {
+                return ResourceManager.GetString("ConfirmRemovePreset", resourceCulture);
             }
         }
         
@@ -192,6 +282,15 @@ namespace XLToolbox {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -259,11 +358,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit export preset.
+        /// </summary>
+        public static string EditExportPreset {
+            get {
+                return ResourceManager.GetString("EditExportPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
             get {
                 return ResourceManager.GetString("EMailOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EMF files.
+        /// </summary>
+        public static string EmfFiles {
+            get {
+                return ResourceManager.GetString("EmfFiles", resourceCulture);
             }
         }
         
@@ -317,6 +443,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to fetch the current version information from the internet.
         ///The error was:
         ///{0}
@@ -330,6 +465,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File name template.
+        /// </summary>
+        public static string FileNameTemplate {
+            get {
+                return ResourceManager.GetString("FileNameTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use {workbook}, {worksheet} and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click &quot;Export&quot;..
+        /// </summary>
+        public static string FileNameTemplateHint {
+            get {
+                return ResourceManager.GetString("FileNameTemplateHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File type.
+        /// </summary>
+        public static string FileType {
+            get {
+                return ResourceManager.GetString("FileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FreeImage version.
         /// </summary>
         public static string FreeImageVersion {
@@ -339,11 +501,47 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details..
+        /// </summary>
+        public static string GplDisclaimer {
+            get {
+                return ResourceManager.GetString("GplDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grays.
+        /// </summary>
+        public static string GrayScale {
+            get {
+                return ResourceManager.GetString("GrayScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string Height {
+            get {
+                return ResourceManager.GetString("Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you are the owner of this computer, you can download the update manually, then right-click the update installer and choose &quot;Run as administrator&quot; to acquire appropriate permissions to install..
         /// </summary>
         public static string IfYouAreTheOwnerOfThisComputer {
             get {
                 return ResourceManager.GetString("IfYouAreTheOwnerOfThisComputer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to index.
+        /// </summary>
+        public static string Index {
+            get {
+                return ResourceManager.GetString("Index", resourceCulture);
             }
         }
         
@@ -366,6 +564,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Layout.
+        /// </summary>
+        public static string Layout {
+            get {
+                return ResourceManager.GetString("Layout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         public static string License {
@@ -380,6 +587,24 @@ namespace XLToolbox {
         public static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Black &amp; white.
+        /// </summary>
+        public static string Monochrome {
+            get {
+                return ResourceManager.GetString("Monochrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -447,11 +672,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Objects.
+        /// </summary>
+        public static string Objects {
+            get {
+                return ResourceManager.GetString("Objects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All open workbooks.
+        /// </summary>
+        public static string OpenWorkbooks {
+            get {
+                return ResourceManager.GetString("OpenWorkbooks", resourceCulture);
             }
         }
         
@@ -474,11 +717,65 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please send a crash report by clicking the button below. If you give your name and e-mail, the developer may contact you when trying to solve the problem. Click &quot;Technical information...&quot; to view the contents of the bug report..
         /// </summary>
         public static string PleaseSendCrashReport {
             get {
                 return ResourceManager.GetString("PleaseSendCrashReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PNG files.
+        /// </summary>
+        public static string PngFiles {
+            get {
+                return ResourceManager.GetString("PngFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve aspect ratio.
+        /// </summary>
+        public static string PreserveAspectRatio {
+            get {
+                return ResourceManager.GetString("PreserveAspectRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preserve layout on sheet.
+        /// </summary>
+        public static string PreserveLayout {
+            get {
+                return ResourceManager.GetString("PreserveLayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preset.
+        /// </summary>
+        public static string Preset {
+            get {
+                return ResourceManager.GetString("Preset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove preset.
+        /// </summary>
+        public static string RemovePreset {
+            get {
+                return ResourceManager.GetString("RemovePreset", resourceCulture);
             }
         }
         
@@ -506,6 +803,51 @@ namespace XLToolbox {
         public static string ReportSuccessfullySubmitted {
             get {
                 return ResourceManager.GetString("ReportSuccessfullySubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolution.
+        /// </summary>
+        public static string Resolution {
+            get {
+                return ResourceManager.GetString("Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RGB.
+        /// </summary>
+        public static string Rgb {
+            get {
+                return ResourceManager.GetString("Rgb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scope.
+        /// </summary>
+        public static string Scope {
+            get {
+                return ResourceManager.GetString("Scope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection.
+        /// </summary>
+        public static string Selection {
+            get {
+                return ResourceManager.GetString("Selection", resourceCulture);
             }
         }
         
@@ -557,11 +899,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Single graphic export.
+        /// </summary>
+        public static string SingleGraphicExport {
+            get {
+                return ResourceManager.GetString("SingleGraphicExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Individual items.
+        /// </summary>
+        public static string SingleItems {
+            get {
+                return ResourceManager.GetString("SingleItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stack trace.
         /// </summary>
         public static string StackTrace {
             get {
                 return ResourceManager.GetString("StackTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SVG files.
+        /// </summary>
+        public static string SvgFiles {
+            get {
+                return ResourceManager.GetString("SvgFiles", resourceCulture);
             }
         }
         
@@ -602,11 +971,74 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TIFF files.
+        /// </summary>
+        public static string TifFiles {
+            get {
+                return ResourceManager.GetString("TifFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top.
         /// </summary>
         public static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparency.
+        /// </summary>
+        public static string Transparency {
+            get {
+                return ResourceManager.GetString("Transparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparent canvas.
+        /// </summary>
+        public static string TransparentCanvas {
+            get {
+                return ResourceManager.GetString("TransparentCanvas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leaves the canvas transparent. If the graphics object (e.g. the chart) that is exported contains white background color, the transparency will not be evident. In this case, if you want transparency, choose &quot;Transparent white&quot;..
+        /// </summary>
+        public static string TransparentCanvasTooltip {
+            get {
+                return ResourceManager.GetString("TransparentCanvasTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparent white.
+        /// </summary>
+        public static string TransparentWhite {
+            get {
+                return ResourceManager.GetString("TransparentWhite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forces all whites in the image file to become transparent..
+        /// </summary>
+        public static string TransparentWhiteTooltip {
+            get {
+                return ResourceManager.GetString("TransparentWhiteTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
             }
         }
         
@@ -689,6 +1121,51 @@ namespace XLToolbox {
         public static string WhatsNew {
             get {
                 return ResourceManager.GetString("WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White canvas.
+        /// </summary>
+        public static string WhiteCanvas {
+            get {
+                return ResourceManager.GetString("WhiteCanvas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paints the graphic object on a white canvas without transparency..
+        /// </summary>
+        public static string WhiteCanvasTooltip {
+            get {
+                return ResourceManager.GetString("WhiteCanvasTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string Width {
+            get {
+                return ResourceManager.GetString("Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to workbook.
+        /// </summary>
+        public static string Workbook {
+            get {
+                return ResourceManager.GetString("Workbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to worksheet.
+        /// </summary>
+        public static string Worksheet {
+            get {
+                return ResourceManager.GetString("Worksheet", resourceCulture);
             }
         }
         

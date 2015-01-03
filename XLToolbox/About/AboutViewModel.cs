@@ -123,5 +123,10 @@ namespace XLToolbox.About
         private Message<MessageContent> _showCreditsMessage;
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

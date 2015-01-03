@@ -76,5 +76,9 @@ namespace Bovender.Mvvm.Messaging
 
         #endregion
 
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace XLToolbox.Greeter
         {
             get
             {
-                return SemanticVersion.CurrentVersion();
+                return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             }
         }
 
@@ -95,5 +95,10 @@ namespace XLToolbox.Greeter
         private Message<MessageContent> _donateMessage;
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return null;
+        }
     }
 }

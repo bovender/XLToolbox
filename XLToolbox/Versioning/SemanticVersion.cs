@@ -22,5 +22,13 @@ namespace XLToolbox.Versioning
         }
 
         #endregion
+
+        public static string BrandName
+        {
+            get
+            {
+                return Properties.Settings.Default.AddinName + " " + CurrentVersion().ToString();
+            }
+        }
     }
 }

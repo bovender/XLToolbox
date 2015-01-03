@@ -79,5 +79,51 @@ namespace XLToolbox.Properties {
                 return ((string)(this["AddinName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Point")]
+        public global::XLToolbox.Export.Models.Unit ExportUnit {
+            get {
+                return ((global::XLToolbox.Export.Models.Unit)(this["ExportUnit"]));
+            }
+            set {
+                this["ExportUnit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportPath {
+            get {
+                return ((string)(this["ExportPath"]));
+            }
+            set {
+                this["ExportPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.Models.Preset ExportPreset {
+            get {
+                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
+            }
+            set {
+                this["ExportPreset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Export.Models.BatchExportSettings BatchExportSettings {
+            get {
+                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["BatchExportSettings"]));
+            }
+            set {
+                this["BatchExportSettings"] = value;
+            }
+        }
     }
 }

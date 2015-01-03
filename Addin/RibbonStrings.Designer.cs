@@ -97,7 +97,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Batch Export.
+        ///   Looks up a localized string similar to Batch export with settings....
         /// </summary>
         internal static string ButtonExportBatchLabel {
             get {
@@ -106,7 +106,25 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export all graphical objects on this worksheet or in the current workbook using the last settings..
+        ///   Looks up a localized string similar to Batch Export.
+        /// </summary>
+        internal static string ButtonExportBatchQuickLabel {
+            get {
+                return ResourceManager.GetString("ButtonExportBatchQuickLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform the last batch export again..
+        /// </summary>
+        internal static string ButtonExportBatchQuickSupertip {
+            get {
+                return ResourceManager.GetString("ButtonExportBatchQuickSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export all graphical objects on this worksheet or in the current workbook using detailed settings..
         /// </summary>
         internal static string ButtonExportBatchSupertip {
             get {
@@ -115,7 +133,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export selection.
+        ///   Looks up a localized string similar to Export with settings....
         /// </summary>
         internal static string ButtonExportSelectionLabel {
             get {
@@ -124,7 +142,25 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export selection.
+        /// </summary>
+        internal static string ButtonExportSelectionQuickLabel {
+            get {
+                return ResourceManager.GetString("ButtonExportSelectionQuickLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export the currently selected graphical object(s) using the last settings.
+        /// </summary>
+        internal static string ButtonExportSelectionQuickSupertip {
+            get {
+                return ResourceManager.GetString("ButtonExportSelectionQuickSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export the currently selected graphical object(s) by indicating desired settings..
         /// </summary>
         internal static string ButtonExportSelectionSupertip {
             get {

@@ -17,6 +17,14 @@ namespace XLToolbox.ExceptionHandler
             }
         }
 
+        public string ExcelBitness
+        {
+            get
+            {
+                return Environment.Is64BitProcess ? "64-bit" : "32-bit";
+            }
+        }
+
         public string ToolboxVersion
         {
             get
@@ -66,5 +74,10 @@ namespace XLToolbox.ExceptionHandler
         }
 
         #endregion
+
+        public override object RevealModelObject()
+        {
+            return Exception;
+        }
     }
 }

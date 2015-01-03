@@ -362,4 +362,167 @@ The following error occurred:
 
 You may want to try again.</value>
   </data>
+  <data name="Index" xml:space="preserve">
+    <value>index</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
+  <data name="Workbook" xml:space="preserve">
+    <value>workbook</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
+  <data name="Worksheet" xml:space="preserve">
+    <value>worksheet</value>
+    <comment>For use as placeholder in file name templates</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="PreserveAspectRatio" xml:space="preserve">
+    <value>Preserve aspect ratio</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SingleGraphicExport" xml:space="preserve">
+    <value>Single graphic export</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="EditExportPreset" xml:space="preserve">
+    <value>Edit export preset</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All files</value>
+  </data>
+  <data name="ColorSpace" xml:space="preserve">
+    <value>Color space</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="EmfFiles" xml:space="preserve">
+    <value>EMF files</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>File type</value>
+  </data>
+  <data name="GplDisclaimer" xml:space="preserve">
+    <value>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</value>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="PngFiles" xml:space="preserve">
+    <value>PNG files</value>
+  </data>
+  <data name="Resolution" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="Scope" xml:space="preserve">
+    <value>Scope</value>
+  </data>
+  <data name="SvgFiles" xml:space="preserve">
+    <value>SVG files</value>
+  </data>
+  <data name="TifFiles" xml:space="preserve">
+    <value>TIFF files</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="Cmyk" xml:space="preserve">
+    <value>CMYK</value>
+  </data>
+  <data name="GrayScale" xml:space="preserve">
+    <value>Grays</value>
+  </data>
+  <data name="Monochrome" xml:space="preserve">
+    <value>Black &amp; white</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Rgb" xml:space="preserve">
+    <value>RGB</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Transparency</value>
+  </data>
+  <data name="TransparentCanvas" xml:space="preserve">
+    <value>Transparent canvas</value>
+  </data>
+  <data name="TransparentCanvasTooltip" xml:space="preserve">
+    <value>Leaves the canvas transparent. If the graphics object (e.g. the chart) that is exported contains white background color, the transparency will not be evident. In this case, if you want transparency, choose "Transparent white".</value>
+  </data>
+  <data name="TransparentWhite" xml:space="preserve">
+    <value>Transparent white</value>
+  </data>
+  <data name="TransparentWhiteTooltip" xml:space="preserve">
+    <value>Forces all whites in the image file to become transparent.</value>
+  </data>
+  <data name="WhiteCanvas" xml:space="preserve">
+    <value>White canvas</value>
+  </data>
+  <data name="WhiteCanvasTooltip" xml:space="preserve">
+    <value>Paints the graphic object on a white canvas without transparency.</value>
+  </data>
+  <data name="ConfirmRemovePreset" xml:space="preserve">
+    <value>Do you really want to remove this preset?</value>
+  </data>
+  <data name="RemovePreset" xml:space="preserve">
+    <value>Remove preset</value>
+  </data>
+  <data name="ActiveSheet" xml:space="preserve">
+    <value>Active worksheet</value>
+  </data>
+  <data name="ActiveWorkbook" xml:space="preserve">
+    <value>Active workbook</value>
+  </data>
+  <data name="BatchExport" xml:space="preserve">
+    <value>Batch export</value>
+  </data>
+  <data name="ChartsAndShapes" xml:space="preserve">
+    <value>All graphic objects</value>
+  </data>
+  <data name="ChartsOnly" xml:space="preserve">
+    <value>Only charts</value>
+  </data>
+  <data name="OpenWorkbooks" xml:space="preserve">
+    <value>All open workbooks</value>
+  </data>
+  <data name="PreserveLayout" xml:space="preserve">
+    <value>Preserve layout on sheet</value>
+  </data>
+  <data name="SingleItems" xml:space="preserve">
+    <value>Individual items</value>
+  </data>
+  <data name="FileNameTemplate" xml:space="preserve">
+    <value>File name template</value>
+  </data>
+  <data name="FileNameTemplateHint" xml:space="preserve">
+    <value>Use {workbook}, {worksheet} and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click "Export".</value>
+    <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
+  </data>
 </root>

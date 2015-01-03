@@ -19,13 +19,13 @@ namespace Bovender.Unmanaged
         #region WinAPI
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr LoadLibrary(string dllToLoad);
+        static extern IntPtr LoadLibrary(string dllToLoad);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+        static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
         [DllImport("kernel32.dll")]
-        public static extern bool FreeLibrary(IntPtr hModule);
+        static extern bool FreeLibrary(IntPtr hModule);
 
         #endregion
         
