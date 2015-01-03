@@ -22,7 +22,8 @@
                                     Assembly="XLToolbox" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ExportProcessMessage}" EventName="Sent">
-            <actions:ProcessAction Caption="{x:Static l:Strings.BatchExport}" />
+            <actions:ProcessAction Caption="{x:Static l:Strings.BatchExport}"
+                                   CancelButtonText="{x:Static l:Strings.Cancel}" />
             <!-- Must close view *after* invoking the process action, otherwise 
             the event handler will have been deleted. -->
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
