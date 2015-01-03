@@ -15,7 +15,6 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ChooseFolderMessage}" EventName="Sent">
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
             <actions:ChooseFolderAction Caption="{x:Static l:Strings.Export}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
