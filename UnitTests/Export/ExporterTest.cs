@@ -103,7 +103,7 @@ namespace XLToolbox.Test.Export
                 settings.Objects = objects;
                 settings.Scope = scope;
                 Exporter exporter = new Exporter();
-                exporter.ExportBatch(settings);
+                exporter.ExportBatchAsync(settings);
                 Assert.AreEqual(expectedNumberOfFiles,
                     Directory.GetFiles(settings.Path).Length);
                 Directory.Delete(settings.Path, true);

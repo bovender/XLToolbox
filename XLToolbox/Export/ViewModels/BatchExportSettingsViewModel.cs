@@ -291,27 +291,33 @@ namespace XLToolbox.Export.ViewModels
         #region Constructors
 
         public BatchExportSettingsViewModel()
+            : this(new BatchExportSettings())
+        {
+            if (PresetsRepository.Presets.Count > 0)
+            {
+                PresetsRepository.Presets[0].IsSelected = true;
+            }
+        }
+
+        public BatchExportSettingsViewModel(BatchExportSettings settings)
             : base()
         {
-            Settings = new BatchExportSettings();
+            Settings = settings;
+            if (settings.Preset != null)
+            {
+                PresetViewModel pvm = new PresetViewModel(settings.Preset);
+                if (!PresetsRepository.Select(pvm))
+                {
+                    PresetsRepository.Presets.Add(pvm);
+                    pvm.IsSelected = true;
+                }
+            }
             FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
                 Strings.Workbook, Strings.Worksheet, Strings.Index);
             Scope.PropertyChanged += Scope_PropertyChanged;
             Objects.PropertyChanged += Objects_PropertyChanged;
             Layout.PropertyChanged += Layout_PropertyChanged;
             UpdateStates();
-        }
-
-        public BatchExportSettingsViewModel(BatchExportSettings settings)
-            : this()
-        {
-            Settings = settings;
-            PresetViewModel pvm = new PresetViewModel(settings.Preset);
-            if (!PresetsRepository.Select(pvm))
-            {
-                PresetsRepository.Presets.Add(pvm);
-                pvm.IsSelected = true;
-            }
         }
 
         #endregion
@@ -324,8 +330,13 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         private void DoChooseFolder()
         {
+            string path = ((BatchExportSettings)Settings).Path;
+            if (string.IsNullOrEmpty(path))
+            {
+                path = GetExportPath();
+            }
             ChooseFolderMessage.Send(
-                new StringMessageContent(GetExportPath()),
+                new StringMessageContent(path),
                 (content) => ConfirmFolder(content)
             );
         }
@@ -341,12 +352,29 @@ namespace XLToolbox.Export.ViewModels
             {
                 ((BatchExportSettings)Settings).Store(
                     ExcelInstance.Application.ActiveWorkbook);
-                // TODO: Make export asynchronous
-                ProcessMessageContent pcm = new ProcessMessageContent();
-                ExportProcessMessage.Send(pcm);
+                SaveExportPath();
                 Exporter exporter = new Exporter();
-                exporter.ExportBatch(Settings as BatchExportSettings);
-                pcm.CompletedMessage.Send(pcm);
+                ProcessMessageContent processMessageContent =
+                    new ProcessMessageContent(exporter.CancelBatchExport);
+                exporter.BatchExportProgressChanged +=
+                    (object sender, ExportProgressChangedEventArgs args) =>
+                    {
+                        processMessageContent.PercentCompleted = args.PercentCompleted;
+                    };
+                exporter.BatchExportFinished +=
+                    (object sender, ExportFinishedEventArgs args) =>
+                    {
+                        Dispatcher.Invoke(new System.Action(
+                                () =>
+                                {
+                                    processMessageContent.CompletedMessage.Send(processMessageContent);
+                                }
+                            )
+                        );
+                    };
+                processMessageContent.Processing = true;
+                ExportProcessMessage.Send(processMessageContent);
+                exporter.ExportBatchAsync(Settings as BatchExportSettings);
             }
         }
 

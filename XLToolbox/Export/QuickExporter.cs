@@ -47,6 +47,14 @@ namespace XLToolbox.Export
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
+                bvm.ExportProcessMessage.Sent +=
+                    (sender, args) =>
+                    {
+                        ProcessAction a = new ProcessAction();
+                        a.Caption = Strings.BatchExport;
+                        a.CancelButtonText = Strings.Cancel;
+                        a.Invoke(args);
+                    };
                 bvm.ChooseFolderCommand.Execute(null);
             }
             else

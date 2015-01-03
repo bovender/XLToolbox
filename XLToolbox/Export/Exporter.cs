@@ -9,6 +9,7 @@ using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using System.Collections.Generic;
 using XLToolbox.Export.Models;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Export
 {
@@ -22,7 +23,14 @@ namespace XLToolbox.Export
         /// <summary>
         /// Signals current export progress during batch export operations.
         /// </summary>
-        public event EventHandler<ExportProgressChangedEventArgs> ExportProgressChanged;
+        public event EventHandler<ExportProgressChangedEventArgs> BatchExportProgressChanged;
+
+        /// <summary>
+        /// Signals that an asynchronous export progress is finished. Subscribers
+        /// can inspect the event args to find out if the process has been cancelled
+        /// prematurely.
+        /// </summary>
+        public event EventHandler<ExportFinishedEventArgs> BatchExportFinished;
 
         #endregion
 
@@ -59,38 +67,55 @@ namespace XLToolbox.Export
         }
 
         /// <summary>
-        /// Performs a batch export of charts and/or drawing objects
-        /// (shapes).
+        /// Starts a batch export of charts and/or drawing objects
+        /// (shapes) asynchronously. Callers should subscribe to the
+        /// <see cref="ExportProcessChanged"/> and <see cref="ExportFinished"/>
+        /// events to learn about status changes. The operation can
+        /// be cancelled by caling the <see cref="CancelBatchExport"/>
+        /// method.
         /// </summary>
         /// <param name="settings">Settings describing the desired operation.</param>
-        public void ExportBatch(BatchExportSettings settings)
+        public void ExportBatchAsync(BatchExportSettings settings)
         {
+            if (_batchRunning)
+            {
+                throw new InvalidOperationException(
+                    "Cannot start batch export while an operation is in progress.");
+            }
+
+            Task t = new Task(() =>
+            {
+                _batchRunning = true;
+                ExcelInstance.DisableScreenUpdating();
+                switch (_batchSettings.Scope)
+                {
+                    case BatchExportScope.ActiveSheet:
+                        _numTotal = CountInSheet(ExcelInstance.Application.ActiveSheet);
+                        ExportSheet(ExcelInstance.Application.ActiveSheet);
+                        break;
+                    case BatchExportScope.ActiveWorkbook:
+                        _numTotal = CountInWorkbook(ExcelInstance.Application.ActiveWorkbook);
+                        ExportWorkbook(ExcelInstance.Application.ActiveWorkbook);
+                        break;
+                    case BatchExportScope.OpenWorkbooks:
+                        _numTotal = CountInAllWorkbooks();
+                        ExportAllWorkbooks();
+                        break;
+                    default:
+                        throw new NotImplementedException(String.Format(
+                            "Batch export not implemented for {0}",
+                            settings.Scope));
+                }
+                ExcelInstance.EnableScreenUpdating();
+                OnExportFinished();
+                _batchRunning = false;
+            });
+
             _batchSettings = settings;
-            _batchRunning = true;
             _cancelled = false;
             _batchFileName = new ExportFileName(settings.Path, settings.FileName,
                 settings.Preset.FileType);
-            switch (settings.Scope)
-            {
-                case BatchExportScope.ActiveSheet:
-                    _numTotal = CountInSheet(ExcelInstance.Application.ActiveSheet);
-                    ExportSheet(ExcelInstance.Application.ActiveSheet);
-                    break;
-                case BatchExportScope.ActiveWorkbook:
-                    _numTotal = CountInWorkbook(ExcelInstance.Application.ActiveWorkbook);
-                    ExportWorkbook(ExcelInstance.Application.ActiveWorkbook);
-                    break;
-                case BatchExportScope.OpenWorkbooks:
-                    _numTotal = CountInAllWorkbooks();
-                    ExportAllWorkbooks();
-                    break;
-                default:
-                    _batchRunning = false;
-                    throw new NotImplementedException(String.Format(
-                        "Batch export not implemented for {0}",
-                        settings.Scope));
-            }
-            _batchRunning = false;
+            t.Start();
         }
 
         /// <summary>
@@ -270,7 +295,6 @@ namespace XLToolbox.Export
                 ExportWorkbook(wb);
                 if (_cancelled) break;
             }
-            _batchRunning = false;
         }
 
         private void ExportWorkbook(Workbook workbook)
@@ -319,6 +343,7 @@ namespace XLToolbox.Export
                 _batchSettings.Preset,
                 _batchFileName.GenerateNext(sheet)
             );
+            OnExportProgressChanged();
         }
 
         private void ExportSheetItems(dynamic sheet)
@@ -347,6 +372,7 @@ namespace XLToolbox.Export
                             "Single-item export not implemented for " + _batchSettings.Objects.ToString());
                 }
             }
+            OnExportProgressChanged();
         }
 
         private void ExportSheetChartItems(Worksheet worksheet)
@@ -359,6 +385,8 @@ namespace XLToolbox.Export
             {
                 cos.Item(i).Select();
                 ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
+                OnExportProgressChanged();
+                if (_cancelled) break;
             }
         }
 
@@ -368,6 +396,8 @@ namespace XLToolbox.Export
             {
                 sh.Select(true);
                 ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
+                OnExportProgressChanged();
+                if (_cancelled) break;
             }
         }
 
@@ -447,17 +477,6 @@ namespace XLToolbox.Export
             }
         }
 
-        private void OnExportProgressChanged()
-        {
-            if (ExportProgressChanged != null)
-            {
-                ExportProgressChanged(
-                    this,
-                    new ExportProgressChangedEventArgs(_batchFileName.Counter / _numTotal)
-                );
-            }
-        }
-
         /*private FREE_IMAGE_FORMAT FileTypeToFreeImage(FileType fileType)
         {
             FREE_IMAGE_FORMAT fif;
@@ -475,6 +494,27 @@ namespace XLToolbox.Export
         #endregion
 
         #region Private helper methods
+
+        private void OnExportProgressChanged()
+        {
+            if (BatchExportProgressChanged != null)
+            {
+                BatchExportProgressChanged(
+                    this,
+                    new ExportProgressChangedEventArgs(
+                        Convert.ToDouble(_batchFileName.Counter) / _numTotal)
+                );
+            }
+        }
+
+        private void OnExportFinished()
+        {
+            if (BatchExportFinished != null)
+            {
+                BatchExportFinished(this, new ExportFinishedEventArgs(
+                    _batchFileName.Counter, _cancelled));
+            }
+        }
 
         private FREE_IMAGE_SAVE_FLAGS GetSaveFlags(Preset preset)
         {
