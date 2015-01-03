@@ -4,10 +4,12 @@
         xmlns:vs="clr-namespace:Bovender.Mvvm.Views.Settings"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" Topmost="True" ShowInTaskbar="False"
         Title="{Binding Caption}" ResizeMode="NoResize"
         vs:WindowState.CenterScreen="True"
     >
+    <!-- This window must have the TopMost property set to true, otherwise
+    the progress bar might not be visibly updated. -->
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding CompletedMessage}" EventName="Sent">
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
