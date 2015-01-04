@@ -115,6 +115,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This add-in is distributed under the Apache License, Version 2.0, on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License..
+        /// </summary>
+        public static string ApacheDisclaimer {
+            get {
+                return ResourceManager.GetString("ApacheDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export.
         /// </summary>
         public static string BatchExport {
@@ -668,6 +677,15 @@ namespace XLToolbox {
         public static string NoThanks {
             get {
                 return ResourceManager.GetString("NoThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No warranties ‒ see license..
+        /// </summary>
+        public static string NoWarrantiesSeeLicense {
+            get {
+                return ResourceManager.GetString("NoWarrantiesSeeLicense", resourceCulture);
             }
         }
         

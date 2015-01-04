@@ -17,13 +17,13 @@ The sources do of course not include the confidential strong name key (.snk)
 file that is needed to sign the binaries. If you want to build the solution
 yourself, you have different options:
 
-- Unzip 'source.zip' or clone the Git repository and subsequently remove
+- Clone the Git repository and subsequently remove
   the code signing option from all of the project properties to build
-  unsigned binaries. If cloning the Git repository, it is best to use a
+  unsigned binaries. It is best to use a
   separate branch to make the changes to the projects properties. If you
   later update the repository from remote, you can git-rebase this
   branch on top of HEAD.
-- Unzip 'source.zip' in Windows and supply a strong name key file in
+- On Windows, obtain the sources and supply a strong name key file in
   every subdirectory of the extracted source tree. The Visual Studio
   project properties expect the file name to be "xltb.snk". The original
   strong name key file is not included in the distributed sources for
@@ -80,18 +80,16 @@ License
 -------
 
     Daniel's XL Toolbox NG
-    Copyright (C) 2008-2014  Daniel Kraus  <xltoolbox@gmx.net>
+    Copyright (C) 2014-2015  Daniel Kraus  <xltoolbox@gmx.net>
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	    http://www.apache.org/licenses/LICENSE-2.0
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
