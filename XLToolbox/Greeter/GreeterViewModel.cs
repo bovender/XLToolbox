@@ -96,9 +96,13 @@ namespace XLToolbox.Greeter
 
         #endregion
 
+        #region Overrides
+
         public override object RevealModelObject()
         {
             return null;
         }
+
+        #endregion
     }
 }
