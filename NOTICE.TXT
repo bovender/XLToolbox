@@ -16,6 +16,9 @@ Visual Studio Tools for Office (VSTO) Runtime
 
 All rights reserved by Microsoft.
 
+Distributed with Daniel's XL Toolbox add-in under the Microsoft Software
+License Terms -- Microsoft Visual Studio Tools for the Microsoft Office
+System (Version 4.0 Runtime). See `LICENSE-MS-VSTO.TXT` for details.
 
 Expression Blend
 ----------------
@@ -29,7 +32,7 @@ All rights reserved by Microsoft.
 
 Distributed with Daniel's XL Toolbox add-in under the Microsoft Software
 License Terms -- Microsoft Windows Software Development Kit for Windows
-7 and .NET Framework 4.0.
+7 and .NET Framework 4.0. See `LICENSE-MS-SDK.TXT` for details.
 
 
 FreeImage
@@ -39,7 +42,7 @@ FreeImage
 
 (c) Copyright Hervé Drolon and others
 
-Used under the FreeImage Public License: see LICENSE-FREEIMAGE.TXT.
+Used under the FreeImage Public License: see `LICENSE-FREEIMAGE.TXT`.
 
 Minor modifications were made to the FreeImage Visual Studio project
 files in order to build the library with Visual Studio 2013. The XL
