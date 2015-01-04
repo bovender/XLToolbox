@@ -204,6 +204,7 @@
     </None>
     <EmbeddedResource Include="VERSION" />
     <None Include="xltb.snk" />
+    <None Include="XLToolbox.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bovender\Bovender.csproj">

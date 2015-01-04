@@ -108,6 +108,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="VERSION" />
+    <None Include="UnitTests.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bovender\Bovender.csproj">

@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Bovender.licenseheader" />
     <None Include="bovender.snk" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -214,6 +214,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RibbonStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Addin.licenseheader" />
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
