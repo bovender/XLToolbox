@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Ribbon.xml
+	part of Daniel's XL Toolbox NG
+	
+	Copyright 2014-2015 Daniel Kraus
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	    http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui" loadImage="Ribbon_LoadImage">
+    <ribbon>
+        <tabs>
+            <tab id="TabXLToolbox" label="XL Toolbox NG">
+				<group id="GroupWorkflow" getLabel="Control_GetLabel">
+					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"/>
+				</group>
+				<group id="GroupExport" getLabel="Control_GetLabel" visible="true">
+					<splitButton id="SplitButtonExportSelection">
+						<button id="ButtonExportSelectionQuick" image="export-selection-small.png"
+								onAction="Button_OnAction"
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						<menu id="MenuExportSelection">
+							<button id="ButtonExportSelection" image="export-selection-small.png"
+									onAction="Button_OnAction"
+									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						</menu>
+					</splitButton>
+					<splitButton id="SplitButtonExportBatch">
+						<button id="ButtonExportBatchQuick" image="export-batch-small.png"
+								onAction="Button_OnAction"
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						<menu id="MenuExportBatch">
+							<button id="ButtonExportBatch" image="export-batch-small.png"
+									onAction="Button_OnAction"
+									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						</menu>
+					</splitButton>
+				</group>
+                <group id="GroupXlToolbox" label="XL Toolbox">
+                    <button id="ButtonAbout" image="xltb-icon-small.png"
+							onAction="Button_OnAction" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+                    <button id="ButtonCheckForUpdate" image="check-update-small.png"
+							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+                </group>
+                <group id="GroupDebug" label="Debug" getVisible="Group_IsVisibleInDebugOnly">
+                    <button id="ButtonTestError" onAction="Button_OnAction" label="Test error" image="error.png" size="large" />
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>

@@ -1,6 +1,6 @@
 ; Inno Setup script for Daniel's XL Toolbox
-; (c) 2008-2014 Daniel Kraus
-; GNU General Public License v3
+; (c) 2008-2015 Daniel Kraus
+; Apache License Version 2.0
 
 [Setup]
 ; Read the semantic and the installer file version from the VERSION file
@@ -9,7 +9,7 @@
 #define VER FileRead(FILE_HANDLE)
 #expr FileClose(FILE_HANDLE)
 
-#define YEAR "2014"
+#define YEAR "2015"
 #define DEV "Daniel Kraus"
 #define LOGFILE "INST-LOG.TXT"
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox NG"
@@ -22,10 +22,10 @@
 
 ; ZIP the source files
 ; The -u switch is used to achieve archive synchronization (see 7-Zip help)
-#if	Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ " + \
-			"-xr!build\ -xr!obj\ -xr!*~ -xr!*.snk setup-files\source.zip ../")
-		#error Failed to create or update source.zip!
-#endif
+;#if	Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ " + \
+;			"-xr!build\ -xr!obj\ -xr!*~ -xr!*.snk setup-files\source.zip ../")
+;		#error Failed to create or update source.zip!
+;#endif
 
 ; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
@@ -36,7 +36,7 @@ OutputBaseFilename=XL_Toolbox_{#SEMVER}
 Compression=lzma
 InternalCompressLevel=max
 SolidCompression=true
-LicenseFile=setup-files/gpl-3.0.rtf
+LicenseFile=setup-files\license.rtf
 
 ; Application name, version, etc.
 AppName={#APPNAME}
@@ -92,8 +92,8 @@ Name: de; MessagesFile: compiler:Languages\German.isl;
 #include "c:\Program Files (x86)\Inno Download Plugin\Unicode\idplang\german.iss"
 
 [Files]
-Source: "..\XLToolbox\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "setup-files\source.zip"; DestDir: "{app}"
+Source: "..\Addin\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
+; Source: "setup-files\source.zip"; DestDir: "{app}"
 Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

@@ -23,6 +23,42 @@ namespace XLToolbox.Properties {
             }
         }
         
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sf.net")]
+        public string WebsiteUrl {
+            get {
+                return ((string)(this["WebsiteUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/version-ng.txt")]
+        public string VersionInfoUrl {
+            get {
+                return ((string)(this["VersionInfoUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sf.net/")]
+        public string HelpUrl {
+            get {
+                return ((string)(this["HelpUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/receive.php")]
+        public string ExceptionPostUrl {
+            get {
+                return ((string)(this["ExceptionPostUrl"]));
+            }
+        }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -35,86 +71,76 @@ namespace XLToolbox.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastUpdateSeen {
+        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        public string AddinName {
             get {
-                return ((string)(this["LastUpdateSeen"]));
-            }
-            set {
-                this["LastUpdateSeen"] = value;
+                return ((string)(this["AddinName"]));
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.DateTime LastUpdateCheck {
+        [global::System.Configuration.DefaultSettingValueAttribute("Point")]
+        public global::XLToolbox.Export.Models.Unit ExportUnit {
             get {
-                return ((global::System.DateTime)(this["LastUpdateCheck"]));
+                return ((global::XLToolbox.Export.Models.Unit)(this["ExportUnit"]));
             }
             set {
-                this["LastUpdateCheck"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public int UpdateCheckInterval {
-            get {
-                return ((int)(this["UpdateCheckInterval"]));
-            }
-            set {
-                this["UpdateCheckInterval"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastVersionSeen {
-            get {
-                return ((string)(this["LastVersionSeen"]));
-            }
-            set {
-                this["LastVersionSeen"] = value;
+                this["ExportUnit"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersName {
+        public string ExportPath {
             get {
-                return ((string)(this["UsersName"]));
+                return ((string)(this["ExportPath"]));
             }
             set {
-                this["UsersName"] = value;
+                this["ExportPath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersEmail {
+        public global::XLToolbox.Export.Models.Preset ExportPreset {
             get {
-                return ((string)(this["UsersEmail"]));
+                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
             }
             set {
-                this["UsersEmail"] = value;
+                this["ExportPreset"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CcUser {
+        public global::XLToolbox.Export.Models.BatchExportSettings BatchExportSettings {
             get {
-                return ((bool)(this["CcUser"]));
+                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["BatchExportSettings"]));
             }
             set {
-                this["CcUser"] = value;
+                this["BatchExportSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/donate")]
+        public string DonateUrl {
+            get {
+                return ((string)(this["DonateUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/blog/tags/alpha")]
+        public string WhatsNewUrl {
+            get {
+                return ((string)(this["WhatsNewUrl"]));
             }
         }
     }
