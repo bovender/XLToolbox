@@ -227,9 +227,6 @@
     <Resource Include="Resources\html\credits.html" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\html\GPLv3.html" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\images\check-update-small.png" />
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +263,7 @@
     <Content Include="lib\x64\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\html\license.html" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="About\AboutView.xaml">

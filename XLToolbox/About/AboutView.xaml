@@ -18,7 +18,7 @@
         <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.License}"
-                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/GPLv3.html" />
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/license.html" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ShowCreditsMessage}" EventName="Sent">
