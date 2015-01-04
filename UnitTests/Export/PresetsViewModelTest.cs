@@ -31,7 +31,7 @@ namespace XLToolbox.UnitTests.Export
     {
         [Test]
         [TestCase(FileType.Emf, false)]
-        [TestCase(FileType.Svg, false)]
+        // [TestCase(FileType.Svg, false)]
         [TestCase(FileType.Png, true)]
         [TestCase(FileType.Tiff, true)]
         public void DpiDisabledForVectors(FileType fileType, bool dpiEnabled)
@@ -43,7 +43,7 @@ namespace XLToolbox.UnitTests.Export
 
         [Test]
         [TestCase(FileType.Emf, false)]
-        [TestCase(FileType.Svg, false)]
+        // [TestCase(FileType.Svg, false)]
         [TestCase(FileType.Png, true)]
         [TestCase(FileType.Tiff, true)]
         public void ColorSpaceDisabledForVectors(FileType fileType, bool csEnabled)

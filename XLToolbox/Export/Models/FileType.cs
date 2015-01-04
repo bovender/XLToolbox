@@ -31,8 +31,8 @@ namespace XLToolbox.Export.Models
         Tiff,
         [Description("PNG")]
         Png,
-        [Description("SVG")]
-        Svg,
+        // [Description("SVG")]
+        // Svg,
         [Description("EMF")]
         Emf
     }
@@ -69,7 +69,7 @@ namespace XLToolbox.Export.Models
             {
                 case FileType.Emf:  result = Strings.EmfFiles; break;
                 case FileType.Png:  result = Strings.PngFiles; break;
-                case FileType.Svg:  result = Strings.SvgFiles; break;
+                // case FileType.Svg:  result = Strings.SvgFiles; break;
                 case FileType.Tiff: result = Strings.TifFiles; break;
                 default:
                     throw new InvalidOperationException(
