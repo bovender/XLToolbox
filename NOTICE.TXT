@@ -1,0 +1,50 @@
+Daniel's XL Toolbox NG add-in for Microsoft(R) Excel(R)
+=======================================================
+
+(c) Copyright 2014-2015 Daniel Kraus
+
+
+This program contains code by other parties:
+
+
+Visual Studio Tools for Office (VSTO) Runtime
+---------------------------------------------
+
+- `Microsoft.Office.Tools.Common.v4.0.Utilities.dll`
+
+(c) Copyright Microsoft Corporation
+
+All rights reserved by Microsoft.
+
+
+Expression Blend
+----------------
+
+- `Microsoft.Expression.Interactions.dll`
+- `System.Windows.Interactivity.dll`
+
+(c) Copyright Microsoft Corporation
+
+All rights reserved by Microsoft.
+
+Distributed with Daniel's XL Toolbox add-in under the Microsoft Software
+License Terms -- Microsoft Windows Software Development Kit for Windows
+7 and .NET Framework 4.0.
+
+
+FreeImage
+---------
+
+- `FreeImageNET.dll`
+
+(c) Copyright Hervé Drolon and others
+
+Used under the FreeImage Public License: see LICENSE-FREEIMAGE.TXT.
+
+Minor modifications were made to the FreeImage Visual Studio project
+files in order to build the library with Visual Studio 2013. The XL
+Toolbox NG code repository at <https://sf.net/p/xltoolbox/ng-code>
+contains the FreeImage project and code files that were used to build
+the DLL that is linked by the XL Toolbox add-in.
+
+<!-- vim: set tw=72 : -->
