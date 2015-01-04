@@ -66,7 +66,7 @@ namespace XLToolbox.Export.Models
         {
             get
             {
-                return FileType == FileType.Emf || FileType == FileType.Svg;
+                return FileType == FileType.Emf; // || FileType == FileType.Svg;
             }
         }
         public int Bpp
