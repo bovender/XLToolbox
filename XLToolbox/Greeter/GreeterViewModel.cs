@@ -35,7 +35,7 @@ namespace XLToolbox.Greeter
                 if (_whatsNewCommand == null)
                 {
                     _whatsNewCommand = new DelegatingCommand(
-                        (param) => WhatsNewMessage.Send()
+                        (param) => DoShowWhatsNew()
                         );
                 }
                 return _whatsNewCommand;
@@ -49,16 +49,16 @@ namespace XLToolbox.Greeter
                 if (_donateCommand == null)
                 {
                     _donateCommand = new DelegatingCommand(
-                        (param) => DonateMessage.Send()
+                        (param) => DoShowDonatePage()
                         );
                 }
                 return _donateCommand;
             }
         }
 
-
         #endregion
 
+        /*
         #region MVVM messages
 
         public Message<MessageContent> WhatsNewMessage
@@ -86,13 +86,33 @@ namespace XLToolbox.Greeter
         }
 
         #endregion
+        */
+
+        #region Private methods
+
+        private void DoShowWhatsNew()
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.WhatsNewUrl);
+            CloseViewCommand.Execute(null);
+        }
+
+        private void DoShowDonatePage()
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.DonateUrl);
+            CloseViewCommand.Execute(null);
+        }
+
+        #endregion
 
         #region Private fields
 
         private DelegatingCommand _whatsNewCommand;
         private DelegatingCommand _donateCommand;
+
+        /*
         private Message<MessageContent> _whatsNewMessage;
         private Message<MessageContent> _donateMessage;
+         */
 
         #endregion
 

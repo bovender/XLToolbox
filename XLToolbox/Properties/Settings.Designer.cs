@@ -125,5 +125,23 @@ namespace XLToolbox.Properties {
                 this["BatchExportSettings"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/donate")]
+        public string DonateUrl {
+            get {
+                return ((string)(this["DonateUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://xltoolbox.sourceforge.net/blog/tags/alpha")]
+        public string WhatsNewUrl {
+            get {
+                return ((string)(this["WhatsNewUrl"]));
+            }
+        }
     }
 }
