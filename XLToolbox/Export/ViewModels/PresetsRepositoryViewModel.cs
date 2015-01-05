@@ -75,6 +75,10 @@ namespace XLToolbox.Export.ViewModels
         {
             _repository = new PresetsRepository();
             Presets = new PresetViewModelCollection(_repository);
+            if (Presets.Count == 0)
+            {
+                Presets.Add(new PresetViewModel());
+            }
             Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
         }
 

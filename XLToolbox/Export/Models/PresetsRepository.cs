@@ -119,9 +119,9 @@ namespace XLToolbox.Export.Models
                     stream.Close();
                 }
             }
-            catch (Exception e)
+            catch // (Exception e)
             {
-                throw new StoreException("Cannot write export settings.", e);
+                // throw new StoreException("Cannot write export settings.", e);
             }
         }
 

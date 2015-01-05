@@ -358,7 +358,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to delete? This operation cannot be  undone..
+        ///   Looks up a localized string similar to Do you really want to delete? This operation cannot be undone..
         /// </summary>
         public static string DoYouReallyWantToDeleteCannotBeUndone {
             get {

@@ -223,9 +223,14 @@ namespace XLToolbox.Excel.ViewModels
             SheetViewModel svm;
             foreach (dynamic sheet in Workbook.Sheets)
             {
-                svm = new SheetViewModel(sheet);
-                svm.PropertyChanged += svm_PropertyChanged;
-                sheets.Add(svm);
+                // Directly comparing the Visible property with XlSheetVisibility.xlSheetVisible
+                // caused exceptions. Therefore we compare directly with the value of 0.
+                if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
+                {
+                    svm = new SheetViewModel(sheet);
+                    svm.PropertyChanged += svm_PropertyChanged;
+                    sheets.Add(svm);
+                }
             };
             this.Sheets = sheets;
         }
@@ -348,14 +353,18 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (confirmation.Confirmed)
             {
+                Excel.Instance.ExcelInstance.DisableDisplayAlerts();
                 for (int i = 0; i < Sheets.Count; i++)
                 {
                     if (Sheets[i].IsSelected)
                     {
+                        // Must use sheet name rather than index in collection
+                        // because indexes may differ if hidden sheets exist.
+                        Workbook.Sheets[Sheets[i].DisplayString].Delete();
                         Sheets.RemoveAt(i);
-                        Workbook.Sheets[i+1].Delete();
                     }
                 }
+                Excel.Instance.ExcelInstance.EnableDisplayAlerts();
             }
         }
 
