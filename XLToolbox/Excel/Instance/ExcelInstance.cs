@@ -146,6 +146,10 @@ namespace XLToolbox.Excel.Instance
         /// </summary>
         public static void DisableScreenUpdating()
         {
+            if (_preventScreenUpdating == 0)
+            {
+                _wasScreenUpdating = Application.ScreenUpdating;
+            }
             Application.ScreenUpdating = false;
             _preventScreenUpdating++;
         }
@@ -161,7 +165,37 @@ namespace XLToolbox.Excel.Instance
             if (_preventScreenUpdating <= 0)
             {
                 _preventScreenUpdating = 0;
-                Application.ScreenUpdating = true;
+                Application.ScreenUpdating = _wasScreenUpdating;
+            }
+        }
+
+        /// <summary>
+        /// Disables displaying of user alerts. Increases an internal counter
+        /// to be able to handle cascading calls to this method.
+        /// </summary>
+        public static void DisableDisplayAlerts()
+        {
+            if (_disableDisplayAlerts == 0)
+            {
+                _wasDisplayingAlerts = Application.DisplayAlerts;
+            }
+            Application.DisplayAlerts = false;
+            _disableDisplayAlerts++;
+        }
+
+        /// <summary>
+        /// Decreases the internal screen updating counter by one;
+        /// if the counter reaches 0, the application's display of
+        /// user alerts will be turned on again (in fact, it will
+        /// be reset to its original state).
+        /// </summary>
+        public static void EnableDisplayAlerts()
+        {
+            _disableDisplayAlerts--;
+            if (_disableDisplayAlerts <= 0)
+            {
+                _disableDisplayAlerts = 0;
+                Application.DisplayAlerts = _wasDisplayingAlerts;
             }
         }
 
@@ -234,8 +268,11 @@ namespace XLToolbox.Excel.Instance
 
         private bool _disposed;
         private static bool _static;
+        private static bool _wasScreenUpdating;
+        private static bool _wasDisplayingAlerts;
         private static int _numClassInstances;
         private static int _preventScreenUpdating;
+        private static int _disableDisplayAlerts;
 
         /// <summary>
         /// Holds the current Excel instance; static field as only one instance
