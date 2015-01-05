@@ -37,8 +37,8 @@
             <StackPanel>
                 <TextBlock Text="{x:Static l:Strings.WelcomeToXLToolbox}" FontWeight="Bold" FontSize="14" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="{x:Static l:Strings.ThisIsVersion}" />
-                    <TextBlock Text="{Binding Version}" />
+                    <TextBlock Text="{x:Static l:Strings.ThisIsVersion}" FontSize="14" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding Version}" FontSize="14"  />
                 </StackPanel>
                 <TextBlock Text="{x:Static l:Strings.ThisIsFreeSoftware}"
                            TextWrapping="Wrap" TextAlignment="Justify" />
