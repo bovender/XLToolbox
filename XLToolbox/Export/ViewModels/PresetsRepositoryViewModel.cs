@@ -283,12 +283,17 @@ namespace XLToolbox.Export.ViewModels
 
         private void ConfirmDeletePreset(MessageContent messageContent)
         {
-            if (CanDeletePreset() && messageContent.Confirmed)
-            {
-                this.Presets.RemoveSelected();
-                // OnPropertyChanged("Presets");
-                OnPropertyChanged("SelectedPreset");
-            }
+            Dispatcher.Invoke(new System.Action(
+                () =>
+                {
+                    if (CanDeletePreset() && messageContent.Confirmed)
+                    {
+                        this.Presets.RemoveSelected();
+                        // OnPropertyChanged("Presets");
+                        OnPropertyChanged("SelectedPreset");
+                    }
+                })
+            );
         }
 
         private bool CanDeletePreset()
