@@ -177,10 +177,6 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel()
             : base()
         {
-            if (PresetsRepository.Presets.Count == 0)
-            {
-                PresetsRepository.Presets.Add(new PresetViewModel());
-            }
             if (ExcelInstance.Application.Workbooks.Count > 0)
             {
                 PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
