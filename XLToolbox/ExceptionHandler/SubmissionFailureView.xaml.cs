@@ -1,4 +1,4 @@
-﻿/* SubmissionCompletedAction.cs
+﻿/* SubmissionFailureView.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,35 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using Bovender.Mvvm.Messaging;
-using Bovender.Mvvm.Actions;
 
 namespace XLToolbox.ExceptionHandler
 {
     /// <summary>
-    /// WPF action that is invoked when the exception report submission
-    /// process is completed.
+    /// Interaction logic for SubmissionFailureView.xaml
     /// </summary>
-    class SubmissionCompletedAction : ProcessCompletedAction
+    public partial class SubmissionFailureView : Window
     {
-        protected override Window CreateSuccessWindow()
+        public SubmissionFailureView()
         {
-            return Content.InjectInto<SubmissionSuccessView>();
-        }
-
-        protected override Window CreateFailureWindow()
-        {
-            return Content.InjectInto<SubmissionFailureView>();
-        }
-
-        protected override Window CreateCancelledWindow()
-        {
-            return null;
+            InitializeComponent();
         }
     }
 }

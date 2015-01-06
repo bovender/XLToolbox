@@ -452,6 +452,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crash Report Submission.
+        /// </summary>
+        public static string ExceptionReportSubmission {
+            get {
+                return ResourceManager.GetString("ExceptionReportSubmission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to submit crash report..
+        /// </summary>
+        public static string ExceptionReportSubmissionFailed {
+            get {
+                return ResourceManager.GetString("ExceptionReportSubmissionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Export {
@@ -940,6 +958,15 @@ namespace XLToolbox {
         public static string StackTrace {
             get {
                 return ResourceManager.GetString("StackTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitting report.
+        /// </summary>
+        public static string SubmittingReport {
+            get {
+                return ResourceManager.GetString("SubmittingReport", resourceCulture);
             }
         }
         

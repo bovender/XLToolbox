@@ -68,6 +68,9 @@
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
+      <DependentUpon>SubmissionFailureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
       <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
@@ -262,6 +265,10 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionFailureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
       <SubType>Designer</SubType>
