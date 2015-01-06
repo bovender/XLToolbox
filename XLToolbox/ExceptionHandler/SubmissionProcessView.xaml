@@ -23,7 +23,8 @@
         xmlns:ex="clr-namespace:XLToolbox.ExceptionHandler"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        Title="{x:Static l:Strings.AnErrorHasOccurred}"
+        Title="{x:Static l:Strings.ExceptionReportSubmission}"
+        ResizeMode="NoResize" ShowInTaskbar="False"
         SizeToContent="WidthAndHeight"
         >
     <Window.Resources>
