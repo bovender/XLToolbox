@@ -27,6 +27,10 @@
 ;		#error Failed to create or update source.zip!
 ;#endif
 
+; Build the solution with Release configuration
+#expr Exec("C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com", \
+			"x:\XLToolbox\NG\NG.sln /Build Release")
+
 ; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
                       
