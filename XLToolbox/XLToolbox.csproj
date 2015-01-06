@@ -115,7 +115,6 @@
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ConfirmationAction.cs" />
-    <Compile Include="Mvvm\Actions\NotificationAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
     <Compile Include="About\AboutViewModel.cs" />
@@ -125,9 +124,6 @@
     </Compile>
     <Compile Include="Mvvm\Views\HtmlFileView.xaml.cs">
       <DependentUpon>HtmlFileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Mvvm\Views\NotificationView.xaml.cs">
-      <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\Views\ConfirmationView.xaml.cs">
       <DependentUpon>ConfirmationView.xaml</DependentUpon>
@@ -292,10 +288,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Mvvm\Views\NotificationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
