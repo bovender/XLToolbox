@@ -55,10 +55,6 @@ namespace XLToolbox
             // Distract the user :-)
             MaybeCheckForUpdate();
             GreetUser();
-
-            // Load the FreeImage DLL
-            _dllManager = new DllManager();
-            _dllManager.LoadDll("FreeImage");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
