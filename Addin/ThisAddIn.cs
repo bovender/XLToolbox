@@ -32,7 +32,6 @@ namespace XLToolbox
         #region Private fields
 
         private Threading.Dispatcher _dispatcher;
-        private DllManager _dllManager;
         private UpdaterViewModel _updaterVM;
 
         #endregion
