@@ -88,6 +88,7 @@ namespace XLToolbox
             System.Windows.Threading.Dispatcher d = System.Windows.Threading.Dispatcher.CurrentDispatcher;
             uvm.CheckForUpdateMessage.Sent += (object sender, MessageArgs<ProcessMessageContent> args) =>
             {
+                args.Content.Caption = Strings.CheckingForUpdates;
                 Window view = args.Content.InjectInto<UpdaterProcessView>();
                 args.Content.ViewModel.ViewDispatcher = view.Dispatcher;
                 view.Show();
