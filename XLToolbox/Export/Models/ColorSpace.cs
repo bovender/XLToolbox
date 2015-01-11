@@ -29,7 +29,7 @@ namespace XLToolbox.Export.Models
         Monochrome,
         GrayScale,
         Rgb,
-        // Cmyk
+        Cmyk
     }
 
     public static class ColorSpaceExtensions
@@ -53,7 +53,7 @@ namespace XLToolbox.Export.Models
             {
                 case ColorSpace.Monochrome: return FREE_IMAGE_COLOR_DEPTH.FICD_01_BPP_THRESHOLD;
                 case ColorSpace.Rgb: return FREE_IMAGE_COLOR_DEPTH.FICD_32_BPP;
-                // case ColorSpace.Cmyk: return FREE_IMAGE_COLOR_DEPTH.FICD_32_BPP;
+                case ColorSpace.Cmyk: return FREE_IMAGE_COLOR_DEPTH.FICD_32_BPP;
                 case ColorSpace.GrayScale:
                     return FREE_IMAGE_COLOR_DEPTH.FICD_FORCE_GREYSCALE | FREE_IMAGE_COLOR_DEPTH.FICD_08_BPP;
                 default:
@@ -68,7 +68,7 @@ namespace XLToolbox.Export.Models
             {
                 case ColorSpace.Monochrome: return 1;
                 case ColorSpace.Rgb: return 24;
-                // case ColorSpace.Cmyk: return 32;
+                case ColorSpace.Cmyk: return 32;
                 case ColorSpace.GrayScale: return 8;
                 default:
                     throw new InvalidOperationException(
