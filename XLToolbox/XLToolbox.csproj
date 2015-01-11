@@ -259,11 +259,15 @@
     <Content Include="lib\Win32\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\Win32\lcms2.dll" />
+    <Content Include="lib\Win32\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\x64\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\x64\lcms2.dll" />
+    <Content Include="lib\x64\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\html\license.html" />
   </ItemGroup>
   <ItemGroup>
