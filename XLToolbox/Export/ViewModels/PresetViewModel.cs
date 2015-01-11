@@ -238,10 +238,8 @@ namespace XLToolbox.Export.ViewModels
         #region Constructors
 
         public PresetViewModel()
-            : base()
-        {
-            _preset = new Preset();
-        }
+            : this(new Preset())
+        { }
 
         public PresetViewModel(Preset preset)
             : base()
