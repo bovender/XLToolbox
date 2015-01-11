@@ -86,7 +86,7 @@
                             <Label Content="{x:Static l:Strings.Unit}" />
                             <ComboBox x:Name="UnitBox"
                                       ItemsSource="{Binding Path=Units.Choices}"
-                                      SelectedItem="{Binding Path=Units.AsString}" />
+                                      SelectedItem="{Binding Path=Units.SelectedItem}" />
                         </StackPanel>
                     </UniformGrid>
                     <CheckBox Margin="0,5,0,0"

@@ -618,7 +618,7 @@ namespace XLToolbox.Export.ViewModels
                     break;
                 default:
                     throw new InvalidOperationException(
-                        "No case defined for " + Scope.AsString);
+                        "No case defined for " + Scope.SelectedItem);
             }
         }
 
@@ -643,7 +643,7 @@ namespace XLToolbox.Export.ViewModels
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
-                                "No case for {0} and {1}", Scope.AsString, Objects.AsString));
+                                "No case for {0} and {1}", Scope.SelectedItem, Objects.SelectedItem));
                     }
                     break;
                 case BatchExportScope.ActiveWorkbook:
@@ -662,7 +662,7 @@ namespace XLToolbox.Export.ViewModels
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
-                                "No case for {0} and {1}", Scope.AsString, Objects.AsString));
+                                "No case for {0} and {1}", Scope.SelectedItem, Objects.SelectedItem));
                     }
                     break;
                 case BatchExportScope.OpenWorkbooks:
@@ -685,12 +685,12 @@ namespace XLToolbox.Export.ViewModels
                             break;
                         default:
                             throw new InvalidOperationException(String.Format(
-                                "No case for {0} and {1}", Scope.AsString, Objects.AsString));
+                                "No case for {0} and {1}", Scope.SelectedItem, Objects.SelectedItem));
                     }
                     break;
                 default:
                     throw new InvalidOperationException(
-                        "No case defined for " + Scope.AsString);
+                        "No case defined for " + Scope.SelectedItem);
             }
         }
 
@@ -715,7 +715,7 @@ namespace XLToolbox.Export.ViewModels
                     return svm.CountShapes() > 0;
                 default:
                     throw new InvalidOperationException(
-                        "Cannot handle " + Objects.AsString);
+                        "Cannot handle " + Objects.SelectedItem);
             }
         }
 

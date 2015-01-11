@@ -76,8 +76,9 @@ namespace XLToolbox.Export.Models
                 return ColorSpace.ToBPP();
             }
         }
-
         public Transparency Transparency { get; set; }
+        public bool UseColorProfile { get; set; }
+        public string ColorProfile { get; set; }
 
         #endregion
 
@@ -122,7 +123,7 @@ namespace XLToolbox.Export.Models
                 csp.AsEnum = ColorSpace;
                 tp.AsEnum = Transparency;
                 return String.Format("{0}, {1} dpi, {2}, {3}",
-                    FileType.ToString(), Dpi, csp.AsString, tp.AsString);
+                    FileType.ToString(), Dpi, csp.SelectedItem.DisplayString, tp.SelectedItem.DisplayString);
             }
         }
         
