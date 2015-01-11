@@ -15,11 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using XLToolbox.Export;
 using NUnit.Framework;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
@@ -75,5 +70,27 @@ namespace XLToolbox.UnitTests.Export
             Assert.AreEqual(testName, svm.Name);
         }
     
+        [Test]
+        public void ColorManagementStates()
+        {
+            // These assertions will fail if there is not a RGB and a CMYK profile
+            // installed on the test system!
+            PresetViewModel pvm = new PresetViewModel();
+            pvm.ColorSpace.AsEnum = ColorSpace.Rgb;
+            Assert.IsFalse(pvm.UseColorProfile,
+                "'Use color profile' was checked by default");
+            Assert.IsTrue(pvm.IsUseColorProfileEnabled,
+                "'Use color profile' not enabled by default");
+            pvm.ColorSpace.AsEnum = ColorSpace.Cmyk;
+            Assert.IsTrue(pvm.UseColorProfile,
+                "'Use color profile' not checked with CMYK");
+            Assert.IsFalse(pvm.IsUseColorProfileEnabled,
+                "'Use color profile' not disabled with CMYK");
+            pvm.ColorSpace.AsEnum = ColorSpace.Rgb;
+            Assert.IsTrue(pvm.UseColorProfile,
+                "'Use color profile' was checked after switching back to RGB");
+            Assert.IsTrue(pvm.IsUseColorProfileEnabled,
+                "'Use color profile' not re-enabled after switching back to RGB");
+        }
     }
 }
