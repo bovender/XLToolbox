@@ -198,7 +198,8 @@ namespace XLToolbox.Export.ViewModels
                 ColorProfileViewModel vm;
                 ColorProfileViewModelCollection coll;
                 dllManager.LoadDll("lcms2.dll");
-                foreach (string fn in System.IO.Directory.EnumerateFiles(dir, "*.icm"))
+                foreach (string fn in System.IO.Directory.EnumerateFiles(dir,
+                    "*" + Lcms.Constants.COLOR_PROFILE_EXTENSION))
                 {
                     vm = ColorProfileViewModel.CreateFromFile(fn);
                     if (vm != null)
