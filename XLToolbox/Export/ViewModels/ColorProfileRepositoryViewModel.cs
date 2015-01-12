@@ -47,9 +47,12 @@ namespace XLToolbox.Export.ViewModels
             }
             set
             {
+                _updating = true;
                 _colorSpace = value;
-                OnPropertyChanged("ColorSpace");
+                // OnPropertyChanged("ColorSpace");
                 OnPropertyChanged("Profiles");
+                _updating = false;
+                OnPropertyChanged("SelectedProfile");
             }
         }
 
@@ -71,10 +74,20 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected profile for the current color space.
+        /// If no profile was previously selected, gets the first profile
+        /// for the color space that exists.
+        /// </summary>
         public ColorProfileViewModel SelectedProfile
         {
             get
             {
+                // To make any potentially subscribed WPF ComboBox behave
+                // correctly, we *must* provide a null value as SelectedItem
+                // when the ItemsSource collection changes.
+                if (_updating) return null;
+
                 ColorProfileViewModel vm;
                 if (_selectedProfiles.TryGetValue(ColorSpace, out vm))
                 {
@@ -82,12 +95,26 @@ namespace XLToolbox.Export.ViewModels
                 }
                 else
                 {
-                    return null;
+                    if (Profiles.Count > 0)
+                    {
+                        _selectedProfiles[ColorSpace] = Profiles[0];
+                        return _selectedProfiles[ColorSpace];
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
             set
             {
-                _selectedProfiles[ColorSpace] = value;
+                // Value may be null if bound view is a WPF ComboBox that
+                // will set the SelectedItem property to null when the
+                // ItemsSource property is updated.
+                if (value != null)
+                {
+                    _selectedProfiles[ColorSpace] = value;
+                }
                 OnPropertyChanged("SelectedProfile");
             }
         }
@@ -142,20 +169,24 @@ namespace XLToolbox.Export.ViewModels
                 throw new InvalidOperationException(
                     "Windows did not tell color profile directory");
             }
-            ColorProfileViewModel vm;
-            ColorProfileViewModelCollection coll;
-            foreach (string fn in System.IO.Directory.EnumerateFiles(
-                System.IO.Path.Combine(dir, "*.ics")))
+
+            using (Bovender.Unmanaged.DllManager dllManager = new Bovender.Unmanaged.DllManager())
             {
-                vm = ColorProfileViewModel.CreateFromFile(fn);
-                if (vm != null)
+                ColorProfileViewModel vm;
+                ColorProfileViewModelCollection coll;
+                dllManager.LoadDll("lcms2.dll");
+                foreach (string fn in System.IO.Directory.EnumerateFiles(dir, "*.icm"))
                 {
-                    if (!_profiles.TryGetValue(vm.ColorSpace, out coll))
+                    vm = ColorProfileViewModel.CreateFromFile(fn);
+                    if (vm != null)
                     {
-                        coll = new ColorProfileViewModelCollection();
-                        _profiles.Add(vm.ColorSpace, coll);
+                        if (!_profiles.TryGetValue(vm.ColorSpace, out coll))
+                        {
+                            coll = new ColorProfileViewModelCollection();
+                            _profiles.Add(vm.ColorSpace, coll);
+                        }
+                        coll.Add(vm);
                     }
-                    coll.Add(vm);
                 }
             }
             OnPropertyChanged("Profiles");
@@ -179,6 +210,8 @@ namespace XLToolbox.Export.ViewModels
         /// Holds the currently selected color space.
         /// </summary>
         private ColorSpace _colorSpace;
+
+        private bool _updating;
 
         #endregion
     }

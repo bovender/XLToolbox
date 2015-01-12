@@ -115,6 +115,11 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        public override string ToString()
+        {
+            return DisplayString;
+        }
+
         #endregion
 
         #region Implementation of ViewModelBase

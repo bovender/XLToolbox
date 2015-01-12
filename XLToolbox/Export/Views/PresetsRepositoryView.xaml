@@ -69,6 +69,8 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Target="{Binding ElementName=NameBox}"
                        Content="{x:Static l:Strings.Name}" Margin="0,0,0,5" />
@@ -112,6 +114,25 @@
                           ItemsSource="{Binding Transparency.Choices}"
                           ToolTip="{Binding Transparency.ToolTip}"
                           SelectedItem="{Binding Transparency.SelectedItem}" />
+                <Label Grid.Column="0" Grid.Row="5" Margin="0,0,5,5"
+                       Target="{Binding ElementName=CmsEnabledBox}"
+                       IsEnabled="{Binding IsUseColorProfileEnabled}"
+                       Content="{x:Static l:Strings.ColorManagement}" />
+                <CheckBox Grid.Column="1" Grid.Row="5" Margin="0,0,0,5" x:Name="CmsEnabledBox"
+                          VerticalAlignment="Center"
+                          Content="{x:Static l:Strings.UseColorManagement}"
+                          IsEnabled="{Binding IsUseColorProfileEnabled}"
+                          IsChecked="{Binding UseColorProfile}"
+                          />
+                <Label Grid.Column="0" Grid.Row="6" Margin="0,0,0,5"
+                       Target="{Binding ElementName=ColorProfilesBox}"
+                       IsEnabled="{Binding IsColorProfilesEnabled}"
+                       Content="{x:Static l:Strings.ColorProfile}" />
+                <ComboBox Grid.Column="1" Grid.Row="6" Margin="0,0,0,5" x:Name="ColorProfilesBox"
+                          IsEnabled="{Binding IsColorProfilesEnabled}"
+                          ItemsSource="{Binding Path=ColorProfiles.Profiles}"
+                          SelectedItem="{Binding Path=ColorProfiles.SelectedProfile}"
+                          />
             </Grid>
         </GroupBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">

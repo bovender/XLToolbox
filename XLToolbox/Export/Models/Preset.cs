@@ -118,12 +118,24 @@ namespace XLToolbox.Export.Models
             }
             else
             {
+                // Construct some EnumProviders to get nice text representations.
                 ViewModels.ColorSpaceProvider csp = new ViewModels.ColorSpaceProvider();
                 ViewModels.TransparencyProvider tp = new ViewModels.TransparencyProvider();
                 csp.AsEnum = ColorSpace;
                 tp.AsEnum = Transparency;
-                return String.Format("{0}, {1} dpi, {2}, {3}",
-                    FileType.ToString(), Dpi, csp.SelectedItem.DisplayString, tp.SelectedItem.DisplayString);
+
+                string cp = String.Empty;
+                if (UseColorProfile)
+                {
+                    cp = ", " + Strings.ColorManagement;
+                }
+
+                return String.Format("{0}, {1} dpi, {2}, {3}{4}",
+                    FileType.ToString(),
+                    Dpi,
+                    csp.SelectedItem.DisplayString,
+                    tp.SelectedItem.DisplayString,
+                    cp);
             }
         }
         
