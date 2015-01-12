@@ -136,6 +136,29 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        /// <summary>
+        /// Selects a color profile for the current color space by name,
+        /// if it exists.
+        /// </summary>
+        /// <param name="colorProfile">Color profile to select in the
+        /// current color space.</param>
+        /// <returns>True if the profile is exists and was selected,
+        /// false if not.</returns>
+        public bool SelectIfExists(string colorProfile)
+        {
+            ColorProfileViewModel vm = Profiles.FirstOrDefault(
+                c => String.Equals(c.Name, colorProfile));
+            if (vm != null)
+            {
+                SelectedProfile = vm;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Constructor

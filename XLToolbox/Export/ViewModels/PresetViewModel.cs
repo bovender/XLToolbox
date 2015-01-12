@@ -336,6 +336,10 @@ namespace XLToolbox.Export.ViewModels
             ColorProfiles.ColorSpace = _preset.ColorSpace;
             ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
                 ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk);
+            if (!ColorProfiles.SelectIfExists(_preset.ColorProfile))
+            {
+                UseColorProfile = false;
+            }
         }
 
         public PresetViewModel()
