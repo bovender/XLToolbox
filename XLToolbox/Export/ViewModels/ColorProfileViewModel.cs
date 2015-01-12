@@ -74,13 +74,7 @@ namespace XLToolbox.Export.ViewModels
 
         public ColorSpace ColorSpace { get; private set; }
 
-        public string Name
-        {
-            get
-            {
-                return _fileName;
-            }
-        }
+        public string Name { get; private set; }
 
         #endregion
 
@@ -89,7 +83,7 @@ namespace XLToolbox.Export.ViewModels
         /// <summary>
         /// Instantiates the view model given a color profile's file name.
         /// </summary>
-        /// <param name="fileName">Complete file name to the color profile.</param>
+        /// <param name="name">Complete file name to the color profile.</param>
         /// <exception cref="ArgumentException">if the color profile does not
         /// exist or is not accessible.</exception>
         /// <remarks>
@@ -97,10 +91,10 @@ namespace XLToolbox.Export.ViewModels
         /// which takes care of restricting instantiation to profiles with color
         /// spaces that we can actually handle.
         /// </remarks>
-        protected ColorProfileViewModel(string fileName)
+        protected ColorProfileViewModel(string name)
             :base()
         {
-            _fileName = System.IO.Path.GetFileName(fileName);
+            Name = SanitizeName(name);
         }
 
         #endregion
@@ -111,7 +105,7 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return _fileName;
+                return Name;
             }
         }
 
@@ -132,12 +126,37 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Private fields
+        #region Private methods
 
         /// <summary>
-        /// File name of the color profile (without path).
+        /// Removes path and extension from name.
         /// </summary>
-        private string _fileName;
+        /// <returns>Sanitized name.</returns>
+        private string SanitizeName(string name)
+        {
+            string s = System.IO.Path.GetFileName(name);
+            if (s.ToLower().EndsWith(Lcms.Constants.COLOR_PROFILE_EXTENSION))
+            {
+                s = s.Remove(s.Length - Lcms.Constants.COLOR_PROFILE_EXTENSION.Length);
+            }
+            return s;
+        }
+
+        /// <summary>
+        /// Returns a complete path for the color profile.
+        /// </summary>
+        /// <returns>Complete path to the color profile file.</returns>
+        private string GetPathFromName()
+        {
+            return System.IO.Path.Combine(
+                Pinvoke.GetColorDirectory(),
+                Name,
+                Lcms.Constants.COLOR_PROFILE_EXTENSION);
+        }
+
+        #endregion
+
+        #region Private fields
 
         #endregion
 
