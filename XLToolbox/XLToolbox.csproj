@@ -81,6 +81,7 @@
     <Compile Include="Export\ExportFinishedEventArgs.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
+    <Compile Include="Export\Lcms\Formatters.cs" />
     <Compile Include="Export\Models\BatchExportLayout.cs" />
     <Compile Include="Export\Models\BatchExportObjects.cs" />
     <Compile Include="Export\Models\BatchExportScope.cs" />
