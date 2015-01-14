@@ -166,6 +166,7 @@ namespace XLToolbox.Export.ViewModels
                                 OnPropertyChanged("IsUseColorProfileEnabled");
                                 OnPropertyChanged("UseColorProfile");
                                 OnPropertyChanged("IsColorProfilesEnabled");
+                                OnPropertyChanged("IsTransparencyEnabled");
                                 UpdateName();
                             }
                         };
@@ -206,7 +207,7 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return !_preset.IsVectorType;
+                return !_preset.IsVectorType && ColorSpace.AsEnum.SupportsTransparency();
             }
         }
 
@@ -335,7 +336,8 @@ namespace XLToolbox.Export.ViewModels
             }
             ColorProfiles.ColorSpace = _preset.ColorSpace;
             ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
-                ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk);
+                ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk) &&
+                _preset.FileType.SupportsCmyk();
             if (!ColorProfiles.SelectIfExists(_preset.ColorProfile))
             {
                 UseColorProfile = false;
