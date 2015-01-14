@@ -38,8 +38,14 @@ namespace XLToolbox.Export.Lcms
         public const UInt32 TYPE_RGB_8 = // (COLORSPACE_SH(PT_RGB)|CHANNELS_SH(3)|BYTES_SH(1))
             PT_RGB << COLORSPACE | 3 << CHANNELS | 1 << BYTES;
 
+        public const UInt32 TYPE_BGR_8 = // (COLORSPACE_SH(PT_RGB)|CHANNELS_SH(3)|BYTES_SH(1)|DOSWAP_SH(1))
+            PT_RGB << COLORSPACE | 3 << CHANNELS | 1 << BYTES | 1 << DOSWAP;
+
         public const UInt32 TYPE_RGBA_8 = // (COLORSPACE_SH(PT_RGB)|EXTRA_SH(1)|CHANNELS_SH(3)|BYTES_SH(1))
             PT_RGB << COLORSPACE | 1 << EXTRA | 3 << CHANNELS | 1 << BYTES;
+
+        public const UInt32 TYPE_BGRA_8 = // (COLORSPACE_SH(PT_RGB)|EXTRA_SH(1)|CHANNELS_SH(3)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1))
+            PT_RGB << COLORSPACE | 1 << EXTRA | 3 << CHANNELS | 1 << BYTES | 1 << DOSWAP | 1 << SWAPFIRST;
 
         public const UInt32 TYPE_CMYK = // (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1))
             PT_CMYK << COLORSPACE | 4 << CHANNELS | 1 << BYTES;
@@ -48,10 +54,12 @@ namespace XLToolbox.Export.Lcms
 
         #region Bitshift constants
 
-        private const int COLORSPACE = 22;
-        private const int CHANNELS = 16;
-        private const int BYTES = 3;
+        private const int COLORSPACE = 16;
+        private const int SWAPFIRST = 14;
+        private const int DOSWAP = 10;
         private const int EXTRA = 7;
+        private const int CHANNELS = 3;
+        private const int BYTES = 0;
 
         #endregion
 

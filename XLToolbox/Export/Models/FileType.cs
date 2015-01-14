@@ -88,5 +88,17 @@ namespace XLToolbox.Export.Models
                     throw new InvalidOperationException("Transparency support unknown for " + fileType.ToString());
             }
         }
+        
+        public static bool SupportsCmyk(this FileType fileType)
+        {
+            switch (fileType)
+            {
+                case FileType.Tiff: return true;
+                case FileType.Png: return false;
+                case FileType.Emf: return false;
+                default:
+                    throw new InvalidOperationException("CMYK support unknown for " + fileType.ToString());
+            }
+        }
     }
 }

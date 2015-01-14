@@ -72,6 +72,26 @@ namespace XLToolbox.Export.ViewModels
             return cpvm;
         }
 
+        /// <summary>
+        /// Creates a new ColorProfileViewModel from a given name, but only
+        /// if the color profile's color space is known by the view model.
+        /// Directory and file extension will be appended automatically.
+        /// Note that the lcms2.dll must have been loaded prior to calling
+        /// this method!
+        /// </summary>
+        /// <param name="fileName">Full file name of the ICS color profile.</param>
+        /// <returns>Instance of ColorProfileViewModel, or null if the color
+        /// profile has an unknown color space.</returns>
+        public static ColorProfileViewModel CreateFromName(string name)
+        {
+            return CreateFromFile(
+                System.IO.Path.Combine(
+                    Pinvoke.GetColorDirectory(),
+                    name + Lcms.Constants.COLOR_PROFILE_EXTENSION
+                )
+            );
+        }
+
         #endregion
 
         #region Public properties
@@ -96,12 +116,17 @@ namespace XLToolbox.Export.ViewModels
         public void TransformFromStandardProfile(FreeImageAPI.FreeImageBitmap freeImageBitmap)
         {
             cmsHProfile standardProfile = CreateStandardProfile(freeImageBitmap);
-            cmsHProfile targetProfile = cmsOpenProfileFromFile(GetPathFromName(), "r");
-
             if (standardProfile == cmsHProfile.Zero)
             {
                 throw new InvalidOperationException(
                     "Unable to create standard profile for " + freeImageBitmap.ColorType.ToString());
+            }
+
+            cmsHProfile targetProfile = cmsOpenProfileFromFile(GetPathFromName(), "r");
+            if (targetProfile == cmsHProfile.Zero)
+            {
+                throw new InvalidOperationException(
+                    "Unable to open desired color profile: " + Name);
             }
 
             // Create transform with perceptual intent (0) and no special options (0)
@@ -109,9 +134,17 @@ namespace XLToolbox.Export.ViewModels
                 standardProfile, GetLcmsPixelFormat(freeImageBitmap),
                 targetProfile, GetLcmsPixelFormat(ColorSpace),
                 0, 0);
+            if (t == cmsHTransform.Zero)
+            {
+                throw new InvalidOperationException("Unable to create CMS transform.");
+            }
             UInt32 numPixels = (UInt32)freeImageBitmap.Size.Width * (UInt32)freeImageBitmap.Size.Height;
             cmsDoTransform(t, freeImageBitmap.Bits, freeImageBitmap.Bits, numPixels);
+            freeImageBitmap.CreateICCProfile(GetIccBytes());
+
             cmsDeleteTransform(t);
+            cmsCloseProfile(standardProfile);
+            cmsCloseProfile(targetProfile);
         }
 
         #endregion
@@ -188,8 +221,7 @@ namespace XLToolbox.Export.ViewModels
         {
             return System.IO.Path.Combine(
                 Pinvoke.GetColorDirectory(),
-                Name,
-                Lcms.Constants.COLOR_PROFILE_EXTENSION);
+                Name + Lcms.Constants.COLOR_PROFILE_EXTENSION);
         }
 
         /// <summary>
@@ -252,13 +284,18 @@ namespace XLToolbox.Export.ViewModels
                 case FreeImageAPI.FREE_IMAGE_COLOR_TYPE.FIC_CMYK:
                     return Lcms.Formatters.TYPE_CMYK;
                 case FreeImageAPI.FREE_IMAGE_COLOR_TYPE.FIC_RGBALPHA:
-                    return Lcms.Formatters.TYPE_RGBA_8;
+                    return Lcms.Formatters.TYPE_BGRA_8; // on Windows: BGRA, not RGBA!
                 case FreeImageAPI.FREE_IMAGE_COLOR_TYPE.FIC_RGB:
-                    return Lcms.Formatters.TYPE_RGB_8;
+                    return Lcms.Formatters.TYPE_BGR_8; // on Windows: BGR, not RGB!
                 default:
                     throw new InvalidOperationException(
                         "No LCMS formatter defined for " + freeImageBitmap.ColorType.ToString());
             }
+        }
+
+        private byte[] GetIccBytes()
+        {
+            return System.IO.File.ReadAllBytes(GetPathFromName());
         }
 
         #endregion

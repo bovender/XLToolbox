@@ -34,6 +34,20 @@ namespace XLToolbox.Export.Models
 
     public static class ColorSpaceExtensions
     {
+        public static bool SupportsTransparency(this ColorSpace colorSpace)
+        {
+            switch (colorSpace)
+            {
+                case ColorSpace.Rgb: return true;
+                case ColorSpace.GrayScale: return true;
+                case ColorSpace.Monochrome: return false;
+                case ColorSpace.Cmyk: return false;
+                default:
+                    throw new InvalidOperationException(
+                        "No information on transparency support for " + colorSpace.ToString());
+            }
+        }
+
         public static FREE_IMAGE_COLOR_TYPE ToFreeImageColorType(this ColorSpace colorSpace)
         {
             switch (colorSpace)
@@ -41,6 +55,7 @@ namespace XLToolbox.Export.Models
                 case ColorSpace.Rgb: return FREE_IMAGE_COLOR_TYPE.FIC_RGBALPHA;
                 case ColorSpace.GrayScale: return FREE_IMAGE_COLOR_TYPE.FIC_RGBALPHA;
                 case ColorSpace.Monochrome: return FREE_IMAGE_COLOR_TYPE.FIC_PALETTE;
+                case ColorSpace.Cmyk: return FREE_IMAGE_COLOR_TYPE.FIC_CMYK;
                 default:
                     throw new InvalidOperationException(
                         "No FREE_IMAGE_COLOR_TYPE match for " + colorSpace.ToString());
