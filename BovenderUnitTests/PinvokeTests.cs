@@ -1,4 +1,4 @@
-﻿/* ColorSpaceProvider.cs
+﻿/* PinvokeTests.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -19,25 +19,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Bovender.Mvvm;
-using XLToolbox.Export.Models;
+using Bovender.Unmanaged;
+using NUnit.Framework;
 
-namespace XLToolbox.Export.ViewModels
+namespace Bovender.UnitTests
 {
-    public class ColorSpaceProvider : EnumProvider<ColorSpace>
+    [TestFixture]
+    class PinvokeTests
     {
-        protected override string GetDescription(ColorSpace member)
+        [Test]
+        public void GetColorDirectory()
         {
-            switch (member)
-            {
-                case ColorSpace.GrayScale: return Strings.GrayScale;
-                case ColorSpace.Monochrome: return Strings.Monochrome;
-                case ColorSpace.Rgb: return Strings.Rgb;
-                case ColorSpace.Cmyk: return Strings.Cmyk;
-                default:
-                    throw new InvalidOperationException(
-                        "No localized description available for " + member.ToString());
-            }
+            string dir = Pinvoke.GetColorDirectory();
+            // This assertion may fail on different systems!
+            Assert.AreEqual(
+                "c:\\windows\\system32\\spool\\drivers\\color",
+                dir.ToLower());
         }
     }
 }

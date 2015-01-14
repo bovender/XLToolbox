@@ -16,14 +16,12 @@
  * limitations under the License.
  */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Windows.Data;
+using Bovender.Mvvm.ViewModels;
 
 namespace Bovender.Mvvm
 {
@@ -33,6 +31,26 @@ namespace Bovender.Mvvm
     /// localized in derived classes), and the type-safe enum value itself.
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// To bind to a ComboBox to an EnumProvider property, use:
+    ///     <code>
+    ///         <ComboBox 
+    ///             ItemsSource="{Binding MyEnumProviderProperty.Choices}"
+    ///             ToolTip="{Binding MyEnumProviderProperty.ToolTip}"
+    ///             SelectedItem="{Binding MyEnumProviderProperty.SelectedItem}"
+    ///         />
+    ///     </code>
+    /// </para>
+    /// <para>
+    /// To make use of per-item enabled states and tool tips, it is helpful
+    /// to define a generic style in a central resource dictionary:
+    ///     <code>
+    ///         <Style TargetType="{x:Type ComboBoxItem}">
+    ///             <Setter Property="Control.ToolTip" Value="{Binding Path=ToolTip, Mode=OneWay}" />
+    ///             <Setter Property="IsEnabled" Value="{Binding Path=IsEnabled, Mode=OneWay}" />
+    ///         </Style>
+    ///     </code>
+    /// </para>
     /// <para>
     /// Since generic type parameters cannot be enums, the workaround
     /// "struct, IConvertible" is used here as suggested in
@@ -48,49 +66,59 @@ namespace Bovender.Mvvm
         {
             get
             {
-                return _enum;
+                return _selectedItem.Value;
             }
             set
             {
-                _enum = value;
+                _selectedItem = GetViewModel(value);
                 AllPropertiesChanged();
             }
         }
 
-        public string AsString
+        public EnumViewModel<T> SelectedItem
         {
             get
             {
-                return GetDescription(AsEnum);
+                return _selectedItem;
             }
             set
             {
-                _enum = StringToEnum(value);
+                if (value == null)
+                {
+                    throw new ArgumentNullException(
+                        "SelecteItem cannot be null because enums are not nullable.");
+                }
+                _selectedItem = value;
                 AllPropertiesChanged();
             }
         }
 
-        public string Tooltip
+        public string ToolTip
         {
             get
             {
-                return GetTooltip(AsEnum);
+                return SelectedItem.ToolTip;
             }
         }
 
         /// <summary>
-        /// Returns an array of strings that represent the enum members.
+        /// Returns an array of enum view models that represent the enum members.
         /// </summary>
-        public IEnumerable<string> Choices
+        public IEnumerable<EnumViewModel<T>> Choices
         {
             get
             {
                 if (_choices == null)
                 {
-                    _choices = new Collection<string>();
+                    _choices = new Collection<EnumViewModel<T>>();
                     foreach (T member in Enum.GetValues(typeof(T)))
                     {
-                        _choices.Add(GetDescription(member));
+                        EnumViewModel<T> vm = new EnumViewModel<T>(
+                            member,
+                            GetDescription(member),
+                            GetTooltip(member));
+                        vm.PropertyChanged += EnumViewModel_PropertyChanged;
+                        _choices.Add(vm);
                     }
                 }
                 return _choices;
@@ -150,42 +178,41 @@ namespace Bovender.Mvvm
         /// classes).</returns>
         protected virtual string GetTooltip(T member)
         {
-            return GetDescription(member);
+            return null;
+        }
+
+        void EnumViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender == SelectedItem)
+            {
+                OnPropertyChanged("SelectedItem");
+            }
+            OnPropertyChanged("Choices");
+        }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Returns the view model for a given member. The view model
+        /// may be used to enable/disable the member, or set a different
+        /// description or tooltip.
+        /// </summary>
+        /// <param name="member">Member whose view model to return.</param>
+        /// <returns>Instance of EnumViewModel </returns>
+        public EnumViewModel<T> GetViewModel(T member)
+        {
+            return Choices.FirstOrDefault(item => item.Value.Equals(member));
         }
 
         #endregion
 
         #region Private methods
 
-        /// <summary>
-        /// Finds the index of the description string <paramref name="text"/>
-        /// in the Choices array.
-        /// </summary>
-        /// <param name="text">Description string to search for.</param>
-        /// <returns>Index of the description string in the Choices array.</returns>
-        private int GetIndex(string text)
-        {
-            if (Choices.Contains(text))
-            {
-                return _choices.IndexOf(text);
-            }
-            else
-            {
-                throw new ArgumentException(
-                    "Enumeration descriptions do not contain " + text);
-            }
-        }
-
-        private T StringToEnum(string text)
-        {
-            int index = GetIndex(text);
-            T[] values = ((T[])System.Enum.GetValues(typeof(T)));
-            return values[index];
-        }
-
         private void AllPropertiesChanged()
         {
-                OnPropertyChanged("AsString");
+                OnPropertyChanged("SelectedItem");
                 OnPropertyChanged("AsEnum");
                 OnPropertyChanged("Tooltip");
         }
@@ -209,7 +236,8 @@ namespace Bovender.Mvvm
         #region Private fields
 
         private T _enum;
-        private Collection<string> _choices;
+        private EnumViewModel<T> _selectedItem;
+        private Collection<EnumViewModel<T>> _choices;
 
         #endregion
     }

@@ -71,16 +71,8 @@ namespace XLToolbox.Export.ViewModels
         /// instance which will load previously saved values in the background.
         /// </summary>
         public PresetsRepositoryViewModel()
-            : base()
-        {
-            _repository = new PresetsRepository();
-            Presets = new PresetViewModelCollection(_repository);
-            if (Presets.Count == 0)
-            {
-                Presets.Add(new PresetViewModel());
-            }
-            Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
-        }
+            : this(new PresetsRepository())
+        { }
 
         void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -109,6 +101,11 @@ namespace XLToolbox.Export.ViewModels
         {
             _repository = repository;
             Presets = new PresetViewModelCollection(_repository);
+            if (Presets.Count == 0)
+            {
+                Presets.Add(new PresetViewModel());
+            }
+            Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
         }
 
         #endregion

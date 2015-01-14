@@ -79,6 +79,9 @@
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Export\ExportFinishedEventArgs.cs" />
+    <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
+    <Compile Include="Export\Lcms\FileExtension.cs" />
+    <Compile Include="Export\Lcms\Formatters.cs" />
     <Compile Include="Export\Models\BatchExportLayout.cs" />
     <Compile Include="Export\Models\BatchExportObjects.cs" />
     <Compile Include="Export\Models\BatchExportScope.cs" />
@@ -89,6 +92,8 @@
     <Compile Include="Export\Models\Unit.cs" />
     <Compile Include="Export\Models\Settings.cs" />
     <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
     <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
     <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
@@ -256,7 +261,13 @@
     <Content Include="lib\Win32\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\Win32\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\x64\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\html\license.html" />

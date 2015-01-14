@@ -232,6 +232,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color management.
+        /// </summary>
+        public static string ColorManagement {
+            get {
+                return ResourceManager.GetString("ColorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color profile.
+        /// </summary>
+        public static string ColorProfile {
+            get {
+                return ResourceManager.GetString("ColorProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color space.
         /// </summary>
         public static string ColorSpace {
@@ -1121,6 +1139,15 @@ namespace XLToolbox {
         public static string UpdateWillBeInstalledNow {
             get {
                 return ResourceManager.GetString("UpdateWillBeInstalledNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use color management.
+        /// </summary>
+        public static string UseColorManagement {
+            get {
+                return ResourceManager.GetString("UseColorManagement", resourceCulture);
             }
         }
         

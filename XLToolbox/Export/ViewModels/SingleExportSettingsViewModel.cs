@@ -181,7 +181,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
             }
-            CreatSettingsInstance();
+            CreateSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -193,8 +193,12 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
             : base()
         {
-            PresetsRepository.Select(presetViewModel);
-            CreatSettingsInstance();
+            if (!PresetsRepository.Select(presetViewModel))
+            {
+                PresetsRepository.Presets.Add(presetViewModel);
+                presetViewModel.IsSelected = true;
+            }
+            CreateSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -284,7 +288,7 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private methods
 
-        private void CreatSettingsInstance()
+        private void CreateSettingsInstance()
         {
             if (ExcelInstance.Running)
             {

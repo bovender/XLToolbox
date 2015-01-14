@@ -136,9 +136,39 @@ namespace XLToolbox.Export.ViewModels
                     _colorSpaceProvider.PropertyChanged +=
                         (object sender, PropertyChangedEventArgs args) =>
                         {
-                            _preset.ColorSpace = _colorSpaceProvider.AsEnum;
-                            OnPropertyChanged("ColorSpace." + args.PropertyName);
-                            UpdateName();
+                            if (args.PropertyName == "AsEnum")
+                            {
+                                _preset.ColorSpace = _colorSpaceProvider.AsEnum;
+
+                                // Filter the color profiles according to color space.
+                                ColorProfiles.ColorSpace = _colorSpaceProvider.AsEnum;
+
+                                if (ColorProfiles.Profiles.Count == 0)
+                                {
+                                    _preset.UseColorProfile = false;
+                                }
+
+                                // If CMYK is selected, color management *must* be used.
+                                // Note that CMYK is disabled automatically if there is not
+                                // CMYK color profile installed; however, due to a bug in the
+                                // WPF combobox, CMYK could still be selected using type-ahead
+                                // search.
+                                if (_colorSpaceProvider.AsEnum == Models.ColorSpace.Cmyk)
+                                {
+                                    _preset.UseColorProfile = true;
+                                    _mustUseColorProfile = true;
+                                }
+                                else
+                                {
+                                    _mustUseColorProfile = false;
+                                }
+
+                                OnPropertyChanged("IsUseColorProfileEnabled");
+                                OnPropertyChanged("UseColorProfile");
+                                OnPropertyChanged("IsColorProfilesEnabled");
+                                OnPropertyChanged("IsTransparencyEnabled");
+                                UpdateName();
+                            }
                         };
                 }
                 return _colorSpaceProvider;
@@ -177,15 +207,74 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return !_preset.IsVectorType;
+                return !_preset.IsVectorType && ColorSpace.AsEnum.SupportsTransparency();
             }
         }
 
-        public string Tooltip
+        public string ToolTip
         {
             get
             {
                 return _preset.GetDefaultName();
+            }
+        }
+
+        public bool UseColorProfile
+        {
+            get
+            {
+                return _preset.UseColorProfile;
+            }
+            set
+            {
+                _preset.UseColorProfile = value;
+                OnPropertyChanged("UseColorProfile");
+                OnPropertyChanged("IsColorProfilesEnabled");
+            }
+        }
+
+        public bool IsUseColorProfileEnabled
+        {
+            get
+            {
+                return (ColorProfiles.Profiles.Count > 0)
+                    && !_preset.IsVectorType
+                    && !_mustUseColorProfile;
+            }
+            protected set
+            {
+                _mustUseColorProfile = value;
+                OnPropertyChanged("IsUseColorProfileEnabled");
+            }
+        }
+
+        public ColorProfileRepositoryViewModel ColorProfiles
+        {
+            get
+            {
+                if (_colorProfiles == null)
+                {
+                    _colorProfiles = new ColorProfileRepositoryViewModel();
+                    _colorProfiles.PropertyChanged += (sender, args) =>
+                    {
+                        if (args.PropertyName == "SelectedProfile")
+                        {
+                            ColorProfileViewModel cpvm = ColorProfiles.SelectedProfile;
+                            _preset.ColorProfile = (cpvm != null) ? cpvm.Name : String.Empty;
+                        }
+                        OnPropertyChanged("ColorProfiles" + args.PropertyName);
+                    };
+                }
+                return _colorProfiles;
+            }
+        }
+
+        public bool IsColorProfilesEnabled
+        {
+            get
+            {
+                return UseColorProfile && (ColorProfiles.Profiles.Count > 0)
+                    && !_preset.IsVectorType;
             }
         }
 
@@ -237,12 +326,6 @@ namespace XLToolbox.Export.ViewModels
 
         #region Constructors
 
-        public PresetViewModel()
-            : base()
-        {
-            _preset = new Preset();
-        }
-
         public PresetViewModel(Preset preset)
             : base()
         {
@@ -251,7 +334,19 @@ namespace XLToolbox.Export.ViewModels
             {
                 _customName = !String.Equals(Name, _preset.GetDefaultName());
             }
+            ColorProfiles.ColorSpace = _preset.ColorSpace;
+            ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
+                ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk) &&
+                _preset.FileType.SupportsCmyk();
+            if (!ColorProfiles.SelectIfExists(_preset.ColorProfile))
+            {
+                UseColorProfile = false;
+            }
         }
+
+        public PresetViewModel()
+            : this(new Preset())
+        { }
 
         #endregion
 
@@ -278,7 +373,7 @@ namespace XLToolbox.Export.ViewModels
                 Name = _preset.GetDefaultName();
                 _customName = false;
             }
-            OnPropertyChanged("Tooltip");
+            OnPropertyChanged("ToolTip");
         }
 
         #endregion
@@ -290,6 +385,8 @@ namespace XLToolbox.Export.ViewModels
         EnumProvider<FileType> _fileTypeProvider;
         TransparencyProvider _transparencyProvider;
         bool _customName;
+        bool _mustUseColorProfile;
+        ColorProfileRepositoryViewModel _colorProfiles;
 
         #endregion
 

@@ -77,6 +77,20 @@ namespace Bovender.Unmanaged
             Win32_DeleteEnhMetaFile(hemf);
         }
 
+        public static string GetColorDirectory()
+        {
+            uint bufSize = 260; // MAX_PATH
+            StringBuilder sb = new StringBuilder((int)bufSize);
+            if (Win32_GetColorDirectory(IntPtr.Zero, sb, ref bufSize))
+            {
+                return sb.ToString();
+            }
+            else
+            {
+                return String.Empty;
+            }
+        }
+
         #endregion
 
         #region Win32 API constants
@@ -104,6 +118,11 @@ namespace Bovender.Unmanaged
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteEnhMetaFile", SetLastError = true)]
         static extern bool Win32_DeleteEnhMetaFile(IntPtr hemf);
+
+        [DllImport("mscms.dll", EntryPoint = "GetColorDirectory", SetLastError = true,
+            CharSet = CharSet.Auto, BestFitMapping = false)]
+        static extern bool Win32_GetColorDirectory(IntPtr pMachineName, StringBuilder pBuffer,
+            ref uint pdwSize);
 
         #endregion
 
