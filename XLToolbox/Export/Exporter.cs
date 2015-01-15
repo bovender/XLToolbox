@@ -217,6 +217,7 @@ namespace XLToolbox.Export
         private void ExportSelection(Preset preset, double widthInPoints, double heightInPoints,
             string fileName)
         {
+
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
             svm.CopyToClipboard();

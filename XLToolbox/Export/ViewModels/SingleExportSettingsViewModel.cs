@@ -293,6 +293,15 @@ namespace XLToolbox.Export.ViewModels
             if (ExcelInstance.Running)
             {
                 SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+                // If the ActiveChart property of the Excel application is not null,
+                // either a chart or 'something in the chart' is selected. To make sure
+                // we don't attempt to export 'something in the chart', we select the
+                // entire chart.
+                if (ExcelInstance.Application.ActiveChart != null)
+                {
+                    ((_Chart)ExcelInstance.Application.ActiveChart).ChartArea.Select();
+                }
+
                 Settings = new SingleExportSettings(
                     PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
                     svm.Bounds.Width, svm.Bounds.Height, true);
