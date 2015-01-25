@@ -299,7 +299,16 @@ namespace XLToolbox.Export.ViewModels
                 // entire chart.
                 if (ExcelInstance.Application.ActiveChart != null)
                 {
-                    ((_Chart)ExcelInstance.Application.ActiveChart).ChartArea.Select();
+                    _Chart c = ExcelInstance.Application.ActiveChart;
+                    // Handle chart sheets and embedded charts differently
+                    if (c.Parent is ChartObject)
+                    {
+                        ((_Chart)ExcelInstance.Application.ActiveChart).Parent.Select();
+                    }
+                    else
+                    {
+                        ((_Chart)ExcelInstance.Application.ActiveChart).Select();
+                    }
                 }
 
                 Settings = new SingleExportSettings(
