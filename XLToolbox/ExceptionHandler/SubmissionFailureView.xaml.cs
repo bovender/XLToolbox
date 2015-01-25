@@ -1,4 +1,4 @@
-﻿/* ConfirmationAction.cs
+﻿/* SubmissionFailureView.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -16,20 +16,17 @@
  * limitations under the License.
  */
 using System.Windows;
-using Bovender.Mvvm.Actions;
-using XLToolbox.Mvvm.Views;
 
-namespace XLToolbox.Mvvm.Actions
+namespace XLToolbox.ExceptionHandler
 {
-    public class ConfirmationAction : MessageActionBase
+    /// <summary>
+    /// Interaction logic for SubmissionFailureView.xaml
+    /// </summary>
+    public partial class SubmissionFailureView : Window
     {
-        /// <summary>
-        /// Returns a view that can bind to expected message contents.
-        /// </summary>
-        /// <returns>Descendant of Window.</returns>
-        protected override Window CreateView()
+        public SubmissionFailureView()
         {
-            return new ConfirmationView();
+            InitializeComponent();
         }
     }
 }

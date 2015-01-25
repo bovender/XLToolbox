@@ -33,6 +33,7 @@ namespace XLToolbox.Export.ViewModels
                 case ColorSpace.GrayScale: return Strings.GrayScale;
                 case ColorSpace.Monochrome: return Strings.Monochrome;
                 case ColorSpace.Rgb: return Strings.Rgb;
+                case ColorSpace.Cmyk: return Strings.Cmyk;
                 default:
                     throw new InvalidOperationException(
                         "No localized description available for " + member.ToString());

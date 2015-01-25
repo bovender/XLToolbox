@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.Actions;
 
 namespace XLToolbox.ExceptionHandler
@@ -37,12 +38,12 @@ namespace XLToolbox.ExceptionHandler
 
         protected override Window CreateFailureWindow()
         {
-            throw new NotImplementedException();
+            return Content.InjectInto<SubmissionFailureView>();
         }
 
         protected override Window CreateCancelledWindow()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

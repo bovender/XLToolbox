@@ -232,6 +232,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color management.
+        /// </summary>
+        public static string ColorManagement {
+            get {
+                return ResourceManager.GetString("ColorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color profile.
+        /// </summary>
+        public static string ColorProfile {
+            get {
+                return ResourceManager.GetString("ColorProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color space.
         /// </summary>
         public static string ColorSpace {
@@ -448,6 +466,24 @@ namespace XLToolbox {
         public static string Exception {
             get {
                 return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crash Report Submission.
+        /// </summary>
+        public static string ExceptionReportSubmission {
+            get {
+                return ResourceManager.GetString("ExceptionReportSubmission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to submit crash report..
+        /// </summary>
+        public static string ExceptionReportSubmissionFailed {
+            get {
+                return ResourceManager.GetString("ExceptionReportSubmissionFailed", resourceCulture);
             }
         }
         
@@ -944,6 +980,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submitting report.
+        /// </summary>
+        public static string SubmittingReport {
+            get {
+                return ResourceManager.GetString("SubmittingReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SVG files.
         /// </summary>
         public static string SvgFiles {
@@ -1094,6 +1139,15 @@ namespace XLToolbox {
         public static string UpdateWillBeInstalledNow {
             get {
                 return ResourceManager.GetString("UpdateWillBeInstalledNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use color management.
+        /// </summary>
+        public static string UseColorManagement {
+            get {
+                return ResourceManager.GetString("UseColorManagement", resourceCulture);
             }
         }
         

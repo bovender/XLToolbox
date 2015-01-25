@@ -1,4 +1,4 @@
-﻿/* ConfirmationView.xaml.cs
+﻿/* FileExtension.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,18 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System.Windows;
-
-namespace XLToolbox.Mvvm.Views
+namespace XLToolbox.Export.Lcms
 {
-    /// <summary>
-    /// Interaction logic for ConfirmationView.xaml
-    /// </summary>
-    public partial class ConfirmationView : Window
+    public static class Constants
     {
-        public ConfirmationView()
-        {
-            InitializeComponent();
-        }
+        public const string COLOR_PROFILE_EXTENSION = ".icm";
     }
 }

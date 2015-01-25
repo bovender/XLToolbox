@@ -222,17 +222,20 @@ namespace Bovender.Mvvm.ViewModels
         /// <returns>View with current view model injected.</returns>
         public Window InjectInto(Window view)
         {
-            EventHandler h = null;
-            h = (sender, args) =>
+            if (view != null)
             {
-                this.RequestCloseView -= h;
-                view.DataContext = null;
-                // view.Close();
-                view.Dispatcher.Invoke(new Action(view.Close));
-            };
-            this.RequestCloseView += h;
-            view.DataContext = this;
-            ViewDispatcher = view.Dispatcher;
+                EventHandler h = null;
+                h = (sender, args) =>
+                {
+                    this.RequestCloseView -= h;
+                    view.DataContext = null;
+                    // view.Close();
+                    view.Dispatcher.Invoke(new Action(view.Close));
+                };
+                this.RequestCloseView += h;
+                view.DataContext = this;
+                ViewDispatcher = view.Dispatcher;
+            }
             return view;
         }
 

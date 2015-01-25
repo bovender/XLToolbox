@@ -23,6 +23,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
+        xmlns:ba="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         Width="400" Height="560"
         Title="{x:Static l:Strings.WorksheetManager}"
@@ -44,8 +45,10 @@
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
-                <mvvm:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
-                                    Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}" />
+                <ba:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
+                                       Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}"
+                                       OkButtonLabel="{x:Static l:Strings.Yes}"
+                                       CancelButtonLabel="{x:Static l:Strings.No}" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding RenameSheetMessage}" EventName="Sent">

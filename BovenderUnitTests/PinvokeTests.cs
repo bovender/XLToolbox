@@ -1,4 +1,4 @@
-﻿/* NotificationAction.cs
+﻿/* PinvokeTests.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -16,16 +16,25 @@
  * limitations under the License.
  */
 using System;
-using Bovender.Mvvm.Actions;
-using XLToolbox.Mvvm.Views;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Bovender.Unmanaged;
+using NUnit.Framework;
 
-namespace XLToolbox.Mvvm.Actions
+namespace Bovender.UnitTests
 {
-    class NotificationAction : MessageActionBase
+    [TestFixture]
+    class PinvokeTests
     {
-        protected override System.Windows.Window CreateView()
+        [Test]
+        public void GetColorDirectory()
         {
-            return new NotificationView();
+            string dir = Pinvoke.GetColorDirectory();
+            // This assertion may fail on different systems!
+            Assert.AreEqual(
+                "c:\\windows\\system32\\spool\\drivers\\color",
+                dir.ToLower());
         }
     }
 }

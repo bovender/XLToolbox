@@ -239,11 +239,12 @@ namespace Bovender.ExceptionHandler
             long now = DateTime.Now.Ticks >> 20;
             ReportID = Convert.ToString(now - baseDate, 16);
 
-            Exception = e.ToString();
+            string devPath = DevPath();
+            Exception = e.ToString().Replace(devPath, String.Empty);
             Message = e.Message;
             if (e.InnerException != null)
             {
-                InnerException = e.InnerException.ToString();
+                InnerException = e.InnerException.ToString().Replace(devPath, String.Empty);
                 InnerMessage = e.InnerException.Message;
             }
             else
@@ -251,7 +252,7 @@ namespace Bovender.ExceptionHandler
                 InnerException = "";
                 InnerMessage = "";
             }
-            StackTrace = e.StackTrace;
+            StackTrace = e.StackTrace.Replace(devPath, String.Empty);
 
             User = Settings.User;
             Email = Settings.Email;
@@ -392,6 +393,25 @@ namespace Bovender.ExceptionHandler
             v["os_bitness"] = OSBitness;
             v["clr_version"] = CLR;
             return v;
+        }
+
+        /// <summary>
+        /// Returns the path on the development machine that shall be stripped
+        /// from the file information in the exception and stack trace.
+        /// </summary>
+        /// <remarks>
+        /// If an application is distributed along with .pdb files, the entire path of
+        /// files on the development machine is included in an exception message. Since
+        /// pdb files are required in order to get the line on which an exception occurred,
+        /// this method provides a way to define which part of the path shall be removed.
+        /// </remarks>
+        /// <example>
+        /// x:\XLToolbox\NG
+        /// </example>
+        /// <returns>String.Empty by default; derived classes should override this.</returns>
+        protected virtual string DevPath()
+        {
+            return String.Empty;
         }
 
         #endregion

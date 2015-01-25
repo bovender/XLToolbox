@@ -531,4 +531,22 @@ You may want to try again.</value>
   <data name="NoWarrantiesSeeLicense" xml:space="preserve">
     <value>No warranties ‒ see license.</value>
   </data>
+  <data name="ExceptionReportSubmission" xml:space="preserve">
+    <value>Crash Report Submission</value>
+  </data>
+  <data name="ExceptionReportSubmissionFailed" xml:space="preserve">
+    <value>Failed to submit crash report.</value>
+  </data>
+  <data name="SubmittingReport" xml:space="preserve">
+    <value>Submitting report</value>
+  </data>
+  <data name="ColorManagement" xml:space="preserve">
+    <value>Color management</value>
+  </data>
+  <data name="ColorProfile" xml:space="preserve">
+    <value>Color profile</value>
+  </data>
+  <data name="UseColorManagement" xml:space="preserve">
+    <value>Use color management</value>
+  </data>
 </root>

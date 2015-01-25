@@ -61,24 +61,27 @@ namespace Bovender.Mvvm.Actions
             {
                 Content = args.Content;
                 Window window = CreateView();
-                // Only set the window's DataContext and handler for the
-                // RequestClose event if the DataContext has not already been
-                // assigned. We assume here that if a DataContext has been
-                // assigned, it will have been done by a view models InjectInto
-                // method, which also takes care of the close handler.
-                if (window.DataContext == null)
+                if (window != null)
                 {
-                    window.DataContext = this;
-                    EventHandler closeHandler = null;
-                    closeHandler = (sender, e) =>
+                    // Only set the window's DataContext and handler for the
+                    // RequestClose event if the DataContext has not already been
+                    // assigned. We assume here that if a DataContext has been
+                    // assigned, it will have been done by a view models InjectInto
+                    // method, which also takes care of the close handler.
+                    if (window.DataContext == null)
                     {
-                        Content.RequestCloseView -= closeHandler;
-                        window.Close();
-                        args.Respond();
-                    };
-                    Content.RequestCloseView += closeHandler;
+                        window.DataContext = this;
+                        EventHandler closeHandler = null;
+                        closeHandler = (sender, e) =>
+                        {
+                            Content.RequestCloseView -= closeHandler;
+                            window.Close();
+                            args.Respond();
+                        };
+                        Content.RequestCloseView += closeHandler;
+                    }
+                    ShowView(window);
                 }
-                ShowView(window);
             }
         }
 

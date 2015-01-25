@@ -217,6 +217,7 @@ namespace XLToolbox.Export
         private void ExportSelection(Preset preset, double widthInPoints, double heightInPoints,
             string fileName)
         {
+
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
             svm.CopyToClipboard();
@@ -282,22 +283,45 @@ namespace XLToolbox.Export
             // Create a FreeImage bitmap from the GDI+ bitmap
             FreeImageBitmap fib = new FreeImageBitmap(b);
 
-            fib.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
+            if (preset.UseColorProfile)
+            {
+                ConvertColorCms(preset, fib);
+            }
+            else
+            {
+                ConvertColor(preset, fib);
+            }
             if (preset.ColorSpace == ColorSpace.Monochrome)
             {
-                fib.Palette.SetValue(new RGBQUAD(Color.Black), 0);
-                fib.Palette.SetValue(new RGBQUAD(Color.White), 1);
+                SetMonochromePalette(fib);
             }
-
-            // TODO: Attach color profile
+            
             fib.SetResolution(preset.Dpi, preset.Dpi);
-
             fib.Comment = Versioning.SemanticVersion.BrandName;
             fib.Save(
                 fileName,
                 preset.FileType.ToFreeImageFormat(),
                 GetSaveFlags(preset)
             );
+        }
+
+        private void ConvertColorCms(Preset preset, FreeImageBitmap freeImageBitmap)
+        {
+            ViewModels.ColorProfileViewModel targetProfile =
+                ViewModels.ColorProfileViewModel.CreateFromName(preset.ColorProfile);
+            targetProfile.TransformFromStandardProfile(freeImageBitmap);
+            freeImageBitmap.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
+        }
+
+        private void ConvertColor(Preset preset, FreeImageBitmap freeImageBitmap)
+        {
+            freeImageBitmap.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
+        }
+
+        private void SetMonochromePalette(FreeImageBitmap freeImageBitmap)
+        {
+            freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.Black), 0);
+            freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.White), 1);
         }
 
         private void ExportEmf(Metafile metafile, string fileName)
@@ -545,6 +569,8 @@ namespace XLToolbox.Export
                     {
                         case ColorSpace.Monochrome:
                             return FREE_IMAGE_SAVE_FLAGS.TIFF_CCITTFAX4;
+                        case ColorSpace.Cmyk:
+                            return FREE_IMAGE_SAVE_FLAGS.TIFF_CMYK | FREE_IMAGE_SAVE_FLAGS.TIFF_LZW;
                         default:
                             return FREE_IMAGE_SAVE_FLAGS.TIFF_LZW;
                     }

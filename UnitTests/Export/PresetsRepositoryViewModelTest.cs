@@ -83,7 +83,7 @@ namespace XLToolbox.UnitTests.Export
             sr.Add(s);
             Assert.IsFalse(srvm.EditCommand.CanExecute(null),
                 "Edit settings command should be disabled if nothing is selected.");
-            srvm.Presets[0].IsSelected = true;
+            srvm.Presets[srvm.Presets.Count-1].IsSelected = true;
             Assert.IsTrue(srvm.EditCommand.CanExecute(null),
                 "Edit settings command should be enabled if at least one object is selected.");
             bool messageSent = false;

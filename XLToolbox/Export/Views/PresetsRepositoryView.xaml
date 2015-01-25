@@ -69,6 +69,8 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Target="{Binding ElementName=NameBox}"
                        Content="{x:Static l:Strings.Name}" Margin="0,0,0,5" />
@@ -78,7 +80,9 @@
                        Content="{x:Static l:Strings.FileType}" Margin="0,0,0,5" />
                 <ComboBox Grid.Column="1" Grid.Row="1" Margin="0,0,0,5" 
                           HorizontalAlignment="Stretch" x:Name="FileTypeBox"
-                          ItemsSource="{Binding FileType.Choices}" SelectedItem="{Binding FileType.AsString}" />
+                          ItemsSource="{Binding FileType.Choices}"
+                          ToolTip="{Binding FileType.ToolTip}"
+                          SelectedItem="{Binding FileType.SelectedItem}" />
                 <Label Grid.Column="0" Grid.Row="2" Target="{Binding ElementName=DpiBox}"
                        Content="{x:Static l:Strings.Resolution}"
                        IsEnabled="{Binding IsDpiEnabled}"
@@ -99,7 +103,8 @@
                           HorizontalAlignment="Stretch" Margin="0,0,0,5"
                           IsEnabled="{Binding IsColorSpaceEnabled}"
                           ItemsSource="{Binding ColorSpace.Choices}"
-                          SelectedItem="{Binding ColorSpace.AsString}" />
+                          ToolTip="{Binding ColorSpace.ToolTip}"
+                          SelectedItem="{Binding ColorSpace.SelectedItem}" />
                 <Label Grid.Column="0" Grid.Row="4" Target="{Binding ElementName=TransparencyBox}"
                        IsEnabled="{Binding IsTransparencyEnabled}" Margin="0,0,0,5"
                        Content="{x:Static l:Strings.Transparency}" />
@@ -107,8 +112,27 @@
                           HorizontalAlignment="Stretch" Margin="0,0,0,5"
                           IsEnabled="{Binding IsTransparencyEnabled}"
                           ItemsSource="{Binding Transparency.Choices}"
-                          ToolTip="{Binding Transparency.Tooltip}"
-                          SelectedItem="{Binding Transparency.AsString}" />
+                          ToolTip="{Binding Transparency.ToolTip}"
+                          SelectedItem="{Binding Transparency.SelectedItem}" />
+                <Label Grid.Column="0" Grid.Row="5" Margin="0,0,5,5"
+                       Target="{Binding ElementName=CmsEnabledBox}"
+                       IsEnabled="{Binding IsUseColorProfileEnabled}"
+                       Content="{x:Static l:Strings.ColorManagement}" />
+                <CheckBox Grid.Column="1" Grid.Row="5" Margin="0,0,0,5" x:Name="CmsEnabledBox"
+                          VerticalAlignment="Center"
+                          Content="{x:Static l:Strings.UseColorManagement}"
+                          IsEnabled="{Binding IsUseColorProfileEnabled}"
+                          IsChecked="{Binding UseColorProfile}"
+                          />
+                <Label Grid.Column="0" Grid.Row="6" Margin="0,0,0,5"
+                       Target="{Binding ElementName=ColorProfilesBox}"
+                       IsEnabled="{Binding IsColorProfilesEnabled}"
+                       Content="{x:Static l:Strings.ColorProfile}" />
+                <ComboBox Grid.Column="1" Grid.Row="6" Margin="0,0,0,5" x:Name="ColorProfilesBox"
+                          IsEnabled="{Binding IsColorProfilesEnabled}"
+                          ItemsSource="{Binding Path=ColorProfiles.Profiles}"
+                          SelectedItem="{Binding Path=ColorProfiles.SelectedProfile}"
+                          />
             </Grid>
         </GroupBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">

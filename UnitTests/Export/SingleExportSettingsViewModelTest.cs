@@ -58,6 +58,18 @@ namespace XLToolbox.UnitTests.Export
         }
 
         [Test]
+        public void DimensionsChartSheet()
+        {
+            Chart c = ExcelInstance.Application.ActiveWorkbook.Charts.Add();
+            svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
+            // Assert small differences because rounding errors are possible
+            Assert.IsTrue(Math.Abs(c.ChartArea.Width - svm.Width) < 0.000001,
+                "Export settings width is incorrect.");
+            Assert.IsTrue(Math.Abs(c.ChartArea.Height - svm.Height) < 0.000001,
+                "Export settings height is incorrect.");
+        }
+
+        [Test]
         public void PreserveAspectWidth()
         {
             svm.PreserveAspect = false;

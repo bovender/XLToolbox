@@ -75,6 +75,11 @@ namespace XLToolbox.ExceptionHandler
 
         #region Overrides
 
+        public override object RevealModelObject()
+        {
+            return Exception;
+        }
+
         protected override NameValueCollection GetPostValues()
         {
             NameValueCollection v = base.GetPostValues();
@@ -90,11 +95,11 @@ namespace XLToolbox.ExceptionHandler
             return new Uri(Properties.Settings.Default.ExceptionPostUrl);
         }
 
-        #endregion
-
-        public override object RevealModelObject()
+        protected override string DevPath()
         {
-            return Exception;
+            return @"x:\XLToolbox\NG\";
         }
+
+        #endregion
     }
 }

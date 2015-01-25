@@ -68,6 +68,9 @@
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
+      <DependentUpon>SubmissionFailureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
       <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
@@ -76,6 +79,9 @@
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Export\ExportFinishedEventArgs.cs" />
+    <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
+    <Compile Include="Export\Lcms\FileExtension.cs" />
+    <Compile Include="Export\Lcms\Formatters.cs" />
     <Compile Include="Export\Models\BatchExportLayout.cs" />
     <Compile Include="Export\Models\BatchExportObjects.cs" />
     <Compile Include="Export\Models\BatchExportScope.cs" />
@@ -86,6 +92,8 @@
     <Compile Include="Export\Models\Unit.cs" />
     <Compile Include="Export\Models\Settings.cs" />
     <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
     <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
     <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
@@ -114,8 +122,6 @@
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
-    <Compile Include="Mvvm\Actions\ConfirmationAction.cs" />
-    <Compile Include="Mvvm\Actions\NotificationAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
     <Compile Include="About\AboutViewModel.cs" />
@@ -125,12 +131,6 @@
     </Compile>
     <Compile Include="Mvvm\Views\HtmlFileView.xaml.cs">
       <DependentUpon>HtmlFileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Mvvm\Views\NotificationView.xaml.cs">
-      <DependentUpon>NotificationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Mvvm\Views\ConfirmationView.xaml.cs">
-      <DependentUpon>ConfirmationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
@@ -261,7 +261,13 @@
     <Content Include="lib\Win32\FreeImage.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\Win32\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\x64\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\html\license.html" />
@@ -270,6 +276,10 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionFailureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
       <SubType>Designer</SubType>
@@ -292,14 +302,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Mvvm\Views\NotificationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Mvvm\Views\ConfirmationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

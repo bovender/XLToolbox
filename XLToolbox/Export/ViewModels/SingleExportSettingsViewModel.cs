@@ -181,7 +181,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
             }
-            CreatSettingsInstance();
+            CreateSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -193,8 +193,12 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
             : base()
         {
-            PresetsRepository.Select(presetViewModel);
-            CreatSettingsInstance();
+            if (!PresetsRepository.Select(presetViewModel))
+            {
+                PresetsRepository.Presets.Add(presetViewModel);
+                presetViewModel.IsSelected = true;
+            }
+            CreateSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
         }
 
@@ -284,11 +288,29 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private methods
 
-        private void CreatSettingsInstance()
+        private void CreateSettingsInstance()
         {
             if (ExcelInstance.Running)
             {
                 SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+                // If the ActiveChart property of the Excel application is not null,
+                // either a chart or 'something in the chart' is selected. To make sure
+                // we don't attempt to export 'something in the chart', we select the
+                // entire chart.
+                if (ExcelInstance.Application.ActiveChart != null)
+                {
+                    _Chart c = ExcelInstance.Application.ActiveChart;
+                    // Handle chart sheets and embedded charts differently
+                    if (c.Parent is ChartObject)
+                    {
+                        ((_Chart)ExcelInstance.Application.ActiveChart).Parent.Select();
+                    }
+                    else
+                    {
+                        ((_Chart)ExcelInstance.Application.ActiveChart).Select();
+                    }
+                }
+
                 Settings = new SingleExportSettings(
                     PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
                     svm.Bounds.Width, svm.Bounds.Height, true);

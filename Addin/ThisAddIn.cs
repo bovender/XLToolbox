@@ -32,7 +32,6 @@ namespace XLToolbox
         #region Private fields
 
         private Threading.Dispatcher _dispatcher;
-        private DllManager _dllManager;
         private UpdaterViewModel _updaterVM;
 
         #endregion
@@ -55,10 +54,6 @@ namespace XLToolbox
             // Distract the user :-)
             MaybeCheckForUpdate();
             GreetUser();
-
-            // Load the FreeImage DLL
-            _dllManager = new DllManager();
-            _dllManager.LoadDll("FreeImage");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
