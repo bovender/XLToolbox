@@ -21,6 +21,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
+using Bovender.Text;
 
 namespace Bovender.Versioning
 {
@@ -343,8 +344,11 @@ namespace Bovender.Versioning
                     StringReader r = new StringReader(e.Result);
                     NewVersion = new SemanticVersion(r.ReadLine());
                     DownloadUri = new Uri(r.ReadLine());
-                    UpdateSha1 = r.ReadLine();
-                    UpdateSummary = r.ReadLine();
+                    // Use only the first word of the line as Sha1 sum
+                    // to make it compatible with the output of `sha1sum`
+                    UpdateSha1 = r.ReadLine().Split(' ')[0];
+                    Multiline multi = new Multiline(r.ReadToEnd(), true);
+                    UpdateSummary = multi.Text;
                     IsUpdateAvailable = NewVersion > GetCurrentVersion();
                 }
                 else
