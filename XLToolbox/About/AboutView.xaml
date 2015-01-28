@@ -66,6 +66,7 @@
                 <TextBlock TextAlignment="Center">© Copyright Daniel Kraus 2014-2015</TextBlock>
                 <TextBlock TextAlignment="Center">.NET &amp; VSTO © Copyright Microsoft Corp.</TextBlock>
                 <TextBlock TextAlignment="Center">FreeImage © Copyright Hervé Drolon &amp; others</TextBlock>
+                <TextBlock TextAlignment="Center">LittleCMS © Copyright Marti Maria Saguer</TextBlock>
                 <TextBlock TextAlignment="Center" Foreground="Red" FontWeight="Bold"
                            Text="{x:Static l:Strings.NoWarrantiesSeeLicense}" />
             </StackPanel>
