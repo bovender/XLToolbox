@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Reflection;
+using Bovender.Unmanaged;
 using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler
@@ -54,13 +55,24 @@ namespace XLToolbox.ExceptionHandler
         {
             get
             {
-                if (FreeImageAPI.FreeImage.IsAvailable())
+                try
                 {
-                    return FreeImageAPI.FreeImage.GetVersion();
+                    using (DllManager dllMan = new DllManager())
+                    {
+                        dllMan.LoadDll("FreeImage.dll");
+                        if (FreeImageAPI.FreeImage.IsAvailable())
+                        {
+                            return FreeImageAPI.FreeImage.GetVersion();
+                        }
+                        else
+                        {
+                            return "Not available";
+                        }
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    return "Not available";
+                    return e.Message;
                 }
             }
         }

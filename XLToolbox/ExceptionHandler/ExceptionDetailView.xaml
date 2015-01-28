@@ -70,7 +70,8 @@
                 <Label Grid.Column="0" Grid.Row="2" Content="{x:Static l:Strings.ExcelBitness}" />
                 <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=ExcelBitness, Mode=OneWay}" />
                 <Label Grid.Column="0" Grid.Row="3"  Content="{x:Static l:Strings.FreeImageVersion}" />
-                <TextBox Grid.Column="1" Grid.Row="3"  Text="{Binding Path=FreeImageVersion, Mode=OneWay}" />
+                <TextBox Grid.Column="1" Grid.Row="3"  Text="{Binding Path=FreeImageVersion, Mode=OneWay}"
+                         MaxWidth="250" />
             </Grid>
             <Grid Margin="5,0,0,0" Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
