@@ -30,7 +30,7 @@ namespace XLToolbox.ExceptionHandler
         {
             get
             {
-                return Excel.Instance.ExcelInstance.Application.Version;
+                return Excel.Instance.ExcelInstance.HumanFriendlyVersion;
             }
         }
 
