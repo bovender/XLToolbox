@@ -3,6 +3,8 @@
 ; Apache License Version 2.0
 
 [Setup]
+; #define DEBUG
+
 ; Read the semantic and the installer file version from the VERSION file
 #define FILE_HANDLE FileOpen("..\VERSION")
 #define SEMVER FileRead(FILE_HANDLE)
@@ -16,20 +18,19 @@
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
 #define UNINSTALLDIR "{app}\setup"
-; #define RUNTIMEURL "http://vhost/vstor_redist.exe"
-#define RUNTIMEURL "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
-#define RUNTIMESHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
+#define DOTNETSHA1 "58da3d74db353aad03588cbb5cea8234166d8b99"
+#define VSTORSHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
-; ZIP the source files
-; The -u switch is used to achieve archive synchronization (see 7-Zip help)
-;#if	Exec("7za.exe", "u -up1q0r2x1y2z1w2 -xr!.git\ -xr!publish\ -xr!bin\ " + \
-;			"-xr!build\ -xr!obj\ -xr!*~ -xr!*.snk setup-files\source.zip ../")
-;		#error Failed to create or update source.zip!
-;#endif
-
-; Build the solution with Release configuration
-#expr Exec("C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com", \
-			"x:\XLToolbox\NG\NG.sln /Build Release")
+#ifndef DEBUG
+	#define VSTORURL "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
+	#define DOTNETURL "http://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe"
+	; Build the solution with Release configuration
+	#expr Exec("C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com", \
+				"x:\XLToolbox\NG\NG.sln /Build Release")
+#else
+	#define VSTORURL "http://vhost/vstor_redist.exe"
+	#define DOTNETURL "http://vhost/dotNetFx40_Full_x86_x64.exe"
+#endif
 
 ; Specific AppID - NEVER CHANGE THIS!
 AppId={{35AD3250-5F75-4C7D-BCE0-41377E280430}
@@ -123,6 +124,7 @@ Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:Convert
 ; Filename: http://xltoolbox.sourceforge.net/uninstall.html; Flags: shellexec nowait
 
 [CustomMessages]
+; General messages [EN]
 en.DevVer=Developmental version
 en.DevVerSubcaption=Please acknowledge that this is development in progress.
 en.DevVerDesc=Please acknowledge that this is development in progress. Please note that this is a developmental version of the XL Toolbox. Expect things to work differently from what you expect to not work at all, to crash your system, and to change in any subsequent version.
@@ -134,20 +136,28 @@ en.SingleOrMultiDesc=Please indicate the scope of this installation:
 en.SingleOrMultiSingle=Single user (only for me)
 en.SingleOrMultiAll=All users (system-wide)
 en.Excel2007Required=Daniel's XL Toolbox NG requires Excel 2007 or later. Please download and install the legacy version (e.g. 6.52) of this add-in which also works with Excel 2003. Setup will now terminate.
-en.ClrDownloadCaption=Runtime files required
-en.ClrDownloadDesc=The required Visual Studio Tools for Office (VSTO) 4.0 runtime files were not found on your system.
-en.ClrDownloadMsg=Click 'Next' to start downloading the installer file (about 38 MB) from the Microsoft servers.
-en.ClrInstallCaption=Runtime files downloaded
-en.ClrInstallDesc=The Visual Studio Tools for Office (VSTO) 4.0 runtime files are ready to install.
-en.ClrInstallMsg=Click 'Next' to beginn the installation of the runtime files.
-en.ClrCannotInstallCaption=Administrator privileges required
-en.ClrCannotInstallDesc=You do not have the administrative rights to install the required Visual Studio for Office (VSTO) 4.0 runtime files.
-en.ClrCannotInstallMsg=You may continue the installation, but the XL Toolbox won't start unless the required VSTO runtime files are installed by an administrator.
-en.ClrCannotInstallCont=Continue anyway, although it won't work without the runtime files
-en.ClrCannotInstallAbort=Abort the installation (come back when the admin has installed the files)
-en.ClrStillNotInstalled=The required VSTO runtime is still not installed. Setup cannot continue. You may try again, or abort the XL Toolbox installation.
-en.ClrNotValidated=The downloaded file has unexpected content. It may have not been downloaded correctly, or someone might have hampered with it. You may click 'Back' and then 'Next' to download it again.
 
+; CannotInstallPage [EN]
+en.CannotInstallCaption=Administrator privileges required
+en.CannotInstallDesc=You do not have the administrative rights to install the required runtime files.
+en.CannotInstallMsg=Additional runtime files from Microsoft are required to run the XL Toolbox. You may continue the installation, but the XL Toolbox won't start unless the required runtime files are installed by an administrator.
+en.CannotInstallCont=Continue anyway, although it won't work without the required runtime files
+en.CannotInstallAbort=Abort the installation (come back when the admin has installed the files)
+
+; DownloadInfoPage [EN]
+en.RequiredCaption=Additional runtime files required
+en.RequiredDesc=Additional runtime files for the .NET framework from Microsoft are required in order to run the XL Toolbox.
+en.RequiredMsg=%d file(s) totalling about %s MiB need to be downloaded from the Microsoft servers. Click 'Next' to start downloading.
+
+; InstallInfoPage [EN]
+en.InstallCaption=Runtime files downloaded
+en.InstallDesc=The required runtime files are ready to install.
+en.InstallMsg=Click 'Next' to beginn the installation.
+
+en.StillNotInstalled=The required additional runtime files are still not installed. Setup cannot continue. You may try again, or abort the XL Toolbox installation.
+en.DownloadNotValidated=A downloaded file has unexpected content. It may have not been downloaded correctly, or someone might have hampered with it. You may click 'Back' and then 'Next' to download it again.
+
+; General messages [DE]
 de.DevVer=Entwicklerversion
 de.DevVerSubcaption=Bestätigen Sie, daß Sie die Entwicklerversion installieren wollen.
 de.DevVerDesc=Beachten Sie bitte, daß es sich hierbei um eine Entwicklerversion handelt. Das Add-in kann sich anders verhalten, als Sie es erwarten, kann vielleicht Ihren Computer zum Absturz bringen, und kann in der nächsten Version ganz anders sein.
@@ -159,19 +169,26 @@ de.SingleOrMultiDesc=Bitte geben Sie an, ob die Toolbox nur für Sie oder für all
 de.SingleOrMultiSingle=Ein Benutzer (nur für mich)
 de.SingleOrMultiAll=Alle Benutzer (systemweit)
 de.Excel2007Required=Daniel's XL Toolbox NG erfordert mindestens Excel 2007. Um das Add-in auch mit Excel 2003 zu verwenden, laden Sie bitte die alte, stabile Version 6.52 herunter.
-de.ClrDownloadCaption=Laufzeitdateien erforderlich
-de.ClrDownloadDesc=Die benötigten Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 wurden nicht auf Ihrem System gefunden.
-de.ClrDownloadMsg=Klicken Sie 'Weiter', um mit dem Download der Installationsdatei von den Microsoft-Servern zu beginnen.
-de.ClrInstallCaption=Laufzeitdateien wurden heruntergeladen
-de.ClrInstallDesc=Die Laufzeitdateien der Visual Studio Tools for Office (VSTO) 4.0 können jetzt installiert werden.
-de.ClrInstallMsg=Klicken Sie 'Weiter', um die Installation der Laufzeitdateien zu starten.
-de.ClrCannotInstallCaption=Administratorrechte benötigt
-de.ClrCannotInstallDesc=Sie sind kein Admin und daher nicht autorisiert, die erforderlichen Laufzeitdateien von Visual Studio for Office (VSTO) 4.0 zu installieren.
-de.ClrCannotInstallMsg=Sie können mit der Installation fortfahren, aber die Toolbox wird nicht starten, solange die VSTO-Laufzeitdateien nicht von einem Admin installiert wurden.
-de.ClrCannotInstallCont=Trotzdem installieren, obwohl es nicht funktionieren wird
-de.ClrCannotInstallAbort=Installation abbrechen
-de.ClrStillNotInstalled=Die benötigten VSTO-Laufzeitdateien sind immer noch nicht installiert. Sie können es noch einmal versuchen oder die Installation der XL Toolbox abbrechen.
-de.ClrNotValidated=Die heruntergeladene Datei enthält unerwartete Daten. Vielleicht wurde sie nicht korrekt heruntergeladen, oder sie wurde von jemandem manipuliert. Sie können 'Zurück' und dann 'Weiter' klicken, um sie erneut herunterzuladen.
+
+; "Download required" messages (.NET and VSTOR runtimes) [DE]
+de.CannotInstallCaption=Administratorrechte benötigt
+de.CannotInstallDesc=Sie sind kein Admin und daher nicht autorisiert, die erforderlichen Laufzeitdateien zu installieren.
+de.CannotInstallMsg=Sie können mit der Installation fortfahren, aber die Toolbox wird nicht starten, solange die VSTO-Laufzeitdateien nicht von einem Admin installiert wurden.
+de.CannotInstallCont=Trotzdem installieren, obwohl es nicht funktionieren wird
+de.CannotInstallAbort=Installation abbrechen
+
+; DownloadInfoPage [EN]
+de.RequiredCaption=Weitere Laufzeitdateien erforderlich
+de.RequiredDesc=Weitere Laufzeitdateien für das .NET-Framework von Microsoft werden benötigt, um das Toolbox-Addin verwenden zu können.
+de.RequiredMsg=%d Datei(en) mit ca. %s MiB muß/müssen von den Microsoft-Servern heruntergeladen werden. Klicken Sie 'Weiter', um den Download zu beginnen.
+
+; InstallInfoPage [EN]
+de.InstallCaption=Weitere .NET-Laufzeitdateien heruntergeladen
+de.InstallDesc=Die zusätzlichen benötigten Dateien von Microsoft können jetzt installiert werden.
+de.InstallMsg=Klicken Sie 'Weiter', um mit der Installation zu beginnen.
+
+de.StillNotInstalled=Die zusätzlichen benötigten Dateien wurden leider nicht korrekt installiert, so daß die Toolbox-Installation nicht fortgesetzt werden kann.
+de.DownloadNotValidated=Es wurde unerwarteter Inhalt in einer heruntergeladenen Datei gefunden. Die Installation kann so nicht fortgesetzt werden. Sie können aber 'Zurück' und dann 'Weiter' klicken, um den Download neu zu beginnen.
 
 [Code]
 const
@@ -180,9 +197,9 @@ const
 var
 	PageDevelopmentInfo: TInputOptionWizardPage;
 	PageSingleOrMultiUser: TInputOptionWizardPage;
-	PageClrCannotInstall: TInputOptionWizardPage;
-	PageClrDownloadInfo: TOutputMsgWizardPage;
-	PageClrInstallInfo: TOutputMsgWizardPage;
+	PageCannotInstall: TInputOptionWizardPage;
+	PageDownloadInfo: TOutputMsgWizardPage;
+	PageInstallInfo: TOutputMsgWizardPage;
 
 /// Returns the path for the Wow6432Node registry tree if the current operating
 /// system is 64-bit.
@@ -244,46 +261,96 @@ begin
 		'SOFTWARE\Microsoft\Windows\Current Version\Uninstall\KB976477');
 end;
 
-/// Checks if the CLR is installed. This is relevant if only
+/// Checks if the VSTO runtime is installed. This is relevant if only
 /// Excel 2007 is installed. Since Office 2010, the CLR is
 /// automatically included.
-/// The presence of the 4.0 CLR is indicated by the presence one of
+/// The presence of the VSTO runtime is indicated by the presence one of
 /// four possible registry keys (cf. http://stackoverflow.com/a/15311013/270712):
 /// HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4 (32-bit, VSTO installed from Office 2010 installation)
 /// HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4R (32-bit, VSTO installed from redistributable)
 /// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4 (64-bit, VSTO installed from Office 2010 installation)
 /// HKLM\SOFTWARE\Wow6432Node\Microsoft\VSTO Runtime Setup\v4R (64-bit, VSTO installed from redistributable)
-function IsClrInstalled(): boolean;
+function IsVstorInstalled(): boolean;
 var
-	software, clrPath, wowNode: string;
+	wowNode, software, vstorPath: string;
 begin
-	software := 'SOFTWARE\';
-	clrPath := 'Microsoft\VSTO Runtime Setup\v4';
 	wowNode := GetWowNode;
-	result := RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath) or
-		RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + clrPath + 'R');
+	software := 'SOFTWARE\';
+	vstorPath := 'Microsoft\VSTO Runtime Setup\v4';
+	result := RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + vstorPath) or
+		RegKeyExists(HKEY_LOCAL_MACHINE, software + wowNode + vstorPath + 'R');
+end;
+
+/// Checks if the .NET 4.0 runtime is installed.
+/// See https://msdn.microsoft.com/en-us/library/hh925568
+function IsNetInstalled(): boolean;
+begin
+	result := RegKeyExists(HKEY_LOCAL_MACHINE, 
+		'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4');
+end;
+
+/// Checks if all required prerequisites are met, i.e. if the necessary
+/// runtimes are installed on the system
+function PrerequisitesAreMet(): boolean;
+begin
+	result := IsNetInstalled and IsVstorInstalled;
+end;
+
+/// Checks if a file exists and has a valid Sha1 sum.
+function IsFileValid(file: string; expectedSha1: string): boolean;
+var
+	actualSha1: string;
+begin
+	try
+		if FileExists(file) then
+		begin
+			actualSha1 := GetSHA1OfFile(file);
+		end;
+	finally
+		result := actualSha1 = expectedSha1;
+	end;
 end;
 
 /// Returns the path to the downloaded VSTO runtime installer.
-function GetClrInstallerPath(): string;
+function GetVstorInstallerPath(): string;
 begin
 	result := ExpandConstant('{%temp}\vstor_redist_40.exe');
 end;
 
-/// Checks if the CLR redistributable setup file has already been
-/// downloaded by comparing SHA1 checksums.
-function IsClrDownloaded(): boolean;
-var
-	downloadedSha1: string;
+/// Returns the path to the downloaded .NET runtime installer.
+function GetNetInstallerPath(): string;
 begin
-	try
-		if FileExists(GetClrInstallerPath) then
-		begin
-			downloadedSha1 := GetSHA1OfFile(GetClrInstallerPath);
-		end;
-	finally
-		result := downloadedSha1 = '{#RUNTIMESHA1}';
-	end;
+	result := ExpandConstant('{%temp}\dotNetFx40_Full_x86_x64.exe');
+end;
+
+/// Checks if the VSTO runtime redistributable setup file has already been
+/// downloaded by comparing SHA1 checksums.
+function IsVstorDownloaded(): boolean;
+begin
+	result := IsFileValid(GetVstorInstallerPath, '{#VSTORSHA1}');
+end;
+
+/// Checks if the .NET runtime setup file has already been
+/// downloaded by comparing SHA1 checksums.
+function IsNetDownloaded(): boolean;
+begin
+	result := IsFileValid(GetNetInstallerPath, '{#DOTNETSHA1}');
+end;
+
+/// Determines if the VSTO runtime needs to be downloaded.
+/// This is not the case it the runtime is already installed,
+/// or if there is a file with a valid Sha1 sum.
+function NeedToDownloadVstor: boolean;
+begin
+	result := not IsVstorInstalled and not IsVstorDownloaded;
+end;
+
+/// Determines if the VSTO runtime needs to be downloaded.
+/// This is not the case it the runtime is already installed,
+/// or if there is a file with a valid Sha1 sum.
+function NeedToDownloadNet: boolean;
+begin
+	result := not IsNetInstalled and not IsNetDownloaded;
 end;
 
 /// Determines whether or not a system-wide installation
@@ -323,7 +390,7 @@ end;
 
 procedure CreateSingleOrAllUserPage();
 begin
-	PageSingleOrMultiUser := CreateInputOptionPage(PageDevelopmentInfo.ID,
+	PageSingleOrMultiUser := CreateInputOptionPage(wpLicense,
 		CustomMessage('SingleOrMulti'), CustomMessage('SingleOrMultiSubcaption'),
 		CustomMessage('SingleOrMultiDesc'), True, False);
 	PageSingleOrMultiUser.Add(CustomMessage('SingleOrMultiSingle'));
@@ -338,32 +405,48 @@ begin
 	end;
 end;
 
-procedure CreateClrCannotInstallPage();
+procedure CreateCannotInstallPage();
 begin
-	PageClrCannotInstall := CreateInputOptionPage(wpWelcome,
-		CustomMessage('ClrCannotInstallCaption'),
-		CustomMessage('ClrCannotInstallDesc'),
-		CustomMessage('ClrCannotInstallMsg'), True, False);
-	PageClrCannotInstall.Add(CustomMessage('ClrCannotInstallCont'));
-	PageClrCannotInstall.Add(CustomMessage('ClrCannotInstallAbort'));
-	PageClrCannotInstall.Values[1] := True;
+	PageCannotInstall := CreateInputOptionPage(wpWelcome,
+		CustomMessage('CannotInstallCaption'),
+		CustomMessage('CannotInstallDesc'),
+		CustomMessage('CannotInstallMsg'), True, False);
+	PageCannotInstall.Add(CustomMessage('CannotInstallCont'));
+	PageCannotInstall.Add(CustomMessage('CannotInstallAbort'));
+	PageCannotInstall.Values[1] := True;
 end;
 
-procedure CreateClrDownloadInfoPage();
+procedure CreateDownloadInfoPage();
+var
+	bytes: Int64;
+	mib: Single;
+	size: String;
 begin
-	PageClrDownloadInfo := CreateOutputMsgPage(PageSingleOrMultiUser.Id,
-		CustomMessage('ClrDownloadCaption'),
-		CustomMessage('ClrDownloadDesc'),
-		CustomMessage('ClrDownloadMsg'));
+	if idpGetFilesSize(bytes) then
+	begin
+		mib := bytes / 1048576;
+		size := Format('%.1f', [ mib ]);
+	end
+	else
+	begin
+		size := '[?]'
+	end;
+	PageDownloadInfo := CreateOutputMsgPage(PageSingleOrMultiUser.Id,
+		CustomMessage('RequiredCaption'),
+		CustomMessage('RequiredDesc'),
+		Format(CustomMessage('RequiredMsg'), [idpFilesCount, size]));
 end;
 
-procedure CreateClrInstallInfoPage();
+procedure CreateInstallInfoPage();
 begin
-	PageClrInstallInfo := CreateOutputMsgPage(PageClrDownloadInfo.Id,
-		CustomMessage('ClrInstallCaption'),
-		CustomMessage('ClrInstallDesc'),
-		CustomMessage('ClrInstallMsg'));
+	PageInstallInfo := CreateOutputMsgPage(PageDownloadInfo.Id,
+		CustomMessage('InstallCaption'),
+		CustomMessage('InstallDesc'),
+		CustomMessage('InstallMsg'));
 end;
+
+/// Executes a runtime setup. Returns true if successful,
+/// false if not.
 
 function InitializeSetup(): boolean;
 var
@@ -392,16 +475,80 @@ procedure InitializeWizard();
 begin
 	CreateDevelopmentInfoPage;
 	CreateSingleOrAllUserPage;
-	CreateClrCannotInstallPage;
-	CreateClrDownloadInfoPage;
-	CreateClrInstallInfoPage;
-	idpAddFile('{#RUNTIMEURL}', GetClrInstallerPath);
-	idpDownloadAfter(PageClrDownloadInfo.Id);
+	if not PrerequisitesAreMet then
+	begin
+		CreateCannotInstallPage;
+		if NeedToDownloadNet then
+		begin
+			Log('Mark {#DOTNETURL} for download.');
+			idpAddFileSize('{#DOTNETURL}', GetNetInstallerPath, 50449456);
+		end;
+		if NeedToDownloadVstor then
+		begin
+			Log('Mark {#VSTORURL} for download.');
+			idpAddFileSize('{#VSTORURL}', GetVstorInstallerPath, 40123576);
+		end;
+		CreateDownloadInfoPage;
+		CreateInstallInfoPage;
+		idpDownloadAfter(PageDownloadInfo.Id);
+	end;
+end;
+
+function ExecuteNetSetup(): boolean;
+var
+	exitCode: integer;
+begin
+	result := true;
+	if not IsNetInstalled then
+	begin
+		if IsNetDownloaded then
+		begin
+			Log('Valid .NET runtime download found, installing.');
+			Exec(GetNetInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			BringToFrontAndRestore;
+			if not IsNetInstalled then
+			begin
+				MsgBox(CustomMessage('StillNotInstalled'), mbInformation, MB_OK);
+				result := False;
+			end;
+		end
+		else
+		begin
+			Log('No or invalid .NET runtime download found, will not install.');
+			MsgBox(CustomMessage('DownloadNotValidated'), mbInformation, MB_OK);
+			result := False;
+		end;
+	end; // not IsNetInstalled
+end;
+
+function ExecuteVstorSetup(): boolean;
+var
+	exitCode: integer;
+begin
+	result := true;
+	if not IsVstorInstalled then
+	begin
+		if IsVstorDownloaded then
+		begin
+			Log('Valid VSTO runtime download found, installing.');
+			Exec(GetVstorInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			BringToFrontAndRestore;
+			if not IsVstorInstalled then
+			begin
+				MsgBox(CustomMessage('StillNotInstalled'), mbInformation, MB_OK);
+				result := False;
+			end;
+		end
+		else
+		begin
+			Log('No or invalid VSTO runtime download found, will not install.');
+			MsgBox(CustomMessage('DownloadNotValidated'), mbInformation, MB_OK);
+			result := False;
+		end;
+	end; // not IsVstorInstalled
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
-var
-	exitCode: integer;
 begin
 	result := True;
 	if not WizardSilent then
@@ -417,42 +564,29 @@ begin
 		end;
 	end;
 	
-	// Abort the installation if the VSTO runtime is missing, the user
-	// is not an administrator, and requested to abort the installation.
-	if CurPageID = PageClrCannotInstall.ID then
+	if not PrerequisitesAreMet then
 	begin
-		if PageClrCannotInstall.Values[1] = true then
+		// Abort the installation if any of the runtimes are missing, the user
+		// is not an administrator, and requested to abort the installation.
+		if CurPageID = PageCannotInstall.ID then
 		begin
-			WizardForm.Close;
-			result := False;
-		end
-		else
-			Log('Non-admin user continues although VSTO runtime is not installed.');
-		begin
-		end;
-	end;
-
-	// Trigger the VSTO runtime installation
-	if CurPageID = PageClrInstallInfo.ID then
-	begin
-		if IsClrDownloaded then
-		begin
-			Log('Valid VSTO runtime download found, installing.');
-			Exec(GetClrInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
-			BringToFrontAndRestore;
-			if not IsClrInstalled then
+			if PageCannotInstall.Values[1] = true then
 			begin
-				MsgBox(CustomMessage('ClrStillNotInstalled'), mbInformation, MB_OK);
+				WizardForm.Close;
 				result := False;
+			end
+			else
+			begin
+				Log('Non-admin user continues although not all required runtimes are installed.');
 			end;
-		end
-		else
-		begin
-			Log('Invalid VSTO runtime download found, will not install.');
-			MsgBox(CustomMessage('ClrNotValidated'), mbInformation, MB_OK);
-			result := False;
 		end;
-	end;
+
+		if CurPageID = PageInstallInfo.ID then
+		begin
+		  // Return true if installation succeeds (or no installation required)
+			result := ExecuteNetSetup and ExecuteVstorSetup;
+		end; 
+	end; // not PrerequisitesAreMet
 end;
 
 /// Skips the folder selection, single/multi user, and ready pages for
@@ -463,66 +597,31 @@ end;
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
 	result := False;
-
-	if (PageID = PageClrInstallInfo.ID) or (PageID = PageClrDownloadInfo.ID) then
-	begin
-		// Skip the pages to download and install the VSTO runtime.
-		result := IsClrInstalled;
-	end;
 	
-	if PageID = PageClrCannotInstall.ID then
+	if not PrerequisitesAreMet then
 	begin
-		// Only warn the user about the missing VSTO runtime that cannot be 
-		// installed if the runtime is really missing and the user is not
-		// an admin.
-		if not IsClrInstalled then
+		// The PageDownloadCannotInstall will only have been initialized if
+		// PrerequisitesAreMet returned false.
+		if PageID = PageCannotInstall.ID then
 		begin
-			// Skip the page if the user is an admin.
-			if IsAdminLoggedOn then
+			// Skip the warning if the user is an admin.
+			result := IsAdminLoggedOn 
+			if not result then
 			begin
-				result := True;
-			end
-			else
-			begin
-				Log('Warning user that VSTO runtime cannot be installed due to missing privileges');
-				result := False;
-			end;
-		end
-		else
-		begin
-			// Do not show the warning if the runtime is installed, regardless
-			// if the user is an admin or not.
-			result := True;
-		end;
-	end;
-	
-	if PageID = IDPForm.Page.ID then
-	begin
-		if IsClrInstalled then
-		begin
-			// Skip the download page if the VSTO runtime is already installed.
-			result := True;
-			Log('VSTO runtime is already installed on this system.');
-		end
-		else
-		begin
-			Log('VSTO runtime is not installed on this system.');
-
-			// Skip the download page if the runtime installer has already been
-			// downloaded.
-			if IsClrDownloaded then
-			begin
-				Log('VSTO runtime installer found, skipping download.');
-				result := True;
-			end
-			else
-			begin
-				Log('Downloading VSTO runtime installer.');
-				Log('URL: {#RUNTIMEURL}');
-				result := False;
+				Log('Warning user that required runtimes cannot be installed due to missing privileges');
 			end;
 		end;
-	end;
+	
+		if PageID = IDPForm.Page.ID then
+		begin
+			// Skip downloader plugin if there are no files to download.
+			result := idpFilesCount = 0;
+			if not result then
+			begin
+				Log('Beginning download of ' + IntToStr(idpFilesCount) + ' file(s).');
+			end;
+		end;
+	end; // not PrerequisitesAreMet
 	
 	if PageID = PageSingleOrMultiUser.ID then
 	begin
