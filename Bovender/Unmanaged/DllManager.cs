@@ -35,13 +35,13 @@ namespace Bovender.Unmanaged
 
         #region WinAPI
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", EntryPoint="LoadLibrary", SetLastError=true)]
         static extern IntPtr LoadLibrary(string dllToLoad);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", EntryPoint="GetProcAddress", SetLastError=true)]
         static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", EntryPoint = "FreeLibrary", SetLastError = true)]
         static extern bool FreeLibrary(IntPtr hModule);
 
         #endregion
@@ -79,8 +79,17 @@ namespace Bovender.Unmanaged
             IntPtr handle = LoadLibrary(dllPath);
             if (handle == IntPtr.Zero)
             {
+                // Strip the leading directories from the path info (they may contain
+                // sensitive information about where exactly a user has installed files).
+                string[] dirs = Path.GetDirectoryName(dllPath).Split(Path.DirectorySeparatorChar);
+                string gracefulPath = dllName;
+                int n = dirs.Length;
+                if (n > 0) gracefulPath = Path.Combine(dirs[n - 1], gracefulPath);
+                if (n > 1) gracefulPath = Path.Combine(dirs[n - 2], gracefulPath);
+                if (n > 2) gracefulPath = Path.Combine("...", gracefulPath);
                 throw new DllLoadingFailedException(String.Format(
-                    "LoadLibrary returned NULL handle on {0}", dllPath));
+                    "LoadLibrary failed with code {0} on {1}",
+                    Marshal.GetLastWin32Error(), gracefulPath));
             }
 
             // Register the DLL and its handle in the internal database

@@ -115,6 +115,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Versioning.settings</DependentUpon>
     </Compile>
+    <Compile Include="Text\Multiline.cs" />
     <Compile Include="Unmanaged\DllLoadingFailedException.cs" />
     <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="Unmanaged\DllNotFoundException.cs" />

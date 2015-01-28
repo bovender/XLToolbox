@@ -82,6 +82,56 @@ namespace XLToolbox.Excel.Instance
             }
         }
 
+        /// <summary>
+        /// Gets the Excel version and build number in a human-friendly form.
+        /// </summary>
+        /// <remarks>
+        /// See http://spreadsheetpage.com/index.php/resource/excel_version_history
+        /// and http://blog.pathtosharepoint.com/2014/05/06/how-to-get-your-office-365-version-number/
+        /// </remarks>
+        /// <param name="excel">Excel application whose version information to
+        /// to retrieve.</param>
+        /// <returns>String in the form of "2003", "2010 SP1" and so on.</returns>
+        public static string HumanFriendlyVersion
+        {
+            get
+            {
+                Application app = Application;
+                string name = String.Empty;
+                string sp = String.Empty;
+                switch (Convert.ToInt32(app.Version.Split('.')[0]))
+                {
+                    // Very old versions are ignored (won't work with VSTO anyway)
+                    case 11: name = "2003"; break;
+                    case 12: name = "2007"; break;
+                    case 14: name = "2010"; break;
+                    case 15: name = "2013"; break;
+                    case 16: name = "365"; break; // I believe (sparse information on the web)
+                }
+                int build = app.Build;
+                switch (app.Version)
+                {
+                    case "15.0":
+                        // 2013 SP information: http://support.microsoft.com/kb/2817430/en-us
+                        if (build >= 4569) { sp = " SP1"; }
+                        break;
+                    case "14.0":
+                        // 2010 SP information: http://support.microsoft.com/kb/2121559/en-us
+                        if (build >= 7015) { sp = " SP2"; }
+                        else if (build >= 6029) { sp = " SP1"; }
+                        break;
+                    case "12.0":
+                        // 2007 SP information: http://support.microsoft.com/kb/928116/en-us
+                        if (build >= 6611) { sp = " SP3"; }
+                        else if (build >= 6425) { sp = " SP2"; }
+                        else if (build >= 6241) { sp = " SP1"; }
+                        break;
+                }
+                return String.Format("{0}{1} ({2}.{3})",
+                    name, sp, app.Version, app.Build);
+            }
+        }
+
         #endregion
 
         #region Static methods

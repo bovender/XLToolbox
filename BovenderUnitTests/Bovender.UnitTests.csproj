@@ -76,6 +76,7 @@
     <Compile Include="Mvvm\ViewModelCollectionForTesting.cs" />
     <Compile Include="Mvvm\ViewModelCollectionTest.cs" />
     <Compile Include="PinvokeTests.cs" />
+    <Compile Include="Text\MultilineTest.cs" />
     <Compile Include="UpdaterForTesting.cs" />
     <Compile Include="UpdaterViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
