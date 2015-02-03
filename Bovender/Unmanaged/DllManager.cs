@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace Bovender.Unmanaged
 {
@@ -87,9 +88,14 @@ namespace Bovender.Unmanaged
                 if (n > 0) gracefulPath = Path.Combine(dirs[n - 1], gracefulPath);
                 if (n > 1) gracefulPath = Path.Combine(dirs[n - 2], gracefulPath);
                 if (n > 2) gracefulPath = Path.Combine("...", gracefulPath);
-                throw new DllLoadingFailedException(String.Format(
-                    "LoadLibrary failed with code {0} on {1}",
-                    Marshal.GetLastWin32Error(), gracefulPath));
+                Win32Exception inner = new Win32Exception(Marshal.GetLastWin32Error());
+                throw new DllLoadingFailedException(
+                    String.Format(
+                        "LoadLibrary failed with code {0} on {1}",
+                        Marshal.GetLastWin32Error(), gracefulPath
+                    ),
+                    inner
+                );
             }
 
             // Register the DLL and its handle in the internal database
