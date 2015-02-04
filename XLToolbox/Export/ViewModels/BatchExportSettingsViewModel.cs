@@ -314,6 +314,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 PresetsRepository.Presets[0].IsSelected = true;
             }
+            Settings = new BatchExportSettings(
+                PresetsRepository.SelectedPreset.RevealModelObject() as Preset);
         }
 
         public BatchExportSettingsViewModel(BatchExportSettings settings)
