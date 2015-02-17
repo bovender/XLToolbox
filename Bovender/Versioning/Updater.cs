@@ -88,11 +88,13 @@ namespace Bovender.Versioning
                 /* Todo: compute permissions, rather than try and catch */
                 try
                 {
-                    using (FileStream f = new FileStream(Path.Combine(addinPath, "xltbupd.test"),
+                    string fn = Path.Combine(addinPath, "xltbupd.test");
+                    using (FileStream f = new FileStream(fn,
                         FileMode.Create, FileAccess.Write))
                     {
                         f.WriteByte(0xff);
                     };
+                    File.Delete(fn);
                     return true;
                 }
                 catch (Exception)
