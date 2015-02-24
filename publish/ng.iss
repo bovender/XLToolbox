@@ -579,7 +579,8 @@ begin
 		if IsNetDownloaded then
 		begin
 			Log('Valid .NET runtime download found, installing.');
-			Exec(GetNetInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			Exec(GetNetInstallerPath, '/norestart',
+				'', SW_SHOW, ewWaitUntilTerminated, exitCode);
 			BringToFrontAndRestore;
 			if not IsNetInstalled then
 			begin
@@ -606,7 +607,8 @@ begin
 		if IsVstorDownloaded then
 		begin
 			Log('Valid VSTO runtime download found, installing.');
-			Exec(GetVstorInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			Exec(GetVstorInstallerPath, '/norestart', '', SW_SHOW,
+				ewWaitUntilTerminated, exitCode);
 			BringToFrontAndRestore;
 			if not IsVstorInstalled then
 			begin
