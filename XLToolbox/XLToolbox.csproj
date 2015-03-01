@@ -93,6 +93,7 @@
     <Compile Include="Export\Models\Unit.cs" />
     <Compile Include="Export\Models\Settings.cs" />
     <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ScreenShotExporter.cs" />
     <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
