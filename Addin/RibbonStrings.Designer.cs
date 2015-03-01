@@ -97,6 +97,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This command is disabled because an update operation is pending..
+        /// </summary>
+        internal static string ButtonCheckForUpdateSupertipDisabled {
+            get {
+                return ResourceManager.GetString("ButtonCheckForUpdateSupertipDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export with settings....
         /// </summary>
         internal static string ButtonExportBatchLabel {

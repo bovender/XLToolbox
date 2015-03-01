@@ -150,6 +150,16 @@ namespace Bovender.Versioning
 
         public bool IsVerifiedDownload { get { return _updater.IsVerifiedDownload; } }
 
+        public bool IsUpdatePending { get { return _updater.IsUpdatePending; } }
+
+        public bool CanCheckForUpdate
+        {
+            get
+            {
+                return !IsLocked && !IsUpdatePending;
+            }
+        }
+
         public string DestinationFolder
         {
             get
@@ -187,7 +197,8 @@ namespace Bovender.Versioning
                 if (_checkForUpdateCommand == null)
                 {
                     _checkForUpdateCommand = new DelegatingCommand(
-                        (param) => DoCheckForUpdate());
+                        (param) => DoCheckForUpdate(),
+                        (param) => CanCheckForUpdate);
                 }
                 return _checkForUpdateCommand;
             }
@@ -375,6 +386,11 @@ namespace Bovender.Versioning
             : base()
         {
             _updater = updater;
+            CheckProcessMessageContent.CancelProcess = CancelCheckForUpdate;
+            DownloadProcessMessageContent.CancelProcess = CancelDownloadUpdate;
+            _updater.CheckForUpdateFinished += _updater_CheckForUpdateFinished;
+            _updater.DownloadProgressChanged += _updater_DownloadProgressChanged;
+            _updater.DownloadUpdateFinished += _updater_DownloadUpdateFinished;
         }
 
         #endregion
@@ -383,14 +399,14 @@ namespace Bovender.Versioning
 
         private void DoCheckForUpdate()
         {
-            CheckProcessMessageContent.CancelProcess = _updater.CancelCheckForUpdate;
-            _updater.CheckForUpdateFinished += _updater_CheckForUpdateFinished;
+            IsLocked = true;
             CheckForUpdateMessage.Send(CheckProcessMessageContent);
             _updater.CheckForUpdate();
         }
 
         void _updater_CheckForUpdateFinished(object sender, EventArgs e)
         {
+            IsLocked = false;
             Action action = new Action(() =>
                 { 
                     // Set the 'IsIndeterminate' property of the process message content to false
@@ -453,7 +469,7 @@ namespace Bovender.Versioning
                         DestinationFolder = returnContent.Value;
                         Properties.Settings.Default.UpdateDestinationFolder = DestinationFolder;
                         Properties.Settings.Default.Save();
-                        ReadyToDownloadMessage.Send(DownloadProcessMessageContent);
+                        ReadyToDownloadMessage.Send();
                     };
                 }
             );
@@ -466,21 +482,21 @@ namespace Bovender.Versioning
 
         private void DoDownloadUpdate()
         {
-            DownloadProcessMessageContent.CancelProcess = _updater.CancelDownload;
-            _updater.DownloadProgressChanged += _updater_DownloadProgressChanged;
-            _updater.DownloadUpdateFinished += _updater_DownloadUpdateFinished;
-            _updater.DownloadUpdate();
+            IsLocked = true;
             DownloadUpdateMessage.Send(DownloadProcessMessageContent);
+            _updater.DownloadUpdate();
         }
 
         void _updater_DownloadUpdateFinished(object sender, EventArgs e)
         {
+            IsLocked = false;
             // When the download process is finished, the Updater model will verify
             // the downloaded file's Sha1. Since the view model exposes the
             // updater's IsVerifiedDownload, we need to notify subscribers to the
             // view model's INotifyPropertyChanged interface (inherited from
             // ViewModelBase).
             OnPropertyChanged("IsVerifiedDownload");
+            OnPropertyChanged("IsUpdatePending");
 
             if (_updater.DownloadException == null)
             {
@@ -515,6 +531,7 @@ namespace Bovender.Versioning
         {
             if (CanInstallUpdate())
             {
+                DoCloseView();
                 _updater.InstallUpdate();
             }
             else
@@ -531,6 +548,19 @@ namespace Bovender.Versioning
         #endregion
 
         #region Private Properties
+
+        public bool IsLocked
+        {
+            get
+            {
+                return _isLocked;
+            }
+            set
+            {
+                _isLocked = value;
+                OnPropertyChanged("CanCheckForUpdate");
+            }
+        }
 
         private ProcessMessageContent CheckProcessMessageContent
         {
@@ -557,6 +587,18 @@ namespace Bovender.Versioning
             }
         }
 
+        private void CancelCheckForUpdate()
+        {
+            IsLocked = false;
+            _updater.CancelCheckForUpdate();
+        }
+
+        private void CancelDownloadUpdate()
+        {
+            IsLocked = false;
+             _updater.CancelDownload();
+        }
+
         #endregion
 
         #region Private fields
@@ -578,6 +620,7 @@ namespace Bovender.Versioning
         private Message<StringMessageContent> _chooseDestinationFolderMessage;
         private ProcessMessageContent _checkProcessMessageContent;
         private ProcessMessageContent _downloadProcessMessageContent;
+        private bool _isLocked;
 
         #endregion
 

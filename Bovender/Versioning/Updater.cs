@@ -53,6 +53,12 @@ namespace Bovender.Versioning
         public bool IsUpdateAvailable { get; protected set; }
 
         /// <summary>
+        /// Indicates whether an update has been downloaded and could be
+        /// installed.
+        /// </summary>
+        public bool IsUpdatePending { get; protected set; }
+
+        /// <summary>
         /// The URI of the remote file.
         /// </summary>
         public Uri DownloadUri { get; protected set; }
@@ -189,11 +195,13 @@ namespace Bovender.Versioning
 
         /// <summary>
         /// Verifies the Sha1 checksum of the file on disk again and executes
-        /// the file if it is valid.
+        /// the file if it is valid. Does nothing if no update is available.
         /// </summary>
         /// <exception cref="DownloadCorruptException">if the Sha1 is unexpected</exception>
         public void InstallUpdate()
         {
+            if (!IsUpdateAvailable) return;
+
             // As a security measure, compute the SHA1 again so we know it's current.
             IsVerifiedDownload = FileHelpers.Sha1Hash(_destinationFileName) == UpdateSha1;
 
@@ -301,8 +309,30 @@ namespace Bovender.Versioning
         {
             if (IsVerifiedDownload)
             {
-                System.Diagnostics.Process.Start(_destinationFileName, "/UPDATE");
+                System.Diagnostics.Process.Start(
+                    GetInstallerCommand(),
+                    GetInstallerParameters()
+                );
             }
+        }
+
+        /// <summary>
+        /// Returns the command to execute in the shell to install the update.
+        /// </summary>
+        /// <returns>Command to execute.</returns>
+        protected virtual string GetInstallerCommand()
+        {
+            return _destinationFileName;
+        }
+
+        /// <summary>
+        /// Returns commandline parameters for the update installer.
+        /// </summary>
+        /// <returns>Commandline parameters ("/UPDATE") in the default
+        /// implementation.</returns>
+        protected virtual string GetInstallerParameters()
+        {
+            return "/UPDATE";
         }
 
         #endregion
@@ -315,6 +345,7 @@ namespace Bovender.Versioning
             {
                 DownloadException = e.Error;
                 IsVerifiedDownload = FileHelpers.Sha1Hash(_destinationFileName) == UpdateSha1;
+                IsUpdatePending = IsVerifiedDownload;
                 OnDownloadUpdateFinished();
             }
             else

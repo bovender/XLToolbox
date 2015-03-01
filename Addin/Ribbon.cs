@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Resources;
 using Office = Microsoft.Office.Core;
+using CustomUI = DocumentFormat.OpenXml.Office.CustomUI;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -42,7 +43,6 @@ using Office = Microsoft.Office.Core;
 // 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
 
 // For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
-
 
 namespace XLToolbox
 {
@@ -64,6 +64,8 @@ namespace XLToolbox
                 { "ButtonExportBatch", Command.BatchExport },
                 { "ButtonExportBatchQuick", Command.BatchExportLast },
             };
+
+            Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
         }
 
         #endregion
@@ -118,7 +120,18 @@ namespace XLToolbox
 
         public string Control_GetSupertip(Office.IRibbonControl control)
         {
-            return LookupResourceString(control.Id + "Supertip");
+            CustomUI.Button button = control as CustomUI.Button;
+            string resourceName = control.Id + "SuperTip";
+            string supertip = null;
+            if (button != null && !button.Enabled.Value)
+            {
+                supertip = LookupResourceString(resourceName + "Disabled");
+            }
+            if (String.IsNullOrEmpty(supertip))
+            {
+                supertip = LookupResourceString(resourceName);
+            }
+            return supertip;
         }
 
         private string LookupResourceString(string name)
@@ -138,6 +151,21 @@ namespace XLToolbox
 #else
             return false;
 #endif
+        }
+
+        public bool ButtonCheckForUpdate_GetEnabled(Office.IRibbonControl control)
+        {
+            return (!Versioning.UpdaterViewModel.Instance.IsLocked &&
+                !Versioning.UpdaterViewModel.Instance.IsUpdatePending);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        void UpdaterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            _ribbon.InvalidateControl("ButtonCheckForUpdate");
         }
 
         #endregion

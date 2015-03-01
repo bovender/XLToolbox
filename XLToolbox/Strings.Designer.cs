@@ -1124,8 +1124,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click &quot;Cancel&quot;.
-        ///You can find the installer in {0}..
+        ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel..
         /// </summary>
         public static string UpdateHasBeenDownloaded {
             get {
@@ -1265,6 +1264,15 @@ namespace XLToolbox {
         public static string XLToolboxLicense {
             get {
                 return ResourceManager.GetString("XLToolboxLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel&apos;s XL Toolbox Update.
+        /// </summary>
+        public static string XLToolboxUpdate {
+            get {
+                return ResourceManager.GetString("XLToolboxUpdate", resourceCulture);
             }
         }
         

@@ -129,6 +129,9 @@
   <data name="ButtonCheckForUpdateSupertip" xml:space="preserve">
     <value>Checks if an update to the XL Toolbox addin is available.</value>
   </data>
+  <data name="ButtonCheckForUpdateSupertipDisabled" xml:space="preserve">
+    <value>This command is disabled because an update operation is pending.</value>
+  </data>
   <data name="ButtonExportBatchLabel" xml:space="preserve">
     <value>Batch export with settings...</value>
   </data>

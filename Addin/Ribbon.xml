@@ -52,7 +52,8 @@
                     <button id="ButtonAbout" image="xltb-icon-small.png"
 							onAction="Button_OnAction" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
                     <button id="ButtonCheckForUpdate" image="check-update-small.png"
-							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+							getEnabled="ButtonCheckForUpdate_GetEnabled" />
                 </group>
                 <group id="GroupDebug" label="Debug" getVisible="Group_IsVisibleInDebugOnly">
                     <button id="ButtonTestError" onAction="Button_OnAction" label="Test error" image="error.png" size="large" />

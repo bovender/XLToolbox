@@ -24,6 +24,8 @@ using XLToolbox.ExceptionHandler;
 using XLToolbox.Mvvm.Views;
 using XLToolbox.Greeter;
 using Threading = System.Windows.Threading;
+using Bovender.Mvvm.Actions;
+using Bovender.Mvvm.Messaging;
 
 namespace XLToolbox
 {
@@ -32,7 +34,6 @@ namespace XLToolbox
         #region Private fields
 
         private Threading.Dispatcher _dispatcher;
-        private UpdaterViewModel _updaterVM;
 
         #endregion
 
@@ -58,10 +59,9 @@ namespace XLToolbox
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            // Use && to perform lazy evaluation
-            if (_updaterVM != null && _updaterVM.InstallUpdateCommand.CanExecute(null))
+            if (Versioning.UpdaterViewModel.Instance.IsUpdatePending)
             {
-                _updaterVM.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
+                Versioning.UpdaterViewModel.Instance.InjectInto<Versioning.InstallUpdateView>().ShowDialog();
             };
         }
 
@@ -105,14 +105,14 @@ namespace XLToolbox
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
-                _updaterVM = new UpdaterViewModel(new XLToolbox.Versioning.Updater());
-                if (_updaterVM.IsUserAuthorized)
+                UpdaterViewModel updaterVM = Versioning.UpdaterViewModel.Instance;
+                if (updaterVM.CanCheckForUpdate)
                 {
-                    _updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
+                    updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
                     {
-                        Workarounds.ShowModelessInExcel<XLToolbox.Versioning.UpdateAvailableView>(_updaterVM);
+                        Workarounds.ShowModelessInExcel<XLToolbox.Versioning.UpdateAvailableView>(updaterVM);
                     };
-                    _updaterVM.CheckForUpdateCommand.Execute(null);
+                    updaterVM.CheckForUpdateCommand.Execute(null);
                 }
                 Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
                 Properties.Settings.Default.Save();

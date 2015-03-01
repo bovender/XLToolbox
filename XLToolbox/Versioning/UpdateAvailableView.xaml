@@ -34,14 +34,12 @@
             <mvvm:ChooseFolderAction Description="{x:Static l:Strings.ChooseWhereToSaveUpdateFile}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ReadyToDownloadMessage}" EventName="Sent">
+            <i:InvokeCommandAction Command="{Binding DownloadUpdateCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding DownloadUpdateMessage}" EventName="Sent">
             <mvvm:ProcessAction Assembly="XLToolbox" View="XLToolbox.Versioning.UpdaterProcessView"
                                 Caption="{x:Static l:Strings.DownloadingXLToolboxUpdate}"
                                 Message="{x:Static l:Strings.DownloadingXLToolboxUpdate}" />
-            <!-- Important to execute the update command after creating the download progress view, -->
-            <!-- since the 'download' may finish very quickly if the file exists already and can be -->
-            <!-- verified. -->
-            <i:InvokeCommandAction Command="{Binding DownloadUpdateCommand}" />
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Orientation="Horizontal" Margin="10">

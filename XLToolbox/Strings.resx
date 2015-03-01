@@ -170,8 +170,7 @@ Is your internet connection working?</value>
     <value>You have:</value>
   </data>
   <data name="UpdateHasBeenDownloaded" xml:space="preserve">
-    <value>The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click "Cancel".
-You can find the installer in {0}.</value>
+    <value>The update has been successfully downloaded and will be installed when you quit Excel.</value>
   </data>
   <data name="Donate" xml:space="preserve">
     <value>Donate</value>
@@ -548,5 +547,8 @@ You may want to try again.</value>
   </data>
   <data name="UseColorManagement" xml:space="preserve">
     <value>Use color management</value>
+  </data>
+  <data name="XLToolboxUpdate" xml:space="preserve">
+    <value>Daniel's XL Toolbox Update</value>
   </data>
 </root>
