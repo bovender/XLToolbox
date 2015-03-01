@@ -85,6 +85,12 @@ namespace Bovender.Mvvm.Actions
             }
         }
 
+        protected void Invoke<T>(T messageContent, Action respond)
+            where T : MessageContent
+        {
+            Invoke(new MessageArgs<T>(messageContent, respond));
+        }
+
         #endregion
 
         #region Virtual methods
