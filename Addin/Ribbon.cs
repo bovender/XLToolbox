@@ -155,8 +155,7 @@ namespace XLToolbox
 
         public bool ButtonCheckForUpdate_GetEnabled(Office.IRibbonControl control)
         {
-            return (!Versioning.UpdaterViewModel.Instance.IsLocked &&
-                !Versioning.UpdaterViewModel.Instance.IsUpdatePending);
+            return (Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
         }
 
         #endregion

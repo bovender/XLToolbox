@@ -549,7 +549,7 @@ namespace Bovender.Versioning
 
         #region Private Properties
 
-        public bool IsLocked
+        private bool IsLocked
         {
             get
             {
