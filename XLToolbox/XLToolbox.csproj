@@ -145,6 +145,7 @@
     <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
       <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Versioning\UpdaterViewModel.cs" />
     <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
       <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
