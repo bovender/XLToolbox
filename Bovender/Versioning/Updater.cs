@@ -328,11 +328,10 @@ namespace Bovender.Versioning
         /// <summary>
         /// Returns commandline parameters for the update installer.
         /// </summary>
-        /// <returns>Commandline parameters ("/UPDATE") in the default
-        /// implementation.</returns>
         protected virtual string GetInstallerParameters()
         {
-            return "/UPDATE";
+            // silencing parameters for InnoSetup installers
+            return "/SP- /SILENT /SUPPRESSMSGBOXES";
         }
 
         #endregion
