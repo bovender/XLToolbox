@@ -121,7 +121,7 @@ namespace XLToolbox
         public string Control_GetSupertip(Office.IRibbonControl control)
         {
             CustomUI.Button button = control as CustomUI.Button;
-            string resourceName = control.Id + "SuperTip";
+            string resourceName = control.Id + "Supertip";
             string supertip = null;
             if (button != null && !button.Enabled.Value)
             {
