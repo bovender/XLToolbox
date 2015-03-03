@@ -106,6 +106,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Always on top.
+        /// </summary>
+        public static string AlwaysOnTop {
+            get {
+                return ResourceManager.GetString("AlwaysOnTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
