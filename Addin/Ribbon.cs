@@ -64,6 +64,7 @@ namespace XLToolbox
                 { "ButtonExportSelectionQuick", Command.ExportSelectionLast },
                 { "ButtonExportBatch", Command.BatchExport },
                 { "ButtonExportBatchQuick", Command.BatchExportLast },
+                { "ButtonExportScreenshot", Command.ExportScreenshot },
             };
 
             Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;

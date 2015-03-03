@@ -38,7 +38,7 @@ namespace XLToolbox.Test.Export
             Worksheet ws = ExcelInstance.Application.Worksheets[1];
             Helpers.CreateSomeCharts(ws, 1);
             ws.ChartObjects(1).Select();
-            ScreenShotExporter exporter = new ScreenShotExporter();
+            ScreenshotExporter exporter = new ScreenshotExporter();
             exporter.ExportSelection();
         }
     }

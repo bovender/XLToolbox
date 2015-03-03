@@ -30,15 +30,11 @@ namespace XLToolbox.Export
     /// <summary>
     /// Exports graphical data in screenshot quality to a file.
     /// </summary>
-    /// <remarks>
-    /// Although not a ViewModel, this class makes use of Bovender's
-    /// MVVM command and messaging system.
-    /// </remarks>
-    public class ScreenShotExporter
+    public class ScreenshotExporter
     {
         #region Public methods
 
-        public void ExportSelection()
+        public void ExportSelection(string fileName)
         {
             using (DllManager dllManager = new DllManager())
             {
@@ -47,7 +43,7 @@ namespace XLToolbox.Export
                 MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
                 FreeImageBitmap fi = FreeImageBitmap.FromStream(data);
                 fi.SetResolution(102.42f, 102.42f);
-                fi.Save(@"c:\users\daniel\desktop\screenshot.png",
+                fi.Save(fileName,
                     FREE_IMAGE_FORMAT.FIF_PNG,
                     FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION);
             }

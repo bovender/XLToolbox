@@ -144,6 +144,12 @@
   <data name="ButtonExportBatchSupertip" xml:space="preserve">
     <value>Export all graphical objects on this worksheet or in the current workbook using detailed settings.</value>
   </data>
+  <data name="ButtonExportScreenshotLabel" xml:space="preserve">
+    <value>Screenshot</value>
+  </data>
+  <data name="ButtonExportScreenshotSupertip" xml:space="preserve">
+    <value>Export the current selection in screenshot quality.</value>
+  </data>
   <data name="ButtonExportSelectionLabel" xml:space="preserve">
     <value>Export with settings...</value>
   </data>
