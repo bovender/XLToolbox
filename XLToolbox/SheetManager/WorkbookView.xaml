@@ -44,6 +44,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.ShowInTaskbar>
+        <Binding Path="Topmost" RelativeSource="{RelativeSource Self}" Converter="{StaticResource boolNegConv}" />
+    </Window.ShowInTaskbar>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
             <i:EventTrigger.Actions>

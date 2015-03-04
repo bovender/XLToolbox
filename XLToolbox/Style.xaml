@@ -50,4 +50,5 @@
     </Style>
     <conv:EnumBooleanConverter x:Key="enumBoolConv" />
     <conv:VisibilityBooleanConverter x:Key="visBoolConv" />
+    <conv:BooleanNegationConverter x:Key="boolNegConv" />
 </ResourceDictionary>
