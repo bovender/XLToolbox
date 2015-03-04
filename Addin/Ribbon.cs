@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Resources;
 using Office = Microsoft.Office.Core;
 using CustomUI = DocumentFormat.OpenXml.Office.CustomUI;
+using Xl = Microsoft.Office.Interop.Excel;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -80,7 +81,6 @@ namespace XLToolbox
         #endregion
 
         #region Ribbon Callbacks
-        //Create callback methods here. For more information about adding callback methods, visit http://go.microsoft.com/fwlink/?LinkID=271226
 
         public void Button_OnAction(Office.IRibbonControl control)
         {
@@ -134,17 +134,12 @@ namespace XLToolbox
             return supertip;
         }
 
-        private string LookupResourceString(string name)
-        {
-            return RibbonStrings.ResourceManager.GetString(name);
-        }
-
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this._ribbon = ribbonUI;
         }
 
-        public bool Group_IsVisibleInDebugOnly(Office.IRibbonControl control)
+        public bool IsDebug(Office.IRibbonControl control)
         {
 #if DEBUG
             return true;
@@ -158,6 +153,18 @@ namespace XLToolbox
             return (Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
         }
 
+        public bool HasWorkbook(Office.IRibbonControl control)
+        {
+            // Use || for short-circuit evaluation to avoid null reference errors.
+            return !(ExcelApp == null || ExcelApp.ActiveWorkbook == null);
+        }
+
+        public bool HasSelection(Office.IRibbonControl control)
+        {
+            // Use || for short-circuit evaluation to avoid null reference errors.
+            return !(ExcelApp == null || ExcelApp.Selection == null);
+        }
+
         #endregion
 
         #region Event handlers
@@ -167,9 +174,44 @@ namespace XLToolbox
             _ribbon.InvalidateControl("ButtonCheckForUpdate");
         }
 
+        void Excel_WorkbookEvent(Xl.Workbook Wb)
+        {
+            _ribbon.Invalidate();
+        }
+
+        void _excelApp_SheetSelectionChange(object Sh, Xl.Range Target)
+        {
+            _ribbon.Invalidate();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Xl.Application ExcelApp
+        {
+            get
+            {
+                return _excelApp;
+            }
+            set
+            {
+                _excelApp = value;
+                _excelApp.WorkbookActivate += Excel_WorkbookEvent;
+                _excelApp.WorkbookDeactivate += Excel_WorkbookEvent;
+                _excelApp.SheetSelectionChange += _excelApp_SheetSelectionChange;
+                _ribbon.Invalidate();
+            }
+        }
+
         #endregion
 
         #region Helpers
+
+        private string LookupResourceString(string name)
+        {
+            return RibbonStrings.ResourceManager.GetString(name);
+        }
 
         private static string GetResourceText(string resourceName)
         {
@@ -197,6 +239,7 @@ namespace XLToolbox
 
         Office.IRibbonUI _ribbon;
         Dictionary<string, Command> _commandDictionary;
+        Microsoft.Office.Interop.Excel.Application _excelApp;
 
         #endregion
     }

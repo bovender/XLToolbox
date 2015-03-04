@@ -31,12 +31,6 @@ namespace XLToolbox
 {
     public partial class ThisAddIn : IDisposable
     {
-        #region Private fields
-
-        private Threading.Dispatcher _dispatcher;
-
-        #endregion
-
         #region Startup/Shutdown
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
@@ -49,6 +43,7 @@ namespace XLToolbox
             // Make the current Excel instance globally available
             // even for the non-VSTO components of this addin
             ExcelInstance.Application = Globals.ThisAddIn.Application;
+            Ribbon.ExcelApp = ExcelInstance.Application;
 
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
 
@@ -63,6 +58,22 @@ namespace XLToolbox
             {
                 Versioning.UpdaterViewModel.Instance.InjectInto<Versioning.InstallUpdateView>().ShowDialog();
             };
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Ribbon Ribbon
+        {
+            get
+            {
+                if (_ribbon == null)
+                {
+                    _ribbon = new Ribbon();
+                }
+                return _ribbon;
+            }
         }
 
         #endregion
@@ -121,11 +132,18 @@ namespace XLToolbox
 
         #endregion
 
+        #region Private fields
+
+        private Threading.Dispatcher _dispatcher;
+        private Ribbon _ribbon;
+
+        #endregion
+
         #region Ribbon
 
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
         {
-            return new Ribbon();
+            return Ribbon;
         }
 
         #endregion

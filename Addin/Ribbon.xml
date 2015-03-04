@@ -24,27 +24,32 @@
             <tab id="TabXLToolbox" label="XL Toolbox NG">
 				<group id="GroupWorkflow" getLabel="Control_GetLabel">
 					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
-						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"/>
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+						getEnabled="HasWorkbook"/>
 				</group>
 				<group id="GroupExport" getLabel="Control_GetLabel" visible="true">
 					<splitButton id="SplitButtonExportSelection">
 						<button id="ButtonExportSelectionQuick" image="export-selection-small.png"
 								onAction="Button_OnAction"
-								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+								getEnabled="HasSelection" />
 						<menu id="MenuExportSelection">
 							<button id="ButtonExportSelection" image="export-selection-small.png"
 									onAction="Button_OnAction"
-									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+									getEnabled="HasSelection" />
 						</menu>
 					</splitButton>
 					<splitButton id="SplitButtonExportBatch">
 						<button id="ButtonExportBatchQuick" image="export-batch-small.png"
 								onAction="Button_OnAction"
-								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+								getEnabled="HasWorkbook" />
 						<menu id="MenuExportBatch">
 							<button id="ButtonExportBatch" image="export-batch-small.png"
 									onAction="Button_OnAction"
-									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+									getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
+									getEnabled="HasWorkbook" />
 						</menu>
 					</splitButton>
 				</group>
@@ -55,7 +60,7 @@
 							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 							getEnabled="ButtonCheckForUpdate_GetEnabled" />
                 </group>
-                <group id="GroupDebug" label="Debug" getVisible="Group_IsVisibleInDebugOnly">
+                <group id="GroupDebug" label="Debug" getVisible="IsDebug">
                     <button id="ButtonTestError" onAction="Button_OnAction" label="Test error" image="error.png" size="large" />
                 </group>
             </tab>
