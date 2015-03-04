@@ -50,7 +50,12 @@ namespace Bovender.Mvvm.Actions
         /// <param name="action">The <see cref="TriggerAction"/>.</param>
         public static void Invoke(this MessageActionBase action)
         {
-            action.Invoke(null);
+            // Call Invoke with dummy message args and message content.
+            action.Invoke(
+                new Messaging.MessageArgs<Messaging.MessageContent>(
+                    new Messaging.MessageContent(), null
+                )
+            );
         }
     }
 }
