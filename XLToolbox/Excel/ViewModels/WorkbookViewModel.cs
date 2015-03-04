@@ -107,6 +107,19 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        public bool AlwaysOnTop
+        {
+            get
+            {
+                return Properties.Settings.Default.WindowManagerAlwaysOnTop;
+            }
+            set
+            {
+                Properties.Settings.Default.WindowManagerAlwaysOnTop = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
         #endregion
 
         #region Commands

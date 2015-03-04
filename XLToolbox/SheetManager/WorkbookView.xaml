@@ -28,7 +28,7 @@
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         Width="400" Height="560"
         Title="{x:Static l:Strings.WorksheetManager}"
-        Topmost="True"
+        Topmost="{Binding AlwaysOnTop,Mode=TwoWay}"
         bov:WindowState.Save="True"
         bov:WindowState.CenterScreen="True"
     >
