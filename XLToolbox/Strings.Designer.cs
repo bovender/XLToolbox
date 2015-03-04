@@ -906,6 +906,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screenshot-Quality Export.
+        /// </summary>
+        public static string ScreenshotExport {
+            get {
+                return ResourceManager.GetString("ScreenshotExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The screenshot-quality export works with graphical objects only. Please select a graphic (chart or shape)..
+        /// </summary>
+        public static string ScreenshotExportRequiresGraphic {
+            get {
+                return ResourceManager.GetString("ScreenshotExportRequiresGraphic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selection.
         /// </summary>
         public static string Selection {

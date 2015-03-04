@@ -135,12 +135,22 @@ namespace XLToolbox
         static void ExportScreenshot()
         {
             ScreenshotExporterViewModel vm = new ScreenshotExporterViewModel();
-            vm.ChooseFileNameMessage.Sent += (sender, args) =>
-                {
-                    ChooseFileSaveAction a = new ChooseFileSaveAction();
-                    a.Invoke(args);
-                };
-            vm.ExportSelectionCommand.Execute(null);
+            if (vm.ExportSelectionCommand.CanExecute(null))
+            {
+                vm.ChooseFileNameMessage.Sent += (sender, args) =>
+                    {
+                        ChooseFileSaveAction a = new ChooseFileSaveAction();
+                        a.Invoke(args);
+                    };
+                vm.ExportSelectionCommand.Execute(null);
+            }
+            else
+            {
+                NotificationAction a = new NotificationAction();
+                a.Caption = Strings.ScreenshotExport;
+                a.Message = Strings.ScreenshotExportRequiresGraphic;
+                a.Invoke();
+            }
         }
 
         #endregion

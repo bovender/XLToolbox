@@ -23,6 +23,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
+using Xl = Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -71,9 +72,12 @@ namespace XLToolbox.Export.ViewModels
 
         private void DoChooseFileName()
         {
-            ChooseFileNameMessage.Send(
-                new FileNameMessageContent("Portable Network Graphics (PNG)|*.png"),
-                DoExportSelection);
+            if (CanExportSelection())
+            {
+                ChooseFileNameMessage.Send(
+                    new FileNameMessageContent("Portable Network Graphics (PNG)|*.png"),
+                    DoExportSelection);
+            }
         }
 
         private void DoExportSelection(FileNameMessageContent messageContent)
@@ -87,8 +91,8 @@ namespace XLToolbox.Export.ViewModels
 
         private bool CanExportSelection()
         {
-            // TODO: Return false if nothing is selected.
-            return true;
+            Xl.Application app = Excel.Instance.ExcelInstance.Application;
+            return !(app == null || app.Selection is Xl.Range);
         }
 
         #endregion
