@@ -65,6 +65,8 @@
     </i:Interaction.Triggers>
     <Grid>
         <DockPanel Margin="10">
+            <TextBlock DockPanel.Dock="Top"  Margin="0 0 0 10"
+                       Text="{Binding DisplayString}" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
             <DockPanel DockPanel.Dock="Right" Margin="10 0 0 0">
                 <CheckBox DockPanel.Dock="Bottom"
                           IsChecked="{Binding Path=Topmost,ElementName=WorkbookViewWindow}"

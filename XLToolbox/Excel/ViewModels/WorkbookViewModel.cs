@@ -60,7 +60,14 @@ namespace XLToolbox.Excel.ViewModels
                 _workbook = value;
                 OnPropertyChanged("Workbook");
                 BuildSheetList();
-                this.DisplayString = _workbook.Name;
+                if (_workbook != null)
+                {
+                    DisplayString = _workbook.Name;
+                }
+                else
+                {
+                    DisplayString = String.Empty;
+                }
             }
         }
         
@@ -218,7 +225,11 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Constructors
 
-        public WorkbookViewModel() {}
+        public WorkbookViewModel()
+        {
+            Excel.Instance.ExcelInstance.Application.WorkbookActivate += Application_WorkbookActivate;
+            Excel.Instance.ExcelInstance.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
+        }
 
         public WorkbookViewModel(Workbook workbook)
             : this()
@@ -232,20 +243,27 @@ namespace XLToolbox.Excel.ViewModels
 
         protected void BuildSheetList()
         {
-            ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
-            SheetViewModel svm;
-            foreach (dynamic sheet in Workbook.Sheets)
+            if (Workbook != null)
             {
-                // Directly comparing the Visible property with XlSheetVisibility.xlSheetVisible
-                // caused exceptions. Therefore we compare directly with the value of 0.
-                if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
+                ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
+                SheetViewModel svm;
+                foreach (dynamic sheet in Workbook.Sheets)
                 {
-                    svm = new SheetViewModel(sheet);
-                    svm.PropertyChanged += svm_PropertyChanged;
-                    sheets.Add(svm);
-                }
-            };
-            this.Sheets = sheets;
+                    // Directly comparing the Visible property with XlSheetVisibility.xlSheetVisible
+                    // caused exceptions. Therefore we compare directly with the value of 0.
+                    if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
+                    {
+                        svm = new SheetViewModel(sheet);
+                        svm.PropertyChanged += svm_PropertyChanged;
+                        sheets.Add(svm);
+                    }
+                };
+                Sheets = sheets;
+            }
+            else
+            {
+                Sheets = null;
+            }
         }
 
         #endregion
@@ -268,6 +286,16 @@ namespace XLToolbox.Excel.ViewModels
                     NumSelectedSheets--;
                 }
             }
+        }
+
+        void Application_WorkbookActivate(Workbook Wb)
+        {
+            Workbook = Wb;
+        }
+
+        void Application_WorkbookDeactivate(Workbook Wb)
+        {
+            Workbook = null;
         }
 
         #endregion
