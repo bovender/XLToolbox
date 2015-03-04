@@ -76,7 +76,7 @@ namespace Bovender.Mvvm.Actions
                         {
                             Content.RequestCloseView -= closeHandler;
                             window.Close();
-                            args.Respond();
+                            if (args.Respond != null) args.Respond();
                         };
                         Content.RequestCloseView += closeHandler;
                     }

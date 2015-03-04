@@ -52,6 +52,9 @@
 									getEnabled="HasWorkbook" />
 						</menu>
 					</splitButton>
+					<button id="ButtonExportScreenshot" image="screenshot-export-small.png"
+							onAction="Button_OnAction"
+							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 				</group>
                 <group id="GroupXlToolbox" label="XL Toolbox">
                     <button id="ButtonAbout" image="xltb-icon-small.png"

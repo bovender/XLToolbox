@@ -554,4 +554,10 @@ You may want to try again.</value>
   <data name="AlwaysOnTop" xml:space="preserve">
     <value>Always on top</value>
   </data>
+  <data name="ScreenshotExport" xml:space="preserve">
+    <value>Screenshot-Quality Export</value>
+  </data>
+  <data name="ScreenshotExportRequiresGraphic" xml:space="preserve">
+    <value>The screenshot-quality export works with graphical objects only. Please select a graphic (chart or shape).</value>
+  </data>
 </root>

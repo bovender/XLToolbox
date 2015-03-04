@@ -142,6 +142,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screenshot.
+        /// </summary>
+        internal static string ButtonExportScreenshotLabel {
+            get {
+                return ResourceManager.GetString("ButtonExportScreenshotLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export the current selection in screenshot quality..
+        /// </summary>
+        internal static string ButtonExportScreenshotSupertip {
+            get {
+                return ResourceManager.GetString("ButtonExportScreenshotSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export with settings....
         /// </summary>
         internal static string ButtonExportSelectionLabel {
