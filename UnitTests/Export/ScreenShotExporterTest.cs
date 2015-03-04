@@ -39,7 +39,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(ws, 1);
             ws.ChartObjects(1).Select();
             ScreenshotExporter exporter = new ScreenshotExporter();
-            exporter.ExportSelection();
+            exporter.ExportSelection(System.IO.Path.GetTempFileName());
         }
     }
 }
