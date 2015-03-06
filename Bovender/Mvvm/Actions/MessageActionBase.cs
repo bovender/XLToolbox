@@ -76,13 +76,19 @@ namespace Bovender.Mvvm.Actions
                         {
                             Content.RequestCloseView -= closeHandler;
                             window.Close();
-                            args.Respond();
+                            if (args.Respond != null) args.Respond();
                         };
                         Content.RequestCloseView += closeHandler;
                     }
                     ShowView(window);
                 }
             }
+        }
+
+        protected void Invoke<T>(T messageContent, Action respond)
+            where T : MessageContent
+        {
+            Invoke(new MessageArgs<T>(messageContent, respond));
         }
 
         #endregion

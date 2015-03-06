@@ -65,6 +65,7 @@
     <Compile Include="Excel\Instance\ExcelInstance.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
     <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
+    <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
@@ -92,9 +93,11 @@
     <Compile Include="Export\Models\Unit.cs" />
     <Compile Include="Export\Models\Settings.cs" />
     <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ScreenshotExporter.cs" />
     <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
+    <Compile Include="Export\ViewModels\ScreenshotExporterViewModel.cs" />
     <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
     <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
     <Compile Include="Export\ViewModels\TransparencyProvider.cs" />
@@ -145,6 +148,7 @@
     <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
       <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Versioning\UpdaterViewModel.cs" />
     <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
       <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
@@ -270,6 +274,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\screenshot-export-small.png" />
     <Resource Include="Resources\html\license.html" />
   </ItemGroup>
   <ItemGroup>

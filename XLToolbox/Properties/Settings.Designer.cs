@@ -143,5 +143,17 @@ namespace XLToolbox.Properties {
                 return ((string)(this["WhatsNewUrl"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WindowManagerAlwaysOnTop {
+            get {
+                return ((bool)(this["WindowManagerAlwaysOnTop"]));
+            }
+            set {
+                this["WindowManagerAlwaysOnTop"] = value;
+            }
+        }
     }
 }

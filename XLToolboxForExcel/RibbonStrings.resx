@@ -129,6 +129,9 @@
   <data name="ButtonCheckForUpdateSupertip" xml:space="preserve">
     <value>Checks if an update to the XL Toolbox addin is available.</value>
   </data>
+  <data name="ButtonCheckForUpdateSupertipDisabled" xml:space="preserve">
+    <value>This command is disabled because an update operation is pending.</value>
+  </data>
   <data name="ButtonExportBatchLabel" xml:space="preserve">
     <value>Batch export with settings...</value>
   </data>
@@ -140,6 +143,12 @@
   </data>
   <data name="ButtonExportBatchSupertip" xml:space="preserve">
     <value>Export all graphical objects on this worksheet or in the current workbook using detailed settings.</value>
+  </data>
+  <data name="ButtonExportScreenshotLabel" xml:space="preserve">
+    <value>Screenshot</value>
+  </data>
+  <data name="ButtonExportScreenshotSupertip" xml:space="preserve">
+    <value>Export the current selection in screenshot quality.</value>
   </data>
   <data name="ButtonExportSelectionLabel" xml:space="preserve">
     <value>Export with settings...</value>

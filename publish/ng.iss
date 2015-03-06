@@ -18,6 +18,7 @@
 #define APPNAME "Daniel's XL Toolbox NG"
 #define SLOGAN "Scientific add-in for Microsoft Excel."
 #define UNINSTALLDIR "{app}\setup"
+#define ADDINNAME "XLToolboxForExcel"
 #define DOTNETSHA1 "58da3d74db353aad03588cbb5cea8234166d8b99"
 #define VSTORSHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
@@ -112,14 +113,14 @@ Check: not IsMultiUserInstall; ValueName: Description; ValueData: {#SLOGAN}; Val
 Check: not IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 3; ValueType: dword; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: Warmup; ValueData: 1; ValueType: dword; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
-Check: not IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/Addin.vsto|vstolocal; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
+Check: not IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/{#ADDINNAME}.vsto|vstolocal; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 
 ; Same keys again, this time for multi-user install (HKLM)
 Check: IsMultiUserInstall; ValueName: Description; ValueData: {#SLOGAN}; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: IsMultiUserInstall; ValueName: LoadBehavior; ValueData: 3; ValueType: dword; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: IsMultiUserInstall; ValueName: Warmup; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
-Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/Addin.vsto|vstolocal; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
+Check: IsMultiUserInstall; ValueName: Manifest; ValueData: file:///{code:ConvertSlash|{app}}/{#ADDINNAME}.vsto|vstolocal; ValueType: string; Root: HKLM; Subkey: {#REGKEY}; Flags: uninsdeletekey
 
 [Run]
 ; Filename: http://xltoolbox.sourceforge.net/welcome.html; Flags: shellexec nowait; Check: ShowWelcomePageInBrowser
@@ -579,7 +580,8 @@ begin
 		if IsNetDownloaded then
 		begin
 			Log('Valid .NET runtime download found, installing.');
-			Exec(GetNetInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			Exec(GetNetInstallerPath, '/norestart',
+				'', SW_SHOW, ewWaitUntilTerminated, exitCode);
 			BringToFrontAndRestore;
 			if not IsNetInstalled then
 			begin
@@ -606,7 +608,8 @@ begin
 		if IsVstorDownloaded then
 		begin
 			Log('Valid VSTO runtime download found, installing.');
-			Exec(GetVstorInstallerPath, '', '', SW_SHOW, ewWaitUntilTerminated, exitCode);
+			Exec(GetVstorInstallerPath, '/norestart', '', SW_SHOW,
+				ewWaitUntilTerminated, exitCode);
 			BringToFrontAndRestore;
 			if not IsVstorInstalled then
 			begin

@@ -58,7 +58,10 @@ namespace Bovender.Mvvm.Messaging
                 Sent(this,
                     new MessageArgs<T>(
                         messageContent,
-                        () => respond(messageContent)
+                        () =>
+                        { 
+                            if (respond != null) respond(messageContent);
+                        }
                     )
                 );
             };

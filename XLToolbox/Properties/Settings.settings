@@ -38,5 +38,8 @@
     <Setting Name="WhatsNewUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://xltoolbox.sourceforge.net/blog/tags/alpha</Value>
     </Setting>
+    <Setting Name="WindowManagerAlwaysOnTop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

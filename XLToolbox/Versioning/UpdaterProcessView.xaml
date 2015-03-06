@@ -45,8 +45,10 @@
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.UpdateInstallableMessage}" EventName="Sent">
-            <i:InvokeCommandAction Command="{Binding ViewModel.InstallUpdateCommand}" />
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <mvvm:NotificationAction
+                Caption="{x:Static l:Strings.XLToolboxUpdate}"
+                Message="{x:Static l:Strings.UpdateHasBeenDownloaded}"
+                OkButtonLabel="{x:Static l:Strings.OK}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.UpdateFailedVerificationMessage}" EventName="Sent">
             <mvvm:NotificationAction Message="{x:Static l:Strings.DownloadedFileCannotBeInstalled}" />

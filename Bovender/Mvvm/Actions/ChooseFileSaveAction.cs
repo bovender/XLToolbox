@@ -31,12 +31,15 @@ namespace Bovender.Mvvm.Actions
         {
             SaveFileDialog dlg = new SaveFileDialog();
             Regex regex = new Regex(@"[^*]*\*\..+");
-            if (regex.IsMatch(defaultString))
+            if (!String.IsNullOrEmpty(defaultString))
             {
-                dlg.Filter = Path.GetFileName(defaultString);
+                if (regex.IsMatch(defaultString))
+                {
+                    dlg.Filter = Path.GetFileName(defaultString);
+                }
+                dlg.InitialDirectory = Bovender.FileHelpers.GetDirectoryName(defaultString);
+                dlg.FileName = Path.GetFileNameWithoutExtension(defaultString);
             }
-            dlg.InitialDirectory = Bovender.FileHelpers.GetDirectoryName(defaultString);
-            string fn = Path.GetFileNameWithoutExtension(defaultString);
             dlg.AddExtension = true;
             dlg.RestoreDirectory = true;
             dlg.SupportMultiDottedExtensions = true;

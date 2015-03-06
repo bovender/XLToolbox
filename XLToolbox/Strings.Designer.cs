@@ -106,6 +106,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Always on top.
+        /// </summary>
+        public static string AlwaysOnTop {
+            get {
+                return ResourceManager.GetString("AlwaysOnTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred!.
         /// </summary>
         public static string AnErrorHasOccurred {
@@ -897,6 +906,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screenshot-Quality Export.
+        /// </summary>
+        public static string ScreenshotExport {
+            get {
+                return ResourceManager.GetString("ScreenshotExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The screenshot-quality export works with graphical objects only. Please select a graphic (chart or shape)..
+        /// </summary>
+        public static string ScreenshotExportRequiresGraphic {
+            get {
+                return ResourceManager.GetString("ScreenshotExportRequiresGraphic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selection.
         /// </summary>
         public static string Selection {
@@ -1124,8 +1151,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel. To install it at a later time, click &quot;Cancel&quot;.
-        ///You can find the installer in {0}..
+        ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel..
         /// </summary>
         public static string UpdateHasBeenDownloaded {
             get {
@@ -1265,6 +1291,15 @@ namespace XLToolbox {
         public static string XLToolboxLicense {
             get {
                 return ResourceManager.GetString("XLToolboxLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel&apos;s XL Toolbox Update.
+        /// </summary>
+        public static string XLToolboxUpdate {
+            get {
+                return ResourceManager.GetString("XLToolboxUpdate", resourceCulture);
             }
         }
         

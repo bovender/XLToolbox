@@ -32,6 +32,12 @@ namespace XLToolbox.Excel.ViewModels
     /// </summary>
     public class SelectionViewModel : ViewModelBase
     {
+        #region Events
+
+        public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -107,16 +113,19 @@ namespace XLToolbox.Excel.ViewModels
         void Excel_WorkbookActivate(Workbook Wb)
         {
             Invalidate();
+            OnSelectionChanged();
         }
 
         void Excel_SheetActivate(object Sh)
         {
             Invalidate();
+            OnSelectionChanged();
         }
 
         void Excel_SelectionChange(object Sh, Range Target)
         {
             Invalidate();
+            OnSelectionChanged();
         }
 
         #endregion
@@ -126,6 +135,19 @@ namespace XLToolbox.Excel.ViewModels
         public override object RevealModelObject()
         {
             return Selection;
+        }
+
+        #endregion
+
+        #region Protected methods
+
+        protected void OnSelectionChanged()
+        {
+            EventHandler<SelectionChangedEventArgs> h = SelectionChanged;
+            if (h != null)
+            {
+                h(this, new SelectionChangedEventArgs(_app));
+            }
         }
 
         #endregion

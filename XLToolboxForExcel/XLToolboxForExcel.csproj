@@ -26,7 +26,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>XLToolbox</RootNamespace>
-    <AssemblyName>Addin</AssemblyName>
+    <AssemblyName>XLToolboxForExcel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
@@ -134,6 +134,7 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="FreeImageNET">
       <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\$(Configuration)\FreeImageNET.dll</HintPath>
     </Reference>

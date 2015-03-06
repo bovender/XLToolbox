@@ -26,6 +26,8 @@ namespace XLToolbox.Versioning
 {
     public class Updater : Bovender.Versioning.Updater
     {
+        #region Overrides
+
         protected override Uri GetVersionInfoUri()
         {
             return new Uri(Properties.Settings.Default.VersionInfoUrl);
@@ -51,5 +53,7 @@ namespace XLToolbox.Versioning
             };
             return Path.Combine(DestinationFolder, fn);
         }
+
+        #endregion
     }
 }

@@ -60,6 +60,7 @@ namespace XLToolbox
                     case Command.ExportSelectionLast: ExportSelectionLast(); break;
                     case Command.BatchExport: BatchExport(); break;
                     case Command.BatchExportLast: BatchExportLast(); break;
+                    case Command.ExportScreenshot: ExportScreenshot(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
                 }
             }
@@ -82,18 +83,17 @@ namespace XLToolbox
 
         static void CheckForUpdates()
         {
-            Bovender.Versioning.UpdaterViewModel uvm = new Bovender.Versioning.UpdaterViewModel(
-                new Updater()
-                );
-            System.Windows.Threading.Dispatcher d = System.Windows.Threading.Dispatcher.CurrentDispatcher;
-            uvm.CheckForUpdateMessage.Sent += (object sender, MessageArgs<ProcessMessageContent> args) =>
-            {
-                args.Content.Caption = Strings.CheckingForUpdates;
-                Window view = args.Content.InjectInto<UpdaterProcessView>();
-                args.Content.ViewModel.ViewDispatcher = view.Dispatcher;
-                view.Show();
-            };
-            uvm.CheckForUpdateCommand.Execute(null);
+            EventHandler<MessageArgs<ProcessMessageContent>> h =
+                (object sender, MessageArgs<ProcessMessageContent> args) =>
+                {
+                    args.Content.Caption = Strings.CheckingForUpdates;
+                    Window view = args.Content.InjectInto<UpdaterProcessView>();
+                    args.Content.ViewModel.ViewDispatcher = view.Dispatcher;
+                    view.Show();
+                };
+            Versioning.UpdaterViewModel.Instance.CheckForUpdateMessage.Sent += h;
+            Versioning.UpdaterViewModel.Instance.CheckForUpdateCommand.Execute(null);
+            Versioning.UpdaterViewModel.Instance.CheckForUpdateMessage.Sent -= h;
         }
 
         static void SheetManager()
@@ -130,6 +130,27 @@ namespace XLToolbox
         {
             Export.QuickExporter quickExporter = new Export.QuickExporter();
             quickExporter.ExportBatch();
+        }
+
+        static void ExportScreenshot()
+        {
+            ScreenshotExporterViewModel vm = new ScreenshotExporterViewModel();
+            if (vm.ExportSelectionCommand.CanExecute(null))
+            {
+                vm.ChooseFileNameMessage.Sent += (sender, args) =>
+                    {
+                        ChooseFileSaveAction a = new ChooseFileSaveAction();
+                        a.Invoke(args);
+                    };
+                vm.ExportSelectionCommand.Execute(null);
+            }
+            else
+            {
+                NotificationAction a = new NotificationAction();
+                a.Caption = Strings.ScreenshotExport;
+                a.Message = Strings.ScreenshotExportRequiresGraphic;
+                a.Invoke();
+            }
         }
 
         #endregion

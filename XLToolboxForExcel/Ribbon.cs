@@ -24,6 +24,8 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Resources;
 using Office = Microsoft.Office.Core;
+using CustomUI = DocumentFormat.OpenXml.Office.CustomUI;
+using Xl = Microsoft.Office.Interop.Excel;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -42,7 +44,6 @@ using Office = Microsoft.Office.Core;
 // 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
 
 // For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
-
 
 namespace XLToolbox
 {
@@ -63,7 +64,10 @@ namespace XLToolbox
                 { "ButtonExportSelectionQuick", Command.ExportSelectionLast },
                 { "ButtonExportBatch", Command.BatchExport },
                 { "ButtonExportBatchQuick", Command.BatchExportLast },
+                { "ButtonExportScreenshot", Command.ExportScreenshot },
             };
+
+            Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
         }
 
         #endregion
@@ -78,7 +82,6 @@ namespace XLToolbox
         #endregion
 
         #region Ribbon Callbacks
-        //Create callback methods here. For more information about adding callback methods, visit http://go.microsoft.com/fwlink/?LinkID=271226
 
         public void Button_OnAction(Office.IRibbonControl control)
         {
@@ -118,12 +121,18 @@ namespace XLToolbox
 
         public string Control_GetSupertip(Office.IRibbonControl control)
         {
-            return LookupResourceString(control.Id + "Supertip");
-        }
-
-        private string LookupResourceString(string name)
-        {
-            return RibbonStrings.ResourceManager.GetString(name);
+            CustomUI.Button button = control as CustomUI.Button;
+            string resourceName = control.Id + "Supertip";
+            string supertip = null;
+            if (button != null && !button.Enabled.Value)
+            {
+                supertip = LookupResourceString(resourceName + "Disabled");
+            }
+            if (String.IsNullOrEmpty(supertip))
+            {
+                supertip = LookupResourceString(resourceName);
+            }
+            return supertip;
         }
 
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
@@ -131,7 +140,7 @@ namespace XLToolbox
             this._ribbon = ribbonUI;
         }
 
-        public bool Group_IsVisibleInDebugOnly(Office.IRibbonControl control)
+        public bool IsDebug(Office.IRibbonControl control)
         {
 #if DEBUG
             return true;
@@ -140,9 +149,70 @@ namespace XLToolbox
 #endif
         }
 
+        public bool ButtonCheckForUpdate_GetEnabled(Office.IRibbonControl control)
+        {
+            return (Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
+        }
+
+        public bool HasWorkbook(Office.IRibbonControl control)
+        {
+            // Use || for short-circuit evaluation to avoid null reference errors.
+            return !(ExcelApp == null || ExcelApp.ActiveWorkbook == null);
+        }
+
+        public bool HasSelection(Office.IRibbonControl control)
+        {
+            // Use || for short-circuit evaluation to avoid null reference errors.
+            return !(ExcelApp == null || ExcelApp.Selection == null);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        void UpdaterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            _ribbon.InvalidateControl("ButtonCheckForUpdate");
+        }
+
+        void Excel_WorkbookEvent(Xl.Workbook Wb)
+        {
+            _ribbon.Invalidate();
+        }
+
+        void _excelApp_SheetSelectionChange(object Sh, Xl.Range Target)
+        {
+            _ribbon.Invalidate();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Xl.Application ExcelApp
+        {
+            get
+            {
+                return _excelApp;
+            }
+            set
+            {
+                _excelApp = value;
+                _excelApp.WorkbookActivate += Excel_WorkbookEvent;
+                _excelApp.WorkbookDeactivate += Excel_WorkbookEvent;
+                _excelApp.SheetSelectionChange += _excelApp_SheetSelectionChange;
+                _ribbon.Invalidate();
+            }
+        }
+
         #endregion
 
         #region Helpers
+
+        private string LookupResourceString(string name)
+        {
+            return RibbonStrings.ResourceManager.GetString(name);
+        }
 
         private static string GetResourceText(string resourceName)
         {
@@ -170,6 +240,7 @@ namespace XLToolbox
 
         Office.IRibbonUI _ribbon;
         Dictionary<string, Command> _commandDictionary;
+        Microsoft.Office.Interop.Excel.Application _excelApp;
 
         #endregion
     }
