@@ -35,6 +35,16 @@ License Terms -- Microsoft Windows Software Development Kit for Windows
 7 and .NET Framework 4.0. See `LICENSE-MS-SDK.TXT` for details.
 
 
+Open XML  SDK 2.5  for Microsoft Office
+---------------------------------------
+
+- `DocumentFormat.OpenXml.dll`
+
+(c) Copyright Microsoft Corporation
+
+All rights reserved by Microsoft.
+
+
 FreeImage
 ---------
 
