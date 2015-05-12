@@ -48,6 +48,12 @@
         <Binding Path="Topmost" RelativeSource="{RelativeSource Self}" Converter="{StaticResource boolNegConv}" />
     </Window.ShowInTaskbar>
     <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Deactivated">
+            <i:InvokeCommandAction Command="{Binding MonitorWorkbook}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Activated">
+            <i:InvokeCommandAction Command="{Binding UnmonitorWorkbook}" />
+        </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <ba:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"

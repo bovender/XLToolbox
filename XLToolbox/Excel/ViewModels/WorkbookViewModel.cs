@@ -22,6 +22,9 @@ using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -31,7 +34,14 @@ namespace XLToolbox.Excel.ViewModels
     /// </summary>
     public class WorkbookViewModel : ViewModelBase
     {
-        #region Private properties
+        /// <summary>
+        /// Interval at which to refresh the sheet list when monitoring
+        /// the Workbook (see <see cref="MonitorWorkbook"/> command,
+        /// <see cref="DoMonitorWorkbook"/> method).
+        /// </summary>
+        const int MONITOR_INTERVAL = 700; // ms
+
+        #region Private fields
 
         private Workbook _workbook;
         private ObservableCollection<SheetViewModel> _sheets;
@@ -42,8 +52,12 @@ namespace XLToolbox.Excel.ViewModels
         private DelegatingCommand _moveSheetsToBottom;
         private DelegatingCommand _deleteSheets;
         private DelegatingCommand _renameSheet;
+        private DelegatingCommand _monitorWorkbook;
+        private DelegatingCommand _unmonitorWorkbook;
         private Message<MessageContent> _confirmDeleteMessage;
         private Message<StringMessageContent> _renameSheetMessage;
+        private bool _monitoring;
+        private string _lastSheetsString;
 
         #endregion
 
@@ -124,6 +138,34 @@ namespace XLToolbox.Excel.ViewModels
             {
                 Properties.Settings.Default.WindowManagerAlwaysOnTop = value;
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        /// <summary>
+        /// Concatenates the sheet names in the workbook.
+        /// </summary>
+        public string SheetsString
+        {
+            get
+            {
+                string s = String.Empty;
+                if (_workbook != null)
+                {
+                    try
+                    {
+                        foreach (dynamic sheet in _workbook.Sheets)
+                        {
+                            // Use colon as separator because it is one of the
+                            // characters that are illegal in a sheet name.
+                            s += sheet.Name + "::";
+                        }
+                    }
+                    catch (System.Runtime.InteropServices.COMException)
+                    {
+                        return _lastSheetsString;
+                    }
+                }
+                return s;
             }
         }
 
@@ -218,6 +260,48 @@ namespace XLToolbox.Excel.ViewModels
                         this).ListenOn("Workbook");
                 }
                 return _renameSheet;
+            }
+        }
+
+        /// <summary>
+        /// Monitors the current workbook by periodically checking the list
+        /// of sheet names.
+        /// </summary>
+        /// <remarks>
+        /// This is a workaround for the absence of a "Workbook changed", "Sheet
+        /// order changed" or similar event in Excel.
+        /// </remarks>
+        public DelegatingCommand MonitorWorkbook
+        {
+            get
+            {
+                if (_monitorWorkbook == null)
+                {
+                    _monitorWorkbook = new DelegatingCommand(
+                        parameter => { DoMonitorWorkbook(); },
+                        parameter => { return CanMonitorWorkbook(); },
+                        this).ListenOn("Workbook");
+                }
+                return _monitorWorkbook;
+            }
+        }
+
+        /// <summary>
+        /// Stops monitoring the current workbook for changes in its sheet
+        /// list.
+        /// </summary>
+        public DelegatingCommand UnmonitorWorkbook
+        {
+            get
+            {
+                if (_unmonitorWorkbook == null)
+                {
+                    _unmonitorWorkbook = new DelegatingCommand(
+                        parameter => { DoUnmonitorWorkbook(); },
+                        parameter => { return CanUnmonitorWorkbook(); },
+                        this).ListenOn("Workbook");
+                }
+                return _unmonitorWorkbook;
             }
         }
 
@@ -451,6 +535,48 @@ namespace XLToolbox.Excel.ViewModels
         private bool CanRenameSheet()
         {
             return (NumSelectedSheets > 0);
+        }
+
+        private void DoMonitorWorkbook()
+        {
+            if (!_monitoring)
+            {
+                _monitoring = true;
+                Task.Factory.StartNew(() =>
+                {
+                    while (_monitoring)
+                    {
+                        CheckSheetsChanged();
+                        Thread.Sleep(MONITOR_INTERVAL);
+                    }
+                });
+            }
+        }
+
+        private bool CanMonitorWorkbook()
+        {
+            return _workbook != null && !_monitoring;
+        }
+
+        private void DoUnmonitorWorkbook()
+        {
+            _monitoring = false;
+            CheckSheetsChanged();
+        }
+
+        private bool CanUnmonitorWorkbook()
+        {
+            return _monitoring;
+        }
+
+        private void CheckSheetsChanged()
+        {
+            string sheetsString = SheetsString;
+            if (sheetsString != _lastSheetsString)
+            {
+                _lastSheetsString = sheetsString;
+                BuildSheetList();
+            }
         }
 
         #endregion
