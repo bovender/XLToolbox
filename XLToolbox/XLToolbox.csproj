@@ -274,6 +274,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\donate.png" />
     <Resource Include="Resources\images\screenshot-export-small.png" />
     <Resource Include="Resources\html\license.html" />
   </ItemGroup>

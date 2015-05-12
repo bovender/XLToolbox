@@ -30,6 +30,7 @@ namespace XLToolbox
         ExportSelectionLast,
         BatchExport,
         BatchExportLast,
-        ExportScreenshot
+        ExportScreenshot,
+        Donate
     }
 }

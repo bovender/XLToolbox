@@ -132,6 +132,12 @@
   <data name="ButtonCheckForUpdateSupertipDisabled" xml:space="preserve">
     <value>This command is disabled because an update operation is pending.</value>
   </data>
+  <data name="ButtonDonateLabel" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="ButtonDonateSupertip" xml:space="preserve">
+    <value>Make a voluntary payment if you find this add-in useful.</value>
+  </data>
   <data name="ButtonExportBatchLabel" xml:space="preserve">
     <value>Batch export with settings...</value>
   </data>

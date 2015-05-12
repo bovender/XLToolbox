@@ -65,6 +65,7 @@ namespace XLToolbox
                 { "ButtonExportBatch", Command.BatchExport },
                 { "ButtonExportBatchQuick", Command.BatchExportLast },
                 { "ButtonExportScreenshot", Command.ExportScreenshot },
+                { "ButtonDonate", Command.Donate }
             };
 
             Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
@@ -92,7 +93,8 @@ namespace XLToolbox
             }
             else
             {
-                throw new NotImplementedException("No matching command for " + control.Id);
+                throw new NotImplementedException(
+                    "Please add '" + control.Id + "' command to dictionary in constructor.");
             }
         }
 
