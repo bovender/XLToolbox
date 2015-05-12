@@ -27,7 +27,7 @@
 	#define DOTNETURL "http://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe"
 	; Build the solution with Release configuration
 	#expr Exec("C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com", \
-				"x:\XLToolbox\NG\NG.sln /Build Release")
+				"x:\Code\xltoolbox\NG\NG.sln /Build Release")
 #else
 	#define VSTORURL "http://vhost/vstor_redist.exe"
 	#define DOTNETURL "http://vhost/dotNetFx40_Full_x86_x64.exe"
