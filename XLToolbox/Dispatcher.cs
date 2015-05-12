@@ -61,6 +61,7 @@ namespace XLToolbox
                     case Command.BatchExport: BatchExport(); break;
                     case Command.BatchExportLast: BatchExportLast(); break;
                     case Command.ExportScreenshot: ExportScreenshot(); break;
+                    case Command.Donate: OpenDonatePage(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
                 }
             }
@@ -151,6 +152,11 @@ namespace XLToolbox
                 a.Message = Strings.ScreenshotExportRequiresGraphic;
                 a.Invoke();
             }
+        }
+
+        static void OpenDonatePage()
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.DonateUrl);
         }
 
         #endregion

@@ -52,9 +52,7 @@ namespace XLToolbox.About
                         {
                             System.Diagnostics.Process.Start(Properties.Settings.Default.WebsiteUrl);
                             DoCloseView();
-                        },
-                        null
-                        );
+                        });
                 };
                 return _showWebsiteCommand;
             }

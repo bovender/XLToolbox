@@ -106,6 +106,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Donate.
+        /// </summary>
+        internal static string ButtonDonateLabel {
+            get {
+                return ResourceManager.GetString("ButtonDonateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make a voluntary payment if you find this add-in useful..
+        /// </summary>
+        internal static string ButtonDonateSupertip {
+            get {
+                return ResourceManager.GetString("ButtonDonateSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export with settings....
         /// </summary>
         internal static string ButtonExportBatchLabel {

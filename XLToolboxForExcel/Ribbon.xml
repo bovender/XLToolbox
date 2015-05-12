@@ -62,7 +62,9 @@
                     <button id="ButtonCheckForUpdate" image="check-update-small.png"
 							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 							getEnabled="ButtonCheckForUpdate_GetEnabled" />
-                </group>
+					<button id="ButtonDonate" image="donate.png"
+							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+				</group>
                 <group id="GroupDebug" label="Debug" getVisible="IsDebug">
                     <button id="ButtonTestError" onAction="Button_OnAction" label="Test error" image="error.png" size="large" />
                 </group>

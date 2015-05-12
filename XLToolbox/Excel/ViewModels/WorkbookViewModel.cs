@@ -139,8 +139,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _moveSheetUp = new DelegatingCommand(
                         parameter => { DoMoveSheetUp(); },
-                        parameter => { return CanMoveSheetUp(); }
-                        );
+                        parameter => { return CanMoveSheetUp(); },
+                        this).ListenOn("Workbook");
                 }
                 return _moveSheetUp;
             }
@@ -154,8 +154,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _moveSheetsToTop = new DelegatingCommand(
                         parameter => { DoMoveSheetsToTop(); },
-                        parameter => { return CanMoveSheetsToTop(); }
-                        );
+                        parameter => { return CanMoveSheetsToTop(); },
+                        this).ListenOn("Workbook");
                 }
                 return _moveSheetsToTop;
             }
@@ -169,8 +169,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _moveSheetDown = new DelegatingCommand(
                         parameter => { DoMoveSheetDown(); },
-                        parameter => { return CanMoveSheetDown(); }
-                        );
+                        parameter => { return CanMoveSheetDown(); },
+                        this).ListenOn("Workbook");
                 }
                 return _moveSheetDown;
             }
@@ -184,8 +184,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _moveSheetsToBottom = new DelegatingCommand(
                         parameter => { DoMoveSheetsToBottom(); },
-                        parameter => { return CanMoveSheetsToBottom(); }
-                        );
+                        parameter => { return CanMoveSheetsToBottom(); },
+                        this).ListenOn("Workbook");
                 }
                 return _moveSheetsToBottom;
             }
@@ -199,8 +199,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _deleteSheets = new DelegatingCommand(
                         parameter => { DoDeleteSheets(); },
-                        parameter => { return CanDeleteSheets(); }
-                        );
+                        parameter => { return CanDeleteSheets(); },
+                        this).ListenOn("Workbook");
                 }
                 return _deleteSheets;
             }
@@ -214,8 +214,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _renameSheet = new DelegatingCommand(
                         parameter => { DoRenameSheet(); },
-                        parameter => { return CanRenameSheet(); }
-                        );
+                        parameter => { return CanRenameSheet(); },
+                        this).ListenOn("Workbook");
                 }
                 return _renameSheet;
             }
@@ -243,6 +243,7 @@ namespace XLToolbox.Excel.ViewModels
 
         protected void BuildSheetList()
         {
+            NumSelectedSheets = 0;
             if (Workbook != null)
             {
                 ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
