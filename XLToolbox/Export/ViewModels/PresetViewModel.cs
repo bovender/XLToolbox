@@ -114,6 +114,7 @@ namespace XLToolbox.Export.ViewModels
                         (object sender, PropertyChangedEventArgs args) =>
                         {
                             _preset.FileType = _fileTypeProvider.AsEnum;
+                            UpdateCmykEnabledState();
                             OnPropertyChanged("FileType." + args.PropertyName);
                             OnPropertyChanged("IsColorSpaceEnabled");
                             OnPropertyChanged("IsDpiEnabled");
@@ -337,9 +338,7 @@ namespace XLToolbox.Export.ViewModels
                 _customName = !String.Equals(Name, _preset.GetDefaultName());
             }
             ColorProfiles.ColorSpace = _preset.ColorSpace;
-            ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
-                ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk) &&
-                _preset.FileType.SupportsCmyk();
+            UpdateCmykEnabledState();
             if (!ColorProfiles.SelectIfExists(_preset.ColorProfile))
             {
                 UseColorProfile = false;
@@ -376,6 +375,17 @@ namespace XLToolbox.Export.ViewModels
                 _customName = false;
             }
             OnPropertyChanged("ToolTip");
+        }
+
+        /// <summary>
+        /// Enables or disables the CMYK color space depending on the selected
+        /// file type.
+        /// </summary>
+        private void UpdateCmykEnabledState()
+        {
+            ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
+                ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk) &&
+                _preset.FileType.SupportsCmyk();
         }
 
         #endregion
