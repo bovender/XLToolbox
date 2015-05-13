@@ -156,6 +156,7 @@ namespace XLToolbox.Export.ViewModels
                                 if (_colorSpaceProvider.AsEnum == Models.ColorSpace.Cmyk)
                                 {
                                     _preset.UseColorProfile = true;
+                                    this.Transparency.AsEnum = Models.Transparency.WhiteCanvas;
                                     _mustUseColorProfile = true;
                                 }
                                 else
