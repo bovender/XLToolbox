@@ -229,6 +229,7 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 _preset.UseColorProfile = value;
+                UpdateName();
                 OnPropertyChanged("UseColorProfile");
                 OnPropertyChanged("IsColorProfilesEnabled");
             }
