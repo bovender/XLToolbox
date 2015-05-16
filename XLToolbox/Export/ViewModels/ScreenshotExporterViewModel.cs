@@ -117,10 +117,27 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
+        #region Private properties
+
+        private WorkbookStorage.Store Store
+        {
+            get
+            {
+                if (_store == null)
+                {
+                    _store = new WorkbookStorage.Store();
+                }
+                return _store;
+            }
+        }
+
+        #endregion
+
         #region Private fields
 
         private DelegatingCommand _exportSelectionCommand;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
+        private WorkbookStorage.Store _store;
 
         #endregion
     }
