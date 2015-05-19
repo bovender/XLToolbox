@@ -83,6 +83,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Excel\InstanceTest.cs" />
+    <Compile Include="Excel\AddressTest.cs" />
+    <Compile Include="Excel\RangeTest.cs" />
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />

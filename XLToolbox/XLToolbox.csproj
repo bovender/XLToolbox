@@ -73,6 +73,8 @@
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
+    <Compile Include="Excel\ViewModels\Address.cs" />
+    <Compile Include="Excel\ViewModels\Range.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="Excel\Views\QuitView.xaml.cs">

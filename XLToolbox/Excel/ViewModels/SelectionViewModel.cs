@@ -18,7 +18,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Microsoft.Office.Interop.Excel;
+using Xl = Microsoft.Office.Interop.Excel;
 using Windows = System.Windows;
 using Bovender.Mvvm.ViewModels;
 
@@ -96,7 +96,7 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         /// <param name="excelApplication">Excel instance whose selection
         /// this view model wraps.</param>
-        public SelectionViewModel(Application excelApplication)
+        public SelectionViewModel(Xl.Application excelApplication)
             :base()
         {
             _bounds = Windows.Rect.Empty;
@@ -110,7 +110,7 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Event handlers
 
-        void Excel_WorkbookActivate(Workbook Wb)
+        void Excel_WorkbookActivate(Xl.Workbook Wb)
         {
             Invalidate();
             OnSelectionChanged();
@@ -122,7 +122,7 @@ namespace XLToolbox.Excel.ViewModels
             OnSelectionChanged();
         }
 
-        void Excel_SelectionChange(object Sh, Range Target)
+        void Excel_SelectionChange(object Sh, Xl.Range Target)
         {
             Invalidate();
             OnSelectionChanged();
@@ -202,7 +202,7 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Private fields
 
-        private Application _app;
+        private Xl.Application _app;
         private Windows.Rect _bounds;
 
         #endregion
