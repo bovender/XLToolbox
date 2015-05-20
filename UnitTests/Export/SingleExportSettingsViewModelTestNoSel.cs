@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.ViewModels;
 
 namespace XLToolbox.UnitTests.Export
@@ -37,10 +37,10 @@ namespace XLToolbox.UnitTests.Export
         public void ExportCommandDisabledWithoutSelection()
         {
             SingleExportSettingsViewModel svm;
-            using (new ExcelInstance())
+            using (Instance i = Instance.Default)
             {
                 svm = new SingleExportSettingsViewModel();
-                ExcelInstance.CreateWorkbook();
+                i.CreateWorkbook();
                 PresetViewModel pvm = new PresetViewModel();
                 svm.PresetsRepository.Presets.Add(pvm);
                 pvm.IsSelected = true;

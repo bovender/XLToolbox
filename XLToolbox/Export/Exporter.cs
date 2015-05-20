@@ -22,7 +22,6 @@ using Microsoft.Office.Interop.Excel;
 using Bovender.Unmanaged;
 using FreeImageAPI;
 using FreeImageAPI.Metadata;
-using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using System.Collections.Generic;
 using XLToolbox.Export.Models;
@@ -103,16 +102,16 @@ namespace XLToolbox.Export
             Task t = new Task(() =>
             {
                 _batchRunning = true;
-                ExcelInstance.DisableScreenUpdating();
+                Instance.Default.DisableScreenUpdating();
                 switch (_batchSettings.Scope)
                 {
                     case BatchExportScope.ActiveSheet:
-                        _numTotal = CountInSheet(ExcelInstance.Application.ActiveSheet);
-                        ExportSheet(ExcelInstance.Application.ActiveSheet);
+                        _numTotal = CountInSheet(Instance.Default.Application.ActiveSheet);
+                        ExportSheet(Instance.Default.Application.ActiveSheet);
                         break;
                     case BatchExportScope.ActiveWorkbook:
-                        _numTotal = CountInWorkbook(ExcelInstance.Application.ActiveWorkbook);
-                        ExportWorkbook(ExcelInstance.Application.ActiveWorkbook);
+                        _numTotal = CountInWorkbook(Instance.Default.ActiveWorkbook);
+                        ExportWorkbook(Instance.Default.ActiveWorkbook);
                         break;
                     case BatchExportScope.OpenWorkbooks:
                         _numTotal = CountInAllWorkbooks();
@@ -123,7 +122,7 @@ namespace XLToolbox.Export
                             "Batch export not implemented for {0}",
                             settings.Scope));
                 }
-                ExcelInstance.EnableScreenUpdating();
+                Instance.Default.EnableScreenUpdating();
                 OnExportFinished();
                 _batchRunning = false;
             });
@@ -198,7 +197,7 @@ namespace XLToolbox.Export
         /// <param name="fileName">File name of target file.</param>
         private void ExportSelection(Preset preset, string fileName)
         {
-            SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
             if (svm.Selection == null)
             {
                 throw new InvalidOperationException("Nothing selected in Excel.");
@@ -219,7 +218,7 @@ namespace XLToolbox.Export
         {
 
             // Copy current selection to clipboard
-            SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
             svm.CopyToClipboard();
 
             // Get a metafile view of the clipboard content
@@ -331,7 +330,7 @@ namespace XLToolbox.Export
 
         private void ExportAllWorkbooks()
         {
-            foreach (Workbook wb in ExcelInstance.Application.Workbooks)
+            foreach (Workbook wb in Instance.Default.Application.Workbooks)
             {
                 ExportWorkbook(wb);
                 if (_cancelled) break;
@@ -449,7 +448,7 @@ namespace XLToolbox.Export
         private int CountInAllWorkbooks()
         {
             int n = 0;
-            foreach (Workbook wb in ExcelInstance.Application.Workbooks)
+            foreach (Workbook wb in Instance.Default.Application.Workbooks)
             {
                 n += CountInWorkbook(wb);
             }

@@ -26,6 +26,8 @@
 					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 						getEnabled="HasWorkbook"/>
+					<button id="ButtonQuitExcel" onAction="Button_OnAction" image="off.png"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 				</group>
 				<group id="GroupExport" getLabel="Control_GetLabel" visible="true">
 					<splitButton id="SplitButtonExportSelection">

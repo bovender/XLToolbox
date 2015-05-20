@@ -62,9 +62,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
-    <Compile Include="Excel\Instance\ExcelInstance.cs" />
-    <Compile Include="Excel\Instance\ExcelInstanceAlreadySetException.cs" />
-    <Compile Include="Excel\Instance\ExcelInstanceException.cs" />
+    <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
@@ -123,7 +121,6 @@
     <Compile Include="Export\ViewModels\PresetViewModel.cs" />
     <Compile Include="Export\Models\FileType.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
-    <Compile Include="Excel\Instance\NoExcelInstanceException.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
@@ -274,6 +271,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\off.png" />
     <Resource Include="Resources\images\donate.png" />
     <Resource Include="Resources\images\screenshot-export-small.png" />
     <Resource Include="Resources\html\license.html" />

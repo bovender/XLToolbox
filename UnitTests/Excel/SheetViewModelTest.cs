@@ -21,7 +21,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.Excel.Instance;
 using NUnit.Framework;
 
 namespace XLToolbox.Test.Excel
@@ -32,22 +31,10 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class SheetViewModelTest
     {
-        [SetUp]
-        public void SetUp()
-        {
-            ExcelInstance.Start();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ExcelInstance.Shutdown();
-        }
-
         [Test]
         public void Properties()
         {
-            Worksheet ws = ExcelInstance.Application.Sheets.Add();
+            Worksheet ws = Instance.Default.Application.Sheets.Add();
             SheetViewModel svm = new SheetViewModel(ws);
             Assert.AreEqual(ws.Name, svm.DisplayString);
 
@@ -77,7 +64,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public void CountSelectChartSheet()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             Worksheet ws = wb.Worksheets.Add();
             SheetViewModel svm = new SheetViewModel(ws);
             Assert.IsFalse(svm.SelectCharts(),
@@ -97,7 +84,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public void CountSelectChartObjects()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             Worksheet ws = wb.Worksheets.Add();
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 200, 100);
@@ -114,7 +101,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public void CountSelectShapes()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             Worksheet ws = wb.Worksheets.Add();
             Shapes shs = ws.Shapes;
             shs.AddLine(10, 10, 20, 30);
@@ -131,7 +118,7 @@ namespace XLToolbox.Test.Excel
         [Test]
         public void CountSelectShapesAndCharts()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             Worksheet ws = wb.Worksheets.Add();
             Shapes shs = ws.Shapes;
             shs.AddLine(10, 10, 20, 30);

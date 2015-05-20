@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.Test;
 using XLToolbox.Export;
 
@@ -34,8 +34,7 @@ namespace XLToolbox.Test.Export
         [RequiresThread(System.Threading.ApartmentState.STA)]
         public void ExportScreenShot()
         {
-            ExcelInstance.Start();
-            Worksheet ws = ExcelInstance.Application.Worksheets[1];
+            Worksheet ws = Instance.Default.Application.Worksheets[1];
             Helpers.CreateSomeCharts(ws, 1);
             ws.ChartObjects(1).Select();
             ScreenshotExporter exporter = new ScreenshotExporter();

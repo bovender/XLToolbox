@@ -20,7 +20,7 @@ using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.Actions;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Export
 {
@@ -38,7 +38,7 @@ namespace XLToolbox.Export
         public void ExportSelection()
         {
             Preset p = Preset.FromLastUsed(
-                ExcelInstance.Application.ActiveWorkbook);
+                Instance.Default.Application.ActiveWorkbook);
             if (p == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
@@ -60,7 +60,7 @@ namespace XLToolbox.Export
         public void ExportBatch()
         {
             BatchExportSettingsViewModel bvm = BatchExportSettingsViewModel.FromLastUsed(
-                ExcelInstance.Application.ActiveWorkbook);
+                Instance.Default.ActiveWorkbook);
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;

@@ -209,7 +209,7 @@ namespace XLToolbox.Export.ViewModels
             }
 
             PresetViewModel pvm = PresetViewModel.FromLastUsed(
-                Excel.Instance.ExcelInstance.Application.ActiveWorkbook);
+                Excel.ViewModels.Instance.Default.ActiveWorkbook);
             if (!Select(pvm))
             {
                 Presets[0].IsSelected = true;

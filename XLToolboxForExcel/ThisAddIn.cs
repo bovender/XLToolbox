@@ -19,7 +19,7 @@ using Bovender.Mvvm;
 using Bovender.Unmanaged;
 using Bovender.Versioning;
 using System;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Mvvm.Views;
 using XLToolbox.Greeter;
@@ -42,8 +42,8 @@ namespace XLToolbox
 
             // Make the current Excel instance globally available
             // even for the non-VSTO components of this addin
-            ExcelInstance.Application = Globals.ThisAddIn.Application;
-            Ribbon.ExcelApp = ExcelInstance.Application;
+            Instance.SetDefault(Globals.ThisAddIn.Application);
+            Ribbon.ExcelApp = Instance.Default.Application;
 
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
 

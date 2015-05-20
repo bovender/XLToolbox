@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using FreeImageAPI;
 using System.IO;
 using Bovender.Unmanaged;
@@ -39,7 +39,7 @@ namespace XLToolbox.Export
             using (DllManager dllManager = new DllManager())
             {
                 dllManager.LoadDll("FreeImage.DLL");
-                ExcelInstance.Application.Selection.Copy();
+                Instance.Default.Application.Selection.Copy();
                 MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
                 FreeImageBitmap fi = FreeImageBitmap.FromStream(data);
                 fi.SetResolution(102.42f, 102.42f);

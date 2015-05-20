@@ -46,7 +46,7 @@ namespace XLToolbox.Export
 
         public WorkingClipboard()
         {
-            Pinvoke.OpenClipboard((IntPtr)Excel.Instance.ExcelInstance.Application.Hwnd);
+            Pinvoke.OpenClipboard((IntPtr)Excel.ViewModels.Instance.Default.Application.Hwnd);
         }
 
         ~WorkingClipboard()

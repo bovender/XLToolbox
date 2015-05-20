@@ -23,8 +23,8 @@ using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
-using XLToolbox.Excel.Instance;
 using XLToolbox.Export.ViewModels;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.UnitTests.Export
 {
@@ -36,18 +36,11 @@ namespace XLToolbox.UnitTests.Export
         [SetUp]
         public void SetUp()
         {
-            ExcelInstance.Start();
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             Worksheet ws = wb.Worksheets[1];
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 300, 200).Select();
             svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ExcelInstance.Shutdown();
         }
 
         [Test]
@@ -60,7 +53,7 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void DimensionsChartSheet()
         {
-            Chart c = ExcelInstance.Application.ActiveWorkbook.Charts.Add();
+            Chart c = Instance.Default.Application.ActiveWorkbook.Charts.Add();
             svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
             // Assert small differences because rounding errors are possible
             Assert.IsTrue(Math.Abs(c.ChartArea.Width - svm.Width) < 0.000001,

@@ -232,6 +232,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quit Excel.
+        /// </summary>
+        internal static string ButtonQuitExcelLabel {
+            get {
+                return ResourceManager.GetString("ButtonQuitExcelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit Excel, closing all workbooks with prompts to save changes..
+        /// </summary>
+        internal static string ButtonQuitExcelSupertip {
+            get {
+                return ResourceManager.GetString("ButtonQuitExcelSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksheets.
         /// </summary>
         internal static string ButtonSheetListLabel {

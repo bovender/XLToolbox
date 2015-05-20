@@ -1,4 +1,4 @@
-﻿/* ExcelInstance.cs
+﻿/* Instance.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -20,8 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
+using Bovender.Mvvm.ViewModels;
 
-namespace XLToolbox.Excel.Instance
+namespace XLToolbox.Excel.ViewModels
 {
     /// <summary>
     /// Provide access to an instance of Excel that the
@@ -41,44 +42,51 @@ namespace XLToolbox.Excel.Instance
     /// the purpose of being able to automatically close Excel when
     /// the work is done by using Using() structures.</para>
     /// </remarks>
-    public class ExcelInstance : IDisposable
+    public class Instance : ViewModelBase, IDisposable
     {
-        #region Public instance properties
+        #region Singleton factory
 
-        public Application App { get { return ExcelInstance.Application; } }
-
-        #endregion
-
-        #region Public static properties
-
-        /// <summary>
-        /// Provides access to the current Excel instance.
-        /// </summary>
-        public static Application Application
+        public static Instance Default
         {
             get
             {
-                if (!Running)
+                if (_singletonInstance == null)
                 {
-                    throw new ExcelInstanceException("No instance running.");
+                    _singletonInstance = new Instance();
                 }
-                return _application;
-            }
-            set
-            {
-                if (Running)
-                {
-                    throw new ExcelInstanceAlreadySetException();
-                }
-                _application = value;
+                return _singletonInstance;
             }
         }
 
-        public static bool Running
+        public static void SetDefault(Application application)
+        {
+            if (_singletonInstance == null)
+            {
+                _singletonInstance = new Instance(application);
+            }
+            else
+            {
+                throw new InvalidOperationException("There is already an Excel instance.");
+            }
+        }
+
+        #endregion
+
+        #region Public properties
+
+        public Application Application
         {
             get
             {
-                return _application != null;
+                return _application;
+            }
+        }
+
+        public Workbook ActiveWorkbook
+        {
+            get
+            {
+                return Application.ActiveWorkbook;
             }
         }
 
@@ -92,7 +100,7 @@ namespace XLToolbox.Excel.Instance
         /// <param name="excel">Excel application whose version information to
         /// to retrieve.</param>
         /// <returns>String in the form of "2003", "2010 SP1" and so on.</returns>
-        public static string HumanFriendlyVersion
+        public string HumanFriendlyVersion
         {
             get
             {
@@ -134,43 +142,17 @@ namespace XLToolbox.Excel.Instance
 
         #endregion
 
-        #region Static methods
-
-        /// <summary>
-        /// Starts a new instance of Excel. Does nothing if there already is an instance.
-        /// </summary>
-        public static void Start()
-        {
-            Start(true);
-        }
-
-        /// <summary>
-        /// Shuts down the current instance of Excel; no warning message will be shown.
-        /// If an instance of this class exists, an error will be thrown.
-        /// </summary>
-        public static void Shutdown()
-        {
-            if (_numClassInstances != 0)
-            {
-                throw new ExcelInstanceException(String.Format(
-                    "There are still {0} class instances.",
-                    _numClassInstances));
-            }
-            Application.DisplayAlerts = false;
-            Application.Quit();
-            _static = false;
-            _application = null;
-        }
+        #region Public methods
 
         /// <summary>
         /// Creates and returns a new workbook containing exactly one worksheet.
         /// </summary>
         /// <returns>Workbook with only one worksheet.</returns>
-        public static Workbook CreateWorkbook()
+        public Workbook CreateWorkbook()
         {
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
-            return ExcelInstance.Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            return Default.Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
         }
 
         /// <summary>
@@ -180,7 +162,7 @@ namespace XLToolbox.Excel.Instance
         /// contain one worksheet.</remarks>
         /// <param name="numberOfSheets">Number of sheets in the new workbook.</param>
         /// <returns>Workbook containing the specified number of sheets (not less than 1).</returns>
-        public static Workbook CreateWorkbook(int numberOfSheets)
+        public Workbook CreateWorkbook(int numberOfSheets)
         {
             Workbook wb = CreateWorkbook();
             for (int i = 2; i <= numberOfSheets; i++)
@@ -194,13 +176,13 @@ namespace XLToolbox.Excel.Instance
         /// Disables screen updating. Increases an internal counter
         /// to be able to handle cascading calls to this method.
         /// </summary>
-        public static void DisableScreenUpdating()
+        public void DisableScreenUpdating()
         {
             if (_preventScreenUpdating == 0)
             {
-                _wasScreenUpdating = Application.ScreenUpdating;
+                _wasScreenUpdating = Default.Application.ScreenUpdating;
             }
-            Application.ScreenUpdating = false;
+            Default.Application.ScreenUpdating = false;
             _preventScreenUpdating++;
         }
 
@@ -209,13 +191,13 @@ namespace XLToolbox.Excel.Instance
         /// if the counter reaches 0, the application's screen updating
         /// will resume.
         /// </summary>
-        public static void EnableScreenUpdating()
+        public void EnableScreenUpdating()
         {
             _preventScreenUpdating--;
             if (_preventScreenUpdating <= 0)
             {
                 _preventScreenUpdating = 0;
-                Application.ScreenUpdating = _wasScreenUpdating;
+                Default.Application.ScreenUpdating = _wasScreenUpdating;
             }
         }
 
@@ -223,13 +205,13 @@ namespace XLToolbox.Excel.Instance
         /// Disables displaying of user alerts. Increases an internal counter
         /// to be able to handle cascading calls to this method.
         /// </summary>
-        public static void DisableDisplayAlerts()
+        public void DisableDisplayAlerts()
         {
             if (_disableDisplayAlerts == 0)
             {
-                _wasDisplayingAlerts = Application.DisplayAlerts;
+                _wasDisplayingAlerts = Default.Application.DisplayAlerts;
             }
-            Application.DisplayAlerts = false;
+            Default.Application.DisplayAlerts = false;
             _disableDisplayAlerts++;
         }
 
@@ -239,36 +221,46 @@ namespace XLToolbox.Excel.Instance
         /// user alerts will be turned on again (in fact, it will
         /// be reset to its original state).
         /// </summary>
-        public static void EnableDisplayAlerts()
+        public void EnableDisplayAlerts()
         {
             _disableDisplayAlerts--;
             if (_disableDisplayAlerts <= 0)
             {
                 _disableDisplayAlerts = 0;
-                Application.DisplayAlerts = _wasDisplayingAlerts;
+                Default.Application.DisplayAlerts = _wasDisplayingAlerts;
             }
         }
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
         /// <summary>
-        /// Instantiates this class. Invokes a new Excel instance if none is running.
+        /// Creates a new instance using <paramref name="application"/> as Excel
+        /// instance.
         /// </summary>
-        /// <remarks>The number of class instances is recorded in the private field
-        /// <see cref="_numClassInstances"/>.</remarks>
-        public ExcelInstance()
+        /// <param name="application">Excel instance.</param>
+        public Instance(Application application)
+            : base()
         {
+            _application = application;
             _numClassInstances += 1;
-            Start(false);
+        }
+
+        /// <summary>
+        /// Instantiates this class, invoking a new Excel instance.
+        /// </summary>
+        private Instance()
+            : this(new Application())
+        {
+            Application.Workbooks.Add();
         }
 
         #endregion
 
         #region Disposing
 
-        ~ExcelInstance()
+        ~Instance()
         {
             Dispose(false);
         }
@@ -288,10 +280,7 @@ namespace XLToolbox.Excel.Instance
             if (disposing)
             {
                 _numClassInstances -= 1;
-                // Only shut down Excel if there are no other instances of
-                // this class *and* if Excel has not been invoked by the
-                // static methods of this class.
-                if (_numClassInstances == 0 && !_static)
+                if (_numClassInstances == 0)
                 {
                     Shutdown();
                 }
@@ -300,35 +289,51 @@ namespace XLToolbox.Excel.Instance
 
         #endregion
 
+        #region ViewModelBase implementation
+
+        public override object RevealModelObject()
+        {
+            return _application;
+        }
+
+        #endregion
+
         #region Private methods
 
-        private static void Start(bool isStatic)
+        /// <summary>
+        /// Shuts down the current instance of Excel; no warning message will be shown.
+        /// If an instance of this class exists, an error will be thrown.
+        /// </summary>
+        void Shutdown()
         {
-            _static |= isStatic;
-            if (_application == null)
+            if (_numClassInstances != 0)
             {
-                Application = new Application();
-                Application.Workbooks.Add();
+                throw new InvalidOperationException(String.Format(
+                    "There are still {0} class instances.",
+                    _numClassInstances));
             }
+            Application.DisplayAlerts = false;
+            Application.Quit();
+            _application = null;
         }
 
         #endregion
        
-        #region Private fields
+        #region Private instance fields
 
         private bool _disposed;
-        private static bool _static;
+
+        #endregion
+
+        #region Private static fields
+
+        private static Application _application;
+        private static Instance _singletonInstance;
         private static bool _wasScreenUpdating;
         private static bool _wasDisplayingAlerts;
         private static int _numClassInstances;
         private static int _preventScreenUpdating;
         private static int _disableDisplayAlerts;
-
-        /// <summary>
-        /// Holds the current Excel instance; static field as only one instance
-        /// is allowed to be connected with the XL Toolbox at a time.
-        /// </summary>
-        private static Application _application;
 
         #endregion
     }
