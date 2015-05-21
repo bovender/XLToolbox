@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm.ViewModels;
+using System.Collections;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -69,6 +69,12 @@ namespace XLToolbox.Excel.ViewModels
                 throw new InvalidOperationException("There is already an Excel instance.");
             }
         }
+
+        #endregion
+
+        #region Commands
+
+
 
         #endregion
 
@@ -137,6 +143,38 @@ namespace XLToolbox.Excel.ViewModels
                 }
                 return String.Format("{0}{1} ({2}.{3})",
                     name, sp, app.Version, app.Build);
+            }
+        }
+
+        public IEnumerable<Workbook> Workbooks
+        {
+            get
+            {
+                return Application.Workbooks.Cast<Workbook>();
+            }
+        }
+
+        public int CountOpenWorkbooks
+        {
+            get
+            {
+                return Application.Workbooks.Count;
+            }
+        }
+
+        public int CountUnsavedWorkbooks
+        {
+            get
+            {
+                return Workbooks.Count<Workbook>(w => w.Saved == false);
+            }
+        }
+
+        public int CountSavedWorkbooks
+        {
+            get
+            {
+                return Workbooks.Count<Workbook>(w => w.Saved == true);
             }
         }
 

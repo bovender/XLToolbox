@@ -75,6 +75,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Excel\InstanceTest.cs" />
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
