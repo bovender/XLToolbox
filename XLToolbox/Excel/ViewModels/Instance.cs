@@ -244,7 +244,6 @@ namespace XLToolbox.Excel.ViewModels
             : base()
         {
             _application = application;
-            _numClassInstances += 1;
         }
 
         /// <summary>
@@ -271,20 +270,14 @@ namespace XLToolbox.Excel.ViewModels
             {
                 Dispose(true);
                 GC.SuppressFinalize(this);
+                // prevent executing this code again
                 _disposed = true;
             }
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool mayFreeManagedObjects)
         {
-            if (disposing)
-            {
-                _numClassInstances -= 1;
-                if (_numClassInstances == 0)
-                {
-                    Shutdown();
-                }
-            }
+           Shutdown();
         }
 
         #endregion
@@ -306,12 +299,6 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         void Shutdown()
         {
-            if (_numClassInstances != 0)
-            {
-                throw new InvalidOperationException(String.Format(
-                    "There are still {0} class instances.",
-                    _numClassInstances));
-            }
             Application.DisplayAlerts = false;
             Application.Quit();
             _application = null;
@@ -331,7 +318,6 @@ namespace XLToolbox.Excel.ViewModels
         private static Instance _singletonInstance;
         private static bool _wasScreenUpdating;
         private static bool _wasDisplayingAlerts;
-        private static int _numClassInstances;
         private static int _preventScreenUpdating;
         private static int _disableDisplayAlerts;
 
