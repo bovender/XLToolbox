@@ -1,4 +1,4 @@
-﻿/* NoExcelInstanceException.cs
+﻿/* QuitView.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,21 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Runtime.Serialization;
+using System.Windows;
 
-namespace XLToolbox.Excel.Instance
+namespace XLToolbox.Excel.Views
 {
-    [Serializable]
-    public class NoExcelInstanceException : ExcelInstanceException
+    /// <summary>
+    /// Interaction logic for QuitView.xaml
+    /// </summary>
+    public partial class QuitView : Window
     {
-        public NoExcelInstanceException() { }
-        public NoExcelInstanceException(string message) : base(message) { }
-        public NoExcelInstanceException(string message,
-            Exception innerException)
-            : base(message, innerException) { }
-        public NoExcelInstanceException(SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
+        public QuitView()
+        {
+            InitializeComponent();
+        }
     }
 }

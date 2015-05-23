@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export.Models
@@ -151,7 +151,7 @@ namespace XLToolbox.Export.Models
 
         public void Store()
         {
-            Store(ExcelInstance.Application.ActiveWorkbook);
+            Store(Excel.ViewModels.Instance.Default.ActiveWorkbook);
         }
 
         #endregion

@@ -199,7 +199,7 @@ namespace XLToolbox.Export.ViewModels
         /// <returns>Default export path.</returns>
         protected string GetExportPath()
         {
-            Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
+            Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             Store store = new Store(wb);
             string defaultPath = Properties.Settings.Default.ExportPath;
             if (String.IsNullOrEmpty(defaultPath))
@@ -221,7 +221,7 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected void SaveExportPath()
         {
-            Workbook wb = Excel.Instance.ExcelInstance.Application.ActiveWorkbook;
+            Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             using (Store store = new Store(wb))
             {
                 string path = System.IO.Path.GetDirectoryName(Settings.FileName);

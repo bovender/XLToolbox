@@ -106,6 +106,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All open workbooks.
+        /// </summary>
+        public static string AllOpenWorkbooks {
+            get {
+                return ResourceManager.GetString("AllOpenWorkbooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always on top.
         /// </summary>
         public static string AlwaysOnTop {
@@ -129,6 +138,33 @@ namespace XLToolbox {
         public static string ApacheDisclaimer {
             get {
                 return ResourceManager.GetString("ApacheDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask me.
+        /// </summary>
+        public static string AskMe {
+            get {
+                return ResourceManager.GetString("AskMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask me as needed.
+        /// </summary>
+        public static string AskMeAsNeeded {
+            get {
+                return ResourceManager.GetString("AskMeAsNeeded", resourceCulture);
             }
         }
         
@@ -327,6 +363,15 @@ namespace XLToolbox {
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard all.
+        /// </summary>
+        public static string DiscardAll {
+            get {
+                return ResourceManager.GetString("DiscardAll", resourceCulture);
             }
         }
         
@@ -582,6 +627,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How do you want to quit?.
+        /// </summary>
+        public static string HowDoYouWantToQuit {
+            get {
+                return ResourceManager.GetString("HowDoYouWantToQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you are the owner of this computer, you can download the update manually, then right-click the update installer and choose &quot;Run as administrator&quot; to acquire appropriate permissions to install..
         /// </summary>
         public static string IfYouAreTheOwnerOfThisComputer {
@@ -753,7 +807,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All open workbooks.
+        ///   Looks up a localized string similar to Open workbooks.
         /// </summary>
         public static string OpenWorkbooks {
             get {
@@ -834,6 +888,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quit Excel, discarding changes.
+        /// </summary>
+        public static string QuitDiscardingChanges {
+            get {
+                return ResourceManager.GetString("QuitDiscardingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit Excel.
+        /// </summary>
+        public static string QuitExcel {
+            get {
+                return ResourceManager.GetString("QuitExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit Excel, saving all changed workbooks.
+        /// </summary>
+        public static string QuitSavingChanges {
+            get {
+                return ResourceManager.GetString("QuitSavingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove preset.
         /// </summary>
         public static string RemovePreset {
@@ -893,6 +974,15 @@ namespace XLToolbox {
         public static string Rgb {
             get {
                 return ResourceManager.GetString("Rgb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save all.
+        /// </summary>
+        public static string SaveAll {
+            get {
+                return ResourceManager.GetString("SaveAll", resourceCulture);
             }
         }
         
@@ -1129,6 +1219,15 @@ namespace XLToolbox {
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved workbooks.
+        /// </summary>
+        public static string UnsavedWorkbooks {
+            get {
+                return ResourceManager.GetString("UnsavedWorkbooks", resourceCulture);
             }
         }
         

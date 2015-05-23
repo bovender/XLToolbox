@@ -75,6 +75,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Excel\InstanceTest.cs" />
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
@@ -96,7 +97,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="TestExcelInstance.cs" />
     <Compile Include="WorkbookStorage\ClassForTesting.cs" />
     <Compile Include="WorkbookStorage\StoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

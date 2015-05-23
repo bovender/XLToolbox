@@ -26,7 +26,6 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.Excel.Instance;
 using XLToolbox.WorkbookStorage;
 using XLToolbox.Export.Models;
 
@@ -370,7 +369,7 @@ namespace XLToolbox.Export.ViewModels
             if (CanExport())
             {
                 ((BatchExportSettings)Settings).Store(
-                    ExcelInstance.Application.ActiveWorkbook);
+                    Instance.Default.ActiveWorkbook);
                 SaveExportPath();
                 Exporter exporter = new Exporter();
                 ProcessMessageContent processMessageContent =
@@ -439,19 +438,16 @@ namespace XLToolbox.Export.ViewModels
 
         private void AnalyzeOpenWorkbooks()
         {
-            if (ExcelInstance.Running)
-            {
-                AnalyzeActiveSheet();
-                AnalyzeOtherSheets();
-                AnalyzeOtherWorkbooks();
-            }
+            AnalyzeActiveSheet();
+            AnalyzeOtherSheets();
+            AnalyzeOtherWorkbooks();
         }
 
         private void AnalyzeActiveSheet()
         {
-            if (ExcelInstance.Application.ActiveSheet != null)
+            if (Instance.Default.Application.ActiveSheet != null)
             {
-                SheetViewModel sheetVM = new SheetViewModel(ExcelInstance.Application.ActiveSheet);
+                SheetViewModel sheetVM = new SheetViewModel(Instance.Default.Application.ActiveSheet);
                 int charts = sheetVM.CountCharts();
                 int shapes = sheetVM.CountShapes() - charts;
                 _activeSheetHasCharts = charts > 0;
@@ -470,7 +466,7 @@ namespace XLToolbox.Export.ViewModels
             _otherSheetsHaveManyObjects = false;
             int charts;
             int shapes;
-            foreach (object sheet in ExcelInstance.Application.ActiveWorkbook.Sheets)
+            foreach (object sheet in Instance.Default.Application.ActiveWorkbook.Sheets)
             {
                 SheetViewModel svm = new SheetViewModel(sheet);
                 if (svm.DisplayString != _activeSheetName)
@@ -487,14 +483,14 @@ namespace XLToolbox.Export.ViewModels
 
         private void AnalyzeOtherWorkbooks()
         {
-            string activeWorkbookName = ExcelInstance.Application.ActiveWorkbook.Name;
+            string activeWorkbookName = Instance.Default.ActiveWorkbook.Name;
             _otherWorkbooksHaveCharts = false;
             _otherWorkbooksHaveManyCharts = false;
             _otherWorkbooksHaveShapes = false;
             _otherWorkbooksHaveManyObjects = false;
             int charts;
             int shapes;
-            foreach (Workbook workbook in ExcelInstance.Application.Workbooks)
+            foreach (Workbook workbook in Instance.Default.Application.Workbooks)
             {
                 if (workbook.Name != activeWorkbookName)
                 {
@@ -708,7 +704,7 @@ namespace XLToolbox.Export.ViewModels
         private bool CanExportFromSheet(object sheet)
         {
             SheetViewModel svm = new SheetViewModel(
-                ExcelInstance.Application.ActiveSheet);
+                Instance.Default.Application.ActiveSheet);
             switch (Objects.AsEnum)
             {
                 case BatchExportObjects.Charts:

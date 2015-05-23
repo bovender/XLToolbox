@@ -27,7 +27,6 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.Excel.Instance;
 using XLToolbox.WorkbookStorage;
 using XLToolbox.Export.Models;
 using System.Collections.ObjectModel;
@@ -177,9 +176,9 @@ namespace XLToolbox.Export.ViewModels
         public SingleExportSettingsViewModel()
             : base()
         {
-            if (ExcelInstance.Application.Workbooks.Count > 0)
+            if (Instance.Default.Application.Workbooks.Count > 0)
             {
-                PresetsRepository.SelectLastUsedOrDefault(ExcelInstance.Application.ActiveWorkbook);
+                PresetsRepository.SelectLastUsedOrDefault(Instance.Default.Application.ActiveWorkbook);
             }
             CreateSettingsInstance();
             Units.AsEnum = Properties.Settings.Default.ExportUnit;
@@ -271,17 +270,10 @@ namespace XLToolbox.Export.ViewModels
 
         protected override bool CanExport()
         {
-            if (ExcelInstance.Running)
-            {
-                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-                return (svm.Selection != null) && (SelectedPreset != null) &&
-                    (Settings.Preset != null) && (Settings.Preset.Dpi > 0) &&
-                    (Width > 0) && (Height > 0);
-            }
-            else
-            {
-                return false;
-            }
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
+            return (svm.Selection != null) && (SelectedPreset != null) &&
+                (Settings.Preset != null) && (Settings.Preset.Dpi > 0) &&
+                (Width > 0) && (Height > 0);
         }
 
         #endregion
@@ -290,35 +282,28 @@ namespace XLToolbox.Export.ViewModels
 
         private void CreateSettingsInstance()
         {
-            if (ExcelInstance.Running)
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
+            // If the ActiveChart property of the Excel application is not null,
+            // either a chart or 'something in the chart' is selected. To make sure
+            // we don't attempt to export 'something in the chart', we select the
+            // entire chart.
+            if (Instance.Default.Application.ActiveChart != null)
             {
-                SelectionViewModel svm = new SelectionViewModel(ExcelInstance.Application);
-                // If the ActiveChart property of the Excel application is not null,
-                // either a chart or 'something in the chart' is selected. To make sure
-                // we don't attempt to export 'something in the chart', we select the
-                // entire chart.
-                if (ExcelInstance.Application.ActiveChart != null)
+                _Chart c = Instance.Default.Application.ActiveChart;
+                // Handle chart sheets and embedded charts differently
+                if (c.Parent is ChartObject)
                 {
-                    _Chart c = ExcelInstance.Application.ActiveChart;
-                    // Handle chart sheets and embedded charts differently
-                    if (c.Parent is ChartObject)
-                    {
-                        ((_Chart)ExcelInstance.Application.ActiveChart).Parent.Select();
-                    }
-                    else
-                    {
-                        ((_Chart)ExcelInstance.Application.ActiveChart).Select();
-                    }
+                    ((_Chart)Instance.Default.Application.ActiveChart).Parent.Select();
                 }
+                else
+                {
+                    ((_Chart)Instance.Default.Application.ActiveChart).Select();
+                }
+            }
 
-                Settings = new SingleExportSettings(
-                    PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
-                    svm.Bounds.Width, svm.Bounds.Height, true);
-            }
-            else 
-            {
-                Settings = new SingleExportSettings();
-            }
+            Settings = new SingleExportSettings(
+                PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
+                svm.Bounds.Width, svm.Bounds.Height, true);
         }
 
         private void DoChooseFileName()
@@ -361,7 +346,7 @@ namespace XLToolbox.Export.ViewModels
             if (CanResetDimensions())
             {
                 SelectionViewModel selection = new SelectionViewModel(
-                    Excel.Instance.ExcelInstance.Application);
+                    Instance.Default.Application);
                 bool oldAspectSwitch = PreserveAspect;
                 PreserveAspect = false;
                 Width = Unit.Point.ConvertTo(selection.Bounds.Width, Units.AsEnum);

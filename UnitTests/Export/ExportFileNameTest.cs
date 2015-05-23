@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export;
 using XLToolbox.Export.Models;
 
@@ -36,16 +36,9 @@ namespace XLToolbox.UnitTests.Export
         [SetUp]
         public void SetUp()
         {
-            ExcelInstance.Start();
-            wb = ExcelInstance.CreateWorkbook(1);
+            wb = Instance.Default.CreateWorkbook(1);
             ws = wb.Worksheets[1];
             ws.Name = "helloworld";
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ExcelInstance.Shutdown();
         }
 
         [Test]

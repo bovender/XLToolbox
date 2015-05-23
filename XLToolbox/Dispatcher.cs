@@ -21,7 +21,6 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
-using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
 using XLToolbox.Versioning;
@@ -63,6 +62,9 @@ namespace XLToolbox
                     case Command.ExportScreenshot: ExportScreenshot(); break;
                     case Command.Donate: OpenDonatePage(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
+                    case Command.QuitExcel: QuitExcel(); break;
+                    default:
+                        throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
             }
             catch (Exception e)
@@ -99,7 +101,7 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
+            WorkbookViewModel wvm = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
             Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
         }
 
@@ -118,7 +120,7 @@ namespace XLToolbox
         static void BatchExport()
         {
             BatchExportSettingsViewModel vm = BatchExportSettingsViewModel.FromLastUsed(
-                ExcelInstance.Application.ActiveWorkbook);
+                Instance.Default.ActiveWorkbook);
             if (vm == null)
             {
                 vm = new BatchExportSettingsViewModel();
@@ -157,6 +159,11 @@ namespace XLToolbox
         static void OpenDonatePage()
         {
             System.Diagnostics.Process.Start(Properties.Settings.Default.DonateUrl);
+        }
+
+        static void QuitExcel()
+        {
+            Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
         }
 
         #endregion

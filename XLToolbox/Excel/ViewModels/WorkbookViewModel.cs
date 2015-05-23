@@ -311,8 +311,8 @@ namespace XLToolbox.Excel.ViewModels
 
         public WorkbookViewModel()
         {
-            Excel.Instance.ExcelInstance.Application.WorkbookActivate += Application_WorkbookActivate;
-            Excel.Instance.ExcelInstance.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
+            Excel.ViewModels.Instance.Default.Application.WorkbookActivate += Application_WorkbookActivate;
+            Excel.ViewModels.Instance.Default.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
         }
 
         public WorkbookViewModel(Workbook workbook)
@@ -479,7 +479,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (confirmation.Confirmed)
             {
-                Excel.Instance.ExcelInstance.DisableDisplayAlerts();
+                Excel.ViewModels.Instance.Default.DisableDisplayAlerts();
                 for (int i = 0; i < Sheets.Count; i++)
                 {
                     if (Sheets[i].IsSelected)
@@ -490,7 +490,7 @@ namespace XLToolbox.Excel.ViewModels
                         Sheets.RemoveAt(i);
                     }
                 }
-                Excel.Instance.ExcelInstance.EnableDisplayAlerts();
+                Excel.ViewModels.Instance.Default.EnableDisplayAlerts();
             }
         }
 

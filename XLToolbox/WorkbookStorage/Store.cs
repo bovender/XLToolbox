@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -186,7 +186,7 @@ namespace XLToolbox.WorkbookStorage
         public Store()
         {
             Initialize();
-            Workbook = ExcelInstance.Application.ActiveWorkbook;
+            Workbook = Instance.Default.ActiveWorkbook;
         }
 
         /// <summary>

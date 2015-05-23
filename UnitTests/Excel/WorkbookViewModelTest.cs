@@ -21,7 +21,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.Excel.Instance;
 using NUnit.Framework;
 
 namespace XLToolbox.Test.Excel
@@ -32,22 +31,24 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class WorkbookViewModelTest
     {
+        Instance _excelInstance;
+
         [SetUp]
-        public static void SetUp()
+        public void SetUp()
         {
-            ExcelInstance.Start();
+            _excelInstance = Instance.Default;
         }
 
         [TearDown]
-        public static void TearDown()
+        public void TearDown()
         {
-            ExcelInstance.Shutdown();
+            _excelInstance.Dispose();
         }
 
         [Test]
-        public static void WorkbookViewModelProperties()
+        public void WorkbookViewModelProperties()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             Assert.AreEqual(wvm.DisplayString, wb.Name,
                 "WorkbookViewModel does not give workbook name as display string");
@@ -62,9 +63,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void MoveSheetsUp()
+        public void MoveSheetsUp()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(3);
+            Workbook wb = Instance.Default.CreateWorkbook(3);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Select the second sheet in the collection (index #1)
@@ -93,9 +94,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void MoveSheetsDown()
+        public void MoveSheetsDown()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(6);
+            Workbook wb = Instance.Default.CreateWorkbook(6);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Select the second-to-last sheet in the collection
@@ -124,9 +125,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void MoveSheetsToTop()
+        public void MoveSheetsToTop()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(8);
+            Workbook wb = Instance.Default.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             
             // Without sheets selected, the Move-to-top command should be disabled
@@ -163,9 +164,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void MoveSheetsToBottom()
+        public void MoveSheetsToBottom()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(8);
+            Workbook wb = Instance.Default.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
 
             // Without sheets selected, the Move-to-bottom command should be disabled
@@ -202,9 +203,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void DeleteSheets()
+        public void DeleteSheets()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(8);
+            Workbook wb = Instance.Default.CreateWorkbook(8);
             int oldCount = wb.Sheets.Count;
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             Assert.IsFalse(wvm.DeleteSheets.CanExecute(null),
@@ -253,9 +254,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void SelectSheet()
+        public void SelectSheet()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook(8);
+            Workbook wb = Instance.Default.CreateWorkbook(8);
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             wvm.Sheets[2].IsSelected = true;
             Assert.AreEqual(wvm.Sheets[2].DisplayString, wb.ActiveSheet.Name);
@@ -264,9 +265,9 @@ namespace XLToolbox.Test.Excel
         }
 
         [Test]
-        public static void RenameSheet()
+        public void RenameSheet()
         {
-            Workbook wb = ExcelInstance.CreateWorkbook();
+            Workbook wb = Instance.Default.CreateWorkbook();
             WorkbookViewModel wvm = new WorkbookViewModel(wb);
             string oldName = wvm.Sheets[0].DisplayString;
             string newName = "valid new name";
