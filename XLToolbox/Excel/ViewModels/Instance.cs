@@ -21,6 +21,9 @@ using System.Linq;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm.ViewModels;
 using System.Collections;
+using Bovender.Mvvm;
+using Bovender.Mvvm.Messaging;
+using System.Diagnostics;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -74,7 +77,74 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Commands
 
+        public DelegatingCommand QuitInteractivelyCommand
+        {
+            get
+            {
+                if (_quitInteractivelyCommand == null)
+                {
+                    _quitInteractivelyCommand = new DelegatingCommand(
+                        (param) => DoQuitInteractively());
+                }
+                return _quitInteractivelyCommand;
+            }
+        }
 
+        public DelegatingCommand QuitSavingChangesCommand
+        {
+            get
+            {
+                if (_quitSavingChangesCommand == null)
+                {
+                    _quitSavingChangesCommand = new DelegatingCommand(
+                        (param) => DoQuitSavingChanges(),
+                        (param) => CanQuitSavingChanges());
+                }
+                return _quitSavingChangesCommand;
+            }
+        }
+
+        public DelegatingCommand QuitDiscardingChangesCommand
+        {
+            get
+            {
+                if (_quitDiscardingChangesCommand == null)
+                {
+                    _quitDiscardingChangesCommand = new DelegatingCommand(
+                        (param) => DoQuitDiscardingChanges(),
+                        (parma) => CanQuitDiscardingChanges());
+                }
+                return _quitDiscardingChangesCommand;
+            }
+        }
+
+        #endregion
+
+        #region MVVM messages
+
+        public Message<MessageContent> ConfirmQuitSavingChangesMessage
+        {
+            get
+            {
+                if (_confirmQuitSavingChangesMessage == null)
+                {
+                    _confirmQuitSavingChangesMessage = new Message<MessageContent>();
+                }
+                return _confirmQuitSavingChangesMessage;
+            }
+        }
+
+        public Message<MessageContent> ConfirmQuitDiscardingChangesMessage
+        {
+            get
+            {
+                if (_confirmQuitDiscardingChangesMessage == null)
+                {
+                    _confirmQuitDiscardingChangesMessage = new Message<MessageContent>();
+                }
+                return _confirmQuitDiscardingChangesMessage;
+            }
+        }
 
         #endregion
 
@@ -82,6 +152,7 @@ namespace XLToolbox.Excel.ViewModels
 
         public Application Application
         {
+            [DebuggerStepThrough]
             get
             {
                 return _application;
@@ -150,7 +221,29 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Application.Workbooks.Cast<Workbook>();
+                if (Application != null)
+                {
+                    return Application.Workbooks.Cast<Workbook>();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public IEnumerable<Workbook> UnsavedWorkbooks
+        {
+            get
+            {
+                if (Application != null)
+                {
+                    return Workbooks.Where(w => w.Saved == false);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -158,7 +251,14 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Application.Workbooks.Count;
+                if (Application != null)
+                {
+                    return Application.Workbooks.Count;
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
@@ -166,7 +266,14 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Workbooks.Count<Workbook>(w => w.Saved == false);
+                if (Application != null)
+                {
+                    return Workbooks.Count<Workbook>(w => w.Saved == false);
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
@@ -174,7 +281,14 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Workbooks.Count<Workbook>(w => w.Saved == true);
+                if (Application != null)
+                {
+                    return Workbooks.Count<Workbook>(w => w.Saved == true);
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
@@ -337,9 +451,110 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         void Shutdown()
         {
-            Application.DisplayAlerts = false;
-            Application.Quit();
-            _application = null;
+            if (_application != null)
+            {
+                _application.DisplayAlerts = false;
+                _application.Quit();
+                _application = null;
+            }
+        }
+
+        private void DoQuitInteractively()
+        {
+            CloseAllWorkbooksThenShutdown();
+        }
+
+        private void DoQuitSavingChanges()
+        {
+            ConfirmQuitSavingChangesMessage.Send(
+                new MessageContent(),
+                (MessageContent response) =>
+                {
+                    if (response.Confirmed) ConfirmQuitSavingChanges();
+                });
+        }
+
+        /// <summary>
+        /// Called by <see cref="DoQuitSavingChanges"/> if the view responded
+        /// affirmatory to the <see cref="ConfirmQuiSavingChangesMessage"/>.
+        /// </summary>
+        private void ConfirmQuitSavingChanges()
+        {
+            foreach (Workbook w in UnsavedWorkbooks)
+            {
+                if (w.Path == String.Empty)
+                {
+                    // Cast to prevent ambiguity
+                    ((_Workbook)w).Activate();
+                    Application.Dialogs[XlBuiltInDialog.xlDialogSaveAs].Show();
+                }
+                else
+                {
+                    w.Save();
+                }
+                if (!w.Saved) return;
+            }
+            CloseAllWorkbooksThenShutdown();
+        }
+
+        private bool CanQuitSavingChanges()
+        {
+            return CountUnsavedWorkbooks > 0;
+        }
+
+        private void DoQuitDiscardingChanges()
+        {
+            ConfirmQuitDiscardingChangesMessage.Send(
+                new MessageContent(),
+                (MessageContent response) =>
+                {
+                    if (response.Confirmed) ConfirmQuitDiscardingChanges();
+                });
+        }
+
+        /// <summary>
+        /// Called by <see cref="DoQuitDiscardingChanges"/> if the view responded
+        /// affirmatory to the <see cref="ConfirmQuitDiscardingChangesMessage"/>.
+        /// </summary>
+        private void ConfirmQuitDiscardingChanges()
+        {
+            foreach (Workbook w in UnsavedWorkbooks)
+            {
+                w.Saved = true;
+            }
+            CloseAllWorkbooksThenShutdown();
+        }
+
+        private bool CanQuitDiscardingChanges()
+        {
+            return CountUnsavedWorkbooks > 0;
+        }
+
+        /// <summary>
+        /// Closes all workbooks.
+        /// </summary>
+        /// <returns>True if all workbooks were closed, false if not.</returns>
+        private bool CloseAllWorkbooksThenShutdown()
+        {
+            while (Application.Workbooks.Count > 0)
+            {
+                // Excel collections are 1-based!
+                Workbook w = Application.Workbooks[1];
+                int n = CountOpenWorkbooks;
+                w.Close();
+                // Try if the workbook has been closed
+                if (n == CountOpenWorkbooks) return false;
+            }
+            if (Application.Workbooks.Count == 0)
+            {
+                CloseViewCommand.Execute(null);
+                Shutdown();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -347,6 +562,11 @@ namespace XLToolbox.Excel.ViewModels
         #region Private instance fields
 
         private bool _disposed;
+        private DelegatingCommand _quitInteractivelyCommand;
+        private DelegatingCommand _quitSavingChangesCommand;
+        private DelegatingCommand _quitDiscardingChangesCommand;
+        private Message<MessageContent> _confirmQuitSavingChangesMessage;
+        private Message<MessageContent> _confirmQuitDiscardingChangesMessage;
 
         #endregion
 

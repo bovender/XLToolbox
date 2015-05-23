@@ -65,6 +65,9 @@
     <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
+    <Compile Include="Excel\Views\QuitView.xaml.cs">
+      <DependentUpon>QuitView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
@@ -271,6 +274,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\off-large.png" />
     <Resource Include="Resources\images\off.png" />
     <Resource Include="Resources\images\donate.png" />
     <Resource Include="Resources\images\screenshot-export-small.png" />
@@ -280,6 +284,10 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Excel\Views\QuitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExceptionHandler\SubmissionFailureView.xaml">
       <SubType>Designer</SubType>

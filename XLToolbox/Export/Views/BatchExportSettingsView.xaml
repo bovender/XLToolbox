@@ -74,7 +74,7 @@
                                              ConverterParameter={x:Static xm:BatchExportScope.ActiveWorkbook}}"
                                  IsEnabled="{Binding IsActiveWorkbookEnabled}"
                                  Margin="0,0,0,5" />
-                    <RadioButton Content="{x:Static l:Strings.OpenWorkbooks}"
+                    <RadioButton Content="{x:Static l:Strings.AllOpenWorkbooks}"
                                  IsChecked="{Binding Path=Scope.AsEnum, Converter={StaticResource enumBoolConv},
                                              ConverterParameter={x:Static xm:BatchExportScope.OpenWorkbooks}}"
                                  IsEnabled="{Binding IsOpenWorkbooksEnabled}"

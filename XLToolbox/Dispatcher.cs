@@ -163,7 +163,7 @@ namespace XLToolbox
 
         static void QuitExcel()
         {
-            throw new NotImplementedException();
+            Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
         }
 
         #endregion
