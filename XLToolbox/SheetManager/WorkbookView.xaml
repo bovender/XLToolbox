@@ -29,6 +29,7 @@
         Width="400" Height="560"
         Title="{x:Static l:Strings.WorksheetManager}"
         Topmost="{Binding AlwaysOnTop,Mode=TwoWay}"
+        ResizeMode="CanResizeWithGrip"
         bov:WindowState.Save="True"
         bov:WindowState.CenterScreen="True"
     >
