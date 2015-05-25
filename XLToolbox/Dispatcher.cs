@@ -163,7 +163,14 @@ namespace XLToolbox
 
         static void QuitExcel()
         {
-            Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
+            if (Instance.Default.CountOpenWorkbooks > 0)
+            {
+                Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
+            }
+            else
+            {
+                Instance.Default.Dispose();
+            }
         }
 
         #endregion
