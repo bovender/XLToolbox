@@ -139,6 +139,15 @@ namespace XLToolbox
 
         #endregion
 
+        #region VBA API
+
+        protected override object RequestComAddInAutomationService()
+        {
+            return XLToolbox.Vba.Api.Default;
+        }
+
+        #endregion
+
         #region Ribbon
 
         protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()

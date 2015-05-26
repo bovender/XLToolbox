@@ -138,6 +138,7 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vba\Api.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
       <DependentUpon>InstallUpdateView.xaml</DependentUpon>
