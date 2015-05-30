@@ -155,5 +155,16 @@ namespace XLToolbox.Properties {
                 this["WindowManagerAlwaysOnTop"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Csv.CsvFile CsvSettings {
+            get {
+                return ((global::XLToolbox.Csv.CsvFile)(this["CsvSettings"]));
+            }
+            set {
+                this["CsvSettings"] = value;
+            }
+        }
     }
 }

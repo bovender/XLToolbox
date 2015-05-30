@@ -56,6 +56,7 @@
     <Compile Include="ExceptionHandler\CentralHandler.cs" />
     <Compile Include="ExceptionHandler\ManageExceptionEventArgs.cs" />
     <Compile Include="ExceptionHandler\UnhandledException.cs" />
+    <Compile Include="Mvvm\Actions\ChooseFileOpenAction.cs" />
     <Compile Include="Mvvm\Actions\ChooseFileSaveAction.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ConfirmationAction.cs" />

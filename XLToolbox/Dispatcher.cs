@@ -63,6 +63,8 @@ namespace XLToolbox
                     case Command.Donate: OpenDonatePage(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
                     case Command.QuitExcel: QuitExcel(); break;
+                    case Command.OpenCsv: OpenCsv(); break;
+                    case Command.OpenCsvWithParams: OpenCsvWithSettings(); break;
                     default:
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
@@ -171,6 +173,22 @@ namespace XLToolbox
             {
                 Instance.Default.Dispose();
             }
+        }
+
+        static void OpenCsv()
+        {
+            Csv.CsvFileViewModel vm = Csv.CsvFileViewModel.FromLastUsed();
+            vm.ChooseFileNameMessage.Sent += (sender, args) =>
+            {
+                ChooseFileOpenAction a = new ChooseFileOpenAction();
+                a.Invoke(args);
+            };
+            vm.ChooseFileNameCommand.Execute(null);
+        }
+
+        static void OpenCsvWithSettings()
+        {
+            Csv.CsvFileViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialog();
         }
 
         #endregion

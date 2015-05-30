@@ -593,4 +593,16 @@ You may want to try again.</value>
   <data name="QuitSavingChanges" xml:space="preserve">
     <value>Quit Excel, saving all changed workbooks</value>
   </data>
+  <data name="CsvSettings" xml:space="preserve">
+    <value>CSV Settings</value>
+  </data>
+  <data name="DecimalSeparator" xml:space="preserve">
+    <value>Decimal separator</value>
+  </data>
+  <data name="FieldSeparator" xml:space="preserve">
+    <value>Field separator</value>
+  </data>
+  <data name="ThousandsSeparator" xml:space="preserve">
+    <value>Thousands separator</value>
+  </data>
 </root>
