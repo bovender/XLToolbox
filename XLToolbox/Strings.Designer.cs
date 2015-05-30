@@ -340,11 +340,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CSV Settings.
+        /// </summary>
+        public static string CsvSettings {
+            get {
+                return ResourceManager.GetString("CsvSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data analysis and visualization for Excel, for free..
         /// </summary>
         public static string DataAnalysisAndVisualizationForExcelForFree {
             get {
                 return ResourceManager.GetString("DataAnalysisAndVisualizationForExcelForFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decimal separator.
+        /// </summary>
+        public static string DecimalSeparator {
+            get {
+                return ResourceManager.GetString("DecimalSeparator", resourceCulture);
             }
         }
         
@@ -560,6 +578,15 @@ namespace XLToolbox {
         public static string FetchingVersionInformationFailed {
             get {
                 return ResourceManager.GetString("FetchingVersionInformationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field separator.
+        /// </summary>
+        public static string FieldSeparator {
+            get {
+                return ResourceManager.GetString("FieldSeparator", resourceCulture);
             }
         }
         
@@ -1147,6 +1174,15 @@ namespace XLToolbox {
         public static string ThisIsVersion {
             get {
                 return ResourceManager.GetString("ThisIsVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thousands separator.
+        /// </summary>
+        public static string ThousandsSeparator {
+            get {
+                return ResourceManager.GetString("ThousandsSeparator", resourceCulture);
             }
         }
         

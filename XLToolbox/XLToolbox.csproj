@@ -60,6 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="Csv\CsvFile.cs" />
+    <Compile Include="Csv\CsvFileView.xaml.cs">
+      <DependentUpon>CsvFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Csv\CsvFileViewModel.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
@@ -275,6 +280,8 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\csv-edit.png" />
+    <Resource Include="Resources\images\csv.png" />
     <Resource Include="Resources\images\off-large.png" />
     <Resource Include="Resources\images\off.png" />
     <Resource Include="Resources\images\donate.png" />
@@ -285,6 +292,10 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Csv\CsvFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Excel\Views\QuitView.xaml">
       <SubType>Designer</SubType>

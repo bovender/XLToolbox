@@ -66,7 +66,9 @@ namespace XLToolbox
                 { "ButtonExportBatchQuick", Command.BatchExportLast },
                 { "ButtonExportScreenshot", Command.ExportScreenshot },
                 { "ButtonDonate", Command.Donate },
-                { "ButtonQuitExcel", Command.QuitExcel }
+                { "ButtonQuitExcel", Command.QuitExcel },
+                { "ButtonOpenCsv", Command.OpenCsv },
+                { "ButtonOpenCsvWithParams", Command.OpenCsvWithParams },
             };
 
             Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;

@@ -1,4 +1,4 @@
-﻿/* Command.cs
+﻿/* CsvFileView.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,25 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace XLToolbox
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace XLToolbox.Csv
 {
     /// <summary>
-    /// Enumeration of user-entry commands of the XL Toolbox addin.
+    /// Interaction logic for CsvFileView.xaml
     /// </summary>
-    public enum Command
+    public partial class CsvFileView : Window
     {
-        About,
-        CheckForUpdates,
-        ThrowError,
-        SheetManager,
-        ExportSelection,
-        ExportSelectionLast,
-        BatchExport,
-        BatchExportLast,
-        ExportScreenshot,
-        Donate,
-        QuitExcel,
-        OpenCsv,
-        OpenCsvWithParams
+        public CsvFileView()
+        {
+            InitializeComponent();
+        }
     }
 }
