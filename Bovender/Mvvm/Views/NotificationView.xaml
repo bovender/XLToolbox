@@ -24,6 +24,7 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding Caption}" ResizeMode="NoResize"
         vs:WindowState.CenterScreen="True"
+        Topmost="True"
     >
     <DockPanel Margin="10">
         <TextBlock DockPanel.Dock="Left"
