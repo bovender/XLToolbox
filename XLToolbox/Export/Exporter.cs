@@ -329,7 +329,8 @@ namespace XLToolbox.Export
 
         private void ExportEmf(Metafile metafile, string fileName)
         {
-            metafile.Save(fileName);
+            IntPtr handle = metafile.GetHenhmetafile();
+            Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, fileName);
         }
 
         private void ExportAllWorkbooks()
