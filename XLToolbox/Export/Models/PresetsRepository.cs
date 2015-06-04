@@ -78,7 +78,7 @@ namespace XLToolbox.Export.Models
 
         #region Load and save
 
-        protected virtual void LoadPresets()
+        public virtual void LoadPresets()
         {
             using (IsolatedStorageFile store = GetIsolatedStorageFile())
             {
@@ -107,7 +107,7 @@ namespace XLToolbox.Export.Models
             }
         }
 
-        protected virtual void SavePresets()
+        public virtual void SavePresets()
         {
             try
             {
@@ -119,9 +119,9 @@ namespace XLToolbox.Export.Models
                     stream.Close();
                 }
             }
-            catch // (Exception e)
+            catch (Exception e)
             {
-                // throw new StoreException("Cannot write export settings.", e);
+                throw new StoreException("Cannot write export settings.", e);
             }
         }
 
@@ -141,7 +141,7 @@ namespace XLToolbox.Export.Models
             GC.SuppressFinalize(this);
         }
 
-        public void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_disposed)
             {
