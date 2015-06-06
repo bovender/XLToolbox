@@ -287,20 +287,23 @@ namespace XLToolbox.Export.ViewModels
             // either a chart or 'something in the chart' is selected. To make sure
             // we don't attempt to export 'something in the chart', we select the
             // entire chart.
-            if (Instance.Default.Application.ActiveChart != null)
+            // If there is no workbook open, accessing the ActiveChart property causes
+            // a COM exception.
+            object activeChart = null;
+            try
             {
-                _Chart c = Instance.Default.Application.ActiveChart;
-                // Handle chart sheets and embedded charts differently
-                if (c.Parent is ChartObject)
+                activeChart = Instance.Default.Application.ActiveChart;
+            }
+            catch (System.Runtime.InteropServices.COMException) { }
+            finally
+            {
+                if (activeChart != null)
                 {
-                    ((_Chart)Instance.Default.Application.ActiveChart).Parent.Select();
-                }
-                else
-                {
-                    ((_Chart)Instance.Default.Application.ActiveChart).Select();
+                    ChartViewModel cvm = new ChartViewModel(activeChart as Chart);
+                    // Handle chart sheets and embedded charts differently
+                    cvm.SelectSpecial();
                 }
             }
-
             Settings = new SingleExportSettings(
                 PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
                 svm.Bounds.Width, svm.Bounds.Height, true);
