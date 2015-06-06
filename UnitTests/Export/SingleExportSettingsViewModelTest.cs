@@ -98,5 +98,22 @@ namespace XLToolbox.UnitTests.Export
             svm.ChooseFileNameCommand.Execute(null);
             Assert.IsTrue(fnMsgSent, "ChooseFileNameMessage was not sent.");
         }
+
+        [Test]
+        public void ExportCommandDisabledWithoutSelection()
+        {
+            SingleExportSettingsViewModel svm;
+            svm = new SingleExportSettingsViewModel();
+            PresetViewModel pvm = new PresetViewModel();
+            svm.PresetsRepository.Presets.Add(pvm);
+            pvm.IsSelected = true;
+
+            Instance.Default.Reset(); // reset Excel; no workbooks open
+            Assert.IsFalse(svm.ExportCommand.CanExecute(null),
+                "Export command should be disabled if there is no selection.");
+            Instance.Default.CreateWorkbook();
+            Assert.IsTrue(svm.ExportCommand.CanExecute(null),
+                "Export command should be enabled if something is selected.");
+        }
     }
 }
