@@ -29,7 +29,7 @@ namespace XLToolbox.UnitTests.Export
     /// </summary>
     class PresetsRepositoryForTesting : PresetsRepository
     {
-        protected override void LoadPresets() { }
-        protected override void SavePresets() { }
+        public override void LoadPresets() { }
+        public override void SavePresets() { }
     }
 }
