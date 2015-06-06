@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Csv\CsvFileViewModel.cs" />
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
