@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Microsoft.Office.Interop.Excel;
 using XLToolbox.Test;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
@@ -30,15 +31,21 @@ namespace XLToolbox.Test.Export
     [TestFixture]
     class BatchExportSettingsViewModelTest
     {
-        BatchExportSettings settings = new BatchExportSettings(
-            new Preset());
+        BatchExportSettings _settings;
 
         #region Setup
 
         [SetUp]
         public void Setup()
         {
+            Instance.Default.Reset();
+            Instance.Default.CreateWorkbook();
+            _settings = new BatchExportSettings(new Preset());
+        }
 
+        [TearDown]
+        public void TearDown()
+        {
         }
 
         #endregion
@@ -64,7 +71,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -109,7 +116,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -154,7 +161,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -199,7 +206,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -244,7 +251,7 @@ namespace XLToolbox.Test.Export
             // Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -290,7 +297,7 @@ namespace XLToolbox.Test.Export
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -336,7 +343,7 @@ namespace XLToolbox.Test.Export
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -382,7 +389,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -428,7 +435,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
             Instance.Default.Application.Worksheets.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -474,7 +481,7 @@ namespace XLToolbox.Test.Export
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Workbooks.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -520,7 +527,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
             Instance.Default.Application.Workbooks.Add();
             BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
-            viewModel.PresetsRepository.Select(new PresetViewModel(settings.Preset));
+            viewModel.PresetsRepository.Select(new PresetViewModel(_settings.Preset));
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;

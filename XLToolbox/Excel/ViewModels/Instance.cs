@@ -55,21 +55,14 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (_singletonInstance == null)
                 {
-                    _singletonInstance = new Instance();
+                    _singletonInstance = new Instance(new Application());
+                    _singletonInstance.Application.Workbooks.Add();
                 }
                 return _singletonInstance;
             }
-        }
-
-        public static void SetDefault(Application application)
-        {
-            if (_singletonInstance == null)
+            set
             {
-                _singletonInstance = new Instance(application);
-            }
-            else
-            {
-                throw new InvalidOperationException("There is already an Excel instance.");
+                _singletonInstance = value;
             }
         }
 
@@ -304,7 +297,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
-            return Default.Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            return Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
         }
 
         /// <summary>
@@ -332,9 +325,9 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (_preventScreenUpdating == 0)
             {
-                _wasScreenUpdating = Default.Application.ScreenUpdating;
+                _wasScreenUpdating = Application.ScreenUpdating;
             }
-            Default.Application.ScreenUpdating = false;
+            Application.ScreenUpdating = false;
             _preventScreenUpdating++;
         }
 
@@ -349,7 +342,7 @@ namespace XLToolbox.Excel.ViewModels
             if (_preventScreenUpdating <= 0)
             {
                 _preventScreenUpdating = 0;
-                Default.Application.ScreenUpdating = _wasScreenUpdating;
+                Application.ScreenUpdating = _wasScreenUpdating;
             }
         }
 
@@ -361,9 +354,9 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (_disableDisplayAlerts == 0)
             {
-                _wasDisplayingAlerts = Default.Application.DisplayAlerts;
+                _wasDisplayingAlerts = Application.DisplayAlerts;
             }
-            Default.Application.DisplayAlerts = false;
+            Application.DisplayAlerts = false;
             _disableDisplayAlerts++;
         }
 
@@ -379,8 +372,26 @@ namespace XLToolbox.Excel.ViewModels
             if (_disableDisplayAlerts <= 0)
             {
                 _disableDisplayAlerts = 0;
-                Default.Application.DisplayAlerts = _wasDisplayingAlerts;
+                Application.DisplayAlerts = _wasDisplayingAlerts;
             }
+        }
+
+        /// <summary>
+        /// Debug method to reset the Excel application. The result
+        /// is an application without open workbooks.
+        /// </summary>
+        [Conditional("DEBUG")]
+        public void Reset()
+        {
+            DisableDisplayAlerts();
+            foreach (Workbook wb in Application.Workbooks)
+            {
+                wb.Close();
+            }
+            Application.DisplayAlerts = true;
+            _disableDisplayAlerts = 0;
+            Application.ScreenUpdating = true;
+            _preventScreenUpdating = 0;
         }
 
         #endregion
@@ -388,23 +399,28 @@ namespace XLToolbox.Excel.ViewModels
         #region Constructors
 
         /// <summary>
+        /// Instantiates this class without an Excel instance
+        /// </summary>
+        public Instance() : base() { }
+
+        /// <summary>
         /// Creates a new instance using <paramref name="application"/> as Excel
         /// instance.
         /// </summary>
         /// <param name="application">Excel instance.</param>
         public Instance(Application application)
-            : base()
+            : this()
         {
             _application = application;
         }
 
-        /// <summary>
-        /// Instantiates this class, invoking a new Excel instance.
-        /// </summary>
-        private Instance()
-            : this(new Application())
+        public Instance(bool createNewExcelInstance)
+            : this()
         {
-            Application.Workbooks.Add();
+            if (createNewExcelInstance)
+            {
+                _application = new Application();
+            }
         }
 
         #endregion
@@ -562,22 +578,22 @@ namespace XLToolbox.Excel.ViewModels
         #region Private instance fields
 
         private bool _disposed;
+        private Application _application;
         private DelegatingCommand _quitInteractivelyCommand;
         private DelegatingCommand _quitSavingChangesCommand;
         private DelegatingCommand _quitDiscardingChangesCommand;
         private Message<MessageContent> _confirmQuitSavingChangesMessage;
         private Message<MessageContent> _confirmQuitDiscardingChangesMessage;
+        private bool _wasScreenUpdating;
+        private bool _wasDisplayingAlerts;
+        private int _preventScreenUpdating;
+        private int _disableDisplayAlerts;
 
         #endregion
 
         #region Private static fields
 
-        private static Application _application;
         private static Instance _singletonInstance;
-        private static bool _wasScreenUpdating;
-        private static bool _wasDisplayingAlerts;
-        private static int _preventScreenUpdating;
-        private static int _disableDisplayAlerts;
 
         #endregion
     }

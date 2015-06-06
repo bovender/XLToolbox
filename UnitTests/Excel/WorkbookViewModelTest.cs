@@ -31,20 +31,6 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class WorkbookViewModelTest
     {
-        Instance _excelInstance;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _excelInstance = Instance.Default;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _excelInstance.Dispose();
-        }
-
         [Test]
         public void WorkbookViewModelProperties()
         {

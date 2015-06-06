@@ -42,7 +42,7 @@ namespace XLToolbox
 
             // Make the current Excel instance globally available
             // even for the non-VSTO components of this addin
-            Instance.SetDefault(Globals.ThisAddIn.Application);
+            Instance.Default = new Instance(Globals.ThisAddIn.Application);
             Ribbon.ExcelApp = Instance.Default.Application;
 
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
