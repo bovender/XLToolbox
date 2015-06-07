@@ -197,7 +197,7 @@ namespace XLToolbox.Export.ViewModels
         /// the current workbook, or the path for 'My Documents'.
         /// </summary>
         /// <returns>Default export path.</returns>
-        protected string GetExportPath()
+        protected string LoadExportPath()
         {
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             Store store = new Store(wb);
@@ -213,7 +213,7 @@ namespace XLToolbox.Export.ViewModels
                     defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 }
             }
-            return store.Get("export_path", defaultPath);
+            return store.Get(Properties.Settings.Default.ExportPath, defaultPath);
         }
 
         /// <summary>
@@ -224,9 +224,9 @@ namespace XLToolbox.Export.ViewModels
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             using (Store store = new Store(wb))
             {
-                string path = System.IO.Path.GetDirectoryName(Settings.FileName);
-                store.Put("export_path", path);
-                Properties.Settings.Default.ExportPath = path;
+                store.Put(Properties.Settings.Default.ExportPath, Settings.FileName);
+                Properties.Settings.Default.ExportPath =
+                    Bovender.PathHelpers.GetDirectoryPart(Settings.FileName);
                 Properties.Settings.Default.Save();
             }
         }

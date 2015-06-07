@@ -48,27 +48,5 @@ namespace Bovender
                 }
             }
         }
-
-        /// <summary>
-        /// Returns the name of the directory contained in path. Unlike
-        /// System.IO.Path.GetDirectoryName(), this function does not simply
-        /// strip the part after the last path separator from the path, but
-        /// rather performs a check if the path is in fact an existing
-        /// directory (without file name added). If the path does not exist
-        /// (neither file nor directory), System.IO.Path.GetDirectoryName()
-        /// is called to produce the result.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string GetDirectoryName(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                return path;
-            }
-            else {
-                return Path.GetDirectoryName(path);
-            }
-        }
     }
 }

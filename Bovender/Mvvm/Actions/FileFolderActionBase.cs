@@ -44,7 +44,9 @@ namespace Bovender.Mvvm.Actions
         /// path and/or file name and/or extension.</param>
         /// <returns>Valid file name/path, or empty string if
         /// the dialog was cancelled.</returns>
-        protected abstract string GetDialogResult(string defaultString);
+        protected abstract string GetDialogResult(
+            string defaultString,
+            string filter);
 
         #endregion
 
@@ -58,9 +60,9 @@ namespace Bovender.Mvvm.Actions
 
         protected override void Invoke(object parameter)
         {
-            MessageArgs<StringMessageContent> args = parameter as MessageArgs<StringMessageContent>;
+            MessageArgs<FileNameMessageContent> args = parameter as MessageArgs<FileNameMessageContent>;
             MessageContent = args.Content;
-            string result = GetDialogResult(args.Content.Value);
+            string result = GetDialogResult(args.Content.Value, args.Content.Filter);
             args.Content.Confirmed = !string.IsNullOrEmpty(result);
             if (args.Content.Confirmed)
             {

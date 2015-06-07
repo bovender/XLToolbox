@@ -351,7 +351,7 @@ namespace XLToolbox.Export.ViewModels
             string path = ((BatchExportSettings)Settings).Path;
             if (string.IsNullOrEmpty(path))
             {
-                path = GetExportPath();
+                path = LoadExportPath();
             }
             ChooseFolderMessage.Send(
                 new StringMessageContent(path),

@@ -484,7 +484,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EMF files.
+        ///   Looks up a localized string similar to EMF files (*.emf).
         /// </summary>
         public static string EmfFiles {
             get {
@@ -879,7 +879,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PNG files.
+        ///   Looks up a localized string similar to PNG files (*.png).
         /// </summary>
         public static string PngFiles {
             get {
@@ -1187,7 +1187,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TIFF files.
+        ///   Looks up a localized string similar to TIFF files (*.tif).
         /// </summary>
         public static string TifFiles {
             get {

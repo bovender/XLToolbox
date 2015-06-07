@@ -144,6 +144,11 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\StoreNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>StoreNames.settings</DependentUpon>
+    </Compile>
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
@@ -214,6 +219,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="VERSION" />
+    <None Include="Properties\StoreNames.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>StoreNames.Designer.cs</LastGenOutput>
+    </None>
     <None Include="xltb.snk" />
     <None Include="XLToolbox.licenseheader" />
   </ItemGroup>

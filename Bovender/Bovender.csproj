@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Mvvm\Views\Settings\WindowSettings.cs" />
     <Compile Include="Mvvm\Views\Settings\WindowState.cs" />
+    <Compile Include="PathHelpers.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="FileHelpers.cs" />

@@ -23,6 +23,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
+using XLToolbox.Export.Models;
 using Xl = Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox.Export.ViewModels
@@ -74,8 +75,14 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExportSelection())
             {
+                string defaultPath = Properties.Settings.Default.ExportPath;
+                WorkbookStorage.Store store = new WorkbookStorage.Store();
+                string path = store.Get(
+                    Properties.StoreNames.Default.ExportPath, defaultPath);
                 ChooseFileNameMessage.Send(
-                    new FileNameMessageContent("Portable Network Graphics (PNG)|*.png"),
+                    new FileNameMessageContent(
+                        path,
+                        FileType.Png.ToFileFilter()),
                     DoExportSelection);
             }
         }
@@ -84,6 +91,10 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExportSelection() && messageContent.Confirmed)
             {
+                WorkbookStorage.Store store = new WorkbookStorage.Store();
+                store.Put(Properties.StoreNames.Default.ExportPath, messageContent.Value);
+                Properties.Settings.Default.ExportPath =
+                    Bovender.PathHelpers.GetDirectoryPart(messageContent.Value);
                 ScreenshotExporter exporter = new ScreenshotExporter();
                 exporter.ExportSelection(messageContent.Value);
             }

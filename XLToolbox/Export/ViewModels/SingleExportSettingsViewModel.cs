@@ -316,7 +316,7 @@ namespace XLToolbox.Export.ViewModels
                 Preset preset = SelectedPreset.RevealModelObject() as Preset;
                 ChooseFileNameMessage.Send(
                     new FileNameMessageContent(
-                        GetExportPath(),
+                        LoadExportPath(),
                         preset.FileType.ToFileFilter()
                         ),
                     (content) => DoConfirmFileName(content)

@@ -29,7 +29,9 @@ namespace Bovender.Mvvm.Actions
     /// </remarks>
     public class ChooseFolderAction : FileFolderActionBase
     {
-        protected override string GetDialogResult(string defaultString)
+        protected override string GetDialogResult(
+            string defaultString,
+            string filter)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             dlg.SelectedPath = defaultString;

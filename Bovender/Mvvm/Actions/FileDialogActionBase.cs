@@ -30,6 +30,8 @@ namespace Bovender.Mvvm.Actions
     /// </summary>
     public abstract class FileDialogActionBase : FileFolderActionBase
     {
+        #region Public properties
+
         /// <summary>
         /// Filter string for the file dialog. Filter entries consist
         /// of a description and an extensions, separated by a pipe
@@ -44,11 +46,23 @@ namespace Bovender.Mvvm.Actions
         /// </remarks>
         public string Filter { get; set; }
 
-        protected abstract FileDialog GetDialog(string defaultString);
+        #endregion
 
-        protected override string GetDialogResult(string defaultString)
+        #region Abstract methods
+
+        protected abstract FileDialog GetDialog(
+            string defaultString,
+            string filter);
+
+        #endregion
+
+        #region Overrides
+
+        protected override string GetDialogResult(
+            string defaultString,
+            string filter)
         {
-            FileDialog dlg = GetDialog(defaultString);
+            FileDialog dlg = GetDialog(defaultString, filter);
             dlg.Title = this.Caption;
             if (String.IsNullOrEmpty(dlg.Filter))
             {
@@ -81,7 +95,7 @@ namespace Bovender.Mvvm.Actions
                     parameter.GetType().ToString());
             }
             _messageContent = args.Content;
-            string result = GetDialogResult(args.Content.Value);
+            string result = GetDialogResult(args.Content.Value, args.Content.Filter);
             args.Content.Confirmed = !string.IsNullOrEmpty(result);
             if (args.Content.Confirmed)
             {
@@ -90,6 +104,12 @@ namespace Bovender.Mvvm.Actions
             args.Respond();
         }
 
+        #endregion
+
+        #region Private fields
+
         private FileNameMessageContent _messageContent;
+
+        #endregion
     }
 }

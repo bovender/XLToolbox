@@ -19,6 +19,7 @@ using System;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using Bovender;
 
 namespace Bovender.Mvvm.Actions
 {
@@ -27,19 +28,14 @@ namespace Bovender.Mvvm.Actions
     /// </summary>
     public class ChooseFileSaveAction : FileDialogActionBase
     {
-        protected override FileDialog GetDialog(string defaultString)
+        protected override FileDialog GetDialog(
+            string defaultString,
+            string filter)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            Regex regex = new Regex(@"[^*]*\*\..+");
-            if (!String.IsNullOrEmpty(defaultString))
-            {
-                if (regex.IsMatch(defaultString))
-                {
-                    dlg.Filter = Path.GetFileName(defaultString);
-                }
-                dlg.InitialDirectory = Bovender.FileHelpers.GetDirectoryName(defaultString);
-                dlg.FileName = Path.GetFileNameWithoutExtension(defaultString);
-            }
+            dlg.Filter = filter;
+            dlg.FileName = PathHelpers.GetFileNamePart(defaultString);
+            dlg.InitialDirectory = PathHelpers.GetDirectoryPart(defaultString);
             dlg.AddExtension = true;
             dlg.RestoreDirectory = true;
             dlg.SupportMultiDottedExtensions = true;
