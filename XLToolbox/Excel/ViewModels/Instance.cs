@@ -51,19 +51,8 @@ namespace XLToolbox.Excel.ViewModels
 
         public static Instance Default
         {
-            get
-            {
-                if (_singletonInstance == null)
-                {
-                    _singletonInstance = new Instance(new Application());
-                    _singletonInstance.Application.Workbooks.Add();
-                }
-                return _singletonInstance;
-            }
-            set
-            {
-                _singletonInstance = value;
-            }
+            get { return _lazy.Value; }
+            set { _lazy = new Lazy<Instance>(() => value); }
         }
 
         #endregion
@@ -593,7 +582,14 @@ namespace XLToolbox.Excel.ViewModels
 
         #region Private static fields
 
-        private static Instance _singletonInstance;
+        private static Lazy<Instance> _lazy = new Lazy<Instance>(
+            () =>
+            {
+                Instance i = new Instance(new Application());
+                i.Application.Workbooks.Add();
+                return i;
+            }
+        );
 
         #endregion
     }
