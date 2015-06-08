@@ -36,6 +36,10 @@
     <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bovender, Version=0.1.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Bovender.0.1.0.0\lib\net40\Bovender.dll</HintPath>
+    </Reference>
     <Reference Include="FreeImageNET">
       <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\Debug\FreeImageNET.dll</HintPath>
     </Reference>
@@ -225,12 +229,6 @@
     </None>
     <None Include="xltb.snk" />
     <None Include="XLToolbox.licenseheader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bovender\Bovender.csproj">
-      <Project>{52405856-03aa-4961-a60a-e8619ad43030}</Project>
-      <Name>Bovender</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Strings.resx">
