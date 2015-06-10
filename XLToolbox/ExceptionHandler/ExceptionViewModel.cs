@@ -31,7 +31,7 @@ namespace XLToolbox.ExceptionHandler
         {
             get
             {
-                return Excel.Instance.ExcelInstance.HumanFriendlyVersion;
+                return Excel.ViewModels.Instance.Default.HumanFriendlyVersion;
             }
         }
 

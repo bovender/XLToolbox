@@ -23,12 +23,14 @@
 #define VSTORSHA1 "ad1dcc5325cb31754105c8c783995649e2208571"
 
 #ifndef DEBUG
+  #define SOURCEDIR "Release"
 	#define VSTORURL "http://download.microsoft.com/download/2/E/9/2E9D2603-6D1F-4B12-BD37-DB1410B23597/vstor_redist.exe"
 	#define DOTNETURL "http://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe"
 	; Build the solution with Release configuration
 	#expr Exec("C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com", \
-				"x:\XLToolbox\NG\NG.sln /Build Release")
+				"x:\Code\xltoolbox\NG\NG.sln /Build Release")
 #else
+  #define SOURCEDIR "Debug"
 	#define VSTORURL "http://vhost/vstor_redist.exe"
 	#define DOTNETURL "http://vhost/dotNetFx40_Full_x86_x64.exe"
 #endif
@@ -102,7 +104,7 @@ Name: de; MessagesFile: compiler:Languages\German.isl;
 #include "c:\Program Files (x86)\Inno Download Plugin\Unicode\idplang\german.iss"
 
 [Files]
-Source: "..\XLToolboxForExcel\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "..\XLToolboxForExcel\bin\{#SOURCEDIR}\*"; DestDir: "{app}"; Flags: ignoreversion createallsubdirs recursesubdirs
 ; Source: "setup-files\source.zip"; DestDir: "{app}"
 Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

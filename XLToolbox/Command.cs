@@ -31,6 +31,9 @@ namespace XLToolbox
         BatchExport,
         BatchExportLast,
         ExportScreenshot,
-        Donate
+        Donate,
+        QuitExcel,
+        OpenCsv,
+        OpenCsvWithParams
     }
 }

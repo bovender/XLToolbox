@@ -21,7 +21,6 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
-using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.About;
 using XLToolbox.Versioning;
@@ -63,6 +62,11 @@ namespace XLToolbox
                     case Command.ExportScreenshot: ExportScreenshot(); break;
                     case Command.Donate: OpenDonatePage(); break;
                     case Command.ThrowError: throw new InsufficientMemoryException();
+                    case Command.QuitExcel: QuitExcel(); break;
+                    case Command.OpenCsv: OpenCsv(); break;
+                    case Command.OpenCsvWithParams: OpenCsvWithSettings(); break;
+                    default:
+                        throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
             }
             catch (Exception e)
@@ -99,7 +103,7 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            WorkbookViewModel wvm = new WorkbookViewModel(ExcelInstance.Application.ActiveWorkbook);
+            WorkbookViewModel wvm = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
             Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
         }
 
@@ -118,7 +122,7 @@ namespace XLToolbox
         static void BatchExport()
         {
             BatchExportSettingsViewModel vm = BatchExportSettingsViewModel.FromLastUsed(
-                ExcelInstance.Application.ActiveWorkbook);
+                Instance.Default.ActiveWorkbook);
             if (vm == null)
             {
                 vm = new BatchExportSettingsViewModel();
@@ -157,6 +161,34 @@ namespace XLToolbox
         static void OpenDonatePage()
         {
             System.Diagnostics.Process.Start(Properties.Settings.Default.DonateUrl);
+        }
+
+        static void QuitExcel()
+        {
+            if (Instance.Default.CountOpenWorkbooks > 0)
+            {
+                Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
+            }
+            else
+            {
+                Instance.Default.Dispose();
+            }
+        }
+
+        static void OpenCsv()
+        {
+            Csv.CsvFileViewModel vm = Csv.CsvFileViewModel.FromLastUsed();
+            vm.ChooseFileNameMessage.Sent += (sender, args) =>
+            {
+                ChooseFileOpenAction a = new ChooseFileOpenAction();
+                a.Invoke(args);
+            };
+            vm.ChooseFileNameCommand.Execute(null);
+        }
+
+        static void OpenCsvWithSettings()
+        {
+            Csv.CsvFileViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialog();
         }
 
         #endregion

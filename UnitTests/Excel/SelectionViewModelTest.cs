@@ -22,7 +22,6 @@ using System.Text;
 using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using Mso = Microsoft.Office.Core;
-using XLToolbox.Excel.Instance;
 using XLToolbox.Excel.ViewModels;
 using System.Windows;
 
@@ -37,16 +36,9 @@ namespace XLToolbox.UnitTests.Excel
         [SetUp]
         public void StartExcel()
         {
-            ExcelInstance.Start();
-            svm = new SelectionViewModel(ExcelInstance.Application);
-            ExcelInstance.CreateWorkbook();
-            ws = ExcelInstance.Application.ActiveWorkbook.Worksheets[1];
-        }
-
-        [TearDown]
-        public void StopExcel()
-        {
-            ExcelInstance.Shutdown();
+            svm = new SelectionViewModel(Instance.Default.Application);
+            Instance.Default.CreateWorkbook();
+            ws = Instance.Default.Application.ActiveWorkbook.Worksheets[1];
         }
 
         [Test]

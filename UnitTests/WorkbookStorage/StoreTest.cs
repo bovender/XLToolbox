@@ -19,25 +19,13 @@ using System;
 using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.WorkbookStorage;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Test.WorkbookStorage
 {
     [TestFixture]
     public class StoreTest
     {
-        [SetUp]
-        public void Setup()
-        {
-            ExcelInstance.Start();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ExcelInstance.Shutdown();
-        }
-
         [Test]
         [ExpectedException(typeof(InvalidContextException))]
         public void InvalidContextCausesException()

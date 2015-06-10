@@ -209,7 +209,7 @@ namespace XLToolbox.Export.ViewModels
             }
 
             PresetViewModel pvm = PresetViewModel.FromLastUsed(
-                Excel.Instance.ExcelInstance.Application.ActiveWorkbook);
+                Excel.ViewModels.Instance.Default.ActiveWorkbook);
             if (!Select(pvm))
             {
                 Presets[0].IsSelected = true;
@@ -257,6 +257,15 @@ namespace XLToolbox.Export.ViewModels
         }
          */
 
+        #endregion
+
+        #region Overrides of ViewModelBase
+
+        protected override void DoCloseView()
+        {
+            _repository.SavePresets();
+            base.DoCloseView();
+        }
         #endregion
 
         #region Private methods

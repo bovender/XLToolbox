@@ -419,7 +419,7 @@ You may want to try again.</value>
     <value>Details</value>
   </data>
   <data name="EmfFiles" xml:space="preserve">
-    <value>EMF files</value>
+    <value>EMF files (*.emf)</value>
   </data>
   <data name="FileType" xml:space="preserve">
     <value>File type</value>
@@ -434,7 +434,7 @@ You may want to try again.</value>
     <value>Objects</value>
   </data>
   <data name="PngFiles" xml:space="preserve">
-    <value>PNG files</value>
+    <value>PNG files (*.png)</value>
   </data>
   <data name="Resolution" xml:space="preserve">
     <value>Resolution</value>
@@ -446,7 +446,7 @@ You may want to try again.</value>
     <value>SVG files</value>
   </data>
   <data name="TifFiles" xml:space="preserve">
-    <value>TIFF files</value>
+    <value>TIFF files (*.tif)</value>
   </data>
   <data name="Unit" xml:space="preserve">
     <value>Unit</value>
@@ -508,7 +508,7 @@ You may want to try again.</value>
   <data name="ChartsOnly" xml:space="preserve">
     <value>Only charts</value>
   </data>
-  <data name="OpenWorkbooks" xml:space="preserve">
+  <data name="AllOpenWorkbooks" xml:space="preserve">
     <value>All open workbooks</value>
   </data>
   <data name="PreserveLayout" xml:space="preserve">
@@ -559,5 +559,50 @@ You may want to try again.</value>
   </data>
   <data name="ScreenshotExportRequiresGraphic" xml:space="preserve">
     <value>The screenshot-quality export works with graphical objects only. Please select a graphic (chart or shape).</value>
+  </data>
+  <data name="AskMe" xml:space="preserve">
+    <value>Ask me</value>
+  </data>
+  <data name="DiscardAll" xml:space="preserve">
+    <value>Discard all</value>
+  </data>
+  <data name="HowDoYouWantToQuit" xml:space="preserve">
+    <value>How do you want to quit?</value>
+  </data>
+  <data name="QuitExcel" xml:space="preserve">
+    <value>Quit Excel</value>
+  </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>Save all</value>
+  </data>
+  <data name="UnsavedWorkbooks" xml:space="preserve">
+    <value>Unsaved workbooks</value>
+  </data>
+  <data name="OpenWorkbooks" xml:space="preserve">
+    <value>Open workbooks</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="AskMeAsNeeded" xml:space="preserve">
+    <value>Ask me as needed</value>
+  </data>
+  <data name="QuitDiscardingChanges" xml:space="preserve">
+    <value>Quit Excel, discarding changes</value>
+  </data>
+  <data name="QuitSavingChanges" xml:space="preserve">
+    <value>Quit Excel, saving all changed workbooks</value>
+  </data>
+  <data name="CsvSettings" xml:space="preserve">
+    <value>CSV Settings</value>
+  </data>
+  <data name="DecimalSeparator" xml:space="preserve">
+    <value>Decimal separator</value>
+  </data>
+  <data name="FieldSeparator" xml:space="preserve">
+    <value>Field separator</value>
+  </data>
+  <data name="ThousandsSeparator" xml:space="preserve">
+    <value>Thousands separator</value>
   </data>
 </root>

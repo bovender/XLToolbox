@@ -232,6 +232,60 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open CSV....
+        /// </summary>
+        internal static string ButtonOpenCsvLabel {
+            get {
+                return ResourceManager.GetString("ButtonOpenCsvLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open CSV file using the last import settings..
+        /// </summary>
+        internal static string ButtonOpenCsvSupertip {
+            get {
+                return ResourceManager.GetString("ButtonOpenCsvSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open CSV with params....
+        /// </summary>
+        internal static string ButtonOpenCsvWithParamsLabel {
+            get {
+                return ResourceManager.GetString("ButtonOpenCsvWithParamsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit the parameters and open a CSV file..
+        /// </summary>
+        internal static string ButtonOpenCsvWithParamsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonOpenCsvWithParamsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit Excel.
+        /// </summary>
+        internal static string ButtonQuitExcelLabel {
+            get {
+                return ResourceManager.GetString("ButtonQuitExcelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quit Excel, closing all workbooks with prompts to save changes..
+        /// </summary>
+        internal static string ButtonQuitExcelSupertip {
+            get {
+                return ResourceManager.GetString("ButtonQuitExcelSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksheets.
         /// </summary>
         internal static string ButtonSheetListLabel {
