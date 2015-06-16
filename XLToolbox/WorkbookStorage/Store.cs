@@ -411,7 +411,7 @@ namespace XLToolbox.WorkbookStorage
         protected void ReadFromWorksheet()
         {
             _contexts.Clear();
-            Range r = StoreSheet.UsedRange;
+            Microsoft.Office.Interop.Excel.Range r = StoreSheet.UsedRange;
 
             // The first row on a storage worksheet is reserved for internal
             // use (e.g., flags).

@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Xl = Microsoft.Office.Interop.Excel;
-using XLToolbox.Excel.Instance;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -36,7 +36,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                Xl.Workbook workbook = ExcelInstance.Application.ActiveWorkbook;
+                Xl.Workbook workbook = Instance.Default.ActiveWorkbook;
                 if (workbook == null || workbook.Name != _workbook)
                 {
                     return FullyQualified;

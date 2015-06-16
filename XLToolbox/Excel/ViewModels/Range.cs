@@ -34,6 +34,7 @@ namespace XLToolbox.Excel.ViewModels
     {
         #region Public properties
 
+        /*
         /// <summary>
         /// Gets or sets the address of the range. When getting the address,
         /// the address may be fully qualified depending on the current workbook
@@ -42,6 +43,7 @@ namespace XLToolbox.Excel.ViewModels
         public string Address
         {
         }
+         */
 
         #endregion
 
@@ -49,7 +51,7 @@ namespace XLToolbox.Excel.ViewModels
 
         public override object RevealModelObject()
         {
-            return Address;
+            return null; // Address;
         }
 
         #endregion
