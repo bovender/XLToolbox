@@ -187,6 +187,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bovender framework.
+        /// </summary>
+        public static string BovenderFramework {
+            get {
+                return ResourceManager.GetString("BovenderFramework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {

@@ -605,4 +605,7 @@ You may want to try again.</value>
   <data name="ThousandsSeparator" xml:space="preserve">
     <value>Thousands separator</value>
   </data>
+  <data name="BovenderFramework" xml:space="preserve">
+    <value>Bovender framework</value>
+  </data>
 </root>

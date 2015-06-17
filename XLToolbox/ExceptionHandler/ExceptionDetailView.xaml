@@ -90,6 +90,8 @@
                 <TextBox Grid.Column="1" Grid.Row="1"  Text="{Binding Path=OSBitness, Mode=OneWay}" />
                 <Label Grid.Column="0" Grid.Row="2"  Content="{x:Static l:Strings.ClrVersion}" />
                 <TextBox Grid.Column="1" Grid.Row="2"  Text="{Binding Path=CLR, Mode=OneWay}" />
+                <Label Grid.Column="0" Grid.Row="3"  Content="{x:Static l:Strings.BovenderFramework}" />
+                <TextBox Grid.Column="1" Grid.Row="3"  Text="{Binding Path=BovenderFramework, Mode=OneWay}" />
             </Grid>
         </Grid>
         <Grid>
