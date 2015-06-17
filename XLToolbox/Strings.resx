@@ -616,5 +616,7 @@ You may want to try again.</value>
   </data>
   <data name="RangeSelectionRequired" xml:space="preserve">
     <value>Range selection required</value>
+  <data name="BovenderFramework" xml:space="preserve">
+    <value>Bovender framework</value>
   </data>
 </root>
