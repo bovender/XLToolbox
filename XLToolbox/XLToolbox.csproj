@@ -1,392 +1,400 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B391711C-2B81-4001-A6C6-BDA0D624D2E0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XLToolbox</RootNamespace>
-    <AssemblyName>XLToolbox</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Bovender, Version=0.1.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.1.1.0\lib\net40\Bovender.dll</HintPath>
-    </Reference>
-    <Reference Include="FreeImageNET">
-      <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\Debug\FreeImageNET.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B391711C-2B81-4001-A6C6-BDA0D624D2E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XLToolbox</RootNamespace>
+    <AssemblyName>XLToolbox</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\..\bovender\Bovender\Bovender.csproj">
+      <Project>{52405856-03aa-4961-a60a-e8619ad43030}</Project>
+      <Name>Bovender</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Command.cs" />
-    <Compile Include="Csv\CsvFile.cs" />
-    <Compile Include="Csv\CsvFileView.xaml.cs">
-      <DependentUpon>CsvFileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Csv\CsvFileViewModel.cs" />
-    <Compile Include="Dispatcher.cs" />
-    <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
-    <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
-    <Compile Include="Excel\ViewModels\Instance.cs" />
-    <Compile Include="Excel\ViewModels\Address.cs" />
-    <Compile Include="Excel\ViewModels\Range.cs" />
-    <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
-    <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
-    <Compile Include="Excel\Views\QuitView.xaml.cs">
-      <DependentUpon>QuitView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
-    <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
-    <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
-      <DependentUpon>SubmissionFailureView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
-    <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
-      <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
-      <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Export\ExportFinishedEventArgs.cs" />
-    <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
-    <Compile Include="Export\Lcms\FileExtension.cs" />
-    <Compile Include="Export\Lcms\Formatters.cs" />
-    <Compile Include="Export\Models\BatchExportLayout.cs" />
-    <Compile Include="Export\Models\BatchExportObjects.cs" />
-    <Compile Include="Export\Models\BatchExportScope.cs" />
-    <Compile Include="Export\Models\BatchExportSettings.cs" />
-    <Compile Include="Export\ExportFileName.cs" />
-    <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
-    <Compile Include="Export\Models\Transparency.cs" />
-    <Compile Include="Export\Models\Unit.cs" />
-    <Compile Include="Export\Models\Settings.cs" />
-    <Compile Include="Export\QuickExporter.cs" />
-    <Compile Include="Export\ScreenshotExporter.cs" />
-    <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
-    <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
-    <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
-    <Compile Include="Export\ViewModels\ScreenshotExporterViewModel.cs" />
-    <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
-    <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
-    <Compile Include="Export\ViewModels\TransparencyProvider.cs" />
-    <Compile Include="Export\Views\PresetsRepositoryView.xaml.cs">
-      <DependentUpon>PresetsRepositoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Export\Views\BatchExportSettingsView.xaml.cs">
-      <DependentUpon>BatchExportSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Export\Views\SingleExportSettingsView.xaml.cs">
-      <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Export\ViewModels\SingleExportSettingsViewModel.cs" />
-    <Compile Include="Export\Models\SingleExportSettings.cs" />
-    <Compile Include="Export\WorkingClipboard.cs" />
-    <Compile Include="Export\Models\ColorSpace.cs" />
-    <Compile Include="Export\Exporter.cs" />
-    <Compile Include="Export\ViewModels\PresetsRepositoryViewModel.cs" />
-    <Compile Include="Export\Models\Preset.cs" />
-    <Compile Include="Export\Models\PresetsRepository.cs" />
-    <Compile Include="Export\ViewModels\PresetViewModelCollection.cs" />
-    <Compile Include="Export\Models\StoreException.cs" />
-    <Compile Include="Export\ViewModels\PresetViewModel.cs" />
-    <Compile Include="Export\Models\FileType.cs" />
-    <Compile Include="HelpSystem\Provider.cs" />
-    <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
-    <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
-    <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
-    <Compile Include="About\AboutViewModel.cs" />
-    <Compile Include="Greeter\GreeterViewModel.cs" />
-    <Compile Include="About\AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Mvvm\Views\HtmlFileView.xaml.cs">
-      <DependentUpon>HtmlFileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
-      <DependentUpon>StringMessageContentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\StoreNames.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>StoreNames.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Vba\Api.cs" />
-    <Compile Include="Versioning\SemanticVersion.cs" />
-    <Compile Include="Versioning\InstallUpdateView.xaml.cs">
-      <DependentUpon>InstallUpdateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\UpdateAvailableView.xaml.cs">
-      <DependentUpon>UpdateAvailableView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
-      <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\UpdaterViewModel.cs" />
-    <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
-      <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionHandler\ExceptionDetailView.xaml.cs">
-      <DependentUpon>ExceptionDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Greeter\GreeterView.xaml.cs">
-      <DependentUpon>GreeterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\NotAuthorizedForUpdateView.xaml.cs">
-      <DependentUpon>NotAuthorizedForUpdateView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
-      <DependentUpon>ExceptionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SheetManager\WorkbookView.xaml.cs">
-      <DependentUpon>WorkbookView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Excel\ViewModels\WorkbookViewModel.cs" />
-    <Compile Include="Excel\ViewModels\SheetViewModel.cs" />
-    <Compile Include="Properties\HelpTopics.Designer.cs">
-      <DependentUpon>HelpTopics.settings</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Strings.Designer.cs">
-      <DependentUpon>Strings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Versioning\Updater.cs" />
-    <Compile Include="WorkbookStorage\ContextItems.cs" />
-    <Compile Include="WorkbookStorage\EmptyKeyException.cs" />
-    <Compile Include="WorkbookStorage\InvalidContextException.cs" />
-    <Compile Include="WorkbookStorage\Item.cs" />
-    <Compile Include="WorkbookStorage\Store.cs" />
-    <Compile Include="WorkbookStorage\UndefinedContextException.cs" />
-    <Compile Include="WorkbookStorage\UnkownKeyException.cs" />
-    <Compile Include="WorkbookStorage\WorkbookStorageException.cs" />
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Reference Include="Bovender, Version=0.1.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Bovender.0.1.1.0\lib\net40\Bovender.dll</HintPath>
+    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\HelpTopics.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>HelpTopics.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <EmbeddedResource Include="VERSION" />
-    <None Include="Properties\StoreNames.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>StoreNames.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="xltb.snk" />
-    <None Include="XLToolbox.licenseheader" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Strings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Style.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\html\credits.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\check-update-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\cogwheel-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\error.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\export-batch-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\export-selection-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\export-selection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\sheets.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\xltb-icon-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\xltoolbox-blender-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\images\xltoolbox-blender-small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="lib\Win32\FreeImage.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\Win32\lcms2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\x64\FreeImage.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="lib\x64\lcms2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Resources\images\csv-edit.png" />
-    <Resource Include="Resources\images\csv.png" />
-    <Resource Include="Resources\images\off-large.png" />
-    <Resource Include="Resources\images\off.png" />
-    <Resource Include="Resources\images\donate.png" />
-    <Resource Include="Resources\images\screenshot-export-small.png" />
-    <Resource Include="Resources\html\license.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="About\AboutView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Csv\CsvFileView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Excel\Views\QuitView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExceptionHandler\SubmissionFailureView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ExceptionHandler\SubmissionSuccessView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Export\Views\PresetsRepositoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Export\Views\BatchExportSettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Export\Views\SingleExportSettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Mvvm\Views\HtmlFileView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Mvvm\Views\StringMessageContentView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\InstallUpdateView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\UpdateAvailableView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\UpdaterProcessView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\WindowDownloadUpdate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExceptionHandler\ExceptionDetailView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Greeter\GreeterView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\NotAuthorizedForUpdateView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ExceptionHandler\ExceptionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SheetManager\WorkbookView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <Reference Include="FreeImageNET">
+      <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\Debug\FreeImageNET.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="Csv\CsvFile.cs" />
+    <Compile Include="Csv\CsvFileView.xaml.cs">
+      <DependentUpon>CsvFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Csv\CsvFileViewModel.cs" />
+    <Compile Include="Dispatcher.cs" />
+    <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
+    <Compile Include="Excel\ViewModels\Instance.cs" />
+    <Compile Include="Excel\ViewModels\Address.cs" />
+    <Compile Include="Excel\ViewModels\Range.cs" />
+    <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
+    <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
+    <Compile Include="Excel\Views\QuitView.xaml.cs">
+      <DependentUpon>QuitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
+    <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
+      <DependentUpon>SubmissionFailureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\SubmissionProcessAction.cs" />
+    <Compile Include="ExceptionHandler\SubmissionProcessView.xaml.cs">
+      <DependentUpon>SubmissionProcessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
+      <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\ExportFinishedEventArgs.cs" />
+    <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
+    <Compile Include="Export\Lcms\FileExtension.cs" />
+    <Compile Include="Export\Lcms\Formatters.cs" />
+    <Compile Include="Export\Models\BatchExportLayout.cs" />
+    <Compile Include="Export\Models\BatchExportObjects.cs" />
+    <Compile Include="Export\Models\BatchExportScope.cs" />
+    <Compile Include="Export\Models\BatchExportSettings.cs" />
+    <Compile Include="Export\ExportFileName.cs" />
+    <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
+    <Compile Include="Export\Models\Transparency.cs" />
+    <Compile Include="Export\Models\Unit.cs" />
+    <Compile Include="Export\Models\Settings.cs" />
+    <Compile Include="Export\QuickExporter.cs" />
+    <Compile Include="Export\ScreenshotExporter.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
+    <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
+    <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />
+    <Compile Include="Export\ViewModels\ScreenshotExporterViewModel.cs" />
+    <Compile Include="Export\ViewModels\SettingsViewModelBase.cs" />
+    <Compile Include="Export\ViewModels\BatchExportSettingsViewModel.cs" />
+    <Compile Include="Export\ViewModels\TransparencyProvider.cs" />
+    <Compile Include="Export\Views\PresetsRepositoryView.xaml.cs">
+      <DependentUpon>PresetsRepositoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\Views\BatchExportSettingsView.xaml.cs">
+      <DependentUpon>BatchExportSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\Views\SingleExportSettingsView.xaml.cs">
+      <DependentUpon>SingleExportSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\ViewModels\SingleExportSettingsViewModel.cs" />
+    <Compile Include="Export\Models\SingleExportSettings.cs" />
+    <Compile Include="Export\WorkingClipboard.cs" />
+    <Compile Include="Export\Models\ColorSpace.cs" />
+    <Compile Include="Export\Exporter.cs" />
+    <Compile Include="Export\ViewModels\PresetsRepositoryViewModel.cs" />
+    <Compile Include="Export\Models\Preset.cs" />
+    <Compile Include="Export\Models\PresetsRepository.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModelCollection.cs" />
+    <Compile Include="Export\Models\StoreException.cs" />
+    <Compile Include="Export\ViewModels\PresetViewModel.cs" />
+    <Compile Include="Export\Models\FileType.cs" />
+    <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
+    <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
+    <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
+    <Compile Include="About\AboutViewModel.cs" />
+    <Compile Include="Greeter\GreeterViewModel.cs" />
+    <Compile Include="About\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Views\HtmlFileView.xaml.cs">
+      <DependentUpon>HtmlFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
+      <DependentUpon>StringMessageContentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\StoreNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>StoreNames.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Vba\Api.cs" />
+    <Compile Include="Versioning\SemanticVersion.cs" />
+    <Compile Include="Versioning\InstallUpdateView.xaml.cs">
+      <DependentUpon>InstallUpdateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\UpdateAvailableView.xaml.cs">
+      <DependentUpon>UpdateAvailableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
+      <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\UpdaterViewModel.cs" />
+    <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
+      <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\ExceptionDetailView.xaml.cs">
+      <DependentUpon>ExceptionDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Greeter\GreeterView.xaml.cs">
+      <DependentUpon>GreeterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Versioning\NotAuthorizedForUpdateView.xaml.cs">
+      <DependentUpon>NotAuthorizedForUpdateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
+      <DependentUpon>ExceptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SheetManager\WorkbookView.xaml.cs">
+      <DependentUpon>WorkbookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Excel\ViewModels\WorkbookViewModel.cs" />
+    <Compile Include="Excel\ViewModels\SheetViewModel.cs" />
+    <Compile Include="Properties\HelpTopics.Designer.cs">
+      <DependentUpon>HelpTopics.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Versioning\Updater.cs" />
+    <Compile Include="WorkbookStorage\ContextItems.cs" />
+    <Compile Include="WorkbookStorage\EmptyKeyException.cs" />
+    <Compile Include="WorkbookStorage\InvalidContextException.cs" />
+    <Compile Include="WorkbookStorage\Item.cs" />
+    <Compile Include="WorkbookStorage\Store.cs" />
+    <Compile Include="WorkbookStorage\UndefinedContextException.cs" />
+    <Compile Include="WorkbookStorage\UnkownKeyException.cs" />
+    <Compile Include="WorkbookStorage\WorkbookStorageException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\HelpTopics.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>HelpTopics.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="VERSION" />
+    <None Include="Properties\StoreNames.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>StoreNames.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="xltb.snk" />
+    <None Include="XLToolbox.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\html\credits.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\check-update-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\cogwheel-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\export-batch-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\export-selection-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\export-selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\sheets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\xltb-icon-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\xltoolbox-blender-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\images\xltoolbox-blender-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\Win32\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\Win32\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\x64\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\x64\lcms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\images\csv-edit.png" />
+    <Resource Include="Resources\images\csv.png" />
+    <Resource Include="Resources\images\off-large.png" />
+    <Resource Include="Resources\images\off.png" />
+    <Resource Include="Resources\images\donate.png" />
+    <Resource Include="Resources\images\screenshot-export-small.png" />
+    <Resource Include="Resources\html\license.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="About\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Csv\CsvFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Excel\Views\QuitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionFailureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionProcessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExceptionHandler\SubmissionSuccessView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Export\Views\PresetsRepositoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Export\Views\BatchExportSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Export\Views\SingleExportSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Mvvm\Views\HtmlFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\StringMessageContentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\InstallUpdateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\UpdateAvailableView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\UpdaterProcessView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\WindowDownloadUpdate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\ExceptionDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Greeter\GreeterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Versioning\NotAuthorizedForUpdateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExceptionHandler\ExceptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SheetManager\WorkbookView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
