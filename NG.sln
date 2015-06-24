@@ -11,18 +11,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox.UnitTests", "Unit
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug (Bovender via NuGet)|Any CPU = Debug (Bovender via NuGet)|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Debug (Bovender via NuGet)|Any CPU.ActiveCfg = Debug (Bovender via NuGet)|Any CPU
+		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Debug (Bovender via NuGet)|Any CPU.Build.0 = Debug (Bovender via NuGet)|Any CPU
 		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B391711C-2B81-4001-A6C6-BDA0D624D2E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Debug (Bovender via NuGet)|Any CPU.ActiveCfg = Debug (Bovender via NuGet)|Any CPU
+		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Debug (Bovender via NuGet)|Any CPU.Build.0 = Debug (Bovender via NuGet)|Any CPU
 		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33E4E826-A540-4249-B9FC-04197590FBC8}.Debug (Bovender via NuGet)|Any CPU.ActiveCfg = Debug (Bovender via NuGet)|Any CPU
+		{33E4E826-A540-4249-B9FC-04197590FBC8}.Debug (Bovender via NuGet)|Any CPU.Build.0 = Debug (Bovender via NuGet)|Any CPU
 		{33E4E826-A540-4249-B9FC-04197590FBC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33E4E826-A540-4249-B9FC-04197590FBC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33E4E826-A540-4249-B9FC-04197590FBC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
