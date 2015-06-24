@@ -10,6 +10,38 @@ This project uses the Git source code management system. You can find the
 repository at <https://sf.net/p/xltoolbox/ng-code>.
 
 
+Building the Debug configuration
+--------------------------------
+
+The Visual Studio project files have been hand-edited to use different
+sources of the [Bovender][] assembly: In the _Debug_ configuration, the
+assembly is referenced locally. In the _Release_ configuration, the
+assembly is referenced as a NuGet package. This has the advantage (for
+me) that I can make changes to [Bovender][] without having to release a
+new NuGet package every time I want to test it in the NG solution.
+
+This is my directory structure:
+
+    x:\
+      Code
+        bovender\
+          Bovender\
+          BovenderUnitTests\
+        xltoolbox\
+          NG\
+            XLToolbox\
+            XLToolboxForExcel\
+            UnitTest\
+
+The bovender assembly is thus referenced from the XLToolbox project file
+(which resides in `x:\Code\xltoolbox\NG\XLToolbox`) as
+`..\..\..\bovender\Bovender\bovender.csproj`.
+
+If you want to build with _Debug_ configuration, but do not have the
+[Bovender][] assembly in the same directory structure as I have, you can
+(and should) use the _Debug (Bovender via NuGet)_ configuration.
+
+
 Code-signing the binaries
 -------------------------
 
@@ -93,3 +125,6 @@ License
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
+
+[Bovender]: https://github.com/bovender/bovender
+<!-- vim: set tw=72 ai sw=2 ts=2 : -->

@@ -132,12 +132,21 @@
   <!--
     This section specifies references for the project.
   -->
-  <ItemGroup>
-    <Reference Include="Accessibility" />
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\..\bovender\Bovender\Bovender.csproj">
+      <Project>{52405856-03aa-4961-a60a-e8619ad43030}</Project>
+      <Name>Bovender</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <Reference Include="Bovender, Version=0.1.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.1.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.1.2.0\lib\net40\Bovender.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -275,6 +284,14 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug %28Bovender via NuGet%29\</OutputPath>
+    <DefineConstants>VSTO40;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
