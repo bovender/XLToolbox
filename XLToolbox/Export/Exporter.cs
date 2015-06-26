@@ -255,7 +255,21 @@ namespace XLToolbox.Export
 
             // Create a canvas (GDI+ bitmap) and associate it with a
             // Graphics object.
-            Bitmap b = new Bitmap(px, py);
+            // This constructor creates a Bitmap with a PixelFormat enumeration value of Format32bppArgb
+            // (Source: https://msdn.microsoft.com/en-us/library/7we6s1x3(v=vs.100).aspx).
+            try
+            {
+                Bitmap b = new Bitmap(px, py);
+            }
+            catch (Exception e)
+            {
+                // Give more information in case https://sf.net/p/xltoolbox/exceptions/36/ occurs.
+                throw new ExportException(
+                    String.Format(
+                        "Unable to create System.Drawing.Bitmap object with {0}x{1} pixels",
+                        px, py),
+                    e);
+            }
             Graphics g = Graphics.FromImage(b);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
