@@ -109,7 +109,7 @@ namespace XLToolbox.ExceptionHandler
 
         protected override string DevPath()
         {
-            return @"x:\XLToolbox\NG\";
+            return @"x:\Code\xltoolbox\NG\";
         }
 
         #endregion
