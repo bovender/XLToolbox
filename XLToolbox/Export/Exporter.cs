@@ -257,9 +257,10 @@ namespace XLToolbox.Export
             // Graphics object.
             // This constructor creates a Bitmap with a PixelFormat enumeration value of Format32bppArgb
             // (Source: https://msdn.microsoft.com/en-us/library/7we6s1x3(v=vs.100).aspx).
+            Bitmap b;
             try
             {
-                Bitmap b = new Bitmap(px, py);
+                b = new Bitmap(px, py);
             }
             catch (Exception e)
             {
