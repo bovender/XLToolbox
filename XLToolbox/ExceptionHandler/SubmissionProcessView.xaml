@@ -28,7 +28,7 @@
         SizeToContent="WidthAndHeight"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding CompletedMessage}" EventName="Sent">

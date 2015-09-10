@@ -29,7 +29,7 @@
         settings:WindowState.CenterScreen="True"
         Title="{Binding Path=Caption}">
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <StackPanel Margin="10" FocusManager.FocusedElement="{Binding ElementName=value}">
         <Label Target="{Binding ElementName=value}">

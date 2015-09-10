@@ -28,7 +28,7 @@
         v:WindowState.CenterScreen="True"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <StackPanel Orientation="Vertical" Margin="10">
         <DockPanel>
