@@ -306,6 +306,8 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\csv-export-edit.png" />
+    <Resource Include="Resources\images\csv-export.png" />
     <Resource Include="Resources\images\csv-edit.png" />
     <Resource Include="Resources\images\csv.png" />
     <Resource Include="Resources\images\off-large.png" />

@@ -23,19 +23,27 @@
         <tabs>
             <tab id="TabXLToolbox" label="XL Toolbox NG">
 				<group id="GroupWorkflow" getLabel="Control_GetLabel">
+					<button id="ButtonQuitExcel" onAction="Button_OnAction" image="off-large.png" size="large"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 						getEnabled="HasWorkbook"/>
 					<splitButton id="SplitButtonOpenCsv">
 						<button id="ButtonOpenCsv" onAction="Button_OnAction" image="csv.png"
 							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
-						<menu id="MenuCsv">
+						<menu id="MenuCsvOpen">
 							<button id="ButtonOpenCsvWithParams" onAction="Button_OnAction" image="csv-edit.png"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 						</menu>
 					</splitButton>
-					<button id="ButtonQuitExcel" onAction="Button_OnAction" image="off.png"
-						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+					<splitButton id="SplitButtonSaveCsv">
+						<button id="ButtonSaveCsv" onAction="Button_OnAction" image="csv-export.png"
+							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						<menu id="MenuCsvSave">
+							<button id="ButtonSaveCsvWithParams" onAction="Button_OnAction" image="csv-export-edit.png"
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
+						</menu>
+					</splitButton>
 				</group>
 				<group id="GroupExport" getLabel="Control_GetLabel" visible="true">
 					<splitButton id="SplitButtonExportSelection">

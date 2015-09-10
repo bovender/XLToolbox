@@ -69,6 +69,8 @@ namespace XLToolbox
                 { "ButtonQuitExcel", Command.QuitExcel },
                 { "ButtonOpenCsv", Command.OpenCsv },
                 { "ButtonOpenCsvWithParams", Command.OpenCsvWithParams },
+                { "ButtonSaveCsv", Command.OpenCsv },
+                { "ButtonSaveCsvWithParams", Command.OpenCsvWithParams },
             };
 
             Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;

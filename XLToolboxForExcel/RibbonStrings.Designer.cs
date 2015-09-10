@@ -286,6 +286,42 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save CSV....
+        /// </summary>
+        internal static string ButtonSaveCsvLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save CSV file using the last export settings..
+        /// </summary>
+        internal static string ButtonSaveCsvSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save CSV with params....
+        /// </summary>
+        internal static string ButtonSaveCsvWithParamsLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvWithParamsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit the parameters and save a CSV file..
+        /// </summary>
+        internal static string ButtonSaveCsvWithParamsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvWithParamsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksheets.
         /// </summary>
         internal static string ButtonSheetListLabel {
