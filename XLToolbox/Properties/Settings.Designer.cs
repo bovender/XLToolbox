@@ -158,12 +158,23 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Csv.CsvFile CsvSettings {
+        public global::XLToolbox.Csv.CsvFile CsvImport {
             get {
-                return ((global::XLToolbox.Csv.CsvFile)(this["CsvSettings"]));
+                return ((global::XLToolbox.Csv.CsvFile)(this["CsvImport"]));
             }
             set {
-                this["CsvSettings"] = value;
+                this["CsvImport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::XLToolbox.Csv.CsvFile CsvExport {
+            get {
+                return ((global::XLToolbox.Csv.CsvFile)(this["CsvExport"]));
+            }
+            set {
+                this["CsvExport"] = value;
             }
         }
     }

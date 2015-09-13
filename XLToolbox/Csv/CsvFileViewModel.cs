@@ -31,7 +31,7 @@ namespace XLToolbox.Csv
 
         public static CsvFileViewModel FromLastUsed()
         {
-            return new CsvFileViewModel(CsvFile.FromLastUsed());
+            return new CsvFileViewModel(CsvFile.LastImport());
         }
 
         #endregion
