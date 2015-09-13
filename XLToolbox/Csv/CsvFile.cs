@@ -207,14 +207,21 @@ namespace XLToolbox.Csv
         /// separator, it will be wrapped in double quotes.</returns>
         string FieldToStr(string s)
         {
-            if (s.Contains(FieldSeparator))
+            if (!String.IsNullOrEmpty(s))
             {
-                return "\"" + s + "\"";
+                if (s.Contains(FieldSeparator))
+                {
+                    return "\"" + s + "\"";
+                }
+                else
+	            {
+                    return s;
+	            }
             }
             else
-	        {
-                return s;
-	        }
+            {
+                return String.Empty;
+            }
         }
 
         /// <summary>

@@ -605,4 +605,16 @@ You may want to try again.</value>
   <data name="ThousandsSeparator" xml:space="preserve">
     <value>Thousands separator</value>
   </data>
+  <data name="ExportCsvFile" xml:space="preserve">
+    <value>Export CSV file</value>
+  </data>
+  <data name="ImportCsvFile" xml:space="preserve">
+    <value>Import CSV file</value>
+  </data>
+  <data name="ActionRequiresSelectionOfCells" xml:space="preserve">
+    <value>This action requires a selection of cells.</value>
+  </data>
+  <data name="RangeSelectionRequired" xml:space="preserve">
+    <value>Range selection required</value>
+  </data>
 </root>

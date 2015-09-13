@@ -91,7 +91,8 @@
     <Compile Include="Csv\CsvFileView.xaml.cs">
       <DependentUpon>CsvFileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Csv\CsvFileViewModel.cs" />
+    <Compile Include="Csv\CsvExportViewModel.cs" />
+    <Compile Include="Csv\CsvImportViewModel.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />

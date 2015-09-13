@@ -37,5 +37,7 @@ namespace XLToolbox
         OpenCsvWithParams,
         SaveCsv,
         SaveCsvWithParams,
+        SaveCsvRange,
+        SaveCsvRangeWithParams,
     }
 }

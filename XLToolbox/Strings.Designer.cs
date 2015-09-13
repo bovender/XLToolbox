@@ -70,6 +70,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action requires a selection of cells..
+        /// </summary>
+        public static string ActionRequiresSelectionOfCells {
+            get {
+                return ResourceManager.GetString("ActionRequiresSelectionOfCells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active worksheet.
         /// </summary>
         public static string ActiveSheet {
@@ -569,6 +578,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export CSV file.
+        /// </summary>
+        public static string ExportCsvFile {
+            get {
+                return ResourceManager.GetString("ExportCsvFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to fetch the current version information from the internet.
         ///The error was:
         ///{0}
@@ -668,6 +686,15 @@ namespace XLToolbox {
         public static string IfYouAreTheOwnerOfThisComputer {
             get {
                 return ResourceManager.GetString("IfYouAreTheOwnerOfThisComputer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import CSV file.
+        /// </summary>
+        public static string ImportCsvFile {
+            get {
+                return ResourceManager.GetString("ImportCsvFile", resourceCulture);
             }
         }
         
@@ -938,6 +965,15 @@ namespace XLToolbox {
         public static string QuitSavingChanges {
             get {
                 return ResourceManager.GetString("QuitSavingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range selection required.
+        /// </summary>
+        public static string RangeSelectionRequired {
+            get {
+                return ResourceManager.GetString("RangeSelectionRequired", resourceCulture);
             }
         }
         

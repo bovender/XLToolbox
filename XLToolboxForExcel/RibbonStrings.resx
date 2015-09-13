@@ -195,14 +195,26 @@
   <data name="ButtonSaveCsvLabel" xml:space="preserve">
     <value>Save CSV...</value>
   </data>
+  <data name="ButtonSaveCsvRangeLabel" xml:space="preserve">
+    <value>Range to CSV...</value>
+  </data>
+  <data name="ButtonSaveCsvRangeSupertip" xml:space="preserve">
+    <value>Save the seleced range as a CSV file using the last export settings.</value>
+  </data>
+  <data name="ButtonSaveCsvRangeWithParamsLabel" xml:space="preserve">
+    <value>Range to CSV with params...</value>
+  </data>
+  <data name="ButtonSaveCsvRangeWithParamsSupertip" xml:space="preserve">
+    <value>Edit the parameters and save the current selection as a CSV file.</value>
+  </data>
   <data name="ButtonSaveCsvSupertip" xml:space="preserve">
-    <value>Save CSV file using the last export settings.</value>
+    <value>Save the current worksheet as a CSV file using the last export settings.</value>
   </data>
   <data name="ButtonSaveCsvWithParamsLabel" xml:space="preserve">
     <value>Save CSV with params...</value>
   </data>
   <data name="ButtonSaveCsvWithParamsSupertip" xml:space="preserve">
-    <value>Edit the parameters and save a CSV file.</value>
+    <value>Edit the parameters and save the current worksheet as a CSV file.</value>
   </data>
   <data name="ButtonSheetListLabel" xml:space="preserve">
     <value>Worksheets</value>

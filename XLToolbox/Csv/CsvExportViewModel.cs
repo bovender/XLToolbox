@@ -1,4 +1,4 @@
-﻿/* CsvFileViewModel.cs
+﻿/* CsvExportViewModel.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,17 @@ using System.Text;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm;
+using Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox.Csv
 {
-    class CsvFileViewModel : ViewModelBase
+    class CsvExportViewModel : ViewModelBase
     {
         #region Factory
 
-        public static CsvFileViewModel FromLastUsed()
+        public static CsvExportViewModel FromLastUsed()
         {
-            return new CsvFileViewModel(CsvFile.LastImport());
+            return new CsvExportViewModel(CsvFile.LastExport());
         }
 
         #endregion
@@ -78,6 +80,11 @@ namespace XLToolbox.Csv
             }
         }
 
+        /// <summary>
+        /// Gets or sets the range to be exported.
+        /// </summary>
+        public Range Range { get; set; }
+
         #endregion
 
         #region Commands
@@ -95,16 +102,16 @@ namespace XLToolbox.Csv
             }
         }
 
-        public DelegatingCommand ImportCommand
+        public DelegatingCommand ExportCommand
         {
             get
             {
-                if (_importCommand == null)
+                if (_exportCommand == null)
                 {
-                    _importCommand = new DelegatingCommand(
-                        param => DoImport());
+                    _exportCommand = new DelegatingCommand(
+                        param => DoExport());
                 }
-                return _importCommand;
+                return _exportCommand;
             }
         }
 
@@ -112,15 +119,15 @@ namespace XLToolbox.Csv
 
         #region Messages
 
-        public Message<FileNameMessageContent> ChooseFileNameMessage
+        public Message<FileNameMessageContent> ChooseExportFileNameMessage
         {
             get
             {
-                if (_chooseFileNameMessage == null)
+                if (_chooseExportFileNameMessage == null)
                 {
-                    _chooseFileNameMessage = new Message<FileNameMessageContent>();
+                    _chooseExportFileNameMessage = new Message<FileNameMessageContent>();
                 }
-                return _chooseFileNameMessage;
+                return _chooseExportFileNameMessage;
             }
         }
 
@@ -128,10 +135,10 @@ namespace XLToolbox.Csv
 
         #region Constructors
 
-        public CsvFileViewModel()
+        public CsvExportViewModel()
             : this(new CsvFile()) { }
 
-        protected CsvFileViewModel(CsvFile model)
+        protected CsvExportViewModel(CsvFile model)
             : base()
         {
             _csvFile = model;
@@ -153,7 +160,7 @@ namespace XLToolbox.Csv
         private void DoChooseFileName()
         {
             WorkbookStorage.Store store = new WorkbookStorage.Store();
-            ChooseFileNameMessage.Send(
+            ChooseExportFileNameMessage.Send(
                 new FileNameMessageContent(
                     store.Get("csv_path", Excel.ViewModels.Instance.Default.ActiveWorkbook.Path),
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
@@ -165,15 +172,22 @@ namespace XLToolbox.Csv
             if (messageContent.Confirmed)
             {
                 _csvFile.FileName = messageContent.Value;
-                DoImport();
+                DoExport();
             }
         }
 
-        private void DoImport()
+        private void DoExport()
         {
             WorkbookStorage.Store store = new WorkbookStorage.Store();
             store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
-            _csvFile.Import();
+            if (Range != null)
+            {
+                _csvFile.Export(Range);
+            }
+            else
+            {
+                _csvFile.Export();
+            }
             CloseViewCommand.Execute(null);
         }
 
@@ -183,8 +197,8 @@ namespace XLToolbox.Csv
 
         CsvFile _csvFile;
         DelegatingCommand _chooseFileNameCommand;
-        DelegatingCommand _importCommand;
-        Message<FileNameMessageContent> _chooseFileNameMessage;
+        DelegatingCommand _exportCommand;
+        Message<FileNameMessageContent> _chooseExportFileNameMessage;
 
         #endregion
     }

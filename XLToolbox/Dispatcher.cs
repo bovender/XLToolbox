@@ -26,6 +26,7 @@ using XLToolbox.About;
 using XLToolbox.Versioning;
 using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
+using Xl = Microsoft.Office.Interop.Excel;
 
 namespace XLToolbox
 {
@@ -65,6 +66,10 @@ namespace XLToolbox
                     case Command.QuitExcel: QuitExcel(); break;
                     case Command.OpenCsv: OpenCsv(); break;
                     case Command.OpenCsvWithParams: OpenCsvWithSettings(); break;
+                    case Command.SaveCsv: SaveCsv(); break;
+                    case Command.SaveCsvWithParams: SaveCsvWithSettings(); break;
+                    case Command.SaveCsvRange: SaveCsvRange(); break;
+                    case Command.SaveCsvRangeWithParams: SaveCsvRangeWithSettings(); break;
                     default:
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
@@ -177,8 +182,8 @@ namespace XLToolbox
 
         static void OpenCsv()
         {
-            Csv.CsvFileViewModel vm = Csv.CsvFileViewModel.FromLastUsed();
-            vm.ChooseFileNameMessage.Sent += (sender, args) =>
+            Csv.CsvImportViewModel vm = Csv.CsvImportViewModel.FromLastUsed();
+            vm.ChooseImportFileNameMessage.Sent += (sender, args) =>
             {
                 ChooseFileOpenAction a = new ChooseFileOpenAction();
                 a.Invoke(args);
@@ -188,7 +193,74 @@ namespace XLToolbox
 
         static void OpenCsvWithSettings()
         {
-            Csv.CsvFileViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialog();
+            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialog();
+        }
+
+        static void SaveCsv()
+        {
+            SaveCsv(null);
+        }
+
+        static void SaveCsv(Xl.Range range)
+        {
+            Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
+            vm.Range = range;
+            vm.ChooseExportFileNameMessage.Sent += (sender, args) =>
+            {
+                ChooseFileSaveAction a = new ChooseFileSaveAction();
+                a.Invoke(args);
+            };
+            vm.ChooseFileNameCommand.Execute(null);
+        }
+
+        static void SaveCsvWithSettings()
+        {
+            SaveCsvWithSettings(null);
+        }
+
+        static void SaveCsvWithSettings(Xl.Range range)
+        {
+            Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
+            vm.Range = range;
+            vm.InjectInto<Csv.CsvFileView>().ShowDialog();
+        }
+
+        static void SaveCsvRange()
+        {
+            if (CheckSelectionIsRange())
+            {
+                SaveCsv(Instance.Default.Application.Selection as Xl.Range);
+            }
+        }
+
+        static void SaveCsvRangeWithSettings()
+        {
+            if (CheckSelectionIsRange())
+            {
+                SaveCsvWithSettings(Instance.Default.Application.Selection as Xl.Range);
+            }
+        }
+
+        #endregion
+
+        #region Private helper methods
+
+        static bool CheckSelectionIsRange()
+        {
+            Xl.Range range = Instance.Default.Application.Selection as Xl.Range;
+            if (range == null)
+            {
+                NotificationAction a = new NotificationAction();
+                a.Caption = Strings.RangeSelectionRequired;
+                a.Message = Strings.ActionRequiresSelectionOfCells;
+                a.OkButtonLabel = Strings.OK;
+                a.Invoke();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         #endregion
