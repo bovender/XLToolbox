@@ -32,8 +32,11 @@
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
-            <actions:ChooseFileOpenAction Caption="{x:Static l:Strings.OpenWorkbooks}" />                                          
+        <i:EventTrigger SourceObject="{Binding ChooseImportFileNameMessage}" EventName="Sent">
+            <actions:ChooseFileOpenAction Caption="{x:Static l:Strings.ImportCsvFile}" />                                          
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ChooseExportFileNameMessage}" EventName="Sent">
+            <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.ExportCsvFile}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Margin="10">

@@ -34,6 +34,10 @@ namespace XLToolbox
         Donate,
         QuitExcel,
         OpenCsv,
-        OpenCsvWithParams
+        OpenCsvWithParams,
+        SaveCsv,
+        SaveCsvWithParams,
+        SaveCsvRange,
+        SaveCsvRangeWithParams,
     }
 }

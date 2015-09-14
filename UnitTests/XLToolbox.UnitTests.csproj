@@ -105,6 +105,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Csv\CsvFileTest.cs" />
     <Compile Include="Excel\InstanceTest.cs" />
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />

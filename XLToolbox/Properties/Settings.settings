@@ -41,7 +41,10 @@
     <Setting Name="WindowManagerAlwaysOnTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="CsvSettings" Type="XLToolbox.Csv.CsvFile" Scope="User">
+    <Setting Name="CsvImport" Type="XLToolbox.Csv.CsvFile" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CsvExport" Type="XLToolbox.Csv.CsvFile" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
