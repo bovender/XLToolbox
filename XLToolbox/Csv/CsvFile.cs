@@ -22,6 +22,7 @@ using System.Text;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Globalization;
+using XLToolbox.Excel;
 
 namespace XLToolbox.Csv
 {
@@ -103,6 +104,13 @@ namespace XLToolbox.Csv
 
         #endregion
 
+        #region Event
+
+        public event EventHandler<CsvProgressEventArgs> ExportProgressChanged;
+
+        public event EventHandler<EventArgs> ExportProgressCompleted;
+        #endregion
+
         #region Constructor
 
         public CsvFile()
@@ -155,6 +163,10 @@ namespace XLToolbox.Csv
             Properties.Settings.Default.CsvExport = this;
             Properties.Settings.Default.Save();
             StreamWriter sw = File.CreateText(FileName);
+            bool cancel = false;
+            long total = range.CellsCount();
+            long current = 0;
+            long lastProgressTicks = DateTime.Now.Ticks;
             foreach (Range row in range.Rows)
             {
                 bool needSep = false;
@@ -174,10 +186,20 @@ namespace XLToolbox.Csv
                     // a string or a double. We let the runtime take care
                     // of this by calling an overloaded method with the dynamic.
                     sw.Write(FieldToStr(cell.Value2));
+
+                    // Update the progress information every 300 ms.
+                    current++;
+                    if (DateTime.Now.Ticks > lastProgressTicks + 300 * TimeSpan.TicksPerMillisecond)
+                    {
+                        OnExportProgressChanged(current, total, out cancel);
+                        if (cancel) break;
+                    }
                 }
                 sw.WriteLine();
+                if (cancel) break;
             }
             sw.Close();
+            OnExportProgressCompleted();
         }
 
         #endregion
@@ -242,6 +264,35 @@ namespace XLToolbox.Csv
             else
             {
                 return s;
+            }
+        }
+
+        #endregion
+
+        #region Protected methods
+
+        protected virtual void OnExportProgressChanged(long processed, long total, out bool cancel)
+        {
+            EventHandler<CsvProgressEventArgs> handler = ExportProgressChanged;
+            if (handler != null)
+            {
+                int percentCompleted = (int)(processed * 100 / total);
+                CsvProgressEventArgs args = new CsvProgressEventArgs(percentCompleted);
+                handler(this, args);
+                cancel = args.IsCancelled;
+            }
+            else
+            {
+                cancel = false;
+            }
+        }
+
+        protected virtual void OnExportProgressCompleted()
+        {
+            EventHandler<EventArgs> handler = ExportProgressCompleted;
+            if (handler != null)
+            {
+                handler(this, null);
             }
         }
 

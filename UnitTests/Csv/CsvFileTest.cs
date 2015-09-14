@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Csv;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Test.Csv
 {
@@ -50,6 +51,47 @@ namespace XLToolbox.Test.Csv
                 "hello|13{0}\"wor|d\"|88~5{0}",
                 Environment.NewLine);
             Assert.AreEqual(expected, contents);
+            System.IO.File.Delete(fn);
+        }
+
+        [Test]
+        public void ExportLargeCsv()
+        {
+            Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
+            ws.Cells[1, 1] = "hello";
+            // Need to use textual address, because we can't use long index
+            ws.Cells[1000000, 16384]= "world";
+            CsvFile csv = new CsvFile();
+            string fn = System.IO.Path.GetTempFileName();
+            csv.FileName = fn;
+            bool progressChangedRaised = false;
+            bool progressCompletedRaised = false;
+            csv.ExportProgressChanged += (sender, args) =>
+            {
+                progressChangedRaised = true;
+                args.IsCancelled = true;
+            };
+            csv.ExportProgressCompleted += (sender, args) =>
+            {
+                progressCompletedRaised = true;
+            };
+            bool wasAborted = false;
+            Task checkCancelTask = new Task(() =>
+            {
+                csv.Export();
+                // If the task times out because the Export
+                // takes too long, the line below will not
+                // be reached, and wasAborted will remain false.
+                wasAborted = true;
+            });
+            checkCancelTask.Start();
+            checkCancelTask.Wait(400); // should be cancelled after 300+ ms.
+            Assert.IsTrue(progressChangedRaised,
+                "ProgressChanged event was not raised");
+            Assert.IsTrue(wasAborted,
+                "Process was not aborted");
+            Assert.IsTrue(progressCompletedRaised,
+                "ProgressCompleted event was not raised");
             System.IO.File.Delete(fn);
         }
     }

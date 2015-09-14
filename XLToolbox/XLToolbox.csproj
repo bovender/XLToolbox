@@ -93,7 +93,9 @@
     </Compile>
     <Compile Include="Csv\CsvExportViewModel.cs" />
     <Compile Include="Csv\CsvImportViewModel.cs" />
+    <Compile Include="Csv\CsvProgressEventArgs.cs" />
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
