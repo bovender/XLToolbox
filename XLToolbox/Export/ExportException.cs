@@ -1,4 +1,4 @@
-﻿/* Command.cs
+﻿/* ExportException.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,29 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace XLToolbox
+using System;
+using System.Runtime.Serialization;
+
+namespace XLToolbox.Export
 {
-    /// <summary>
-    /// Enumeration of user-entry commands of the XL Toolbox addin.
-    /// </summary>
-    public enum Command
+    [Serializable]
+    class ExportException : Exception
     {
-        About,
-        CheckForUpdates,
-        ThrowError,
-        SheetManager,
-        ExportSelection,
-        ExportSelectionLast,
-        BatchExport,
-        BatchExportLast,
-        ExportScreenshot,
-        Donate,
-        QuitExcel,
-        OpenCsv,
-        OpenCsvWithParams,
-        SaveCsv,
-        SaveCsvWithParams,
-        SaveCsvRange,
-        SaveCsvRangeWithParams,
+        public ExportException() { }
+        public ExportException(string message) : base(message) { }
+        public ExportException(string message,
+            Exception innerException)
+            : base(message, innerException) { }
+        public ExportException(SerializationInfo info,
+            StreamingContext context)
+            : base(info, context) { }
     }
 }

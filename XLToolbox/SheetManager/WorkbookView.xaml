@@ -36,7 +36,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+                <ResourceDictionary Source="/Bovender;component/style.xaml" />
                 <ResourceDictionary>
                     <Style x:Key="Worksheet" TargetType="{x:Type ListBoxItem}">
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />

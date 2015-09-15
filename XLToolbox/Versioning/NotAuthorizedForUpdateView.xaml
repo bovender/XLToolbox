@@ -24,7 +24,7 @@
         WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
         Title="{x:Static l:Strings.NotAuthorizedToUpdate}">
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <DockPanel Margin="10">
         <TextBlock DockPanel.Dock="Left"

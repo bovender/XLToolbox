@@ -25,7 +25,7 @@
         Title="Daniel's XL Toolbox" ResizeMode="NoResize"
     >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <StackPanel Margin="10">
         <DockPanel>

@@ -50,16 +50,16 @@
       <Name>Bovender</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29'">
-    <Reference Include="Bovender, Version=0.1.2.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+  <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
+    <Reference Include="Bovender, Version=0.3.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.1.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.3.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.1.2.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.3.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.1.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.3.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,8 +91,11 @@
     <Compile Include="Csv\CsvFileView.xaml.cs">
       <DependentUpon>CsvFileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Csv\CsvFileViewModel.cs" />
+    <Compile Include="Csv\CsvExportViewModel.cs" />
+    <Compile Include="Csv\CsvImportViewModel.cs" />
+    <Compile Include="Csv\CsvProgressEventArgs.cs" />
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Export\ExportException.cs" />
     <Compile Include="Export\ExportFinishedEventArgs.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
@@ -260,12 +264,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Style.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\html\credits.html" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +309,8 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\csv-export-edit.png" />
+    <Resource Include="Resources\images\csv-export.png" />
     <Resource Include="Resources\images\csv-edit.png" />
     <Resource Include="Resources\images\csv.png" />
     <Resource Include="Resources\images\off-large.png" />

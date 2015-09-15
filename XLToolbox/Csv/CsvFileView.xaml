@@ -24,46 +24,35 @@
     xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
     xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
     Title="{x:Static l:Strings.CsvSettings}"
-    WindowStartupLocation="CenterScreen"
-    ResizeMode="NoResize" SizeToContent="WidthAndHeight"
-    bov:WindowState.CenterScreen="True"
+    WindowStartupLocation="CenterScreen" x:Name="win"
+    ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
+    MinWidth="240" MinHeight="200" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
+    bov:WindowState.CenterScreen="True" bov:WindowState.Save="True"
     >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Bovender;component/style.xaml" />
+                <ResourceDictionary>
+                    <Style TargetType="TextBox" x:Key="tb">
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="DimGray" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
-            <actions:ChooseFileOpenAction Caption="{x:Static l:Strings.OpenWorkbooks}" />                                          
+        <i:EventTrigger SourceObject="{Binding ChooseImportFileNameMessage}" EventName="Sent">
+            <actions:ChooseFileOpenAction Caption="{x:Static l:Strings.ImportCsvFile}" />                                          
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ChooseExportFileNameMessage}" EventName="Sent">
+            <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.ExportCsvFile}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <StackPanel Margin="10">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="20" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0"
-                   Target="{Binding ElementName=FieldSeparator}"
-                   Content="{x:Static l:Strings.FieldSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="0" x:Name="FieldSeparator" 
-                     Text="{Binding FieldSeparator}" />
-            <Label Grid.Column="0" Grid.Row="1"
-                   Target="{Binding ElementName=DecimalSeparator}"
-                   Content="{x:Static l:Strings.DecimalSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="DecimalSeparator" 
-                     Text="{Binding DecimalSeparator}" />
-            <Label Grid.Column="0" Grid.Row="2"
-                   Target="{Binding ElementName=ThousandsSeparator}"
-                   Content="{x:Static l:Strings.ThousandsSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="ThousandsSeparator" 
-                     Text="{Binding ThousandsSeparator}" />
-        </Grid>
-        <UniformGrid Columns="2" Margin="0 10 0 0">
+    <DockPanel Margin="10">
+        <UniformGrid DockPanel.Dock="Bottom" HorizontalAlignment="Right" Columns="2" Margin="0 10 0 0">
             <Button Margin="0 0 5 0"
                     Command="{Binding ChooseFileNameCommand}"
                     Content="{x:Static l:Strings.OK}" />
@@ -71,5 +60,36 @@
                     Command="{Binding CloseViewCommand}"
                     Content="{x:Static l:Strings.Cancel}" IsCancel="True" />
         </UniformGrid>
-    </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="60" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <!-- Need to explicitly reference TextBox style; otherwise, first text box
+            would not be styled (don't know why, WPF bug?) -->
+            <Label Grid.Column="0" Grid.Row="0" Margin="0 0 0 5"
+                   Target="{Binding ElementName=FieldSeparator}"
+                   Content="{x:Static l:Strings.FieldSeparator}" />
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="FieldSeparator" 
+                     Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
+                     Text="{Binding FieldSeparator}" TextAlignment="Center" />
+            <Label Grid.Column="0" Grid.Row="1" Margin="0 0 0 5"
+                   Target="{Binding ElementName=DecimalSeparator}"
+                   Content="{x:Static l:Strings.DecimalSeparator}" />
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="DecimalSeparator" 
+                     Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
+                     Text="{Binding DecimalSeparator}" TextAlignment="Center" />
+            <Label Grid.Column="0" Grid.Row="2" Margin="0 0 0 5"
+                   Target="{Binding ElementName=ThousandsSeparator}"
+                   Content="{x:Static l:Strings.ThousandsSeparator}" />
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="ThousandsSeparator" 
+                     Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
+                     Text="{Binding ThousandsSeparator}" TextAlignment="Center" />
+        </Grid>
+    </DockPanel>
 </Window>

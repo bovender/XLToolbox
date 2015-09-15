@@ -286,6 +286,78 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save CSV....
+        /// </summary>
+        internal static string ButtonSaveCsvLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range to CSV....
+        /// </summary>
+        internal static string ButtonSaveCsvRangeLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvRangeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the seleced range as a CSV file using the last export settings..
+        /// </summary>
+        internal static string ButtonSaveCsvRangeSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvRangeSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Range to CSV with params....
+        /// </summary>
+        internal static string ButtonSaveCsvRangeWithParamsLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvRangeWithParamsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit the parameters and save the current selection as a CSV file..
+        /// </summary>
+        internal static string ButtonSaveCsvRangeWithParamsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvRangeWithParamsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the current worksheet as a CSV file using the last export settings..
+        /// </summary>
+        internal static string ButtonSaveCsvSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save CSV with params....
+        /// </summary>
+        internal static string ButtonSaveCsvWithParamsLabel {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvWithParamsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit the parameters and save the current worksheet as a CSV file..
+        /// </summary>
+        internal static string ButtonSaveCsvWithParamsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSaveCsvWithParamsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksheets.
         /// </summary>
         internal static string ButtonSheetListLabel {

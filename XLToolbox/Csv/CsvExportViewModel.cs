@@ -1,4 +1,4 @@
-﻿/* CsvFileViewModel.cs
+﻿/* CsvExportViewModel.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,18 @@ using System.Text;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm;
+using Microsoft.Office.Interop.Excel;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Csv
 {
-    class CsvFileViewModel : ViewModelBase
+    class CsvExportViewModel : ViewModelBase
     {
         #region Factory
 
-        public static CsvFileViewModel FromLastUsed()
+        public static CsvExportViewModel FromLastUsed()
         {
-            return new CsvFileViewModel(CsvFile.FromLastUsed());
+            return new CsvExportViewModel(CsvFile.LastExport());
         }
 
         #endregion
@@ -78,6 +81,11 @@ namespace XLToolbox.Csv
             }
         }
 
+        /// <summary>
+        /// Gets or sets the range to be exported.
+        /// </summary>
+        public Range Range { get; set; }
+
         #endregion
 
         #region Commands
@@ -95,16 +103,16 @@ namespace XLToolbox.Csv
             }
         }
 
-        public DelegatingCommand ImportCommand
+        public DelegatingCommand ExportCommand
         {
             get
             {
-                if (_importCommand == null)
+                if (_exportCommand == null)
                 {
-                    _importCommand = new DelegatingCommand(
-                        param => DoImport());
+                    _exportCommand = new DelegatingCommand(
+                        param => DoExport());
                 }
-                return _importCommand;
+                return _exportCommand;
             }
         }
 
@@ -112,15 +120,39 @@ namespace XLToolbox.Csv
 
         #region Messages
 
-        public Message<FileNameMessageContent> ChooseFileNameMessage
+        public Message<FileNameMessageContent> ChooseExportFileNameMessage
         {
             get
             {
-                if (_chooseFileNameMessage == null)
+                if (_chooseExportFileNameMessage == null)
                 {
-                    _chooseFileNameMessage = new Message<FileNameMessageContent>();
+                    _chooseExportFileNameMessage = new Message<FileNameMessageContent>();
                 }
-                return _chooseFileNameMessage;
+                return _chooseExportFileNameMessage;
+            }
+        }
+
+        public Message<ProcessMessageContent> ShowExportProgress
+        {
+            get
+            {
+                if (_showExportProgress == null)
+                {
+                    _showExportProgress = new Message<ProcessMessageContent>();
+                }
+                return _showExportProgress;
+            }
+        }
+
+        public Message<StringMessageContent> ExportFailedMessage
+        {
+            get
+            {
+                if (_exportFailedMessage == null)
+                {
+                    _exportFailedMessage = new Message<StringMessageContent>();
+                }
+                return _exportFailedMessage;
             }
         }
 
@@ -128,13 +160,16 @@ namespace XLToolbox.Csv
 
         #region Constructors
 
-        public CsvFileViewModel()
+        public CsvExportViewModel()
             : this(new CsvFile()) { }
 
-        protected CsvFileViewModel(CsvFile model)
+        protected CsvExportViewModel(CsvFile model)
             : base()
         {
             _csvFile = model;
+            _csvFile.ExportProgressChanged += CsvFile_ExportProgressChanged;
+            _csvFile.ExportProgressCompleted += CsvFile_ExportProgressCompleted;
+            _csvFile.ExportFailed += CsvFile_ExportFailed;
         }
 
         #endregion
@@ -153,7 +188,7 @@ namespace XLToolbox.Csv
         private void DoChooseFileName()
         {
             WorkbookStorage.Store store = new WorkbookStorage.Store();
-            ChooseFileNameMessage.Send(
+            ChooseExportFileNameMessage.Send(
                 new FileNameMessageContent(
                     store.Get("csv_path", Excel.ViewModels.Instance.Default.ActiveWorkbook.Path),
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
@@ -165,16 +200,64 @@ namespace XLToolbox.Csv
             if (messageContent.Confirmed)
             {
                 _csvFile.FileName = messageContent.Value;
-                DoImport();
+                DoExport();
             }
         }
 
-        private void DoImport()
+        private void DoExport()
         {
             WorkbookStorage.Store store = new WorkbookStorage.Store();
             store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
-            _csvFile.Import();
+            if (Range != null)
+            {
+                _csvFile.Export(Range);
+            }
+            else
+            {
+                _csvFile.Export();
+            }
             CloseViewCommand.Execute(null);
+        }
+
+        void CsvFile_ExportProgressCompleted(object sender, EventArgs e)
+        {
+            ExportProgress.CompletedMessage.Send();
+        }
+
+        void CsvFile_ExportProgressChanged(object sender, CsvProgressEventArgs e)
+        {
+            if (!_showExportProgressSent)
+            {
+                _showExportProgressSent = true;
+                ExportProgress.CancelProcess = () =>
+                {
+                    e.IsCancelled = true;
+                };
+                ShowExportProgress.Send(ExportProgress);
+            }
+            _exportProgress.PercentCompleted = e.PercentCompleted;
+            e.IsCancelled = _exportProgress.WasCancelled;
+        }
+
+        void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
+        {
+            ExportFailedMessage.Send(new StringMessageContent(e.GetException().Message));
+        }
+
+        #endregion
+
+        #region Private properties
+
+        ProcessMessageContent ExportProgress
+        {
+            get
+            {
+                if (_exportProgress == null)
+                {
+                    _exportProgress = new ProcessMessageContent();
+                }
+                return _exportProgress;
+            }
         }
 
         #endregion
@@ -183,8 +266,12 @@ namespace XLToolbox.Csv
 
         CsvFile _csvFile;
         DelegatingCommand _chooseFileNameCommand;
-        DelegatingCommand _importCommand;
-        Message<FileNameMessageContent> _chooseFileNameMessage;
+        DelegatingCommand _exportCommand;
+        Message<FileNameMessageContent> _chooseExportFileNameMessage;
+        bool _showExportProgressSent;
+        ProcessMessageContent _exportProgress;
+        Message<ProcessMessageContent> _showExportProgress;
+        Message<StringMessageContent> _exportFailedMessage;
 
         #endregion
     }

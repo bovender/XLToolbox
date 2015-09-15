@@ -30,7 +30,7 @@
         vs:WindowState.Save="True" vs:WindowState.CenterScreen="True"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">

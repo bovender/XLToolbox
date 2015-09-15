@@ -30,7 +30,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+                <ResourceDictionary Source="/Bovender;component/style.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>

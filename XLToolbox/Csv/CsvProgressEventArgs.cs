@@ -1,4 +1,4 @@
-﻿/* Command.cs
+﻿/* CsvProgressEventArgs.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -15,29 +15,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace XLToolbox
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace XLToolbox.Csv
 {
     /// <summary>
-    /// Enumeration of user-entry commands of the XL Toolbox addin.
+    /// Event arguments that signal a CSV export progress.
     /// </summary>
-    public enum Command
+    public class CsvProgressEventArgs : EventArgs
     {
-        About,
-        CheckForUpdates,
-        ThrowError,
-        SheetManager,
-        ExportSelection,
-        ExportSelectionLast,
-        BatchExport,
-        BatchExportLast,
-        ExportScreenshot,
-        Donate,
-        QuitExcel,
-        OpenCsv,
-        OpenCsvWithParams,
-        SaveCsv,
-        SaveCsvWithParams,
-        SaveCsvRange,
-        SaveCsvRangeWithParams,
+        #region Properties
+
+        public double PercentCompleted { get; private set; }
+
+        public bool IsCancelled { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public CsvProgressEventArgs() : base() { }
+
+        public CsvProgressEventArgs(double percentCompleted)
+            : this()
+        {
+            PercentCompleted = percentCompleted;
+        }
+
+        #endregion
     }
 }

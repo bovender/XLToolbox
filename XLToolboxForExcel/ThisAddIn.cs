@@ -46,6 +46,7 @@ namespace XLToolbox
             Ribbon.ExcelApp = Instance.Default.Application;
 
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
+            Bovender.WpfHelpers.RegisterTextBoxSelectAll();
 
             // Distract the user :-)
             MaybeCheckForUpdate();

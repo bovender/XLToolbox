@@ -29,7 +29,7 @@
         Title="{x:Static l:Strings.BatchExport}"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ChooseFolderMessage}" EventName="Sent">

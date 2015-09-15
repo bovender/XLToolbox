@@ -30,7 +30,7 @@
         settings:WindowState.Save="True"
         >
     <Window.Resources>
-        <ResourceDictionary Source="/XLToolbox;component/Style.xaml" />
+        <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
