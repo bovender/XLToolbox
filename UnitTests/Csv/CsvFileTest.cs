@@ -59,7 +59,6 @@ namespace XLToolbox.Test.Csv
         {
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
             ws.Cells[1, 1] = "hello";
-            // Need to use textual address, because we can't use long index
             ws.Cells[1000000, 16384]= "world";
             CsvFile csv = new CsvFile();
             string fn = System.IO.Path.GetTempFileName();
@@ -94,5 +93,43 @@ namespace XLToolbox.Test.Csv
                 "ProgressCompleted event was not raised");
             System.IO.File.Delete(fn);
         }
+
+        /* Performance method commented out because it is not a real test.
+        [Test]
+        public void CsvExportPerformance()
+        {
+            string method = System.Reflection.MethodInfo.GetCurrentMethod().ToString();
+            Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
+            ws.Cells[1, 1] = "hello";
+            ws.Cells[200, 5] = "world";
+            CsvFile csv = new CsvFile();
+            string fn = System.IO.Path.GetTempFileName();
+            csv.FileName = fn;
+            bool running = true;
+            long start = 0;
+            csv.ExportProgressCompleted += (sender, args) =>
+            {
+                Console.WriteLine(method + ": *** Export completed ***");
+                long stop = DateTime.Now.Ticks;
+                Console.WriteLine(
+                    String.Format("{0}: export took {1} seconds.",
+                    method,
+                    Math.Round((double)(stop - start) / TimeSpan.TicksPerSecond, 3)
+                    ));
+                running = false;
+            };
+            Task waitTask = new Task(
+                () =>
+                {
+                    Console.WriteLine(method + ": *** Wait task started ***");
+                    while (running) ;
+                }
+            );
+            waitTask.Start();
+            start = DateTime.Now.Ticks;
+            csv.Export(ws.UsedRange);
+            waitTask.Wait(-1);
+        }
+         */
     }
 }
