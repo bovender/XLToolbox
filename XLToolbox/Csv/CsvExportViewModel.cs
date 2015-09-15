@@ -24,6 +24,7 @@ using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm;
 using Microsoft.Office.Interop.Excel;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Csv
 {
@@ -131,6 +132,30 @@ namespace XLToolbox.Csv
             }
         }
 
+        public Message<ProcessMessageContent> ShowExportProgress
+        {
+            get
+            {
+                if (_showExportProgress == null)
+                {
+                    _showExportProgress = new Message<ProcessMessageContent>();
+                }
+                return _showExportProgress;
+            }
+        }
+
+        public Message<StringMessageContent> ExportFailedMessage
+        {
+            get
+            {
+                if (_exportFailedMessage == null)
+                {
+                    _exportFailedMessage = new Message<StringMessageContent>();
+                }
+                return _exportFailedMessage;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -142,6 +167,9 @@ namespace XLToolbox.Csv
             : base()
         {
             _csvFile = model;
+            _csvFile.ExportProgressChanged += CsvFile_ExportProgressChanged;
+            _csvFile.ExportProgressCompleted += CsvFile_ExportProgressCompleted;
+            _csvFile.ExportFailed += CsvFile_ExportFailed;
         }
 
         #endregion
@@ -191,6 +219,47 @@ namespace XLToolbox.Csv
             CloseViewCommand.Execute(null);
         }
 
+        void CsvFile_ExportProgressCompleted(object sender, EventArgs e)
+        {
+            ExportProgress.CompletedMessage.Send();
+        }
+
+        void CsvFile_ExportProgressChanged(object sender, CsvProgressEventArgs e)
+        {
+            if (!_showExportProgressSent)
+            {
+                _showExportProgressSent = true;
+                ExportProgress.CancelProcess = () =>
+                {
+                    e.IsCancelled = true;
+                };
+                ShowExportProgress.Send(ExportProgress);
+            }
+            _exportProgress.PercentCompleted = e.PercentCompleted;
+            e.IsCancelled = _exportProgress.WasCancelled;
+        }
+
+        void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
+        {
+            ExportFailedMessage.Send(new StringMessageContent(e.GetException().Message));
+        }
+
+        #endregion
+
+        #region Private properties
+
+        ProcessMessageContent ExportProgress
+        {
+            get
+            {
+                if (_exportProgress == null)
+                {
+                    _exportProgress = new ProcessMessageContent();
+                }
+                return _exportProgress;
+            }
+        }
+
         #endregion
 
         #region Private fields
@@ -199,6 +268,10 @@ namespace XLToolbox.Csv
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _exportCommand;
         Message<FileNameMessageContent> _chooseExportFileNameMessage;
+        bool _showExportProgressSent;
+        ProcessMessageContent _exportProgress;
+        Message<ProcessMessageContent> _showExportProgress;
+        Message<StringMessageContent> _exportFailedMessage;
 
         #endregion
     }

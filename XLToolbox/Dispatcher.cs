@@ -27,6 +27,7 @@ using XLToolbox.Versioning;
 using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
 using Xl = Microsoft.Office.Interop.Excel;
+using System.Threading.Tasks;
 
 namespace XLToolbox
 {
@@ -203,8 +204,7 @@ namespace XLToolbox
 
         static void SaveCsv(Xl.Range range)
         {
-            Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
-            vm.Range = range;
+            Csv.CsvExportViewModel vm = CreateCsvExportViewModel(range);
             vm.ChooseExportFileNameMessage.Sent += (sender, args) =>
             {
                 ChooseFileSaveAction a = new ChooseFileSaveAction();
@@ -220,9 +220,7 @@ namespace XLToolbox
 
         static void SaveCsvWithSettings(Xl.Range range)
         {
-            Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
-            vm.Range = range;
-            vm.InjectInto<Csv.CsvFileView>().ShowDialog();
+            CreateCsvExportViewModel(range).InjectInto<Csv.CsvFileView>().ShowDialog();
         }
 
         static void SaveCsvRange()
@@ -261,6 +259,32 @@ namespace XLToolbox
             {
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Creates an instance of XLToolbox.Csv.CsvExportViewModel and wires up the
+        /// message events to display a progress bar and error message as needed.
+        /// </summary>
+        static Csv.CsvExportViewModel CreateCsvExportViewModel(Xl.Range range)
+        {
+            Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
+            vm.Range = range;
+            vm.ShowExportProgress.Sent += (sender, args) =>
+            {
+                args.Content.CancelButtonText = Strings.Cancel;
+                args.Content.Caption = Strings.ExportCsvFile;
+                args.Content.CompletedMessage.Sent += (sender2, args2) =>
+                {
+                    args.Content.CloseViewCommand.Execute(null);
+                };
+                args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
+            };
+            vm.ExportFailedMessage.Sent += (sender, args) =>
+            {
+                MessageBox.Show(args.Content.Value, Strings.ExportCsvFile,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
+            return vm;
         }
 
         #endregion

@@ -23,6 +23,7 @@ using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Globalization;
 using XLToolbox.Excel;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Csv
 {
@@ -104,11 +105,14 @@ namespace XLToolbox.Csv
 
         #endregion
 
-        #region Event
+        #region Events
 
         public event EventHandler<CsvProgressEventArgs> ExportProgressChanged;
 
+        public event EventHandler<ErrorEventArgs> ExportFailed;
+
         public event EventHandler<EventArgs> ExportProgressCompleted;
+
         #endregion
 
         #region Constructor
@@ -162,44 +166,58 @@ namespace XLToolbox.Csv
         {
             Properties.Settings.Default.CsvExport = this;
             Properties.Settings.Default.Save();
-            StreamWriter sw = File.CreateText(FileName);
-            bool cancel = false;
-            long total = range.CellsCount();
-            long current = 0;
-            long lastProgressTicks = DateTime.Now.Ticks;
-            foreach (Range row in range.Rows)
+            Task t = new Task(() =>
             {
-                bool needSep = false;
-                foreach (Range cell in row.Cells)
+                try
                 {
-                    // If this is not the first field in the line, write a field separator.
-                    if (needSep)
+                    StreamWriter sw = File.CreateText(FileName);
+                    bool cancel = false;
+                    long total = range.CellsCount();
+                    long current = 0;
+                    // Set the lastProgressTicks variable a few seconds into the future
+                    // to delay the appearance of the progress bar
+                    long lastProgressTicks = DateTime.Now.Ticks + 2000 * TimeSpan.TicksPerMillisecond;
+                    foreach (Range row in range.Rows)
                     {
-                        sw.Write(FieldSeparator);
-                    }
-                    else
-                    {
-                        needSep = true;
-                    }
+                        bool needSep = false;
+                        foreach (Range cell in row.Cells)
+                        {
+                            // If this is not the first field in the line, write a field separator.
+                            if (needSep)
+                            {
+                                sw.Write(FieldSeparator);
+                            }
+                            else
+                            {
+                                needSep = true;
+                            }
 
-                    // Range.Value2 is declared as dynamic and may return
-                    // a string or a double. We let the runtime take care
-                    // of this by calling an overloaded method with the dynamic.
-                    sw.Write(FieldToStr(cell.Value2));
+                            // Range.Value2 is declared as dynamic and may return
+                            // a string or a double. We let the runtime take care
+                            // of this by calling an overloaded method with the dynamic.
+                            sw.Write(FieldToStr(cell.Value2));
 
-                    // Update the progress information every 300 ms.
-                    current++;
-                    if (DateTime.Now.Ticks > lastProgressTicks + 300 * TimeSpan.TicksPerMillisecond)
-                    {
-                        OnExportProgressChanged(current, total, out cancel);
+                            // Update the progress information every 300 ms.
+                            current++;
+                            if (DateTime.Now.Ticks > lastProgressTicks + 300 * TimeSpan.TicksPerMillisecond)
+                            {
+                                lastProgressTicks = DateTime.Now.Ticks;
+                                OnExportProgressChanged(current, total, out cancel);
+                                if (cancel) break;
+                            }
+                        }
+                        sw.WriteLine();
                         if (cancel) break;
                     }
+                    sw.Close();
+                    OnExportProgressCompleted();
                 }
-                sw.WriteLine();
-                if (cancel) break;
-            }
-            sw.Close();
-            OnExportProgressCompleted();
+                catch (IOException e)
+                {
+                    OnExportFailed(e);
+                }
+            });
+            t.Start();
         }
 
         #endregion
@@ -276,7 +294,7 @@ namespace XLToolbox.Csv
             EventHandler<CsvProgressEventArgs> handler = ExportProgressChanged;
             if (handler != null)
             {
-                int percentCompleted = (int)(processed * 100 / total);
+                double percentCompleted = (double)processed / total;
                 CsvProgressEventArgs args = new CsvProgressEventArgs(percentCompleted);
                 handler(this, args);
                 cancel = args.IsCancelled;
@@ -296,6 +314,14 @@ namespace XLToolbox.Csv
             }
         }
 
+        protected virtual void OnExportFailed(Exception e)
+        {
+            EventHandler<ErrorEventArgs> handler = ExportFailed;
+            if (handler != null)
+            {
+                handler(this, new ErrorEventArgs(e));
+            }
+        }
         #endregion
 
         #region Fields

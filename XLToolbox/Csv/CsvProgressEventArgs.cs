@@ -29,7 +29,7 @@ namespace XLToolbox.Csv
     {
         #region Properties
 
-        public int PercentCompleted { get; private set; }
+        public double PercentCompleted { get; private set; }
 
         public bool IsCancelled { get; set; }
 
@@ -39,7 +39,7 @@ namespace XLToolbox.Csv
 
         public CsvProgressEventArgs() : base() { }
 
-        public CsvProgressEventArgs(int percentCompleted)
+        public CsvProgressEventArgs(double percentCompleted)
             : this()
         {
             PercentCompleted = percentCompleted;
