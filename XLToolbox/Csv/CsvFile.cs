@@ -103,11 +103,25 @@ namespace XLToolbox.Csv
             }
         }
 
+        /// <summary>
+        /// Gets whether the exporter is currently processing.
+        /// </summary>
+        public bool IsProcessing { get; private set; }
+
+        /// <summary>
+        /// Gets the number of cells that were already processed
+        /// during export.
+        /// </summary>
+        public long CellsProcessed { get; private set; }
+
+        /// <summary>
+        /// Gets the total number of cells to export.
+        /// </summary>
+        public long CellsTotal { get; private set; }
+
         #endregion
 
         #region Events
-
-        public event EventHandler<CsvProgressEventArgs> ExportProgressChanged;
 
         public event EventHandler<ErrorEventArgs> ExportFailed;
 
@@ -166,103 +180,76 @@ namespace XLToolbox.Csv
         {
             Properties.Settings.Default.CsvExport = this;
             Properties.Settings.Default.Save();
+            IsProcessing = true;
             Task t = new Task(() =>
             {
                 try
                 {
+                    // StreamWriter buffers the output; using a StringBuilder
+                    // doesn't speed up things (tried it)
                     StreamWriter sw = File.CreateText(FileName);
-                    bool cancel = false;
-                    long total = range.CellsCount();
-                    long current = 0;
-                    // Set the lastProgressTicks variable a few seconds into the future
-                    // to delay the appearance of the progress bar
-                    long lastProgressTicks = DateTime.Now.Ticks + 2000 * TimeSpan.TicksPerMillisecond;
-                    foreach (Range row in range.Rows)
+                    CellsTotal = range.CellsCount();
+                    CellsProcessed = 0;
+                    _cancelExport = false;
+
+                    // Get all values in an array
+                    object[,] values = range.Value2;
+                    for (long row = 1; row <= values.GetLength(0); row++)
                     {
-                        bool needSep = false;
-                        foreach (Range cell in row.Cells)
+                        for (long col = 1; col <= values.GetLength(1); col++)
                         {
+                            CellsProcessed++;
+
                             // If this is not the first field in the line, write a field separator.
-                            if (needSep)
+                            if (col > 1)
                             {
                                 sw.Write(FieldSeparator);
                             }
-                            else
-                            {
-                                needSep = true;
-                            }
 
-                            // Range.Value2 is declared as dynamic and may return
-                            // a string or a double. We let the runtime take care
-                            // of this by calling an overloaded method with the dynamic.
-                            sw.Write(FieldToStr(cell.Value2));
-
-                            // Update the progress information every 300 ms.
-                            current++;
-                            if (DateTime.Now.Ticks > lastProgressTicks + 300 * TimeSpan.TicksPerMillisecond)
+                            object value = values[row, col];
+                            if (value != null)
                             {
-                                lastProgressTicks = DateTime.Now.Ticks;
-                                OnExportProgressChanged(current, total, out cancel);
-                                if (cancel) break;
+                                if (value is string)
+                                {
+                                    sw.Write(value);
+                                }
+                                else
+                                {
+                                    double d = (double)value;
+                                    sw.Write(d.ToString(NumberFormatInfo));
+                                }
                             }
+                            if (_cancelExport) break;
                         }
                         sw.WriteLine();
-                        if (cancel) break;
+                        if (_cancelExport)
+                        {
+                            sw.WriteLine("*** UNFINISHED EXPORT ***");
+                        }
                     }
                     sw.Close();
-                    OnExportProgressCompleted();
+                    if (!_cancelExport) OnExportProgressCompleted();
                 }
                 catch (IOException e)
                 {
                     OnExportFailed(e);
                 }
+                finally
+                {
+                    IsProcessing = false;
+                }
             });
             t.Start();
+        }
+
+        public void CancelExport()
+        {
+            _cancelExport = true;
         }
 
         #endregion
 
         #region Private methods
-
-        /// <summary>
-        /// Overloaded method to facilitate code switching base
-        /// on the actual type of a dynamic variable as returned
-        /// by Range.Value2 (which may be a string, a double, a ...).
-        /// </summary>
-        /// <param name="d">Double to convert to a string</param>
-        /// <returns>String that can be written to a CSV file.</returns>
-        string FieldToStr(double d)
-        {
-            return d.ToString(NumberFormatInfo);
-        }
-
-        /// <summary>
-        /// Overloaded method to facilitate code switching base
-        /// on the actual type of a dynamic variable as returned
-        /// by Range.Value2 (which may be a string, a double, a ...).
-        /// </summary>
-        /// <param name="s">String field value.</param>
-        /// <returns>String that can be written to a CSV file;
-        /// if <paramref name="s"/> contains the current field
-        /// separator, it will be wrapped in double quotes.</returns>
-        string FieldToStr(string s)
-        {
-            if (!String.IsNullOrEmpty(s))
-            {
-                if (s.Contains(FieldSeparator))
-                {
-                    return "\"" + s + "\"";
-                }
-                else
-	            {
-                    return s;
-	            }
-            }
-            else
-            {
-                return String.Empty;
-            }
-        }
 
         /// <summary>
         /// Helper function that converts empty strings to Type.Missing.
@@ -289,22 +276,6 @@ namespace XLToolbox.Csv
 
         #region Protected methods
 
-        protected virtual void OnExportProgressChanged(long processed, long total, out bool cancel)
-        {
-            EventHandler<CsvProgressEventArgs> handler = ExportProgressChanged;
-            if (handler != null)
-            {
-                double percentCompleted = (double)processed / total;
-                CsvProgressEventArgs args = new CsvProgressEventArgs(percentCompleted);
-                handler(this, args);
-                cancel = args.IsCancelled;
-            }
-            else
-            {
-                cancel = false;
-            }
-        }
-
         protected virtual void OnExportProgressCompleted()
         {
             EventHandler<EventArgs> handler = ExportProgressCompleted;
@@ -327,6 +298,7 @@ namespace XLToolbox.Csv
         #region Fields
 
         NumberFormatInfo _numberFormatInfo;
+        bool _cancelExport;
 
         #endregion
     }

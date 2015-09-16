@@ -65,11 +65,6 @@ namespace XLToolbox.Test.Csv
             csv.FileName = fn;
             bool progressChangedRaised = false;
             bool progressCompletedRaised = false;
-            csv.ExportProgressChanged += (sender, args) =>
-            {
-                progressChangedRaised = true;
-                args.IsCancelled = true;
-            };
             csv.ExportProgressCompleted += (sender, args) =>
             {
                 progressCompletedRaised = true;
@@ -94,10 +89,11 @@ namespace XLToolbox.Test.Csv
             System.IO.File.Delete(fn);
         }
 
-        /* Performance method commented out because it is not a real test.
+        /* Performance method commented out because it is not a real test. */
         [Test]
         public void CsvExportPerformance()
         {
+            // 2.29 s with alpha 13's multiple events
             string method = System.Reflection.MethodInfo.GetCurrentMethod().ToString();
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
             ws.Cells[1, 1] = "hello";
@@ -130,6 +126,6 @@ namespace XLToolbox.Test.Csv
             csv.Export(ws.UsedRange);
             waitTask.Wait(-1);
         }
-         */
+        
     }
 }
