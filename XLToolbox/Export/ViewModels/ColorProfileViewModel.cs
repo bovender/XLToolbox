@@ -60,9 +60,17 @@ namespace XLToolbox.Export.ViewModels
                 {
                     // Only create a view model if we can handle
                     // the current profile's color space.
+                    // Attempt to convert the CMS color space signature
+                    // to an XL Toolbox ColorSpaceSignature enum value.
+                    // If this fails, cpvm will remain null.
                     c = cmsGetColorSpace(h);
+                    ColorSpace colorSpace = c.ToColorSpace();
                     cpvm = new ColorProfileViewModel(fileName);
-                    cpvm.ColorSpace = c.ToColorSpace();
+                    cpvm.ColorSpace = colorSpace;
+                }
+                catch (NotImplementedException)
+                { 
+                    // NO-OP
                 }
                 finally
                 {
