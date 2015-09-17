@@ -235,11 +235,17 @@ namespace XLToolbox.Csv
             if (!_showExportProgressWasSent)
             {
                 _showExportProgressWasSent = true;
-                ShowExportProgress.Send(ExportProcessMessageContent);
+                if (_csvFile.IsProcessing)
+                {
+                    ShowExportProgress.Send(ExportProcessMessageContent);
+                }
             }
-            _exportProcessMessageContent.PercentCompleted =
-                ((double)_csvFile.CellsProcessed) / _csvFile.CellsTotal;
-            if (!_csvFile.IsProcessing)
+            if (_csvFile.IsProcessing)
+            {
+                ExportProcessMessageContent.PercentCompleted =
+                    ((double)_csvFile.CellsProcessed) / _csvFile.CellsTotal;
+            }
+            else
             {
                 _progressTimer.Dispose();
             }
