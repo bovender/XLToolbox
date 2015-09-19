@@ -100,7 +100,7 @@ namespace XLToolbox.Export
             action.Invoke(e);
         }
 
-        void ChooseFolderMessage_Sent(object sender, MessageArgs<StringMessageContent> e)
+        void ChooseFolderMessage_Sent(object sender, MessageArgs<FileNameMessageContent> e)
         {
             ChooseFolderAction action = new ChooseFolderAction();
             action.Invoke(e);
