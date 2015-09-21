@@ -17,16 +17,10 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Xml;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
-using Bovender.Mvvm.ViewModels;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.WorkbookStorage;
 using XLToolbox.Export.Models;
 
 namespace XLToolbox.Export.ViewModels
@@ -290,13 +284,13 @@ namespace XLToolbox.Export.ViewModels
 
         #region Messages
 
-        public Message<StringMessageContent> ChooseFolderMessage
+        public Message<FileNameMessageContent> ChooseFolderMessage
         {
             get
             {
                 if (_chooseFolderMessage == null)
                 {
-                    _chooseFolderMessage = new Message<StringMessageContent>();
+                    _chooseFolderMessage = new Message<FileNameMessageContent>();
                 }
                 return _chooseFolderMessage;
             }
@@ -354,7 +348,7 @@ namespace XLToolbox.Export.ViewModels
                 path = LoadExportPath();
             }
             ChooseFolderMessage.Send(
-                new StringMessageContent(path),
+                new FileNameMessageContent(path),
                 (content) => ConfirmFolder(content)
             );
         }
@@ -692,7 +686,7 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
-        private void ConfirmFolder(StringMessageContent messageContent)
+        private void ConfirmFolder(FileNameMessageContent messageContent)
         {
             if (messageContent.Confirmed)
             {
@@ -750,7 +744,7 @@ namespace XLToolbox.Export.ViewModels
         private EnumProvider<BatchExportObjects> _objects;
         private EnumProvider<BatchExportLayout> _layout;
         private DelegatingCommand _chooseFolderCommand;
-        private Message<StringMessageContent> _chooseFolderMessage;
+        private Message<FileNameMessageContent> _chooseFolderMessage;
 
         private bool _isActiveSheetEnabled;
         private bool _isActiveWorkbookEnabled;

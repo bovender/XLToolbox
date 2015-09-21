@@ -28,9 +28,49 @@ namespace XLToolbox.Export.Lcms
     /// </summary>
     public enum ColorSpaceSignature
     {
-        SigRgbData = 0x52474220,
-        SigGrayData = 0x47524159,
-        SigCmykData = 0x434D594B,
+        XYZ = 0x58595A20,
+        Lab = 0x4C616220,
+        Luv = 0x4C757620,
+        YCbCr = 0x59436272,
+        Yxy = 0x59787920,
+        Rgb = 0x52474220,
+        Gray = 0x47524159,
+        Hsv = 0x48535620,
+        Hls = 0x484C5320,
+        Cmyk = 0x434D594B,
+        Cmy = 0x434D5920,
+        MCH1 = 0x4D434831,
+        MCH2 = 0x4D434832,
+        MCH3 = 0x4D434833,
+        MCH4 = 0x4D434834,
+        MCH5 = 0x4D434835,
+        MCH6 = 0x4D434836,
+        MCH7 = 0x4D434837,
+        MCH8 = 0x4D434838,
+        MCH9 = 0x4D434839,
+        MCHA = 0x4D43483A,
+        MCHB = 0x4D43483B,
+        MCHC = 0x4D43483C,
+        MCHD = 0x4D43483D,
+        MCHE = 0x4D43483E,
+        MCHF = 0x4D43483F,
+        Named = 0x6e6d636c,
+        // 1color = 0x31434C52,
+        // 2color = 0x32434C52,
+        // 3color = 0x33434C52,
+        // 4color = 0x34434C52,
+        // 5color = 0x35434C52,
+        // 6color = 0x36434C52,
+        // 7color = 0x37434C52,
+        // 8color = 0x38434C52,
+        // 9color = 0x39434C52,
+        // 10color = 0x41434C52,
+        // 11color = 0x42434C52,
+        // 12color = 0x43434C52,
+        // 13color = 0x44434C52,
+        // 14color = 0x45434C52,
+        // 15color = 0x46434C52,
+        LuvK = 0x4C75764B,
     }
 
     public static class cmsColorSpaceSignatureExtension
@@ -46,15 +86,17 @@ namespace XLToolbox.Export.Lcms
         {
             switch (signature)
             {
-                case ColorSpaceSignature.SigCmykData:
+                case ColorSpaceSignature.Cmyk:
                     return ColorSpace.Cmyk;
-                case ColorSpaceSignature.SigGrayData:
+                case ColorSpaceSignature.Gray:
                     return ColorSpace.GrayScale;
-                case ColorSpaceSignature.SigRgbData:
+                case ColorSpaceSignature.Rgb:
                     return ColorSpace.Rgb;
                 default:
-                    throw new InvalidOperationException(
-                        "No conversion defined for " + signature.ToString());
+                    throw new NotImplementedException(
+                        "LCMS signature to color space conversion for " +
+                        signature.ToString().ToUpper() +
+                        " not implemented.");
             }
         }
 
@@ -70,14 +112,16 @@ namespace XLToolbox.Export.Lcms
             switch (colorSpace)
             {
                 case ColorSpace.Cmyk:
-                    return ColorSpaceSignature.SigCmykData;
+                    return ColorSpaceSignature.Cmyk;
                 case ColorSpace.GrayScale:
-                    return ColorSpaceSignature.SigGrayData;
+                    return ColorSpaceSignature.Gray;
                 case ColorSpace.Rgb:
-                    return ColorSpaceSignature.SigRgbData;
+                    return ColorSpaceSignature.Rgb;
                 default:
-                    throw new InvalidOperationException(
-                        "No conversion defined for " + colorSpace.ToString());
+                    throw new NotImplementedException(
+                        "Color space to LCMS signature conversion for " +
+                        colorSpace.ToString().ToUpper() +
+                        " not implemented.");
             }
         }
     }

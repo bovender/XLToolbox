@@ -42,10 +42,10 @@
 						</menu>
 					</splitButton>
 					<splitButton id="SplitButtonSaveCsvRange">
-						<button id="ButtonSaveCsvRange" onAction="Button_OnAction" image="csv-export.png"
+						<button id="ButtonSaveCsvRange" onAction="Button_OnAction" image="csv-export-range.png"
 							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 						<menu id="MenuCsvSaveRange">
-							<button id="ButtonSaveCsvRangeWithParams" onAction="Button_OnAction" image="csv-export-edit.png"
+							<button id="ButtonSaveCsvRangeWithParams" onAction="Button_OnAction" image="csv-export-range-edit.png"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 						</menu>
 					</splitButton>
