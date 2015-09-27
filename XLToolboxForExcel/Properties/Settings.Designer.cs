@@ -117,5 +117,14 @@ namespace XLToolbox.Properties {
                 this["CcUser"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("xltoolbox-dump.txt")]
+        public string DumpFile {
+            get {
+                return ((string)(this["DumpFile"]));
+            }
+        }
     }
 }

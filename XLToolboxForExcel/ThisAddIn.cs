@@ -47,6 +47,9 @@ namespace XLToolbox
 
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
             Bovender.WpfHelpers.RegisterTextBoxSelectAll();
+            Bovender.ExceptionHandler.CentralHandler.DumpFile =
+                System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
+            AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
             // Distract the user :-)
             MaybeCheckForUpdate();
