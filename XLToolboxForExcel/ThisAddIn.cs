@@ -58,9 +58,12 @@ namespace XLToolbox
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            if (Versioning.UpdaterViewModel.Instance.IsUpdatePending)
+            Bovender.Versioning.UpdaterViewModel uvm = Versioning.UpdaterViewModel.Instance;
+            if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {
-                Versioning.UpdaterViewModel.Instance.InjectInto<Versioning.InstallUpdateView>().ShowDialog();
+                // Must show the InstallUpdateView modally, because otherwise Excel would
+                // continue to shut down and immediately remove the view while doing so.
+                uvm.InjectInto<Versioning.InstallUpdateView>().ShowDialog();
             };
         }
 
@@ -91,7 +94,8 @@ namespace XLToolbox
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             if (currentVersion > lastSeenVersion)
             {
-                Workarounds.ShowModelessInExcel<GreeterView>(new GreeterViewModel());
+                GreeterViewModel gvm = new GreeterViewModel();
+                gvm.InjectAndShowInThread<GreeterView>();
                 Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
                 Properties.Settings.Default.Save();
             }
@@ -120,12 +124,16 @@ namespace XLToolbox
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
+                _installUpdateView = new Versioning.InstallUpdateView();
                 UpdaterViewModel updaterVM = Versioning.UpdaterViewModel.Instance;
                 if (updaterVM.CanCheckForUpdate)
                 {
                     updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
                     {
-                        Workarounds.ShowModelessInExcel<XLToolbox.Versioning.UpdateAvailableView>(updaterVM);
+                        // Must show the view in a separate thread in order for it to
+                        // receive keyboard input (otherwise, Excel would grab all keyboard
+                        // events).
+                        updaterVM.InjectAndShowInThread<Versioning.UpdateAvailableView>();
                     };
                     updaterVM.CheckForUpdateCommand.Execute(null);
                 }
@@ -140,6 +148,7 @@ namespace XLToolbox
 
         private Threading.Dispatcher _dispatcher;
         private Ribbon _ribbon;
+        private Versioning.InstallUpdateView _installUpdateView;
 
         #endregion
 

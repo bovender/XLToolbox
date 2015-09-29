@@ -562,7 +562,7 @@ namespace XLToolbox.Export
                 BatchExportProgressChanged(
                     this,
                     new ExportProgressChangedEventArgs(
-                        Convert.ToDouble(_batchFileName.Counter) / _numTotal)
+                        _batchFileName.Counter * 100 / _numTotal)
                 );
             }
         }

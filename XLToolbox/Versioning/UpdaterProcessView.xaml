@@ -36,7 +36,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ViewModel.UpdateAvailableMessage}" EventName="Sent">
             <mvvm:ShowViewAction View="XLToolbox.Versioning.UpdateAvailableView" Assembly="XLToolbox" />
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <!-- <i:InvokeCommandAction Command="{Binding CloseViewCommand}" /> -->
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.NoUpdateAvailableMessage}" EventName="Sent">
             <mvvm:NotificationAction Caption="{x:Static l:Strings.CheckForUpdates}"

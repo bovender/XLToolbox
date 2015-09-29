@@ -20,6 +20,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:mvvm="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         WindowStartupLocation="CenterScreen"
@@ -34,6 +35,8 @@
             <mvvm:ChooseFolderAction Description="{x:Static l:Strings.ChooseWhereToSaveUpdateFile}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ReadyToDownloadMessage}" EventName="Sent">
+            <!-- Close this view directly; calling CloseViewCommand would close other views as well. -->
+            <ei:CallMethodAction MethodName="Close" />
             <i:InvokeCommandAction Command="{Binding DownloadUpdateCommand}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding DownloadUpdateMessage}" EventName="Sent">
