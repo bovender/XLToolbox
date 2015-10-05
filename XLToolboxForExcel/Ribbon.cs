@@ -146,7 +146,7 @@ namespace XLToolbox
 
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
-            this._ribbon = ribbonUI;
+            this._ribbonUi = ribbonUI;
         }
 
         public bool IsDebug(Office.IRibbonControl control)
@@ -181,17 +181,20 @@ namespace XLToolbox
 
         void UpdaterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            _ribbon.InvalidateControl("ButtonCheckForUpdate");
+            if (_ribbonUi != null)
+            {
+                _ribbonUi.InvalidateControl("ButtonCheckForUpdate");
+            }
         }
 
         void Excel_WorkbookEvent(Xl.Workbook Wb)
         {
-            _ribbon.Invalidate();
+            InvalidateRibbonUi();
         }
 
         void _excelApp_SheetSelectionChange(object Sh, Xl.Range Target)
         {
-            _ribbon.Invalidate();
+            InvalidateRibbonUi();
         }
 
         #endregion
@@ -207,10 +210,16 @@ namespace XLToolbox
             set
             {
                 _excelApp = value;
-                _excelApp.WorkbookActivate += Excel_WorkbookEvent;
-                _excelApp.WorkbookDeactivate += Excel_WorkbookEvent;
-                _excelApp.SheetSelectionChange += _excelApp_SheetSelectionChange;
-                _ribbon.Invalidate();
+                if (_excelApp != null)
+                {
+                    _excelApp.WorkbookActivate += Excel_WorkbookEvent;
+                    _excelApp.WorkbookDeactivate += Excel_WorkbookEvent;
+                    _excelApp.SheetSelectionChange += _excelApp_SheetSelectionChange;
+                }
+                if (_ribbonUi != null)
+                {
+                    _ribbonUi.Invalidate();
+                }
             }
         }
 
@@ -243,11 +252,19 @@ namespace XLToolbox
             return null;
         }
 
+        private void InvalidateRibbonUi()
+        {
+            if (_ribbonUi != null)
+            {
+                _ribbonUi.Invalidate();
+            }
+        }
+
         #endregion
 
         #region Fields
 
-        Office.IRibbonUI _ribbon;
+        Office.IRibbonUI _ribbonUi;
         Dictionary<string, Command> _commandDictionary;
         Microsoft.Office.Interop.Excel.Application _excelApp;
 

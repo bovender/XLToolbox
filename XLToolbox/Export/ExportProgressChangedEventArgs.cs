@@ -26,7 +26,7 @@ namespace XLToolbox.Export
     {
         #region Public properties
 
-        public double PercentCompleted { get; set; }
+        public int PercentCompleted { get; set; }
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace XLToolbox.Export
 
         public ExportProgressChangedEventArgs() : base() { }
 
-        public ExportProgressChangedEventArgs(double percentCompleted)
+        public ExportProgressChangedEventArgs(int percentCompleted)
         {
             PercentCompleted = percentCompleted;
         }

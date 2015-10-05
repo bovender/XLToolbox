@@ -110,7 +110,7 @@ namespace XLToolbox
         static void SheetManager()
         {
             WorkbookViewModel wvm = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
-            Workarounds.ShowModelessInExcel<WorkbookView>(wvm);
+            wvm.InjectAndShowInThread<WorkbookView>();
         }
 
         static void ExportSelection()

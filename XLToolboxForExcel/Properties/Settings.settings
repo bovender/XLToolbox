@@ -26,5 +26,8 @@
     <Setting Name="CcUser" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="DumpFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">xltoolbox-dump.txt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

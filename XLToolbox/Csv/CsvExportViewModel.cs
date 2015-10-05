@@ -243,7 +243,7 @@ namespace XLToolbox.Csv
             if (_csvFile.IsProcessing)
             {
                 ExportProcessMessageContent.PercentCompleted =
-                    ((double)_csvFile.CellsProcessed) / _csvFile.CellsTotal;
+                   Convert.ToInt32(_csvFile.CellsProcessed * 100 / _csvFile.CellsTotal);
             }
             else
             {

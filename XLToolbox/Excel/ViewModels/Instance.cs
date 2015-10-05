@@ -434,7 +434,10 @@ namespace XLToolbox.Excel.ViewModels
 
         protected virtual void Dispose(bool mayFreeManagedObjects)
         {
-           Shutdown();
+            if (mayFreeManagedObjects)
+            {
+                Shutdown();
+            }
         }
 
         #endregion

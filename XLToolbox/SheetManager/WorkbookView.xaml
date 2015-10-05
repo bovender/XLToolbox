@@ -26,7 +26,7 @@
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:ba="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
-        Width="400" Height="560"
+        Width="400" Height="370"
         Title="{x:Static l:Strings.WorksheetManager}"
         Topmost="{Binding AlwaysOnTop,Mode=TwoWay}"
         ResizeMode="CanResizeWithGrip"
