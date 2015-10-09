@@ -438,15 +438,17 @@ namespace XLToolbox.WorkbookStorage
             int row = FIRSTROW;
             foreach (ContextItems context in _contexts.Values)
             {
-                foreach (Item item in context.Values)
+                if (context.Values != null)
                 {
-                    item.WriteToSheet(_storeSheet, row);
-                    row++;
+                    foreach (Item item in context.Values)
+                    {
+                        item.WriteToSheet(_storeSheet, row);
+                        row++;
+                    }
                 }
             };
             Dirty = false;
         }
-
 
         #endregion
 
