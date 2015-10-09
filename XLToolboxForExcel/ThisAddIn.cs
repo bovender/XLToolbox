@@ -15,18 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using Bovender.Mvvm;
-using Bovender.Unmanaged;
 using Bovender.Versioning;
 using Ver = XLToolbox.Versioning;
 using System;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
-using XLToolbox.Mvvm.Views;
 using XLToolbox.Greeter;
 using Threading = System.Windows.Threading;
-using Bovender.Mvvm.Actions;
-using Bovender.Mvvm.Messaging;
 
 namespace XLToolboxForExcel
 {
@@ -51,6 +46,9 @@ namespace XLToolboxForExcel
             Bovender.ExceptionHandler.CentralHandler.DumpFile =
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
+
+            // Upgrade properties
+            Properties.Settings.Default.Upgrade();
 
             // Distract the user :-)
             MaybeCheckForUpdate();
