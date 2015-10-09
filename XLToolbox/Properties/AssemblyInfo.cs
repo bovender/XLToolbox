@@ -22,12 +22,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XLToolbox.Core")]
+[assembly: AssemblyTitle("XLToolbox")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel Kraus")]
-[assembly: AssemblyProduct("XLToolbox.Core")]
-[assembly: AssemblyCopyright("Copyright © Daniel Kraus 2014")]
+[assembly: AssemblyProduct("XLToolbox")]
+[assembly: AssemblyCopyright("Copyright © Daniel Kraus 2014-2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
