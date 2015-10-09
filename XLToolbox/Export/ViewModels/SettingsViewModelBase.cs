@@ -219,15 +219,12 @@ namespace XLToolbox.Export.ViewModels
         /// <summary>
         /// Saves the current export path for reuse.
         /// </summary>
-        protected void SaveExportPath()
+        protected virtual void SaveExportPath()
         {
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             using (Store store = new Store(wb))
             {
                 store.Put(Properties.StoreNames.Default.ExportPath, Settings.FileName);
-                Properties.Settings.Default.ExportPath =
-                    Bovender.PathHelpers.GetDirectoryPart(Settings.FileName);
-                Properties.Settings.Default.Save();
             }
         }
 

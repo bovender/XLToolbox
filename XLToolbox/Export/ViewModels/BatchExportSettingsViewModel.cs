@@ -420,6 +420,17 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
+        #region Overrides
+
+        protected override void SaveExportPath()
+        {
+            base.SaveExportPath();
+            Properties.Settings.Default.ExportPath = Path;
+            Properties.Settings.Default.Save();
+        }
+
+        #endregion
+
         #region Private methods
 
         private void UpdateStates()

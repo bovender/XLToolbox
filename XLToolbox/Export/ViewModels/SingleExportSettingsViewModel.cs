@@ -255,9 +255,8 @@ namespace XLToolbox.Export.ViewModels
             {
                 // TODO: Make export asynchronous
                 SelectedPreset.Store();
-                SaveExportPath();
                 Properties.Settings.Default.ExportUnit = Units.AsEnum;
-                Properties.Settings.Default.Save();
+                SaveExportPath();
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();
                 pcm.IsIndeterminate = true;
@@ -274,6 +273,18 @@ namespace XLToolbox.Export.ViewModels
             return (svm.Selection != null) && (SelectedPreset != null) &&
                 (Settings.Preset != null) && (Settings.Preset.Dpi > 0) &&
                 (Width > 0) && (Height > 0);
+        }
+
+        #endregion
+
+        #region Overrides
+
+        protected override void SaveExportPath()
+        {
+            base.SaveExportPath();
+            Properties.Settings.Default.ExportPath =
+                System.IO.Path.GetDirectoryName(FileName);
+            Properties.Settings.Default.Save();
         }
 
         #endregion
@@ -340,6 +351,9 @@ namespace XLToolbox.Export.ViewModels
             if (messageContent.Confirmed)
             {
                 ((SingleExportSettings)Settings).FileName = messageContent.Value;
+                Properties.Settings.Default.ExportPath =
+                    System.IO.Path.GetDirectoryName(messageContent.Value);
+                Properties.Settings.Default.Save();
                 DoExport();
             }
         }
