@@ -211,7 +211,12 @@ namespace XLToolbox.Csv
                             {
                                 if (value is string)
                                 {
-                                    sw.Write(value);
+                                    string s = value as string;
+                                    if (s.Contains(FieldSeparator) || s.Contains("\""))
+                                    {
+                                        s = "\"" + s.Replace("\"", "\"\"") + "\"";
+                                    }
+                                    sw.Write(s);
                                 }
                                 else
                                 {
