@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XLToolbox {
+namespace XLToolboxForExcel {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace XLToolbox {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("XLToolbox.RibbonStrings", typeof(RibbonStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("XLToolboxForExcel.RibbonStrings", typeof(RibbonStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -31,7 +31,7 @@ namespace XLToolbox.WorkbookStorage
     /// namespace. Empty context constitutes a global namespace.
     /// Uses a cache that is automatically written to the worksheet when finalizing.
     /// </summary>
-    public class Store : Object, IDisposable
+    public class Store : IDisposable
     {
         #region Public properties
 
@@ -184,18 +184,17 @@ namespace XLToolbox.WorkbookStorage
         /// <exception cref="NoExcelInstanceException">If no Excel
         /// instance is running (see <see cref="ExcelInstance"/>).</exception>
         public Store()
-        {
-            Initialize();
-            Workbook = Instance.Default.ActiveWorkbook;
-        }
+            : this(Instance.Default.ActiveWorkbook)
+        { }
 
         /// <summary>
         /// Instantiates the class and associates it with a workbook.
         /// </summary>
         /// <param name="workbook">Workbook object to associate the storage with.</param>
-        public Store(Workbook workbook) : this()
+        public Store(Workbook workbook) : base()
         {
-            Initialize();
+            _context = "";
+            _contexts = new Dictionary<string, ContextItems>();
             this.Workbook = workbook;
         }
 
@@ -366,12 +365,6 @@ namespace XLToolbox.WorkbookStorage
 
         #region Protected methods
 
-        protected void Initialize()
-        {
-            _context = "";
-            _contexts = new Dictionary<string, ContextItems>();
-        }
-
         /// <summary>
         /// Central method to put objects into the store.
         /// </summary>
@@ -445,15 +438,17 @@ namespace XLToolbox.WorkbookStorage
             int row = FIRSTROW;
             foreach (ContextItems context in _contexts.Values)
             {
-                foreach (Item item in context.Values)
+                if (context.Values != null)
                 {
-                    item.WriteToSheet(_storeSheet, row);
-                    row++;
+                    foreach (Item item in context.Values)
+                    {
+                        item.WriteToSheet(_storeSheet, row);
+                        row++;
+                    }
                 }
             };
             Dirty = false;
         }
-
 
         #endregion
 

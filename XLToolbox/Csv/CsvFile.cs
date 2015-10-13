@@ -16,22 +16,19 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Globalization;
 using XLToolbox.Excel;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace XLToolbox.Csv
 {
     /// <summary>
     /// Provides import/export settings and methods for CSV files.
     /// </summary>
-    [Serializable]
-    public class CsvFile : Object
+    public class CsvFile
     {
         #region Factory
 
@@ -106,17 +103,20 @@ namespace XLToolbox.Csv
         /// <summary>
         /// Gets whether the exporter is currently processing.
         /// </summary>
+        [XmlIgnore]
         public bool IsProcessing { get; private set; }
 
         /// <summary>
         /// Gets the number of cells that were already processed
         /// during export.
         /// </summary>
+        [XmlIgnore]
         public long CellsProcessed { get; private set; }
 
         /// <summary>
         /// Gets the total number of cells to export.
         /// </summary>
+        [XmlIgnore]
         public long CellsTotal { get; private set; }
 
         #endregion
@@ -211,7 +211,12 @@ namespace XLToolbox.Csv
                             {
                                 if (value is string)
                                 {
-                                    sw.Write(value);
+                                    string s = value as string;
+                                    if (s.Contains(FieldSeparator) || s.Contains("\""))
+                                    {
+                                        s = "\"" + s.Replace("\"", "\"\"") + "\"";
+                                    }
+                                    sw.Write(s);
                                 }
                                 else
                                 {

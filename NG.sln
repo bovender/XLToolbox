@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox", "XLToolbox\XLTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolboxForExcel", "XLToolboxForExcel\XLToolboxForExcel.csproj", "{DCB6FFEF-2544-4E1E-8762-F28B89523CF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLToolbox.UnitTests", "UnitTests\XLToolbox.UnitTests.csproj", "{33E4E826-A540-4249-B9FC-04197590FBC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{33E4E826-A540-4249-B9FC-04197590FBC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

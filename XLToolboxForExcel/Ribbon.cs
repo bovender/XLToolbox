@@ -45,7 +45,9 @@ using Xl = Microsoft.Office.Interop.Excel;
 
 // For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
 
-namespace XLToolbox
+using XLToolbox;
+
+namespace XLToolboxForExcel
 {
     [ComVisible(true)]
     public class Ribbon : Office.IRibbonExtensibility
@@ -75,7 +77,7 @@ namespace XLToolbox
                 { "ButtonSaveCsvRangeWithParams", Command.SaveCsvWithParams },
             };
 
-            Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
+            XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
         }
 
         #endregion
@@ -84,7 +86,7 @@ namespace XLToolbox
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("XLToolbox.Ribbon.xml");
+            return GetResourceText("XLToolboxForExcel.Ribbon.xml");
         }
 
         #endregion
@@ -160,7 +162,7 @@ namespace XLToolbox
 
         public bool ButtonCheckForUpdate_GetEnabled(Office.IRibbonControl control)
         {
-            return (Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
+            return (XLToolbox.Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
         }
 
         public bool HasWorkbook(Office.IRibbonControl control)
@@ -265,7 +267,7 @@ namespace XLToolbox
         #region Fields
 
         Office.IRibbonUI _ribbonUi;
-        Dictionary<string, Command> _commandDictionary;
+        Dictionary<string, XLToolbox.Command> _commandDictionary;
         Microsoft.Office.Interop.Excel.Application _excelApp;
 
         #endregion

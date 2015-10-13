@@ -15,19 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using Bovender.Mvvm;
-using Bovender.Unmanaged;
 using Bovender.Versioning;
+using Ver = XLToolbox.Versioning;
 using System;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
-using XLToolbox.Mvvm.Views;
 using XLToolbox.Greeter;
 using Threading = System.Windows.Threading;
-using Bovender.Mvvm.Actions;
-using Bovender.Mvvm.Messaging;
 
-namespace XLToolbox
+namespace XLToolboxForExcel
 {
     public partial class ThisAddIn : IDisposable
     {
@@ -51,6 +47,9 @@ namespace XLToolbox
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
+            // Upgrade properties
+            Properties.Settings.Default.Upgrade();
+
             // Distract the user :-)
             MaybeCheckForUpdate();
             GreetUser();
@@ -58,12 +57,12 @@ namespace XLToolbox
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            Bovender.Versioning.UpdaterViewModel uvm = Versioning.UpdaterViewModel.Instance;
+            Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {
                 // Must show the InstallUpdateView modally, because otherwise Excel would
                 // continue to shut down and immediately remove the view while doing so.
-                uvm.InjectInto<Versioning.InstallUpdateView>().ShowDialog();
+                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
             };
         }
 
@@ -124,8 +123,8 @@ namespace XLToolbox
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
             {
-                _installUpdateView = new Versioning.InstallUpdateView();
-                UpdaterViewModel updaterVM = Versioning.UpdaterViewModel.Instance;
+                _installUpdateView = new Ver.InstallUpdateView();
+                UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
                 if (updaterVM.CanCheckForUpdate)
                 {
                     updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
@@ -133,7 +132,7 @@ namespace XLToolbox
                         // Must show the view in a separate thread in order for it to
                         // receive keyboard input (otherwise, Excel would grab all keyboard
                         // events).
-                        updaterVM.InjectAndShowInThread<Versioning.UpdateAvailableView>();
+                        updaterVM.InjectAndShowInThread<Ver.UpdateAvailableView>();
                     };
                     updaterVM.CheckForUpdateCommand.Execute(null);
                 }
@@ -148,7 +147,7 @@ namespace XLToolbox
 
         private Threading.Dispatcher _dispatcher;
         private Ribbon _ribbon;
-        private Versioning.InstallUpdateView _installUpdateView;
+        private XLToolbox.Versioning.InstallUpdateView _installUpdateView;
 
         #endregion
 
