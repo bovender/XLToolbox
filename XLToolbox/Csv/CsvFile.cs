@@ -194,42 +194,45 @@ namespace XLToolbox.Csv
 
                     // Get all values in an array
                     object[,] values = range.Value2;
-                    for (long row = 1; row <= values.GetLength(0); row++)
+                    if (values != null)
                     {
-                        for (long col = 1; col <= values.GetLength(1); col++)
+                        for (long row = 1; row <= values.GetLength(0); row++)
                         {
-                            CellsProcessed++;
-
-                            // If this is not the first field in the line, write a field separator.
-                            if (col > 1)
+                            for (long col = 1; col <= values.GetLength(1); col++)
                             {
-                                sw.Write(FieldSeparator);
-                            }
+                                CellsProcessed++;
 
-                            object value = values[row, col];
-                            if (value != null)
-                            {
-                                if (value is string)
+                                // If this is not the first field in the line, write a field separator.
+                                if (col > 1)
                                 {
-                                    string s = value as string;
-                                    if (s.Contains(FieldSeparator) || s.Contains("\""))
+                                    sw.Write(FieldSeparator);
+                                }
+
+                                object value = values[row, col];
+                                if (value != null)
+                                {
+                                    if (value is string)
                                     {
-                                        s = "\"" + s.Replace("\"", "\"\"") + "\"";
+                                        string s = value as string;
+                                        if (s.Contains(FieldSeparator) || s.Contains("\""))
+                                        {
+                                            s = "\"" + s.Replace("\"", "\"\"") + "\"";
+                                        }
+                                        sw.Write(s);
                                     }
-                                    sw.Write(s);
+                                    else
+                                    {
+                                        double d = (double)value;
+                                        sw.Write(d.ToString(NumberFormatInfo));
+                                    }
                                 }
-                                else
-                                {
-                                    double d = (double)value;
-                                    sw.Write(d.ToString(NumberFormatInfo));
-                                }
+                                if (_cancelExport) break;
                             }
-                            if (_cancelExport) break;
-                        }
-                        sw.WriteLine();
-                        if (_cancelExport)
-                        {
-                            sw.WriteLine("*** UNFINISHED EXPORT ***");
+                            sw.WriteLine();
+                            if (_cancelExport)
+                            {
+                                sw.WriteLine("*** UNFINISHED EXPORT ***");
+                            }
                         }
                     }
                     sw.Close();
