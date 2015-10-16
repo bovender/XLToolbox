@@ -222,7 +222,7 @@ namespace XLToolbox.Csv
 
         void CsvFile_ExportProgressCompleted(object sender, EventArgs e)
         {
-            _exportProcessMessageContent.CompletedMessage.Send();
+            ExportProcessMessageContent.CompletedMessage.Send();
         }
 
         void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)

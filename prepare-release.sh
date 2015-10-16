@@ -65,7 +65,7 @@ cat VERSION
 
 # Update MS version numbers in AssemblyInfo files
 find . -maxdepth 3 -name 'AssemblyInfo.cs' -execdir \
-        sed -i -r -e 's/(^\[assembly: Assembly(File)?Version\()[^)]+(.*)$/\1'$MSVERSION'\3/' \{} \;
+        sed -i -r -e 's/(^\[assembly: Assembly(File)?Version\(")[^"]+(.*)$/\1'$MSVERSION'\3/' \{} \;
 
 echo "Finished."
 echo "Examine the changed files, then commit them on this branch."

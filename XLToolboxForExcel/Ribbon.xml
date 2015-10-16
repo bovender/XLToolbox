@@ -94,6 +94,7 @@
                 <group id="GroupDebug" label="Debug" getVisible="IsDebug">
                     <button id="ButtonTestError" onAction="Button_OnAction" label="Test error" image="error.png" size="large" />
                 </group>
+				<group idMso="GroupAddins" />
             </tab>
         </tabs>
     </ribbon>
