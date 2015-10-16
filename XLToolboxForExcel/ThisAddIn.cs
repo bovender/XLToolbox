@@ -15,13 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+using System;
+using Threading = System.Windows.Threading;
+using System.Configuration;
 using Bovender.Versioning;
 using Ver = XLToolbox.Versioning;
-using System;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
-using Threading = System.Windows.Threading;
 
 namespace XLToolboxForExcel
 {
@@ -31,6 +32,8 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            PrepareConfig();
+
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
@@ -46,9 +49,6 @@ namespace XLToolboxForExcel
             Bovender.ExceptionHandler.CentralHandler.DumpFile =
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
-
-            // Upgrade properties
-            Properties.Settings.Default.Upgrade();
 
             // Distract the user :-)
             MaybeCheckForUpdate();
@@ -138,6 +138,32 @@ namespace XLToolboxForExcel
                 }
                 Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        /// <summary>
+        /// Prepares the user.config file by upgrading it and performing
+        /// tweaks as necessary.
+        /// </summary>
+        private void PrepareConfig()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(
+                ConfigurationUserLevel.PerUserRoamingAndLocal);
+
+            // If the user.config file mentions XLToolbox.Properties.Settings but
+            // does *not* contain a section declaration
+            // for XLToolbox.Properties.Settings, it has the old format (prior
+            // to version 7.0.0-alpha.16). In this case, we must delete it because
+            // there is no way to persuade the ConfigurationManager to work with
+            // the old file at all.
+            if (System.IO.File.Exists(config.FilePath))
+            {
+                string s = System.IO.File.ReadAllText(config.FilePath);
+                if (s.Contains("XLToolbox.Properties.Settings") && !s.Contains("section name=\"XLToolbox.Properties.Settings"))
+                {
+                    System.IO.File.Delete(config.FilePath);
+                }
+                Properties.Settings.Default.Upgrade();
             }
         }
 
