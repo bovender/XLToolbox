@@ -26,8 +26,8 @@
         xmlns:vs="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
-        Title="{x:Static l:Strings.AboutXLToolbox}"
-        vs:WindowState.Save="True" vs:WindowState.CenterScreen="True"
+        Title="{x:Static l:Strings.AboutXLToolbox}" WindowStyle="None"
+        vs:WindowState.CenterScreen="True"
         >
     <Window.Resources>
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
