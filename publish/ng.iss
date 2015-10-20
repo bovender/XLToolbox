@@ -210,6 +210,28 @@ var
 	prerequisitesChecked: boolean;
 	prerequisitesMet: boolean;
 
+  
+/// Returns true if running on a zero client. The algorithm has only been
+/// tested for VMware Horizon/Teradici clients.
+function IsZeroClient(): boolean;
+var
+  protocol: string;
+begin
+  if RegQueryStringValue(HKEY_CURRENT_USER, 'Volatile Environment',
+    'ViewClient_Protocol', protocol) then
+  begin
+    result := Uppercase(protocol) = 'PCOIP';
+  end;
+end;
+
+/// Returns true if the target directory chooser should be shown or
+/// not: This is the case if running on a zero client, or if the
+/// current user is an administrator.
+function ShouldShowDirPage(): boolean;
+begin
+  result := IsAdminLoggedOn or IsZeroClient;
+end;
+  
 /// Returns the path for the Wow6432Node registry tree if the current operating
 /// system is 64-bit, i.e., simulates WOW64 redirection.
 function GetWowNode(): string;
@@ -743,7 +765,7 @@ begin
 	begin
 		// Do not show the pages to select the target directory, and the ready 
 		// page if the user is not an admin.
-		result := not IsAdminLoggedOn;
+		result := not ShouldShowDirPage;
 	end
 end;
 
@@ -765,7 +787,14 @@ begin
 	end
 	else
 	begin
-		dir := ExpandConstant('{userappdata}');
+    if IsZeroClient then
+    begin
+      dir := ExpandConstant('{localappdata}')
+    end
+    else
+    begin
+      dir := ExpandConstant('{userappdata}')
+    end
 	end;
 	result := AddBackslash(dir) + 'Daniel''s XL Toolbox';
 end;
