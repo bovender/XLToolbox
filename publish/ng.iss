@@ -62,8 +62,8 @@ VersionInfoProductVersion={#VER}
 VersionInfoTextVersion={#SEMVER}
 VersionInfoProductTextVersion={#SEMVER}
 AppContact={#DEV}
-AppPublisherURL=http://xltoolbox.sf.net
-AppSupportURL=http://xltoolbox.sf.net/support.html
+AppPublisherURL=http://www.xltoolbox.net
+AppSupportURL=http://www.xltoolbox.net/support.html
 AppUpdatesURL=http://sf.net/projects/xltoolbox/files/latest
 
 ; Setup wizard
