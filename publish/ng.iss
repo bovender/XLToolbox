@@ -789,7 +789,7 @@ begin
 	begin
     if IsZeroClient then
     begin
-      dir := ExpandConstant('{localappdata}')
+      dir := ExpandConstant('{userdocs}')
     end
     else
     begin
