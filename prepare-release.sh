@@ -18,7 +18,7 @@ echo "Current git branch: $BRANCH"
 # Extract the new version string from the branch name,
 # or take the first argument as version string if the
 # current branch is not a release branch.
-if [ "$BRANCH" != release-* ]; then
+if [[ "$BRANCH" != release-* ]]; then
         if [ $# -eq 0 ]; then
                 echo "Please create a release branch named 'release-[SEMANTIC VERSION]',"
                 echo "or call this script with an argument to indicate the new SEMANTIC VERSION."
