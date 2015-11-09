@@ -110,6 +110,7 @@ Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
+ValueName: EnableVSTOLocalUNC; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: SOFTWARE\Microsoft\Vsto Runtime Setup\v4
 ; Keys for single-user install (HKCU)
 Check: not IsMultiUserInstall; ValueName: Description; ValueData: {#SLOGAN}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
