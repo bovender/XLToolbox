@@ -358,6 +358,16 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CSV export failed:
+        ///{0}.
+        /// </summary>
+        public static string CsvExportFailed {
+            get {
+                return ResourceManager.GetString("CsvExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CSV Settings.
         /// </summary>
         public static string CsvSettings {

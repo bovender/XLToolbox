@@ -227,7 +227,10 @@ namespace XLToolbox.Csv
 
         void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
         {
-            ExportFailedMessage.Send(new StringMessageContent(e.GetException().Message));
+            ExportFailedMessage.Send(
+                new StringMessageContent(
+                    String.Format(Strings.CsvExportFailed,
+                    e.GetException().Message)));
         }
 
         void UpdateProgress(object state)

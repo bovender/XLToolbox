@@ -620,4 +620,8 @@ You may want to try again.</value>
   <data name="BovenderFramework" xml:space="preserve">
     <value>Bovender framework</value>
   </data>
+  <data name="CsvExportFailed" xml:space="preserve">
+    <value>CSV export failed:
+{0}</value>
+  </data>
 </root>
