@@ -206,8 +206,11 @@ namespace XLToolbox.Csv
 
         private void DoExport()
         {
-            WorkbookStorage.Store store = new WorkbookStorage.Store();
-            store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+            using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+            {
+                store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+
+            };
             _progressTimer = new Timer(UpdateProgress, null, 1000, 300);
             if (Range != null)
             {
@@ -227,7 +230,10 @@ namespace XLToolbox.Csv
 
         void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
         {
-            ExportFailedMessage.Send(new StringMessageContent(e.GetException().Message));
+            ExportFailedMessage.Send(
+                new StringMessageContent(
+                    String.Format(Strings.CsvExportFailed,
+                    e.GetException().Message)));
         }
 
         void UpdateProgress(object state)
@@ -243,7 +249,7 @@ namespace XLToolbox.Csv
             if (_csvFile.IsProcessing)
             {
                 ExportProcessMessageContent.PercentCompleted =
-                   Convert.ToInt32(_csvFile.CellsProcessed * 100 / _csvFile.CellsTotal);
+                   Convert.ToInt32(100d * _csvFile.CellsProcessed / _csvFile.CellsTotal);
             }
             else
             {

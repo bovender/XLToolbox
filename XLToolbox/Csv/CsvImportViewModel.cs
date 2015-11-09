@@ -171,8 +171,10 @@ namespace XLToolbox.Csv
 
         private void DoImport()
         {
-            WorkbookStorage.Store store = new WorkbookStorage.Store();
-            store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+            using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+            {
+                store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+            }
             _csvFile.Import();
             CloseViewCommand.Execute(null);
         }

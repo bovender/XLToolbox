@@ -183,11 +183,12 @@ namespace XLToolbox.Csv
             IsProcessing = true;
             Task t = new Task(() =>
             {
+                StreamWriter sw = null;
                 try
                 {
                     // StreamWriter buffers the output; using a StringBuilder
                     // doesn't speed up things (tried it)
-                    StreamWriter sw = File.CreateText(FileName);
+                    sw = File.CreateText(FileName);
                     CellsTotal = range.CellsCount();
                     CellsProcessed = 0;
                     _cancelExport = false;
@@ -222,7 +223,7 @@ namespace XLToolbox.Csv
                                     }
                                     else
                                     {
-                                        double d = (double)value;
+                                        double d = Convert.ToDouble(value);
                                         sw.Write(d.ToString(NumberFormatInfo));
                                     }
                                 }
@@ -231,7 +232,8 @@ namespace XLToolbox.Csv
                             sw.WriteLine();
                             if (_cancelExport)
                             {
-                                sw.WriteLine("*** UNFINISHED EXPORT ***");
+                                sw.WriteLine(UNFINISHED_EXPORT);
+                                sw.WriteLine("Cancelled by user.");
                             }
                         }
                     }
@@ -240,7 +242,19 @@ namespace XLToolbox.Csv
                 }
                 catch (IOException e)
                 {
+                    IsProcessing = false;
                     OnExportFailed(e);
+                }
+                catch (Exception e1)
+                {
+                    IsProcessing = false;
+                    if (sw != null)
+                    {
+                        sw.WriteLine(UNFINISHED_EXPORT);
+                        sw.WriteLine(e1.ToString());
+                        sw.Close();
+                    }
+                    OnExportFailed(e1);
                 }
                 finally
                 {
@@ -301,6 +315,7 @@ namespace XLToolbox.Csv
                 handler(this, new ErrorEventArgs(e));
             }
         }
+
         #endregion
 
         #region Fields
@@ -308,6 +323,11 @@ namespace XLToolbox.Csv
         NumberFormatInfo _numberFormatInfo;
         bool _cancelExport;
 
+        #endregion
+
+        #region Private constant
+
+        const string UNFINISHED_EXPORT = "*** UNFINISHED EXPORT ***";
         #endregion
     }
 }
