@@ -91,8 +91,10 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExportSelection() && messageContent.Confirmed)
             {
-                WorkbookStorage.Store store = new WorkbookStorage.Store();
-                store.Put(Properties.StoreNames.Default.ExportPath, messageContent.Value);
+                using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+                {
+                    store.Put(Properties.StoreNames.Default.ExportPath, messageContent.Value);
+                }
                 Properties.Settings.Default.ExportPath =
                     Bovender.PathHelpers.GetDirectoryPart(messageContent.Value);
                 ScreenshotExporter exporter = new ScreenshotExporter();

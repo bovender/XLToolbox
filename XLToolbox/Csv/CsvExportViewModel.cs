@@ -206,8 +206,11 @@ namespace XLToolbox.Csv
 
         private void DoExport()
         {
-            WorkbookStorage.Store store = new WorkbookStorage.Store();
-            store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+            using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+            {
+                store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+
+            };
             _progressTimer = new Timer(UpdateProgress, null, 1000, 300);
             if (Range != null)
             {

@@ -107,10 +107,12 @@ namespace XLToolbox.Export.Models
         public void Store(Workbook workbookContext)
         {
             Store();
-            Store store = new Store(workbookContext);
-            store.Put<BatchExportSettings>(
-                typeof(BatchExportSettings).ToString(),
-                this);
+            using (Store store = new Store(workbookContext))
+            {
+                store.Put<BatchExportSettings>(
+                    typeof(BatchExportSettings).ToString(),
+                    this);
+            }
         }
 
         #endregion
