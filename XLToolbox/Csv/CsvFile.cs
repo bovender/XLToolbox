@@ -222,7 +222,7 @@ namespace XLToolbox.Csv
                                     }
                                     else
                                     {
-                                        double d = (double)value;
+                                        double d = Convert.ToDouble(value);
                                         sw.Write(d.ToString(NumberFormatInfo));
                                     }
                                 }
