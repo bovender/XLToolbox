@@ -691,6 +691,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hint: Use \t to separate fields by tabs..
+        /// </summary>
+        public static string HintUseBackslashT {
+            get {
+                return ResourceManager.GetString("HintUseBackslashT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to How do you want to quit?.
         /// </summary>
         public static string HowDoYouWantToQuit {

@@ -26,7 +26,7 @@
     Title="{x:Static l:Strings.CsvSettings}"
     WindowStartupLocation="CenterScreen" x:Name="win"
     ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
-    MinWidth="240" MinHeight="200" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
+    MinWidth="240" MinHeight="240" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
     bov:WindowState.CenterScreen="True" bov:WindowState.Save="True"
     FocusManager.FocusedElement="{Binding ElementName=FieldSeparator}"
     >
@@ -70,6 +70,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <!-- Need to explicitly reference TextBox style; otherwise, first text box
             would not be styled (don't know why, WPF bug?) -->
@@ -79,16 +80,17 @@
             <TextBox Grid.Column="1" Grid.Row="0" x:Name="FieldSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding FieldSeparator}" TextAlignment="Center" />
-            <Label Grid.Column="0" Grid.Row="1" Margin="0 0 0 5"
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{x:Static l:Strings.HintUseBackslashT}" />
+            <Label Grid.Column="0" Grid.Row="2" Margin="0 0 0 5"
                    Target="{Binding ElementName=DecimalSeparator}"
                    Content="{x:Static l:Strings.DecimalSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="DecimalSeparator" 
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="DecimalSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding DecimalSeparator}" TextAlignment="Center" />
-            <Label Grid.Column="0" Grid.Row="2" Margin="0 0 0 5"
+            <Label Grid.Column="0" Grid.Row="3" Margin="0 0 0 5"
                    Target="{Binding ElementName=ThousandsSeparator}"
                    Content="{x:Static l:Strings.ThousandsSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="ThousandsSeparator" 
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="ThousandsSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding ThousandsSeparator}" TextAlignment="Center" />
         </Grid>

@@ -624,4 +624,7 @@ You may want to try again.</value>
     <value>CSV export failed:
 {0}</value>
   </data>
+  <data name="HintUseBackslashT" xml:space="preserve">
+    <value>Hint: Use \t to separate fields by tabs.</value>
+  </data>
 </root>
