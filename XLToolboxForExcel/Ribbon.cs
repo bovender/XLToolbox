@@ -74,7 +74,7 @@ namespace XLToolboxForExcel
                 { "ButtonSaveCsv", Command.SaveCsv },
                 { "ButtonSaveCsvWithParams", Command.SaveCsvWithParams },
                 { "ButtonSaveCsvRange", Command.SaveCsvRange },
-                { "ButtonSaveCsvRangeWithParams", Command.SaveCsvWithParams },
+                { "ButtonSaveCsvRangeWithParams", Command.SaveCsvRangeWithParams},
             };
 
             XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
