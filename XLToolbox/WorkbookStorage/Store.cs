@@ -242,7 +242,7 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
-                int i = (int)GetDynamicValue(key);
+                int i = Convert.ToInt32(GetDynamicValue(key));
                 if (i < min)
                 {
                     i = min;
@@ -263,7 +263,7 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
-                return (string)GetDynamicValue(key);
+                return Convert.ToString(GetDynamicValue(key));
             }
             else
             {
@@ -275,7 +275,7 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
-                return (bool)GetDynamicValue(key);
+                return Convert.ToBoolean(GetDynamicValue(key));
             }
             else
             {

@@ -29,5 +29,8 @@
     <Setting Name="DumpFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">xltoolbox-dump.txt</Value>
     </Setting>
+    <Setting Name="NeedUpgrade" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

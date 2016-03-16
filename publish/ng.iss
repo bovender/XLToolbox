@@ -1,5 +1,5 @@
 ; Inno Setup script for Daniel's XL Toolbox
-; (c) 2008-2015 Daniel Kraus
+; (c) 2008-2016 Daniel Kraus
 ; Apache License Version 2.0
 
 [Setup]
@@ -11,7 +11,7 @@
 #define VER FileRead(FILE_HANDLE)
 #expr FileClose(FILE_HANDLE)
 
-#define YEAR "2015"
+#define YEAR "2016"
 #define DEV "Daniel Kraus"
 #define LOGFILE "INST-LOG.TXT"
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox NG"
@@ -110,7 +110,8 @@ Source: "setup-files\xltoolbox.ico"; DestDir: "{#UNINSTALLDIR}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
-ValueName: EnableVSTOLocalUNC; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: SOFTWARE\Microsoft\Vsto Runtime Setup\v4
+ValueName: EnableVSTOLocalUNC; ValueData: 1; ValueType: dword; Root: HKLM; Subkey: SOFTWARE\Microsoft\Vsto Runtime Setup\v4; Flags: noerror
+
 ; Keys for single-user install (HKCU)
 Check: not IsMultiUserInstall; ValueName: Description; ValueData: {#SLOGAN}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey
 Check: not IsMultiUserInstall; ValueName: FriendlyName; ValueData: {#APPNAME}; ValueType: string; Root: HKCU; Subkey: {#REGKEY}; Flags: uninsdeletekey

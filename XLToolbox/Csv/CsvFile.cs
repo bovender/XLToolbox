@@ -192,6 +192,9 @@ namespace XLToolbox.Csv
                     CellsTotal = range.CellsCount();
                     CellsProcessed = 0;
                     _cancelExport = false;
+                    string fs = FieldSeparator;
+                    if (fs == "\\t") { fs = "\t"; } // Convert "\t" to tab characters
+
 
                     // Get all values in an array
                     object[,] values = range.Value2;
@@ -206,7 +209,7 @@ namespace XLToolbox.Csv
                                 // If this is not the first field in the line, write a field separator.
                                 if (col > 1)
                                 {
-                                    sw.Write(FieldSeparator);
+                                    sw.Write(fs);
                                 }
 
                                 object value = values[row, col];
@@ -215,7 +218,7 @@ namespace XLToolbox.Csv
                                     if (value is string)
                                     {
                                         string s = value as string;
-                                        if (s.Contains(FieldSeparator) || s.Contains("\""))
+                                        if (s.Contains(fs) || s.Contains("\""))
                                         {
                                             s = "\"" + s.Replace("\"", "\"\"") + "\"";
                                         }

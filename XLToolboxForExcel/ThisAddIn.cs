@@ -163,7 +163,13 @@ namespace XLToolboxForExcel
                 {
                     System.IO.File.Delete(config.FilePath);
                 }
-                Properties.Settings.Default.Upgrade();
+
+                if (Properties.Settings.Default.NeedUpgrade)
+                {
+                    Properties.Settings.Default.Upgrade();
+                    Properties.Settings.Default.NeedUpgrade = false;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
 

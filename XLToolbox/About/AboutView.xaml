@@ -27,7 +27,7 @@
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.AboutXLToolbox}" WindowStyle="None"
-        vs:WindowState.CenterScreen="True"
+        vs:WindowState.CenterScreen="True" Background="WhiteSmoke"
         >
     <Window.Resources>
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
@@ -63,7 +63,7 @@
                     NG – Next Generation
                 </TextBlock>
                 <TextBlock TextAlignment="Center" Text="{Binding Version}" />
-                <TextBlock TextAlignment="Center">© Copyright Daniel Kraus 2014-2015</TextBlock>
+                <TextBlock TextAlignment="Center">© Copyright Daniel Kraus 2014-2016</TextBlock>
                 <TextBlock TextAlignment="Center">.NET &amp; VSTO © Copyright Microsoft Corp.</TextBlock>
                 <TextBlock TextAlignment="Center">FreeImage © Copyright Hervé Drolon &amp; others</TextBlock>
                 <TextBlock TextAlignment="Center">LittleCMS © Copyright Marti Maria Saguer</TextBlock>
