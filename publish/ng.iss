@@ -1,5 +1,5 @@
 ; Inno Setup script for Daniel's XL Toolbox
-; (c) 2008-2015 Daniel Kraus
+; (c) 2008-2016 Daniel Kraus
 ; Apache License Version 2.0
 
 [Setup]
@@ -11,7 +11,7 @@
 #define VER FileRead(FILE_HANDLE)
 #expr FileClose(FILE_HANDLE)
 
-#define YEAR "2015"
+#define YEAR "2016"
 #define DEV "Daniel Kraus"
 #define LOGFILE "INST-LOG.TXT"
 #define REGKEY "Software\Microsoft\Office\Excel\Addins\XL Toolbox NG"
