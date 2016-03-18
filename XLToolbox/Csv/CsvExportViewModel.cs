@@ -188,9 +188,9 @@ namespace XLToolbox.Csv
         private void DoChooseFileName()
         {
             WorkbookStorage.Store store = new WorkbookStorage.Store();
+            string defaultPath = Excel.ViewModels.Instance.Default.ActivePath;
             ChooseExportFileNameMessage.Send(
-                new FileNameMessageContent(
-                    store.Get("csv_path", Excel.ViewModels.Instance.Default.ActiveWorkbook.Path),
+                new FileNameMessageContent(store.Get("csv_path", defaultPath),
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
                 ConfirmChooseFileName);
         }
