@@ -239,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Legacy\xltb-legacy-addin.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
