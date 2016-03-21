@@ -160,6 +160,7 @@
     <Compile Include="Export\ViewModels\PresetViewModel.cs" />
     <Compile Include="Export\Models\FileType.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
@@ -239,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Legacy\xltb-legacy-addin.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

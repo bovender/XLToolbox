@@ -61,7 +61,7 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About this add-in.
+        ///   Looks up a localized string similar to About.
         /// </summary>
         internal static string ButtonAboutLabel {
             get {
@@ -79,7 +79,133 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for update.
+        ///   Looks up a localized string similar to Add Series.
+        /// </summary>
+        internal static string ButtonAddSeriesLabel {
+            get {
+                return ResourceManager.GetString("ButtonAddSeriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add several data series to the chart..
+        /// </summary>
+        internal static string ButtonAddSeriesSupertip {
+            get {
+                return ResourceManager.GetString("ButtonAddSeriesSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allocate.
+        /// </summary>
+        internal static string ButtonAllocateLabel {
+            get {
+                return ResourceManager.GetString("ButtonAllocateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allocate subjects to treatment groups with stratified characteristics, optionally with randomization..
+        /// </summary>
+        internal static string ButtonAllocateSupertip {
+            get {
+                return ResourceManager.GetString("ButtonAllocateSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annotate.
+        /// </summary>
+        internal static string ButtonAnnotateLabel {
+            get {
+                return ResourceManager.GetString("ButtonAnnotateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annotate the currently selected chart..
+        /// </summary>
+        internal static string ButtonAnnotateSupertip {
+            get {
+                return ResourceManager.GetString("ButtonAnnotateSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1-Way ANOVA.
+        /// </summary>
+        internal static string ButtonAnova1WayLabel {
+            get {
+                return ResourceManager.GetString("ButtonAnova1WayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform a 1-way analysis of variance (ANOVA) with posthoc tests..
+        /// </summary>
+        internal static string ButtonAnova1WaySupertip {
+            get {
+                return ResourceManager.GetString("ButtonAnova1WaySupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2-Way ANOVA.
+        /// </summary>
+        internal static string ButtonAnova2WayLabel {
+            get {
+                return ResourceManager.GetString("ButtonAnova2WayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis..
+        /// </summary>
+        internal static string ButtonAnova2WaySupertip {
+            get {
+                return ResourceManager.GetString("ButtonAnova2WaySupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Error Bars.
+        /// </summary>
+        internal static string ButtonAutomaticErrorBarsLabel {
+            get {
+                return ResourceManager.GetString("ButtonAutomaticErrorBarsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically set error bars on the currently selected chart..
+        /// </summary>
+        internal static string ButtonAutomaticErrorBarsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonAutomaticErrorBarsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chart Design.
+        /// </summary>
+        internal static string ButtonChartDesignLabel {
+            get {
+                return ResourceManager.GetString("ButtonChartDesignLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply simple, publication-ready designs to a chart..
+        /// </summary>
+        internal static string ButtonChartDesignSupertip {
+            get {
+                return ResourceManager.GetString("ButtonChartDesignSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
         /// </summary>
         internal static string ButtonCheckForUpdateLabel {
             get {
@@ -102,6 +228,60 @@ namespace XLToolboxForExcel {
         internal static string ButtonCheckForUpdateSupertipDisabled {
             get {
                 return ResourceManager.GetString("ButtonCheckForUpdateSupertipDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Chart Properties.
+        /// </summary>
+        internal static string ButtonCopyChartLabel {
+            get {
+                return ResourceManager.GetString("ButtonCopyChartLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy some or all properties of the selected chart to one or many other charts..
+        /// </summary>
+        internal static string ButtonCopyChartSupertip {
+            get {
+                return ResourceManager.GetString("ButtonCopyChartSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy page setup.
+        /// </summary>
+        internal static string ButtonCopyPageSetupLabel {
+            get {
+                return ResourceManager.GetString("ButtonCopyPageSetupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy the page setup (margins, header, footer) of the current worksheet to other sheets..
+        /// </summary>
+        internal static string ButtonCopyPageSetupSupertip {
+            get {
+                return ResourceManager.GetString("ButtonCopyPageSetupSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correlation.
+        /// </summary>
+        internal static string ButtonCorrelationLabel {
+            get {
+                return ResourceManager.GetString("ButtonCorrelationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform Pearson&apos;s correlation analysis..
+        /// </summary>
+        internal static string ButtonCorrelationSupertip {
+            get {
+                return ResourceManager.GetString("ButtonCorrelationSupertip", resourceCulture);
             }
         }
         
@@ -232,6 +412,132 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Formula Builder.
+        /// </summary>
+        internal static string ButtonFormulaBuilderLabel {
+            get {
+                return ResourceManager.GetString("ButtonFormulaBuilderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build formulas for ranges with multiple groups of data..
+        /// </summary>
+        internal static string ButtonFormulaBuilderSupertip {
+            get {
+                return ResourceManager.GetString("ButtonFormulaBuilderSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interactive Error Bars.
+        /// </summary>
+        internal static string ButtonInteractiveErrorBarsLabel {
+            get {
+                return ResourceManager.GetString("ButtonInteractiveErrorBarsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set error bars on the selected chart in interactive mode..
+        /// </summary>
+        internal static string ButtonInteractiveErrorBarsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonInteractiveErrorBarsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ErrorBars.
+        /// </summary>
+        internal static string ButtonLastErrorBarsLabel {
+            get {
+                return ResourceManager.GetString("ButtonLastErrorBarsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform the last error bars operation on the currently selected chart..
+        /// </summary>
+        internal static string ButtonLastErrorBarsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonLastErrorBarsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linear Regression.
+        /// </summary>
+        internal static string ButtonLinearRegressionLabel {
+            get {
+                return ResourceManager.GetString("ButtonLinearRegressionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform linear regression analysis..
+        /// </summary>
+        internal static string ButtonLinearRegressionSupertip {
+            get {
+                return ResourceManager.GetString("ButtonLinearRegressionSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Left.
+        /// </summary>
+        internal static string ButtonMoveDataSeriesLeftLabel {
+            get {
+                return ResourceManager.GetString("ButtonMoveDataSeriesLeftLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart&apos;s data ranges one column to the left..
+        /// </summary>
+        internal static string ButtonMoveDataSeriesLeftSupertip {
+            get {
+                return ResourceManager.GetString("ButtonMoveDataSeriesLeftSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Right.
+        /// </summary>
+        internal static string ButtonMoveDataSeriesRightLabel {
+            get {
+                return ResourceManager.GetString("ButtonMoveDataSeriesRightLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart&apos;s data ranges one column to the right..
+        /// </summary>
+        internal static string ButtonMoveDataSeriesRightSupertip {
+            get {
+                return ResourceManager.GetString("ButtonMoveDataSeriesRightSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi Histogram.
+        /// </summary>
+        internal static string ButtonMultiHistoLabel {
+            get {
+                return ResourceManager.GetString("ButtonMultiHistoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform groupwise frequency analysis of data by combining one or multiple columns per group..
+        /// </summary>
+        internal static string ButtonMultiHistoSupertip {
+            get {
+                return ResourceManager.GetString("ButtonMultiHistoSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open CSV....
         /// </summary>
         internal static string ButtonOpenCsvLabel {
@@ -268,6 +574,60 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open from cell.
+        /// </summary>
+        internal static string ButtonOpenFromCellLabel {
+            get {
+                return ResourceManager.GetString("ButtonOpenFromCellLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the file determined by the file name in the selected cell, or jump to target defined in cell..
+        /// </summary>
+        internal static string ButtonOpenFromCellSupertip {
+            get {
+                return ResourceManager.GetString("ButtonOpenFromCellSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Point Chart.
+        /// </summary>
+        internal static string ButtonPointChartLabel {
+            get {
+                return ResourceManager.GetString("ButtonPointChartLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Point the selected chart to a different worksheet, i.e. change the worksheet reference of all data series of this chart..
+        /// </summary>
+        internal static string ButtonPointChartSupertip {
+            get {
+                return ResourceManager.GetString("ButtonPointChartSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferences.
+        /// </summary>
+        internal static string ButtonPrefsLabel {
+            get {
+                return ResourceManager.GetString("ButtonPrefsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change the XL Toolbox user preferences. (Legacy XL Toolbox.).
+        /// </summary>
+        internal static string ButtonPrefsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonPrefsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit Excel.
         /// </summary>
         internal static string ButtonQuitExcelLabel {
@@ -282,6 +642,24 @@ namespace XLToolboxForExcel {
         internal static string ButtonQuitExcelSupertip {
             get {
                 return ResourceManager.GetString("ButtonQuitExcelSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ANOVA.
+        /// </summary>
+        internal static string ButtonRepeatAnovaLabel {
+            get {
+                return ResourceManager.GetString("ButtonRepeatAnovaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-show the last ANOVA (1-way or 2-way)..
+        /// </summary>
+        internal static string ButtonRepeatAnovaSupertip {
+            get {
+                return ResourceManager.GetString("ButtonRepeatAnovaSupertip", resourceCulture);
             }
         }
         
@@ -358,6 +736,114 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select all shapes.
+        /// </summary>
+        internal static string ButtonSelectAllShapesLabel {
+            get {
+                return ResourceManager.GetString("ButtonSelectAllShapesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all graphical shapes and charts on the current worksheet..
+        /// </summary>
+        internal static string ButtonSelectAllShapesSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSelectAllShapesSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection Wizard.
+        /// </summary>
+        internal static string ButtonSelectionAssistantLabel {
+            get {
+                return ResourceManager.GetString("ButtonSelectionAssistantLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quickly select patterns of cells..
+        /// </summary>
+        internal static string ButtonSelectionAssistantSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSelectionAssistantSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Backward.
+        /// </summary>
+        internal static string ButtonSeriesBackwardLabel {
+            get {
+                return ResourceManager.GetString("ButtonSeriesBackwardLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart series backward..
+        /// </summary>
+        internal static string ButtonSeriesBackwardSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSeriesBackwardSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Forward.
+        /// </summary>
+        internal static string ButtonSeriesForwardLabel {
+            get {
+                return ResourceManager.GetString("ButtonSeriesForwardLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart series forward..
+        /// </summary>
+        internal static string ButtonSeriesForwardSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSeriesForwardSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move To Back.
+        /// </summary>
+        internal static string ButtonSeriesToBackLabel {
+            get {
+                return ResourceManager.GetString("ButtonSeriesToBackLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart series to the back..
+        /// </summary>
+        internal static string ButtonSeriesToBackSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSeriesToBackSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move To Front.
+        /// </summary>
+        internal static string ButtonSeriesToFrontLabel {
+            get {
+                return ResourceManager.GetString("ButtonSeriesToFrontLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected chart series to the front..
+        /// </summary>
+        internal static string ButtonSeriesToFrontSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSeriesToFrontSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksheets.
         /// </summary>
         internal static string ButtonSheetListLabel {
@@ -376,6 +862,69 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spread Scatter.
+        /// </summary>
+        internal static string ButtonSpreadScatterLabel {
+            get {
+                return ResourceManager.GetString("ButtonSpreadScatterLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spread or jitter the dots of a technical scatter plot..
+        /// </summary>
+        internal static string ButtonSpreadScatterSupertip {
+            get {
+                return ResourceManager.GetString("ButtonSpreadScatterSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transpose Wizard.
+        /// </summary>
+        internal static string ButtonTransposeWizardLabel {
+            get {
+                return ResourceManager.GetString("ButtonTransposeWizardLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform complex tranpositions, e.g. data from microtiter plate analyses (PCR, ELISA etc.)..
+        /// </summary>
+        internal static string ButtonTransposeWizardSupertip {
+            get {
+                return ResourceManager.GetString("ButtonTransposeWizardSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watermark.
+        /// </summary>
+        internal static string ButtonWatermarkLabel {
+            get {
+                return ResourceManager.GetString("ButtonWatermarkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or edit a watermark (small text) in the selected chart..
+        /// </summary>
+        internal static string ButtonWatermarkSupertip {
+            get {
+                return ResourceManager.GetString("ButtonWatermarkSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Analysis.
+        /// </summary>
+        internal static string GroupAnalysisLabel {
+            get {
+                return ResourceManager.GetString("GroupAnalysisLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graphic Export.
         /// </summary>
         internal static string GroupExportLabel {
@@ -385,11 +934,65 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import &amp;&amp; Export.
+        /// </summary>
+        internal static string GroupImportExportLabel {
+            get {
+                return ResourceManager.GetString("GroupImportExportLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Visualization.
+        /// </summary>
+        internal static string GroupVisualizationLabel {
+            get {
+                return ResourceManager.GetString("GroupVisualizationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work Flow.
         /// </summary>
         internal static string GroupWorkflowLabel {
             get {
                 return ResourceManager.GetString("GroupWorkflowLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ANOVA.
+        /// </summary>
+        internal static string MenuAnovaLabel {
+            get {
+                return ResourceManager.GetString("MenuAnovaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miscellaneous.
+        /// </summary>
+        internal static string MenuChartMiscLabel {
+            get {
+                return ResourceManager.GetString("MenuChartMiscLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Series.
+        /// </summary>
+        internal static string MenuChartSeriesLabel {
+            get {
+                return ResourceManager.GetString("MenuChartSeriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miscellaneous.
+        /// </summary>
+        internal static string MenuMiscAnalysesLabel {
+            get {
+                return ResourceManager.GetString("MenuMiscAnalysesLabel", resourceCulture);
             }
         }
     }
