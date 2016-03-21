@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button2WayAnovaLabel" xml:space="preserve">
-    <value>2-Way ANOVA</value>
-  </data>
-  <data name="Button2WayAnovaSupertip" xml:space="preserve">
-    <value>Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis.</value>
-  </data>
   <data name="ButtonAboutLabel" xml:space="preserve">
     <value>About</value>
   </data>
@@ -147,11 +141,17 @@
   <data name="ButtonAnnotateSupertip" xml:space="preserve">
     <value>Annotate the currently selected chart.</value>
   </data>
-  <data name="ButtonAnovaLabel" xml:space="preserve">
+  <data name="ButtonAnova1WayLabel" xml:space="preserve">
     <value>1-Way ANOVA</value>
   </data>
-  <data name="ButtonAnovaSupertip" xml:space="preserve">
+  <data name="ButtonAnova1WaySupertip" xml:space="preserve">
     <value>Perform a 1-way analysis of variance (ANOVA) with posthoc tests.</value>
+  </data>
+  <data name="ButtonAnova2WayLabel" xml:space="preserve">
+    <value>2-Way ANOVA</value>
+  </data>
+  <data name="ButtonAnova2WaySupertip" xml:space="preserve">
+    <value>Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis.</value>
   </data>
   <data name="ButtonAutomaticErrorBarsLabel" xml:space="preserve">
     <value>Auto Error Bars</value>

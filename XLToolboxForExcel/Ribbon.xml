@@ -85,9 +85,9 @@
 							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 						<menu id="MenuAnova" itemSize="large"
 							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" >
-							<button id="ButtonAnova" imageMso="ChartInsert"
+							<button id="ButtonAnova1Way" imageMso="ChartInsert"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
-							<button id="Button2WayAnova" imageMso="ChartInsert"
+							<button id="ButtonAnova2Way" imageMso="ChartInsert"
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 						</menu >
 					</splitButton >

@@ -78,7 +78,7 @@ namespace XLToolboxForExcel
                 { "ButtonOpenFromCell", Command.OpenFromCell },
                 { "ButtonCopyPageSetup", Command.CopyPageSetup },
                 { "ButtonSelectAllShapes", Command.SelectAllShapes },
-                { "ButtonAnova", Command.Anova1Way },
+                { "ButtonAnova1Way", Command.Anova1Way },
                 { "ButtonRepeatAnova", Command.AnovaRepeat },
                 { "ButtonAnova2Way", Command.Anova2Way },
                 { "ButtonFormulaBuilder", Command.FormulaBuilder },

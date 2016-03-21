@@ -61,24 +61,6 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2-Way ANOVA.
-        /// </summary>
-        internal static string Button2WayAnovaLabel {
-            get {
-                return ResourceManager.GetString("Button2WayAnovaLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis..
-        /// </summary>
-        internal static string Button2WayAnovaSupertip {
-            get {
-                return ResourceManager.GetString("Button2WayAnovaSupertip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         internal static string ButtonAboutLabel {
@@ -153,18 +135,36 @@ namespace XLToolboxForExcel {
         /// <summary>
         ///   Looks up a localized string similar to 1-Way ANOVA.
         /// </summary>
-        internal static string ButtonAnovaLabel {
+        internal static string ButtonAnova1WayLabel {
             get {
-                return ResourceManager.GetString("ButtonAnovaLabel", resourceCulture);
+                return ResourceManager.GetString("ButtonAnova1WayLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Perform a 1-way analysis of variance (ANOVA) with posthoc tests..
         /// </summary>
-        internal static string ButtonAnovaSupertip {
+        internal static string ButtonAnova1WaySupertip {
             get {
-                return ResourceManager.GetString("ButtonAnovaSupertip", resourceCulture);
+                return ResourceManager.GetString("ButtonAnova1WaySupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2-Way ANOVA.
+        /// </summary>
+        internal static string ButtonAnova2WayLabel {
+            get {
+                return ResourceManager.GetString("ButtonAnova2WayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis..
+        /// </summary>
+        internal static string ButtonAnova2WaySupertip {
+            get {
+                return ResourceManager.GetString("ButtonAnova2WaySupertip", resourceCulture);
             }
         }
         
