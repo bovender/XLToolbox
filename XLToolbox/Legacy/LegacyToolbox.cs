@@ -63,7 +63,7 @@ namespace XLToolbox.Legacy
                     app.Run("RunANOVA");
                     break;
                 case Command.Anova2Way:
-                    app.Run("RunTwoWayANOVA");
+                    app.Run("RunANOVA2Way");
                     break;
                 case Command.FormulaBuilder:
                     app.Run("RunFormulaBuilder");
