@@ -19,10 +19,12 @@ using System;
 using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
+using Bovender.Mvvm.Actions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
+using System.Diagnostics;
 
 namespace XLToolboxForExcel
 {
@@ -53,6 +55,7 @@ namespace XLToolboxForExcel
             // Distract the user :-)
             MaybeCheckForUpdate();
             GreetUser();
+            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

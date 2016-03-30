@@ -1,4 +1,5 @@
-﻿/* LegacyToolbox.cs
+﻿using Bovender.Mvvm.Actions;
+/* LegacyToolbox.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -16,17 +17,40 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Legacy
 {
-    class LegacyToolbox
+    public class LegacyToolbox
     {
         private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.xltb-legacy-addin.xlam";
+
+        #region Static methods
+
+        /// <summary>
+        /// Detects if a .XLAM or .XLA version of the XL Toolbox is installed,
+        /// and if so, issues a notice to the user and deactivates the VBA add-in.
+        /// </summary>
+        public static void DeactivateObsoleteVbaAddin()
+        {
+            foreach (Microsoft.Office.Interop.Excel.AddIn addin in Instance.Default.Application.AddIns)
+            {
+                if (addin.Name.StartsWith("Daniels XL Toolbox.xla") && addin.Installed)
+                {
+                    NotificationAction a = new NotificationAction();
+                    a.Message = Strings.LegacyToolboxDetectedMessage;
+                    a.Caption = Strings.LegacyToolboxDetectedCaption;
+                    a.OkButtonLabel = Strings.OK;
+                    a.Invoke();
+                    addin.Installed = false;
+                    break;
+                }
+            }
+        }
+
+        #endregion
 
         #region Singleton
 

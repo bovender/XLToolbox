@@ -763,6 +763,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Obsolete XL Toolbox version found.
+        /// </summary>
+        public static string LegacyToolboxDetectedCaption {
+            get {
+                return ResourceManager.GetString("LegacyToolboxDetectedCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An obsolete version of the XL Toolbox was found. It will be deactivated now. You can use old XL Toolbox commands in the new, Next-Generation version. You may want to uninstall the old version from your system using &quot;Add/Remove Software&quot;..
+        /// </summary>
+        public static string LegacyToolboxDetectedMessage {
+            get {
+                return ResourceManager.GetString("LegacyToolboxDetectedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         public static string License {
