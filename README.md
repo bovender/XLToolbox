@@ -1,7 +1,7 @@
 XL Toolbox NG (Next Generation)
 ===============================
 
-For more information about this project, see <www.xltoolbox.net>.
+For more information about this project, see <http://www.xltoolbox.net>.
 
 The XL Toolbox NG source code is written in (mostly) C# with Visual Studio
 Professional 2013 and targeted for the .NET framework 4.0.
