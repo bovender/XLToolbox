@@ -259,6 +259,7 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <None Include="xltb.snk" />
+    <None Include="XLToolboxForExcel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XLToolbox\XLToolbox.csproj">
@@ -280,10 +281,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>XLToolbox_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>XLToolboxForExcel_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>6B1E213A8D9AB75AE6505764D5E5554A9E0C09D8</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>17FBE340F80DCA631927E12DF0926398A7A31762</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

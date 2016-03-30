@@ -155,7 +155,7 @@ namespace XLToolbox.Csv
             WorkbookStorage.Store store = new WorkbookStorage.Store();
             ChooseImportFileNameMessage.Send(
                 new FileNameMessageContent(
-                    store.Get("csv_path", Excel.ViewModels.Instance.Default.ActiveWorkbook.Path),
+                    store.Get("csv_path", Excel.ViewModels.Instance.Default.ActivePath),
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
                 ConfirmChooseFileName);
         }

@@ -177,5 +177,29 @@ namespace XLToolbox.Properties {
                 this["CsvExport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastAnova {
+            get {
+                return ((int)(this["LastAnova"]));
+            }
+            set {
+                this["LastAnova"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LastErrorBars {
+            get {
+                return ((int)(this["LastErrorBars"]));
+            }
+            set {
+                this["LastErrorBars"] = value;
+            }
+        }
     }
 }

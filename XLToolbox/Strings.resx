@@ -627,4 +627,10 @@ You may want to try again.</value>
   <data name="HintUseBackslashT" xml:space="preserve">
     <value>Hint: Use \t to separate fields by tabs.</value>
   </data>
+  <data name="LegacyToolboxDetectedCaption" xml:space="preserve">
+    <value>Obsolete XL Toolbox version found</value>
+  </data>
+  <data name="LegacyToolboxDetectedMessage" xml:space="preserve">
+    <value>An obsolete version of the XL Toolbox was found. It will be deactivated now. You can use old XL Toolbox commands in the new, Next-Generation version. You may want to uninstall the old version from your system using "Add/Remove Software".</value>
+  </data>
 </root>

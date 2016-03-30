@@ -71,6 +71,37 @@ namespace XLToolbox
                     case Command.SaveCsvWithParams: SaveCsvWithSettings(); break;
                     case Command.SaveCsvRange: SaveCsvRange(); break;
                     case Command.SaveCsvRangeWithParams: SaveCsvRangeWithSettings(); break;
+                    case Command.Anova1Way: Anova1Way(); break;
+                    case Command.Anova2Way: Anova2Way(); break;
+                    case Command.AnovaRepeat: LastAnova(); break;
+                    case Command.AutomaticErrorBars: ErrorBarsAutomatic(); break;
+                    case Command.InteractiveErrorBars: ErrorBarsInteractive(); break;
+                    case Command.LastErrorBars: LastErrorBars(); break;
+                    case Command.OpenFromCell:
+                    case Command.CopyPageSetup:
+                    case Command.SelectAllShapes:
+                    case Command.FormulaBuilder:
+                    case Command.SelectionAssistant:
+                    case Command.LinearRegression:
+                    case Command.Correlation:
+                    case Command.TransposeWizard:
+                    case Command.MultiHisto:
+                    case Command.Allocate:
+                    case Command.ChartDesign:
+                    case Command.MoveDataSeriesLeft:
+                    case Command.MoveDataSeriesRight:
+                    case Command.Annotate:
+                    case Command.SpreadScatter:
+                    case Command.SeriesToFront:
+                    case Command.SeriesForward:
+                    case Command.SeriesBackward:
+                    case Command.SeriesToBack:
+                    case Command.AddSeries:
+                    case Command.CopyChart:
+                    case Command.PointChart:
+                    case Command.Watermark:
+                    case Command.Prefs:
+                        Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
                     default:
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
@@ -237,6 +268,48 @@ namespace XLToolbox
             {
                 SaveCsvWithSettings(Instance.Default.Application.Selection as Xl.Range);
             }
+        }
+
+        static void Anova1Way()
+        {
+            Properties.Settings.Default.LastAnova = 1;
+            Properties.Settings.Default.Save();
+            Legacy.LegacyToolbox.Default.RunCommand(Command.Anova1Way);
+        }
+
+        static void Anova2Way()
+        {
+            Properties.Settings.Default.LastAnova = 2;
+            Properties.Settings.Default.Save();
+            Legacy.LegacyToolbox.Default.RunCommand(Command.Anova2Way);
+        }
+
+        static void LastAnova()
+        {
+            Command c = Properties.Settings.Default.LastAnova == 2 ?
+                Command.Anova2Way : Command.Anova1Way;
+            Legacy.LegacyToolbox.Default.RunCommand(c);
+        }
+
+        static void ErrorBarsAutomatic()
+        {
+            Properties.Settings.Default.LastErrorBars = 1;
+            Properties.Settings.Default.Save();
+            Legacy.LegacyToolbox.Default.RunCommand(Command.AutomaticErrorBars);
+        }
+
+        static void ErrorBarsInteractive()
+        {
+            Properties.Settings.Default.LastErrorBars = 2;
+            Properties.Settings.Default.Save();
+            Legacy.LegacyToolbox.Default.RunCommand(Command.InteractiveErrorBars);
+        }
+
+        static void LastErrorBars()
+        {
+            Command c = Properties.Settings.Default.LastErrorBars == 2 ? 
+                Command.InteractiveErrorBars : Command.AutomaticErrorBars;
+            Legacy.LegacyToolbox.Default.RunCommand(c);
         }
 
         #endregion

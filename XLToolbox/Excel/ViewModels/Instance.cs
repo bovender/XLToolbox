@@ -150,6 +150,25 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
+        /// Returns the active path. This is either the path
+        /// of the active workbook, or the current working
+        /// directory.
+        /// </summary>
+        /// <remarks>
+        /// If a workbook is opened as in Protected View and
+        /// is the only open workbook, Application.ActiveWorkbook
+        /// will be null. Therefore this helper property was
+        /// invented.
+        /// </remarks>
+        public string ActivePath
+        {
+            get
+            {
+                return ActiveWorkbook == null ? System.IO.Directory.GetCurrentDirectory() : ActiveWorkbook.Path;
+            }
+        }
+
+        /// <summary>
         /// Gets the Excel version and build number in a human-friendly form.
         /// </summary>
         /// <remarks>
