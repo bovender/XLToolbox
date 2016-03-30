@@ -26,10 +26,10 @@
 
 #ifdef DEBUG
   #define SOURCEDIR "..\XLToolboxForExcel\bin\Debug"
-  #expr Exec(DEVENV, CSPROJ + " /Build Release")
+  #expr Exec(DEVENV, CSPROJ + " /Build Debug")
 #else
   #define SOURCEDIR "..\XLToolboxForExcel\bin\Release"
-  #expr Exec(DEVENV, CSPROJ + " /Build Debug")
+  #expr Exec(DEVENV, CSPROJ + " /Build Release")
 #endif
 
 #include "VstoAddinInstaller\vsto-installer.iss"
