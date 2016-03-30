@@ -3,7 +3,7 @@
 ; Apache License Version 2.0
 
 [Setup]
-; #define DEBUG
+#define DEBUG
 
 ; Read the semantic and the installer file version from the VERSION file
 #define FILE_HANDLE FileOpen("..\VERSION")
@@ -86,6 +86,7 @@ DefaultDirName={code:SuggestInstallDir}
 CreateAppDir=true
 CloseApplicationsFilter=*.*
 DefaultDialogFontName=Segoe UI
+SignTool=signtool
 
 ; Uninstall
 UninstallDisplayIcon={#UNINSTALLDIR}\xltoolbox.ico
