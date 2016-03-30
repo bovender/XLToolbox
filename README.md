@@ -1,13 +1,10 @@
 XL Toolbox NG (Next Generation)
 ===============================
 
+For more information about this project, see <www.xltoolbox.net>.
+
 The XL Toolbox NG source code is written in (mostly) C# with Visual Studio
-Professional 2013 and target for the .NET framework 4.0.
-
-For more information about this project, see <http://xltoolbox.sf.net>.
-
-This project uses the Git source code management system. You can find the
-repository at <https://sf.net/p/xltoolbox/ng-code>.
+Professional 2013 and targeted for the .NET framework 4.0.
 
 
 Building the Debug configuration
@@ -112,7 +109,7 @@ License
 -------
 
     Daniel's XL Toolbox NG
-    Copyright (C) 2014-2015  Daniel Kraus  <xltoolbox@gmx.net>
+    Copyright (C) 2014-2016  Daniel Kraus <bovender@bovender.de>, <daniel@xltoolbox.net>
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
