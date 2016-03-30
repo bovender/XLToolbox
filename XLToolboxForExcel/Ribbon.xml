@@ -153,7 +153,7 @@
 					</menu >
 				</group >
 				<group idMso="GroupAddins" />
-				<group id="GroupXlToolbox" label="XL Toolbox">
+				<group id="GroupXlToolbox" label="XL Toolbox" image="xltb-icon-small.png">
 					<button id="ButtonPrefs" size="large" imageMso="CustomActionsMenu"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonAbout" image="xltb-icon-small.png"
