@@ -17,6 +17,7 @@
  */
 using Microsoft.Office.Interop.Excel;
 using System;
+using System.Diagnostics;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -30,10 +31,25 @@ namespace XLToolbox.WorkbookStorage
     /// The third column holds the value.</remarks>
     internal class Item
     {
-        public string key { get; set; }
-        public string context { get; set; }
-        public object value { get; set; }
+        #region Public properties
 
+        public string Key { get; set; }
+        public string Context { get; set; }
+        public object Value { get; set; }
+
+        public bool HasValue
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                return Value != null;
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+        
         /// <summary>
         /// Creates an instance from a single worksheet row.
         /// </summary>
@@ -43,13 +59,23 @@ namespace XLToolbox.WorkbookStorage
             ReadFromSheet(sheet, row);
         }
 
+        /// <summary>
+        /// Constructs an object from a key, context, and value.
+        /// </summary>
+        /// <param name="key">Item key</param>
+        /// <param name="context">Worksheet context</param>
+        /// <param name="value">Item value</param>
         public Item(string key, string context, object value)
         {
-            this.key = key;
-            this.context = context;
-            this.value = value;
+            this.Key = key;
+            this.Context = context;
+            this.Value = value;
         }
 
+        #endregion
+
+        #region Internal methods
+        
         /// <summary>
         /// Writes out the item information to a storage sheet.
         /// </summary>
@@ -57,11 +83,20 @@ namespace XLToolbox.WorkbookStorage
         /// <param name="row">Row number to write out to.</param>
         /// <param name="serializer">Instance of an XML serializer; used to convert the value
         /// to a string.</param>
-        internal void WriteToSheet(Worksheet sheet, int row)
+        /// <returns>True if something was written, false if not.</returns>
+        internal bool WriteToSheet(Worksheet sheet, int row)
         {
-            sheet.Cells[row, 1] = context;
-            sheet.Cells[row, 2] = key;
-            sheet.Cells[row, 3] = value.ToString();
+            if (HasValue)
+            {
+                sheet.Cells[row, 1] = Context;
+                sheet.Cells[row, 2] = Key;
+                sheet.Cells[row, 3] = Value.ToString();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         internal void ReadFromSheet(Worksheet sheet, int row)
@@ -71,29 +106,31 @@ namespace XLToolbox.WorkbookStorage
             // it to a string using String.Format, which accepts
             // null values.
             object contextValue = sheet.Cells[row, 1].Value();
-            context = String.Format("{0}", contextValue);
-            key = sheet.Cells[row, 2].Value();
-            value = sheet.Cells[row, 3].Value();
+            Context = String.Format("{0}", contextValue);
+            Key = sheet.Cells[row, 2].Value();
+            Value = sheet.Cells[row, 3].Value();
         }
 
         public int AsInt()
         {
-            return (int)value;
+            return (int)Value;
         }
 
         public string AsString()
         {
-            return (string)value;
+            return (string)Value;
         }
 
         public bool AsBool()
         {
-            return (bool)value;
+            return (bool)Value;
         }
 
         public T As<T>()
         {
-            return (T)value;
+            return (T)Value;
         }
+
+        #endregion
     }
 }
