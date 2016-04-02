@@ -12,7 +12,7 @@ XLToolbox/html/credits.html: ../web/content/about.html.haml
 
 GITTAG=$(shell git describe master)
 VERSION=$(GITTAG:v%=%)
-publish-alpha:
-	scp publish/release/XL_Toolbox_$(VERSION).exe bovender@frs.sourceforge.net:/home/frs/project/xltoolbox/alpha/
+publish-beta:
+	scp publish/release/XLToolbox-$(VERSION).exe bovender@frs.sourceforge.net:/home/frs/project/xltoolbox/beta/
 	git push
 	git push --tags

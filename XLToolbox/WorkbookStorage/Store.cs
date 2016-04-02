@@ -381,7 +381,7 @@ namespace XLToolbox.WorkbookStorage
                 Items.Remove(key);
             };
             Item item = new Item(key, Context, o);
-            Items.Add(item.key, item);
+            Items.Add(item.Key, item);
             Dirty = true;
         }
 
@@ -390,7 +390,7 @@ namespace XLToolbox.WorkbookStorage
             Item item;
             if (Items.TryGetValue(key, out item))
             {
-                return item.value;
+                return item.Value;
             }
             else
             {
@@ -413,16 +413,16 @@ namespace XLToolbox.WorkbookStorage
             for (int row = FIRSTROW; row <= r.Rows.Count; row++)
             {
                 item = new Item(_storeSheet, row);
-                if (_contexts.ContainsKey(item.context))
+                if (_contexts.ContainsKey(item.Context))
                 {
-                    context = _contexts[item.context];
+                    context = _contexts[item.Context];
                 }
                 else
                 {
                     context = new ContextItems();
-                    _contexts.Add(item.context, context);
+                    _contexts.Add(item.Context, context);
                 };
-                context.Add(item.key, item);
+                context.Add(item.Key, item);
             }
         }
 
@@ -442,8 +442,7 @@ namespace XLToolbox.WorkbookStorage
                 {
                     foreach (Item item in context.Values)
                     {
-                        item.WriteToSheet(_storeSheet, row);
-                        row++;
+                        if (item.WriteToSheet(_storeSheet, row)) row++;
                     }
                 }
             };
