@@ -85,7 +85,7 @@
                     <Button Command="{Binding MoveSheetsToBottom}" Content="{x:Static l:Strings.Bottom}" Margin="0 0 0 5" />
                     <Button Command="{Binding DeleteSheets}" Content="{x:Static l:Strings.Delete}" Margin="0 5 0 5" />
                     <Button Command="{Binding RenameSheet}" Content="{x:Static l:Strings.Rename}" Margin="0 5 0 5" />
-                    <Button Command="{Binding CloseViewCommand}" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5" />
+                    <Button Command="{Binding CloseViewCommand}" IsCancel="True" Content="{x:Static l:Strings.Close}" Margin="0 5 0 5" />
                 </StackPanel>
             </DockPanel>
             <ListBox
