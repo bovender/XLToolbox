@@ -36,7 +36,7 @@
       <Value Profile="(Default)">http://www.xltoolbox.net/donate</Value>
     </Setting>
     <Setting Name="WhatsNewUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/blog/tags/alpha</Value>
+      <Value Profile="(Default)">http://www.xltoolbox.net/changelog-ng.html</Value>
     </Setting>
     <Setting Name="WindowManagerAlwaysOnTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

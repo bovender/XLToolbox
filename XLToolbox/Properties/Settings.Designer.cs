@@ -137,7 +137,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/blog/tags/alpha")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/changelog-ng.html")]
         public string WhatsNewUrl {
             get {
                 return ((string)(this["WhatsNewUrl"]));
