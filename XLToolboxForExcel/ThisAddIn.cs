@@ -25,6 +25,7 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
 using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace XLToolboxForExcel
 {
@@ -73,6 +74,10 @@ namespace XLToolboxForExcel
                 // continue to shut down and immediately remove the view while doing so.
                 uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
             };
+
+            // Prevent "LocalDataSlot storage has been freed" exceptions;
+            // see http://j.mp/localdatastoreslot
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         #endregion
