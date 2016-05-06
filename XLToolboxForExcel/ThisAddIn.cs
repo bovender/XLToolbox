@@ -49,6 +49,9 @@ namespace XLToolboxForExcel
             // Register Excel's main window handle to facilitate interop with WPF.
             Bovender.Extensions.WindowExtensions.TopLevelWindow = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
 
+            // Make the CustomTaskPanes available for dispatcher methods.
+            XLToolbox.Globals.CustomTaskPanes = CustomTaskPanes;
+
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
             Bovender.WpfHelpers.RegisterTextBoxSelectAll();
             Bovender.ExceptionHandler.CentralHandler.DumpFile =

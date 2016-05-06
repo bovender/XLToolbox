@@ -29,6 +29,9 @@ using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
 using Xl = Microsoft.Office.Interop.Excel;
 using System.Threading.Tasks;
+using Forms = System.Windows.Forms;
+using System.Windows.Forms.Integration;
+using Microsoft.Office.Tools;
 
 namespace XLToolbox
 {
@@ -142,8 +145,8 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            WorkbookViewModel wvm = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
-            wvm.InjectAndShowInThread<WorkbookView>();
+            SheetManagerPane.Default.Show();
+            // wvm.InjectAndShowInThread<WorkbookView>();
         }
 
         static void ExportSelection()
