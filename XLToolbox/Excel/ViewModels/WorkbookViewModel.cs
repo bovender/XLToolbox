@@ -431,7 +431,7 @@ namespace XLToolbox.Excel.ViewModels
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
-            for (int i = Sheets.Count - 2; i > 0; i--)
+            for (int i = Sheets.Count - 2; i >= 0; i--)
             {
                 if (Sheets[i].IsSelected)
                 {
@@ -444,7 +444,7 @@ namespace XLToolbox.Excel.ViewModels
         private void DoMoveSheetsToBottom()
         {
             int currentBottom = Sheets.Count - 1;
-            for (int i = currentBottom-1; i > 0; i--)
+            for (int i = currentBottom-1; i >= 0; i--)
             {
                 if (Sheets[i].IsSelected)
                 {
