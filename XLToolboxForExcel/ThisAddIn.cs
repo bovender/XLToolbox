@@ -63,6 +63,8 @@ namespace XLToolboxForExcel
             MaybeCheckForUpdate();
             GreetUser();
             XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
+            XLToolbox.Keyboard.Manager.Default.EnableShortcuts();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

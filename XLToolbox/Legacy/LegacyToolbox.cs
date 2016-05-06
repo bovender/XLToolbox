@@ -165,36 +165,12 @@ namespace XLToolbox.Legacy
 
         #endregion
 
-        #region Private methods
-
-        /// <summary>
-        /// Loads the legacy .xlam file if it has not been loaded yet.
-        /// </summary>
-        private static void LoadAddinIfNeeded()
-        {
-            Stream resourceStream = typeof(LegacyToolbox).Assembly
-                .GetManifestResourceStream(ADDIN_RESOURCE_NAME);
-            if (resourceStream == null)
-            {
-                throw new IOException("Unable to open resource stream " + ADDIN_RESOURCE_NAME);
-            }
-            string tempDir = Path.GetTempPath();
-            string addinFile = Path.Combine(tempDir, ADDIN_RESOURCE_NAME);
-            Stream tempStream = File.Create(addinFile);
-            resourceStream.CopyTo(tempStream);
-            tempStream.Close();
-            resourceStream.Close();
-            Instance.Default.Application.Workbooks.Open(addinFile);
-        }
-
-        #endregion
-
         #region Private static fields
 
         private static Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
             () =>
             {
-                LoadAddinIfNeeded();
+                Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
                 return new LegacyToolbox();
             }
         );

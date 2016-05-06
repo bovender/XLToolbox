@@ -24,6 +24,7 @@ using System.Collections;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
+using System.IO;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -400,6 +401,27 @@ namespace XLToolbox.Excel.ViewModels
             _disableDisplayAlerts = 0;
             Application.ScreenUpdating = true;
             _preventScreenUpdating = 0;
+        }
+
+        /// <summary>
+        /// Loads an embedded resource add-in.
+        /// </summary>
+        /// <param name="resource"></param>
+        internal void LoadAddinFromEmbeddedResource(string resource)
+        {
+            Stream resourceStream = typeof(Instance).Assembly
+                .GetManifestResourceStream(resource);
+            if (resourceStream == null)
+            {
+                throw new IOException("Unable to open resource stream " + resource);
+            }
+            string tempDir = Path.GetTempPath();
+            string addinFile = Path.Combine(tempDir, resource);
+            Stream tempStream = File.Create(addinFile);
+            resourceStream.CopyTo(tempStream);
+            tempStream.Close();
+            resourceStream.Close();
+            Application.Workbooks.Open(addinFile);
         }
 
         #endregion

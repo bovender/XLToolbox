@@ -165,6 +165,8 @@
     <Compile Include="Export\Models\FileType.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Keyboard\Manager.cs" />
+    <Compile Include="Keyboard\Shortcut.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
@@ -250,6 +252,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Legacy\xltb-legacy-addin.xlam" />
+    <EmbeddedResource Include="Keyboard\XLToolboxKeyboardBridge.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

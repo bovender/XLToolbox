@@ -128,6 +128,27 @@ namespace XLToolbox.Vba
             return 0; // success
         }
 
+        /// <summary>
+        /// Executes an XL Toolbox command. This method exists to facilitate
+        /// using Application.OnKey which expects an Excel macro of VBA
+        /// method as parameter, but does not work with .NET code. Of course,
+        /// it can also be used to trigger XL Toolbox commands from independent
+        /// VBA code.
+        /// </summary>
+        /// <param name="command">XL Toolbox command to execute</param>
+        public void Execute(string command)
+        {
+            Command c;
+            if (Enum.TryParse<Command>(command, out c))
+            {
+                Dispatcher.Execute(c);
+            }
+            else
+            {
+                throw new ArgumentException("Unknown command");
+            }
+        }
+
         #endregion
     }
 }

@@ -122,6 +122,7 @@
     <Compile Include="Export\SingleExportSettingsViewModelTest.cs" />
     <Compile Include="Export\UnitTest.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Keyboard\ShortcutTest.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
