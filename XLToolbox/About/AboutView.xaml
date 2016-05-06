@@ -27,6 +27,7 @@
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.AboutXLToolbox}" WindowStyle="None"
+        ShowInTaskbar="False"
         vs:WindowState.CenterScreen="True" Background="WhiteSmoke"
         >
     <Window.Resources>

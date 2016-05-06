@@ -26,6 +26,7 @@
         xmlns:xm="clr-namespace:XLToolbox.Export.Models"
         bov:WindowState.Save="True"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        ShowInTaskbar="False"
         Title="{x:Static l:Strings.BatchExport}"
         >
     <Window.Resources>

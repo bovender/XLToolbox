@@ -17,6 +17,7 @@
  */
 using System;
 using System.Windows;
+using Bovender.Extensions;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
@@ -120,7 +121,8 @@ namespace XLToolbox
         static void About()
         {
             AboutViewModel avm = new AboutViewModel();
-            avm.InjectInto<AboutView>().ShowDialog();
+            Window w = avm.InjectInto<AboutView>();
+            w.ShowDialogInForm();
         }
 
         static void CheckForUpdates()
@@ -147,7 +149,7 @@ namespace XLToolbox
         static void ExportSelection()
         {
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel();
-            vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialog();
+            vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 
         static void ExportSelectionLast()
@@ -165,7 +167,7 @@ namespace XLToolbox
                 vm = new BatchExportSettingsViewModel();
             }
             vm.SanitizeOptions();
-            vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialog();
+            vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialogInForm();
         }
 
         static void BatchExportLast()
@@ -204,7 +206,7 @@ namespace XLToolbox
         {
             if (Instance.Default.CountOpenWorkbooks > 0)
             {
-                Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialog();
+                Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialogInForm();
             }
             else
             {
@@ -225,7 +227,7 @@ namespace XLToolbox
 
         static void OpenCsvWithSettings()
         {
-            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialog();
+            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialogInForm();
         }
 
         static void SaveCsv()
@@ -251,7 +253,7 @@ namespace XLToolbox
 
         static void SaveCsvWithSettings(Xl.Range range)
         {
-            CreateCsvExportViewModel(range).InjectInto<Csv.CsvFileView>().ShowDialog();
+            CreateCsvExportViewModel(range).InjectInto<Csv.CsvFileView>().ShowDialogInForm();
         }
 
         static void SaveCsvRange()

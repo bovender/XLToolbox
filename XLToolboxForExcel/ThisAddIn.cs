@@ -46,6 +46,9 @@ namespace XLToolboxForExcel
             Instance.Default = new Instance(Globals.ThisAddIn.Application);
             Ribbon.ExcelApp = Instance.Default.Application;
 
+            // Register Excel's main window handle to facilitate interop with WPF.
+            Bovender.Extensions.WindowExtensions.TopLevelWindow = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
+
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
             Bovender.WpfHelpers.RegisterTextBoxSelectAll();
             Bovender.ExceptionHandler.CentralHandler.DumpFile =

@@ -25,6 +25,7 @@
     xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
     Title="{x:Static l:Strings.QuitExcel}"
     WindowStartupLocation="CenterScreen"
+    ShowInTaskbar="False"
     ResizeMode="NoResize" SizeToContent="WidthAndHeight"
     bov:WindowState.CenterScreen="True"
     >
