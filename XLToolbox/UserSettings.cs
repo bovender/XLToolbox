@@ -46,7 +46,7 @@ namespace XLToolbox
 
         #region Singleton factory
 
-        public static UserSettings Default
+        new public static UserSettings Default
         {
             get
             {
@@ -56,25 +56,14 @@ namespace XLToolbox
 
         private static Lazy<UserSettings> _lazy = new Lazy<UserSettings>(() =>
         {
-            return FromFileOrDefault<UserSettings>(UserSettingsFile);
+            UserSettings s = FromFileOrDefault<UserSettings>(UserSettingsFile);
+            Bovender.UserSettings.UserSettingsBase.Default = s;
+            return s;
         });
 
         #endregion
 
         #region User settings
-
-        public string DownloadPath
-        {
-            get
-            {
-                return _downloadPath != null ? _downloadPath
-                    : Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            }
-            set
-            {
-                _downloadPath = value;
-            }
-        }
 
         public string ExportPath
         {
@@ -168,6 +157,37 @@ namespace XLToolbox
             }
         }
 
+        public DateTime LastUpdateCheck
+        {
+            get
+            {
+                if (_lastUpdateCheck == null)
+                {
+                    _lastUpdateCheck = new DateTime(2016, 1, 1);
+                }
+                return _lastUpdateCheck;
+            }
+            set {
+                _lastUpdateCheck = value;
+            }
+        }
+
+        public int UpdateCheckInterval
+        {
+            get
+            {
+                if (_updateCheckInterval <= 0)
+                {
+                    _updateCheckInterval = 7;
+                }
+                return _updateCheckInterval;
+            }
+            set
+            {
+                _updateCheckInterval = value;
+            }
+        }
+
         public ObservableCollection<Preset> ExportPresets { get; set; }
 
         #endregion
@@ -210,11 +230,11 @@ namespace XLToolbox
 
         #endregion
 
-        #region Implementation of UserSettingsBase
+        #region Overrides
 
-        public override void Save()
+        public override string GetSettingsFilePath()
         {
-            Save(UserSettingsFile);
+            return UserSettingsFile;
         }
 
         protected override void WriteYamlHeader(StreamWriter streamWriter)
@@ -233,13 +253,14 @@ namespace XLToolbox
 
         #region Private fields
 
-        private string _downloadPath;
         private string _exportPath;
         private Export.Models.Unit _lastExportUnit;
         private Export.Models.BatchExportSettings _batchExportSettings;
         private Csv.CsvFile _csvImport;
         private Csv.CsvFile _csvExport;
         private int _taskPaneWidth;
+        private DateTime _lastUpdateCheck;
+        private int _updateCheckInterval;
 
         #endregion
     }

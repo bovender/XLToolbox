@@ -133,9 +133,9 @@ namespace XLToolboxForExcel
         /// </summary>
         private void MaybeCheckForUpdate()
         {
-            DateTime lastCheck = Properties.Settings.Default.LastUpdateCheck;
+            DateTime lastCheck = XLToolbox.UserSettings.Default.LastUpdateCheck;
             DateTime today = DateTime.Today;
-            if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
+            if ((today - lastCheck).Days >= XLToolbox.UserSettings.Default.UpdateCheckInterval)
             {
                 _installUpdateView = new Ver.InstallUpdateView();
                 UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
@@ -150,8 +150,7 @@ namespace XLToolboxForExcel
                     };
                     updaterVM.CheckForUpdateCommand.Execute(null);
                 }
-                Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
-                Properties.Settings.Default.Save();
+                XLToolbox.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
         }
 
@@ -159,33 +158,33 @@ namespace XLToolboxForExcel
         /// Prepares the user.config file by upgrading it and performing
         /// tweaks as necessary.
         /// </summary>
-        private void PrepareConfig()
-        {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(
-                ConfigurationUserLevel.PerUserRoamingAndLocal);
-
-            // If the user.config file mentions XLToolbox.Properties.Settings but
-            // does *not* contain a section declaration
-            // for XLToolbox.Properties.Settings, it has the old format (prior
-            // to version 7.0.0-alpha.16). In this case, we must delete it because
-            // there is no way to persuade the ConfigurationManager to work with
-            // the old file at all.
-            if (System.IO.File.Exists(config.FilePath))
-            {
-                string s = System.IO.File.ReadAllText(config.FilePath);
-                if (s.Contains("XLToolbox.Properties.Settings") && !s.Contains("section name=\"XLToolbox.Properties.Settings"))
-                {
-                    System.IO.File.Delete(config.FilePath);
-                }
-
-                if (Properties.Settings.Default.NeedUpgrade)
-                {
-                    Properties.Settings.Default.Upgrade();
-                    Properties.Settings.Default.NeedUpgrade = false;
-                    Properties.Settings.Default.Save();
-                }
-            }
-        }
+        // private void PrepareConfig()
+        // {
+        //     Configuration config = ConfigurationManager.OpenExeConfiguration(
+        //         ConfigurationUserLevel.PerUserRoamingAndLocal);
+        // 
+        //     // If the user.config file mentions XLToolbox.Properties.Settings but
+        //     // does *not* contain a section declaration
+        //     // for XLToolbox.Properties.Settings, it has the old format (prior
+        //     // to version 7.0.0-alpha.16). In this case, we must delete it because
+        //     // there is no way to persuade the ConfigurationManager to work with
+        //     // the old file at all.
+        //     if (System.IO.File.Exists(config.FilePath))
+        //     {
+        //         string s = System.IO.File.ReadAllText(config.FilePath);
+        //         if (s.Contains("XLToolbox.Properties.Settings") && !s.Contains("section name=\"XLToolbox.Properties.Settings"))
+        //         {
+        //             System.IO.File.Delete(config.FilePath);
+        //         }
+        // 
+        //         if (Properties.Settings.Default.NeedUpgrade)
+        //         {
+        //             Properties.Settings.Default.Upgrade();
+        //             Properties.Settings.Default.NeedUpgrade = false;
+        //             Properties.Settings.Default.Save();
+        //         }
+        //     }
+        // }
 
         private void PerformSanityChecks()
         {

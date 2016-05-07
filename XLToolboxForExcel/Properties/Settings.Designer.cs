@@ -25,18 +25,6 @@ namespace XLToolboxForExcel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DownloadPath {
-            get {
-                return ((string)(this["DownloadPath"]));
-            }
-            set {
-                this["DownloadPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
         public string LastUpdateSeen {
             get {
@@ -44,29 +32,6 @@ namespace XLToolboxForExcel.Properties {
             }
             set {
                 this["LastUpdateSeen"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.DateTime LastUpdateCheck {
-            get {
-                return ((global::System.DateTime)(this["LastUpdateCheck"]));
-            }
-            set {
-                this["LastUpdateCheck"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public int UpdateCheckInterval {
-            get {
-                return ((int)(this["UpdateCheckInterval"]));
-            }
-            set {
-                this["UpdateCheckInterval"] = value;
             }
         }
         
@@ -82,60 +47,12 @@ namespace XLToolboxForExcel.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersName {
-            get {
-                return ((string)(this["UsersName"]));
-            }
-            set {
-                this["UsersName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UsersEmail {
-            get {
-                return ((string)(this["UsersEmail"]));
-            }
-            set {
-                this["UsersEmail"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CcUser {
-            get {
-                return ((bool)(this["CcUser"]));
-            }
-            set {
-                this["CcUser"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("xltoolbox-dump.txt")]
         public string DumpFile {
             get {
                 return ((string)(this["DumpFile"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool NeedUpgrade {
-            get {
-                return ((bool)(this["NeedUpgrade"]));
-            }
-            set {
-                this["NeedUpgrade"] = value;
             }
         }
     }
