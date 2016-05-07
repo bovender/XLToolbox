@@ -69,6 +69,7 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            XLToolbox.UserSettings.Default.Save();
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {

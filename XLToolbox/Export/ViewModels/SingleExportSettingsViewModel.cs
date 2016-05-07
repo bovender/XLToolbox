@@ -181,7 +181,7 @@ namespace XLToolbox.Export.ViewModels
                 PresetsRepository.SelectLastUsedOrDefault(Instance.Default.Application.ActiveWorkbook);
             }
             CreateSettingsInstance();
-            Units.AsEnum = Properties.Settings.Default.ExportUnit;
+            Units.AsEnum = UserSettings.Default.ExportUnit;
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace XLToolbox.Export.ViewModels
                 presetViewModel.IsSelected = true;
             }
             CreateSettingsInstance();
-            Units.AsEnum = Properties.Settings.Default.ExportUnit;
+            Units.AsEnum = UserSettings.Default.ExportUnit;
         }
 
         public SingleExportSettingsViewModel(Preset preset)
@@ -255,7 +255,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 // TODO: Make export asynchronous
                 SelectedPreset.Store();
-                Properties.Settings.Default.ExportUnit = Units.AsEnum;
+                UserSettings.Default.ExportUnit = Units.AsEnum;
                 SaveExportPath();
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();
@@ -282,9 +282,8 @@ namespace XLToolbox.Export.ViewModels
         protected override void SaveExportPath()
         {
             base.SaveExportPath();
-            Properties.Settings.Default.ExportPath =
+            UserSettings.Default.ExportPath =
                 System.IO.Path.GetDirectoryName(FileName);
-            Properties.Settings.Default.Save();
         }
 
         #endregion
@@ -351,9 +350,8 @@ namespace XLToolbox.Export.ViewModels
             if (messageContent.Confirmed)
             {
                 ((SingleExportSettings)Settings).FileName = messageContent.Value;
-                Properties.Settings.Default.ExportPath =
+                UserSettings.Default.ExportPath =
                     System.IO.Path.GetDirectoryName(messageContent.Value);
-                Properties.Settings.Default.Save();
                 DoExport();
             }
         }

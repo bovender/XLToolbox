@@ -77,7 +77,7 @@ namespace XLToolbox.SheetManager
             userControl.Controls.Add(elementHost);
             elementHost.Dock = DockStyle.Fill;
             _pane = Globals.CustomTaskPanes.Add(userControl, Strings.WorksheetManager);
-            _pane.Width = Properties.Settings.Default.TaskPaneWidth;
+            _pane.Width = UserSettings.Default.TaskPaneWidth;
         }
 
         #endregion

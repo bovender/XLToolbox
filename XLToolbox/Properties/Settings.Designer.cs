@@ -59,70 +59,12 @@ namespace XLToolbox.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DownloadPath {
-            get {
-                return ((string)(this["DownloadPath"]));
-            }
-            set {
-                this["DownloadPath"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
         public string AddinName {
             get {
                 return ((string)(this["AddinName"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Point")]
-        public global::XLToolbox.Export.Models.Unit ExportUnit {
-            get {
-                return ((global::XLToolbox.Export.Models.Unit)(this["ExportUnit"]));
-            }
-            set {
-                this["ExportUnit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExportPath {
-            get {
-                return ((string)(this["ExportPath"]));
-            }
-            set {
-                this["ExportPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.Preset ExportPreset {
-            get {
-                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
-            }
-            set {
-                this["ExportPreset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.BatchExportSettings BatchExportSettings {
-            get {
-                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["BatchExportSettings"]));
-            }
-            set {
-                this["BatchExportSettings"] = value;
             }
         }
         
@@ -144,73 +86,21 @@ namespace XLToolbox.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool WindowManagerAlwaysOnTop {
+        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        public string AppDataFolder {
             get {
-                return ((bool)(this["WindowManagerAlwaysOnTop"]));
-            }
-            set {
-                this["WindowManagerAlwaysOnTop"] = value;
+                return ((string)(this["AppDataFolder"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Csv.CsvFile CsvImport {
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.yaml")]
+        public string UserSettingsFile {
             get {
-                return ((global::XLToolbox.Csv.CsvFile)(this["CsvImport"]));
-            }
-            set {
-                this["CsvImport"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Csv.CsvFile CsvExport {
-            get {
-                return ((global::XLToolbox.Csv.CsvFile)(this["CsvExport"]));
-            }
-            set {
-                this["CsvExport"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastAnova {
-            get {
-                return ((int)(this["LastAnova"]));
-            }
-            set {
-                this["LastAnova"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastErrorBars {
-            get {
-                return ((int)(this["LastErrorBars"]));
-            }
-            set {
-                this["LastErrorBars"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("320")]
-        public int TaskPaneWidth {
-            get {
-                return ((int)(this["TaskPaneWidth"]));
-            }
-            set {
-                this["TaskPaneWidth"] = value;
+                return ((string)(this["UserSettingsFile"]));
             }
         }
     }

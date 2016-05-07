@@ -37,7 +37,7 @@ namespace XLToolbox.Export.Models
 
         public static Preset FromLastUsed()
         {
-            return Properties.Settings.Default.ExportPreset;
+            return UserSettings.Default.ExportPreset;
         }
 
         public static Preset FromLastUsed(Workbook workbookContext)
@@ -141,8 +141,7 @@ namespace XLToolbox.Export.Models
         
         public void Store(Workbook workbookContext)
         {
-            Properties.Settings.Default.ExportPreset = this;
-            Properties.Settings.Default.Save();
+            UserSettings.Default.ExportPreset = this;
             using (Store store = new Store(workbookContext))
             {
                 store.Put<Preset>(typeof(Preset).ToString(), this);
