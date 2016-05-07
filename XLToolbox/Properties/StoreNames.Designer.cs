@@ -31,5 +31,14 @@ namespace XLToolbox.Properties {
                 return ((string)(this["ExportPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("export_preset")]
+        public string ExportPreset {
+            get {
+                return ((string)(this["ExportPreset"]));
+            }
+        }
     }
 }

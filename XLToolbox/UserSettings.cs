@@ -22,6 +22,8 @@ using System.Text;
 using System.IO;
 using Bovender.UserSettings;
 using Bovender.Versioning;
+using XLToolbox.Export.Models;
+using System.Collections.ObjectModel;
 
 namespace XLToolbox
 {
@@ -86,29 +88,19 @@ namespace XLToolbox
             }
         }
 
-        public Export.Models.Unit ExportUnit
+        public Export.Models.Unit LastExportUnit
         {
             get
             {
-                return _exportUnit;
+                return _lastExportUnit;
             }
             set
             {
-                _exportUnit = value;
+                _lastExportUnit = value;
             }
         }
 
-        public Export.Models.Preset ExportPreset
-        {
-            get
-            {
-                return _exportPreset;
-            }
-            set
-            {
-                _exportPreset = value;
-            }
-        }
+        public int LastExportPreset { get; set; }
 
         public Export.Models.BatchExportSettings BatchExportSettings
         {
@@ -176,6 +168,46 @@ namespace XLToolbox
             }
         }
 
+        public ObservableCollection<Preset> ExportPresets { get; set; }
+
+        #endregion
+
+        #region Auxiliary public methods
+
+        public Preset RetrieveExportPresetOrDefault(int presetIndex)
+        {
+            if (ExportPresets != null && presetIndex < ExportPresets.Count)
+            {
+                return ExportPresets[presetIndex];
+            }
+            else
+            {
+                return new Preset();
+            }
+        }
+
+        public Preset RetrieveExportPresetOrDefault()
+        {
+            return RetrieveExportPresetOrDefault(LastExportPreset);
+        }
+
+        public void StoreExportPreset(Preset preset)
+        {
+            LastExportPreset = GetExportPresetIndex(preset);
+        }
+
+        public int GetExportPresetIndex(Preset preset)
+        {
+            if (ExportPresets != null)
+            {
+                return ExportPresets.IndexOf(preset);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         #endregion
 
         #region Implementation of UserSettingsBase
@@ -203,8 +235,7 @@ namespace XLToolbox
 
         private string _downloadPath;
         private string _exportPath;
-        private Export.Models.Unit _exportUnit;
-        private Export.Models.Preset _exportPreset;
+        private Export.Models.Unit _lastExportUnit;
         private Export.Models.BatchExportSettings _batchExportSettings;
         private Csv.CsvFile _csvImport;
         private Csv.CsvFile _csvExport;

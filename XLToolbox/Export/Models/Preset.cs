@@ -18,6 +18,7 @@
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -37,20 +38,29 @@ namespace XLToolbox.Export.Models
 
         public static Preset FromLastUsed()
         {
-            return UserSettings.Default.ExportPreset;
+            return UserSettings.Default.RetrieveExportPresetOrDefault();
         }
 
         public static Preset FromLastUsed(Workbook workbookContext)
         {
+            ObservableCollection<Preset> repo = UserSettings.Default.ExportPresets;
             Store store = new Store(workbookContext);
-            Preset preset = store.Get<Preset>(typeof(Preset).ToString());
-            if (preset != null)
+            if (repo != null && repo.Count > 0)
             {
-                return preset;
+                int index = store.Get(Properties.StoreNames.Default.ExportPreset,
+                    UserSettings.Default.LastExportPreset, 0, repo.Count - 1);
+                return repo[index];
             }
             else
             {
-                return Preset.FromLastUsed();
+                if (repo == null)
+                {
+                    repo = new ObservableCollection<Preset>();
+                    UserSettings.Default.ExportPresets = repo;
+                }
+                Preset p = new Preset();
+                repo.Add(p);
+                return p;
             }
         }
 
@@ -62,6 +72,8 @@ namespace XLToolbox.Export.Models
         public int Dpi { get; set; }
         public FileType FileType { get; set; }
         public ColorSpace ColorSpace { get; set; }
+
+        [YamlDotNet.Serialization.YamlIgnore]
         public bool IsVectorType
         {
             get
@@ -69,6 +81,8 @@ namespace XLToolbox.Export.Models
                 return FileType == FileType.Emf; // || FileType == FileType.Svg;
             }
         }
+        
+        [YamlDotNet.Serialization.YamlIgnore]
         public int Bpp
         {
             get
@@ -76,6 +90,7 @@ namespace XLToolbox.Export.Models
                 return ColorSpace.ToBPP();
             }
         }
+
         public Transparency Transparency { get; set; }
         public bool UseColorProfile { get; set; }
         public string ColorProfile { get; set; }
@@ -141,10 +156,11 @@ namespace XLToolbox.Export.Models
         
         public void Store(Workbook workbookContext)
         {
-            UserSettings.Default.ExportPreset = this;
+            UserSettings.Default.StoreExportPreset(this);
             using (Store store = new Store(workbookContext))
             {
-                store.Put<Preset>(typeof(Preset).ToString(), this);
+                store.Put(Properties.StoreNames.Default.ExportPreset,
+                    UserSettings.Default.GetExportPresetIndex(this));
             }
         }
 

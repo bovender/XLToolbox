@@ -23,13 +23,7 @@ using XLToolbox.Export.Models;
 
 namespace XLToolbox.UnitTests.Export
 {
-    /// <summary>
-    /// Overrides the LoadSettings() and SaveSettings() methods of the
-    /// base class so the settings storage is not hampered during testing.
-    /// </summary>
     class PresetsRepositoryForTesting : PresetsRepository
     {
-        public override void LoadPresets() { }
-        public override void SavePresets() { }
     }
 }

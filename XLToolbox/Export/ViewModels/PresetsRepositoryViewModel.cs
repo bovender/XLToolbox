@@ -263,7 +263,6 @@ namespace XLToolbox.Export.ViewModels
 
         protected override void DoCloseView()
         {
-            _repository.SavePresets();
             base.DoCloseView();
         }
         #endregion

@@ -25,7 +25,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net")]
         public string WebsiteUrl {
             get {
                 return ((string)(this["WebsiteUrl"]));
@@ -34,7 +34,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/version-ng.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/version-ng.txt")]
         public string VersionInfoUrl {
             get {
                 return ((string)(this["VersionInfoUrl"]));
@@ -43,7 +43,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/")]
         public string HelpUrl {
             get {
                 return ((string)(this["HelpUrl"]));
@@ -52,7 +52,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/receive.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/receive.php")]
         public string ExceptionPostUrl {
             get {
                 return ((string)(this["ExceptionPostUrl"]));
@@ -70,7 +70,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/donate")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/donate")]
         public string DonateUrl {
             get {
                 return ((string)(this["DonateUrl"]));
@@ -79,7 +79,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/changelog-ng.html")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/changelog-ng.html")]
         public string WhatsNewUrl {
             get {
                 return ((string)(this["WhatsNewUrl"]));

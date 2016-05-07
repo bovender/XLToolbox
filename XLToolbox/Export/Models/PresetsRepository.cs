@@ -34,7 +34,23 @@ namespace XLToolbox.Export.Models
     {
         #region Public properties
 
-        public ObservableCollection<Preset> Presets { get; set; }
+        public ObservableCollection<Preset> Presets
+        {
+            get
+            {
+                ObservableCollection<Preset> presets = UserSettings.Default.ExportPresets as ObservableCollection<Preset>;
+                if (presets == null)
+                {
+                    presets = new ObservableCollection<Preset>();
+                    UserSettings.Default.ExportPresets = presets;
+                }
+                return presets;
+            }
+            set
+            {
+                UserSettings.Default.ExportPresets = value;
+            }
+        }
 
         #endregion
 
@@ -42,12 +58,7 @@ namespace XLToolbox.Export.Models
 
         public PresetsRepository()
             : base ()
-        {
-            // Must initialize the ExportSettings property, lest a null pointer
-            // exception is thrown in the LoadSettings() method.
-            Presets = new ObservableCollection<Preset>();
-            LoadPresets();
-        }
+        { }
 
         /// <summary>
         /// Creates a new Presets repository, loads previously saved presets
@@ -76,63 +87,6 @@ namespace XLToolbox.Export.Models
 
         #endregion
 
-        #region Load and save
-
-        public virtual void LoadPresets()
-        {
-            using (IsolatedStorageFile store = GetIsolatedStorageFile())
-            {
-                try
-                {
-                    if (store.FileExists(ISOSTOREFILENAME))
-                    {
-                        IsolatedStorageFileStream stream = store.OpenFile(ISOSTOREFILENAME,
-                            System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
-                        // The line below would fail if ExportSettings is null; however,
-                        // the property is initialized in the constructor.
-                        XmlSerializer serializer = new XmlSerializer(Presets.GetType());
-                        Presets = serializer.Deserialize(stream) as ObservableCollection<Preset>;
-                        stream.Close();
-                    }
-                    else
-                    {
-                        Presets = new ObservableCollection<Preset>();
-                    }
-                }
-                catch 
-                {
-                    Presets = new ObservableCollection<Preset>();
-                    // throw new StoreException("Cannot read export settings.", e);
-                }
-            }
-        }
-
-        public virtual void SavePresets()
-        {
-            try
-            {
-                using (IsolatedStorageFile store = GetIsolatedStorageFile())
-                {
-                    IsolatedStorageFileStream stream = store.CreateFile(ISOSTOREFILENAME);
-                    XmlSerializer serializer = new XmlSerializer(Presets.GetType());
-                    serializer.Serialize(stream, Presets);
-                    stream.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new StoreException("Cannot write export settings.", e);
-            }
-        }
-
-        private IsolatedStorageFile GetIsolatedStorageFile()
-        {
-            return IsolatedStorageFile.GetStore(
-                IsolatedStorageScope.Roaming | IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-        }
-
-        #endregion
-
         #region Disposal
 
         public void Dispose()
@@ -145,7 +99,6 @@ namespace XLToolbox.Export.Models
         {
             if (!_disposed)
             {
-                SavePresets();
                 _disposed = true;
             }
         }
@@ -160,12 +113,6 @@ namespace XLToolbox.Export.Models
         #region Private fields
 
         bool _disposed;
-
-        #endregion
-
-        #region Private constants
-
-        string ISOSTOREFILENAME = "export_settings.xml";
 
         #endregion
     }
