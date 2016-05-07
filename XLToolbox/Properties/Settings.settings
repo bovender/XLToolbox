@@ -27,7 +27,7 @@
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
     <Setting Name="UserSettingsFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">settings.yaml</Value>
+      <Value Profile="(Default)">settings.yml</Value>
     </Setting>
   </Settings>
 </SettingsFile>

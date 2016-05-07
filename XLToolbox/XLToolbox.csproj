@@ -186,6 +186,9 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mvvm\Views\UserSettingsExceptionView.xaml.cs">
+      <DependentUpon>UserSettingsExceptionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserSettings.cs" />
     <Compile Include="Properties\StoreNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -386,6 +389,10 @@
     <Page Include="Mvvm\Views\StringMessageContentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\UserSettingsExceptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SheetManager\SheetManagerControl.xaml">
       <SubType>Designer</SubType>

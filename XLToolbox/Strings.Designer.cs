@@ -395,6 +395,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default settings will be used..
+        /// </summary>
+        public static string DefaultUserSettingsWillBeUsed {
+            get {
+                return ResourceManager.GetString("DefaultUserSettingsWillBeUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -1251,6 +1260,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is the error message:.
+        /// </summary>
+        public static string ThisIsTheErrorMessage {
+            get {
+                return ResourceManager.GetString("ThisIsTheErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is version:.
         /// </summary>
         public static string ThisIsVersion {
@@ -1391,6 +1409,24 @@ namespace XLToolbox {
         public static string UseColorManagement {
             get {
                 return ResourceManager.GetString("UseColorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal settings.
+        /// </summary>
+        public static string UserSettings {
+            get {
+                return ResourceManager.GetString("UserSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal XL Toolbox settings could not be loaded..
+        /// </summary>
+        public static string UserSettingsCouldNotBeLoaded {
+            get {
+                return ResourceManager.GetString("UserSettingsCouldNotBeLoaded", resourceCulture);
             }
         }
         

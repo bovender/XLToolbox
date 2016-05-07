@@ -35,8 +35,6 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            PrepareConfig();
-
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
@@ -59,10 +57,9 @@ namespace XLToolboxForExcel
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
-            // Distract the user :-)
+            PerformSanityChecks();
             MaybeCheckForUpdate();
             GreetUser();
-            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
 
             XLToolbox.Keyboard.Manager.Default.EnableShortcuts();
         }
@@ -187,6 +184,18 @@ namespace XLToolboxForExcel
                     Properties.Settings.Default.NeedUpgrade = false;
                     Properties.Settings.Default.Save();
                 }
+            }
+        }
+
+        private void PerformSanityChecks()
+        {
+            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+            XLToolbox.UserSettings userSettings = XLToolbox.UserSettings.Default;
+            if (userSettings.Exception != null)
+            {
+                Bovender.UserSettings.UserSettingsExceptionViewModel vm =
+                    new Bovender.UserSettings.UserSettingsExceptionViewModel(userSettings);
+                vm.InjectInto<XLToolbox.Mvvm.Views.UserSettingsExceptionView>().ShowDialog();
             }
         }
 

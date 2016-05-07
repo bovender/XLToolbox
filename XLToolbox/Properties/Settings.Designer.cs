@@ -97,7 +97,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("settings.yaml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.yml")]
         public string UserSettingsFile {
             get {
                 return ((string)(this["UserSettingsFile"]));
