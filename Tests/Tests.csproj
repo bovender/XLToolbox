@@ -135,7 +135,6 @@
     <Compile Include="WorkbookStorage\ClassForTesting.cs" />
     <Compile Include="WorkbookStorage\StoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VersioningTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
