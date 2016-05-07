@@ -233,8 +233,7 @@ namespace XLToolbox.WorkbookStorage
         #region Public methods
 
         /// <summary>
-        /// Retrieves an integer from the storage, given a key. Throws a
-        /// WorkbookStorageException if the key is not found.
+        /// Retrieves an integer from the storage, given a key.
         /// </summary>
         /// <param name="key">Key to look up.</param>
         /// <returns>Integer value</returns>
