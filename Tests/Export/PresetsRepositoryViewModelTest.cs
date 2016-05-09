@@ -32,8 +32,8 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void AddCommand()
         {
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepository sr = PresetsRepository.Default;
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             int numSettings = sr.Presets.Count;
             srvm.AddCommand.Execute(null);
             Assert.AreEqual(numSettings + 1, sr.Presets.Count,
@@ -45,13 +45,13 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void RemoveCommand()
         {
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
+            PresetsRepository sr = PresetsRepository.Default;
             for (int i = 0; i < 3; i++)
             {
                 sr.Add(new Preset());
             };
             int oldCount = sr.Presets.Count;
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             Preset s = sr.Presets[2];
             Assert.IsFalse(srvm.RemoveCommand.CanExecute(null),
                 "Remove command should be disabled if no export settings objects are selected.");
@@ -78,8 +78,8 @@ namespace XLToolbox.UnitTests.Export
         public void EditCommand()
         {
             Preset s = new Preset() { Name = "test settings" };
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepository sr = PresetsRepository.Default;
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             sr.Add(s);
             Assert.IsFalse(srvm.EditCommand.CanExecute(null),
                 "Edit settings command should be disabled if nothing is selected.");

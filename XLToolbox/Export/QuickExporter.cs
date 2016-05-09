@@ -76,6 +76,9 @@ namespace XLToolbox.Export
             }
             else
             {
+                // We did get a view model, but its ChooseFolderCommand is disabled,
+                // which means that the selected batch export options are invalid
+                // in the current context.
                 if (bvm != null)
                 {
                     bvm = new BatchExportSettingsViewModel();

@@ -63,6 +63,10 @@ namespace XLToolbox.Export.Models
                 );
             if (settings != null)
             {
+                // Replace the Preset object in the settings with the equivalent
+                // one from the PresetsRepository, or add
+                // it to the repository if no Preset with the same checksum hash exists.
+                settings.Preset = PresetsRepository.Default.FindOrAdd(settings.Preset);
                 return settings;
             }
             else

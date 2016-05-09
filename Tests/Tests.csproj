@@ -118,10 +118,10 @@
     <Compile Include="Export\ColorProfileRepositoryViewModelTest.cs" />
     <Compile Include="Export\ExporterTest.cs" />
     <Compile Include="Export\ExportFileNameTest.cs" />
-    <Compile Include="Export\PresetsRepositoryForTesting.cs" />
     <Compile Include="Export\PresetsRepositoryTest.cs" />
     <Compile Include="Export\PresetsRepositoryViewModelTest.cs" />
     <Compile Include="Export\PresetsViewModelTest.cs" />
+    <Compile Include="Export\PresetTest.cs" />
     <Compile Include="Export\ScreenShotExporterTest.cs" />
     <Compile Include="Export\SingleExportSettingsViewModelTest.cs" />
     <Compile Include="Export\UnitTest.cs" />

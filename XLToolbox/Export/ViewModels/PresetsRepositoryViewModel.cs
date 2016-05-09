@@ -64,47 +64,12 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Constructors
+        #region Constructor
 
-        /// <summary>
-        /// Instantiates the view model and creates a new PresetRepository
-        /// instance which will load previously saved values in the background.
-        /// </summary>
         public PresetsRepositoryViewModel()
-            : this(new PresetsRepository())
-        { }
-
-        void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Name": OnPropertyChanged("Presets"); break;
-                case "IsSelected": OnPropertyChanged("SelectedPreset"); break;
-            }
-        }
-
-        /// <summary>
-        /// Instantiates the view model by creating a new repository instance
-        /// (which loads previously saved values, if they exist) and adding
-        /// the <paramref name="presetViewModel"/> to the repository.
-        /// </summary>
-        /// <param name="presetViewModel">Preset view model (and associated model)
-        /// to add to the repository.</param>
-        public PresetsRepositoryViewModel(PresetViewModel presetViewModel)
-            : this()
-        {
-            Presets.Add(presetViewModel);
-        }
-
-        public PresetsRepositoryViewModel(PresetsRepository repository)
             : base()
         {
-            _repository = repository;
-            Presets = new PresetViewModelCollection(_repository);
-            if (Presets.Count == 0)
-            {
-                Presets.Add(new PresetViewModel());
-            }
+            Presets = new PresetViewModelCollection();
             Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
         }
 
@@ -271,11 +236,12 @@ namespace XLToolbox.Export.ViewModels
 
         private void DoAddPreset()
         {
-            Preset s = new Preset();
-            PresetViewModel svm = new PresetViewModel(s);
-            Presets.Add(svm);
-            svm.IsSelected = true;
+            PresetViewModel pvm = new PresetViewModel();
+            foreach (PresetViewModel p in Presets) { p.IsSelected = false; }
+            Presets.Add(pvm);
+            pvm.IsSelected = true;
             OnPropertyChanged("Presets");
+            OnPropertyChanged("SelectedPresets");
         }
 
         private void DoDeletePreset()
@@ -293,8 +259,8 @@ namespace XLToolbox.Export.ViewModels
                 {
                     if (CanDeletePreset() && messageContent.Confirmed)
                     {
-                        this.Presets.RemoveSelected();
-                        // OnPropertyChanged("Presets");
+                        Presets.RemoveSelected();
+                        OnPropertyChanged("Presets");
                         OnPropertyChanged("SelectedPreset");
                     }
                 })
@@ -319,11 +285,19 @@ namespace XLToolbox.Export.ViewModels
             return (SelectedPreset != null);
         }
 
+        private void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Name": OnPropertyChanged("Presets"); break;
+                case "IsSelected": OnPropertyChanged("SelectedPreset"); break;
+            }
+        }
+
         #endregion
 
         #region Private fields
 
-        PresetsRepository _repository;
         DelegatingCommand _addCommand;
         DelegatingCommand _removeCommand;
         DelegatingCommand _editCommand;
@@ -332,17 +306,11 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Private contants
-
-        private const string STORAGEKEY = "ExportPreset";
-
-        #endregion
-
         #region Implementation of ViewModelBase's abstract methods
 
         public override object RevealModelObject()
         {
-            return _repository;
+            return PresetsRepository.Default;
         }
 
         #endregion

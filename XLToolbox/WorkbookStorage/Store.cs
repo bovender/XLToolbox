@@ -282,6 +282,12 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        /// <summary>
+        /// Deserializes a stored object. Returns null upon failure.
+        /// </summary>
+        /// <typeparam name="T">Type name of the object to be deserialized.</typeparam>
+        /// <param name="key">Key that this object is stored under.</param>
+        /// <returns>Deserialized object of type T, or null.</returns>
         public T Get<T>(string key) where T : class, new()
         {
             string xml = Get(key, String.Empty);

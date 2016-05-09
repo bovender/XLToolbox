@@ -27,6 +27,7 @@ using XLToolbox.WorkbookStorage;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using System.IO;
+using Bovender.Extensions;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -295,34 +296,6 @@ namespace XLToolbox.Export.ViewModels
             {
                 Name = value;
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            PresetViewModel other = obj as PresetViewModel;
-            if (other == null)
-            {
-                return false;
-            }
-            return this.Equals(other);
-        }
-
-        public bool Equals(PresetViewModel other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-            return (String.Equals(this.Name, other.Name) &&
-                (this.FileType.AsEnum == other.FileType.AsEnum) &&
-                (this.ColorSpace.AsEnum == other.ColorSpace.AsEnum) &&
-                (this.Transparency.AsEnum == other.Transparency.AsEnum) &&
-                (this.Dpi == other.Dpi));
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
 
         #endregion

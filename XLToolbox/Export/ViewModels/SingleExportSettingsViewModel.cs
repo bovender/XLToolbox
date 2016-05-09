@@ -181,7 +181,7 @@ namespace XLToolbox.Export.ViewModels
                 PresetsRepository.SelectLastUsedOrDefault(Instance.Default.Application.ActiveWorkbook);
             }
             CreateSettingsInstance();
-            Units.AsEnum = UserSettings.Default.LastExportUnit;
+            Units.AsEnum = UserSettings.Default.ExportUnit;
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace XLToolbox.Export.ViewModels
                 presetViewModel.IsSelected = true;
             }
             CreateSettingsInstance();
-            Units.AsEnum = UserSettings.Default.LastExportUnit;
+            Units.AsEnum = UserSettings.Default.ExportUnit;
         }
 
         public SingleExportSettingsViewModel(Preset preset)
@@ -255,7 +255,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 // TODO: Make export asynchronous
                 SelectedPreset.Store();
-                UserSettings.Default.LastExportUnit = Units.AsEnum;
+                UserSettings.Default.ExportUnit = Units.AsEnum;
                 SaveExportPath();
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();

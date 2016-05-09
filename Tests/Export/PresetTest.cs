@@ -1,7 +1,7 @@
-﻿/* PresetsRepositoryForTesting.cs
+﻿/* PresetTest.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2015 Daniel Kraus
+ * Copyright 2014-2016 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NUnit.Framework;
 using XLToolbox.Export.Models;
 
-namespace XLToolbox.UnitTests.Export
+namespace XLToolbox.Test.Export
 {
-    class PresetsRepositoryForTesting : PresetsRepository
+    [TestFixture]
+    class PresetTest
     {
     }
 }

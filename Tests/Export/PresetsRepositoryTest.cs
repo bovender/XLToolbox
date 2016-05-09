@@ -29,20 +29,24 @@ namespace XLToolbox.UnitTests.Export
     public class PresetsRepositoryTest
     {
         [Test]
-        public void StoreAndRetrieve()
+        public void RetrieveExistingPreset()
         {
-            string testName = "test settings";
-            using (PresetsRepository repository = new PresetsRepository())
-            {
-                Preset settings = new Preset() { Dpi = 300, ColorSpace = ColorSpace.GrayScale, Name = testName };
-                repository.Add(settings);
-            }
-            using (PresetsRepository repository = new PresetsRepository())
-            {
-                Preset settings = repository.Presets[repository.Presets.Count-1];
-                Assert.AreEqual(testName, settings.Name,
-                    "Retrieved export settings have different name than previously stored.");
-            }
+            Preset p = new Preset();
+            PresetsRepository r = PresetsRepository.Default;
+            Preset other = new Preset();
+            Assert.AreSame(p, r.FindOrAdd(p));
+            Assert.AreNotSame(other, r.FindOrAdd(p));
+        }
+
+        [Test]
+        public void RetrieveUnknownPreset()
+        {
+            Preset p = new Preset();
+            PresetsRepository r = PresetsRepository.Default;
+            Assert.AreEqual(0, r.Presets.Count);
+            Preset o = r.FindOrAdd(p);
+            Assert.AreSame(p, o);
+            Assert.AreEqual(1, r.Presets.Count);
         }
     }
 }

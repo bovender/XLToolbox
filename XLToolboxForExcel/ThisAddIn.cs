@@ -35,6 +35,18 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            // Delete user config file that may be left over from NG developmental
+            // versions. We don't need it anymore and it causes nasty crashes.
+            try
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                if (System.IO.File.Exists(config.FilePath))
+                {
+                    System.IO.File.Delete(config.FilePath);
+                }
+            }
+            catch { }
+
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
@@ -102,15 +114,14 @@ namespace XLToolboxForExcel
 
         private void GreetUser()
         {
-            SemanticVersion lastSeenVersion = new SemanticVersion(
-                Properties.Settings.Default.LastVersionSeen);
+            SemanticVersion lastVersionSeen = new SemanticVersion(
+                XLToolbox.UserSettings.Default.LastVersionSeen);
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-            if (currentVersion > lastSeenVersion)
+            if (currentVersion > lastVersionSeen)
             {
                 GreeterViewModel gvm = new GreeterViewModel();
                 gvm.InjectAndShowInThread<GreeterView>();
-                Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
-                Properties.Settings.Default.Save();
+                XLToolbox.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
             }
         }
 
@@ -153,38 +164,6 @@ namespace XLToolboxForExcel
                 XLToolbox.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
         }
-
-        /// <summary>
-        /// Prepares the user.config file by upgrading it and performing
-        /// tweaks as necessary.
-        /// </summary>
-        // private void PrepareConfig()
-        // {
-        //     Configuration config = ConfigurationManager.OpenExeConfiguration(
-        //         ConfigurationUserLevel.PerUserRoamingAndLocal);
-        // 
-        //     // If the user.config file mentions XLToolbox.Properties.Settings but
-        //     // does *not* contain a section declaration
-        //     // for XLToolbox.Properties.Settings, it has the old format (prior
-        //     // to version 7.0.0-alpha.16). In this case, we must delete it because
-        //     // there is no way to persuade the ConfigurationManager to work with
-        //     // the old file at all.
-        //     if (System.IO.File.Exists(config.FilePath))
-        //     {
-        //         string s = System.IO.File.ReadAllText(config.FilePath);
-        //         if (s.Contains("XLToolbox.Properties.Settings") && !s.Contains("section name=\"XLToolbox.Properties.Settings"))
-        //         {
-        //             System.IO.File.Delete(config.FilePath);
-        //         }
-        // 
-        //         if (Properties.Settings.Default.NeedUpgrade)
-        //         {
-        //             Properties.Settings.Default.Upgrade();
-        //             Properties.Settings.Default.NeedUpgrade = false;
-        //             Properties.Settings.Default.Save();
-        //         }
-        //     }
-        // }
 
         private void PerformSanityChecks()
         {

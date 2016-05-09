@@ -2,12 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="XLToolboxForExcel.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LastUpdateSeen" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0.0.0</Value>
-    </Setting>
-    <Setting Name="LastVersionSeen" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0.0.0</Value>
-    </Setting>
     <Setting Name="DumpFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">xltoolbox-dump.txt</Value>
     </Setting>

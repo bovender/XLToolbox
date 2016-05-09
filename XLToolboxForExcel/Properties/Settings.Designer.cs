@@ -23,30 +23,6 @@ namespace XLToolboxForExcel.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastUpdateSeen {
-            get {
-                return ((string)(this["LastUpdateSeen"]));
-            }
-            set {
-                this["LastUpdateSeen"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.0.0")]
-        public string LastVersionSeen {
-            get {
-                return ((string)(this["LastVersionSeen"]));
-            }
-            set {
-                this["LastVersionSeen"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("xltoolbox-dump.txt")]

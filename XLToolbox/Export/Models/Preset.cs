@@ -17,12 +17,9 @@
  */
 using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using XLToolbox.Excel.ViewModels;
 using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export.Models
@@ -36,31 +33,38 @@ namespace XLToolbox.Export.Models
     {
         #region Factory
 
+        /// <summary>
+        /// Returns the last used preset stored in the UserSettings,
+        /// or null.
+        /// </summary>
+        /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed()
         {
-            return UserSettings.Default.RetrieveExportPresetOrDefault();
+            return UserSettings.Default.ExportPreset;
         }
 
+        /// <summary>
+        /// Returns the last used preset that is stored in the current
+        /// workbook, or the last used preset stored in the UserSettings,
+        /// or null.
+        /// </summary>
+        /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed(Workbook workbookContext)
         {
-            ObservableCollection<Preset> repo = UserSettings.Default.ExportPresets;
             Store store = new Store(workbookContext);
-            if (repo != null && repo.Count > 0)
+            Preset preset = store.Get<Preset>(Properties.StoreNames.Default.ExportPreset);
+
+            if (preset != null)
             {
-                int index = store.Get(Properties.StoreNames.Default.ExportPreset,
-                    UserSettings.Default.LastExportPreset, 0, repo.Count - 1);
-                return repo[index];
+                // Return the equivalent Preset object from the current collection, or
+                // add the preset retrieved from the workbook to the current collection.
+                return PresetsRepository.Default.FindOrAdd(preset);
             }
             else
             {
-                if (repo == null)
-                {
-                    repo = new ObservableCollection<Preset>();
-                    UserSettings.Default.ExportPresets = repo;
-                }
-                Preset p = new Preset();
-                repo.Add(p);
-                return p;
+                // Did not get a Preset from the workbook's Store, so let's try
+                // and offer the last used Preset from the UserSettings.
+                return FromLastUsed();
             }
         }
 
@@ -154,19 +158,34 @@ namespace XLToolbox.Export.Models
             }
         }
         
+        /// <summary>
+        /// Serializes the current Preset into a workbook's Store.
+        /// </summary>
+        /// <param name="workbookContext"></param>
         public void Store(Workbook workbookContext)
         {
-            UserSettings.Default.StoreExportPreset(this);
+            UserSettings.Default.ExportPreset = this;
             using (Store store = new Store(workbookContext))
             {
-                store.Put(Properties.StoreNames.Default.ExportPreset,
-                    UserSettings.Default.GetExportPresetIndex(this));
+                store.Put(Properties.StoreNames.Default.ExportPreset, this);
             }
         }
 
         public void Store()
         {
             Store(Excel.ViewModels.Instance.Default.ActiveWorkbook);
+        }
+
+        /// <summary>
+        /// Returns the MD5 hash of this Preset.
+        /// </summary>
+        /// <remarks>
+        /// This is just a wrapper around Bovender's extension method so that
+        /// calling code does not need to use Bovender.Extensions.</remarks>
+        /// <returns></returns>
+        public string ComputeMD5Hash()
+        {
+            return this.ComputeMD5Hash();
         }
 
         #endregion
@@ -179,5 +198,6 @@ namespace XLToolbox.Export.Models
         }
 
         #endregion
+
     }
 }
