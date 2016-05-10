@@ -119,9 +119,10 @@ namespace XLToolbox.Vba
                 default: return 3;
             }
 
-            Preset p = new Preset(ft, dpi, cs);
-            p.Transparency = t;
-            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(p);
+            Preset preset = new Preset(ft, dpi, cs);
+            preset.Transparency = t;
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
 
             vm.FileName = fileName;
             vm.ExportCommand.Execute(null);

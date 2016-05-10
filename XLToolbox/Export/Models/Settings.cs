@@ -35,9 +35,7 @@ namespace XLToolbox.Export.Models
     {
         #region Public properties
 
-        [YamlDotNet.Serialization.YamlIgnore]
         public Preset Preset { get; set; }
-
         public string FileName { get; set; }
 
         #endregion

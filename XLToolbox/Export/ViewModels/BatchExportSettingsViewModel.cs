@@ -22,6 +22,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
+using System.Diagnostics;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -302,28 +303,13 @@ namespace XLToolbox.Export.ViewModels
 
         public BatchExportSettingsViewModel()
             : this(new BatchExportSettings())
-        {
-            if (PresetsRepository.Presets.Count > 0)
-            {
-                PresetsRepository.Presets[0].IsSelected = true;
-            }
-            Settings = new BatchExportSettings(
-                PresetsRepository.SelectedPreset.RevealModelObject() as Preset);
-        }
+        { }
 
         public BatchExportSettingsViewModel(BatchExportSettings settings)
             : base()
         {
             Settings = settings;
-            if (settings.Preset != null)
-            {
-                PresetViewModel pvm = new PresetViewModel(settings.Preset);
-                if (!PresetsRepository.Select(pvm))
-                {
-                    PresetsRepository.Presets.Add(pvm);
-                    pvm.IsSelected = true;
-                }
-            }
+            PresetViewModels.Select(settings.Preset);
             FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
                 Strings.Workbook, Strings.Worksheet, Strings.Index);
             Scope.PropertyChanged += Scope_PropertyChanged;
@@ -362,8 +348,8 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExport())
             {
-                ((BatchExportSettings)Settings).Store(
-                    Instance.Default.ActiveWorkbook);
+                Debug.WriteLine(PresetViewModels.ViewModels.Count);
+                ((BatchExportSettings)Settings).Store(Instance.Default.ActiveWorkbook);
                 SaveExportPath();
                 Exporter exporter = new Exporter();
                 ProcessMessageContent processMessageContent =
@@ -393,7 +379,7 @@ namespace XLToolbox.Export.ViewModels
         protected override bool CanExport()
         {
             return CanExecuteMatrix[Scope.AsEnum][Objects.AsEnum][Layout.AsEnum] &&
-                (SelectedPreset != null);
+                (Settings.Preset != null);
         }
 
         #endregion

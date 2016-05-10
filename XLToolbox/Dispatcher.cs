@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using Forms = System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Microsoft.Office.Tools;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox
 {
@@ -152,7 +153,13 @@ namespace XLToolbox
 
         static void ExportSelection()
         {
-            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel();
+            Preset preset = UserSettings.Default.ExportPreset;
+            if (preset == null)
+            {
+                preset = PresetsRepository.Default.First;
+            }
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 

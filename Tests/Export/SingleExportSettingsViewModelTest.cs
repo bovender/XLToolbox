@@ -25,6 +25,7 @@ using Bovender.Mvvm.Messaging;
 using XLToolbox.Export;
 using XLToolbox.Export.ViewModels;
 using XLToolbox.Excel.ViewModels;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.UnitTests.Export
 {
@@ -40,7 +41,9 @@ namespace XLToolbox.UnitTests.Export
             Worksheet ws = wb.Worksheets[1];
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 300, 200).Select();
-            svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
+            Preset preset = PresetsRepository.Default.Presets.First();
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            svm = new SingleExportSettingsViewModel(settings);
         }
 
         [Test]
@@ -54,7 +57,9 @@ namespace XLToolbox.UnitTests.Export
         public void DimensionsChartSheet()
         {
             Chart c = Instance.Default.Application.ActiveWorkbook.Charts.Add();
-            svm = new SingleExportSettingsViewModel(new XLToolbox.Export.Models.Preset());
+            Preset preset = PresetsRepository.Default.Presets.First();
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            svm = new SingleExportSettingsViewModel(settings);
             // Assert small differences because rounding errors are possible
             Assert.IsTrue(Math.Abs(c.ChartArea.Width - svm.Width) < 0.000001,
                 "Export settings width is incorrect.");
@@ -102,13 +107,12 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void ExportCommandDisabledWithoutSelection()
         {
-            SingleExportSettingsViewModel svm;
-            svm = new SingleExportSettingsViewModel();
-            PresetViewModel pvm = new PresetViewModel();
-            svm.PresetsRepository.Presets.Add(pvm);
-            pvm.IsSelected = true;
-
             Instance.Default.Reset(); // reset Excel; no workbooks open
+
+            Preset preset = PresetsRepository.Default.Presets.First();
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
+
             Assert.IsFalse(svm.ExportCommand.CanExecute(null),
                 "Export command should be disabled if there is no selection.");
             Instance.Default.CreateWorkbook();

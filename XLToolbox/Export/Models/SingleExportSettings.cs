@@ -1,4 +1,5 @@
-﻿/* SingleExportSettings.cs
+﻿using Microsoft.Office.Interop.Excel;
+/* SingleExportSettings.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2015 Daniel Kraus
@@ -19,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Export.Models
 {
@@ -27,6 +29,41 @@ namespace XLToolbox.Export.Models
     /// </summary>
     public class SingleExportSettings : Settings
     {
+        #region Factory
+
+        /// <summary>
+        /// Creates a single export settings for the current selection.
+        /// </summary>
+        public static SingleExportSettings CreateForSelection(Preset preset)
+        {
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
+            // If the ActiveChart property of the Excel application is not null,
+            // either a chart or 'something in the chart' is selected. To make sure
+            // we don't attempt to export 'something in the chart', we select the
+            // entire chart.
+            // If there is no workbook open, accessing the ActiveChart property causes
+            // a COM exception.
+            object activeChart = null;
+            try
+            {
+                activeChart = Instance.Default.Application.ActiveChart;
+            }
+            catch (System.Runtime.InteropServices.COMException) { }
+            finally
+            {
+                if (activeChart != null)
+                {
+                    ChartViewModel cvm = new ChartViewModel(activeChart as Chart);
+                    // Handle chart sheets and embedded charts differently
+                    cvm.SelectSpecial();
+                }
+            }
+            return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height,
+                UserSettings.Default.ExportUnit, true);
+        }
+
+        #endregion
+
         #region Public properties
 
         /// <summary>
@@ -92,16 +129,18 @@ namespace XLToolbox.Export.Models
             : base()
         {
             _unit = Models.Unit.Point;
+            Preset = PresetsRepository.Default.First;
             PreserveAspect = true;
         }
 
-        public SingleExportSettings(Preset preset, double width, double height, bool preserveAspect)
+        public SingleExportSettings(Preset preset, double width, double height, Unit unit, bool preserveAspect)
             : this()
         {
             Preset = preset;
             Width = width;
             Height = height;
             PreserveAspect = preserveAspect;
+            _unit = unit;
         }
 
         #endregion

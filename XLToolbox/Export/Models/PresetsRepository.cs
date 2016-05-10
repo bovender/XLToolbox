@@ -61,6 +61,26 @@ namespace XLToolbox.Export.Models
         /// </summary>
         public ObservableCollection<Preset> Presets { get; set; }
 
+        /// <summary>
+        /// Gets the first preset in the repository. Will create one if
+        /// necessary.
+        /// </summary>
+        public Preset First
+        {
+            get
+            {
+                if (Presets == null)
+                {
+                    Presets = new ObservableCollection<Preset>();
+                }
+                if (Presets.Count == 0)
+                {
+                    Presets.Add(new Preset());
+                }
+                return Presets[0];
+            }
+        }
+
         #endregion
 
         #region Public methods

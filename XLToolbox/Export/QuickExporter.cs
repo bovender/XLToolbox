@@ -37,15 +37,15 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportSelection()
         {
-            Preset p = Preset.FromLastUsed(
-                Instance.Default.Application.ActiveWorkbook);
-            if (p == null)
+            Preset preset = Preset.FromLastUsed(Instance.Default.Application.ActiveWorkbook);
+            if (preset == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
             }
             else
             {
-                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(p);
+                SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent; 
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {

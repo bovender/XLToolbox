@@ -59,8 +59,7 @@ namespace XLToolbox.Test.Export
             sc.Add(ws.Range["A1:A3"]);
             co.Chart.ChartArea.Select();
             Preset preset = new Preset(fileType, dpi, colorSpace);
-            SingleExportSettings settings = new SingleExportSettings(preset,
-                co.Width, co.Height, true);
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             settings.FileName = Path.Combine(
                 Path.GetTempPath(),
                 Path.GetTempFileName() + fileType.ToFileNameExtension()

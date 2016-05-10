@@ -37,19 +37,19 @@ namespace XLToolbox.Export.ViewModels
     {
         #region Public properties
 
-        public PresetViewModelCollection Presets { get; private set; }
+        public PresetViewModelCollection ViewModels { get; private set; }
 
-        public PresetViewModel SelectedPreset
+        public PresetViewModel SelectedViewModel
         {
             get
             {
-                return Presets.LastSelected;
+                return ViewModels.LastSelected;
             }
             set
             {
-                if (Presets.LastSelected != null)
+                if (ViewModels.LastSelected != null)
                 {
-                    Presets.LastSelected.IsSelected = false;
+                    ViewModels.LastSelected.IsSelected = false;
                 }
                 if (value != null)
                 {
@@ -58,7 +58,6 @@ namespace XLToolbox.Export.ViewModels
                 // No need to raise PropertyChanged here,
                 // because we listen to the PresetViewModel's
                 // event and relay it (in Presets_ViewModelPropertyChanged).
-                // OnPropertyChanged("SelectedPreset");
             }
         }
 
@@ -69,8 +68,8 @@ namespace XLToolbox.Export.ViewModels
         public PresetsRepositoryViewModel()
             : base()
         {
-            Presets = new PresetViewModelCollection();
-            Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
+            ViewModels = new PresetViewModelCollection();
+            ViewModels.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
         }
 
         #endregion
@@ -155,53 +154,24 @@ namespace XLToolbox.Export.ViewModels
 
         #region Public methods
 
-        /// <summary>
-        /// Selects the last used preset as stored in the workbook's
-        /// WorkbookStorage area or in the user settings, if any.
-        /// Selects the first preset in the collection if no previously
-        /// stored preset is found.
-        /// </summary>
-        /// <param name="workbook">Workbook whose stored settings to
-        /// search for a previously used preset.</param>
-        /// <exception cref="InvalidOperationException">If no presets
-        /// exist in the collection.</exception>
         public void SelectLastUsedOrDefault(Workbook workbook)
         {
-            if (Presets.Count == 0)
+            Preset preset = Preset.FromLastUsed(Excel.ViewModels.Instance.Default.ActiveWorkbook);
+            if (preset == null)
             {
-                throw new InvalidOperationException(
-                    "Cannot select a preset because there are no presets in the collection.");
+                preset = PresetsRepository.Default.First;
             }
-
-            PresetViewModel pvm = PresetViewModel.FromLastUsed(
-                Excel.ViewModels.Instance.Default.ActiveWorkbook);
-            if (!Select(pvm))
-            {
-                Presets[0].IsSelected = true;
-            };
+            Select(preset);
         }
 
-        /// <summary>
-        /// Selects a preset view model similar to the presetViewModel argument.
-        /// </summary>
-        /// <param name="presetViewModel">Preset view model with properties
-        /// similar to the one to be selected.</param>
-        /// <returns>True if similar view model exists, false if not.</returns>
-        public bool Select(PresetViewModel presetViewModel)
+        public void Select(Preset preset)
         {
-            if (presetViewModel == null) return false;
-
-            PresetViewModel existing = Presets.FirstOrDefault(
-                obj => obj.Equals(presetViewModel));
-            if (existing != null)
+            if (preset == null)
             {
-                existing.IsSelected = true;
-                return true;
+                throw new ArgumentNullException("preset", "Cannot select PresetViewModel without Preset");
             }
-            else
-            {
-                return false;
-            }
+            PresetViewModel pvm = ViewModels.FirstOrDefault(p => p.IsViewModelOf(preset));
+            pvm.IsSelected = true;
         }
 
         /*
@@ -237,8 +207,8 @@ namespace XLToolbox.Export.ViewModels
         private void DoAddPreset()
         {
             PresetViewModel pvm = new PresetViewModel();
-            foreach (PresetViewModel p in Presets) { p.IsSelected = false; }
-            Presets.Add(pvm);
+            foreach (PresetViewModel p in ViewModels) { p.IsSelected = false; }
+            ViewModels.Add(pvm);
             pvm.IsSelected = true;
             OnPropertyChanged("Presets");
             OnPropertyChanged("SelectedPresets");
@@ -259,7 +229,7 @@ namespace XLToolbox.Export.ViewModels
                 {
                     if (CanDeletePreset() && messageContent.Confirmed)
                     {
-                        Presets.RemoveSelected();
+                        ViewModels.RemoveSelected();
                         OnPropertyChanged("Presets");
                         OnPropertyChanged("SelectedPreset");
                     }
@@ -269,28 +239,28 @@ namespace XLToolbox.Export.ViewModels
 
         private bool CanDeletePreset()
         {
-            return (SelectedPreset != null);
+            return (SelectedViewModel != null);
         }
 
         private void DoEditPreset()
         {
             EditSettingsMessage.Send(
-                new ViewModelMessageContent(SelectedPreset),
+                new ViewModelMessageContent(SelectedViewModel),
                 content => OnPropertyChanged("Presets")
             );
         }
 
         private bool CanEditPreset()
         {
-            return (SelectedPreset != null);
+            return (SelectedViewModel != null);
         }
 
         private void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "Name": OnPropertyChanged("Presets"); break;
-                case "IsSelected": OnPropertyChanged("SelectedPreset"); break;
+                case "Name": OnPropertyChanged("ViewModels"); break;
+                case "IsSelected": OnPropertyChanged("SelectedViewModel"); break;
             }
         }
 

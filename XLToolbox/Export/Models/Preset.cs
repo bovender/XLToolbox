@@ -182,10 +182,9 @@ namespace XLToolbox.Export.Models
         /// <remarks>
         /// This is just a wrapper around Bovender's extension method so that
         /// calling code does not need to use Bovender.Extensions.</remarks>
-        /// <returns></returns>
         public string ComputeMD5Hash()
         {
-            return this.ComputeMD5Hash();
+            return Bovender.CommonHelpers.ComputeMD5Hash(this);
         }
 
         #endregion

@@ -16,21 +16,11 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Xml;
-using System.Configuration;
-using Microsoft.Office.Interop.Excel;
+using System.ComponentModel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
-using Bovender.Mvvm.ViewModels;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.WorkbookStorage;
 using XLToolbox.Export.Models;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -174,72 +164,17 @@ namespace XLToolbox.Export.ViewModels
         #region Constructors
 
         public SingleExportSettingsViewModel()
-            : base()
-        {
-            if (Instance.Default.Application.Workbooks.Count > 0)
-            {
-                PresetsRepository.SelectLastUsedOrDefault(Instance.Default.Application.ActiveWorkbook);
-            }
-            CreateSettingsInstance();
-            Units.AsEnum = UserSettings.Default.ExportUnit;
-        }
-
-        /// <summary>
-        /// Creates an instance and selects a preset similar to the presetViewModel.
-        /// If no such preset exists, presetViewModel is added to the repository.
-        /// </summary>
-        /// <param name="presetViewModel"></param>
-        public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
-            : base()
-        {
-            if (!PresetsRepository.Select(presetViewModel))
-            {
-                PresetsRepository.Presets.Add(presetViewModel);
-                presetViewModel.IsSelected = true;
-            }
-            CreateSettingsInstance();
-            Units.AsEnum = UserSettings.Default.ExportUnit;
-        }
-
-        public SingleExportSettingsViewModel(Preset preset)
-            : this(new PresetViewModel(preset))
+            : this(new SingleExportSettings())
         { }
 
-        /*
-        /// <summary>
-        /// Instantiates the view model and adds the <paramref name="presetViewModel"/>
-        /// to the Presets repository.
-        /// </summary>
-        /// <param name="presetViewModel">Preset view model to add to the repository.</param>
-        public SingleExportSettingsViewModel(PresetViewModel presetViewModel)
-            : this()
+        public SingleExportSettingsViewModel(SingleExportSettings singleExportSettings)
+            : base()
         {
-            PresetsRepository.Presets.Add(presetViewModel);
+            Settings = singleExportSettings;
+            PresetViewModels.Select(Settings.Preset);
+            // Need to explicitly set the selected enum value in the EnumProvider<Unit> collection.
+            Units.AsEnum = singleExportSettings.Unit;
         }
-
-        public SingleExportSettingsViewModel(PresetViewModel preset, double width, double height)
-            : this(preset)
-        {
-            Width = width;
-            Height = height;
-            _dimensionsChanged = false;
-        }
-
-        public SingleExportSettingsViewModel(PresetViewModel preset, double width, double height, bool preserveAspect)
-            : this(preset, width, height)
-        {
-            PreserveAspect = preserveAspect;
-        }
-
-        public SingleExportSettingsViewModel(PresetViewModel preset, SelectionViewModel selection, bool preserveAspect)
-            : this(preset)
-        {
-            Height = selection.Bounds.Height;
-            Width = selection.Bounds.Width;
-            _dimensionsChanged = false;
-            PreserveAspect = preserveAspect;
-        }
-        */
 
         #endregion
 
@@ -289,35 +224,6 @@ namespace XLToolbox.Export.ViewModels
         #endregion
 
         #region Private methods
-
-        private void CreateSettingsInstance()
-        {
-            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
-            // If the ActiveChart property of the Excel application is not null,
-            // either a chart or 'something in the chart' is selected. To make sure
-            // we don't attempt to export 'something in the chart', we select the
-            // entire chart.
-            // If there is no workbook open, accessing the ActiveChart property causes
-            // a COM exception.
-            object activeChart = null;
-            try
-            {
-                activeChart = Instance.Default.Application.ActiveChart;
-            }
-            catch (System.Runtime.InteropServices.COMException) { }
-            finally
-            {
-                if (activeChart != null)
-                {
-                    ChartViewModel cvm = new ChartViewModel(activeChart as Chart);
-                    // Handle chart sheets and embedded charts differently
-                    cvm.SelectSpecial();
-                }
-            }
-            Settings = new SingleExportSettings(
-                PresetsRepository.SelectedPreset.RevealModelObject() as Preset,
-                svm.Bounds.Width, svm.Bounds.Height, true);
-        }
 
         private void DoChooseFileName()
         {

@@ -61,7 +61,7 @@ namespace XLToolbox.Export.Models
             BatchExportSettings settings = store.Get<BatchExportSettings>(
                 typeof(BatchExportSettings).ToString()
                 );
-            if (settings != null)
+            if (settings != null && settings.Preset != null)
             {
                 // Replace the Preset object in the settings with the equivalent
                 // one from the PresetsRepository, or add
