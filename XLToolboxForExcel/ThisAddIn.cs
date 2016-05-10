@@ -20,6 +20,7 @@ using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
 using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
@@ -84,7 +85,7 @@ namespace XLToolboxForExcel
             {
                 // Must show the InstallUpdateView modally, because otherwise Excel would
                 // continue to shut down and immediately remove the view while doing so.
-                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
+                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
 
             // Prevent "LocalDataSlot storage has been freed" exceptions;
@@ -135,7 +136,7 @@ namespace XLToolboxForExcel
         {
             e.IsHandled = true;
             ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
-            vm.InjectInto<ExceptionView>().ShowDialog();
+            vm.InjectInto<ExceptionView>().ShowDialogInForm();
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace XLToolboxForExcel
             {
                 Bovender.UserSettings.UserSettingsExceptionViewModel vm =
                     new Bovender.UserSettings.UserSettingsExceptionViewModel(userSettings);
-                vm.InjectInto<XLToolbox.Mvvm.Views.UserSettingsExceptionView>().ShowDialog();
+                vm.InjectInto<XLToolbox.Mvvm.Views.UserSettingsExceptionView>().ShowDialogInForm();
             }
         }
 
