@@ -90,6 +90,13 @@ namespace XLToolbox.Export.Models
             Presets.Add(preset);
         }
 
+        public Preset Add(FileType fileType, int dpi, ColorSpace colorSpace)
+        {
+            Preset p = new Preset(fileType, dpi, colorSpace);
+            Add(p);
+            return p;
+        }
+
         public void Remove(Preset preset)
         {
             Presets.Remove(preset);

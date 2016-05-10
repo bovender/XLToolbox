@@ -41,7 +41,12 @@ namespace XLToolbox.UnitTests.Export
             Worksheet ws = wb.Worksheets[1];
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 300, 200).Select();
-            Preset preset = PresetsRepository.Default.Presets.First();
+            // Get a preset from the UserSettings to enforce the settings are loaded now.
+            Preset preset = UserSettings.Default.ExportPresets.FirstOrDefault();
+            if (preset == null)
+            {
+                preset = PresetsRepository.Default.First;
+            }
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             svm = new SingleExportSettingsViewModel(settings);
         }
@@ -57,7 +62,7 @@ namespace XLToolbox.UnitTests.Export
         public void DimensionsChartSheet()
         {
             Chart c = Instance.Default.Application.ActiveWorkbook.Charts.Add();
-            Preset preset = PresetsRepository.Default.Presets.First();
+            Preset preset = PresetsRepository.Default.First;
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             svm = new SingleExportSettingsViewModel(settings);
             // Assert small differences because rounding errors are possible
@@ -109,13 +114,15 @@ namespace XLToolbox.UnitTests.Export
         {
             Instance.Default.Reset(); // reset Excel; no workbooks open
 
-            Preset preset = PresetsRepository.Default.Presets.First();
+            Preset preset = PresetsRepository.Default.First;
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
 
             Assert.IsFalse(svm.ExportCommand.CanExecute(null),
                 "Export command should be disabled if there is no selection.");
             Instance.Default.CreateWorkbook();
+            settings = SingleExportSettings.CreateForSelection(preset);
+            svm = new SingleExportSettingsViewModel(settings);
             Assert.IsTrue(svm.ExportCommand.CanExecute(null),
                 "Export command should be enabled if something is selected.");
         }

@@ -58,8 +58,15 @@ namespace XLToolbox.Export.Models
                     cvm.SelectSpecial();
                 }
             }
-            return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height,
-                UserSettings.Default.ExportUnit, true);
+            if (svm.Selection != null)
+            {
+                return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height,
+                    UserSettings.Default.ExportUnit, true);
+            }
+            else
+            {
+                return new SingleExportSettings();
+            }
         }
 
         #endregion

@@ -41,12 +41,12 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void RetrieveUnknownPreset()
         {
-            Preset p = new Preset();
+            Preset p = new Preset() { Name = "asdfasdfasdfasdfööö" };
             PresetsRepository r = PresetsRepository.Default;
-            Assert.AreEqual(0, r.Presets.Count);
+            int count = r.Presets.Count;
             Preset o = r.FindOrAdd(p);
             Assert.AreSame(p, o);
-            Assert.AreEqual(1, r.Presets.Count);
+            Assert.AreEqual(count + 1, r.Presets.Count);
         }
     }
 }

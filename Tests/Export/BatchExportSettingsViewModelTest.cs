@@ -40,7 +40,12 @@ namespace XLToolbox.Test.Export
         {
             Instance.Default.Reset();
             Instance.Default.CreateWorkbook();
-            _settings = new BatchExportSettings(new Preset());
+            Preset preset = UserSettings.Default.ExportPresets.FirstOrDefault();
+            if (preset == null)
+            {
+                preset = PresetsRepository.Default.First;
+            }
+            _settings = new BatchExportSettings(preset);
         }
 
         [TearDown]
@@ -55,14 +60,14 @@ namespace XLToolbox.Test.Export
         [Test]
         public void ExecuteWithoutExcel()
         {
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
             Assert.IsFalse(viewModel.ExportCommand.CanExecute(null));
         }
 
         [Test]
         public void ExecuteWithoutChart()
         {
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
             Assert.IsFalse(viewModel.ExportCommand.CanExecute(null));
         }
 
@@ -70,7 +75,7 @@ namespace XLToolbox.Test.Export
         public void ExecuteWithOneChart()
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -114,7 +119,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -158,7 +163,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -202,7 +207,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -246,7 +251,7 @@ namespace XLToolbox.Test.Export
         {
             // Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -291,7 +296,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -336,7 +341,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -381,7 +386,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -426,7 +431,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
             Instance.Default.Application.Worksheets.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -471,7 +476,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             // Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Workbooks.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -516,7 +521,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
             Instance.Default.Application.Workbooks.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel(_settings);
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             viewModel.Scope.AsEnum = BatchExportScope.ActiveSheet;
             viewModel.Objects.AsEnum = BatchExportObjects.Charts;
@@ -562,7 +567,7 @@ namespace XLToolbox.Test.Export
         [Test]
         public void StatesWithoutExcel()
         {
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
             Assert.IsFalse(viewModel.IsActiveWorkbookEnabled, "All Sheets");
             Assert.IsFalse(viewModel.IsOpenWorkbooksEnabled, "All Workbooks");
@@ -575,7 +580,7 @@ namespace XLToolbox.Test.Export
         [Test]
         public void StatesWithoutChart()
         {
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
             Assert.IsFalse(viewModel.IsActiveWorkbookEnabled, "All Sheets");
             Assert.IsFalse(viewModel.IsOpenWorkbooksEnabled, "All Workbooks");
@@ -589,7 +594,7 @@ namespace XLToolbox.Test.Export
         public void StatesWithOneChart()
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsTrue(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -638,7 +643,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsTrue(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -687,7 +692,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsTrue(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -735,7 +740,7 @@ namespace XLToolbox.Test.Export
         public void StatesWithTwoShapesAndNoChart()
         {
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 2);
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsTrue(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -784,7 +789,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 2);
             Instance.Default.Application.Worksheets.Add().Activate();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -833,7 +838,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add().Activate();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -883,7 +888,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Worksheets.Add().Activate();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -932,7 +937,7 @@ namespace XLToolbox.Test.Export
         {
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Workbooks.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -983,7 +988,7 @@ namespace XLToolbox.Test.Export
             Instance.Default.Application.Worksheets.Add().Activate();
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Workbooks.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -1035,7 +1040,7 @@ namespace XLToolbox.Test.Export
             Helpers.CreateSomeCharts(Instance.Default.Application.ActiveSheet, 3);
             Helpers.CreateSomeShapes(Instance.Default.Application.ActiveSheet, 1);
             Instance.Default.Application.Workbooks.Add();
-            BatchExportSettingsViewModel viewModel = new BatchExportSettingsViewModel();
+            BatchExportSettingsViewModel viewModel = CreateVM();
 
             // Assert scope states
             Assert.IsFalse(viewModel.IsActiveSheetEnabled, "Active Sheet");
@@ -1077,6 +1082,11 @@ namespace XLToolbox.Test.Export
             viewModel.Objects.AsEnum = BatchExportObjects.ChartsAndShapes;
             Assert.IsTrue(viewModel.IsSingleItemsEnabled, "Open Workbooks/Charts and Shapes/Single Items");
             Assert.IsTrue(viewModel.IsSheetLayoutEnabled, "Open Workbooks/Charts and Shapes/Preserve Layout");
+        }
+
+        private BatchExportSettingsViewModel CreateVM()
+        {
+            return new BatchExportSettingsViewModel(_settings);
         }
 
         #endregion
