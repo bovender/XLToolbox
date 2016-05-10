@@ -187,11 +187,14 @@ namespace XLToolbox.Csv
 
 
                     // Get all values in an array
-                    object[,] values = range.Value2;
-                    if (values != null)
+                    foreach (Range row in range.Rows)
                     {
-                        for (long row = 1; row <= values.GetLength(0); row++)
+                        // object[,] values = range.Value2;
+                        object[,] values = row.Value2;
+                        if (values != null)
                         {
+                            //for (long row = 1; row <= values.GetLength(0); row++)
+                            //{
                             for (long col = 1; col <= values.GetLength(1); col++)
                             {
                                 CellsProcessed++;
@@ -202,7 +205,8 @@ namespace XLToolbox.Csv
                                     sw.Write(fs);
                                 }
 
-                                object value = values[row, col];
+                                // object value = values[row, col];
+                                object value = values[1, col]; // 1-based index!
                                 if (value != null)
                                 {
                                     if (value is string)
@@ -223,12 +227,14 @@ namespace XLToolbox.Csv
                                 if (_cancelExport) break;
                             }
                             sw.WriteLine();
-                            if (_cancelExport)
-                            {
-                                sw.WriteLine(UNFINISHED_EXPORT);
-                                sw.WriteLine("Cancelled by user.");
-                            }
                         }
+                        if (_cancelExport)
+                        {
+                            sw.WriteLine(UNFINISHED_EXPORT);
+                            sw.WriteLine("Cancelled by user.");
+                            break;
+                        }
+                        // }
                     }
                     sw.Close();
                     if (!_cancelExport) OnExportProgressCompleted();
