@@ -270,6 +270,8 @@ namespace XLToolbox
             }
         }
 
+        public bool Running { get; set; }
+
         #endregion
 
         #region Overrides

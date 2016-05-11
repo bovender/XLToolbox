@@ -82,6 +82,7 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            XLToolbox.UserSettings.Default.Running = false;
             XLToolbox.UserSettings.Default.Save();
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
@@ -181,6 +182,8 @@ namespace XLToolboxForExcel
                     new Bovender.UserSettings.UserSettingsExceptionViewModel(userSettings);
                 vm.InjectInto<XLToolbox.Mvvm.Views.UserSettingsExceptionView>().ShowDialogInForm();
             }
+            userSettings.Running = true;
+            userSettings.Save();
         }
 
         #endregion
