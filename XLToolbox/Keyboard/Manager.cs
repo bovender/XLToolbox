@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
+using Bovender.Extensions;
 
 namespace XLToolbox.Keyboard
 {
@@ -45,7 +46,7 @@ namespace XLToolbox.Keyboard
 
         #region Public properties
 
-        public IList<Shortcut> Shortcuts
+        public ObservableCollection<Shortcut> Shortcuts
         {
             get
             {
@@ -158,8 +159,9 @@ namespace XLToolbox.Keyboard
         /// </summary>
         private void CreateListOfCommands()
         {
-            _shortcuts = new List<Shortcut>();
-            foreach (Command command in Enum.GetValues(typeof(Command)))
+            _shortcuts = new ObservableCollection<Shortcut>();
+            IEnumerable<Command> commands = ((Command[])Enum.GetValues(typeof(Command))).OrderBy(c => c.ToString());
+            foreach (Command command in commands)
             {
                 _shortcuts.Add(new Shortcut(String.Empty, command));
             }
@@ -185,7 +187,7 @@ namespace XLToolbox.Keyboard
 
         #region Private fields
 
-        private List<Shortcut> _shortcuts;
+        private ObservableCollection<Shortcut> _shortcuts;
         private bool _disposed;
 
         #endregion
@@ -203,6 +205,5 @@ namespace XLToolbox.Keyboard
         private static string _tempFile;
 
         #endregion
-
     }
 }

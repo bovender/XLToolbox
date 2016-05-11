@@ -154,8 +154,12 @@
 				</group >
 				<group idMso="GroupAddins" />
 				<group id="GroupXlToolbox" label="XL Toolbox" image="xltb-icon-small.png">
-					<button id="ButtonPrefs" size="large" imageMso="CustomActionsMenu"
-						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
+					<menu id="MenuSettings" size="large" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip">
+						<button id="ButtonShortcuts"
+								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction" />
+						<button id="ButtonPrefs" imageMso="CustomActionsMenu"
+							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
+					</menu>
 					<button id="ButtonAbout" image="xltb-icon-small.png"
 							onAction="Button_OnAction" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
                     <button id="ButtonCheckForUpdate" image="check-update-small.png"

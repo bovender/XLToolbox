@@ -105,6 +105,7 @@ namespace XLToolboxForExcel
                 { "ButtonPointChart", Command.PointChart },
                 { "ButtonWatermark", Command.Watermark },
                 { "ButtonPrefs", Command.Prefs },
+                { "ButtonShortcuts", Command.Shortcuts },
             };
 
             XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;

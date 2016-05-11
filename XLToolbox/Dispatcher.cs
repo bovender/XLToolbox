@@ -102,6 +102,7 @@ namespace XLToolbox
                     case Command.Watermark:
                     case Command.Prefs:
                         Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
+                    case Command.Shortcuts: EditShortcuts(); break;
                     default:
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
@@ -314,6 +315,12 @@ namespace XLToolbox
             Command c = UserSettings.Default.LastErrorBars == 2 ? 
                 Command.InteractiveErrorBars : Command.AutomaticErrorBars;
             Legacy.LegacyToolbox.Default.RunCommand(c);
+        }
+
+        static void EditShortcuts()
+        {
+            Keyboard.ManagerViewModel vm = new Keyboard.ManagerViewModel();
+            vm.InjectInto<Keyboard.ManagerView>().ShowDialogInForm();
         }
 
         #endregion

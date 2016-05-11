@@ -258,7 +258,7 @@ namespace XLToolbox
             }
         }
 
-        public IList<Keyboard.Shortcut> KeyboardShortcuts
+        public ObservableCollection<Keyboard.Shortcut> KeyboardShortcuts
         {
             get
             {

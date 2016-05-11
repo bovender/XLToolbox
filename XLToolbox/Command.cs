@@ -69,5 +69,6 @@ namespace XLToolbox
         PointChart,
         Watermark,
         Prefs,
+        Shortcuts,
     }
 }

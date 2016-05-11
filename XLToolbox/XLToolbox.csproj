@@ -170,7 +170,16 @@
     <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Keyboard\Manager.cs" />
+    <Compile Include="Keyboard\ManagerView.xaml.cs">
+      <DependentUpon>ManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Keyboard\ManagerViewModel.cs" />
     <Compile Include="Keyboard\Shortcut.cs" />
+    <Compile Include="Keyboard\ShortcutView.xaml.cs">
+      <DependentUpon>ShortcutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Keyboard\ShortcutViewModel.cs" />
+    <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
@@ -380,6 +389,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Export\Views\SingleExportSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Keyboard\ManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Keyboard\ShortcutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

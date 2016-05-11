@@ -178,6 +178,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available commands.
+        /// </summary>
+        public static string AvailableCommands {
+            get {
+                return ResourceManager.GetString("AvailableCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export.
         /// </summary>
         public static string BatchExport {
@@ -508,6 +517,15 @@ namespace XLToolbox {
         public static string EditExportPreset {
             get {
                 return ResourceManager.GetString("EditExportPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit keyboard shortcuts.
+        /// </summary>
+        public static string EditKeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("EditKeyboardShortcuts", resourceCulture);
             }
         }
         

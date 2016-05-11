@@ -384,6 +384,12 @@
   <data name="ButtonSheetListSupertip" xml:space="preserve">
     <value>Manage worksheets.</value>
   </data>
+  <data name="ButtonShortcutsLabel" xml:space="preserve">
+    <value>Keyboard shortcuts</value>
+  </data>
+  <data name="ButtonShortcutsSupertip" xml:space="preserve">
+    <value>Edit keyboard shortcuts.</value>
+  </data>
   <data name="ButtonSpreadScatterLabel" xml:space="preserve">
     <value>Spread Scatter</value>
   </data>
@@ -428,5 +434,11 @@
   </data>
   <data name="MenuMiscAnalysesLabel" xml:space="preserve">
     <value>Miscellaneous</value>
+  </data>
+  <data name="MenuSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MenuSettingsSupertip" xml:space="preserve">
+    <value>Customizable user settings, including keyboard shortcuts.</value>
   </data>
 </root>

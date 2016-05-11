@@ -645,4 +645,10 @@ You may want to try again.</value>
   <data name="UserSettingsCouldNotBeLoaded" xml:space="preserve">
     <value>Your personal XL Toolbox settings could not be loaded.</value>
   </data>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>Available commands</value>
+  </data>
+  <data name="EditKeyboardShortcuts" xml:space="preserve">
+    <value>Edit keyboard shortcuts</value>
+  </data>
 </root>
