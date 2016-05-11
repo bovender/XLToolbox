@@ -108,6 +108,17 @@ namespace XLToolboxForExcel
             };
 
             XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
+            XLToolbox.SheetManager.SheetManagerPane.SheetManagerInitialized += SheetManagerPane_SheetManagerInitialized;
+        }
+
+        #endregion
+
+        #region Custom "destructor"
+
+        public void PrepareShutdown()
+        {
+            // Unsubscribe from the static event
+            XLToolbox.SheetManager.SheetManagerPane.SheetManagerInitialized -= SheetManagerPane_SheetManagerInitialized;
         }
 
         #endregion
@@ -207,9 +218,30 @@ namespace XLToolboxForExcel
             return !(ExcelApp == null || ExcelApp.Selection == null);
         }
 
+        public void SheetManagerToggleButton_OnAction(Office.IRibbonControl control, bool pressed)
+        {
+            XLToolbox.SheetManager.SheetManagerPane.Default.Visible = pressed;
+        }
+
+        public bool SheetManagerToggleButton_GetPressed(Office.IRibbonControl control)
+        {
+            return XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible;
+        }
+
         #endregion
 
         #region Event handlers
+
+        void SheetManagerPane_SheetManagerInitialized(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
+        {
+            e.Instance.VisibilityChanged += Instance_VisibilityChanged;
+            InvalidateRibbonUi();
+        }
+
+        void Instance_VisibilityChanged(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
+        {
+            InvalidateRibbonUi();
+        }
 
         void UpdaterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

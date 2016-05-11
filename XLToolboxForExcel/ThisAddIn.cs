@@ -75,6 +75,11 @@ namespace XLToolboxForExcel
             GreetUser();
 
             XLToolbox.Keyboard.Manager.Default.EnableShortcuts();
+
+            if (XLToolbox.UserSettings.Default.SheetManagerVisible)
+            {
+                XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -87,6 +92,8 @@ namespace XLToolboxForExcel
                 // continue to shut down and immediately remove the view while doing so.
                 uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
+
+            Ribbon.PrepareShutdown();
 
             // Prevent "LocalDataSlot storage has been freed" exceptions;
             // see http://j.mp/localdatastoreslot

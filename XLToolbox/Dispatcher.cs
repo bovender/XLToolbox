@@ -18,7 +18,6 @@
 using System;
 using System.Windows;
 using Bovender.Extensions;
-using Bovender.Mvvm;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
@@ -28,10 +27,6 @@ using XLToolbox.Versioning;
 using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
 using Xl = Microsoft.Office.Interop.Excel;
-using System.Threading.Tasks;
-using Forms = System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using Microsoft.Office.Tools;
 using XLToolbox.Export.Models;
 
 namespace XLToolbox
@@ -147,7 +142,7 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            SheetManagerPane.Default.Show();
+            SheetManagerPane.Default.Visible = true;
             // wvm.InjectAndShowInThread<WorkbookView>();
         }
 

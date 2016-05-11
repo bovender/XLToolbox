@@ -25,9 +25,9 @@
 				<group id="GroupWorkflow" getLabel="Control_GetLabel">
 					<button id="ButtonQuitExcel" onAction="Button_OnAction" image="off-large.png" size="large"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
-					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
+					<toggleButton id="ButtonSheetList" onAction="SheetManagerToggleButton_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
-						getEnabled="HasWorkbook"/>
+						getEnabled="HasWorkbook" getPressed="SheetManagerToggleButton_GetPressed" />
 					<button id="ButtonOpenFromCell" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonCopyPageSetup" imageMso="PrintTitles" size="normal"

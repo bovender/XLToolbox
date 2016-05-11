@@ -23,6 +23,13 @@ using System.Collections.ObjectModel;
 
 namespace XLToolbox
 {
+    /// <summary>
+    /// XL Toolbox user settings. Should be used as singleton.
+    /// </summary>
+    /// <remarks>
+    /// Settings will *not* automatically be saved to file during disposal;
+    /// explicitly use the Save() method inherited from Bovender.UserSettings.UserSettingsBase.
+    /// </remarks>
     public class UserSettings : UserSettingsBase
     {
         #region Static property
@@ -56,6 +63,19 @@ namespace XLToolbox
             Bovender.UserSettings.UserSettingsBase.Default = s;
             return s;
         });
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Creates a new settings object without loading the saved settings
+        /// from file and without saving the current settings from file.
+        /// </summary>
+        public static void LoadDefaults()
+        {
+            _lazy = new Lazy<UserSettings>(() => new UserSettings());
+        }
 
         #endregion
 
@@ -208,6 +228,19 @@ namespace XLToolbox
 
         public bool WorksheetManagerAlwaysOnTop { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether the worksheet manager task pane is visible.
+        /// </summary>
+        /// <remarks>
+        /// While it would be nice to have these accessors directly relay the
+        /// value to the singleton Instance of the XLToolbox.SheetManager.SheetManagerPane,
+        /// it did not work out because the task panes (being COM objects?) are
+        /// not available at various stages during startup and shutdown. Therefore,
+        /// the visibility is restored in ThisAddin_Startup, and the SheetManagerPane
+        /// itself signals its visibility state to the UserSettings object.
+        /// </remarks>
+        public bool SheetManagerVisible { get; set; }
+
         public int TaskPaneWidth
         {
             get
@@ -258,6 +291,18 @@ namespace XLToolbox
         private DateTime _lastUpdateCheck;
         private int _updateCheckInterval;
         private string _lastVersionSeen;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Creates a new instance. This should never be called directly, use
+        /// the singleton factory instead. The constructor must be public to
+        /// enable deserialization.
+        /// </summary>
+        public UserSettings()
+        { }
 
         #endregion
     }

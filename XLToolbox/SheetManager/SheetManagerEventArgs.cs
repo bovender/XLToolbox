@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Tools;
-/* Globals.cs
+﻿/* SheetManagerEventArgs.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -21,32 +20,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox
+namespace XLToolbox.SheetManager
 {
-    public static class Globals
+    public class SheetManagerEventArgs : EventArgs
     {
-        public static CustomTaskPaneCollection CustomTaskPanes { get; set; }
+        public SheetManagerPane Instance { get; private set; }
 
-        /// <summary>
-        /// XAML-accessible name of the add-in.
-        /// </summary>
-        public static string AddinName
+        public SheetManagerEventArgs(SheetManagerPane instance)
         {
-            get
-            {
-                return Properties.Settings.Default.AddinName;
-            }
-        }
-
-        /// <summary>
-        /// XAML-accessible website URL.
-        /// </summary>
-        public static Uri WebsiteUri
-        {
-            get
-            {
-                return new Uri(Properties.Settings.Default.WebsiteUrl);
-            }
+            Instance = instance;
         }
     }
 }

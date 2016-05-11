@@ -189,6 +189,7 @@
     <Compile Include="Mvvm\Views\UserSettingsExceptionView.xaml.cs">
       <DependentUpon>UserSettingsExceptionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SheetManager\SheetManagerEventArgs.cs" />
     <Compile Include="UserSettings.cs" />
     <Compile Include="Properties\StoreNames.Designer.cs">
       <AutoGen>True</AutoGen>
