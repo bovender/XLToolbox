@@ -17,8 +17,11 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Keyboard
@@ -26,9 +29,10 @@ namespace XLToolbox.Keyboard
     /// <summary>
     /// Manages keyboard shortcuts.
     /// </summary>
-    public class Manager
+    public class Manager : IDisposable
     {
-        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Keyboard.XLToolboxKeyboardBridge.xlam";
+        private const string ADDIN_FILENAME = "XLToolboxKeyboardBridge.xlam";
+        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Keyboard." + ADDIN_FILENAME;
 
         #region Singleton factory
 
@@ -41,7 +45,21 @@ namespace XLToolbox.Keyboard
 
         #region Public properties
 
-        public IList<Shortcut> Shortcuts { get; private set; }
+        public IList<Shortcut> Shortcuts
+        {
+            get
+            {
+                if (_shortcuts == null)
+                {
+                    SetDefaults();
+                }
+                return _shortcuts;
+            }
+            set
+            {
+                MergeSubset(value);
+            }
+        }
 
         #endregion
 
@@ -63,13 +81,27 @@ namespace XLToolbox.Keyboard
             }
         }
 
+        public void SetShortcut(Command command, string keySequence)
+        {
+            Shortcut shortcut = Shortcuts.First(s => s.Command == command);
+            shortcut.KeySequence = keySequence;
+            shortcut.Enable();
+        }
+
+        public void UnsetShortcut(Command command)
+        {
+            Shortcut shortcut = Shortcuts.First(s => s.Command == command);
+            shortcut.Disable();
+            shortcut.KeySequence = String.Empty;
+        }
+
         /// <summary>
         /// Resets the shortcut collection to built-in defaults.
         /// </summary>
         public void SetDefaults()
         {
-            Shortcuts = new List<Shortcut>();
-            Shortcuts.Add(new Shortcut("^+%Q", Command.QuitExcel)); // CTRL SHIFT ALT Q
+            CreateListOfCommands();
+            SetShortcut(Command.QuitExcel, "^+%Q"); // CTRL SHIFT ALT Q
         }
 
         #endregion
@@ -83,16 +115,94 @@ namespace XLToolbox.Keyboard
 
         #endregion
 
+        #region Disposing
+        
+        ~Manager()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool calledFromPublicMethod)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                if (calledFromPublicMethod)
+                {
+                    Instance.Default.Application.Workbooks[ADDIN_FILENAME].Close(SaveChanges: false);
+                }
+                try
+                {
+                    System.IO.File.Delete(_tempFile);
+                }
+                catch (Exception)
+                {
+                    // TODO: Log errors
+                }
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Creates a new list of Shortcuts with one shortcut for each
+        /// XL Toolbox command.
+        /// </summary>
+        private void CreateListOfCommands()
+        {
+            _shortcuts = new List<Shortcut>();
+            foreach (Command command in Enum.GetValues(typeof(Command)))
+            {
+                _shortcuts.Add(new Shortcut(String.Empty, command));
+            }
+        }
+
+        /// <summary>
+        /// Merges a subset of shortcuts, e.g. deserialized from XLToolbox.UserSettings,
+        /// into the list that contains one shortcut for each command.
+        /// </summary>
+        private void MergeSubset(IList<Shortcut> subset)
+        {
+            CreateListOfCommands();
+            foreach (Shortcut shortcutInSubset in subset)
+            {
+                // Since the _shortcuts list contains shortcuts for all values of the
+                // Command enum, it should be save to use _shortcuts.First without
+                // further checks.
+                _shortcuts.First(s => s.Command == shortcutInSubset.Command).KeySequence = shortcutInSubset.KeySequence;
+            }
+        }
+        
+        #endregion
+
+        #region Private fields
+
+        private List<Shortcut> _shortcuts;
+        private bool _disposed;
+
+        #endregion
+
         #region Private static fields
 
         private static Lazy<Manager> _lazy = new Lazy<Manager>(
             () =>
             {
-                Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+                _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
                 return new Manager();
             }
         );
 
+        private static string _tempFile;
+
         #endregion
+
     }
 }

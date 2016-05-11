@@ -19,13 +19,11 @@ using System;
 using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
-using Bovender.Mvvm.Actions;
 using Bovender.Extensions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
-using System.Diagnostics;
 using System.Windows.Threading;
 
 namespace XLToolboxForExcel

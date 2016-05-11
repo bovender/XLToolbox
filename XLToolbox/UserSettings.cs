@@ -20,6 +20,7 @@ using System.IO;
 using Bovender.UserSettings;
 using XLToolbox.Export.Models;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace XLToolbox
 {
@@ -254,6 +255,18 @@ namespace XLToolbox
             set
             {
                 _taskPaneWidth = value;
+            }
+        }
+
+        public IList<Keyboard.Shortcut> KeyboardShortcuts
+        {
+            get
+            {
+                return Keyboard.Manager.Default.Shortcuts;
+            }
+            set
+            {
+                Keyboard.Manager.Default.Shortcuts = value;
             }
         }
 

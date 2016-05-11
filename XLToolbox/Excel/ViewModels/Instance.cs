@@ -406,8 +406,10 @@ namespace XLToolbox.Excel.ViewModels
         /// <summary>
         /// Loads an embedded resource add-in.
         /// </summary>
-        /// <param name="resource"></param>
-        internal void LoadAddinFromEmbeddedResource(string resource)
+        /// <param name="resource">Addin as 'embedded resource'</param>
+        /// <returns>File name of the temporary file that the resource
+        /// was written to.</returns>
+        internal string LoadAddinFromEmbeddedResource(string resource)
         {
             Stream resourceStream = typeof(Instance).Assembly
                 .GetManifestResourceStream(resource);
@@ -422,6 +424,7 @@ namespace XLToolbox.Excel.ViewModels
             tempStream.Close();
             resourceStream.Close();
             Application.Workbooks.Open(addinFile);
+            return addinFile;
         }
 
         #endregion

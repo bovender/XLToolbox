@@ -26,9 +26,15 @@ namespace XLToolbox.Keyboard
     /// <summary>
     /// Keyboard shortcut for a XL Toolbox command.
     /// </summary>
+    [Serializable]
     public class Shortcut
     {
         #region Public properties
+
+        /// <summary>
+        /// Gets or sets the XLToolbox.Command associated with the KeySequence.
+        /// </summary>
+        public Command Command { get; set; }
 
         /// <summary>
         /// Gets or sets the technical representation of a key sequence in Excel.
@@ -47,6 +53,7 @@ namespace XLToolbox.Keyboard
         /// <summary>
         /// Gets a human-readable representation of the key sequence.
         /// </summary>
+        [YamlDotNet.Serialization.YamlIgnore]
         public string HumanKeySequence
         {
             get
@@ -57,11 +64,6 @@ namespace XLToolbox.Keyboard
                 return s.Replace("{+}", "+").Replace("{^}", "^").Replace("{%}", "%");
             }
         }
-
-        /// <summary>
-        /// Gets or sets the XLToolbox.Command associated with the KeySequence.
-        /// </summary>
-        public Command Command { get; set; }
 
         #endregion
 
@@ -83,12 +85,18 @@ namespace XLToolbox.Keyboard
         {
             // The VBA method `XltbCmd` is declared in XLToolboxKeyboardBridge.xlam.
             // Note the special quoting of commands that is required for OnKey to work.
-            Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence, "'XltbCmd(\"" + Command + "\")'");
+            if (!string.IsNullOrEmpty(KeySequence))
+            {
+                Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence, "'XltbCmd(\"" + Command + "\")'");
+            }
         }
 
         public void Disable()
         {
-            Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence);
+            if (!string.IsNullOrEmpty(KeySequence))
+            {
+                Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence);
+            }
         }
 
         #endregion
