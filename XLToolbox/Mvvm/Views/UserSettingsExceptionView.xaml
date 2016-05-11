@@ -23,7 +23,7 @@
         xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         settings:WindowState.Save="True" settings:WindowState.CenterScreen="True"
         Title="{x:Static l:Strings.UserSettings}"
-        Width="540" Height="240"
+        Width="540" Height="280"
         ResizeMode="CanResizeWithGrip"
         >
     <Window.Resources>
