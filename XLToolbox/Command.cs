@@ -39,6 +39,7 @@ namespace XLToolbox
         SaveCsvWithParams,
         SaveCsvRange,
         SaveCsvRangeWithParams,
+        SaveAs,
         OpenFromCell,
         CopyPageSetup,
         SelectAllShapes,

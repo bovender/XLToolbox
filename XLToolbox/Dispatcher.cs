@@ -103,6 +103,7 @@ namespace XLToolbox
                     case Command.Prefs:
                         Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
                     case Command.Shortcuts: EditShortcuts(); break;
+                    case Command.SaveAs: SaveAs(); break;
                     default:
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
@@ -321,6 +322,15 @@ namespace XLToolbox
         {
             Keyboard.ManagerViewModel vm = new Keyboard.ManagerViewModel();
             vm.InjectInto<Keyboard.ManagerView>().ShowDialogInForm();
+        }
+
+        static void SaveAs()
+        {
+            Xl.Workbook w = Instance.Default.ActiveWorkbook;
+            if (w != null)
+            {
+                Instance.Default.Application.Dialogs[Xl.XlBuiltInDialog.xlDialogSaveAs].Show();
+            }
         }
 
         #endregion
