@@ -610,7 +610,7 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preferences.
+        ///   Looks up a localized string similar to Legacy Preferences.
         /// </summary>
         internal static string ButtonPrefsLabel {
             get {

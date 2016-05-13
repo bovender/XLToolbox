@@ -24,8 +24,8 @@
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         settings:WindowState.Save="True" ResizeMode="NoResize"
-        Width="240" Height="170"
-        Title="{x:Static l:Strings.EditKeyboardShortcuts}"
+        SizeToContent="WidthAndHeight"
+        Title="{x:Static l:Strings.EditShortcut}"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -34,17 +34,44 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <DockPanel Margin="10">
-        <Label DockPanel.Dock="Top" Content="{x:Static l:Strings.EditKeyboardShortcuts}"
-               Target="{Binding ElementName=shortcut}"/>
-        <TextBlock DockPanel.Dock="Top">
-            <Run Text="{x:Static l:Strings.CommentOptional}" />
+    <StackPanel Margin="10">
+        <TextBlock Margin="0 5 0 10">
+            <Run Text="{x:Static l:Strings.CommandColon}" />
             <Run Text="{Binding Path=Command,Mode=OneTime}" FontWeight="Bold" />
         </TextBlock>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
-                    Margin="0 10 0 0">
-            <Button Command="{Binding CloseViewCommand}" IsCancel="True" IsDefault="True" Content="{x:Static l:Strings.Close}"/>
-        </StackPanel>
-        <TextBox x:Name="shortcut" Text="{Binding Path=KeySequence}" />
-    </DockPanel>
+        <TextBox x:Name="shortcut" Text="{Binding Path=KeySequence,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Margin="0"
+                 FontSize="18" FontWeight="bold" FontFamily="Courier New"/>
+        <TextBlock Text="{Binding Path=HumanKeySequence,Mode=OneWay}" Margin="0 2 0 0"
+                   HorizontalAlignment="Center" Foreground="DimGray" />
+        <TextBlock Margin="0 10 0 0" TextWrapping="Wrap">
+            <TextBlock Text="{x:Static l:Strings.ModifierKeysColon}" FontWeight="Bold" />
+            <LineBreak />
+            <TextBlock Text="{x:Static l:Strings.CtrlModifier}" Margin="0 0 10 0" />
+            <TextBlock Text="{x:Static l:Strings.AltModifier}" Margin="0 0 10 0" />
+            <TextBlock Text="{x:Static l:Strings.ShiftModifier}" />
+            <LineBreak />
+            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate">
+                <TextBlock Text="{x:Static l:Strings.ShortcutsHelp}" />
+            </Hyperlink>
+            <LineBreak />
+            <TextBlock Text="{x:Static l:Strings.Example}" FontWeight="Bold" Margin="0 5 0 0" />
+            <LineBreak />
+            <TextBlock Text="{x:Static l:Strings.CtrlShiftPgUp}" />
+        </TextBlock>
+        <UniformGrid HorizontalAlignment="Right" Columns="3" Margin="0 10 0 0">
+            <Button Command="{Binding SaveShortcutCommand}"
+                    IsDefault="True" 
+                    Content="{x:Static l:Strings.OK}"
+                    Margin="0 0 5 0" />
+            <Button Command="{Binding ResetShortcutCommand}" Content="{x:Static l:Strings.Reset}"
+                    Margin="5 0 5 0"
+                    />
+            <Button Command="{Binding CloseViewCommand}"
+                    IsCancel="True" 
+                    Content="{x:Static l:Strings.Close}"
+                    Margin="5 0 0 0"/>
+        </UniformGrid>
+    </StackPanel>
 </Window>

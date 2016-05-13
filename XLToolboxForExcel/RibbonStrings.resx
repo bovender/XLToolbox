@@ -301,7 +301,7 @@
     <value>Point the selected chart to a different worksheet, i.e. change the worksheet reference of all data series of this chart.</value>
   </data>
   <data name="ButtonPrefsLabel" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Legacy Preferences</value>
   </data>
   <data name="ButtonPrefsSupertip" xml:space="preserve">
     <value>Change the XL Toolbox user preferences. (Legacy XL Toolbox.)</value>

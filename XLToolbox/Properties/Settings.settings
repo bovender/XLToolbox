@@ -29,5 +29,8 @@
     <Setting Name="UserSettingsFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">settings.yml</Value>
     </Setting>
+    <Setting Name="KeyboardShortcutsUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://msdn.microsoft.com/en-us/library/office/ff197461.aspx#Anchor_1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

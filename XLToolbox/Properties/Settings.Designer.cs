@@ -103,5 +103,14 @@ namespace XLToolbox.Properties {
                 return ((string)(this["UserSettingsFile"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://msdn.microsoft.com/en-us/library/office/ff197461.aspx#Anchor_1")]
+        public string KeyboardShortcutsUrl {
+            get {
+                return ((string)(this["KeyboardShortcutsUrl"]));
+            }
+        }
     }
 }

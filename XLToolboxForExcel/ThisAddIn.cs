@@ -72,7 +72,7 @@ namespace XLToolboxForExcel
             MaybeCheckForUpdate();
             GreetUser();
 
-            XLToolbox.Keyboard.Manager.Default.EnableShortcuts();
+            XLToolbox.Keyboard.Manager.Default.RegisterShortcuts();
 
             if (XLToolbox.UserSettings.Default.SheetManagerVisible)
             {

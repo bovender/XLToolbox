@@ -21,10 +21,11 @@ using System.Linq;
 using System.Text;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
+using System.ComponentModel;
 
 namespace XLToolbox.Keyboard
 {
-    public class ShortcutViewModel : ViewModelBase
+    public class ShortcutViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Properties
 
@@ -32,9 +33,9 @@ namespace XLToolbox.Keyboard
         {
             get
             {
-                if (_shortcut != null)
+                if (_editedShortcut != null)
 	            {
-                    return _shortcut.Command.ToString();
+                    return _editedShortcut.Command.ToString();
 	            }
                 else
 	            {
@@ -47,9 +48,9 @@ namespace XLToolbox.Keyboard
         {
             get
             {
-                if (_shortcut != null)
+                if (_editedShortcut != null)
                 {
-                    return _shortcut.HumanKeySequence;
+                    return _editedShortcut.HumanKeySequence;
                 }
                 else
                 {
@@ -62,12 +63,68 @@ namespace XLToolbox.Keyboard
         {
             get
             {
-                return _shortcut.KeySequence;
+                return _editedShortcut.KeySequence;
             }
             set
             {
-                _shortcut.KeySequence = value;
+                _editedShortcut.KeySequence = value;
+                IsDirty = _editedShortcut.KeySequence != _shortcut.KeySequence;
                 OnPropertyChanged("KeySequence");
+                OnPropertyChanged("HumanKeySequence");
+                OnPropertyChanged("IsValid");
+            }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                return _editedShortcut.IsValid;
+            }
+        }
+
+        public bool IsDirty
+        {
+            get
+            {
+                return _dirty;
+            }
+            protected set
+            {
+                _dirty = value;
+                OnPropertyChanged("IsDirty");
+            }
+        }
+
+        #endregion
+
+        #region Commmand
+
+        public DelegatingCommand SaveShortcutCommand
+        {
+            get
+            {
+                if (_saveShortcutCommand == null)
+                {
+                    _saveShortcutCommand = new DelegatingCommand(
+                        param => DoSaveShortcut(),
+                        parma => CanSaveShortcut());
+                }
+                return _saveShortcutCommand;
+            }
+        }
+
+        public DelegatingCommand ResetShortcutCommand
+        {
+            get
+            {
+                if (_resetShortcutCommand == null)
+                {
+                    _resetShortcutCommand = new DelegatingCommand(
+                        param => DoResetShortcut(),
+                        parma => CanResetShortcut());
+                }
+                return _resetShortcutCommand;
             }
         }
 
@@ -78,8 +135,36 @@ namespace XLToolbox.Keyboard
         public ShortcutViewModel(Shortcut shortcut)
         {
             _shortcut = shortcut;
+            _editedShortcut = new Shortcut(_shortcut.KeySequence, _shortcut.Command);
         }
         
+        #endregion
+
+        #region Private methods
+
+        private void DoSaveShortcut()
+        {
+            _shortcut.KeySequence = _editedShortcut.KeySequence;
+            _dirty = false;
+            CloseViewCommand.Execute(null);
+        }
+
+        private void DoResetShortcut()
+        {
+            KeySequence = _shortcut.KeySequence;
+            _dirty = false;
+        }
+
+        private bool CanSaveShortcut()
+        {
+            return IsDirty && IsValid;
+        }
+
+        private bool CanResetShortcut()
+        {
+            return IsDirty;
+        }
+
         #endregion
 
         #region Overrides
@@ -99,7 +184,28 @@ namespace XLToolbox.Keyboard
         #region Fields
 
         Shortcut _shortcut;
+        Shortcut _editedShortcut;
+        bool _dirty;
+        DelegatingCommand _saveShortcutCommand;
+        DelegatingCommand _resetShortcutCommand;
 
         #endregion
+
+        string IDataErrorInfo.Error { get { throw new NotImplementedException(); } }
+
+        string IDataErrorInfo.this[string columnName]
+        {
+            get
+            {
+                if (!IsValid)
+                {
+                    return "Invalid key sequence";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

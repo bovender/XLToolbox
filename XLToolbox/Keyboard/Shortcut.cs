@@ -48,7 +48,25 @@ namespace XLToolbox.Keyboard
         /// <item></item>
         /// </list>
         /// </remarks>
-        public string KeySequence { get; set; }
+        public string KeySequence
+        {
+            get
+            {
+                return _keySequence;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _keySequence = value.ToUpper();
+                }
+                else
+                {
+                    _keySequence = null;
+                }
+                Validate();
+            }
+        }
 
         /// <summary>
         /// Gets a human-readable representation of the key sequence.
@@ -58,13 +76,30 @@ namespace XLToolbox.Keyboard
         {
             get
             {
-                string s = Regex.Replace(KeySequence, @"(?<!{)\^(?!})", "CONTROL ");
-                s = Regex.Replace(s, @"(?<!{)\+(?!})", "SHIFT ");
-                s = Regex.Replace(s, @"(?<!{)\%(?!})", "ALT ");
-                return s.Replace("{+}", "+").Replace("{^}", "^").Replace("{%}", "%");
+                if (IsValid)
+                {
+                    string s = Regex.Replace(KeySequence, @"(?<!{)\^(?!})", "CONTROL ");
+                    s = Regex.Replace(s, @"(?<!{)\+(?!})", "SHIFT ");
+                    s = Regex.Replace(s, @"(?<!{)\%(?!})", "ALT ");
+                    return s.Replace("{+}", "+").Replace("{^}", "^").Replace("{%}", "%");
+                }
+                else
+                {
+                    return Strings.InvalidKeySequence;
+                }
             }
         }
 
+        [YamlDotNet.Serialization.YamlIgnore]
+        public bool IsValid
+        {
+            get
+            {
+                // The match relies on the KeySequence having been converted ToUpper.
+                return _isValid;
+            }
+        }
+            
         #endregion
 
         #region Constructors
@@ -81,19 +116,19 @@ namespace XLToolbox.Keyboard
 
         #region Public methods
 
-        public void Enable()
+        public void Register()
         {
             // The VBA method `XltbCmd` is declared in XLToolboxKeyboardBridge.xlam.
             // Note the special quoting of commands that is required for OnKey to work.
-            if (!string.IsNullOrEmpty(KeySequence))
+            if (!string.IsNullOrEmpty(KeySequence) && IsValid)
             {
                 Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence, "'XltbCmd(\"" + Command + "\")'");
             }
         }
 
-        public void Disable()
+        public void Unregister()
         {
-            if (!string.IsNullOrEmpty(KeySequence))
+            if (!string.IsNullOrEmpty(KeySequence) && IsValid)
             {
                 Excel.ViewModels.Instance.Default.Application.OnKey(KeySequence);
             }
@@ -116,6 +151,27 @@ namespace XLToolbox.Keyboard
         {
             Dispatcher.Execute(Command);
         }
+
+        protected void Validate()
+        {
+            _isValid = String.IsNullOrEmpty(KeySequence) || _validationPattern.IsMatch(KeySequence);
+        }
+
+        #endregion
+
+        #region Private fields
+
+        private string _keySequence;
+        private bool _isValid;
+
+        #endregion
+
+        #region Static fields
+
+        private static readonly Regex _validationPattern = new Regex(
+            @"^(\+?\^?%?|\+?%?\^?|%?\+?\^?|%?\^?\+?|\^?%?\+?|\^?\+?%?)" +
+            @"([^+^%]|{(\+|\^|%|F[1-9]|F1[0-5]|ENTER|PGUP|PGDN|BS|BACKSPACE|BREAK|CAPSLOCK|CLEAR|DEL|DELETE" +
+            @"|DOWN|END|~|ESC|ESCAPE|HELP|HOME|INSERT|LEFT|NUMLOCK|RIGHT|SCROLLLOCK|TAB|UP)})$");
 
         #endregion
     }

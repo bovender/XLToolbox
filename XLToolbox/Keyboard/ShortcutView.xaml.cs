@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 using System.Windows;
+using System.Diagnostics;
 
 namespace XLToolbox.Keyboard
 {
@@ -27,6 +28,11 @@ namespace XLToolbox.Keyboard
         public ShortcutView()
         {
             InitializeComponent();
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(Properties.Settings.Default.KeyboardShortcutsUrl));
         }
     }
 }

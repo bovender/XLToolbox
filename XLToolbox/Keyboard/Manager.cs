@@ -46,14 +46,33 @@ namespace XLToolbox.Keyboard
 
         #region Public properties
 
+        public bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    if (value)
+                    {
+                        RegisterShortcuts();
+                    }
+                    else
+                    {
+                        UnregisterShortcuts();
+                    }
+                }
+                _isEnabled = value;
+            }
+        }
+
         public ObservableCollection<Shortcut> Shortcuts
         {
             get
             {
-                if (_shortcuts == null)
-                {
-                    SetDefaults();
-                }
                 return _shortcuts;
             }
             set
@@ -66,19 +85,27 @@ namespace XLToolbox.Keyboard
 
         #region Public methods
 
-        public void EnableShortcuts()
+        public void RegisterShortcuts()
         {
-            foreach (Shortcut shortcut in Shortcuts)
+            if (IsEnabled && !_registered)
             {
-                shortcut.Enable();
+                foreach (Shortcut shortcut in Shortcuts)
+                {
+                    shortcut.Register();
+                }
+                _registered = true;
             }
         }
 
-        public void DisableShortcuts()
+        public void UnregisterShortcuts()
         {
-            foreach (Shortcut shortcut in Shortcuts)
+            if (_registered)
             {
-                shortcut.Disable();
+                foreach (Shortcut shortcut in Shortcuts)
+                {
+                    shortcut.Unregister();
+                }
+                _registered = false;
             }
         }
 
@@ -86,13 +113,13 @@ namespace XLToolbox.Keyboard
         {
             Shortcut shortcut = Shortcuts.First(s => s.Command == command);
             shortcut.KeySequence = keySequence;
-            shortcut.Enable();
+            shortcut.Register();
         }
 
         public void UnsetShortcut(Command command)
         {
             Shortcut shortcut = Shortcuts.First(s => s.Command == command);
-            shortcut.Disable();
+            shortcut.Unregister();
             shortcut.KeySequence = String.Empty;
         }
 
@@ -101,8 +128,18 @@ namespace XLToolbox.Keyboard
         /// </summary>
         public void SetDefaults()
         {
+            UnregisterShortcuts();
             CreateListOfCommands();
-            SetShortcut(Command.QuitExcel, "^+%Q"); // CTRL SHIFT ALT Q
+            SetShortcut(Command.QuitExcel, "^+%Q");
+            SetShortcut(Command.SaveAs, "^+S");
+            SetShortcut(Command.AnovaRepeat, "^+N");
+            SetShortcut(Command.LastErrorBars, "^+E");
+            SetShortcut(Command.ChartDesign, "^+D");
+            SetShortcut(Command.FormulaBuilder, "^+B");
+            SetShortcut(Command.MoveDataSeriesLeft, "^+{LEFT}");
+            SetShortcut(Command.MoveDataSeriesRight, "^+{RIGHT}");
+            SetShortcut(Command.SelectAllShapes, "^+A");
+            RegisterShortcuts();
         }
 
         #endregion
@@ -111,6 +148,7 @@ namespace XLToolbox.Keyboard
 
         private Manager()
         {
+            _isEnabled = true;
             SetDefaults();
         }
 
@@ -173,6 +211,7 @@ namespace XLToolbox.Keyboard
         /// </summary>
         private void MergeSubset(IList<Shortcut> subset)
         {
+            UnregisterShortcuts();
             CreateListOfCommands();
             foreach (Shortcut shortcutInSubset in subset)
             {
@@ -181,6 +220,7 @@ namespace XLToolbox.Keyboard
                 // further checks.
                 _shortcuts.First(s => s.Command == shortcutInSubset.Command).KeySequence = shortcutInSubset.KeySequence;
             }
+            RegisterShortcuts();
         }
         
         #endregion
@@ -188,6 +228,8 @@ namespace XLToolbox.Keyboard
         #region Private fields
 
         private ObservableCollection<Shortcut> _shortcuts;
+        private bool _isEnabled;
+        private bool _registered;
         private bool _disposed;
 
         #endregion

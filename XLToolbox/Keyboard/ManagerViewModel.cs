@@ -29,11 +29,29 @@ namespace XLToolbox.Keyboard
     {
         #region Properties
 
+        public bool IsEnabled
+        {
+            get
+            {
+                return Manager.Default.IsEnabled;
+            }
+            set
+            {
+                Manager.Default.IsEnabled = value;
+                OnPropertyChanged("IsEnabled");
+            }
+        }
+
         public ShortcutViewModelCollection ShortcutViewModels
         {
             get
             {
                 return _shortcutViewModels;
+            }
+            protected set
+            {
+                _shortcutViewModels = value;
+                OnPropertyChanged("ShortcutViewModels");
             }
         }
 
@@ -54,6 +72,19 @@ namespace XLToolbox.Keyboard
             }
         }
 
+        public DelegatingCommand ResetShortcutsCommand
+        {
+            get
+            {
+                if (_resetShortcutsCommand == null)
+                {
+                    _resetShortcutsCommand = new DelegatingCommand(
+                        param => DoConfirmResetShortcuts());
+                }
+                return _resetShortcutsCommand;
+            }
+        }
+
         #endregion
 
         #region Messages
@@ -67,6 +98,18 @@ namespace XLToolbox.Keyboard
                     _editShortcutMessage = new Message<ViewModelMessageContent>();
                 }
                 return _editShortcutMessage;
+            }
+        }
+
+        public Message<ViewModelMessageContent> ConfirmResetShortcutsMessage
+        {
+            get
+            {
+                if (_confirmResetShortcutsMessage == null)
+                {
+                    _confirmResetShortcutsMessage = new Message<ViewModelMessageContent>();
+                }
+                return _confirmResetShortcutsMessage;
             }
         }
 
@@ -88,6 +131,22 @@ namespace XLToolbox.Keyboard
             EditShortcutMessage.Send(new ViewModelMessageContent(ShortcutViewModels.LastSelected));
         }
 
+        private void DoConfirmResetShortcuts()
+        {
+            ConfirmResetShortcutsMessage.Send(
+                new ViewModelMessageContent(this),
+                DoResetShortcuts);
+        }
+
+        private void DoResetShortcuts(ViewModelMessageContent messageContent)
+        {
+            if (messageContent.Confirmed)
+            {
+                Manager.Default.SetDefaults();
+                ShortcutViewModels = new ShortcutViewModelCollection();
+            }
+        }
+
         #endregion
 
         #region Overrides
@@ -103,7 +162,9 @@ namespace XLToolbox.Keyboard
 
         ShortcutViewModelCollection _shortcutViewModels;
         DelegatingCommand _editShortcutCommand;
+        DelegatingCommand _resetShortcutsCommand;
         Message<ViewModelMessageContent> _editShortcutMessage;
+        Message<ViewModelMessageContent> _confirmResetShortcutsMessage;
 
         #endregion
     }

@@ -124,6 +124,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to % ALT.
+        /// </summary>
+        public static string AltModifier {
+            get {
+                return ResourceManager.GetString("AltModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always on top.
         /// </summary>
         public static string AlwaysOnTop {
@@ -331,6 +340,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command:.
+        /// </summary>
+        public static string CommandColon {
+            get {
+                return ResourceManager.GetString("CommandColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public comment (optional).
         /// </summary>
         public static string CommentOptional {
@@ -382,6 +400,24 @@ namespace XLToolbox {
         public static string CsvSettings {
             get {
                 return ResourceManager.GetString("CsvSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^ CTRL.
+        /// </summary>
+        public static string CtrlModifier {
+            get {
+                return ResourceManager.GetString("CtrlModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^+{PgUp} CTRL SHIFT PAGE-UP.
+        /// </summary>
+        public static string CtrlShiftPgUp {
+            get {
+                return ResourceManager.GetString("CtrlShiftPgUp", resourceCulture);
             }
         }
         
@@ -530,6 +566,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit keyboard shortcut.
+        /// </summary>
+        public static string EditShortcut {
+            get {
+                return ResourceManager.GetString("EditShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail (optional).
         /// </summary>
         public static string EMailOptional {
@@ -544,6 +589,24 @@ namespace XLToolbox {
         public static string EmfFiles {
             get {
                 return ResourceManager.GetString("EmfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable XL Toolbox keyboard shortcuts.
+        /// </summary>
+        public static string EnableKeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("EnableKeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable XL Toolbox keyboard shortcuts.
+        /// </summary>
+        public static string EnableShortcuts {
+            get {
+                return ResourceManager.GetString("EnableShortcuts", resourceCulture);
             }
         }
         
@@ -566,6 +629,15 @@ namespace XLToolbox {
         public static string ErrorOccurredWhileDownloading {
             get {
                 return ResourceManager.GetString("ErrorOccurredWhileDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example.
+        /// </summary>
+        public static string Example {
+            get {
+                return ResourceManager.GetString("Example", resourceCulture);
             }
         }
         
@@ -781,6 +853,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Invalid key sequence.).
+        /// </summary>
+        public static string InvalidKeySequence {
+            get {
+                return ResourceManager.GetString("InvalidKeySequence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         public static string Layout {
@@ -808,6 +889,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legend.
+        /// </summary>
+        public static string Legend {
+            get {
+                return ResourceManager.GetString("Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         public static string License {
@@ -822,6 +912,15 @@ namespace XLToolbox {
         public static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifier keys:.
+        /// </summary>
+        public static string ModifierKeysColon {
+            get {
+                return ResourceManager.GetString("ModifierKeysColon", resourceCulture);
             }
         }
         
@@ -1206,6 +1305,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to + SHIFT.
+        /// </summary>
+        public static string ShiftModifier {
+            get {
+                return ResourceManager.GetString("ShiftModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More help on shortcuts (Microsoft website).
+        /// </summary>
+        public static string ShortcutsHelp {
+            get {
+                return ResourceManager.GetString("ShortcutsHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single graphic export.
         /// </summary>
         public static string SingleGraphicExport {
@@ -1220,6 +1337,15 @@ namespace XLToolbox {
         public static string SingleItems {
             get {
                 return ResourceManager.GetString("SingleItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {F1}, {PgUp}, ... Special keys.
+        /// </summary>
+        public static string SpecialKeys {
+            get {
+                return ResourceManager.GetString("SpecialKeys", resourceCulture);
             }
         }
         

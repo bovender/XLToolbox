@@ -651,4 +651,46 @@ You may want to try again.</value>
   <data name="EditKeyboardShortcuts" xml:space="preserve">
     <value>Edit keyboard shortcuts</value>
   </data>
+  <data name="AltModifier" xml:space="preserve">
+    <value>% ALT</value>
+  </data>
+  <data name="CommandColon" xml:space="preserve">
+    <value>Command:</value>
+  </data>
+  <data name="CtrlModifier" xml:space="preserve">
+    <value>^ CTRL</value>
+  </data>
+  <data name="CtrlShiftPgUp" xml:space="preserve">
+    <value>^+{PgUp} CTRL SHIFT PAGE-UP</value>
+  </data>
+  <data name="EditShortcut" xml:space="preserve">
+    <value>Edit keyboard shortcut</value>
+  </data>
+  <data name="EnableKeyboardShortcuts" xml:space="preserve">
+    <value>Enable XL Toolbox keyboard shortcuts</value>
+  </data>
+  <data name="Example" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Legend</value>
+  </data>
+  <data name="ModifierKeysColon" xml:space="preserve">
+    <value>Modifier keys:</value>
+  </data>
+  <data name="ShiftModifier" xml:space="preserve">
+    <value>+ SHIFT</value>
+  </data>
+  <data name="ShortcutsHelp" xml:space="preserve">
+    <value>More help on shortcuts (Microsoft website)</value>
+  </data>
+  <data name="SpecialKeys" xml:space="preserve">
+    <value>{F1}, {PgUp}, ... Special keys</value>
+  </data>
+  <data name="EnableShortcuts" xml:space="preserve">
+    <value>Enable XL Toolbox keyboard shortcuts</value>
+  </data>
+  <data name="InvalidKeySequence" xml:space="preserve">
+    <value>(Invalid key sequence.)</value>
+  </data>
 </root>

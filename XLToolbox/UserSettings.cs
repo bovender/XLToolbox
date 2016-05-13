@@ -73,7 +73,7 @@ namespace XLToolbox
         /// Creates a new settings object without loading the saved settings
         /// from file and without saving the current settings from file.
         /// </summary>
-        public static void LoadDefaults()
+        new public static void LoadDefaults()
         {
             _lazy = new Lazy<UserSettings>(() => new UserSettings());
         }
