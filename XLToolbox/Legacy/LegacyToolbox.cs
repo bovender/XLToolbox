@@ -165,15 +165,20 @@ namespace XLToolbox.Legacy
 
         #endregion
 
-        #region Private static fields
+        #region Private static fields and properties
 
         private static Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
             () =>
             {
+                Logger.Info("Initializing LegacyToolbox singleton");
                 Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
                 return new LegacyToolbox();
             }
         );
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

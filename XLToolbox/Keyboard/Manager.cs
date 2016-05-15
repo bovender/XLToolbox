@@ -89,11 +89,16 @@ namespace XLToolbox.Keyboard
         {
             if (IsEnabled && !_registered)
             {
+                Logger.Info("RegisterShortcuts");
                 foreach (Shortcut shortcut in Shortcuts)
                 {
                     shortcut.Register();
                 }
                 _registered = true;
+            }
+            else
+            {
+                Logger.Info("RegisterShortcuts: not enabled or registered already");
             }
         }
 
@@ -101,11 +106,16 @@ namespace XLToolbox.Keyboard
         {
             if (_registered)
             {
+                Logger.Info("UnregisterShortcuts");
                 foreach (Shortcut shortcut in Shortcuts)
                 {
                     shortcut.Unregister();
                 }
                 _registered = false;
+            }
+            else
+            {
+                Logger.Info("UnregisterShortcuts: not registered");
             }
         }
 
@@ -128,6 +138,7 @@ namespace XLToolbox.Keyboard
         /// </summary>
         public void SetDefaults()
         {
+            Logger.Info("SetDefaults");
             UnregisterShortcuts();
             CreateListOfCommands();
             SetShortcut(Command.QuitExcel, "^+%Q");
@@ -172,18 +183,18 @@ namespace XLToolbox.Keyboard
             if (!_disposed)
             {
                 _disposed = true;
-                if (calledFromPublicMethod)
-                {
-                    Instance.Default.Application.Workbooks[ADDIN_FILENAME].Close(SaveChanges: false);
-                }
-                try
-                {
-                    System.IO.File.Delete(_tempFile);
-                }
-                catch (Exception)
-                {
-                    // TODO: Log errors
-                }
+                // if (calledFromPublicMethod)
+                // {
+                //     Instance.Default.Application.Workbooks[ADDIN_FILENAME].Close(SaveChanges: false);
+                // }
+                // try
+                // {
+                //     System.IO.File.Delete(_tempFile);
+                // }
+                // catch (Exception)
+                // {
+                //     // TODO: Log errors
+                // }
             }
         }
 
@@ -239,12 +250,21 @@ namespace XLToolbox.Keyboard
         private static Lazy<Manager> _lazy = new Lazy<Manager>(
             () =>
             {
-                _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+                // _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+                Legacy.LegacyToolbox l = Legacy.LegacyToolbox.Default;
                 return new Manager();
             }
         );
 
         private static string _tempFile;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

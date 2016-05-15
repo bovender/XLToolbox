@@ -73,6 +73,10 @@
     <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -181,6 +185,7 @@
     <Compile Include="Keyboard\ShortcutViewModel.cs" />
     <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
+    <Compile Include="LogFile.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />

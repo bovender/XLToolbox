@@ -328,6 +328,7 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         private void DoChooseFolder()
         {
+            Logger.Info("DoChooseFolder");
             string path = ((BatchExportSettings)Settings).Path;
             if (string.IsNullOrEmpty(path))
             {
@@ -346,6 +347,7 @@ namespace XLToolbox.Export.ViewModels
 
         protected override void DoExport()
         {
+            Logger.Info("DoExport");
             if (CanExport())
             {
                 Debug.WriteLine(PresetViewModels.ViewModels.Count);
@@ -371,8 +373,11 @@ namespace XLToolbox.Export.ViewModels
                         );
                     };
                 processMessageContent.Processing = true;
+                Logger.Info("Send export process message");
                 ExportProcessMessage.Send(processMessageContent);
+                Logger.Info("Begin export");
                 exporter.ExportBatchAsync(Settings as BatchExportSettings);
+                Logger.Info("Finish export");
             }
         }
 
@@ -684,10 +689,16 @@ namespace XLToolbox.Export.ViewModels
 
         private void ConfirmFolder(FileNameMessageContent messageContent)
         {
+            Logger.Info("ConfirmFolder");
             if (messageContent.Confirmed)
             {
+                Logger.Info("Confirmed");
                 ((BatchExportSettings)Settings).Path = messageContent.Value;
                 DoExport();
+            }
+            else
+            {
+                Logger.Info("Not confirmed");
             }
         }
 
@@ -776,6 +787,14 @@ namespace XLToolbox.Export.ViewModels
         class LayoutStates : Dictionary<BatchExportLayout, bool> { }
         class ObjectsStates : Dictionary<BatchExportObjects, LayoutStates> { }
         class ScopeStates : Dictionary<BatchExportScope, ObjectsStates> { }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

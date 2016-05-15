@@ -60,6 +60,7 @@ namespace XLToolbox
 
         private static Lazy<UserSettings> _lazy = new Lazy<UserSettings>(() =>
         {
+            Logger.Info("Initializing singleton instance");
             UserSettings s = FromFileOrDefault<UserSettings>(UserSettingsFile);
             Bovender.UserSettings.UserSettingsBase.Default = s;
             return s;
@@ -75,6 +76,7 @@ namespace XLToolbox
         /// </summary>
         new public static void LoadDefaults()
         {
+            Logger.Info("LoadDefaults");
             _lazy = new Lazy<UserSettings>(() => new UserSettings());
         }
 
@@ -126,6 +128,31 @@ namespace XLToolbox
             set
             {
                 _updateCheckInterval = value;
+            }
+        }
+
+        public bool EnableLogging
+        {
+            get
+            {
+                // Query the LogFile without triggering initialization
+                if (LogFile.IsInitializedAndEnabled)
+                {
+                    return LogFile.Default.IsFileLoggingEnabled;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                // Only access the singleton instance if the value if true,
+                // in order to avoid superfluous initialization of the instance.
+                if (value)
+                {
+                    LogFile.Default.IsFileLoggingEnabled = true;
+                }
             }
         }
 
@@ -318,6 +345,14 @@ namespace XLToolbox
         /// </summary>
         public UserSettings()
         { }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

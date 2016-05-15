@@ -147,10 +147,10 @@ namespace XLToolbox.Keyboard
 
         #region Protected methods
 
-        protected void Execute()
-        {
-            Dispatcher.Execute(Command);
-        }
+        // protected void Execute()
+        // {
+        //     Dispatcher.Execute(Command);
+        // }
 
         protected void Validate()
         {

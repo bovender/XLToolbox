@@ -87,6 +87,7 @@ namespace XLToolbox.Vba
             string colorSpace,
             string transparency)
         {
+            Logger.Info("Export selection");
             string ext = System.IO.Path.GetExtension(fileName).ToUpper();
 
             FileType ft;
@@ -121,6 +122,7 @@ namespace XLToolbox.Vba
 
             Preset preset = new Preset(ft, dpi, cs);
             preset.Transparency = t;
+            Logger.Info("Preset: {0}", preset);
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
 
@@ -139,6 +141,7 @@ namespace XLToolbox.Vba
         /// <param name="command">XL Toolbox command to execute</param>
         public void Execute(string command)
         {
+            Logger.Info("Executing '{0}'", command);
             Command c;
             if (Enum.TryParse<Command>(command, out c))
             {
@@ -146,9 +149,18 @@ namespace XLToolbox.Vba
             }
             else
             {
+                Logger.Fatal("Parse failure: unknown command");
                 throw new ArgumentException("Unknown command");
             }
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

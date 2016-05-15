@@ -25,6 +25,7 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
 using System.Windows.Threading;
+using NLog;
 
 namespace XLToolboxForExcel
 {
@@ -34,6 +35,12 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+#if DEBUG
+            XLToolbox.LogFile.Default.EnableDebugLogging();
+#endif
+
+            Logger.Info("Begin startup");
+
             // Delete user config file that may be left over from NG developmental
             // versions. We don't need it anymore and it causes nasty crashes.
             try
@@ -78,10 +85,12 @@ namespace XLToolboxForExcel
             {
                 XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
             }
+            Logger.Info("Finished startup");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            Logger.Info("Begin shutdown");
             XLToolbox.UserSettings.Default.Running = false;
             XLToolbox.UserSettings.Default.Save();
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
@@ -97,6 +106,7 @@ namespace XLToolboxForExcel
             // Prevent "LocalDataSlot storage has been freed" exceptions;
             // see http://j.mp/localdatastoreslot
             Dispatcher.CurrentDispatcher.InvokeShutdown();
+            Logger.Info("Finish shutdown");
         }
 
         #endregion
@@ -124,8 +134,10 @@ namespace XLToolboxForExcel
             SemanticVersion lastVersionSeen = new SemanticVersion(
                 XLToolbox.UserSettings.Default.LastVersionSeen);
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
+            Logger.Info("Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
             if (currentVersion > lastVersionSeen)
             {
+                Logger.Info("Greeting user");
                 GreeterViewModel gvm = new GreeterViewModel();
                 gvm.InjectAndShowInThread<GreeterView>();
                 XLToolbox.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
@@ -140,6 +152,7 @@ namespace XLToolboxForExcel
         /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
         void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
         {
+            Logger.Fatal("Central exception hander callback: {0}", e);
             e.IsHandled = true;
             ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
             vm.InjectInto<ExceptionView>().ShowDialogInForm();
@@ -159,6 +172,7 @@ namespace XLToolboxForExcel
                 UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
                 if (updaterVM.CanCheckForUpdate)
                 {
+                    Logger.Info("Checking for update");
                     updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
                     {
                         // Must show the view in a separate thread in order for it to
@@ -174,6 +188,7 @@ namespace XLToolboxForExcel
 
         private void PerformSanityChecks()
         {
+            Logger.Info("Performing sanity checks");
             XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
             XLToolbox.UserSettings userSettings = XLToolbox.UserSettings.Default;
             if (userSettings.Exception != null)
@@ -184,6 +199,7 @@ namespace XLToolboxForExcel
             }
             userSettings.Running = true;
             userSettings.Save();
+            Logger.Info("Sanity checks completed");
         }
 
         #endregion
@@ -226,6 +242,14 @@ namespace XLToolboxForExcel
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
         
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
         #endregion
     }
 }

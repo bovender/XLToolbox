@@ -335,6 +335,7 @@ namespace XLToolbox.Excel.ViewModels
             if (_preventScreenUpdating == 0)
             {
                 _wasScreenUpdating = Application.ScreenUpdating;
+                Logger.Info("Disable screen updating");
             }
             Application.ScreenUpdating = false;
             _preventScreenUpdating++;
@@ -350,6 +351,7 @@ namespace XLToolbox.Excel.ViewModels
             _preventScreenUpdating--;
             if (_preventScreenUpdating <= 0)
             {
+                Logger.Info("Enable screen updating");
                 _preventScreenUpdating = 0;
                 Application.ScreenUpdating = _wasScreenUpdating;
             }
@@ -363,6 +365,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (_disableDisplayAlerts == 0)
             {
+                Logger.Info("Disable displaying of alerts");
                 _wasDisplayingAlerts = Application.DisplayAlerts;
             }
             Application.DisplayAlerts = false;
@@ -380,6 +383,7 @@ namespace XLToolbox.Excel.ViewModels
             _disableDisplayAlerts--;
             if (_disableDisplayAlerts <= 0)
             {
+                Logger.Info("Enable displaying of alerts");
                 _disableDisplayAlerts = 0;
                 Application.DisplayAlerts = _wasDisplayingAlerts;
             }
@@ -415,6 +419,7 @@ namespace XLToolbox.Excel.ViewModels
                 .GetManifestResourceStream(resource);
             if (resourceStream == null)
             {
+                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resource);
                 throw new IOException("Unable to open resource stream " + resource);
             }
             string tempDir = Path.GetTempPath();
@@ -424,6 +429,7 @@ namespace XLToolbox.Excel.ViewModels
             tempStream.Close();
             resourceStream.Close();
             Application.Workbooks.Open(addinFile);
+            Logger.Info("VBA add-in loaded: {0}", addinFile);
             return addinFile;
         }
 
@@ -637,6 +643,14 @@ namespace XLToolbox.Excel.ViewModels
                 return i;
             }
         );
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

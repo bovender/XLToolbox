@@ -44,6 +44,5 @@ namespace XLToolbox.Versioning
         }
 
         #endregion
-
     }
 }

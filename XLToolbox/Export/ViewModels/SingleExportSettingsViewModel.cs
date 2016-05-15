@@ -188,6 +188,7 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExport())
             {
+                Logger.Info("DoExport");
                 // TODO: Make export asynchronous
                 SelectedPreset.Store();
                 UserSettings.Default.ExportUnit = Units.AsEnum;
@@ -195,9 +196,12 @@ namespace XLToolbox.Export.ViewModels
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();
                 pcm.IsIndeterminate = true;
+                Logger.Info("Send process message");
                 ExportProcessMessage.Send(pcm);
                 Exporter exporter = new Exporter();
+                Logger.Info("Export selection");
                 exporter.ExportSelection(Settings as SingleExportSettings);
+                Logger.Info("Send completed message");
                 pcm.CompletedMessage.Send(pcm);
             }
         }
@@ -227,6 +231,7 @@ namespace XLToolbox.Export.ViewModels
 
         private void DoChooseFileName()
         {
+            Logger.Info("DoChooseFileName");
             if (CanChooseFileName())
             {
                 Preset preset = SelectedPreset.RevealModelObject() as Preset;
@@ -253,17 +258,24 @@ namespace XLToolbox.Export.ViewModels
         /// <param name="messageContent"></param>
         private void DoConfirmFileName(FileNameMessageContent messageContent)
         {
+            Logger.Info("DoConfirmFileName");
             if (messageContent.Confirmed)
             {
+                Logger.Info("Confirmed");
                 ((SingleExportSettings)Settings).FileName = messageContent.Value;
                 UserSettings.Default.ExportPath =
                     System.IO.Path.GetDirectoryName(messageContent.Value);
                 DoExport();
             }
+            else
+            {
+                Logger.Info("Not confirmed");
+            }
         }
 
         private void DoResetDimensions()
         {
+            Logger.Info("DoResetDimensions");
             if (CanResetDimensions())
             {
                 SelectionViewModel selection = new SelectionViewModel(
@@ -291,6 +303,14 @@ namespace XLToolbox.Export.ViewModels
         bool _dimensionsChanged;
         EnumProvider<Unit> _unitString;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

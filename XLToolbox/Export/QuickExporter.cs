@@ -37,7 +37,9 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportSelection()
         {
+            Logger.Info("ExportSelection");
             Preset preset = Preset.FromLastUsed(Instance.Default.Application.ActiveWorkbook);
+            Logger.Info("Preset.FromLastUsed: {0}", preset);
             if (preset == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
@@ -59,8 +61,10 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportBatch()
         {
+            Logger.Info("ExportBatch");
             BatchExportSettingsViewModel bvm = BatchExportSettingsViewModel.FromLastUsed(
                 Instance.Default.ActiveWorkbook);
+            Logger.Info("BatchExportSettingsViewModel.FromLastUsed: {0}", bvm);
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
@@ -108,6 +112,14 @@ namespace XLToolbox.Export
             ChooseFolderAction action = new ChooseFolderAction();
             action.Invoke(e);
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

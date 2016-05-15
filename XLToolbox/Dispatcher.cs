@@ -50,6 +50,7 @@ namespace XLToolbox
         /// <param name="cmd">XL Toolbox command to execute.</param>
         public static void Execute(Command cmd)
         {
+            Logger.Info("*** Execute {0} ***", cmd);
             try
             {
                 switch (cmd)
@@ -105,11 +106,13 @@ namespace XLToolbox
                     case Command.Shortcuts: EditShortcuts(); break;
                     case Command.SaveAs: SaveAs(); break;
                     default:
+                        Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
             }
             catch (Exception e)
             {
+                Logger.Fatal(e, "Dispatcher exception");
                 UserSettings.Default.Save();
                 ExceptionViewModel vm = new ExceptionViewModel(e);
                 vm.InjectInto<ExceptionView>().ShowDialog();
@@ -380,6 +383,14 @@ namespace XLToolbox
             };
             return vm;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

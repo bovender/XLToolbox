@@ -33,9 +33,11 @@ namespace XLToolbox.Versioning
         /// <returns></returns>
         new public static Bovender.Versioning.SemanticVersion CurrentVersion()
         {
-            return Bovender.Versioning.SemanticVersion.CurrentVersion(
+            Bovender.Versioning.SemanticVersion v = Bovender.Versioning.SemanticVersion.CurrentVersion(
                 Assembly.GetExecutingAssembly()
                 );
+            Logger.Info("Current version: {0}", v);
+            return v;
         }
 
         #endregion
@@ -47,5 +49,13 @@ namespace XLToolbox.Versioning
                 return Properties.Settings.Default.AddinName + " " + CurrentVersion().ToString();
             }
         }
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
+        #endregion
     }
 }
