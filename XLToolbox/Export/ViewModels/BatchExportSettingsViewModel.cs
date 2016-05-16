@@ -350,7 +350,6 @@ namespace XLToolbox.Export.ViewModels
             Logger.Info("DoExport");
             if (CanExport())
             {
-                Debug.WriteLine(PresetViewModels.ViewModels.Count);
                 ((BatchExportSettings)Settings).Store(Instance.Default.ActiveWorkbook);
                 SaveExportPath();
                 Exporter exporter = new Exporter();

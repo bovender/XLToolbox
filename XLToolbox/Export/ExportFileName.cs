@@ -77,8 +77,7 @@ namespace XLToolbox.Export
             CurrentWorkbookName = worksheet.Parent.Name;
             CurrentWorksheetName = worksheet.Name;
             Counter++;
-            Regex r = new Regex(@"{[^}]+}");
-            string s = r.Replace(Template, SubstituteVariable);
+            string s = _regex.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.
             return Path.Combine(Directory, InsertIndexIfMissing(Template, s) + _extension);
         }
@@ -124,7 +123,7 @@ namespace XLToolbox.Export
 
         private void SetExtension()
         {
-            if (!Template.ToUpper().EndsWith(FileType.ToFileNameExtension().ToUpper()))
+            if (String.IsNullOrWhiteSpace(Template) || !Template.ToUpper().EndsWith(FileType.ToFileNameExtension().ToUpper()))
             {
                 _extension = FileType.ToFileNameExtension();
             }
@@ -149,6 +148,15 @@ namespace XLToolbox.Export
 
         Dictionary<string, Func<string>> _placeholderReplacements;
         string _extension;
+        private static readonly Regex _regex = new Regex(@"{[^}]+}");
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

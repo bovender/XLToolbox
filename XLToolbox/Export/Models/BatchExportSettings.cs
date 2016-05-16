@@ -90,7 +90,9 @@ namespace XLToolbox.Export.Models
 
         public BatchExportSettings()
             : base()
-        { }
+        {
+            Preset = PresetsRepository.Default.First;
+        }
 
         public BatchExportSettings(Preset preset)
             : this()
