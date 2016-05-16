@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox
+namespace XLToolbox.Logging
 {
     /// <summary>
     /// Provides logging to file and to the debug console; wraps

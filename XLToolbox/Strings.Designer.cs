@@ -422,6 +422,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current log:.
+        /// </summary>
+        public static string CurrentLogColon {
+            get {
+                return ResourceManager.GetString("CurrentLogColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data analysis and visualization for Excel, for free..
         /// </summary>
         public static string DataAnalysisAndVisualizationForExcelForFree {
@@ -539,6 +548,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to enable logging now?.
+        /// </summary>
+        public static string DoYouWantToEnableLogging {
+            get {
+                return ResourceManager.GetString("DoYouWantToEnableLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do want to examine the log files now?.
+        /// </summary>
+        public static string DoYouWantToExamineLogs {
+            get {
+                return ResourceManager.GetString("DoYouWantToExamineLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -598,6 +625,15 @@ namespace XLToolbox {
         public static string EnableKeyboardShortcuts {
             get {
                 return ResourceManager.GetString("EnableKeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Logging.
+        /// </summary>
+        public static string EnableLogging {
+            get {
+                return ResourceManager.GetString("EnableLogging", resourceCulture);
             }
         }
         
@@ -817,11 +853,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you suspect that this could have been caused by a malfunction of the add-in, you may want to turn on the technical logging. The log file contents may be helpful in troubleshooting the issue..
+        /// </summary>
+        public static string IfYouSuspect {
+            get {
+                return ResourceManager.GetString("IfYouSuspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import CSV file.
         /// </summary>
         public static string ImportCsvFile {
             get {
                 return ResourceManager.GetString("ImportCsvFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete shutdown detected.
+        /// </summary>
+        public static string IncompleteShutdown {
+            get {
+                return ResourceManager.GetString("IncompleteShutdown", resourceCulture);
             }
         }
         
@@ -903,6 +957,15 @@ namespace XLToolbox {
         public static string License {
             get {
                 return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have already enabled logging. The log files may contain technical information that helps to identify the problem. Please consider sending the current log file to support@xltoolbox.net..
+        /// </summary>
+        public static string LoggingWasEnabled {
+            get {
+                return ResourceManager.GetString("LoggingWasEnabled", resourceCulture);
             }
         }
         
@@ -1688,6 +1751,15 @@ namespace XLToolbox {
         public static string XLToolboxLicense {
             get {
                 return ResourceManager.GetString("XLToolboxLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It appears that the XL Toolbox add-in was not shut down properly..
+        /// </summary>
+        public static string XLToolboxNotShutDownProperly {
+            get {
+                return ResourceManager.GetString("XLToolboxNotShutDownProperly", resourceCulture);
             }
         }
         

@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using Bovender.UserSettings;
 using XLToolbox.Export.Models;
+using XLToolbox.Logging;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 

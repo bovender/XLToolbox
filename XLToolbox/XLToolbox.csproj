@@ -185,7 +185,14 @@
     <Compile Include="Keyboard\ShortcutViewModel.cs" />
     <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
-    <Compile Include="LogFile.cs" />
+    <Compile Include="Logging\IncompleteShutdownLoggingDisabled.xaml.cs">
+      <DependentUpon>IncompleteShutdownLoggingDisabled.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\IncompleteShutdownLoggingEnabled.xaml.cs">
+      <DependentUpon>IncompleteShutdownLoggingEnabled.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\LogFile.cs" />
+    <Compile Include="Logging\LogFileViewModel.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
@@ -402,6 +409,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Keyboard\ShortcutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\IncompleteShutdownLoggingDisabled.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\IncompleteShutdownLoggingEnabled.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

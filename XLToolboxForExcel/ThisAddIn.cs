@@ -20,6 +20,7 @@ using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
 using Bovender.Extensions;
+using Bovender.Mvvm.Actions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
@@ -36,7 +37,7 @@ namespace XLToolboxForExcel
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
 #if DEBUG
-            XLToolbox.LogFile.Default.EnableDebugLogging();
+            XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
 #endif
 
             Logger.Info("Begin startup");
@@ -188,9 +189,21 @@ namespace XLToolboxForExcel
 
         private void PerformSanityChecks()
         {
+            XLToolbox.UserSettings userSettings = XLToolbox.UserSettings.Default;
             Logger.Info("Performing sanity checks");
             XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
-            XLToolbox.UserSettings userSettings = XLToolbox.UserSettings.Default;
+            if (userSettings.Running)
+            {
+                XLToolbox.Logging.LogFileViewModel vm = new XLToolbox.Logging.LogFileViewModel();
+                if (userSettings.EnableLogging)
+                {
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingEnabled>().ShowDialogInForm();
+                }
+                else
+                {
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingDisabled>().ShowDialogInForm();
+                }
+            }
             if (userSettings.Exception != null)
             {
                 Bovender.UserSettings.UserSettingsExceptionViewModel vm =
