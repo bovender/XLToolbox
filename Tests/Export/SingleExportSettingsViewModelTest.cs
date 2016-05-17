@@ -42,7 +42,7 @@ namespace XLToolbox.UnitTests.Export
             ChartObjects cos = ws.ChartObjects();
             cos.Add(10, 10, 300, 200).Select();
             // Get a preset from the UserSettings to enforce the settings are loaded now.
-            Preset preset = UserSettings.Default.ExportPresets.FirstOrDefault();
+            Preset preset = UserSettings.UserSettings.Default.ExportPresets.FirstOrDefault();
             if (preset == null)
             {
                 preset = PresetsRepository.Default.First;

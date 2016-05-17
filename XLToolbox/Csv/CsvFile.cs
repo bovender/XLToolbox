@@ -34,7 +34,7 @@ namespace XLToolbox.Csv
 
         public static CsvFile LastImport()
         {
-            CsvFile c = UserSettings.Default.CsvImport;
+            CsvFile c = UserSettings.UserSettings.Default.CsvImport;
             if (c == null)
             {
                 c = new CsvFile();
@@ -44,7 +44,7 @@ namespace XLToolbox.Csv
 
         public static CsvFile LastExport()
         {
-            CsvFile c = UserSettings.Default.CsvExport;
+            CsvFile c = UserSettings.UserSettings.Default.CsvExport;
             if (c == null)
             {
                 c = new CsvFile();
@@ -136,7 +136,7 @@ namespace XLToolbox.Csv
 
         public void Import()
         {
-            UserSettings.Default.CsvImport = this;
+            UserSettings.UserSettings.Default.CsvImport = this;
             Excel.ViewModels.Instance.Default.Application.Workbooks.OpenText(
                 FileName,
                 DataType: XlTextParsingType.xlDelimited,
@@ -169,7 +169,7 @@ namespace XLToolbox.Csv
         /// <param name="range">Range to export.</param>
         public void Export(Range range)
         {
-            UserSettings.Default.CsvExport = this;
+            UserSettings.UserSettings.Default.CsvExport = this;
             IsProcessing = true;
             Task t = new Task(() =>
             {

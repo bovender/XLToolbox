@@ -20,7 +20,6 @@ using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
 using Bovender.Extensions;
-using Bovender.Mvvm.Actions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
@@ -82,7 +81,7 @@ namespace XLToolboxForExcel
 
             XLToolbox.Keyboard.Manager.Default.RegisterShortcuts();
 
-            if (XLToolbox.UserSettings.Default.SheetManagerVisible)
+            if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
             {
                 XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
             }
@@ -92,8 +91,8 @@ namespace XLToolboxForExcel
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
             Logger.Info("Begin shutdown");
-            XLToolbox.UserSettings.Default.Running = false;
-            XLToolbox.UserSettings.Default.Save();
+            XLToolbox.UserSettings.UserSettings.Default.Running = false;
+            XLToolbox.UserSettings.UserSettings.Default.Save();
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {
@@ -133,7 +132,7 @@ namespace XLToolboxForExcel
         private void GreetUser()
         {
             SemanticVersion lastVersionSeen = new SemanticVersion(
-                XLToolbox.UserSettings.Default.LastVersionSeen);
+                XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen);
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
             Logger.Info("Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
             if (currentVersion > lastVersionSeen)
@@ -141,7 +140,7 @@ namespace XLToolboxForExcel
                 Logger.Info("Greeting user");
                 GreeterViewModel gvm = new GreeterViewModel();
                 gvm.InjectAndShowInThread<GreeterView>();
-                XLToolbox.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
+                XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
             }
         }
 
@@ -165,9 +164,9 @@ namespace XLToolboxForExcel
         /// </summary>
         private void MaybeCheckForUpdate()
         {
-            DateTime lastCheck = XLToolbox.UserSettings.Default.LastUpdateCheck;
+            DateTime lastCheck = XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck;
             DateTime today = DateTime.Today;
-            if ((today - lastCheck).Days >= XLToolbox.UserSettings.Default.UpdateCheckInterval)
+            if ((today - lastCheck).Days >= XLToolbox.UserSettings.UserSettings.Default.UpdateCheckInterval)
             {
                 _installUpdateView = new Ver.InstallUpdateView();
                 UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
@@ -183,13 +182,13 @@ namespace XLToolboxForExcel
                     };
                     updaterVM.CheckForUpdateCommand.Execute(null);
                 }
-                XLToolbox.UserSettings.Default.LastUpdateCheck = DateTime.Today;
+                XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
         }
 
         private void PerformSanityChecks()
         {
-            XLToolbox.UserSettings userSettings = XLToolbox.UserSettings.Default;
+            XLToolbox.UserSettings.UserSettings userSettings = XLToolbox.UserSettings.UserSettings.Default;
             Logger.Info("Performing sanity checks");
             XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
             if (userSettings.Running)

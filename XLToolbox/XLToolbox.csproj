@@ -211,7 +211,6 @@
       <DependentUpon>UserSettingsExceptionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SheetManager\SheetManagerEventArgs.cs" />
-    <Compile Include="UserSettings.cs" />
     <Compile Include="Properties\StoreNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -221,6 +220,8 @@
       <DependentUpon>SheetManagerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="UserSettings\UserSettings.cs" />
+    <Compile Include="UserSettings\UserSettingsViewModel.cs" />
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
@@ -281,8 +282,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Legacy\xltb-legacy-addin.xlam" />
     <EmbeddedResource Include="Keyboard\XLToolboxKeyboardBridge.xlam" />
+    <None Include="Legacy\XLToolboxLegacyAddin.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

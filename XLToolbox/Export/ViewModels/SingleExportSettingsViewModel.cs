@@ -191,7 +191,7 @@ namespace XLToolbox.Export.ViewModels
                 Logger.Info("DoExport");
                 // TODO: Make export asynchronous
                 SelectedPreset.Store();
-                UserSettings.Default.ExportUnit = Units.AsEnum;
+                UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
                 SaveExportPath();
                 Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
                 ProcessMessageContent pcm = new ProcessMessageContent();
@@ -221,7 +221,7 @@ namespace XLToolbox.Export.ViewModels
         protected override void SaveExportPath()
         {
             base.SaveExportPath();
-            UserSettings.Default.ExportPath =
+            UserSettings.UserSettings.Default.ExportPath =
                 System.IO.Path.GetDirectoryName(FileName);
         }
 
@@ -263,7 +263,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 Logger.Info("Confirmed");
                 ((SingleExportSettings)Settings).FileName = messageContent.Value;
-                UserSettings.Default.ExportPath =
+                UserSettings.UserSettings.Default.ExportPath =
                     System.IO.Path.GetDirectoryName(messageContent.Value);
                 DoExport();
             }

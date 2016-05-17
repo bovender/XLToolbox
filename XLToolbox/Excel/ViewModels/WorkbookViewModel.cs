@@ -132,11 +132,11 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return UserSettings.Default.WorksheetManagerAlwaysOnTop;
+                return UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop;
             }
             set
             {
-                UserSettings.Default.WorksheetManagerAlwaysOnTop = value;
+                UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop = value;
             }
         }
 

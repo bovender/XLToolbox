@@ -183,7 +183,7 @@ namespace XLToolbox.Export.ViewModels
         {
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             Store store = new Store(wb);
-            string defaultPath = UserSettings.Default.ExportPath;
+            string defaultPath = UserSettings.UserSettings.Default.ExportPath;
             if (String.IsNullOrEmpty(defaultPath))
             {
                 if (wb != null && !String.IsNullOrEmpty(wb.Path))

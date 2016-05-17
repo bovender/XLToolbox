@@ -43,7 +43,7 @@ namespace XLToolbox.Export.Models
         /// if no such object exists.</returns>
         public static BatchExportSettings FromLastUsed()
         {
-            return UserSettings.Default.BatchExportSettings;
+            return UserSettings.UserSettings.Default.BatchExportSettings;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace XLToolbox.Export.Models
 
         public void Store()
         {
-            UserSettings.Default.BatchExportSettings = this;
+            UserSettings.UserSettings.Default.BatchExportSettings = this;
         }
 
         public void Store(Workbook workbookContext)

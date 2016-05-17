@@ -40,7 +40,7 @@ namespace XLToolbox.Test.Export
         {
             Instance.Default.Reset();
             Instance.Default.CreateWorkbook();
-            Preset preset = UserSettings.Default.ExportPresets.FirstOrDefault();
+            Preset preset = UserSettings.UserSettings.Default.ExportPresets.FirstOrDefault();
             if (preset == null)
             {
                 preset = PresetsRepository.Default.First;

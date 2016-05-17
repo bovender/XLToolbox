@@ -21,9 +21,8 @@ using Bovender.UserSettings;
 using XLToolbox.Export.Models;
 using XLToolbox.Logging;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
-namespace XLToolbox
+namespace XLToolbox.UserSettings
 {
     /// <summary>
     /// XL Toolbox user settings. Should be used as singleton.

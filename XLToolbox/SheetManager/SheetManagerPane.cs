@@ -123,7 +123,7 @@ namespace XLToolbox.SheetManager
 
         private void OnVisibilityChanged()
         {
-            UserSettings.Default.SheetManagerVisible = _pane.Visible;
+            UserSettings.UserSettings.Default.SheetManagerVisible = _pane.Visible;
             if (_pane.Visible)
             {
                 _viewModel.MonitorWorkbook.Execute(null);
@@ -148,7 +148,7 @@ namespace XLToolbox.SheetManager
             userControl.Controls.Add(elementHost);
             elementHost.Dock = DockStyle.Fill;
             _pane = Globals.CustomTaskPanes.Add(userControl, Strings.WorksheetManager);
-            _pane.Width = UserSettings.Default.TaskPaneWidth;
+            _pane.Width = UserSettings.UserSettings.Default.TaskPaneWidth;
             _pane.VisibleChanged += (sender, args) =>
             {
                 OnVisibilityChanged();

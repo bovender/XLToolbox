@@ -23,9 +23,9 @@ using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Legacy
 {
-    public class LegacyToolbox
+    public class LegacyToolbox : IDisposable
     {
-        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.xltb-legacy-addin.xlam";
+        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.XLToolboxLegacyAddin.xlam";
 
         #region Static methods
 
@@ -63,7 +63,46 @@ namespace XLToolbox.Legacy
 
         #region Constructor
 
-        private LegacyToolbox() { }
+        private LegacyToolbox()
+        {
+            Logger.Info("Initializing LegacyToolbox singleton");
+            _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+        }
+
+        #endregion
+
+        #region Disposing
+        
+        ~LegacyToolbox()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool calledFromPublicMethod)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                if (calledFromPublicMethod)
+                {
+                    Instance.Default.Application.Workbooks[ADDIN_RESOURCE_NAME].Close(SaveChanges: false);
+                }
+                try
+                {
+                    System.IO.File.Delete(_tempFile);
+                }
+                catch (Exception e)
+                {
+                    Logger.Warn(e, "When attempting to close the VBA add-in");
+                }
+            }
+        }
 
         #endregion
 
@@ -165,13 +204,19 @@ namespace XLToolbox.Legacy
 
         #endregion
 
+        #region Private fields
+
+        private bool _disposed;
+
+        private string _tempFile;
+
+        #endregion
+
         #region Private static fields and properties
 
-        private static Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
+        private static readonly Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
             () =>
             {
-                Logger.Info("Initializing LegacyToolbox singleton");
-                Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
                 return new LegacyToolbox();
             }
         );

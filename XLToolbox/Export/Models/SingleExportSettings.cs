@@ -61,7 +61,7 @@ namespace XLToolbox.Export.Models
             if (svm.Selection != null)
             {
                 return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height,
-                    UserSettings.Default.ExportUnit, true);
+                    UserSettings.UserSettings.Default.ExportUnit, true);
             }
             else
             {

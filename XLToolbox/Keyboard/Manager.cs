@@ -30,11 +30,8 @@ namespace XLToolbox.Keyboard
     /// <summary>
     /// Manages keyboard shortcuts.
     /// </summary>
-    public class Manager : IDisposable
+    public class Manager
     {
-        private const string ADDIN_FILENAME = "XLToolboxKeyboardBridge.xlam";
-        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Keyboard." + ADDIN_FILENAME;
-
         #region Singleton factory
 
         public static Manager Default
@@ -165,41 +162,6 @@ namespace XLToolbox.Keyboard
 
         #endregion
 
-        #region Disposing
-        
-        ~Manager()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected void Dispose(bool calledFromPublicMethod)
-        {
-            if (!_disposed)
-            {
-                _disposed = true;
-                // if (calledFromPublicMethod)
-                // {
-                //     Instance.Default.Application.Workbooks[ADDIN_FILENAME].Close(SaveChanges: false);
-                // }
-                // try
-                // {
-                //     System.IO.File.Delete(_tempFile);
-                // }
-                // catch (Exception)
-                // {
-                //     // TODO: Log errors
-                // }
-            }
-        }
-
-        #endregion
-
         #region Private methods
 
         /// <summary>
@@ -250,7 +212,6 @@ namespace XLToolbox.Keyboard
         private static Lazy<Manager> _lazy = new Lazy<Manager>(
             () =>
             {
-                // _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
                 Legacy.LegacyToolbox l = Legacy.LegacyToolbox.Default;
                 return new Manager();
             }

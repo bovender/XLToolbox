@@ -75,7 +75,7 @@ namespace XLToolbox.Export.ViewModels
         {
             if (CanExportSelection())
             {
-                string defaultPath = UserSettings.Default.ExportPath;
+                string defaultPath = UserSettings.UserSettings.Default.ExportPath;
                 WorkbookStorage.Store store = new WorkbookStorage.Store();
                 string path = store.Get(
                     Properties.StoreNames.Default.ExportPath, defaultPath);
@@ -95,7 +95,7 @@ namespace XLToolbox.Export.ViewModels
                 {
                     store.Put(Properties.StoreNames.Default.ExportPath, messageContent.Value);
                 }
-                UserSettings.Default.ExportPath =
+                UserSettings.UserSettings.Default.ExportPath =
                     Bovender.PathHelpers.GetDirectoryPart(messageContent.Value);
                 ScreenshotExporter exporter = new ScreenshotExporter();
                 exporter.ExportSelection(messageContent.Value);

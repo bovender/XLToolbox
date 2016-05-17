@@ -113,7 +113,7 @@ namespace XLToolbox
             catch (Exception e)
             {
                 Logger.Fatal(e, "Dispatcher exception");
-                UserSettings.Default.Save();
+                UserSettings.UserSettings.Default.Save();
                 ExceptionViewModel vm = new ExceptionViewModel(e);
                 vm.InjectInto<ExceptionView>().ShowDialog();
             }
@@ -153,7 +153,7 @@ namespace XLToolbox
 
         static void ExportSelection()
         {
-            Preset preset = UserSettings.Default.ExportPreset;
+            Preset preset = UserSettings.UserSettings.Default.ExportPreset;
             if (preset == null)
             {
                 preset = PresetsRepository.Default.First;
@@ -285,38 +285,38 @@ namespace XLToolbox
 
         static void Anova1Way()
         {
-            UserSettings.Default.LastAnova = 1;
+            UserSettings.UserSettings.Default.LastAnova = 1;
             Legacy.LegacyToolbox.Default.RunCommand(Command.Anova1Way);
         }
 
         static void Anova2Way()
         {
-            UserSettings.Default.LastAnova = 2;
+            UserSettings.UserSettings.Default.LastAnova = 2;
             Legacy.LegacyToolbox.Default.RunCommand(Command.Anova2Way);
         }
 
         static void LastAnova()
         {
-            Command c = UserSettings.Default.LastAnova == 2 ?
+            Command c = UserSettings.UserSettings.Default.LastAnova == 2 ?
                 Command.Anova2Way : Command.Anova1Way;
             Legacy.LegacyToolbox.Default.RunCommand(c);
         }
 
         static void ErrorBarsAutomatic()
         {
-            UserSettings.Default.LastErrorBars = 1;
+            UserSettings.UserSettings.Default.LastErrorBars = 1;
             Legacy.LegacyToolbox.Default.RunCommand(Command.AutomaticErrorBars);
         }
 
         static void ErrorBarsInteractive()
         {
-            UserSettings.Default.Save();
+            UserSettings.UserSettings.Default.LastErrorBars = 2;
             Legacy.LegacyToolbox.Default.RunCommand(Command.InteractiveErrorBars);
         }
 
         static void LastErrorBars()
         {
-            Command c = UserSettings.Default.LastErrorBars == 2 ? 
+            Command c = UserSettings.UserSettings.Default.LastErrorBars == 2 ? 
                 Command.InteractiveErrorBars : Command.AutomaticErrorBars;
             Legacy.LegacyToolbox.Default.RunCommand(c);
         }

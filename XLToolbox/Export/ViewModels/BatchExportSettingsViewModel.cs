@@ -415,7 +415,7 @@ namespace XLToolbox.Export.ViewModels
         protected override void SaveExportPath()
         {
             base.SaveExportPath();
-            UserSettings.Default.ExportPath = Path;
+            XLToolbox.UserSettings.UserSettings.Default.ExportPath = Path;
         }
 
         #endregion

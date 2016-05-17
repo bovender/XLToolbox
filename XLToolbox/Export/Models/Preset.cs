@@ -40,7 +40,7 @@ namespace XLToolbox.Export.Models
         /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed()
         {
-            return UserSettings.Default.ExportPreset;
+            return UserSettings.UserSettings.Default.ExportPreset;
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace XLToolbox.Export.Models
         /// <param name="workbookContext"></param>
         public void Store(Workbook workbookContext)
         {
-            UserSettings.Default.ExportPreset = this;
+            UserSettings.UserSettings.Default.ExportPreset = this;
             using (Store store = new Store(workbookContext))
             {
                 store.Put(Properties.StoreNames.Default.ExportPreset, this);
