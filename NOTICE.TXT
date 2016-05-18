@@ -60,4 +60,12 @@ Toolbox NG code repository at <https://sf.net/p/xltoolbox/ng-code>
 contains the FreeImage project and code files that were used to build
 the DLL that is linked by the XL Toolbox add-in.
 
+
+NLog
+----
+
+(c) 2004-2016 Jaroslaw Kowalski <jaak@jkowalski.net>, Kim Christensen, Julian Verdurmen
+
+Used under the BSD license.
+
 <!-- vim: set tw=72 : -->
