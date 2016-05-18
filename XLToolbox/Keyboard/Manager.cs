@@ -203,7 +203,6 @@ namespace XLToolbox.Keyboard
         private ObservableCollection<Shortcut> _shortcuts;
         private bool _isEnabled;
         private bool _registered;
-        private bool _disposed;
 
         #endregion
 
@@ -216,8 +215,6 @@ namespace XLToolbox.Keyboard
                 return new Manager();
             }
         );
-
-        private static string _tempFile;
 
         #endregion
 
