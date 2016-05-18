@@ -23,8 +23,9 @@
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
-        settings:WindowState.Save="True"
-        SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        settings:WindowState.Save="True" ResizeMode="CanResizeWithGrip"
+        ShowInTaskbar="False"
+        Width="480" Height="520" MinWidth="400" MinHeight="520"
         Title="{x:Static l:Strings.EditExportPreset}"
         >
     <Window.Resources>
@@ -42,22 +43,15 @@
                                         CancelButtonLabel="{x:Static l:Strings.Cancel}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <StackPanel Margin="10">
-        <GroupBox Header="{x:Static l:Strings.Preset}" Padding="10">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0">
-                    <Button Command="{Binding AddCommand}" Content="{x:Static l:Strings.Add}" />
-                    <Button Command="{Binding RemoveCommand}" Content="{x:Static l:Strings.Delete}"
-                            Margin="0,10,0,0"/>
-                </StackPanel>
-                <ListBox ItemsSource="{Binding Presets}"
-                         SelectedItem="{Binding SelectedPreset}"
-                         DisplayMemberPath="Name"
-                         MinWidth="240" MaxWidth="480" MaxHeight="140" />
-            </DockPanel>
-        </GroupBox>
-        <GroupBox Header="{x:Static l:Strings.Details}" Margin="0,10,0,0" Padding="10"
-                  DataContext="{Binding SelectedPreset}">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="{x:Static l:Strings.Close}" Command="{Binding CloseViewCommand}" 
+                    IsCancel="True" />
+        </StackPanel>    
+        <GroupBox DockPanel.Dock="Bottom"
+                  Header="{x:Static l:Strings.Details}" Margin="0,10,0,0" Padding="10"
+                  DataContext="{Binding SelectedViewModel}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -135,9 +129,17 @@
                           />
             </Grid>
         </GroupBox>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="{x:Static l:Strings.Close}" Command="{Binding CloseViewCommand}" 
-                    IsCancel="True" />
-        </StackPanel>    
-    </StackPanel>
+        <GroupBox Header="{x:Static l:Strings.Preset}" Padding="10">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0">
+                    <Button Command="{Binding AddCommand}" Content="{x:Static l:Strings.Add}" />
+                    <Button Command="{Binding RemoveCommand}" Content="{x:Static l:Strings.Delete}"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+                <ListBox ItemsSource="{Binding ViewModels}"
+                         SelectedItem="{Binding SelectedViewModel}"
+                         DisplayMemberPath="Name" />
+            </DockPanel>
+        </GroupBox>
+    </DockPanel>
 </Window>

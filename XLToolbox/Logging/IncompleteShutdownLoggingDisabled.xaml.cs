@@ -1,7 +1,7 @@
-﻿/* WorkbookView.xaml.cs
+﻿/* IncompleteShutdownLoggingDisabled.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2015 Daniel Kraus
+ * Copyright 2014-2016 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using XLToolbox.Mvvm.Actions;
 
-namespace XLToolbox.SheetManager
+namespace XLToolbox.Logging
 {
     /// <summary>
-    /// Interaction logic for WorkbookView.xaml
+    /// Interaction logic for IncompleteShutdownLoggingDisabled.xaml
     /// </summary>
-    public partial class WorkbookView : Window
+    public partial class IncompleteShutdownLoggingDisabled : Window
     {
-        public WorkbookView()
+        public IncompleteShutdownLoggingDisabled()
         {
             InitializeComponent();
         }

@@ -51,15 +51,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
-    <Reference Include="Bovender, Version=0.5.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.6.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.5.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.6.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.5.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.6.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.5.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.6.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,13 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -84,6 +91,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="YamlDotNet, Version=3.8.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.Signed.3.8.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
@@ -159,8 +171,28 @@
     <Compile Include="Export\Models\StoreException.cs" />
     <Compile Include="Export\ViewModels\PresetViewModel.cs" />
     <Compile Include="Export\Models\FileType.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Keyboard\Manager.cs" />
+    <Compile Include="Keyboard\ManagerView.xaml.cs">
+      <DependentUpon>ManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Keyboard\ManagerViewModel.cs" />
+    <Compile Include="Keyboard\Shortcut.cs" />
+    <Compile Include="Keyboard\ShortcutView.xaml.cs">
+      <DependentUpon>ShortcutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Keyboard\ShortcutViewModel.cs" />
+    <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
+    <Compile Include="Logging\IncompleteShutdownLoggingDisabled.xaml.cs">
+      <DependentUpon>IncompleteShutdownLoggingDisabled.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\IncompleteShutdownLoggingEnabled.xaml.cs">
+      <DependentUpon>IncompleteShutdownLoggingEnabled.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\LogFile.cs" />
+    <Compile Include="Logging\LogFileViewModel.cs" />
     <Compile Include="Mvvm\Actions\ChooseFolderAction.cs" />
     <Compile Include="Mvvm\Actions\ShowHtmlAction.cs" />
     <Compile Include="Mvvm\Actions\StringMessageAction.cs" />
@@ -175,10 +207,23 @@
     <Compile Include="Mvvm\Views\StringMessageContentView.xaml.cs">
       <DependentUpon>StringMessageContentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mvvm\Views\UserSettingsExceptionView.xaml.cs">
+      <DependentUpon>UserSettingsExceptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SheetManager\SheetManagerEventArgs.cs" />
     <Compile Include="Properties\StoreNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>StoreNames.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SheetManager\SheetManagerControl.xaml.cs">
+      <DependentUpon>SheetManagerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="UserSettings\UserSettings.cs" />
+    <Compile Include="UserSettings\UserSettingsViewModel.cs" />
+    <Compile Include="UserSettings\UserSettingsView.xaml.cs">
+      <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
@@ -207,8 +252,8 @@
     <Compile Include="ExceptionHandler\ExceptionView.xaml.cs">
       <DependentUpon>ExceptionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheetManager\WorkbookView.xaml.cs">
-      <DependentUpon>WorkbookView.xaml</DependentUpon>
+    <Compile Include="SheetManager\SheetManagerWindow.xaml.cs">
+      <DependentUpon>SheetManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Excel\ViewModels\WorkbookViewModel.cs" />
@@ -240,7 +285,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Legacy\xltb-legacy-addin.xlam" />
+    <EmbeddedResource Include="Keyboard\XLToolboxKeyboardBridge.xlam" />
+    <EmbeddedResource Include="Legacy\XLToolboxLegacyAddin.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -311,6 +357,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\key.png" />
     <Resource Include="Resources\images\import-export-16.png" />
     <Resource Include="Resources\images\import-export.png" />
     <Resource Include="Resources\images\csv-export-range-edit.png" />
@@ -362,6 +409,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Keyboard\ManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Keyboard\ShortcutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\IncompleteShutdownLoggingDisabled.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\IncompleteShutdownLoggingEnabled.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Mvvm\Views\HtmlFileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -369,6 +432,18 @@
     <Page Include="Mvvm\Views\StringMessageContentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Views\UserSettingsExceptionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SheetManager\SheetManagerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserSettings\UserSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Versioning\InstallUpdateView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -402,7 +477,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SheetManager\WorkbookView.xaml">
+    <Page Include="SheetManager\SheetManagerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

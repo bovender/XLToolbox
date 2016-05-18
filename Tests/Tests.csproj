@@ -51,21 +51,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29'">
-    <Reference Include="Bovender, Version=0.5.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.6.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.5.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.6.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.5.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.6.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.5.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.6.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="nunit.core">
       <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
@@ -95,6 +99,10 @@
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="YamlDotNet, Version=3.8.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.Signed.3.8.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -114,14 +122,16 @@
     <Compile Include="Export\ColorProfileRepositoryViewModelTest.cs" />
     <Compile Include="Export\ExporterTest.cs" />
     <Compile Include="Export\ExportFileNameTest.cs" />
-    <Compile Include="Export\PresetsRepositoryForTesting.cs" />
     <Compile Include="Export\PresetsRepositoryTest.cs" />
     <Compile Include="Export\PresetsRepositoryViewModelTest.cs" />
     <Compile Include="Export\PresetsViewModelTest.cs" />
+    <Compile Include="Export\PresetTest.cs" />
     <Compile Include="Export\ScreenShotExporterTest.cs" />
     <Compile Include="Export\SingleExportSettingsViewModelTest.cs" />
     <Compile Include="Export\UnitTest.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Keyboard\ManagerTest.cs" />
+    <Compile Include="Keyboard\ShortcutTest.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -130,7 +140,6 @@
     <Compile Include="WorkbookStorage\ClassForTesting.cs" />
     <Compile Include="WorkbookStorage\StoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VersioningTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

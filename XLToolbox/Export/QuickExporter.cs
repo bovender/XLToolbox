@@ -37,15 +37,17 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportSelection()
         {
-            Preset p = Preset.FromLastUsed(
-                Instance.Default.Application.ActiveWorkbook);
-            if (p == null)
+            Logger.Info("ExportSelection");
+            Preset preset = Preset.FromLastUsed(Instance.Default.Application.ActiveWorkbook);
+            Logger.Info("Preset.FromLastUsed: {0}", preset);
+            if (preset == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);
             }
             else
             {
-                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(p);
+                SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+                SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent; 
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {
@@ -59,8 +61,10 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportBatch()
         {
+            Logger.Info("ExportBatch");
             BatchExportSettingsViewModel bvm = BatchExportSettingsViewModel.FromLastUsed(
                 Instance.Default.ActiveWorkbook);
+            Logger.Info("BatchExportSettingsViewModel.FromLastUsed: {0}", bvm);
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
@@ -76,6 +80,9 @@ namespace XLToolbox.Export
             }
             else
             {
+                // We did get a view model, but its ChooseFolderCommand is disabled,
+                // which means that the selected batch export options are invalid
+                // in the current context.
                 if (bvm != null)
                 {
                     bvm = new BatchExportSettingsViewModel();
@@ -105,6 +112,14 @@ namespace XLToolbox.Export
             ChooseFolderAction action = new ChooseFolderAction();
             action.Invoke(e);
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

@@ -3,55 +3,34 @@
   <Profiles />
   <Settings>
     <Setting Name="WebsiteUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net</Value>
     </Setting>
     <Setting Name="VersionInfoUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/version-ng.txt</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/version-ng.txt</Value>
     </Setting>
     <Setting Name="HelpUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/</Value>
     </Setting>
     <Setting Name="ExceptionPostUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/receive.php</Value>
-    </Setting>
-    <Setting Name="DownloadPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">https://www.xltoolbox.net/receive.php</Value>
     </Setting>
     <Setting Name="AddinName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
-    <Setting Name="ExportUnit" Type="XLToolbox.Export.Models.Unit" Scope="User">
-      <Value Profile="(Default)">Point</Value>
-    </Setting>
-    <Setting Name="ExportPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ExportPreset" Type="XLToolbox.Export.Models.Preset" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="BatchExportSettings" Type="XLToolbox.Export.Models.BatchExportSettings" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="DonateUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/donate</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/donate</Value>
     </Setting>
     <Setting Name="WhatsNewUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://www.xltoolbox.net/changelog-ng.html</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/changelog-ng.html</Value>
     </Setting>
-    <Setting Name="WindowManagerAlwaysOnTop" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="AppDataFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
-    <Setting Name="CsvImport" Type="XLToolbox.Csv.CsvFile" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="UserSettingsFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">settings.yml</Value>
     </Setting>
-    <Setting Name="CsvExport" Type="XLToolbox.Csv.CsvFile" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="LastAnova" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="LastErrorBars" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="KeyboardShortcutsUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://msdn.microsoft.com/en-us/library/office/ff197461.aspx#Anchor_1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

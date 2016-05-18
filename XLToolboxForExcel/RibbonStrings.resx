@@ -301,7 +301,7 @@
     <value>Point the selected chart to a different worksheet, i.e. change the worksheet reference of all data series of this chart.</value>
   </data>
   <data name="ButtonPrefsLabel" xml:space="preserve">
-    <value>Preferences</value>
+    <value>Legacy Preferences</value>
   </data>
   <data name="ButtonPrefsSupertip" xml:space="preserve">
     <value>Change the XL Toolbox user preferences. (Legacy XL Toolbox.)</value>
@@ -384,6 +384,12 @@
   <data name="ButtonSheetListSupertip" xml:space="preserve">
     <value>Manage worksheets.</value>
   </data>
+  <data name="ButtonShortcutsLabel" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="ButtonShortcutsSupertip" xml:space="preserve">
+    <value>Edit keyboard shortcuts.</value>
+  </data>
   <data name="ButtonSpreadScatterLabel" xml:space="preserve">
     <value>Spread Scatter</value>
   </data>
@@ -395,6 +401,12 @@
   </data>
   <data name="ButtonTransposeWizardSupertip" xml:space="preserve">
     <value>Perform complex tranpositions, e.g. data from microtiter plate analyses (PCR, ELISA etc.).</value>
+  </data>
+  <data name="ButtonUserSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ButtonUserSettingsSupertip" xml:space="preserve">
+    <value>Adjust user settings (preferences).</value>
   </data>
   <data name="ButtonWatermarkLabel" xml:space="preserve">
     <value>Watermark</value>
@@ -428,5 +440,11 @@
   </data>
   <data name="MenuMiscAnalysesLabel" xml:space="preserve">
     <value>Miscellaneous</value>
+  </data>
+  <data name="MenuSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MenuSettingsSupertip" xml:space="preserve">
+    <value>Customizable user settings, including keyboard shortcuts.</value>
   </data>
 </root>

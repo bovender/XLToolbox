@@ -24,6 +24,7 @@ using System.Collections;
 using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
+using System.IO;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -334,6 +335,7 @@ namespace XLToolbox.Excel.ViewModels
             if (_preventScreenUpdating == 0)
             {
                 _wasScreenUpdating = Application.ScreenUpdating;
+                Logger.Info("Disable screen updating");
             }
             Application.ScreenUpdating = false;
             _preventScreenUpdating++;
@@ -349,6 +351,7 @@ namespace XLToolbox.Excel.ViewModels
             _preventScreenUpdating--;
             if (_preventScreenUpdating <= 0)
             {
+                Logger.Info("Enable screen updating");
                 _preventScreenUpdating = 0;
                 Application.ScreenUpdating = _wasScreenUpdating;
             }
@@ -362,6 +365,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (_disableDisplayAlerts == 0)
             {
+                Logger.Info("Disable displaying of alerts");
                 _wasDisplayingAlerts = Application.DisplayAlerts;
             }
             Application.DisplayAlerts = false;
@@ -379,6 +383,7 @@ namespace XLToolbox.Excel.ViewModels
             _disableDisplayAlerts--;
             if (_disableDisplayAlerts <= 0)
             {
+                Logger.Info("Enable displaying of alerts");
                 _disableDisplayAlerts = 0;
                 Application.DisplayAlerts = _wasDisplayingAlerts;
             }
@@ -400,6 +405,32 @@ namespace XLToolbox.Excel.ViewModels
             _disableDisplayAlerts = 0;
             Application.ScreenUpdating = true;
             _preventScreenUpdating = 0;
+        }
+
+        /// <summary>
+        /// Loads an embedded resource add-in.
+        /// </summary>
+        /// <param name="resource">Addin as 'embedded resource'</param>
+        /// <returns>File name of the temporary file that the resource
+        /// was written to.</returns>
+        internal string LoadAddinFromEmbeddedResource(string resource)
+        {
+            Stream resourceStream = typeof(Instance).Assembly
+                .GetManifestResourceStream(resource);
+            if (resourceStream == null)
+            {
+                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resource);
+                throw new IOException("Unable to open resource stream " + resource);
+            }
+            string tempDir = Path.GetTempPath();
+            string addinFile = Path.Combine(tempDir, resource);
+            Stream tempStream = File.Create(addinFile);
+            resourceStream.CopyTo(tempStream);
+            tempStream.Close();
+            resourceStream.Close();
+            Application.Workbooks.Open(addinFile);
+            Logger.Info("VBA add-in loaded: {0}", addinFile);
+            return addinFile;
         }
 
         #endregion
@@ -612,6 +643,14 @@ namespace XLToolbox.Excel.ViewModels
                 return i;
             }
         );
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

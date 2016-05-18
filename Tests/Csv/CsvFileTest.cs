@@ -46,6 +46,13 @@ namespace XLToolbox.Test.Csv
             // Use a funky decimal separator
             csv.DecimalSeparator = "~";
             csv.Export();
+            Task t = new Task(() =>
+            {
+                while (csv.IsProcessing) { }
+            });
+            t.Start();
+            t.Wait(5000);
+            Assert.IsFalse(csv.IsProcessing, "Exporter is still processing!");
             string contents = System.IO.File.ReadAllText(fn);
             string expected = String.Format(
                 "hello|13{0}\"wor|d\"|88~5{0}",
@@ -59,38 +66,38 @@ namespace XLToolbox.Test.Csv
         {
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
             ws.Cells[1, 1] = "hello";
-            ws.Cells[1000000, 16384]= "world";
+            ws.Cells[1000, 16384]= "world";
             CsvFile csv = new CsvFile();
             string fn = System.IO.Path.GetTempFileName();
             csv.FileName = fn;
-            bool progressChangedRaised = false;
             bool progressCompletedRaised = false;
             csv.ExportProgressCompleted += (sender, args) =>
             {
                 progressCompletedRaised = true;
             };
-            bool wasAborted = false;
-            Task checkCancelTask = new Task(() =>
+            csv.Export();
+            Task t = new Task(() =>
             {
-                csv.Export();
-                // If the task times out because the Export
-                // takes too long, the line below will not
-                // be reached, and wasAborted will remain false.
-                wasAborted = true;
+                while (csv.IsProcessing) { }
             });
-            checkCancelTask.Start();
-            checkCancelTask.Wait(400); // should be cancelled after 300+ ms.
-            Assert.IsTrue(progressChangedRaised,
-                "ProgressChanged event was not raised");
-            Assert.IsTrue(wasAborted,
-                "Process was not aborted");
-            Assert.IsTrue(progressCompletedRaised,
-                "ProgressCompleted event was not raised");
-            System.IO.File.Delete(fn);
+            t.Start();
+            t.Wait(15000);
+            if (csv.IsProcessing)
+            {
+                csv.CancelExport();
+                Assert.Inconclusive("CSV export took too long, did not finish.");
+                // Do not delete the file, leave it for inspection
+            }
+            else
+            {
+                Assert.IsTrue(progressCompletedRaised,
+                    "ProgressCompleted event was not raised");
+                System.IO.File.Delete(fn);
+            }
         }
 
-        /* Performance method commented out because it is not a real test. */
-        [Test]
+        /* Performance test commented out because it is not a real test. */
+        // [Test]
         public void CsvExportPerformance()
         {
             // 2.29 s with alpha 13's multiple events

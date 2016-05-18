@@ -61,6 +61,7 @@ namespace XLToolbox.Export
         /// <param name="preset"></param>
         public void ExportSelectionQuick(SingleExportSettings settings)
         {
+            Logger.Info("ExportSelectionQuick");
             ExportSelection(settings.Preset, settings.FileName);
         }
 
@@ -72,8 +73,10 @@ namespace XLToolbox.Export
         /// <param name="fileName">Target file name.</param>
         public void ExportSelection(SingleExportSettings settings)
         {
+            Logger.Info("ExportSelection");
             if (settings == null)
             {
+                Logger.Fatal("SingleExportSettings is null");
                 throw new ArgumentNullException("settings",
                     "Must have SingleExportSettings object for the export.");
             }
@@ -93,8 +96,10 @@ namespace XLToolbox.Export
         /// <param name="settings">Settings describing the desired operation.</param>
         public void ExportBatchAsync(BatchExportSettings settings)
         {
+            Logger.Info("ExportBatchAsync");
             if (_batchRunning)
             {
+                Logger.Warn("Cannot respawn, already running");
                 throw new InvalidOperationException(
                     "Cannot start batch export while an operation is in progress.");
             }
@@ -125,12 +130,14 @@ namespace XLToolbox.Export
                 Instance.Default.EnableScreenUpdating();
                 OnExportFinished();
                 _batchRunning = false;
+                Logger.Info("Finish async task");
             });
 
             _batchSettings = settings;
             _cancelled = false;
             _batchFileName = new ExportFileName(settings.Path, settings.FileName,
                 settings.Preset.FileType);
+            Logger.Info("Start asynchronous export");
             t.Start();
         }
 
@@ -197,9 +204,11 @@ namespace XLToolbox.Export
         /// <param name="fileName">File name of target file.</param>
         private void ExportSelection(Preset preset, string fileName)
         {
+            Logger.Info("ExportSelection(preset, fileName");
             SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
             if (svm.Selection == null)
             {
+                Logger.Warn("No selection");
                 throw new InvalidOperationException("Nothing selected in Excel.");
             }
             ExportSelection(preset, svm.Bounds.Width, svm.Bounds.Height, fileName);
@@ -216,7 +225,7 @@ namespace XLToolbox.Export
         private void ExportSelection(Preset preset, double widthInPoints, double heightInPoints,
             string fileName)
         {
-
+            Logger.Info("ExportSelection(preset, widthInPoints, heightInPoints, filename)");
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
             svm.CopyToClipboard();
@@ -227,6 +236,7 @@ namespace XLToolbox.Export
             Metafile emf;
             using (WorkingClipboard clipboard = new WorkingClipboard())
             {
+                Logger.Info("Get metafile");
                 emf = clipboard.GetMetafile();
                 switch (preset.FileType)
                 {
@@ -247,11 +257,15 @@ namespace XLToolbox.Export
         private void ExportViaFreeImage(Metafile metafile,
             Preset preset, double width, double height, string fileName)
         {
+            Logger.Info("ExportViaFreeImage");
+            Logger.Info("Preset: {0}", preset);
+            Logger.Info("Width: {0}; height: {1}", width, height);
             // Calculate the number of pixels needed for the requested
             // output size and resolution; size is given in points (1/72 in),
             // resolution is given in dpi.
             int px = (int)Math.Round(width / 72 * preset.Dpi);
             int py = (int)Math.Round(height / 72 * preset.Dpi);
+            Logger.Info("Pixels: x: {0}; y: {1}", px, py);
 
             // Create a canvas (GDI+ bitmap) and associate it with a
             // Graphics object.
@@ -265,6 +279,7 @@ namespace XLToolbox.Export
             catch (Exception e)
             {
                 // Give more information in case https://sf.net/p/xltoolbox/exceptions/36/ occurs.
+                Logger.Fatal(e, "Unable to create bitmap");
                 throw new ExportException(
                     String.Format(
                         "Unable to create System.Drawing.Bitmap object with {0}x{1} pixels",
@@ -299,6 +314,7 @@ namespace XLToolbox.Export
             }
 
             // Create a FreeImage bitmap from the GDI+ bitmap
+            Logger.Info("Create FreeImage bitmap");
             FreeImageBitmap fib = new FreeImageBitmap(b);
 
             if (preset.UseColorProfile)
@@ -316,6 +332,7 @@ namespace XLToolbox.Export
             
             fib.SetResolution(preset.Dpi, preset.Dpi);
             fib.Comment = Versioning.SemanticVersion.BrandName;
+            Logger.Info("Saving {0} file", preset.FileType);
             fib.Save(
                 fileName,
                 preset.FileType.ToFreeImageFormat(),
@@ -325,6 +342,7 @@ namespace XLToolbox.Export
 
         private void ConvertColorCms(Preset preset, FreeImageBitmap freeImageBitmap)
         {
+            Logger.Info("Convert color using profile");
             ViewModels.ColorProfileViewModel targetProfile =
                 ViewModels.ColorProfileViewModel.CreateFromName(preset.ColorProfile);
             targetProfile.TransformFromStandardProfile(freeImageBitmap);
@@ -333,11 +351,13 @@ namespace XLToolbox.Export
 
         private void ConvertColor(Preset preset, FreeImageBitmap freeImageBitmap)
         {
+            Logger.Info("Convert color without profile");
             freeImageBitmap.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
         }
 
         private void SetMonochromePalette(FreeImageBitmap freeImageBitmap)
         {
+            Logger.Info("Convert to monochrome");
             freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.Black), 0);
             freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.White), 1);
         }
@@ -345,6 +365,7 @@ namespace XLToolbox.Export
         private void ExportEmf(Metafile metafile, string fileName)
         {
             IntPtr handle = metafile.GetHenhmetafile();
+            Logger.Info("ExportEmf, handle: {0}", handle);
             Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, fileName);
         }
 
@@ -631,6 +652,14 @@ namespace XLToolbox.Export
         #endregion
 
         #region Private constants
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
         #endregion
     }
 }

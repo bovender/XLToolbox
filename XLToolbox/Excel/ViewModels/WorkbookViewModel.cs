@@ -132,12 +132,11 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Properties.Settings.Default.WindowManagerAlwaysOnTop;
+                return UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop;
             }
             set
             {
-                Properties.Settings.Default.WindowManagerAlwaysOnTop = value;
-                Properties.Settings.Default.Save();
+                UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop = value;
             }
         }
 
@@ -431,7 +430,7 @@ namespace XLToolbox.Excel.ViewModels
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
-            for (int i = Sheets.Count - 2; i > 0; i--)
+            for (int i = Sheets.Count - 2; i >= 0; i--)
             {
                 if (Sheets[i].IsSelected)
                 {
@@ -444,7 +443,7 @@ namespace XLToolbox.Excel.ViewModels
         private void DoMoveSheetsToBottom()
         {
             int currentBottom = Sheets.Count - 1;
-            for (int i = currentBottom-1; i > 0; i--)
+            for (int i = currentBottom-1; i >= 0; i--)
             {
                 if (Sheets[i].IsSelected)
                 {
@@ -541,6 +540,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (!_monitoring)
             {
+                Logger.Info("Begin monitoring workbook");
                 _monitoring = true;
                 Task.Factory.StartNew(() =>
                 {
@@ -560,6 +560,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoUnmonitorWorkbook()
         {
+            Logger.Info("Stop monitoring workbook");
             _monitoring = false;
             CheckSheetsChanged();
         }
@@ -587,6 +588,14 @@ namespace XLToolbox.Excel.ViewModels
         {
             return _workbook;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

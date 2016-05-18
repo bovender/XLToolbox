@@ -25,7 +25,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net")]
         public string WebsiteUrl {
             get {
                 return ((string)(this["WebsiteUrl"]));
@@ -34,7 +34,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/version-ng.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/version-ng.txt")]
         public string VersionInfoUrl {
             get {
                 return ((string)(this["VersionInfoUrl"]));
@@ -43,7 +43,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/")]
         public string HelpUrl {
             get {
                 return ((string)(this["HelpUrl"]));
@@ -52,22 +52,10 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/receive.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/receive.php")]
         public string ExceptionPostUrl {
             get {
                 return ((string)(this["ExceptionPostUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DownloadPath {
-            get {
-                return ((string)(this["DownloadPath"]));
-            }
-            set {
-                this["DownloadPath"] = value;
             }
         }
         
@@ -80,55 +68,9 @@ namespace XLToolbox.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Point")]
-        public global::XLToolbox.Export.Models.Unit ExportUnit {
-            get {
-                return ((global::XLToolbox.Export.Models.Unit)(this["ExportUnit"]));
-            }
-            set {
-                this["ExportUnit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExportPath {
-            get {
-                return ((string)(this["ExportPath"]));
-            }
-            set {
-                this["ExportPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.Preset ExportPreset {
-            get {
-                return ((global::XLToolbox.Export.Models.Preset)(this["ExportPreset"]));
-            }
-            set {
-                this["ExportPreset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Export.Models.BatchExportSettings BatchExportSettings {
-            get {
-                return ((global::XLToolbox.Export.Models.BatchExportSettings)(this["BatchExportSettings"]));
-            }
-            set {
-                this["BatchExportSettings"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/donate")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/donate")]
         public string DonateUrl {
             get {
                 return ((string)(this["DonateUrl"]));
@@ -137,68 +79,37 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.xltoolbox.net/changelog-ng.html")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/changelog-ng.html")]
         public string WhatsNewUrl {
             get {
                 return ((string)(this["WhatsNewUrl"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool WindowManagerAlwaysOnTop {
+        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        public string AppDataFolder {
             get {
-                return ((bool)(this["WindowManagerAlwaysOnTop"]));
-            }
-            set {
-                this["WindowManagerAlwaysOnTop"] = value;
+                return ((string)(this["AppDataFolder"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Csv.CsvFile CsvImport {
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.yml")]
+        public string UserSettingsFile {
             get {
-                return ((global::XLToolbox.Csv.CsvFile)(this["CsvImport"]));
-            }
-            set {
-                this["CsvImport"] = value;
+                return ((string)(this["UserSettingsFile"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::XLToolbox.Csv.CsvFile CsvExport {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://msdn.microsoft.com/en-us/library/office/ff197461.aspx#Anchor_1")]
+        public string KeyboardShortcutsUrl {
             get {
-                return ((global::XLToolbox.Csv.CsvFile)(this["CsvExport"]));
-            }
-            set {
-                this["CsvExport"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastAnova {
-            get {
-                return ((int)(this["LastAnova"]));
-            }
-            set {
-                this["LastAnova"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastErrorBars {
-            get {
-                return ((int)(this["LastErrorBars"]));
-            }
-            set {
-                this["LastErrorBars"] = value;
+                return ((string)(this["KeyboardShortcutsUrl"]));
             }
         }
     }

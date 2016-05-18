@@ -19,12 +19,13 @@ using System;
 using Threading = System.Windows.Threading;
 using System.Configuration;
 using Bovender.Versioning;
-using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 using Ver = XLToolbox.Versioning;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
-using System.Diagnostics;
+using System.Windows.Threading;
+using NLog;
 
 namespace XLToolboxForExcel
 {
@@ -34,7 +35,23 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            PrepareConfig();
+#if DEBUG
+            XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
+#endif
+
+            Logger.Info("Begin startup");
+
+            // Delete user config file that may be left over from NG developmental
+            // versions. We don't need it anymore and it causes nasty crashes.
+            try
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                if (System.IO.File.Exists(config.FilePath))
+                {
+                    System.IO.File.Delete(config.FilePath);
+                }
+            }
+            catch { }
 
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
@@ -46,27 +63,50 @@ namespace XLToolboxForExcel
             Instance.Default = new Instance(Globals.ThisAddIn.Application);
             Ribbon.ExcelApp = Instance.Default.Application;
 
+            // Register Excel's main window handle to facilitate interop with WPF.
+            Bovender.Extensions.WindowExtensions.TopLevelWindow = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
+
+            // Make the CustomTaskPanes available for dispatcher methods.
+            XLToolbox.Globals.CustomTaskPanes = CustomTaskPanes;
+
             Bovender.ExceptionHandler.CentralHandler.ManageExceptionCallback += CentralHandler_ManageExceptionCallback;
             Bovender.WpfHelpers.RegisterTextBoxSelectAll();
             Bovender.ExceptionHandler.CentralHandler.DumpFile =
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
-            // Distract the user :-)
+            PerformSanityChecks();
             MaybeCheckForUpdate();
             GreetUser();
-            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
+            XLToolbox.Keyboard.Manager.Default.RegisterShortcuts();
+
+            if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
+            {
+                XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
+            }
+            Logger.Info("Finished startup");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            Logger.Info("Begin shutdown");
+            XLToolbox.UserSettings.UserSettings.Default.Running = false;
+            XLToolbox.UserSettings.UserSettings.Default.Save();
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {
                 // Must show the InstallUpdateView modally, because otherwise Excel would
                 // continue to shut down and immediately remove the view while doing so.
-                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialog();
+                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
+
+            Ribbon.PrepareShutdown();
+
+            // Prevent "LocalDataSlot storage has been freed" exceptions;
+            // see http://j.mp/localdatastoreslot
+            Dispatcher.CurrentDispatcher.InvokeShutdown();
+            Logger.Info("Finish shutdown");
         }
 
         #endregion
@@ -91,15 +131,16 @@ namespace XLToolboxForExcel
 
         private void GreetUser()
         {
-            SemanticVersion lastSeenVersion = new SemanticVersion(
-                Properties.Settings.Default.LastVersionSeen);
+            SemanticVersion lastVersionSeen = new SemanticVersion(
+                XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen);
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-            if (currentVersion > lastSeenVersion)
+            Logger.Info("Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
+            if (currentVersion > lastVersionSeen)
             {
+                Logger.Info("Greeting user");
                 GreeterViewModel gvm = new GreeterViewModel();
                 gvm.InjectAndShowInThread<GreeterView>();
-                Properties.Settings.Default.LastVersionSeen = currentVersion.ToString();
-                Properties.Settings.Default.Save();
+                XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
             }
         }
 
@@ -111,9 +152,10 @@ namespace XLToolboxForExcel
         /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
         void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
         {
+            Logger.Fatal("Central exception hander callback: {0}", e);
             e.IsHandled = true;
             ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
-            vm.InjectInto<ExceptionView>().ShowDialog();
+            vm.InjectInto<ExceptionView>().ShowDialogInForm();
         }
 
         /// <summary>
@@ -122,14 +164,15 @@ namespace XLToolboxForExcel
         /// </summary>
         private void MaybeCheckForUpdate()
         {
-            DateTime lastCheck = Properties.Settings.Default.LastUpdateCheck;
+            DateTime lastCheck = XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck;
             DateTime today = DateTime.Today;
-            if ((today - lastCheck).Days >= Properties.Settings.Default.UpdateCheckInterval)
+            if ((today - lastCheck).Days >= XLToolbox.UserSettings.UserSettings.Default.UpdateCheckInterval)
             {
                 _installUpdateView = new Ver.InstallUpdateView();
                 UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
                 if (updaterVM.CanCheckForUpdate)
                 {
+                    Logger.Info("Checking for update");
                     updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
                     {
                         // Must show the view in a separate thread in order for it to
@@ -139,41 +182,36 @@ namespace XLToolboxForExcel
                     };
                     updaterVM.CheckForUpdateCommand.Execute(null);
                 }
-                Properties.Settings.Default.LastUpdateCheck = DateTime.Today;
-                Properties.Settings.Default.Save();
+                XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
         }
 
-        /// <summary>
-        /// Prepares the user.config file by upgrading it and performing
-        /// tweaks as necessary.
-        /// </summary>
-        private void PrepareConfig()
+        private void PerformSanityChecks()
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(
-                ConfigurationUserLevel.PerUserRoamingAndLocal);
-
-            // If the user.config file mentions XLToolbox.Properties.Settings but
-            // does *not* contain a section declaration
-            // for XLToolbox.Properties.Settings, it has the old format (prior
-            // to version 7.0.0-alpha.16). In this case, we must delete it because
-            // there is no way to persuade the ConfigurationManager to work with
-            // the old file at all.
-            if (System.IO.File.Exists(config.FilePath))
+            XLToolbox.UserSettings.UserSettings userSettings = XLToolbox.UserSettings.UserSettings.Default;
+            Logger.Info("Performing sanity checks");
+            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+            if (userSettings.Running)
             {
-                string s = System.IO.File.ReadAllText(config.FilePath);
-                if (s.Contains("XLToolbox.Properties.Settings") && !s.Contains("section name=\"XLToolbox.Properties.Settings"))
+                XLToolbox.Logging.LogFileViewModel vm = new XLToolbox.Logging.LogFileViewModel();
+                if (userSettings.EnableLogging)
                 {
-                    System.IO.File.Delete(config.FilePath);
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingEnabled>().ShowDialogInForm();
                 }
-
-                if (Properties.Settings.Default.NeedUpgrade)
+                else
                 {
-                    Properties.Settings.Default.Upgrade();
-                    Properties.Settings.Default.NeedUpgrade = false;
-                    Properties.Settings.Default.Save();
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingDisabled>().ShowDialogInForm();
                 }
             }
+            if (userSettings.Exception != null)
+            {
+                Bovender.UserSettings.UserSettingsExceptionViewModel vm =
+                    new Bovender.UserSettings.UserSettingsExceptionViewModel(userSettings);
+                vm.InjectInto<XLToolbox.Mvvm.Views.UserSettingsExceptionView>().ShowDialogInForm();
+            }
+            userSettings.Running = true;
+            userSettings.Save();
+            Logger.Info("Sanity checks completed");
         }
 
         #endregion
@@ -216,6 +254,14 @@ namespace XLToolboxForExcel
             this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
         }
         
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
         #endregion
     }
 }

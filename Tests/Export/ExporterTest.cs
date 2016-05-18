@@ -58,13 +58,15 @@ namespace XLToolbox.Test.Export
             SeriesCollection sc = co.Chart.SeriesCollection();
             sc.Add(ws.Range["A1:A3"]);
             co.Chart.ChartArea.Select();
-            Preset preset = new Preset(fileType, dpi, colorSpace);
-            SingleExportSettings settings = new SingleExportSettings(preset,
-                co.Width, co.Height, true);
+            Preset preset = PresetsRepository.Default.Add(fileType, dpi, colorSpace);
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             settings.FileName = Path.Combine(
                 Path.GetTempPath(),
                 Path.GetTempFileName() + fileType.ToFileNameExtension()
                 );
+            settings.Unit = Unit.Millimeter;
+            settings.Width = 160;
+            settings.Height = 40;
             File.Delete(settings.FileName);
             Exporter exporter = new Exporter();
             exporter.ExportSelection(settings);

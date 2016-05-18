@@ -16,9 +16,6 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
@@ -47,11 +44,11 @@ namespace XLToolbox.Export.ViewModels
         {
             get
             {
-                return PresetsRepository.SelectedPreset;
+                return PresetViewModels.SelectedViewModel;
             }
             set
             {
-                PresetsRepository.SelectedPreset = value;
+                PresetViewModels.SelectedViewModel = value;
                 if (value != null)
                 {
                     Settings.Preset = value.RevealModelObject() as Preset;
@@ -64,20 +61,16 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
-        public PresetsRepositoryViewModel PresetsRepository
+        public PresetsRepositoryViewModel PresetViewModels
         {
             get
             {
                 if (_presetsRepositoryViewModel == null)
                 {
                     _presetsRepositoryViewModel = new PresetsRepositoryViewModel();
+                    _presetsRepositoryViewModel.PropertyChanged += PresetViewModels_PropertyChanged;
                 }
                 return _presetsRepositoryViewModel;
-            }
-            set
-            {
-                _presetsRepositoryViewModel = value;
-                OnPropertyChanged("PresetsRepository");
             }
         }
 
@@ -162,18 +155,7 @@ namespace XLToolbox.Export.ViewModels
 
         public SettingsViewModelBase()
             : base()
-        {
-            PresetsRepository = new PresetsRepositoryViewModel();
-            PresetsRepository.PropertyChanged += PresetsRepository_PropertyChanged;
-        }
-
-        void PresetsRepository_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "SelectedPreset")
-            {
-                OnPropertyChanged("SelectedPreset");
-            }
-        }
+        { }
 
         #endregion
 
@@ -201,7 +183,7 @@ namespace XLToolbox.Export.ViewModels
         {
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             Store store = new Store(wb);
-            string defaultPath = Properties.Settings.Default.ExportPath;
+            string defaultPath = UserSettings.UserSettings.Default.ExportPath;
             if (String.IsNullOrEmpty(defaultPath))
             {
                 if (wb != null && !String.IsNullOrEmpty(wb.Path))
@@ -244,9 +226,17 @@ namespace XLToolbox.Export.ViewModels
         private void DoEditPresets()
         {
             EditPresetsMessage.Send(
-                new ViewModelMessageContent(PresetsRepository),
+                new ViewModelMessageContent(PresetViewModels),
                 content => OnPropertyChanged("Presets")
             );
+        }
+
+        private void PresetViewModels_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedViewModel")
+            {
+                OnPropertyChanged("SelectedPreset");
+            }
         }
         
         #endregion

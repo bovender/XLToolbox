@@ -28,6 +28,7 @@
     ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
     MinWidth="240" MinHeight="240" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
     bov:WindowState.CenterScreen="True" bov:WindowState.Save="True"
+    ShowInTaskbar="False"
     FocusManager.FocusedElement="{Binding ElementName=FieldSeparator}"
     >
     <Window.Resources>

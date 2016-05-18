@@ -24,6 +24,7 @@
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         bov:WindowState.Save="True"
+        ShowInTaskbar="False"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.SingleGraphicExport}"
         >
@@ -49,7 +50,7 @@
             <DockPanel>
                 <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
                         Command="{Binding EditPresetsCommand}" Width="Auto" />
-                <ComboBox ItemsSource="{Binding Path=PresetsRepository.Presets}"
+                <ComboBox ItemsSource="{Binding Path=PresetViewModels.ViewModels}"
                           SelectedItem="{Binding SelectedPreset}"
                           DisplayMemberPath="Name"
                           VerticalAlignment="Center" 
@@ -72,7 +73,7 @@
                                         UpdateSourceTrigger=PropertyChanged,
                                         StringFormat={}{0:0.###}}"
                                      Height="{Binding ElementName=UnitBox, Path=ActualHeight}"
-                                     Margin="0,0,5,0" TextAlignment="Center" />
+                                     Margin="0,0,5,0" TextAlignment="Center" VerticalContentAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
                             <Label Content="{x:Static l:Strings.Height}" />
@@ -80,7 +81,7 @@
                                         UpdateSourceTrigger=PropertyChanged,
                                         StringFormat={}{0:0.###}}"
                                      Height="{Binding ElementName=UnitBox, Path=ActualHeight}"
-                                     Margin="0,0,5,0" TextAlignment="Center" />
+                                     Margin="0,0,5,0" TextAlignment="Center" VerticalContentAlignment="Center" />
                         </StackPanel>
                         <StackPanel>
                             <Label Content="{x:Static l:Strings.Unit}" />

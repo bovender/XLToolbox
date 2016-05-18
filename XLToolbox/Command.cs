@@ -39,6 +39,7 @@ namespace XLToolbox
         SaveCsvWithParams,
         SaveCsvRange,
         SaveCsvRangeWithParams,
+        SaveAs,
         OpenFromCell,
         CopyPageSetup,
         SelectAllShapes,
@@ -68,6 +69,8 @@ namespace XLToolbox
         CopyChart,
         PointChart,
         Watermark,
-        Prefs,
+        UserSettings,
+        LegacyPrefs,
+        Shortcuts,
     }
 }

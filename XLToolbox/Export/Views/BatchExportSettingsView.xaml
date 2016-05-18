@@ -26,6 +26,7 @@
         xmlns:xm="clr-namespace:XLToolbox.Export.Models"
         bov:WindowState.Save="True"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        ShowInTaskbar="False"
         Title="{x:Static l:Strings.BatchExport}"
         >
     <Window.Resources>
@@ -53,7 +54,7 @@
                 <Button DockPanel.Dock="Right" Content="{x:Static l:Strings.Edit}"
                         Command="{Binding EditPresetsCommand}" Width="Auto" />
                 <ComboBox 
-                    ItemsSource="{Binding Path=PresetsRepository.Presets}"
+                    ItemsSource="{Binding Path=PresetViewModels.ViewModels}"
                     SelectedItem="{Binding SelectedPreset}"
                     DisplayMemberPath="Name"
                     VerticalAlignment="Center" 
