@@ -18,7 +18,6 @@
 using System;
 using System.Windows;
 using Bovender.Extensions;
-using Bovender.Mvvm;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.ExceptionHandler;
@@ -28,10 +27,7 @@ using XLToolbox.Versioning;
 using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
 using Xl = Microsoft.Office.Interop.Excel;
-using System.Threading.Tasks;
-using Forms = System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using Microsoft.Office.Tools;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox
 {
@@ -54,6 +50,7 @@ namespace XLToolbox
         /// <param name="cmd">XL Toolbox command to execute.</param>
         public static void Execute(Command cmd)
         {
+            Logger.Info("*** Execute {0} ***", cmd);
             try
             {
                 switch (cmd)
@@ -81,6 +78,7 @@ namespace XLToolbox
                     case Command.AutomaticErrorBars: ErrorBarsAutomatic(); break;
                     case Command.InteractiveErrorBars: ErrorBarsInteractive(); break;
                     case Command.LastErrorBars: LastErrorBars(); break;
+                    case Command.UserSettings: EditUserSettings(); break;
                     case Command.OpenFromCell:
                     case Command.CopyPageSetup:
                     case Command.SelectAllShapes:
@@ -104,14 +102,19 @@ namespace XLToolbox
                     case Command.CopyChart:
                     case Command.PointChart:
                     case Command.Watermark:
-                    case Command.Prefs:
+                    case Command.LegacyPrefs:
                         Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
+                    case Command.Shortcuts: EditShortcuts(); break;
+                    case Command.SaveAs: SaveAs(); break;
                     default:
+                        Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
                 }
             }
             catch (Exception e)
             {
+                Logger.Fatal(e, "Dispatcher exception");
+                UserSettings.UserSettings.Default.Save();
                 ExceptionViewModel vm = new ExceptionViewModel(e);
                 vm.InjectInto<ExceptionView>().ShowDialog();
             }
@@ -120,6 +123,12 @@ namespace XLToolbox
         #endregion
 
         #region Private dispatching methods
+
+        static void EditUserSettings()
+        {
+            UserSettings.UserSettingsViewModel vm = new UserSettings.UserSettingsViewModel();
+            vm.InjectInto<UserSettings.UserSettingsView>().ShowDialogInForm();
+        }
 
         static void About()
         {
@@ -145,13 +154,19 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            SheetManagerPane.Default.Show();
+            SheetManagerPane.Default.Visible = true;
             // wvm.InjectAndShowInThread<WorkbookView>();
         }
 
         static void ExportSelection()
         {
-            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel();
+            Preset preset = UserSettings.UserSettings.Default.ExportPreset;
+            if (preset == null)
+            {
+                preset = PresetsRepository.Default.First;
+            }
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 
@@ -277,44 +292,55 @@ namespace XLToolbox
 
         static void Anova1Way()
         {
-            Properties.Settings.Default.LastAnova = 1;
-            Properties.Settings.Default.Save();
+            UserSettings.UserSettings.Default.LastAnova = 1;
             Legacy.LegacyToolbox.Default.RunCommand(Command.Anova1Way);
         }
 
         static void Anova2Way()
         {
-            Properties.Settings.Default.LastAnova = 2;
-            Properties.Settings.Default.Save();
+            UserSettings.UserSettings.Default.LastAnova = 2;
             Legacy.LegacyToolbox.Default.RunCommand(Command.Anova2Way);
         }
 
         static void LastAnova()
         {
-            Command c = Properties.Settings.Default.LastAnova == 2 ?
+            Command c = UserSettings.UserSettings.Default.LastAnova == 2 ?
                 Command.Anova2Way : Command.Anova1Way;
             Legacy.LegacyToolbox.Default.RunCommand(c);
         }
 
         static void ErrorBarsAutomatic()
         {
-            Properties.Settings.Default.LastErrorBars = 1;
-            Properties.Settings.Default.Save();
+            UserSettings.UserSettings.Default.LastErrorBars = 1;
             Legacy.LegacyToolbox.Default.RunCommand(Command.AutomaticErrorBars);
         }
 
         static void ErrorBarsInteractive()
         {
-            Properties.Settings.Default.LastErrorBars = 2;
-            Properties.Settings.Default.Save();
+            UserSettings.UserSettings.Default.LastErrorBars = 2;
             Legacy.LegacyToolbox.Default.RunCommand(Command.InteractiveErrorBars);
         }
 
         static void LastErrorBars()
         {
-            Command c = Properties.Settings.Default.LastErrorBars == 2 ? 
+            Command c = UserSettings.UserSettings.Default.LastErrorBars == 2 ? 
                 Command.InteractiveErrorBars : Command.AutomaticErrorBars;
             Legacy.LegacyToolbox.Default.RunCommand(c);
+        }
+
+        static void EditShortcuts()
+        {
+            Keyboard.ManagerViewModel vm = new Keyboard.ManagerViewModel();
+            vm.InjectInto<Keyboard.ManagerView>().ShowDialogInForm();
+        }
+
+        static void SaveAs()
+        {
+            Xl.Workbook w = Instance.Default.ActiveWorkbook;
+            if (w != null)
+            {
+                Instance.Default.Application.Dialogs[Xl.XlBuiltInDialog.xlDialogSaveAs].Show();
+            }
         }
 
         #endregion
@@ -364,6 +390,14 @@ namespace XLToolbox
             };
             return vm;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

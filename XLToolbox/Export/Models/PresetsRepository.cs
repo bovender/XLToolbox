@@ -29,143 +29,139 @@ namespace XLToolbox.Export.Models
     /// Repository for export settings, is concerned with storing and
     /// retrieving a collection of <see cref="Presets"/>.
     /// </summary>
-    [Serializable]
-    public class PresetsRepository : IDisposable
+    public class PresetsRepository
     {
+        #region Singleton factory
+
+        /// <summary>
+        /// The default (singleton) presets repository will always have at least
+        /// one Preset, unless the Presets collection is replaced with an empty
+        /// collection.
+        /// </summary>
+        public static PresetsRepository Default
+        {
+            get
+            {
+                return _lazy.Value;
+            }
+            set
+            {
+                _lazy = new Lazy<PresetsRepository>(() => value);
+            }
+        }
+
+        private static Lazy<PresetsRepository> _lazy = new Lazy<PresetsRepository>(() => new PresetsRepository());
+
+        #endregion
+
         #region Public properties
 
+        /// <summary>
+        /// Gets or sets the Presets collection. 
+        /// </summary>
         public ObservableCollection<Preset> Presets { get; set; }
+
+        /// <summary>
+        /// Gets the first preset in the repository. Will create one if
+        /// necessary.
+        /// </summary>
+        public Preset First
+        {
+            get
+            {
+                if (Presets == null)
+                {
+                    Presets = new ObservableCollection<Preset>();
+                }
+                if (Presets.Count == 0)
+                {
+                    Presets.Add(new Preset());
+                }
+                return Presets[0];
+            }
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void Add(Preset preset)
+        {
+            Presets.Add(preset);
+        }
+
+        public Preset Add(FileType fileType, int dpi, ColorSpace colorSpace)
+        {
+            Preset p = new Preset(fileType, dpi, colorSpace);
+            Add(p);
+            return p;
+        }
+
+        public void Remove(Preset preset)
+        {
+            Presets.Remove(preset);
+        }
+
+        /// <summary>
+        /// Retrieves a Preset by its MD5 hash. If the hash is not
+        /// found in the repository, this method returns null.
+        /// </summary>
+        /// <param name="hash">MD5 hash to look up.</param>
+        /// <returns>Corresponding Preset, or null if no Preset with
+        /// this hash exists.</returns>
+        public Preset FindByHash(string hash)
+        {
+            if (String.IsNullOrWhiteSpace(hash))
+            {
+                return null;
+            }
+            else
+            {
+                return Presets.FirstOrDefault(p => p.ComputeMD5Hash() == hash);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a preset by its guid and returns the Preset object
+        /// stored in the repository. If the guid is not found, the Preset
+        /// is added to the repository.
+        /// </summary>
+        /// <remarks>
+        /// This method serves to reuse existing Presets: Given a Preset
+        /// object, if a Preset object with the same guid exists in the
+        /// repository, this object will be returned to that the original
+        /// Preset object can be discarded.
+        /// </remarks>
+        public Preset FindOrAdd(Preset preset)
+        {
+            if (preset == null)
+            {
+                throw new ArgumentNullException();
+            }
+            Preset existingPreset = FindByHash(preset.ComputeMD5Hash());
+            if (existingPreset == null)
+            {
+                Add(preset);
+                return preset;
+            }
+            else
+            {
+                return existingPreset;
+            }
+        }
 
         #endregion
 
         #region Constructor
 
-        public PresetsRepository()
-            : base ()
-        {
-            // Must initialize the ExportSettings property, lest a null pointer
-            // exception is thrown in the LoadSettings() method.
-            Presets = new ObservableCollection<Preset>();
-            LoadPresets();
-        }
-
         /// <summary>
-        /// Creates a new Presets repository, loads previously saved presets
-        /// and adds the <paramref name="addPreset"/> to the repository.
+        /// Default constructor, calls the base constructor, does nothing more.
         /// </summary>
-        /// <param name="addPreset">Preset to add to the repository.</param>
-        public PresetsRepository(Preset addPreset)
-            : this()
+        private PresetsRepository()
+            : base()
         {
-            Presets.Add(addPreset);
+            Presets = new ObservableCollection<Preset>() { new Preset() };
         }
-
-        #endregion
-
-        #region Add and remove
-
-        public void Add(Preset exportSettings)
-        {
-            Presets.Add(exportSettings);
-        }
-
-        public void Remove(Preset exportSettings)
-        {
-            Presets.Remove(exportSettings);
-        }
-
-        #endregion
-
-        #region Load and save
-
-        public virtual void LoadPresets()
-        {
-            using (IsolatedStorageFile store = GetIsolatedStorageFile())
-            {
-                try
-                {
-                    if (store.FileExists(ISOSTOREFILENAME))
-                    {
-                        IsolatedStorageFileStream stream = store.OpenFile(ISOSTOREFILENAME,
-                            System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
-                        // The line below would fail if ExportSettings is null; however,
-                        // the property is initialized in the constructor.
-                        XmlSerializer serializer = new XmlSerializer(Presets.GetType());
-                        Presets = serializer.Deserialize(stream) as ObservableCollection<Preset>;
-                        stream.Close();
-                    }
-                    else
-                    {
-                        Presets = new ObservableCollection<Preset>();
-                    }
-                }
-                catch 
-                {
-                    Presets = new ObservableCollection<Preset>();
-                    // throw new StoreException("Cannot read export settings.", e);
-                }
-            }
-        }
-
-        public virtual void SavePresets()
-        {
-            try
-            {
-                using (IsolatedStorageFile store = GetIsolatedStorageFile())
-                {
-                    IsolatedStorageFileStream stream = store.CreateFile(ISOSTOREFILENAME);
-                    XmlSerializer serializer = new XmlSerializer(Presets.GetType());
-                    serializer.Serialize(stream, Presets);
-                    stream.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                throw new StoreException("Cannot write export settings.", e);
-            }
-        }
-
-        private IsolatedStorageFile GetIsolatedStorageFile()
-        {
-            return IsolatedStorageFile.GetStore(
-                IsolatedStorageScope.Roaming | IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-        }
-
-        #endregion
-
-        #region Disposal
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                SavePresets();
-                _disposed = true;
-            }
-        }
-
-        ~PresetsRepository()
-        {
-            Dispose(false);
-        }
-
-        #endregion
-
-        #region Private fields
-
-        bool _disposed;
-
-        #endregion
-
-        #region Private constants
-
-        string ISOSTOREFILENAME = "export_settings.xml";
 
         #endregion
     }

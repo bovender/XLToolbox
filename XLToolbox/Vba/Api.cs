@@ -87,6 +87,7 @@ namespace XLToolbox.Vba
             string colorSpace,
             string transparency)
         {
+            Logger.Info("Export selection");
             string ext = System.IO.Path.GetExtension(fileName).ToUpper();
 
             FileType ft;
@@ -119,14 +120,47 @@ namespace XLToolbox.Vba
                 default: return 3;
             }
 
-            Preset p = new Preset(ft, dpi, cs);
-            p.Transparency = t;
-            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(p);
+            Preset preset = new Preset(ft, dpi, cs);
+            preset.Transparency = t;
+            Logger.Info("Preset: {0}", preset);
+            SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
+            SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
 
             vm.FileName = fileName;
             vm.ExportCommand.Execute(null);
             return 0; // success
         }
+
+        /// <summary>
+        /// Executes an XL Toolbox command. This method exists to facilitate
+        /// using Application.OnKey which expects an Excel macro of VBA
+        /// method as parameter, but does not work with .NET code. Of course,
+        /// it can also be used to trigger XL Toolbox commands from independent
+        /// VBA code.
+        /// </summary>
+        /// <param name="command">XL Toolbox command to execute</param>
+        public void Execute(string command)
+        {
+            Logger.Info("Executing '{0}'", command);
+            Command c;
+            if (Enum.TryParse<Command>(command, out c))
+            {
+                Dispatcher.Execute(c);
+            }
+            else
+            {
+                Logger.Fatal("Parse failure: unknown command");
+                throw new ArgumentException("Unknown command");
+            }
+        }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

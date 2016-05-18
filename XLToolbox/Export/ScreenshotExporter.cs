@@ -36,18 +36,29 @@ namespace XLToolbox.Export
 
         public void ExportSelection(string fileName)
         {
+            Logger.Info("ExportSelection");
             using (DllManager dllManager = new DllManager())
             {
                 dllManager.LoadDll("FreeImage.DLL");
                 Instance.Default.Application.Selection.Copy();
                 MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
+                Logger.Info("Create FreeImage bitmap");
                 FreeImageBitmap fi = FreeImageBitmap.FromStream(data);
                 fi.SetResolution(102.42f, 102.42f);
+                Logger.Info("Save to file");
                 fi.Save(fileName,
                     FREE_IMAGE_FORMAT.FIF_PNG,
                     FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION);
             }
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

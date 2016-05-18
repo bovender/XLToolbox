@@ -233,8 +233,7 @@ namespace XLToolbox.WorkbookStorage
         #region Public methods
 
         /// <summary>
-        /// Retrieves an integer from the storage, given a key. Throws a
-        /// WorkbookStorageException if the key is not found.
+        /// Retrieves an integer from the storage, given a key.
         /// </summary>
         /// <param name="key">Key to look up.</param>
         /// <returns>Integer value</returns>
@@ -283,6 +282,12 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        /// <summary>
+        /// Deserializes a stored object. Returns null upon failure.
+        /// </summary>
+        /// <typeparam name="T">Type name of the object to be deserialized.</typeparam>
+        /// <param name="key">Key that this object is stored under.</param>
+        /// <returns>Deserialized object of type T, or null.</returns>
         public T Get<T>(string key) where T : class, new()
         {
             string xml = Get(key, String.Empty);

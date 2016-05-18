@@ -610,7 +610,7 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preferences.
+        ///   Looks up a localized string similar to Legacy Preferences.
         /// </summary>
         internal static string ButtonPrefsLabel {
             get {
@@ -862,6 +862,24 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keyboard.
+        /// </summary>
+        internal static string ButtonShortcutsLabel {
+            get {
+                return ResourceManager.GetString("ButtonShortcutsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit keyboard shortcuts..
+        /// </summary>
+        internal static string ButtonShortcutsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonShortcutsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spread Scatter.
         /// </summary>
         internal static string ButtonSpreadScatterLabel {
@@ -894,6 +912,24 @@ namespace XLToolboxForExcel {
         internal static string ButtonTransposeWizardSupertip {
             get {
                 return ResourceManager.GetString("ButtonTransposeWizardSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string ButtonUserSettingsLabel {
+            get {
+                return ResourceManager.GetString("ButtonUserSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust user settings (preferences)..
+        /// </summary>
+        internal static string ButtonUserSettingsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonUserSettingsSupertip", resourceCulture);
             }
         }
         
@@ -993,6 +1029,24 @@ namespace XLToolboxForExcel {
         internal static string MenuMiscAnalysesLabel {
             get {
                 return ResourceManager.GetString("MenuMiscAnalysesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string MenuSettingsLabel {
+            get {
+                return ResourceManager.GetString("MenuSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customizable user settings, including keyboard shortcuts..
+        /// </summary>
+        internal static string MenuSettingsSupertip {
+            get {
+                return ResourceManager.GetString("MenuSettingsSupertip", resourceCulture);
             }
         }
     }

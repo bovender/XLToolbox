@@ -25,9 +25,9 @@
 				<group id="GroupWorkflow" getLabel="Control_GetLabel">
 					<button id="ButtonQuitExcel" onAction="Button_OnAction" image="off-large.png" size="large"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
-					<button id="ButtonSheetList" onAction="Button_OnAction" image="sheets.png"
+					<toggleButton id="ButtonSheetList" onAction="SheetManagerToggleButton_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
-						getEnabled="HasWorkbook"/>
+						getEnabled="HasWorkbook" getPressed="SheetManagerToggleButton_GetPressed" />
 					<button id="ButtonOpenFromCell" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonCopyPageSetup" imageMso="PrintTitles" size="normal"
@@ -154,13 +154,17 @@
 				</group >
 				<group idMso="GroupAddins" />
 				<group id="GroupXlToolbox" label="XL Toolbox" image="xltb-icon-small.png">
-					<button id="ButtonPrefs" size="large" imageMso="CustomActionsMenu"
+					<!--<menu id="MenuSettings" size="large" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip">
+					</menu>-->
+					<button id="ButtonShortcuts" image="key.png"
+							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction" />
+					<button id="ButtonUserSettings" imageMso="CustomActionsMenu"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
-					<button id="ButtonAbout" image="xltb-icon-small.png"
-							onAction="Button_OnAction" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
                     <button id="ButtonCheckForUpdate" image="check-update-small.png"
 							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 							getEnabled="ButtonCheckForUpdate_GetEnabled" />
+					<button id="ButtonAbout" image="xltb-icon-small.png"
+							onAction="Button_OnAction" getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 					<button id="ButtonDonate" image="donate.png"
 							onAction="Button_OnAction"  getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" />
 				</group>

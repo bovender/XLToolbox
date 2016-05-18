@@ -132,12 +132,11 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                return Properties.Settings.Default.WindowManagerAlwaysOnTop;
+                return UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop;
             }
             set
             {
-                Properties.Settings.Default.WindowManagerAlwaysOnTop = value;
-                Properties.Settings.Default.Save();
+                UserSettings.UserSettings.Default.WorksheetManagerAlwaysOnTop = value;
             }
         }
 
@@ -541,6 +540,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (!_monitoring)
             {
+                Logger.Info("Begin monitoring workbook");
                 _monitoring = true;
                 Task.Factory.StartNew(() =>
                 {
@@ -560,6 +560,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoUnmonitorWorkbook()
         {
+            Logger.Info("Stop monitoring workbook");
             _monitoring = false;
             CheckSheetsChanged();
         }
@@ -587,6 +588,14 @@ namespace XLToolbox.Excel.ViewModels
         {
             return _workbook;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

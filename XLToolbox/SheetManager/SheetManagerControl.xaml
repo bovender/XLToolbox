@@ -34,18 +34,21 @@
                 <ResourceDictionary>
                     <Style x:Key="Worksheet" TargetType="{x:Type ListBoxItem}">
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                        <Setter Property="Padding" Value="0 5 0 5" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <i:Interaction.Triggers>
+        <!-- These event triggers won't work properly when the control is used in a custom task pane
         <i:EventTrigger EventName="Deactivated">
-            <i:InvokeCommandAction Command="{Binding MonitorWorkbook}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Activated">
             <i:InvokeCommandAction Command="{Binding UnmonitorWorkbook}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Activated">
+            <i:InvokeCommandAction Command="{Binding MonitorWorkbook}" />
+        </i:EventTrigger>
+        -->
         <i:EventTrigger SourceObject="{Binding ConfirmDeleteMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <ba:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
@@ -65,6 +68,16 @@
         <DockPanel Margin="10">
             <TextBlock DockPanel.Dock="Top"  Margin="0 0 0 10"
                        Text="{Binding DisplayString}" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+            <StackPanel DockPanel.Dock="Bottom">
+                <TextBlock Margin="0 10 0 10" TextWrapping="Wrap">
+                    <TextBlock.Inlines>
+                        <TextBlock Margin="0 0 10 0">Daniel's XL Toolbox</TextBlock>
+                        <Hyperlink NavigateUri="{x:Static l:Globals.WebsiteUri}" RequestNavigate="Hyperlink_RequestNavigate">
+                            www.xltoolbox.net
+                        </Hyperlink>
+                    </TextBlock.Inlines>
+                </TextBlock>
+            </StackPanel>
             <DockPanel DockPanel.Dock="Right" Margin="10 0 0 0">
                 <!-- Uncomment to use this control inside a SheetManagerWindow instead of a TaskPane. -->
                 <!--<CheckBox DockPanel.Dock="Bottom"

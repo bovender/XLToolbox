@@ -26,5 +26,27 @@ namespace XLToolbox
     public static class Globals
     {
         public static CustomTaskPaneCollection CustomTaskPanes { get; set; }
+
+        /// <summary>
+        /// XAML-accessible name of the add-in.
+        /// </summary>
+        public static string AddinName
+        {
+            get
+            {
+                return Properties.Settings.Default.AddinName;
+            }
+        }
+
+        /// <summary>
+        /// XAML-accessible website URL.
+        /// </summary>
+        public static Uri WebsiteUri
+        {
+            get
+            {
+                return new Uri(Properties.Settings.Default.WebsiteUrl);
+            }
+        }
     }
 }

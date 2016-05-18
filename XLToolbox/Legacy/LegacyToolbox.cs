@@ -23,9 +23,9 @@ using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Legacy
 {
-    public class LegacyToolbox
+    public class LegacyToolbox : IDisposable
     {
-        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.xltb-legacy-addin.xlam";
+        private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.XLToolboxLegacyAddin.xlam";
 
         #region Static methods
 
@@ -63,7 +63,46 @@ namespace XLToolbox.Legacy
 
         #region Constructor
 
-        private LegacyToolbox() { }
+        private LegacyToolbox()
+        {
+            Logger.Info("Initializing LegacyToolbox singleton");
+            _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+        }
+
+        #endregion
+
+        #region Disposing
+        
+        ~LegacyToolbox()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool calledFromPublicMethod)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                if (calledFromPublicMethod)
+                {
+                    Instance.Default.Application.Workbooks[ADDIN_RESOURCE_NAME].Close(SaveChanges: false);
+                }
+                try
+                {
+                    System.IO.File.Delete(_tempFile);
+                }
+                catch (Exception e)
+                {
+                    Logger.Warn(e, "When attempting to close the VBA add-in");
+                }
+            }
+        }
 
         #endregion
 
@@ -155,7 +194,7 @@ namespace XLToolbox.Legacy
                 case Command.Watermark:
                     app.Run("RuneWatermark");
                     break;
-                case Command.Prefs:
+                case Command.LegacyPrefs:
                     app.Run("RunPreferences");
                     break;
                 default:
@@ -165,39 +204,26 @@ namespace XLToolbox.Legacy
 
         #endregion
 
-        #region Private methods
+        #region Private fields
 
-        /// <summary>
-        /// Loads the legacy .xlam file if it has not been loaded yet.
-        /// </summary>
-        private static void LoadAddinIfNeeded()
-        {
-            Stream resourceStream = typeof(LegacyToolbox).Assembly
-                .GetManifestResourceStream(ADDIN_RESOURCE_NAME);
-            if (resourceStream == null)
-            {
-                throw new IOException("Unable to open resource stream " + ADDIN_RESOURCE_NAME);
-            }
-            string tempDir = Path.GetTempPath();
-            string addinFile = Path.Combine(tempDir, ADDIN_RESOURCE_NAME);
-            Stream tempStream = File.Create(addinFile);
-            resourceStream.CopyTo(tempStream);
-            tempStream.Close();
-            resourceStream.Close();
-            Instance.Default.Application.Workbooks.Open(addinFile);
-        }
+        private bool _disposed;
+
+        private string _tempFile;
 
         #endregion
 
-        #region Private static fields
+        #region Private static fields and properties
 
-        private static Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
+        private static readonly Lazy<LegacyToolbox> _lazy = new Lazy<LegacyToolbox>(
             () =>
             {
-                LoadAddinIfNeeded();
                 return new LegacyToolbox();
             }
         );
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

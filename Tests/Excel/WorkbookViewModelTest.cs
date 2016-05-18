@@ -130,7 +130,8 @@ namespace XLToolbox.Test.Excel
                 "Move-down command is disabled, should be enabled with one sheet selected.");
 
             wvm.MoveSheetDown.Execute(null);
-            Assert.AreEqual(sheetName, wb.Sheets[1].Name,
+            // Caveat, when accessing the worksheets collection, the index is 1-based!
+            Assert.AreEqual(sheetName, wb.Sheets[2].Name,
                 "The first sheet was not moved down");
         }
 

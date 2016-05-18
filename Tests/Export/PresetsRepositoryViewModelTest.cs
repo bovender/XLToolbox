@@ -32,30 +32,30 @@ namespace XLToolbox.UnitTests.Export
         [Test]
         public void AddCommand()
         {
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepository sr = PresetsRepository.Default;
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             int numSettings = sr.Presets.Count;
             srvm.AddCommand.Execute(null);
             Assert.AreEqual(numSettings + 1, sr.Presets.Count,
                 "Export settings repository should have new settings.");
-            Assert.AreEqual(numSettings + 1, srvm.Presets.Count,
+            Assert.AreEqual(numSettings + 1, srvm.ViewModels.Count,
                 "Settings repository view model should have new settings view model.");
         }
 
         [Test]
         public void RemoveCommand()
         {
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
+            PresetsRepository sr = PresetsRepository.Default;
             for (int i = 0; i < 3; i++)
             {
                 sr.Add(new Preset());
             };
             int oldCount = sr.Presets.Count;
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             Preset s = sr.Presets[2];
             Assert.IsFalse(srvm.RemoveCommand.CanExecute(null),
                 "Remove command should be disabled if no export settings objects are selected.");
-            srvm.Presets[2].IsSelected = true;
+            srvm.ViewModels[2].IsSelected = true;
             Assert.IsTrue(srvm.RemoveCommand.CanExecute(null),
                 "Remove command should be enabled if at least one export settings object is selected.");
             bool messageSent = false;
@@ -68,7 +68,7 @@ namespace XLToolbox.UnitTests.Export
             srvm.RemoveCommand.Execute(null);
             Assert.IsTrue(messageSent, "ConfirmRemoveMessage was not sent.");
             srvm.RemoveCommand.Execute(null);
-            Assert.AreEqual(oldCount - 1, srvm.Presets.Count,
+            Assert.AreEqual(oldCount - 1, srvm.ViewModels.Count,
                 "Number of view model messages was not reduced by 1 after delete command.");
             Assert.IsFalse(((PresetsRepository)srvm.RevealModelObject()).Presets.Contains(s),
                 "Settings object was supposed to be removed but still exists in SettingsRepository.");
@@ -78,12 +78,12 @@ namespace XLToolbox.UnitTests.Export
         public void EditCommand()
         {
             Preset s = new Preset() { Name = "test settings" };
-            PresetsRepositoryForTesting sr = new PresetsRepositoryForTesting();
-            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel(sr);
+            PresetsRepository sr = PresetsRepository.Default;
+            PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();
             sr.Add(s);
             Assert.IsFalse(srvm.EditCommand.CanExecute(null),
                 "Edit settings command should be disabled if nothing is selected.");
-            srvm.Presets[srvm.Presets.Count-1].IsSelected = true;
+            srvm.ViewModels[srvm.ViewModels.Count-1].IsSelected = true;
             Assert.IsTrue(srvm.EditCommand.CanExecute(null),
                 "Edit settings command should be enabled if at least one object is selected.");
             bool messageSent = false;

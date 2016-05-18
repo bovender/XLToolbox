@@ -633,4 +633,109 @@ You may want to try again.</value>
   <data name="LegacyToolboxDetectedMessage" xml:space="preserve">
     <value>An obsolete version of the XL Toolbox was found. It will be deactivated now. You can use old XL Toolbox commands in the new, Next-Generation version. You may want to uninstall the old version from your system using "Add/Remove Software".</value>
   </data>
+  <data name="DefaultUserSettingsWillBeUsed" xml:space="preserve">
+    <value>Default settings will be used.</value>
+  </data>
+  <data name="ThisIsTheErrorMessage" xml:space="preserve">
+    <value>This is the error message:</value>
+  </data>
+  <data name="UserSettings" xml:space="preserve">
+    <value>Personal settings</value>
+  </data>
+  <data name="UserSettingsCouldNotBeLoaded" xml:space="preserve">
+    <value>Your personal XL Toolbox settings could not be loaded.</value>
+  </data>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>Available commands</value>
+  </data>
+  <data name="EditKeyboardShortcuts" xml:space="preserve">
+    <value>Edit keyboard shortcuts</value>
+  </data>
+  <data name="AltModifier" xml:space="preserve">
+    <value>% ALT</value>
+  </data>
+  <data name="CommandColon" xml:space="preserve">
+    <value>Command:</value>
+  </data>
+  <data name="CtrlModifier" xml:space="preserve">
+    <value>^ CTRL</value>
+  </data>
+  <data name="CtrlShiftPgUp" xml:space="preserve">
+    <value>^+{PgUp} CTRL SHIFT PAGE-UP</value>
+  </data>
+  <data name="EditShortcut" xml:space="preserve">
+    <value>Edit keyboard shortcut</value>
+  </data>
+  <data name="EnableKeyboardShortcuts" xml:space="preserve">
+    <value>Enable XL Toolbox keyboard shortcuts</value>
+  </data>
+  <data name="Example" xml:space="preserve">
+    <value>Example</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Legend</value>
+  </data>
+  <data name="ModifierKeysColon" xml:space="preserve">
+    <value>Modifier keys:</value>
+  </data>
+  <data name="ShiftModifier" xml:space="preserve">
+    <value>+ SHIFT</value>
+  </data>
+  <data name="ShortcutsHelp" xml:space="preserve">
+    <value>More help on shortcuts (Microsoft website)</value>
+  </data>
+  <data name="SpecialKeys" xml:space="preserve">
+    <value>{F1}, {PgUp}, ... Special keys</value>
+  </data>
+  <data name="EnableShortcuts" xml:space="preserve">
+    <value>Enable XL Toolbox keyboard shortcuts</value>
+  </data>
+  <data name="InvalidKeySequence" xml:space="preserve">
+    <value>(Invalid key sequence.)</value>
+  </data>
+  <data name="DoYouWantToEnableLogging" xml:space="preserve">
+    <value>Do you want to enable logging now?</value>
+  </data>
+  <data name="DoYouWantToExamineLogs" xml:space="preserve">
+    <value>Do want to examine the log files now?</value>
+  </data>
+  <data name="IfYouSuspect" xml:space="preserve">
+    <value>If you suspect that this could have been caused by a malfunction of the add-in, you may want to turn on the technical logging. The log file contents may be helpful in troubleshooting the issue.</value>
+  </data>
+  <data name="IncompleteShutdown" xml:space="preserve">
+    <value>Incomplete shutdown detected</value>
+  </data>
+  <data name="LoggingWasEnabled" xml:space="preserve">
+    <value>You have already enabled logging. The log files may contain technical information that helps to identify the problem. Please consider sending the current log file to support@xltoolbox.net.</value>
+  </data>
+  <data name="XLToolboxNotShutDownProperly" xml:space="preserve">
+    <value>It appears that the XL Toolbox add-in was not shut down properly.</value>
+  </data>
+  <data name="CurrentLogColon" xml:space="preserve">
+    <value>Current log:</value>
+  </data>
+  <data name="EnableLogging" xml:space="preserve">
+    <value>Enable Logging</value>
+  </data>
+  <data name="EditLegacyToolboxPreferences" xml:space="preserve">
+    <value>Edit legacy Toolbox preferences</value>
+  </data>
+  <data name="LegacyPreferences" xml:space="preserve">
+    <value>Legacy Toolbox preferences</value>
+  </data>
+  <data name="Logging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="SettingsAndLogFolder" xml:space="preserve">
+    <value>Settings and log folder</value>
+  </data>
+  <data name="SomeFeaturesAreContainedInLegacyAddin" xml:space="preserve">
+    <value>Some of the XL Toolbox features still reside in the 'legacy' add-in (prior to version 7); you can access their preferences here.</value>
+  </data>
+  <data name="TaskPaneWidth" xml:space="preserve">
+    <value>Width of the task pane</value>
+  </data>
+  <data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
+    <value>It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open.</value>
+  </data>
 </root>

@@ -124,6 +124,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to % ALT.
+        /// </summary>
+        public static string AltModifier {
+            get {
+                return ResourceManager.GetString("AltModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always on top.
         /// </summary>
         public static string AlwaysOnTop {
@@ -174,6 +183,15 @@ namespace XLToolbox {
         public static string AskMeAsNeeded {
             get {
                 return ResourceManager.GetString("AskMeAsNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available commands.
+        /// </summary>
+        public static string AvailableCommands {
+            get {
+                return ResourceManager.GetString("AvailableCommands", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command:.
+        /// </summary>
+        public static string CommandColon {
+            get {
+                return ResourceManager.GetString("CommandColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public comment (optional).
         /// </summary>
         public static string CommentOptional {
@@ -377,6 +404,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ^ CTRL.
+        /// </summary>
+        public static string CtrlModifier {
+            get {
+                return ResourceManager.GetString("CtrlModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^+{PgUp} CTRL SHIFT PAGE-UP.
+        /// </summary>
+        public static string CtrlShiftPgUp {
+            get {
+                return ResourceManager.GetString("CtrlShiftPgUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current log:.
+        /// </summary>
+        public static string CurrentLogColon {
+            get {
+                return ResourceManager.GetString("CurrentLogColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data analysis and visualization for Excel, for free..
         /// </summary>
         public static string DataAnalysisAndVisualizationForExcelForFree {
@@ -391,6 +445,15 @@ namespace XLToolbox {
         public static string DecimalSeparator {
             get {
                 return ResourceManager.GetString("DecimalSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default settings will be used..
+        /// </summary>
+        public static string DefaultUserSettingsWillBeUsed {
+            get {
+                return ResourceManager.GetString("DefaultUserSettingsWillBeUsed", resourceCulture);
             }
         }
         
@@ -485,6 +548,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to enable logging now?.
+        /// </summary>
+        public static string DoYouWantToEnableLogging {
+            get {
+                return ResourceManager.GetString("DoYouWantToEnableLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do want to examine the log files now?.
+        /// </summary>
+        public static string DoYouWantToExamineLogs {
+            get {
+                return ResourceManager.GetString("DoYouWantToExamineLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -499,6 +580,33 @@ namespace XLToolbox {
         public static string EditExportPreset {
             get {
                 return ResourceManager.GetString("EditExportPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit keyboard shortcuts.
+        /// </summary>
+        public static string EditKeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("EditKeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit legacy Toolbox preferences.
+        /// </summary>
+        public static string EditLegacyToolboxPreferences {
+            get {
+                return ResourceManager.GetString("EditLegacyToolboxPreferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit keyboard shortcut.
+        /// </summary>
+        public static string EditShortcut {
+            get {
+                return ResourceManager.GetString("EditShortcut", resourceCulture);
             }
         }
         
@@ -521,6 +629,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable XL Toolbox keyboard shortcuts.
+        /// </summary>
+        public static string EnableKeyboardShortcuts {
+            get {
+                return ResourceManager.GetString("EnableKeyboardShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Logging.
+        /// </summary>
+        public static string EnableLogging {
+            get {
+                return ResourceManager.GetString("EnableLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable XL Toolbox keyboard shortcuts.
+        /// </summary>
+        public static string EnableShortcuts {
+            get {
+                return ResourceManager.GetString("EnableShortcuts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the desired new sheet name (1-31 characters, must not contain any of : [] /\ *?.
         /// </summary>
         public static string EnterNewSheetName {
@@ -539,6 +674,15 @@ namespace XLToolbox {
         public static string ErrorOccurredWhileDownloading {
             get {
                 return ResourceManager.GetString("ErrorOccurredWhileDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example.
+        /// </summary>
+        public static string Example {
+            get {
+                return ResourceManager.GetString("Example", resourceCulture);
             }
         }
         
@@ -718,11 +862,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you suspect that this could have been caused by a malfunction of the add-in, you may want to turn on the technical logging. The log file contents may be helpful in troubleshooting the issue..
+        /// </summary>
+        public static string IfYouSuspect {
+            get {
+                return ResourceManager.GetString("IfYouSuspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import CSV file.
         /// </summary>
         public static string ImportCsvFile {
             get {
                 return ResourceManager.GetString("ImportCsvFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete shutdown detected.
+        /// </summary>
+        public static string IncompleteShutdown {
+            get {
+                return ResourceManager.GetString("IncompleteShutdown", resourceCulture);
             }
         }
         
@@ -754,11 +916,29 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Invalid key sequence.).
+        /// </summary>
+        public static string InvalidKeySequence {
+            get {
+                return ResourceManager.GetString("InvalidKeySequence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         public static string Layout {
             get {
                 return ResourceManager.GetString("Layout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legacy Toolbox preferences.
+        /// </summary>
+        public static string LegacyPreferences {
+            get {
+                return ResourceManager.GetString("LegacyPreferences", resourceCulture);
             }
         }
         
@@ -781,6 +961,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legend.
+        /// </summary>
+        public static string Legend {
+            get {
+                return ResourceManager.GetString("Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License.
         /// </summary>
         public static string License {
@@ -790,11 +979,38 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string Logging {
+            get {
+                return ResourceManager.GetString("Logging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have already enabled logging. The log files may contain technical information that helps to identify the problem. Please consider sending the current log file to support@xltoolbox.net..
+        /// </summary>
+        public static string LoggingWasEnabled {
+            get {
+                return ResourceManager.GetString("LoggingWasEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modifier keys:.
+        /// </summary>
+        public static string ModifierKeysColon {
+            get {
+                return ResourceManager.GetString("ModifierKeysColon", resourceCulture);
             }
         }
         
@@ -1179,6 +1395,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings and log folder.
+        /// </summary>
+        public static string SettingsAndLogFolder {
+            get {
+                return ResourceManager.GetString("SettingsAndLogFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to + SHIFT.
+        /// </summary>
+        public static string ShiftModifier {
+            get {
+                return ResourceManager.GetString("ShiftModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More help on shortcuts (Microsoft website).
+        /// </summary>
+        public static string ShortcutsHelp {
+            get {
+                return ResourceManager.GetString("ShortcutsHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Single graphic export.
         /// </summary>
         public static string SingleGraphicExport {
@@ -1193,6 +1436,24 @@ namespace XLToolbox {
         public static string SingleItems {
             get {
                 return ResourceManager.GetString("SingleItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some of the XL Toolbox features still reside in the &apos;legacy&apos; add-in (prior to version 7); you can access their preferences here..
+        /// </summary>
+        public static string SomeFeaturesAreContainedInLegacyAddin {
+            get {
+                return ResourceManager.GetString("SomeFeaturesAreContainedInLegacyAddin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {F1}, {PgUp}, ... Special keys.
+        /// </summary>
+        public static string SpecialKeys {
+            get {
+                return ResourceManager.GetString("SpecialKeys", resourceCulture);
             }
         }
         
@@ -1224,6 +1485,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Width of the task pane.
+        /// </summary>
+        public static string TaskPaneWidth {
+            get {
+                return ResourceManager.GetString("TaskPaneWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open..
+        /// </summary>
+        public static string TaskPaneWidthCannotBeAutomaticallySaved {
+            get {
+                return ResourceManager.GetString("TaskPaneWidthCannotBeAutomaticallySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technical information.
         /// </summary>
         public static string TechnicalInformation {
@@ -1247,6 +1526,15 @@ namespace XLToolbox {
         public static string ThisIsFreeSoftware {
             get {
                 return ResourceManager.GetString("ThisIsFreeSoftware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is the error message:.
+        /// </summary>
+        public static string ThisIsTheErrorMessage {
+            get {
+                return ResourceManager.GetString("ThisIsTheErrorMessage", resourceCulture);
             }
         }
         
@@ -1395,6 +1683,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal settings.
+        /// </summary>
+        public static string UserSettings {
+            get {
+                return ResourceManager.GetString("UserSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal XL Toolbox settings could not be loaded..
+        /// </summary>
+        public static string UserSettingsCouldNotBeLoaded {
+            get {
+                return ResourceManager.GetString("UserSettingsCouldNotBeLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         public static string VersionParametrized {
@@ -1508,6 +1814,15 @@ namespace XLToolbox {
         public static string XLToolboxLicense {
             get {
                 return ResourceManager.GetString("XLToolboxLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It appears that the XL Toolbox add-in was not shut down properly..
+        /// </summary>
+        public static string XLToolboxNotShutDownProperly {
+            get {
+                return ResourceManager.GetString("XLToolboxNotShutDownProperly", resourceCulture);
             }
         }
         

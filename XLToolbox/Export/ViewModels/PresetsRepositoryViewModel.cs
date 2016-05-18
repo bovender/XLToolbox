@@ -37,19 +37,19 @@ namespace XLToolbox.Export.ViewModels
     {
         #region Public properties
 
-        public PresetViewModelCollection Presets { get; private set; }
+        public PresetViewModelCollection ViewModels { get; private set; }
 
-        public PresetViewModel SelectedPreset
+        public PresetViewModel SelectedViewModel
         {
             get
             {
-                return Presets.LastSelected;
+                return ViewModels.LastSelected;
             }
             set
             {
-                if (Presets.LastSelected != null)
+                if (ViewModels.LastSelected != null)
                 {
-                    Presets.LastSelected.IsSelected = false;
+                    ViewModels.LastSelected.IsSelected = false;
                 }
                 if (value != null)
                 {
@@ -58,54 +58,18 @@ namespace XLToolbox.Export.ViewModels
                 // No need to raise PropertyChanged here,
                 // because we listen to the PresetViewModel's
                 // event and relay it (in Presets_ViewModelPropertyChanged).
-                // OnPropertyChanged("SelectedPreset");
             }
         }
 
         #endregion
 
-        #region Constructors
+        #region Constructor
 
-        /// <summary>
-        /// Instantiates the view model and creates a new PresetRepository
-        /// instance which will load previously saved values in the background.
-        /// </summary>
         public PresetsRepositoryViewModel()
-            : this(new PresetsRepository())
-        { }
-
-        void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Name": OnPropertyChanged("Presets"); break;
-                case "IsSelected": OnPropertyChanged("SelectedPreset"); break;
-            }
-        }
-
-        /// <summary>
-        /// Instantiates the view model by creating a new repository instance
-        /// (which loads previously saved values, if they exist) and adding
-        /// the <paramref name="presetViewModel"/> to the repository.
-        /// </summary>
-        /// <param name="presetViewModel">Preset view model (and associated model)
-        /// to add to the repository.</param>
-        public PresetsRepositoryViewModel(PresetViewModel presetViewModel)
-            : this()
-        {
-            Presets.Add(presetViewModel);
-        }
-
-        public PresetsRepositoryViewModel(PresetsRepository repository)
             : base()
         {
-            _repository = repository;
-            Presets = new PresetViewModelCollection(_repository);
-            if (Presets.Count == 0)
-            {
-                Presets.Add(new PresetViewModel());
-            }
-            Presets.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
+            ViewModels = new PresetViewModelCollection();
+            ViewModels.ViewModelPropertyChanged += Presets_ViewModelPropertyChanged;
         }
 
         #endregion
@@ -190,53 +154,24 @@ namespace XLToolbox.Export.ViewModels
 
         #region Public methods
 
-        /// <summary>
-        /// Selects the last used preset as stored in the workbook's
-        /// WorkbookStorage area or in the user settings, if any.
-        /// Selects the first preset in the collection if no previously
-        /// stored preset is found.
-        /// </summary>
-        /// <param name="workbook">Workbook whose stored settings to
-        /// search for a previously used preset.</param>
-        /// <exception cref="InvalidOperationException">If no presets
-        /// exist in the collection.</exception>
         public void SelectLastUsedOrDefault(Workbook workbook)
         {
-            if (Presets.Count == 0)
+            Preset preset = Preset.FromLastUsed(Excel.ViewModels.Instance.Default.ActiveWorkbook);
+            if (preset == null)
             {
-                throw new InvalidOperationException(
-                    "Cannot select a preset because there are no presets in the collection.");
+                preset = PresetsRepository.Default.First;
             }
-
-            PresetViewModel pvm = PresetViewModel.FromLastUsed(
-                Excel.ViewModels.Instance.Default.ActiveWorkbook);
-            if (!Select(pvm))
-            {
-                Presets[0].IsSelected = true;
-            };
+            Select(preset);
         }
 
-        /// <summary>
-        /// Selects a preset view model similar to the presetViewModel argument.
-        /// </summary>
-        /// <param name="presetViewModel">Preset view model with properties
-        /// similar to the one to be selected.</param>
-        /// <returns>True if similar view model exists, false if not.</returns>
-        public bool Select(PresetViewModel presetViewModel)
+        public void Select(Preset preset)
         {
-            if (presetViewModel == null) return false;
-
-            PresetViewModel existing = Presets.FirstOrDefault(
-                obj => obj.Equals(presetViewModel));
-            if (existing != null)
+            if (preset == null)
             {
-                existing.IsSelected = true;
-                return true;
+                throw new ArgumentNullException("preset", "Cannot select PresetViewModel without Preset");
             }
-            else
-            {
-                return false;
-            }
+            PresetViewModel pvm = ViewModels.FirstOrDefault(p => p.IsViewModelOf(preset));
+            pvm.IsSelected = true;
         }
 
         /*
@@ -263,7 +198,6 @@ namespace XLToolbox.Export.ViewModels
 
         protected override void DoCloseView()
         {
-            _repository.SavePresets();
             base.DoCloseView();
         }
         #endregion
@@ -272,11 +206,12 @@ namespace XLToolbox.Export.ViewModels
 
         private void DoAddPreset()
         {
-            Preset s = new Preset();
-            PresetViewModel svm = new PresetViewModel(s);
-            Presets.Add(svm);
-            svm.IsSelected = true;
+            PresetViewModel pvm = new PresetViewModel();
+            foreach (PresetViewModel p in ViewModels) { p.IsSelected = false; }
+            ViewModels.Add(pvm);
+            pvm.IsSelected = true;
             OnPropertyChanged("Presets");
+            OnPropertyChanged("SelectedPresets");
         }
 
         private void DoDeletePreset()
@@ -294,8 +229,8 @@ namespace XLToolbox.Export.ViewModels
                 {
                     if (CanDeletePreset() && messageContent.Confirmed)
                     {
-                        this.Presets.RemoveSelected();
-                        // OnPropertyChanged("Presets");
+                        ViewModels.RemoveSelected();
+                        OnPropertyChanged("Presets");
                         OnPropertyChanged("SelectedPreset");
                     }
                 })
@@ -304,27 +239,35 @@ namespace XLToolbox.Export.ViewModels
 
         private bool CanDeletePreset()
         {
-            return (SelectedPreset != null);
+            return (SelectedViewModel != null);
         }
 
         private void DoEditPreset()
         {
             EditSettingsMessage.Send(
-                new ViewModelMessageContent(SelectedPreset),
+                new ViewModelMessageContent(SelectedViewModel),
                 content => OnPropertyChanged("Presets")
             );
         }
 
         private bool CanEditPreset()
         {
-            return (SelectedPreset != null);
+            return (SelectedViewModel != null);
+        }
+
+        private void Presets_ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Name": OnPropertyChanged("ViewModels"); break;
+                case "IsSelected": OnPropertyChanged("SelectedViewModel"); break;
+            }
         }
 
         #endregion
 
         #region Private fields
 
-        PresetsRepository _repository;
         DelegatingCommand _addCommand;
         DelegatingCommand _removeCommand;
         DelegatingCommand _editCommand;
@@ -333,17 +276,11 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Private contants
-
-        private const string STORAGEKEY = "ExportPreset";
-
-        #endregion
-
         #region Implementation of ViewModelBase's abstract methods
 
         public override object RevealModelObject()
         {
-            return _repository;
+            return PresetsRepository.Default;
         }
 
         #endregion

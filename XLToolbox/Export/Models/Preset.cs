@@ -17,11 +17,9 @@
  */
 using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using XLToolbox.Excel.ViewModels;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using XLToolbox.WorkbookStorage;
 
 namespace XLToolbox.Export.Models
@@ -35,22 +33,38 @@ namespace XLToolbox.Export.Models
     {
         #region Factory
 
+        /// <summary>
+        /// Returns the last used preset stored in the UserSettings,
+        /// or null.
+        /// </summary>
+        /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed()
         {
-            return Properties.Settings.Default.ExportPreset;
+            return UserSettings.UserSettings.Default.ExportPreset;
         }
 
+        /// <summary>
+        /// Returns the last used preset that is stored in the current
+        /// workbook, or the last used preset stored in the UserSettings,
+        /// or null.
+        /// </summary>
+        /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed(Workbook workbookContext)
         {
             Store store = new Store(workbookContext);
-            Preset preset = store.Get<Preset>(typeof(Preset).ToString());
+            Preset preset = store.Get<Preset>(Properties.StoreNames.Default.ExportPreset);
+
             if (preset != null)
             {
-                return preset;
+                // Return the equivalent Preset object from the current collection, or
+                // add the preset retrieved from the workbook to the current collection.
+                return PresetsRepository.Default.FindOrAdd(preset);
             }
             else
             {
-                return Preset.FromLastUsed();
+                // Did not get a Preset from the workbook's Store, so let's try
+                // and offer the last used Preset from the UserSettings.
+                return FromLastUsed();
             }
         }
 
@@ -62,6 +76,8 @@ namespace XLToolbox.Export.Models
         public int Dpi { get; set; }
         public FileType FileType { get; set; }
         public ColorSpace ColorSpace { get; set; }
+
+        [YamlDotNet.Serialization.YamlIgnore]
         public bool IsVectorType
         {
             get
@@ -69,6 +85,8 @@ namespace XLToolbox.Export.Models
                 return FileType == FileType.Emf; // || FileType == FileType.Svg;
             }
         }
+        
+        [YamlDotNet.Serialization.YamlIgnore]
         public int Bpp
         {
             get
@@ -76,6 +94,7 @@ namespace XLToolbox.Export.Models
                 return ColorSpace.ToBPP();
             }
         }
+
         public Transparency Transparency { get; set; }
         public bool UseColorProfile { get; set; }
         public string ColorProfile { get; set; }
@@ -139,19 +158,33 @@ namespace XLToolbox.Export.Models
             }
         }
         
+        /// <summary>
+        /// Serializes the current Preset into a workbook's Store.
+        /// </summary>
+        /// <param name="workbookContext"></param>
         public void Store(Workbook workbookContext)
         {
-            Properties.Settings.Default.ExportPreset = this;
-            Properties.Settings.Default.Save();
+            UserSettings.UserSettings.Default.ExportPreset = this;
             using (Store store = new Store(workbookContext))
             {
-                store.Put<Preset>(typeof(Preset).ToString(), this);
+                store.Put(Properties.StoreNames.Default.ExportPreset, this);
             }
         }
 
         public void Store()
         {
             Store(Excel.ViewModels.Instance.Default.ActiveWorkbook);
+        }
+
+        /// <summary>
+        /// Returns the MD5 hash of this Preset.
+        /// </summary>
+        /// <remarks>
+        /// This is just a wrapper around Bovender's extension method so that
+        /// calling code does not need to use Bovender.Extensions.</remarks>
+        public string ComputeMD5Hash()
+        {
+            return Bovender.CommonHelpers.ComputeMD5Hash(this);
         }
 
         #endregion
@@ -164,5 +197,6 @@ namespace XLToolbox.Export.Models
         }
 
         #endregion
+
     }
 }
