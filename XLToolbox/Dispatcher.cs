@@ -78,6 +78,7 @@ namespace XLToolbox
                     case Command.AutomaticErrorBars: ErrorBarsAutomatic(); break;
                     case Command.InteractiveErrorBars: ErrorBarsInteractive(); break;
                     case Command.LastErrorBars: LastErrorBars(); break;
+                    case Command.UserSettings: EditUserSettings(); break;
                     case Command.OpenFromCell:
                     case Command.CopyPageSetup:
                     case Command.SelectAllShapes:
@@ -101,7 +102,7 @@ namespace XLToolbox
                     case Command.CopyChart:
                     case Command.PointChart:
                     case Command.Watermark:
-                    case Command.Prefs:
+                    case Command.LegacyPrefs:
                         Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
                     case Command.Shortcuts: EditShortcuts(); break;
                     case Command.SaveAs: SaveAs(); break;
@@ -122,6 +123,12 @@ namespace XLToolbox
         #endregion
 
         #region Private dispatching methods
+
+        static void EditUserSettings()
+        {
+            UserSettings.UserSettingsViewModel vm = new UserSettings.UserSettingsViewModel();
+            vm.InjectInto<UserSettings.UserSettingsView>().ShowDialogInForm();
+        }
 
         static void About()
         {

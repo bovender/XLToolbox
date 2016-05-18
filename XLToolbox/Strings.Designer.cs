@@ -593,6 +593,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit legacy Toolbox preferences.
+        /// </summary>
+        public static string EditLegacyToolboxPreferences {
+            get {
+                return ResourceManager.GetString("EditLegacyToolboxPreferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit keyboard shortcut.
         /// </summary>
         public static string EditShortcut {
@@ -925,6 +934,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legacy Toolbox preferences.
+        /// </summary>
+        public static string LegacyPreferences {
+            get {
+                return ResourceManager.GetString("LegacyPreferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obsolete XL Toolbox version found.
         /// </summary>
         public static string LegacyToolboxDetectedCaption {
@@ -957,6 +975,15 @@ namespace XLToolbox {
         public static string License {
             get {
                 return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging.
+        /// </summary>
+        public static string Logging {
+            get {
+                return ResourceManager.GetString("Logging", resourceCulture);
             }
         }
         
@@ -1368,6 +1395,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings and log folder.
+        /// </summary>
+        public static string SettingsAndLogFolder {
+            get {
+                return ResourceManager.GetString("SettingsAndLogFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to + SHIFT.
         /// </summary>
         public static string ShiftModifier {
@@ -1404,6 +1440,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some of the XL Toolbox features still reside in the &apos;legacy&apos; add-in (prior to version 7); you can access their preferences here..
+        /// </summary>
+        public static string SomeFeaturesAreContainedInLegacyAddin {
+            get {
+                return ResourceManager.GetString("SomeFeaturesAreContainedInLegacyAddin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {F1}, {PgUp}, ... Special keys.
         /// </summary>
         public static string SpecialKeys {
@@ -1436,6 +1481,24 @@ namespace XLToolbox {
         public static string SvgFiles {
             get {
                 return ResourceManager.GetString("SvgFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width of the task pane.
+        /// </summary>
+        public static string TaskPaneWidth {
+            get {
+                return ResourceManager.GetString("TaskPaneWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open..
+        /// </summary>
+        public static string TaskPaneWidthCannotBeAutomaticallySaved {
+            get {
+                return ResourceManager.GetString("TaskPaneWidthCannotBeAutomaticallySaved", resourceCulture);
             }
         }
         

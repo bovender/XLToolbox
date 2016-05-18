@@ -104,7 +104,8 @@ namespace XLToolboxForExcel
                 { "ButtonCopyChart", Command.CopyChart },
                 { "ButtonPointChart", Command.PointChart },
                 { "ButtonWatermark", Command.Watermark },
-                { "ButtonPrefs", Command.Prefs },
+                { "ButtonPrefs", Command.LegacyPrefs },
+                { "ButtonUserSettings", Command.UserSettings },
                 { "ButtonShortcuts", Command.Shortcuts },
             };
 

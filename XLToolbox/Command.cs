@@ -69,7 +69,8 @@ namespace XLToolbox
         CopyChart,
         PointChart,
         Watermark,
-        Prefs,
+        UserSettings,
+        LegacyPrefs,
         Shortcuts,
     }
 }

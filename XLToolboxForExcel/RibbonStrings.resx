@@ -385,7 +385,7 @@
     <value>Manage worksheets.</value>
   </data>
   <data name="ButtonShortcutsLabel" xml:space="preserve">
-    <value>Keyboard shortcuts</value>
+    <value>Keyboard</value>
   </data>
   <data name="ButtonShortcutsSupertip" xml:space="preserve">
     <value>Edit keyboard shortcuts.</value>
@@ -401,6 +401,12 @@
   </data>
   <data name="ButtonTransposeWizardSupertip" xml:space="preserve">
     <value>Perform complex tranpositions, e.g. data from microtiter plate analyses (PCR, ELISA etc.).</value>
+  </data>
+  <data name="ButtonUserSettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ButtonUserSettingsSupertip" xml:space="preserve">
+    <value>Adjust user settings (preferences).</value>
   </data>
   <data name="ButtonWatermarkLabel" xml:space="preserve">
     <value>Watermark</value>

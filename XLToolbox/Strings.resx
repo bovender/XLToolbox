@@ -717,4 +717,25 @@ You may want to try again.</value>
   <data name="EnableLogging" xml:space="preserve">
     <value>Enable Logging</value>
   </data>
+  <data name="EditLegacyToolboxPreferences" xml:space="preserve">
+    <value>Edit legacy Toolbox preferences</value>
+  </data>
+  <data name="LegacyPreferences" xml:space="preserve">
+    <value>Legacy Toolbox preferences</value>
+  </data>
+  <data name="Logging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="SettingsAndLogFolder" xml:space="preserve">
+    <value>Settings and log folder</value>
+  </data>
+  <data name="SomeFeaturesAreContainedInLegacyAddin" xml:space="preserve">
+    <value>Some of the XL Toolbox features still reside in the 'legacy' add-in (prior to version 7); you can access their preferences here.</value>
+  </data>
+  <data name="TaskPaneWidth" xml:space="preserve">
+    <value>Width of the task pane</value>
+  </data>
+  <data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
+    <value>It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open.</value>
+  </data>
 </root>

@@ -77,6 +77,18 @@ namespace XLToolbox.SheetManager
             }
         }
 
+        public int Width
+        {
+            get
+            {
+                return _pane.Width;
+            }
+            set
+            {
+                _pane.Width = value;
+            }
+        }
+
         #endregion
 
         #region Events

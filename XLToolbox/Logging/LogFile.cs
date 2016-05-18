@@ -206,6 +206,9 @@ namespace XLToolbox.Logging
                 _fileTarget.FileName = CurrentLogPath;
                 _fileTarget.ArchiveFileName = ArchivedLogsPath;
                 _fileTarget.ArchiveNumbering = ArchiveNumberingMode.Date;
+                _fileTarget.ArchiveDateFormat = ARCHIVE_DATE_FORMAT;
+                _fileTarget.ArchiveEvery = FileArchivePeriod.Day;
+                _fileTarget.MaxArchiveFiles = MAX_ARCHIVE_FILES;
                 AsyncTargetWrapper wrapper = new AsyncTargetWrapper(_fileTarget);
                 _config.AddTarget(FILE_TARGET, wrapper);
             }
@@ -246,7 +249,9 @@ namespace XLToolbox.Logging
         private const string FILE_TARGET = "file";
         private const string DEBUG_TARGET = "debug";
         private const string LOG_FILE_NAME = "current-log.txt";
-        private const string ARCHIVE_FILE_NAME = "log-${shortdate}.txt";
+        private const string ARCHIVE_FILE_NAME = "log-archived-on-{#}.txt";
+        private const string ARCHIVE_DATE_FORMAT = "yyyy-MM-dd";
+        private const int MAX_ARCHIVE_FILES = 7;
 
         #endregion
 

@@ -194,7 +194,7 @@ namespace XLToolbox.Legacy
                 case Command.Watermark:
                     app.Run("RuneWatermark");
                     break;
-                case Command.Prefs:
+                case Command.LegacyPrefs:
                     app.Run("RunPreferences");
                     break;
                 default:

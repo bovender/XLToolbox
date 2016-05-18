@@ -147,11 +147,10 @@ namespace XLToolbox.UserSettings
             }
             set
             {
-                // Only access the singleton instance if the value if true,
-                // in order to avoid superfluous initialization of the instance.
-                if (value)
+                // Avoid superfluous initialization of the LogFile singleton instance
+                if (value || LogFile.IsInitializedAndEnabled)
                 {
-                    LogFile.Default.IsFileLoggingEnabled = true;
+                    LogFile.Default.IsFileLoggingEnabled = value;
                 }
             }
         }

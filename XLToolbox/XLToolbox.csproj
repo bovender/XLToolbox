@@ -222,6 +222,9 @@
     <Compile Include="SheetManager\SheetManagerPane.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\UserSettingsViewModel.cs" />
+    <Compile Include="UserSettings\UserSettingsView.xaml.cs">
+      <DependentUpon>UserSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
@@ -283,7 +286,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Keyboard\XLToolboxKeyboardBridge.xlam" />
-    <None Include="Legacy\XLToolboxLegacyAddin.xlam" />
+    <EmbeddedResource Include="Legacy\XLToolboxLegacyAddin.xlam" />
     <None Include="packages.config" />
     <None Include="Properties\HelpTopics.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -354,6 +357,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\key.png" />
     <Resource Include="Resources\images\import-export-16.png" />
     <Resource Include="Resources\images\import-export.png" />
     <Resource Include="Resources\images\csv-export-range-edit.png" />
@@ -434,6 +438,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SheetManager\SheetManagerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserSettings\UserSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

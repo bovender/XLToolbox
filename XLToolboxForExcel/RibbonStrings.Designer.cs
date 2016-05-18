@@ -862,7 +862,7 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keyboard shortcuts.
+        ///   Looks up a localized string similar to Keyboard.
         /// </summary>
         internal static string ButtonShortcutsLabel {
             get {
@@ -912,6 +912,24 @@ namespace XLToolboxForExcel {
         internal static string ButtonTransposeWizardSupertip {
             get {
                 return ResourceManager.GetString("ButtonTransposeWizardSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string ButtonUserSettingsLabel {
+            get {
+                return ResourceManager.GetString("ButtonUserSettingsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adjust user settings (preferences)..
+        /// </summary>
+        internal static string ButtonUserSettingsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonUserSettingsSupertip", resourceCulture);
             }
         }
         

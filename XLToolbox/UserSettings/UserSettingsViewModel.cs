@@ -16,17 +16,69 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Bovender.Mvvm;
-using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.ViewModels;
 
 namespace XLToolbox.UserSettings
 {
     public class UserSettingsViewModel : ViewModelBase
     {
+        #region Properties
+
+        public int TaskPaneWidth
+        {
+            get
+            {
+                return _taskPaneWidth;
+            }
+            set
+            {
+                _taskPaneWidth = value;
+                OnPropertyChanged("TaskPaneWidth");
+            }
+        }
+
+        public int MaxTaskPaneWidth
+        {
+            get
+            {
+                return 600;
+            }
+        }
+
+        public int MinTaskPaneWidth
+        {
+            get
+            {
+                return 200;
+            }
+        }
+
+        public bool IsLoggingEnabled
+        {
+            get
+            {
+                return _isLoggingEnabled;
+            }
+            set
+            {
+                _isLoggingEnabled = value;
+                OnPropertyChanged("IsLoggingEnabled");
+            }
+        }
+
+        public string ProfileFolderPath
+        {
+            get
+            {
+                return System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    Properties.Settings.Default.AppDataFolder);
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         public DelegatingCommand SaveCommand
@@ -56,9 +108,44 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public DelegatingCommand EditLegacyPreferencesCommand
+        {
+            get
+            {
+                if (_editLegacyPreferences == null)
+                {
+                    _editLegacyPreferences = new DelegatingCommand(
+                        param => XLToolbox.Dispatcher.Execute(Command.LegacyPrefs));
+                }
+                return _editLegacyPreferences;
+            }
+        }
+
         #endregion
 
         #region Messages
+        #endregion
+
+        #region Constructor
+
+        public UserSettingsViewModel()
+        {
+            UserSettings u = UserSettings.Default;
+            _isLoggingEnabled = u.EnableLogging;
+            if (XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible)
+            {
+                _taskPaneWidth = XLToolbox.SheetManager.SheetManagerPane.Default.Width;
+            }
+            else
+            {
+                _taskPaneWidth = u.TaskPaneWidth;
+            }
+            PropertyChanged += (sender, args) =>
+            {
+                _dirty = true;
+            };
+        }
+
         #endregion
 
         #region Implementation of ViewModelBase
@@ -75,6 +162,14 @@ namespace XLToolbox.UserSettings
         private void DoSave()
         {
             _dirty = false;
+            UserSettings u = UserSettings.Default;
+            u.TaskPaneWidth = TaskPaneWidth;
+            u.EnableLogging = IsLoggingEnabled;
+            if (XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible)
+            {
+                XLToolbox.SheetManager.SheetManagerPane.Default.Width = _taskPaneWidth;
+            }
+            DoCloseView();
         }
 
         private bool CanSave()
@@ -85,9 +180,7 @@ namespace XLToolbox.UserSettings
         private void DoOpenProfileFolder()
         {
             System.Diagnostics.Process.Start(
-                new System.Diagnostics.ProcessStartInfo(
-                    System.IO.Path.GetDirectoryName(
-                        UserSettings.Default.GetSettingsFilePath())));
+                new System.Diagnostics.ProcessStartInfo(ProfileFolderPath));
         }
 
         #endregion
@@ -96,7 +189,10 @@ namespace XLToolbox.UserSettings
 
         private DelegatingCommand _saveCommand;
         private DelegatingCommand _openProfileFolderCommand;
+        private DelegatingCommand _editLegacyPreferences;
         private bool _dirty;
+        private int _taskPaneWidth;
+        private bool _isLoggingEnabled;
         
         #endregion
     }
