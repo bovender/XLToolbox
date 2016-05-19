@@ -35,16 +35,24 @@ namespace XLToolbox.Legacy
         /// </summary>
         public static void DeactivateObsoleteVbaAddin()
         {
+            Logger.Info("DeactivateObsoleteVbaAddin");
             foreach (Microsoft.Office.Interop.Excel.AddIn addin in Instance.Default.Application.AddIns)
             {
                 if (addin.Name.StartsWith("Daniels XL Toolbox.xla") && addin.Installed)
                 {
-                    NotificationAction a = new NotificationAction();
-                    a.Message = Strings.LegacyToolboxDetectedMessage;
-                    a.Caption = Strings.LegacyToolboxDetectedCaption;
-                    a.OkButtonLabel = Strings.OK;
+                    Logger.Info("Found add-in: {0}", addin.Name);
+                    NotificationAction a = new NotificationAction(
+                        Strings.LegacyToolboxDetectedCaption,
+                        Strings.LegacyToolboxDetectedMessage,
+                        Strings.OK);
                     a.Invoke();
-                    addin.Installed = false;
+                    Task.Factory.StartNew(
+                        () =>
+                        {
+                            System.Threading.Thread.Sleep(2000);
+                            addin.Installed = false;
+                            Logger.Info("Uninstalled legacy addin: {0}", addin.Name);
+                        });
                     break;
                 }
             }
@@ -221,9 +229,13 @@ namespace XLToolbox.Legacy
             }
         );
 
+        #endregion
+
+        #region Class logger
+
         private static NLog.Logger Logger { get { return _logger.Value; } }
 
-        private static Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }
