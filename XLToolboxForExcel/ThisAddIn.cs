@@ -191,7 +191,10 @@ namespace XLToolboxForExcel
         {
             XLToolbox.UserSettings.UserSettings userSettings = XLToolbox.UserSettings.UserSettings.Default;
             Logger.Info("Performing sanity checks");
-            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
+            // Deactivating the VBA add-in can cause crashes; we now do it in the installer
+            // XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
             if (userSettings.Running)
             {
                 XLToolbox.Logging.LogFileViewModel vm = new XLToolbox.Logging.LogFileViewModel();
