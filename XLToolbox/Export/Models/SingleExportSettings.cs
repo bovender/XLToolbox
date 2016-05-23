@@ -60,8 +60,7 @@ namespace XLToolbox.Export.Models
             }
             if (svm.Selection != null)
             {
-                return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height,
-                    UserSettings.UserSettings.Default.ExportUnit, true);
+                return new SingleExportSettings(preset, svm.Bounds.Width, svm.Bounds.Height);
             }
             else
             {
@@ -140,12 +139,34 @@ namespace XLToolbox.Export.Models
             PreserveAspect = true;
         }
 
-        public SingleExportSettings(Preset preset, double width, double height, Unit unit, bool preserveAspect)
+        /// <summary>
+        /// Creates a new instance using a given Preset, width, height, unit and preserve aspect flag.
+        /// </summary>
+        /// <param name="preset">Preset to use for these settings.</param>
+        /// <param name="width">Width (in points, i.e. 1/72 inch).</param>
+        /// <param name="height">Height (in points, i.e. 1/72 inch).</param>
+        public SingleExportSettings(Preset preset, double width, double height)
             : this()
         {
             Preset = preset;
             Width = width;
             Height = height;
+            _unit = Models.Unit.Point;
+        }
+
+
+        /// <summary>
+        /// Creates a new instance using a given Preset, width, height, unit and preserve aspect flag.
+        /// </summary>
+        /// <param name="preset">Preset to use for these settings.</param>
+        /// <param name="width">Width (in <paramref name="unit"/>).</param>
+        /// <param name="height">Height (in <paramref name="unit"/>).</param>
+        /// <param name="unit">Unit to use for <paramref name="width"/> and <paramref name="height"/>.</param>
+        /// <param name="preserveAspect">Whether to preserve aspect ratio when changing
+        /// <paramref name="width"/> or <paramref name="height"/>.</param>
+        public SingleExportSettings(Preset preset, double width, double height, Unit unit, bool preserveAspect)
+            : this(preset, width, height)
+        {
             PreserveAspect = preserveAspect;
             _unit = unit;
         }
