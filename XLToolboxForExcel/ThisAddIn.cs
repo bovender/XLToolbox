@@ -181,7 +181,7 @@ namespace XLToolboxForExcel
                         // events).
                         updaterVM.InjectAndShowInThread<Ver.UpdateAvailableView>();
                     };
-                    updaterVM.CheckForUpdateCommand.Execute(null);
+                    _dispatcher.BeginInvoke(new Action(() => updaterVM.CheckForUpdateCommand.Execute(null)));
                 }
                 XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
