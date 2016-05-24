@@ -35,14 +35,9 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-#if DEBUG
-            XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
-#endif
-
-            Logger.Info("Begin startup");
-
             // Delete user config file that may be left over from NG developmental
             // versions. We don't need it anymore and it causes nasty crashes.
+            // Must do this before using NLog!
             try
             {
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
@@ -52,6 +47,12 @@ namespace XLToolboxForExcel
                 }
             }
             catch { }
+
+#if DEBUG
+            XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
+#endif
+
+            Logger.Info("Begin startup");
 
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
@@ -180,7 +181,7 @@ namespace XLToolboxForExcel
                         // events).
                         updaterVM.InjectAndShowInThread<Ver.UpdateAvailableView>();
                     };
-                    updaterVM.CheckForUpdateCommand.Execute(null);
+                    _dispatcher.BeginInvoke(new Action(() => updaterVM.CheckForUpdateCommand.Execute(null)));
                 }
                 XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
             }
@@ -190,7 +191,10 @@ namespace XLToolboxForExcel
         {
             XLToolbox.UserSettings.UserSettings userSettings = XLToolbox.UserSettings.UserSettings.Default;
             Logger.Info("Performing sanity checks");
-            XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
+            // Deactivating the VBA add-in can cause crashes; we now do it in the installer
+            // XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();
+
             if (userSettings.Running)
             {
                 XLToolbox.Logging.LogFileViewModel vm = new XLToolbox.Logging.LogFileViewModel();
