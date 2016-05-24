@@ -1,4 +1,4 @@
-#define DEBUG
+; #define DEBUG
 #define VERSIONFILE "..\VERSION"
 #define PUB_YEARS "2016"
 #define TARGET_HOST "excel"
@@ -35,5 +35,5 @@
 #include "VstoAddinInstaller\vsto-installer.iss"
 
 [Run]
-Filename: "{code:LegacyUninstallerPath}"; Parameters: "/SILENT"; Description: "Remove legacy version (required)"; StatusMsg: "Uninstalling legacy version..."; Check: IsLegacyInstalled;
+Filename: "{code:LegacyUninstallerPath}"; Parameters: "/SILENT"; Description: "Remove legacy version (required)"; StatusMsg: "Uninstalling legacy version..."; Check: IsLegacyInstalled; Flags: runminimized;
 Filename: "setx"; Parameters: "VSTO_SUPPRESSDISPLAYALERTS 0"; Description: "Enable add-in loading error messages"; StatusMsg: "Enabling error messages while add-in is being loaded..."; Flags: runhidden nowait;
