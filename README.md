@@ -1,3 +1,4 @@
+[![Beerpay](https://beerpay.io/bovender/XLToolbox/badge.svg?style=flat-square)](https://beerpay.io/bovender/XLToolbox)
 XL Toolbox NG (Next Generation)
 ===============================
 
