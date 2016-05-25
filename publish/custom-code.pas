@@ -1,6 +1,6 @@
 {
 ; =====================================================================
-; == code.dist.iss
+; == custom-code.dist.pas
 ; == Part of VstoAddinInstaller
 ; == (https://github.com/bovender/VstoAddinInstaller)
 ; == (c) 2016 Daniel Kraus <bovender@bovender.de>
@@ -17,9 +17,16 @@
 }
 
 function IsLegacyInstalled(): Boolean;
+var
+  b: Boolean;
 begin
-  result := RegKeyExists(HKEY_CURRENT_USER,
+  b := RegKeyExists(HKEY_CURRENT_USER,
     'Software\Microsoft\Windows\CurrentVersion\Uninstall\{BDE4805C-4A64-4C6D-8547-5B7DB885C65F}_is1');
+  if b then
+    Log('Found registry key for legacy uninstaller')
+  else
+    Log('Did not find registry key for legacy uninstaller');
+  result := b;
 end;
 
 function LegacyUninstallerPath(Param: String): String;
@@ -29,7 +36,9 @@ begin
   RegQueryStringValue(HKEY_CURRENT_USER,
     'Software\Microsoft\Windows\CurrentVersion\Uninstall\{BDE4805C-4A64-4C6D-8547-5B7DB885C65F}_is1',
     'UninstallString', s);
-  result := RemoveQuotes(s);
+  s := RemoveQuotes(s);
+  Log('Legacy uninstaller path: ' + s);
+  result := s;
 end;
 
 { vim: set ft=pascal sw=2 sts=2 et : }
