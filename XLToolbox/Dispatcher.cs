@@ -114,7 +114,6 @@ namespace XLToolbox
             catch (Exception e)
             {
                 Logger.Fatal(e, "Dispatcher exception");
-                UserSettings.UserSettings.Default.Save();
                 ExceptionViewModel vm = new ExceptionViewModel(e);
                 vm.InjectInto<ExceptionView>().ShowDialogInForm();
             }
