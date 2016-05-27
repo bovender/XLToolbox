@@ -19,6 +19,7 @@ using System;
 using System.Runtime.InteropServices;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
+using Bovender.Extensions;
 
 namespace XLToolbox.Vba
 {
@@ -152,6 +153,38 @@ namespace XLToolbox.Vba
                 Logger.Fatal("Parse failure: unknown command");
                 throw new ArgumentException("Unknown command");
             }
+        }
+
+        /// <summary>
+        /// Shows an exception.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
+        public void ShowException(string message)
+        {
+            VbaException e = new VbaException(message);
+            Logger.Warn("VBA code called the XLToolbox.Vba.Api.Throw method", e);
+            ExceptionHandler.ExceptionViewModel vm = new ExceptionHandler.ExceptionViewModel(e);
+            vm.InjectInto<ExceptionHandler.ExceptionView>().ShowDialogInForm();
+        }
+
+        /// <summary>
+        /// Write a message to the log.
+        /// </summary>
+        public void Log(string message)
+        {
+            Logger.Info(message);
+        }
+
+        /// <summary>
+        /// Returns true if running in debug mode.
+        /// </summary>
+        public bool IsDebugMode()
+        {
+            #if DEBUG
+                return true;
+            #else
+                return false;
+            #endif
         }
 
         #endregion
