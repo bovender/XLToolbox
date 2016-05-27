@@ -112,6 +112,11 @@ namespace XLToolbox.ExceptionHandler
             return @"x:\Code\xltoolbox\NG\";
         }
 
+        protected override Bovender.UserSettings.UserSettingsBase UserSettings
+        {
+            get { return XLToolbox.UserSettings.UserSettings.Default; }
+        }
+
         #endregion
     }
 }
