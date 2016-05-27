@@ -32,13 +32,21 @@ namespace XLToolbox.Keyboard
     /// </summary>
     public class Manager
     {
-        #region Singleton factory
+        #region Singleton factory and static properties
 
         public static Manager Default
         {
             get { return _lazy.Value; }
         }
-        
+
+        public static bool IsInitialized
+        {
+            get
+            {
+                return _lazy.IsValueCreated;
+            }
+        }
+
         #endregion
 
         #region Public properties
@@ -51,7 +59,9 @@ namespace XLToolbox.Keyboard
             }
             set
             {
-                if (value != _isEnabled)
+                bool formerState = _isEnabled;
+                _isEnabled = value;
+                if (value != formerState)
                 {
                     if (value)
                     {
@@ -62,7 +72,6 @@ namespace XLToolbox.Keyboard
                         UnregisterShortcuts();
                     }
                 }
-                _isEnabled = value;
             }
         }
 
@@ -84,18 +93,15 @@ namespace XLToolbox.Keyboard
 
         public void RegisterShortcuts()
         {
-            if (IsEnabled && !_registered)
+            if (_isEnabled && !_registered)
             {
                 Logger.Info("RegisterShortcuts");
+                Legacy.LegacyToolbox.Initialize();
                 foreach (Shortcut shortcut in Shortcuts)
                 {
                     shortcut.Register();
                 }
                 _registered = true;
-            }
-            else
-            {
-                Logger.Info("RegisterShortcuts: not enabled or registered already");
             }
         }
 
@@ -110,17 +116,12 @@ namespace XLToolbox.Keyboard
                 }
                 _registered = false;
             }
-            else
-            {
-                Logger.Info("UnregisterShortcuts: not registered");
-            }
         }
 
         public void SetShortcut(Command command, string keySequence)
         {
             Shortcut shortcut = Shortcuts.First(s => s.Command == command);
             shortcut.KeySequence = keySequence;
-            shortcut.Register();
         }
 
         public void UnsetShortcut(Command command)
@@ -156,7 +157,8 @@ namespace XLToolbox.Keyboard
 
         private Manager()
         {
-            _isEnabled = true;
+            _isEnabled = false;
+            Logger.Info("Constructing keyboard manager; _isEnabled = {0}", _isEnabled);
             SetDefaults();
         }
 
@@ -208,13 +210,7 @@ namespace XLToolbox.Keyboard
 
         #region Private static fields
 
-        private static Lazy<Manager> _lazy = new Lazy<Manager>(
-            () =>
-            {
-                Legacy.LegacyToolbox l = Legacy.LegacyToolbox.Default;
-                return new Manager();
-            }
-        );
+        private static Lazy<Manager> _lazy = new Lazy<Manager>(() => new Manager());
 
         #endregion
 

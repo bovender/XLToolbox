@@ -284,6 +284,23 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool KeyboardShortcutsEnabled
+        {
+            get
+            {
+                return Keyboard.Manager.IsInitialized ? Keyboard.Manager.Default.IsEnabled : false;
+            }
+            set
+            {
+                // Only access the Manager instance if the value is true
+                // or if the instance has been initialized already anyway.
+                if (Keyboard.Manager.IsInitialized || value)
+                {
+                    Keyboard.Manager.Default.IsEnabled = value;
+                }
+            }
+        }
+
         public ObservableCollection<Keyboard.Shortcut> KeyboardShortcuts
         {
             get
@@ -342,8 +359,7 @@ namespace XLToolbox.UserSettings
         /// the singleton factory instead. The constructor must be public to
         /// enable deserialization.
         /// </summary>
-        public UserSettings()
-        { }
+        public UserSettings() { }
 
         #endregion
 
