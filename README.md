@@ -1,7 +1,9 @@
-XL Toolbox NG (Next Generation)
+XL Toolbox NG (Next Generation) ![Downloads of the NG series](https://img.shields.io/github/downloads/bovender/xltoolbox/total.svg?maxAge=2592000)
 ===============================
 
-For more information about this project, see <http://www.xltoolbox.net>.
+##### Data analysis and visualization for Excel&reg;, for free.
+
+> For more information about this project, see <https://www.xltoolbox.net>.
 
 The XL Toolbox NG source code is written in (mostly) C# with Visual Studio
 Professional 2013 and targeted for the .NET framework 4.0.
