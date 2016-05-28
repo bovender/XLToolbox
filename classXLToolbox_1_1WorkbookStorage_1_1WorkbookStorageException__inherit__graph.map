@@ -1,0 +1,6 @@
+<map id="XLToolbox.WorkbookStorage.WorkbookStorageException" name="XLToolbox.WorkbookStorage.WorkbookStorageException">
+<area shape="rect" id="node3" href="$classXLToolbox_1_1WorkbookStorage_1_1EmptyKeyException.html" title="XLToolbox.WorkbookStorage.\lEmptyKeyException" alt="" coords="377,5,573,47"/>
+<area shape="rect" id="node4" href="$classXLToolbox_1_1WorkbookStorage_1_1InvalidContextException.html" title="XLToolbox.WorkbookStorage.\lInvalidContextException" alt="" coords="377,71,573,112"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1WorkbookStorage_1_1UnkownKeyException.html" title="XLToolbox.WorkbookStorage.\lUnkownKeyException" alt="" coords="377,136,573,177"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1WorkbookStorage_1_1UndefinedContextException.html" title="XLToolbox.WorkbookStorage.\lUndefinedContextException" alt="" coords="621,71,817,112"/>
+</map>

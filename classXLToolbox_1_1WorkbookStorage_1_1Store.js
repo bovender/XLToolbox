@@ -1,0 +1,27 @@
+var classXLToolbox_1_1WorkbookStorage_1_1Store =
+[
+    [ "Store", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a9d548001028a773ed7c8ac2a65390361", null ],
+    [ "Store", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ad402dc5b36a7af5d078464cfdab1132b", null ],
+    [ "Dispose", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#aae6aedfc269fee33d0a989fdc1e2d3d2", null ],
+    [ "Dispose", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ac93c71e443e56a7797a3ec450ef5ee01", null ],
+    [ "Flush", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a5cf6ed86a8356c8f080fc4e452b81a50", null ],
+    [ "Get", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#af02f3585c89f28ad9af35ab155131fe6", null ],
+    [ "Get", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#afe667a8bb7ee296218982a67ebd94ed9", null ],
+    [ "Get", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a8fc47f3fbacc90cc17ed11722c2caec9", null ],
+    [ "Get< T >", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#af77789ab62ea41d65d4e3ef3a68c43a5", null ],
+    [ "GetDynamicValue", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ae12d659786722cffcd71690bce3d0b14", null ],
+    [ "HasKey", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#acfe85191f8aa1ea961702419bb5aa8e4", null ],
+    [ "Put", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a9ec474daca98346ce2c473d19755484d", null ],
+    [ "Put", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a8b060ec332f05154abeedbaf68cc857d", null ],
+    [ "Put", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a0175ef3bd59bd47ea344ddf9e7697236", null ],
+    [ "Put< T >", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a9244a28962059d6cc3143fce27a5a263", null ],
+    [ "PutObject", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a7dde6fda1d3decab3f86ae4696b968bd", null ],
+    [ "ReadFromWorksheet", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ab96eebb0cb8441cf541c8b584e5aaad6", null ],
+    [ "UseActiveSheet", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a9ee922a5a6fbf9a661e73e17ed163212", null ],
+    [ "WriteToWorksheet", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a26a87e4185299f8a61ba3f84584f68be", null ],
+    [ "Context", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#af14467875f641164c1bd9f4b3eb1360d", null ],
+    [ "Dirty", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ac571bf8278794cd577773c55012e1a57", null ],
+    [ "Items", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a6c067932f942df55c93c1e5a61d226af", null ],
+    [ "StoreSheet", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a3bc48bf68b3ba245b5607dc1c900cbad", null ],
+    [ "Workbook", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a46cc18cfce3b902aee767397e7839e10", null ]
+];

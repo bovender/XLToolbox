@@ -1,0 +1,25 @@
+var namespaceXLToolbox =
+[
+    [ "About", "namespaceXLToolbox_1_1About.html", "namespaceXLToolbox_1_1About" ],
+    [ "Csv", "namespaceXLToolbox_1_1Csv.html", "namespaceXLToolbox_1_1Csv" ],
+    [ "Excel", "namespaceXLToolbox_1_1Excel.html", "namespaceXLToolbox_1_1Excel" ],
+    [ "ExceptionHandler", "namespaceXLToolbox_1_1ExceptionHandler.html", "namespaceXLToolbox_1_1ExceptionHandler" ],
+    [ "Export", "namespaceXLToolbox_1_1Export.html", "namespaceXLToolbox_1_1Export" ],
+    [ "Greeter", "namespaceXLToolbox_1_1Greeter.html", "namespaceXLToolbox_1_1Greeter" ],
+    [ "HelpSystem", "namespaceXLToolbox_1_1HelpSystem.html", "namespaceXLToolbox_1_1HelpSystem" ],
+    [ "Keyboard", "namespaceXLToolbox_1_1Keyboard.html", "namespaceXLToolbox_1_1Keyboard" ],
+    [ "Legacy", "namespaceXLToolbox_1_1Legacy.html", "namespaceXLToolbox_1_1Legacy" ],
+    [ "Logging", "namespaceXLToolbox_1_1Logging.html", "namespaceXLToolbox_1_1Logging" ],
+    [ "Mvvm", "namespaceXLToolbox_1_1Mvvm.html", "namespaceXLToolbox_1_1Mvvm" ],
+    [ "SheetManager", "namespaceXLToolbox_1_1SheetManager.html", "namespaceXLToolbox_1_1SheetManager" ],
+    [ "Test", "namespaceXLToolbox_1_1Test.html", "namespaceXLToolbox_1_1Test" ],
+    [ "UnitTests", "namespaceXLToolbox_1_1UnitTests.html", "namespaceXLToolbox_1_1UnitTests" ],
+    [ "UserSettings", "namespaceXLToolbox_1_1UserSettings.html", "namespaceXLToolbox_1_1UserSettings" ],
+    [ "Vba", "namespaceXLToolbox_1_1Vba.html", "namespaceXLToolbox_1_1Vba" ],
+    [ "Versioning", "namespaceXLToolbox_1_1Versioning.html", "namespaceXLToolbox_1_1Versioning" ],
+    [ "WorkbookStorage", "namespaceXLToolbox_1_1WorkbookStorage.html", "namespaceXLToolbox_1_1WorkbookStorage" ],
+    [ "Dispatcher", "classXLToolbox_1_1Dispatcher.html", "classXLToolbox_1_1Dispatcher" ],
+    [ "Globals", "classXLToolbox_1_1Globals.html", "classXLToolbox_1_1Globals" ],
+    [ "Strings", "classXLToolbox_1_1Strings.html", "classXLToolbox_1_1Strings" ],
+    [ "WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", "classXLToolbox_1_1WindowDownloadUpdate" ]
+];

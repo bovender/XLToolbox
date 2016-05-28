@@ -1,0 +1,27 @@
+var classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel =
+[
+    [ "PresetViewModel", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#aab0f42696f5a825dcdbc388a2962b1f4", null ],
+    [ "PresetViewModel", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#ad11780c06d3b6171b6c4d2bd3eef0431", null ],
+    [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a12f49e60394a41e4e453e02c28c4429f", null ],
+    [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#af8f01ea40c7d24a0687ef3ed3f26b12d", null ],
+    [ "RevealModelObject", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a057aca0c4d7c028adca92cef9b9eda33", null ],
+    [ "Store", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a765fd8c74c9e6abb48f6bd2831a2c6bd", null ],
+    [ "Store", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#abee414882d31c0aa30b32dddb033c2de", null ],
+    [ "ColorProfiles", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a2693c6a76dfd611048194d425cea838f", null ],
+    [ "ColorSpace", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#abd52b4d098b02dd1bf0b5c9fbb2243e3", null ],
+    [ "DisplayString", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#ada7cad470c3a59df4f2694bf294cff7b", null ],
+    [ "Dpi", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a94056956ecaab8de975e319ef4dbd4a3", null ],
+    [ "DpiIncrements", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a4e11a3d5222b08a69f614e7030324d45", null ],
+    [ "DpiMaximum", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a2bbe786393057e7736749a4703c8c45b", null ],
+    [ "DpiMinimum", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a1fcf6a5492799e4a1f525545b9fef922", null ],
+    [ "FileType", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a37283221f5798181575e90b9aa9c52f0", null ],
+    [ "IsColorProfilesEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a8d92d27e3253713f5984805fa043252b", null ],
+    [ "IsColorSpaceEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#ab3d5ccc776d9444bbc522a720a547d43", null ],
+    [ "IsDpiEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a59936b6874c926e7aaf4ba69d8439fa7", null ],
+    [ "IsTransparencyEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a26b93b993042e3a651f60d56eeaab44e", null ],
+    [ "IsUseColorProfileEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a6b3bb94a8f4febc961fa9325b9940baa", null ],
+    [ "Name", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a92197e6797199beab012dd478ca64efe", null ],
+    [ "ToolTip", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a5a00504f84d6f823213595e2908c8fcc", null ],
+    [ "Transparency", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#adba0d7af8e2d033c2ae3138af2dae1a8", null ],
+    [ "UseColorProfile", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a8b71864ab286c6d4ac96e311e12705c6", null ]
+];

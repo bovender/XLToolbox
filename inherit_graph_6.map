@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1InvalidSheetNameException.html" title="XLToolbox.Excel.ViewModels.\lInvalidSheetNameException" alt="" coords="147,5,347,47"/>
+<area shape="rect" id="node3" href="$classXLToolbox_1_1Export_1_1ExportException.html" title="XLToolbox.Export.ExportException" alt="" coords="133,71,360,98"/>
+<area shape="rect" id="node4" href="$classXLToolbox_1_1Export_1_1Models_1_1StoreException.html" title="XLToolbox.Export.Models.\lStoreException" alt="" coords="159,123,335,164"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1Vba_1_1VbaException.html" title="Exception that is raised when VBA code calls the XLToolbox.Vba.Api.ShowException method. " alt="" coords="149,189,345,215"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1WorkbookStorage_1_1WorkbookStorageException.html" title="XLToolbox.WorkbookStorage.\lWorkbookStorageException" alt="" coords="149,240,345,281"/>
+<area shape="rect" id="node7" href="$classXLToolbox_1_1WorkbookStorage_1_1EmptyKeyException.html" title="XLToolbox.WorkbookStorage.\lEmptyKeyException" alt="" coords="408,175,604,216"/>
+<area shape="rect" id="node8" href="$classXLToolbox_1_1WorkbookStorage_1_1InvalidContextException.html" title="XLToolbox.WorkbookStorage.\lInvalidContextException" alt="" coords="408,240,604,281"/>
+<area shape="rect" id="node10" href="$classXLToolbox_1_1WorkbookStorage_1_1UnkownKeyException.html" title="XLToolbox.WorkbookStorage.\lUnkownKeyException" alt="" coords="408,305,604,347"/>
+<area shape="rect" id="node9" href="$classXLToolbox_1_1WorkbookStorage_1_1UndefinedContextException.html" title="XLToolbox.WorkbookStorage.\lUndefinedContextException" alt="" coords="652,240,848,281"/>
+</map>
