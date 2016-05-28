@@ -1,0 +1,14 @@
+This is just a dummy file to be able to create an initial commit on the 
+gh-pages branch.
+
+The documentation is added as a submodule as follows:
+
+1. `git checkout --orphan gh-pages`
+2. `git rm --cached -r .`
+3. Create this file.
+4. Commit and push.
+5. Checkout `develop` branch.
+6. `git submodule add -b gh-pages <origin-url> doc`
+7. Build doxygen documentation in `doc/`.
+8. `cd doc; git add -A; git commit; git push # Pushes gh-pages branch`
+9. `cd ..; git add -A; git commit; git push # Pushes develop branch`
