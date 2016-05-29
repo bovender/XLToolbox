@@ -1,4 +1,4 @@
-NLog
+NLog <http://nlog-project.org>
 
 Copyright (c) 2004-2016 Jaroslaw Kowalski <jaak@jkowalski.net>, Kim Christensen, Julian Verdurmen
 

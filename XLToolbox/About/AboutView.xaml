@@ -68,6 +68,7 @@
                 <TextBlock TextAlignment="Center">.NET &amp; VSTO © Copyright Microsoft Corp.</TextBlock>
                 <TextBlock TextAlignment="Center">FreeImage © Copyright Hervé Drolon &amp; others</TextBlock>
                 <TextBlock TextAlignment="Center">LittleCMS © Copyright Marti Maria Saguer</TextBlock>
+                <TextBlock TextAlignment="Center">NLog © Copyright Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen</TextBlock>
                 <TextBlock TextAlignment="Center" Foreground="Red" FontWeight="Bold"
                            Text="{x:Static l:Strings.NoWarrantiesSeeLicense}" />
             </StackPanel>
