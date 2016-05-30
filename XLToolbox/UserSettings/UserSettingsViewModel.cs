@@ -115,7 +115,7 @@ namespace XLToolbox.UserSettings
                 if (_editLegacyPreferences == null)
                 {
                     _editLegacyPreferences = new DelegatingCommand(
-                        param => XLToolbox.Dispatcher.Execute(Command.LegacyPrefs));
+                        param => DoOpenLegacyPreferences());
                 }
                 return _editLegacyPreferences;
             }
@@ -175,6 +175,15 @@ namespace XLToolbox.UserSettings
         private bool CanSave()
         {
             return _dirty;
+        }
+
+        private void DoOpenLegacyPreferences()
+        {
+            if (!_dirty)
+            {
+                DoCloseView();
+            }
+            XLToolbox.Dispatcher.Execute(Command.LegacyPrefs);
         }
 
         private void DoOpenProfileFolder()
