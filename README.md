@@ -9,7 +9,38 @@ The XL Toolbox NG source code is written in (mostly) C# with Visual Studio
 Professional 2013 and targeted for the .NET framework 4.0.
 
 
-Building the Debug configuration
+Code documentation
+------------------
+
+For my own sake, I try to document the code well. In addition to the 
+comments in the source code, you can find 
+[Doxygen](http://www.doxygen.org)-generated pages at 
+<https://bovender.github.io/XLToolbox> (or check out the `gh-pages` 
+branch).
+
+
+Building the project
+--------------------
+
+Some additional DLLs (FreeImage, LCMS) as well as the VisualStudio 
+solution user options file (`NG.v12.suo`) are not included in the Git 
+repository and must be manually taken care of after cloning the 
+repository:
+
+- __FreeImage.DLL:__ Load the FreeImage solution contained in the XL 
+  Toolbox respository, build the `FreeImage` project (not the 'Plus' 
+  project) for both `x86` and `amd64` configurations, then copy the 
+  resulting DLLs to `XLToolbox\lib\Win32` and `XLToolbox\lib\x64` as 
+  appropriate.
+- __LCMS.DLL:__ Clone the repository from 
+  <https://github.com/mm2/Little-CMS>, load a project file from the 
+  `Projects` subfolder, build the library for both 32-bit and 64-bit, 
+  and copy the DLLs into the same folders as described above.
+- Change the startup project of the XLToolbox solution to 
+  `XLToolboxForExcel` by right-clicking on this project.
+
+
+Notes regarding Debug configuration
 --------------------------------
 
 The Visual Studio project files have been hand-edited to use different
