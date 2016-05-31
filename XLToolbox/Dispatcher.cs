@@ -221,7 +221,7 @@ namespace XLToolbox
 
         static void QuitExcel()
         {
-            if (Instance.Default.CountOpenWorkbooks > 0)
+            if (Instance.Default.CountOpenWorkbooks > 1 || Instance.Default.CountUnsavedWorkbooks > 0)
             {
                 Instance.Default.InjectInto<Excel.Views.QuitView>().ShowDialogInForm();
             }
