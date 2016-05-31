@@ -127,7 +127,7 @@ namespace XLToolbox.Csv
         {
             FieldSeparator = ",";
             DecimalSeparator = ".";
-            ThousandsSeparator = ",";
+            ThousandsSeparator = "";
         }
 
         #endregion
@@ -136,6 +136,8 @@ namespace XLToolbox.Csv
 
         public void Import()
         {
+            Logger.Info("Importing CSV: FS='{0}', DS='{1}', TS='{2}'",
+                FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvImport = this;
             Excel.ViewModels.Instance.Default.Application.Workbooks.OpenText(
                 FileName,
@@ -169,6 +171,8 @@ namespace XLToolbox.Csv
         /// <param name="range">Range to export.</param>
         public void Export(Range range)
         {
+            Logger.Info("Exporting CSV: FS='{0}', DS='{1}', TS='{2}'",
+                FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvExport = this;
             IsProcessing = true;
             Task t = new Task(() =>
@@ -180,6 +184,7 @@ namespace XLToolbox.Csv
                     // doesn't speed up things (tried it)
                     sw = File.CreateText(FileName);
                     CellsTotal = range.CellsCount();
+                    Logger.Info("Number of cells: {0}", CellsTotal);
                     CellsProcessed = 0;
                     _cancelExport = false;
                     string fs = FieldSeparator;
@@ -232,6 +237,7 @@ namespace XLToolbox.Csv
                         {
                             sw.WriteLine(UNFINISHED_EXPORT);
                             sw.WriteLine("Cancelled by user.");
+                            Logger.Info("CSV export cancelled by user");
                             break;
                         }
                         // }
@@ -258,6 +264,7 @@ namespace XLToolbox.Csv
                 finally
                 {
                     IsProcessing = false;
+                    Logger.Info("CSV export task finished");
                 }
             });
             t.Start();
@@ -327,6 +334,14 @@ namespace XLToolbox.Csv
         #region Private constant
 
         const string UNFINISHED_EXPORT = "*** UNFINISHED EXPORT ***";
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
         #endregion
     }
 }
