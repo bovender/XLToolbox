@@ -167,7 +167,7 @@ namespace XLToolboxForExcel
         /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
         void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
         {
-            Logger.Fatal("Central exception hander callback: {0}", e);
+            Logger.Error(e.Exception);
             e.IsHandled = true;
             ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
             vm.InjectInto<ExceptionView>().ShowDialogInForm();
