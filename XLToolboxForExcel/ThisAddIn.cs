@@ -54,6 +54,10 @@ namespace XLToolboxForExcel
 
             Logger.Info("Begin startup");
 
+            // Register Excel's main window handle to facilitate interop with WPF.
+            Bovender.Win32Window.MainWindowHandleProvider =
+                new Func<IntPtr>(() => (IntPtr)Globals.ThisAddIn.Application.Hwnd);
+
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
@@ -63,10 +67,6 @@ namespace XLToolboxForExcel
             // even for the non-VSTO components of this addin
             Instance.Default = new Instance(Globals.ThisAddIn.Application);
             Ribbon.ExcelApp = Instance.Default.Application;
-
-            // Register Excel's main window handle to facilitate interop with WPF.
-            _mainWindow = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
-            Bovender.Extensions.WindowExtensions.TopLevelWindow = _mainWindow;
 
             // Make the CustomTaskPanes available for dispatcher methods.
             XLToolbox.Globals.CustomTaskPanes = CustomTaskPanes;
@@ -78,8 +78,6 @@ namespace XLToolboxForExcel
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
             PerformSanityChecks();
-            MaybeCheckForUpdate();
-            GreetUser();
 
             // Enable the keyboard shortcuts if no settings were previously saved,
             // i.e. if this appears to be the first run.
@@ -93,6 +91,8 @@ namespace XLToolboxForExcel
                 XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
             }
 
+            MaybeCheckForUpdate();
+            GreetUser();
             Logger.Info("Finished startup");
         }
 
@@ -154,7 +154,7 @@ namespace XLToolboxForExcel
             {
                 Logger.Info("Greeting user");
                 GreeterViewModel gvm = new GreeterViewModel();
-                gvm.InjectAndShowDialogInThread<GreeterView>(_mainWindow);
+                gvm.InjectAndShowDialogInThread<GreeterView>((IntPtr)Globals.ThisAddIn.Application.Hwnd);
                 XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
             }
         }
@@ -239,7 +239,6 @@ namespace XLToolboxForExcel
         private Threading.Dispatcher _dispatcher;
         private Ribbon _ribbon;
         private XLToolbox.Versioning.InstallUpdateView _installUpdateView;
-        private IntPtr _mainWindow;
 
         #endregion
 
