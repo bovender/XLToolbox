@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1ColorSpaceProvider.html" title="XLToolbox.Export.ViewModels.\lColorSpaceProvider" alt="" coords="157,5,363,47"/>
-<area shape="rect" id="node3" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1TransparencyProvider.html" title="XLToolbox.Export.ViewModels.\lTransparencyProvider" alt="" coords="157,71,363,112"/>
+<area shape="rect" id="node1" href="$interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage.html" title="Defines a Sent event that consumers of a view model can subscribe to in order to listen to the view m..." alt="" coords="5,5,193,47"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Messaging_1_1Message.html" title="Conveys a message from a view model to a consumer (typically, a view) that has subscribed to the Sent..." alt="" coords="241,5,429,47"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="Bovender.Mvvm.Messaging.ViewModelMessageContent" name="Bovender.Mvvm.Messaging.ViewModelMessageContent">
+<area shape="rect" id="node5" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html" title="Holds information about percent completion of a process and defines events that occur when the proces..." alt="" coords="5,319,193,360"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Messaging_1_1MessageContent.html" title="Simple object that encapsulates a boolean value; to be used in MVVM interaction with MessageArgs..." alt="" coords="39,155,160,181"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html" title="ViewModelBase" alt="" coords="41,80,157,107"/>
+</map>

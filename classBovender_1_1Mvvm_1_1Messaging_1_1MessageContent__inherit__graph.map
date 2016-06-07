@@ -1,0 +1,7 @@
+<map id="Bovender.Mvvm.Messaging.MessageContent" name="Bovender.Mvvm.Messaging.MessageContent">
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Messaging_1_1StringMessageContent.html" title="Encapsulates a string message that is part of the content that a view model sends to a consumer (view..." alt="" coords="616,5,804,47"/>
+<area shape="rect" id="node6" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ViewModelMessageContent.html" title="Message content that holds a reference to a view model. " alt="" coords="616,71,804,112"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html" title="ViewModelBase" alt="" coords="216,46,332,73"/>
+<area shape="rect" id="node5" href="$classBovender_1_1Mvvm_1_1Messaging_1_1FileNameMessageContent.html" title="Bovender.Mvvm.Messaging.\lFileNameMessageContent" alt="" coords="852,5,1040,47"/>
+<area shape="rect" id="node7" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html" title="Holds information about percent completion of a process and defines events that occur when the proces..." alt="" coords="852,71,1040,112"/>
+</map>

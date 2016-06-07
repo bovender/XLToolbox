@@ -1,3 +1,4 @@
 <map id="XLToolbox.Export.ViewModels.BatchExportSettingsViewModel" name="XLToolbox.Export.ViewModels.BatchExportSettingsViewModel">
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html" title="Abstract base class for the SingleExportSettingsViewModel and BatchExportSettingsViewModel classes..." alt="" coords="27,80,191,107"/>
+<area shape="rect" id="node2" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html" title="Abstract base class for the SingleExportSettingsViewModel and BatchExportSettingsViewModel classes..." alt="" coords="27,155,191,181"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html" title="ViewModelBase" alt="" coords="51,80,167,107"/>
 </map>

@@ -1,2 +1,4 @@
 <map id="XLToolbox.ExceptionHandler.SubmissionCompletedAction" name="XLToolbox.ExceptionHandler.SubmissionCompletedAction">
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1ProcessCompletedAction.html" title="Abstract WPF action that invokes different views depending on the status of a completed process..." alt="" coords="17,169,188,196"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="31,95,174,121"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="Bovender.Mvvm.Actions.FileDialogActionBase" name="Bovender.Mvvm.Actions.FileDialogActionBase">
+<area shape="rect" id="node5" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileOpenAction.html" title="Lets the user choose a file name for opening a file. " alt="" coords="853,5,1068,47"/>
+<area shape="rect" id="node6" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileSaveAction.html" title="Lets the user choose a file name for saving a file. " alt="" coords="853,71,1068,112"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1FileFolderActionBase.html" title="Abstract base class for the ChooseFileSaveAction and ChooseFolderAction classes. " alt="" coords="420,46,567,73"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="229,46,372,73"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Bovender.Mvvm.Actions.ConfirmationAction" name="Bovender.Mvvm.Actions.ConfirmationAction">
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1NotificationAction.html" title="Opens a generic WPF dialog window that displays a message and has a single OK button. The message string can include parameters. " alt="" coords="64,169,189,196"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="55,95,198,121"/>
+</map>

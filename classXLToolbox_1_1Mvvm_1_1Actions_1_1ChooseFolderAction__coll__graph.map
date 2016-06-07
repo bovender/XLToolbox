@@ -1,2 +1,3 @@
 <map id="XLToolbox.Mvvm.Actions.ChooseFolderAction" name="XLToolbox.Mvvm.Actions.ChooseFolderAction">
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="45,95,187,121"/>
 </map>

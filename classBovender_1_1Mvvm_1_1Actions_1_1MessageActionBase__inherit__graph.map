@@ -1,0 +1,18 @@
+<map id="Bovender.Mvvm.Actions.MessageActionBase" name="Bovender.Mvvm.Actions.MessageActionBase">
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1FileFolderActionBase.html" title="Abstract base class for the ChooseFileSaveAction and ChooseFolderAction classes. " alt="" coords="522,71,713,112"/>
+<area shape="rect" id="node8" href="$classBovender_1_1Mvvm_1_1Actions_1_1NotificationAction.html" title="Opens a generic WPF dialog window that displays a message and has a single OK button. The message string can include parameters. " alt="" coords="500,136,735,177"/>
+<area shape="rect" id="node10" href="$classBovender_1_1Mvvm_1_1Actions_1_1ProcessCompletedAction.html" title="Abstract WPF action that invokes different views depending on the status of a completed process..." alt="" coords="509,201,726,243"/>
+<area shape="rect" id="node12" href="$classBovender_1_1Mvvm_1_1Actions_1_1ShowViewAction.html" title="Injects a view with a view model that is referenced in a ViewModelMessageContent, and shows the view ..." alt="" coords="516,267,719,308"/>
+<area shape="rect" id="node15" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessAction.html" title="XLToolbox.ExceptionHandler.\lSubmissionProcessAction" alt="" coords="520,332,715,373"/>
+<area shape="rect" id="node16" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1ChooseFolderAction.html" title="WPF action that displays a folder picker dialog and returns the chosen folder in the string Value fie..." alt="" coords="507,397,728,439"/>
+<area shape="rect" id="node17" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1StringMessageAction.html" title="XLToolbox.Mvvm.Actions.String\lMessageAction" alt="" coords="512,463,723,504"/>
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFolderAction.html" title="MVVM action that queries the user for a folder. " alt="" coords="797,5,1011,47"/>
+<area shape="rect" id="node5" href="$classBovender_1_1Mvvm_1_1Actions_1_1FileDialogActionBase.html" title="Base class for actions that use dialogs based on System.Windows.Forms.FileDialog. ..." alt="" coords="809,71,999,112"/>
+<area shape="rect" id="node6" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileOpenAction.html" title="Lets the user choose a file name for opening a file. " alt="" coords="1073,39,1288,80"/>
+<area shape="rect" id="node7" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileSaveAction.html" title="Lets the user choose a file name for saving a file. " alt="" coords="1073,104,1288,145"/>
+<area shape="rect" id="node9" href="$classBovender_1_1Mvvm_1_1Actions_1_1ConfirmationAction.html" title="Provides an action to confirm or cancel a message. Adds a CancelButtonLabel to the NotificationAction..." alt="" coords="783,136,1025,177"/>
+<area shape="rect" id="node11" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionCompletedAction.html" title="WPF action that is invoked when the exception report submission process is completed. " alt="" coords="807,201,1001,243"/>
+<area shape="rect" id="node13" href="$classBovender_1_1Mvvm_1_1Actions_1_1ProcessAction.html" title="Invokes a process view and injects the ProcessMessageContent as a view model into it..." alt="" coords="795,267,1013,308"/>
+<area shape="rect" id="node14" href="$classBovender_1_1Mvvm_1_1Actions_1_1ShowViewDialogAction.html" title="Injects a view with a view model that is referenced in a ViewModelMessageContent, and shows the view ..." alt="" coords="803,332,1005,373"/>
+<area shape="rect" id="node18" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1ShowHtmlAction.html" title="XLToolbox.Mvvm.Actions.Show\lHtmlAction" alt="" coords="799,463,1009,504"/>
+</map>

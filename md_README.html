@@ -92,7 +92,16 @@ $(document).ready(function(){initNavTree('md_README.html','');});
 <p>For more information about this project, see <a href="https://www.xltoolbox.net">https://www.xltoolbox.net</a>. </p>
 </blockquote>
 <p>The XL Toolbox NG source code is written in (mostly) C# with Visual Studio Professional 2013 and targeted for the .NET framework 4.0.</p>
-<h2>Building the Debug configuration </h2>
+<h2>Code documentation </h2>
+<p>For my own sake, I try to document the code well. In addition to the comments in the source code, you can find <a href="http://www.doxygen.org">Doxygen</a>-generated pages at <a href="https://bovender.github.io/XLToolbox">https://bovender.github.io/XLToolbox</a> (or check out the <code>gh-pages</code> branch).</p>
+<h2>Building the project </h2>
+<p>Some additional DLLs (FreeImage, LCMS) as well as the VisualStudio solution user options file (<code>NG.v12.suo</code>) are not included in the Git repository and must be manually taken care of after cloning the repository:</p>
+<ul>
+<li><b>FreeImage.DLL:</b> Load the FreeImage solution contained in the XL Toolbox respository, build the <code>FreeImage</code> project (not the 'Plus' project) for both <code>x86</code> and <code>amd64</code> configurations, then copy the resulting DLLs to <code><a class="el" href="namespaceXLToolbox.html">XLToolbox</a>\lib\Win32</code> and <code><a class="el" href="namespaceXLToolbox.html">XLToolbox</a>\lib\x64</code> as appropriate.</li>
+<li><b>LCMS.DLL:</b> Clone the repository from <a href="https://github.com/mm2/Little-CMS">https://github.com/mm2/Little-CMS</a>, load a project file from the <code>Projects</code> subfolder, build the library for both 32-bit and 64-bit, and copy the DLLs into the same folders as described above.</li>
+<li>Change the startup project of the <a class="el" href="namespaceXLToolbox.html">XLToolbox</a> solution to <code><a class="el" href="namespaceXLToolboxForExcel.html">XLToolboxForExcel</a></code> by right-clicking on this project.</li>
+</ul>
+<h2>Notes regarding Debug configuration </h2>
 <p>The Visual Studio project files have been hand-edited to use different sources of the <a href="https://github.com/bovender/bovender">Bovender</a> assembly: In the <em>Debug</em> configuration, the assembly is referenced locally. In the <em>Release</em> configuration, the assembly is referenced as a NuGet package. This has the advantage (for me) that I can make changes to <a href="https://github.com/bovender/bovender">Bovender</a> without having to release a new NuGet package every time I want to test it in the NG solution.</p>
 <p>This is my directory structure: </p><pre class="fragment">x:\
   Code
@@ -104,8 +113,8 @@ $(document).ready(function(){initNavTree('md_README.html','');});
         XLToolbox\
         XLToolboxForExcel\
         UnitTest\
-</pre><p>The bovender assembly is thus referenced from the <a class="el" href="namespaceXLToolbox.html">XLToolbox</a> project file (which resides in <code>x:\Code\xltoolbox\NG\<a class="el" href="namespaceXLToolbox.html">XLToolbox</a></code>) as <code>..\..\..\bovender\Bovender\bovender.csproj</code>.</p>
-<p>If you want to build with <em>Debug</em> configuration, but do not have the <a href="https://github.com/bovender/bovender">Bovender</a> assembly in the same directory structure as I have, you can (and should) use the <em>Debug (Bovender via NuGet)</em> configuration.</p>
+</pre><p>The bovender assembly is thus referenced from the <a class="el" href="namespaceXLToolbox.html">XLToolbox</a> project file (which resides in <code>x:\Code\xltoolbox\NG\<a class="el" href="namespaceXLToolbox.html">XLToolbox</a></code>) as <code>..\..\..\bovender\<a class="el" href="namespaceBovender.html">Bovender</a>\bovender.csproj</code>.</p>
+<p>If you want to build with <em>Debug</em> configuration, but do not have the <a href="https://github.com/bovender/bovender">Bovender</a> assembly in the same directory structure as I have, you can (and should) use the <em>Debug (<a class="el" href="namespaceBovender.html">Bovender</a> via NuGet)</em> configuration.</p>
 <h2>Code-signing the binaries </h2>
 <p>The sources do of course not include the confidential strong name key (.snk) file that is needed to sign the binaries. If you want to build the solution yourself, you have different options:</p>
 <ul>
@@ -152,7 +161,7 @@ limitations under the License.
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat May 28 2016 22:55:32 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Mon May 30 2016 10:50:52 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

@@ -1,0 +1,4 @@
+<map id="Bovender.Mvvm.Actions.ShowViewDialogAction" name="Bovender.Mvvm.Actions.ShowViewDialogAction">
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1ShowViewAction.html" title="Injects a view with a view model that is referenced in a ViewModelMessageContent, and shows the view ..." alt="" coords="46,169,167,196"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="35,95,178,121"/>
+</map>

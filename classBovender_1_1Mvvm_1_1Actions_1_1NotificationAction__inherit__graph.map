@@ -1,0 +1,4 @@
+<map id="Bovender.Mvvm.Actions.NotificationAction" name="Bovender.Mvvm.Actions.NotificationAction">
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Actions_1_1ConfirmationAction.html" title="Provides an action to confirm or cancel a message. Adds a CancelButtonLabel to the NotificationAction..." alt="" coords="5,259,248,300"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="55,95,198,121"/>
+</map>

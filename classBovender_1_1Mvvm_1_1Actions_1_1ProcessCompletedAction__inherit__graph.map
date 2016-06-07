@@ -1,0 +1,4 @@
+<map id="Bovender.Mvvm.Actions.ProcessCompletedAction" name="Bovender.Mvvm.Actions.ProcessCompletedAction">
+<area shape="rect" id="node4" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionCompletedAction.html" title="WPF action that is invoked when the exception report submission process is completed. " alt="" coords="17,259,211,300"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="43,95,185,121"/>
+</map>

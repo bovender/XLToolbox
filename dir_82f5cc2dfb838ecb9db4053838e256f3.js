@@ -6,7 +6,7 @@ var dir_82f5cc2dfb838ecb9db4053838e256f3 =
     [ "UserSettingsView.xaml.cs", "UserSettingsView_8xaml_8cs.html", [
       [ "UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", "classXLToolbox_1_1UserSettings_1_1UserSettingsView" ]
     ] ],
-    [ "UserSettingsViewModel.cs", "UserSettingsViewModel_8cs.html", [
+    [ "UserSettingsViewModel.cs", "XLToolbox_2UserSettings_2UserSettingsViewModel_8cs.html", [
       [ "UserSettingsViewModel", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel" ]
     ] ]
 ];

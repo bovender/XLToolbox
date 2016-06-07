@@ -1,5 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Csv_1_1CsvExportViewModel.html" title="XLToolbox.Csv.CsvExportView\lModel" alt="" coords="169,5,376,47"/>
-<area shape="rect" id="node3" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html" title="View model for graphic export settings. " alt="" coords="170,71,375,112"/>
-<area shape="rect" id="node4" href="$classXLToolbox_1_1Logging_1_1LogFileViewModel.html" title="XLToolbox.Logging.LogFile\lViewModel" alt="" coords="183,136,362,177"/>
+<area shape="rect" id="node2" href="$classBovender_1_1ExceptionHandler_1_1ManageExceptionEventArgs.html" title="Bovender.ExceptionHandler.\lManageExceptionEventArgs" alt="" coords="152,5,340,47"/>
+<area shape="rect" id="node3" href="$classBovender_1_1ExceptionHandler_1_1UploadFailedEventArgs.html" title="Bovender.ExceptionHandler.\lUploadFailedEventArgs" alt="" coords="152,71,340,112"/>
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html" title="Bovender.Mvvm.Messaging.\lMessageArgs\&lt; T \&gt;" alt="" coords="152,136,340,177"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1SelectionChangedEventArgs.html" title="Event args for the SelectionChanged event of the SelectionViewModel class. " alt="" coords="146,201,346,243"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1Export_1_1ExportFinishedEventArgs.html" title="XLToolbox.Export.ExportFinished\lEventArgs" alt="" coords="137,267,355,308"/>
+<area shape="rect" id="node7" href="$classXLToolbox_1_1Export_1_1ExportProgressChangedEventArgs.html" title="XLToolbox.Export.ExportProgress\lChangedEventArgs" alt="" coords="136,332,356,373"/>
+<area shape="rect" id="node8" href="$classXLToolbox_1_1SheetManager_1_1SheetManagerEventArgs.html" title="XLToolbox.SheetManager.Sheet\lManagerEventArgs" alt="" coords="141,397,351,439"/>
 </map>

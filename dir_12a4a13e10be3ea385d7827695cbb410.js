@@ -6,7 +6,7 @@ var dir_12a4a13e10be3ea385d7827695cbb410 =
     [ "ExceptionView.xaml.cs", "ExceptionView_8xaml_8cs.html", [
       [ "ExceptionView", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView" ]
     ] ],
-    [ "ExceptionViewModel.cs", "ExceptionViewModel_8cs.html", [
+    [ "ExceptionViewModel.cs", "XLToolbox_2ExceptionHandler_2ExceptionViewModel_8cs.html", [
       [ "ExceptionViewModel", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionViewModel.html", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionViewModel" ]
     ] ],
     [ "SubmissionCompletedAction.cs", "SubmissionCompletedAction_8cs.html", [

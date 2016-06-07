@@ -1,3 +1,19 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionCompletedAction.html" title="WPF action that is invoked when the exception report submission process is completed. " alt="" coords="224,5,419,47"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="152,267,375,308"/>
+<area shape="rect" id="node3" href="$classBovender_1_1Mvvm_1_1Actions_1_1FileFolderActionBase.html" title="Abstract base class for the ChooseFileSaveAction and ChooseFolderAction classes. " alt="" coords="445,71,635,112"/>
+<area shape="rect" id="node8" href="$classBovender_1_1Mvvm_1_1Actions_1_1NotificationAction.html" title="Opens a generic WPF dialog window that displays a message and has a single OK button. The message string can include parameters. " alt="" coords="423,136,657,177"/>
+<area shape="rect" id="node10" href="$classBovender_1_1Mvvm_1_1Actions_1_1ProcessCompletedAction.html" title="Abstract WPF action that invokes different views depending on the status of a completed process..." alt="" coords="431,201,649,243"/>
+<area shape="rect" id="node12" href="$classBovender_1_1Mvvm_1_1Actions_1_1ShowViewAction.html" title="Injects a view with a view model that is referenced in a ViewModelMessageContent, and shows the view ..." alt="" coords="439,267,641,308"/>
+<area shape="rect" id="node15" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessAction.html" title="XLToolbox.ExceptionHandler.\lSubmissionProcessAction" alt="" coords="443,332,637,373"/>
+<area shape="rect" id="node16" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1ChooseFolderAction.html" title="WPF action that displays a folder picker dialog and returns the chosen folder in the string Value fie..." alt="" coords="429,397,651,439"/>
+<area shape="rect" id="node17" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1StringMessageAction.html" title="XLToolbox.Mvvm.Actions.String\lMessageAction" alt="" coords="435,463,645,504"/>
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFolderAction.html" title="MVVM action that queries the user for a folder. " alt="" coords="719,5,934,47"/>
+<area shape="rect" id="node5" href="$classBovender_1_1Mvvm_1_1Actions_1_1FileDialogActionBase.html" title="Base class for actions that use dialogs based on System.Windows.Forms.FileDialog. ..." alt="" coords="731,71,922,112"/>
+<area shape="rect" id="node6" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileOpenAction.html" title="Lets the user choose a file name for opening a file. " alt="" coords="996,39,1211,80"/>
+<area shape="rect" id="node7" href="$classBovender_1_1Mvvm_1_1Actions_1_1ChooseFileSaveAction.html" title="Lets the user choose a file name for saving a file. " alt="" coords="996,104,1211,145"/>
+<area shape="rect" id="node9" href="$classBovender_1_1Mvvm_1_1Actions_1_1ConfirmationAction.html" title="Provides an action to confirm or cancel a message. Adds a CancelButtonLabel to the NotificationAction..." alt="" coords="705,136,948,177"/>
+<area shape="rect" id="node11" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionCompletedAction.html" title="WPF action that is invoked when the exception report submission process is completed. " alt="" coords="729,201,924,243"/>
+<area shape="rect" id="node13" href="$classBovender_1_1Mvvm_1_1Actions_1_1ProcessAction.html" title="Invokes a process view and injects the ProcessMessageContent as a view model into it..." alt="" coords="718,267,935,308"/>
+<area shape="rect" id="node14" href="$classBovender_1_1Mvvm_1_1Actions_1_1ShowViewDialogAction.html" title="Injects a view with a view model that is referenced in a ViewModelMessageContent, and shows the view ..." alt="" coords="725,332,928,373"/>
+<area shape="rect" id="node18" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1ShowHtmlAction.html" title="XLToolbox.Mvvm.Actions.Show\lHtmlAction" alt="" coords="722,463,931,504"/>
 </map>

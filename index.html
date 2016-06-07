@@ -87,24 +87,9 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">Daniel's XL Toolbox NG Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This is the documentation of the source code of Daniel's XL Toolbox, Next Generation (NG).</p>
-<p>The solution consists of three main C# projects and two test projects:</p>
-<ul>
-<li><code>Bovender</code> is my assembly with reusable code; most importantly, my Model&ndash;View&ndash;View Model framework is defined in here (see namespace Mvvm).</li>
-<li><code><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></code> contains almost all the Excel-specific code. A central class is the Dispatcher class which provides user-entry points.</li>
-<li><code>Addin</code> is a small assembly that is called by the VSTO engine; it implements an ThisAddIn_Startup method and a Ribbon. The Ribbon calls into the Dispatcher class defined in the <a class="el" href="namespaceXLToolbox.html">XLToolbox</a> assembly.</li>
-<li><code>UnitTests</code> contains tests for the <a class="el" href="namespaceXLToolbox.html">XLToolbox</a> assembly.</li>
-<li><code>BovenderUnitTests</code> contains tests for the Bovender assembly.</li>
-</ul>
-<p>There are two main namespaces:</p>
-<ul>
-<li><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li>
-<li>Bovender</li>
-</ul>
-<p>The tests are in the <a class="el" href="namespaceXLToolbox_1_1Test.html">XLToolbox.Test</a> and Bovender.Test namespaces.</p>
-<p>When I have time, I will describe my MVVM framework further.</p>
-<p>&ndash;Daniel </p><hr/>
- <pre class="fragment">Copyright 2014-2015 Daniel Kraus
+<div class="textblock"><p>This is the documentation of the <a href="https://github.com/bovender/XLToolbox">source code</a> of <a href="https://www.xltoolbox.net">Daniel's XL Toolbox</a>, Next Generation (NG).</p>
+<hr/>
+ <pre class="fragment">Copyright 2014-2016 Daniel Kraus
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -121,7 +106,7 @@ limitations under the License.</pre> </div></div><!-- contents -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat May 28 2016 22:55:32 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 7 2016 06:47:26 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

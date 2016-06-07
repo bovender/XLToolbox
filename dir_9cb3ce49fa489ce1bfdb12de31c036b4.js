@@ -11,6 +11,7 @@ var dir_9cb3ce49fa489ce1bfdb12de31c036b4 =
     [ "Legacy", "dir_fd57346b81ee14bd78a1b6aabc09dda2.html", "dir_fd57346b81ee14bd78a1b6aabc09dda2" ],
     [ "Logging", "dir_084a9480f01f9ab36706301efbedf5d6.html", "dir_084a9480f01f9ab36706301efbedf5d6" ],
     [ "Mvvm", "dir_7ffcab3c681e90dac48ea6312c120c19.html", "dir_7ffcab3c681e90dac48ea6312c120c19" ],
+    [ "obj", "dir_6c767943a0acee7de52c49edc49d1547.html", "dir_6c767943a0acee7de52c49edc49d1547" ],
     [ "Properties", "dir_21eba2e048f942c171764ab07adc939c.html", "dir_21eba2e048f942c171764ab07adc939c" ],
     [ "SheetManager", "dir_342752029b2654a6547c1694d39f9014.html", "dir_342752029b2654a6547c1694d39f9014" ],
     [ "UserSettings", "dir_82f5cc2dfb838ecb9db4053838e256f3.html", "dir_82f5cc2dfb838ecb9db4053838e256f3" ],

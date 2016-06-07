@@ -1,0 +1,35 @@
+<map id="Bovender.Mvvm.ViewModels.ViewModelBase" name="Bovender.Mvvm.ViewModels.ViewModelBase">
+<area shape="rect" id="node3" href="$classBovender_1_1ExceptionHandler_1_1ExceptionViewModel.html" title="Provides easy access to several system properties that are relevant for bug reports. " alt="" coords="475,5,663,47"/>
+<area shape="rect" id="node5" href="$classBovender_1_1HtmlFiles_1_1HtmlFileViewModel.html" title="View model for a HTML file. " alt="" coords="473,71,664,112"/>
+<area shape="rect" id="node6" href="$classBovender_1_1Mvvm_1_1Messaging_1_1MessageContent.html" title="Simple object that encapsulates a boolean value; to be used in MVVM interaction with MessageArgs..." alt="" coords="475,136,663,177"/>
+<area shape="rect" id="node11" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1EnumViewModel.html" title="View model for enum members. This class is used internally by the EnumProvider. For specific purposes..." alt="" coords="471,201,667,243"/>
+<area shape="rect" id="node12" href="$classBovender_1_1UserSettings_1_1UserSettingsExceptionViewModel.html" title="General view model for user settings&#45;related exceptions. " alt="" coords="473,267,665,308"/>
+<area shape="rect" id="node13" href="$classBovender_1_1UserSettings_1_1UserSettingsViewModel.html" title="General view model for UserSettings objects. " alt="" coords="474,332,663,373"/>
+<area shape="rect" id="node14" href="$classBovender_1_1Versioning_1_1UpdaterViewModel.html" title="Acts as a view model for the Updater class which is concerned with fetching version information and d..." alt="" coords="473,397,665,439"/>
+<area shape="rect" id="node15" href="$classXLToolbox_1_1About_1_1AboutViewModel.html" title="XLToolbox.About.AboutView\lModel" alt="" coords="474,463,663,504"/>
+<area shape="rect" id="node16" href="$classXLToolbox_1_1Csv_1_1CsvExportViewModel.html" title="XLToolbox.Csv.CsvExportView\lModel" alt="" coords="465,528,672,569"/>
+<area shape="rect" id="node17" href="$classXLToolbox_1_1Csv_1_1CsvImportViewModel.html" title="XLToolbox.Csv.CsvImportView\lModel" alt="" coords="465,593,672,635"/>
+<area shape="rect" id="node18" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1ChartViewModel.html" title="XLToolbox.Excel.ViewModels.\lChartViewModel" alt="" coords="469,659,669,700"/>
+<area shape="rect" id="node19" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html" title="Provide access to an instance of Excel that the components are to work with. " alt="" coords="469,724,669,765"/>
+<area shape="rect" id="node20" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1SelectionViewModel.html" title="View model for the current selection of a running Excel instance. Note that the selection wrapped by ..." alt="" coords="469,789,669,831"/>
+<area shape="rect" id="node21" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html" title="A view model for Excel sheets (worksheets, charts). " alt="" coords="469,855,669,896"/>
+<area shape="rect" id="node22" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html" title="View model for an Excel workbook containing a list of sheets (worksheets, charts) that can be managed..." alt="" coords="469,920,669,961"/>
+<area shape="rect" id="node23" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html" title="View model for a color profile repository, i.e. the collection of color profiles installed on the sys..." alt="" coords="460,985,677,1027"/>
+<area shape="rect" id="node24" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileViewModel.html" title="View model for an ICS color profile. " alt="" coords="466,1051,671,1092"/>
+<area shape="rect" id="node25" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1PresetsRepositoryViewModel.html" title="View model for an export settings repository. " alt="" coords="466,1116,671,1157"/>
+<area shape="rect" id="node26" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html" title="View model for graphic export settings. " alt="" coords="466,1181,671,1223"/>
+<area shape="rect" id="node27" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1ScreenshotExporterViewModel.html" title="View model for the ScreenshotExporter class. Provides commands in accordance with the MVVM pattern us..." alt="" coords="466,1247,671,1288"/>
+<area shape="rect" id="node28" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html" title="Abstract base class for the SingleExportSettingsViewModel and BatchExportSettingsViewModel classes..." alt="" coords="466,1312,671,1353"/>
+<area shape="rect" id="node31" href="$classXLToolbox_1_1Greeter_1_1GreeterViewModel.html" title="View model for the greeter screen. " alt="" coords="479,1377,658,1419"/>
+<area shape="rect" id="node32" href="$classXLToolbox_1_1Keyboard_1_1ManagerViewModel.html" title="XLToolbox.Keyboard.Manager\lViewModel" alt="" coords="470,1443,667,1484"/>
+<area shape="rect" id="node33" href="$classXLToolbox_1_1Keyboard_1_1ShortcutViewModel.html" title="XLToolbox.Keyboard.Shortcut\lViewModel" alt="" coords="471,1508,667,1549"/>
+<area shape="rect" id="node34" href="$classXLToolbox_1_1Logging_1_1LogFileViewModel.html" title="XLToolbox.Logging.LogFile\lViewModel" alt="" coords="479,1573,658,1615"/>
+<area shape="rect" id="node35" href="$classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html" title="XLToolbox.UserSettings.User\lSettingsViewModel" alt="" coords="471,1639,667,1680"/>
+<area shape="rect" id="node4" href="$classXLToolbox_1_1ExceptionHandler_1_1ExceptionViewModel.html" title="XLToolbox.ExceptionHandler.\lExceptionViewModel" alt="" coords="732,5,927,47"/>
+<area shape="rect" id="node7" href="$classBovender_1_1Mvvm_1_1Messaging_1_1StringMessageContent.html" title="Encapsulates a string message that is part of the content that a view model sends to a consumer (view..." alt="" coords="735,104,923,145"/>
+<area shape="rect" id="node9" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ViewModelMessageContent.html" title="Message content that holds a reference to a view model. " alt="" coords="735,169,923,211"/>
+<area shape="rect" id="node8" href="$classBovender_1_1Mvvm_1_1Messaging_1_1FileNameMessageContent.html" title="Bovender.Mvvm.Messaging.\lFileNameMessageContent" alt="" coords="981,104,1169,145"/>
+<area shape="rect" id="node10" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html" title="Holds information about percent completion of a process and defines events that occur when the proces..." alt="" coords="981,169,1169,211"/>
+<area shape="rect" id="node29" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html" title="View model for the Settings class. " alt="" coords="726,1279,933,1320"/>
+<area shape="rect" id="node30" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html" title="View model for the Settings class. " alt="" coords="725,1344,933,1385"/>
+</map>
