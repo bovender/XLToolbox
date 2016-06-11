@@ -12,7 +12,7 @@
       <Value Profile="(Default)">https://www.xltoolbox.net/</Value>
     </Setting>
     <Setting Name="ExceptionPostUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.xltoolbox.net/receive.php</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/duCh7ahg.php</Value>
     </Setting>
     <Setting Name="AddinName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>

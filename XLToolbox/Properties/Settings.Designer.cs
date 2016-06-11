@@ -52,7 +52,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/receive.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/duCh7ahg.php")]
         public string ExceptionPostUrl {
             get {
                 return ((string)(this["ExceptionPostUrl"]));
