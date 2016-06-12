@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -43,6 +45,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\..\bovender\Bovender\Bovender.csproj">
@@ -73,6 +76,7 @@
     <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.3\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
@@ -138,11 +142,13 @@
     <Compile Include="Export\Models\BatchExportSettings.cs" />
     <Compile Include="Export\ExportFileName.cs" />
     <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
+    <Compile Include="Export\Models\TiledBitmap.cs" />
     <Compile Include="Export\Models\Transparency.cs" />
     <Compile Include="Export\Models\Unit.cs" />
     <Compile Include="Export\Models\Settings.cs" />
     <Compile Include="Export\QuickExporter.cs" />
     <Compile Include="Export\ScreenshotExporter.cs" />
+    <Compile Include="Export\TileException.cs" />
     <Compile Include="Export\ViewModels\ColorProfileRepositoryViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorProfileViewModel.cs" />
     <Compile Include="Export\ViewModels\ColorSpaceProvider.cs" />

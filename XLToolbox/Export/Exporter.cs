@@ -267,55 +267,9 @@ namespace XLToolbox.Export
             int py = (int)Math.Round(height / 72 * preset.Dpi);
             Logger.Info("Pixels: x: {0}; y: {1}", px, py);
 
-            // Create a canvas (GDI+ bitmap) and associate it with a
-            // Graphics object.
-            // This constructor creates a Bitmap with a PixelFormat enumeration value of Format32bppArgb
-            // (Source: https://msdn.microsoft.com/en-us/library/7we6s1x3(v=vs.100).aspx).
-            Bitmap b;
-            try
-            {
-                b = new Bitmap(px, py);
-            }
-            catch (Exception e)
-            {
-                // Give more information in case https://sf.net/p/xltoolbox/exceptions/36/ occurs.
-                Logger.Fatal(e, "Unable to create bitmap");
-                throw new ExportException(
-                    String.Format(
-                        "Unable to create System.Drawing.Bitmap object with {0}x{1} pixels",
-                        px, py),
-                    e);
-            }
-            Graphics g = Graphics.FromImage(b);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
-            // Get a brush to paint the canvas
-            Brush brush;
-            if (preset.Transparency == Transparency.TransparentCanvas)
-            {
-                brush = Brushes.Transparent;
-            }
-            else
-            {
-                brush = Brushes.White;
-            }
-            g.FillRectangle(brush, 0, 0, px, py);
-
-            // Draw the image on the canvas
-            g.DrawImage(metafile, 0, 0, px, py);
-
-            // Make the white colors transparent if required
-            if (preset.Transparency == Transparency.TransparentWhite)
-            {
-                b.MakeTransparent(Color.White);
-            }
-
-            // Create a FreeImage bitmap from the GDI+ bitmap
-            Logger.Info("Create FreeImage bitmap");
-            FreeImageBitmap fib = new FreeImageBitmap(b);
+            TiledBitmap tiledBitmap = new TiledBitmap(px, py);
+            FreeImageBitmap fib = tiledBitmap.CreateFreeImageBitmap(metafile, preset.Transparency);
 
             if (preset.UseColorProfile)
             {
