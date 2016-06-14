@@ -372,7 +372,7 @@ namespace XLToolbox
         {
             Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
             vm.Range = range;
-            vm.ShowExportProgress.Sent += (sender, args) =>
+            vm.ShowProgress.Sent += (sender, args) =>
             {
                 args.Content.CancelButtonText = Strings.Cancel;
                 args.Content.Caption = Strings.ExportCsvFile;
@@ -382,7 +382,7 @@ namespace XLToolbox
                 };
                 args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
             };
-            vm.ExportFailedMessage.Sent += (sender, args) =>
+            vm.ProcessFailedMessage.Sent += (sender, args) =>
             {
                 MessageBox.Show(args.Content.Value, Strings.ExportCsvFile,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
