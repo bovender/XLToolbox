@@ -43,6 +43,10 @@ namespace XLToolbox.Export.ViewModels
                 _dimensionsChanged = true;
                 OnPropertyChanged("Width");
                 if (PreserveAspect) OnPropertyChanged("Height");
+                OnPropertyChanged("MegaPixels");
+                OnPropertyChanged("MegaPixelsWarning");
+                OnPropertyChanged("MegaBytes");
+                OnPropertyChanged("ImageSize");
             }
         }
 
@@ -58,6 +62,10 @@ namespace XLToolbox.Export.ViewModels
                 _dimensionsChanged = true;
                 OnPropertyChanged("Height");
                 if (PreserveAspect) OnPropertyChanged("Width");
+                OnPropertyChanged("MegaPixels");
+                OnPropertyChanged("MegaPixelsWarning");
+                OnPropertyChanged("MegaBytes");
+                OnPropertyChanged("ImageSize");
             }
         }
 
@@ -101,6 +109,58 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the number of megapixels for the resulting image.
+        /// </summary>
+        public double MegaPixels
+        {
+            get
+            {
+                if (SelectedPreset != null)
+                {
+                    int dpi = SelectedPreset.Dpi;
+                    double mp = Units.AsEnum.ConvertTo(Width, Unit.Inch) * dpi * 
+                        Units.AsEnum.ConvertTo(Height, Unit.Inch) * dpi;
+                    return mp / 1000000;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public double MegaBytes
+        {
+            get
+            {
+                if (SelectedPreset != null)
+	            {
+                    return MegaPixels * SelectedPreset.ColorSpace.AsEnum.ToBPP() / 8 * 1000000 / (1024 * 1024);
+	            }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public string ImageSize
+        {
+            get
+            {
+                return String.Format(Strings.ImageSizeMegaPixels, MegaPixels, MegaBytes);
+            }
+        }
+
+        public bool MegaPixelsWarning
+        {
+            get
+            {
+                return MegaPixels > 30;
+            }
+        }
+        
         #endregion
 
         #region Commands
@@ -217,6 +277,15 @@ namespace XLToolbox.Export.ViewModels
         #endregion
 
         #region Overrides
+
+        protected override void DoEditPresets()
+        {
+            base.DoEditPresets();
+            OnPropertyChanged("MegaBytes");
+            OnPropertyChanged("MegaPixels");
+            OnPropertyChanged("MegaPixelsWarning");
+            OnPropertyChanged("ImageSize");
+        }
 
         protected override void SaveExportPath()
         {

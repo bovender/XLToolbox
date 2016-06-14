@@ -210,6 +210,15 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        protected virtual void DoEditPresets()
+        {
+            EditPresetsMessage.Send(
+                new ViewModelMessageContent(PresetViewModels),
+                content => OnPropertyChanged("Presets")
+            );
+        }
+
+
         #endregion
 
         #region Implementation of ViewModelBase
@@ -222,14 +231,6 @@ namespace XLToolbox.Export.ViewModels
         #endregion
 
         #region Private methods
-
-        private void DoEditPresets()
-        {
-            EditPresetsMessage.Send(
-                new ViewModelMessageContent(PresetViewModels),
-                content => OnPropertyChanged("Presets")
-            );
-        }
 
         private void PresetViewModels_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

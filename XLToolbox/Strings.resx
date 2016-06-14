@@ -738,4 +738,7 @@ You may want to try again.</value>
   <data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
     <value>It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open.</value>
   </data>
+  <data name="ImageSizeMegaPixels" xml:space="preserve">
+    <value>Image size: {0:0.00} megapixels/{1:0.00} MB uncompressed.</value>
+  </data>
 </root>

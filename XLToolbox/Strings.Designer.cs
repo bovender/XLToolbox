@@ -871,6 +871,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image size: {0:0.00} megapixels/{1:0.00} MB uncompressed..
+        /// </summary>
+        public static string ImageSizeMegaPixels {
+            get {
+                return ResourceManager.GetString("ImageSizeMegaPixels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import CSV file.
         /// </summary>
         public static string ImportCsvFile {
