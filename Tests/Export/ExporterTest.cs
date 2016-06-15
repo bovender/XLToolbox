@@ -122,7 +122,7 @@ namespace XLToolbox.Test.Export
             settings.Scope = scope;
             Exporter exporter = new Exporter();
             bool finished = false;
-            exporter.BatchExportFinished += (sender, args) => { finished = true; };
+            exporter.ExportProgressCompleted += (sender, args) => { finished = true; };
             exporter.ExportBatchAsync(settings);
             Task checkFinishedTask = new Task(() =>
             {

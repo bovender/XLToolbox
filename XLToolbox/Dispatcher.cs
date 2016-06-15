@@ -166,6 +166,23 @@ namespace XLToolbox
             }
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
+            vm.ShowProgress.Sent += (sender, args) =>
+            {
+                Logger.Info("Creating process view");
+                args.Content.CancelButtonText = Strings.Cancel;
+                args.Content.Caption = Strings.Export;
+                args.Content.CompletedMessage.Sent += (sender2, args2) =>
+                {
+                    args.Content.CloseViewCommand.Execute(null);
+                };
+                args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
+            };
+            vm.ProcessFailedMessage.Sent += (sender, args) =>
+            {
+                Logger.Info("Received ExportFailedMessage, informing user");
+                MessageBox.Show(args.Content.Value, Strings.Export,
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            };
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 

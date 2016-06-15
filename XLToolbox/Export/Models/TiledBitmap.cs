@@ -23,6 +23,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Export.Models
 {
@@ -60,6 +61,10 @@ namespace XLToolbox.Export.Models
             }
         }
 
+        public FreeImageBitmap FreeImageBitmap { get; private set; }
+
+        public int PercentCompleted { get; private set; }
+
         #endregion
 
         #region Public methods
@@ -74,6 +79,11 @@ namespace XLToolbox.Export.Models
             {
                 return DrawTiles(metafile, transparency);
             }
+        }
+
+        public void Cancel()
+        {
+            _cancelled = true;
         }
 
         #endregion
@@ -120,7 +130,7 @@ namespace XLToolbox.Export.Models
             OriginalHeight = height;
             Logger.Info("Attempting to create bitmap with {0}x{1} pixels.", width, height);
             // height /= 4; // only for testing
-            while (!success && height > 1)
+            while (!success && height > 1 && !_cancelled)
             {
                 try
                 {
@@ -134,24 +144,34 @@ namespace XLToolbox.Export.Models
                     height /= 2;
                 }
             }
-            Height = height;
-            return success;
+            if (!_cancelled)
+            {
+                Height = height;
+                return success;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private FreeImageBitmap DrawAtOnce(Metafile metafile, Transparency transparency)
         {
             Logger.Info("Drawing bitmap at once.");
             Graphics g = CreateGraphics(transparency);
+            PercentCompleted = 33;
             g.DrawImage(metafile, 0, 0, Width, Height);
 
             if (transparency == Transparency.TransparentWhite)
             {
                 _bitmap.MakeTransparent(Color.White);
             }
+            PercentCompleted = 66;
 
             Logger.Info("Creating FreeImage bitmap");
             FreeImageBitmap f = new FreeImageBitmap(_bitmap);
             g.Dispose();
+            PercentCompleted = 100;
             return f;
         }
 
@@ -159,6 +179,7 @@ namespace XLToolbox.Export.Models
         {
             // http://stackoverflow.com/a/503201/270712 by rjmunro
             int numTiles = (OriginalHeight - 1) / Height + 1;
+            int percentCompletedStep = 100 / (numTiles * 2 + 1);
             Logger.Info("Preparing to draw {0} tiles...", numTiles);
             FreeImageBitmap f = new FreeImageBitmap(Width, OriginalHeight, PixelFormat.Format32bppArgb);
             Graphics g = CreateGraphics(transparency);
@@ -169,10 +190,11 @@ namespace XLToolbox.Export.Models
             int metafileHeight = metafile.Height;
             int metafileWidth = metafile.Width;
             Rectangle destinationRect = new Rectangle(
-                0, 0, Width, Height);
-            while (currentLine < OriginalHeight)
+                Width, Height, 0, 0);
+            while (currentLine < OriginalHeight && !_cancelled)
             {
                 Logger.Info("Drawing tile starting at y={0}...", currentLine);
+                PercentCompleted += percentCompletedStep;
                 int currentTileHeight = Math.Min(Height, OriginalHeight - currentLine);
                 g.Clear(Color.Transparent);
                 Rectangle sourceRect = new Rectangle(
@@ -180,6 +202,7 @@ namespace XLToolbox.Export.Models
                     metafileWidth, metafileHeight * Height / OriginalHeight);
                 Logger.Debug("Source rect: {0}; destination rect: {1}", sourceRect, destinationRect);
                 g.DrawImage(metafile, destinationRect, sourceRect, GraphicsUnit.Pixel);
+                PercentCompleted += percentCompletedStep;
                 IntPtr scanlinePointer = f.GetScanlinePointer(currentLine);
                 BitmapData bitmapData = _bitmap.LockBits(
                     new Rectangle(0, 0, Width, Height), 
@@ -190,9 +213,19 @@ namespace XLToolbox.Export.Models
                 currentLine += currentTileHeight;
             }
             g.Dispose();
-            Logger.Info("Flipping FreeImage vertically.");
-            f.RotateFlip(RotateFlipType.RotateNoneFlipY);
-            return f;
+            if (!_cancelled)
+            {
+                Logger.Info("Flipping FreeImage vertically.");
+                PercentCompleted += percentCompletedStep;
+                f.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                return f;
+            }
+            else
+            {
+                Logger.Info("Drawing of tiles was cancelled, returning null");
+                return null;
+            }
+
         }
 
         private Graphics CreateGraphics(Transparency transparency)
@@ -225,6 +258,7 @@ namespace XLToolbox.Export.Models
 
         private Bitmap _bitmap;
         private bool _disposed;
+        private bool _cancelled;
 
         #endregion
 

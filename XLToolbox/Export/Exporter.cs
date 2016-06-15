@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 using System;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Microsoft.Office.Interop.Excel;
-using Bovender.Unmanaged;
-using FreeImageAPI;
-using FreeImageAPI.Metadata;
-using XLToolbox.Excel.ViewModels;
-using System.Collections.Generic;
-using XLToolbox.Export.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.Office.Interop.Excel;
+using FreeImageAPI;
+using Bovender.Unmanaged;
+using XLToolbox.Excel.ViewModels;
+using XLToolbox.Export.Models;
 
 namespace XLToolbox.Export
 {
@@ -34,19 +34,36 @@ namespace XLToolbox.Export
     /// </summary>
     public class Exporter : IDisposable
     {
+        #region Properties
+
+        public bool IsProcessing { get; private set; }
+
+        public int PercentCompleted
+        {
+            get
+            {
+                if (_tiledBitmap != null)
+                {
+                    return _tiledBitmap.PercentCompleted * 80 / 100 + _percentCompleted;
+                }
+                else
+                {
+                    return _percentCompleted;
+                }
+            }
+            set
+            {
+                _percentCompleted = value;
+            }
+        }
+
+        #endregion
+
         #region Events
 
-        /// <summary>
-        /// Signals current export progress during batch export operations.
-        /// </summary>
-        public event EventHandler<ExportProgressChangedEventArgs> BatchExportProgressChanged;
+        public event EventHandler<ErrorEventArgs> ExportFailed;
 
-        /// <summary>
-        /// Signals that an asynchronous export progress is finished. Subscribers
-        /// can inspect the event args to find out if the process has been cancelled
-        /// prematurely.
-        /// </summary>
-        public event EventHandler<ExportFinishedEventArgs> BatchExportFinished;
+        public event EventHandler<EventArgs> ExportProgressCompleted;
 
         #endregion
 
@@ -82,7 +99,29 @@ namespace XLToolbox.Export
             }
             double w = settings.Unit.ConvertTo(settings.Width, Unit.Point);
             double h = settings.Unit.ConvertTo(settings.Height, Unit.Point);
-            ExportSelection(settings.Preset, w, h, settings.FileName);
+            IsProcessing = true;
+            Task t = new Task(() =>
+            {
+                try 
+	            {	        
+                    ExportSelection(settings.Preset, w, h, settings.FileName);
+                    IsProcessing = false;
+                    if (!_cancelled) OnExportProgressCompleted();
+	            }
+                catch (Exception e)
+                {
+                    IsProcessing = false;
+                    Logger.Warn("Exception occurred, raising ExportFailed event");
+                    Logger.Warn(e);
+                    OnExportFailed(e);
+                }
+                finally
+                {
+                    IsProcessing = false;
+                    Logger.Info("Export task finished");
+                }
+            });
+            t.Start();
         }
 
         /// <summary>
@@ -90,14 +129,14 @@ namespace XLToolbox.Export
         /// (shapes) asynchronously. Callers should subscribe to the
         /// <see cref="ExportProcessChanged"/> and <see cref="ExportFinished"/>
         /// events to learn about status changes. The operation can
-        /// be cancelled by caling the <see cref="CancelBatchExport"/>
+        /// be cancelled by caling the <see cref="CancelExport"/>
         /// method.
         /// </summary>
         /// <param name="settings">Settings describing the desired operation.</param>
         public void ExportBatchAsync(BatchExportSettings settings)
         {
             Logger.Info("ExportBatchAsync");
-            if (_batchRunning)
+            if (IsProcessing)
             {
                 Logger.Warn("Cannot respawn, already running");
                 throw new InvalidOperationException(
@@ -106,7 +145,7 @@ namespace XLToolbox.Export
 
             Task t = new Task(() =>
             {
-                _batchRunning = true;
+                IsProcessing = true;
                 Instance.Default.DisableScreenUpdating();
                 switch (_batchSettings.Scope)
                 {
@@ -128,9 +167,9 @@ namespace XLToolbox.Export
                             settings.Scope));
                 }
                 Instance.Default.EnableScreenUpdating();
-                OnExportFinished();
-                _batchRunning = false;
+                IsProcessing = false;
                 Logger.Info("Finish async task");
+                if (!_cancelled) OnExportProgressCompleted();
             });
 
             _batchSettings = settings;
@@ -142,11 +181,18 @@ namespace XLToolbox.Export
         }
 
         /// <summary>
-        /// Cancels a running batch export.
+        /// Cancels a running export.
         /// </summary>
-        public void CancelBatchExport()
+        public void CancelExport()
         {
-            if (_batchRunning) _cancelled = true;
+            if (IsProcessing)
+            {
+                _cancelled = true;
+                if (_tiledBitmap != null)
+                {
+                    _tiledBitmap.Cancel();
+                }
+            }
         }
 
         #endregion
@@ -193,6 +239,28 @@ namespace XLToolbox.Export
         }
 
         #endregion
+        
+        #region Protected methods
+
+        protected virtual void OnExportProgressCompleted()
+        {
+            EventHandler<EventArgs> handler = ExportProgressCompleted;
+            if (handler != null)
+            {
+                handler(this, null);
+            }
+        }
+
+        protected virtual void OnExportFailed(Exception e)
+        {
+            EventHandler<ErrorEventArgs> handler = ExportFailed;
+            if (handler != null)
+            {
+                handler(this, new ErrorEventArgs(e));
+            }
+        }
+
+        #endregion
 
         #region Private export methods
 
@@ -229,7 +297,7 @@ namespace XLToolbox.Export
             // Copy current selection to clipboard
             SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
             svm.CopyToClipboard();
-
+                    
             // Get a metafile view of the clipboard content
             // Must not dispose the WorkingClipboard instance before the metafile
             // has been drawn on the bitmap canvas! Otherwise the metafile will not draw.
@@ -267,9 +335,8 @@ namespace XLToolbox.Export
             int py = (int)Math.Round(height / 72 * preset.Dpi);
             Logger.Info("Pixels: x: {0}; y: {1}", px, py);
 
-
-            TiledBitmap tiledBitmap = new TiledBitmap(px, py);
-            FreeImageBitmap fib = tiledBitmap.CreateFreeImageBitmap(metafile, preset.Transparency);
+            _tiledBitmap = new TiledBitmap(px, py);
+            FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, preset.Transparency);
 
             if (preset.UseColorProfile)
             {
@@ -378,7 +445,7 @@ namespace XLToolbox.Export
                 _batchSettings.Preset,
                 _batchFileName.GenerateNext(sheet)
             );
-            OnExportProgressChanged();
+            ComputeBatchProgress();
         }
 
         private void ExportSheetItems(dynamic sheet)
@@ -407,7 +474,7 @@ namespace XLToolbox.Export
                             "Single-item export not implemented for " + _batchSettings.Objects.ToString());
                 }
             }
-            OnExportProgressChanged();
+            ComputeBatchProgress();
         }
 
         private void ExportSheetChartItems(Worksheet worksheet)
@@ -420,7 +487,7 @@ namespace XLToolbox.Export
             {
                 cos.Item(i).Select();
                 ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
-                OnExportProgressChanged();
+                ComputeBatchProgress();
                 if (_cancelled) break;
             }
         }
@@ -431,7 +498,7 @@ namespace XLToolbox.Export
             {
                 sh.Select(true);
                 ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
-                OnExportProgressChanged();
+                ComputeBatchProgress();
                 if (_cancelled) break;
             }
         }
@@ -530,25 +597,9 @@ namespace XLToolbox.Export
 
         #region Private helper methods
 
-        private void OnExportProgressChanged()
+        private void ComputeBatchProgress()
         {
-            if (BatchExportProgressChanged != null)
-            {
-                BatchExportProgressChanged(
-                    this,
-                    new ExportProgressChangedEventArgs(
-                        _batchFileName.Counter * 100 / _numTotal)
-                );
-            }
-        }
-
-        private void OnExportFinished()
-        {
-            if (BatchExportFinished != null)
-            {
-                BatchExportFinished(this, new ExportFinishedEventArgs(
-                    _batchFileName.Counter, _cancelled));
-            }
+            PercentCompleted = Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
         }
 
         private FREE_IMAGE_SAVE_FLAGS GetSaveFlags(Preset preset)
@@ -594,14 +645,15 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        DllManager _dllManager;
-        bool _disposed;
-        BatchExportSettings _batchSettings;
-        ExportFileName _batchFileName;
-        bool _batchRunning;
-        bool _cancelled;
-        int _numTotal;
-        Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
+        private DllManager _dllManager;
+        private bool _disposed;
+        private BatchExportSettings _batchSettings;
+        private ExportFileName _batchFileName;
+        private bool _cancelled;
+        private int _numTotal;
+        private Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
+        private TiledBitmap _tiledBitmap;
+        private int _percentCompleted;
 
         #endregion
 
