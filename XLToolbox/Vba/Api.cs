@@ -64,6 +64,19 @@ namespace XLToolbox.Vba
         #region API methods
 
         /// <summary>
+        /// Returns the current XL Toolbox version as a string.
+        /// </summary>
+        /// <remarks>
+        /// The XL Toolbox follows the semantic versioning scheme,
+        /// see http://semver.org
+        /// </remarks>
+        /// <returns>Current XL Toolbox version</returns>
+        public string Version()
+        {
+            return Versioning.SemanticVersion.CurrentVersion().ToString();
+        }
+
+        /// <summary>
         /// Exports the current selection to a graphic file.
         /// </summary>
         /// <param name="fileName">File name to export to. The file extension
