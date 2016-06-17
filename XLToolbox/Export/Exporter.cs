@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using FreeImageAPI;
-using Bovender.Unmanaged;
+using XLToolbox.Unmanaged;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
 
@@ -32,7 +32,7 @@ namespace XLToolbox.Export
     /// <summary>
     /// Provides methods to export the current selection from Excel.
     /// </summary>
-    public class Exporter : IDisposable
+    public class Exporter : Bovender.Mvvm.Models.ProcessModel, IDisposable
     {
         #region Properties
 
@@ -56,14 +56,6 @@ namespace XLToolbox.Export
                 _percentCompleted = value;
             }
         }
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<ErrorEventArgs> ExportFailed;
-
-        public event EventHandler<EventArgs> ExportProgressCompleted;
 
         #endregion
 
@@ -102,22 +94,23 @@ namespace XLToolbox.Export
             IsProcessing = true;
             Task t = new Task(() =>
             {
+                Logger.Info("Beginning export task");
                 try 
 	            {	        
-                    ExportSelection(settings.Preset, w, h, settings.FileName);
+                    // ExportSelection(settings.Preset, w, h, settings.FileName);
+                    System.Threading.Thread.Sleep(3000);
                     IsProcessing = false;
-                    if (!_cancelled) OnExportProgressCompleted();
+                    if (!_cancelled) OnProcessSucceeded();
 	            }
                 catch (Exception e)
                 {
                     IsProcessing = false;
                     Logger.Warn("Exception occurred, raising ExportFailed event");
                     Logger.Warn(e);
-                    OnExportFailed(e);
+                    OnProcessFailed(e);
                 }
                 finally
                 {
-                    IsProcessing = false;
                     Logger.Info("Export task finished");
                 }
             });
@@ -146,30 +139,42 @@ namespace XLToolbox.Export
             Task t = new Task(() =>
             {
                 IsProcessing = true;
-                Instance.Default.DisableScreenUpdating();
-                switch (_batchSettings.Scope)
+                try
                 {
-                    case BatchExportScope.ActiveSheet:
-                        _numTotal = CountInSheet(Instance.Default.Application.ActiveSheet);
-                        ExportSheet(Instance.Default.Application.ActiveSheet);
-                        break;
-                    case BatchExportScope.ActiveWorkbook:
-                        _numTotal = CountInWorkbook(Instance.Default.ActiveWorkbook);
-                        ExportWorkbook(Instance.Default.ActiveWorkbook);
-                        break;
-                    case BatchExportScope.OpenWorkbooks:
-                        _numTotal = CountInAllWorkbooks();
-                        ExportAllWorkbooks();
-                        break;
-                    default:
-                        throw new NotImplementedException(String.Format(
-                            "Batch export not implemented for {0}",
-                            settings.Scope));
+                    Instance.Default.DisableScreenUpdating();
+                    switch (_batchSettings.Scope)
+                    {
+                        case BatchExportScope.ActiveSheet:
+                            _numTotal = CountInSheet(Instance.Default.Application.ActiveSheet);
+                            ExportSheet(Instance.Default.Application.ActiveSheet);
+                            break;
+                        case BatchExportScope.ActiveWorkbook:
+                            _numTotal = CountInWorkbook(Instance.Default.ActiveWorkbook);
+                            ExportWorkbook(Instance.Default.ActiveWorkbook);
+                            break;
+                        case BatchExportScope.OpenWorkbooks:
+                            _numTotal = CountInAllWorkbooks();
+                            ExportAllWorkbooks();
+                            break;
+                        default:
+                            throw new NotImplementedException(String.Format(
+                                "Batch export not implemented for {0}",
+                                settings.Scope));
+                    }
+                    IsProcessing = false;
+                    Logger.Info("Finish async task");
+                    if (!_cancelled) OnProcessSucceeded();
                 }
-                Instance.Default.EnableScreenUpdating();
-                IsProcessing = false;
-                Logger.Info("Finish async task");
-                if (!_cancelled) OnExportProgressCompleted();
+                catch (Exception e)
+                {
+                    IsProcessing = false;
+                    OnProcessFailed(e);
+                }
+                finally
+                {
+                    IsProcessing = false;
+                    Instance.Default.EnableScreenUpdating();
+                }
             });
 
             _batchSettings = settings;
@@ -201,13 +206,13 @@ namespace XLToolbox.Export
 
         public Exporter()
         {
-            _dllManager = new DllManager();
-            _dllManager.LoadDll("freeimage.dll");
-            _fileTypeToFreeImage = new Dictionary<FileType, FREE_IMAGE_FORMAT>()
-            {
-                { FileType.Png, FREE_IMAGE_FORMAT.FIF_PNG },
-                { FileType.Tiff, FREE_IMAGE_FORMAT.FIF_TIFF }
-            };
+            // _dllManager = new DllManager();
+            // _dllManager.LoadDll("freeimage.dll");
+            // _fileTypeToFreeImage = new Dictionary<FileType, FREE_IMAGE_FORMAT>()
+            // {
+            //     { FileType.Png, FREE_IMAGE_FORMAT.FIF_PNG },
+            //     { FileType.Tiff, FREE_IMAGE_FORMAT.FIF_TIFF }
+            // };
         }
 
         /*
@@ -233,30 +238,8 @@ namespace XLToolbox.Export
         {
             if (calledFromDispose && !_disposed)
             {
-                _dllManager.UnloadDll("freeimage.dll");
-                _disposed = true;
-            }
-        }
-
-        #endregion
-        
-        #region Protected methods
-
-        protected virtual void OnExportProgressCompleted()
-        {
-            EventHandler<EventArgs> handler = ExportProgressCompleted;
-            if (handler != null)
-            {
-                handler(this, null);
-            }
-        }
-
-        protected virtual void OnExportFailed(Exception e)
-        {
-            EventHandler<ErrorEventArgs> handler = ExportFailed;
-            if (handler != null)
-            {
-                handler(this, new ErrorEventArgs(e));
+                // _dllManager.UnloadDll("freeimage.dll");
+                // _disposed = true;
             }
         }
 
@@ -660,12 +643,5 @@ namespace XLToolbox.Export
         #region Private constants
         #endregion
 
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
-
-        #endregion
     }
 }

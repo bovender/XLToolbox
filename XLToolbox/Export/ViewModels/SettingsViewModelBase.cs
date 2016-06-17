@@ -97,8 +97,7 @@ namespace XLToolbox.Export.ViewModels
                 if (_exporter == null)
                 {
                     _exporter = new Exporter();
-                    _exporter.ExportProgressCompleted += Exporter_ExportProgressCompleted;
-                    _exporter.ExportFailed += Exporter_ExportFailed;
+                    ProcessModel = _exporter; // assigning property hooks up events
                 }
                 return _exporter;
             }
@@ -266,23 +265,6 @@ namespace XLToolbox.Export.ViewModels
             {
                 OnPropertyChanged("SelectedPreset");
             }
-        }
-
-        private void Exporter_ExportProgressCompleted(object sender, EventArgs e)
-        {
-            Logger.Info("Export progress completed");
-            ProcessMessageContent.CompletedMessage.Send();
-            Logger.Info("... ProcessMessageContent.CompletedMessage was sent");
-        }
-
-        private void Exporter_ExportFailed(object sender, System.IO.ErrorEventArgs e)
-        {
-            Logger.Info("Exporter raised ExportFailed event, now sending my own message ...");
-            ProcessFailedMessage.Send(
-                new StringMessageContent(
-                    String.Format(Strings.Export,
-                    e.GetException().Message)));
-            Logger.Info("... ExportFailedMessage was sent");
         }
         
         #endregion

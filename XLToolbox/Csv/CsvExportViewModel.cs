@@ -144,8 +144,7 @@ namespace XLToolbox.Csv
             : base()
         {
             _csvFile = model;
-            _csvFile.ExportProgressCompleted += CsvFile_ExportProgressCompleted;
-            _csvFile.ExportFailed += CsvFile_ExportFailed;
+            ProcessModel = _csvFile; // also hooks up events
         }
 
         #endregion
@@ -187,19 +186,6 @@ namespace XLToolbox.Csv
                 store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
             };
             StartProcess();
-        }
-
-        void CsvFile_ExportProgressCompleted(object sender, EventArgs e)
-        {
-            ProcessMessageContent.CompletedMessage.Send();
-        }
-
-        void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
-        {
-            ProcessFailedMessage.Send(
-                new StringMessageContent(
-                    String.Format(Strings.CsvExportFailed,
-                    e.GetException().Message)));
         }
 
         #endregion

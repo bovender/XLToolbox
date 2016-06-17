@@ -28,6 +28,7 @@ using XLToolbox.SheetManager;
 using XLToolbox.Export.ViewModels;
 using Xl = Microsoft.Office.Interop.Excel;
 using XLToolbox.Export.Models;
+using Bovender.Mvvm.Models;
 
 namespace XLToolbox
 {
@@ -166,7 +167,8 @@ namespace XLToolbox
             }
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
-            vm.ShowProgress.Sent += (sender, args) =>
+            Bovender.Mvvm.Views.ProcessView processView = new Bovender.Mvvm.Views.ProcessView();
+            vm.ShowProgressMessage.Sent += (sender, args) =>
             {
                 Logger.Info("Creating process view");
                 args.Content.CancelButtonText = Strings.Cancel;
@@ -175,12 +177,12 @@ namespace XLToolbox
                 {
                     args.Content.CloseViewCommand.Execute(null);
                 };
-                args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
+                args.Content.InjectInto(processView).Show();
             };
             vm.ProcessFailedMessage.Sent += (sender, args) =>
             {
                 Logger.Info("Received ExportFailedMessage, informing user");
-                MessageBox.Show(args.Content.Value, Strings.Export,
+                MessageBox.Show(args.Content.Exception.Message, Strings.Export,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             };
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
@@ -389,7 +391,7 @@ namespace XLToolbox
         {
             Csv.CsvExportViewModel vm = Csv.CsvExportViewModel.FromLastUsed();
             vm.Range = range;
-            vm.ShowProgress.Sent += (sender, args) =>
+            vm.ShowProgressMessage.Sent += (sender, args) =>
             {
                 args.Content.CancelButtonText = Strings.Cancel;
                 args.Content.Caption = Strings.ExportCsvFile;
@@ -397,11 +399,11 @@ namespace XLToolbox
                 {
                     args.Content.CloseViewCommand.Execute(null);
                 };
-                args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
+                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().Show();
             };
-            vm.ProcessFailedMessage.Sent += (sender, args) =>
+            vm.ProcessFailedMessage.Sent += (sender2, args2) =>
             {
-                MessageBox.Show(args.Content.Value, Strings.ExportCsvFile,
+                MessageBox.Show(args2.Content.Message, Strings.Export,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             };
             return vm;

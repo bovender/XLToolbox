@@ -18,6 +18,7 @@
 using System;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
 using XLToolbox.Excel.ViewModels;
@@ -50,7 +51,7 @@ namespace XLToolbox.Export
                 SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
                 SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent;
-                svm.ShowProgress.Sent += (sender, args) =>
+                svm.ShowProgressMessage.Sent += (sender, args) =>
                 {
                     Logger.Info("Creating process view");
                     args.Content.CancelButtonText = Strings.Cancel;
@@ -59,12 +60,12 @@ namespace XLToolbox.Export
                     {
                         args.Content.CloseViewCommand.Execute(null);
                     };
-                    args.Content.InjectAndShowInThread<Bovender.Mvvm.Views.ProcessView>();
+                    args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowDialogInForm();
                 };
                 svm.ProcessFailedMessage.Sent += (sender, args) =>
                 {
                     Logger.Info("Received ExportFailedMessage, informing user");
-                    MessageBox.Show(args.Content.Value, Strings.Export,
+                    MessageBox.Show(args.Content.Exception.Message, Strings.Export,
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                 };
                 if (svm.ChooseFileNameCommand.CanExecute(null))

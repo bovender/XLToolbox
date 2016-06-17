@@ -249,14 +249,15 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected override void DoExport()
         {
-            if (CanExport())
-            {
-                Logger.Info("DoExport");
-                SelectedPreset.Store();
-                UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
-                SaveExportPath();
-                StartProcess();
-            }
+            StartProcess();
+            // if (CanExport())
+            // {
+            //     // Logger.Info("DoExport");
+            //     // SelectedPreset.Store();
+            //     // UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
+            //     // SaveExportPath();
+            //     StartProcess();
+            // }
         }
 
         protected override bool CanExport()
@@ -271,10 +272,6 @@ namespace XLToolbox.Export.ViewModels
         {
             Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
             Exporter.ExportSelection(Settings as SingleExportSettings);
-            // Task.Factory.StartNew((Action)(() => {
-            //     System.Threading.Thread.Sleep(2000);
-            //     SendCompletionMessage();
-            // }));
         }
 
         protected override int GetPercentCompleted()

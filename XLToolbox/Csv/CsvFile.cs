@@ -28,7 +28,7 @@ namespace XLToolbox.Csv
     /// <summary>
     /// Provides import/export settings and methods for CSV files.
     /// </summary>
-    public class CsvFile
+    public class CsvFile : Bovender.Mvvm.Models.ProcessModel
     {
         #region Factory
 
@@ -243,12 +243,12 @@ namespace XLToolbox.Csv
                         // }
                     }
                     sw.Close();
-                    if (!_cancelExport) OnExportProgressCompleted();
+                    if (!_cancelExport) OnProcessSucceeded();
                 }
                 catch (IOException e)
                 {
                     IsProcessing = false;
-                    OnExportFailed(e);
+                    OnProcessFailed(e);
                 }
                 catch (Exception e1)
                 {
@@ -259,7 +259,7 @@ namespace XLToolbox.Csv
                         sw.WriteLine(e1.ToString());
                         sw.Close();
                     }
-                    OnExportFailed(e1);
+                    OnProcessFailed(e1);
                 }
                 finally
                 {
@@ -302,28 +302,6 @@ namespace XLToolbox.Csv
 
         #endregion
 
-        #region Protected methods
-
-        protected virtual void OnExportProgressCompleted()
-        {
-            EventHandler<EventArgs> handler = ExportProgressCompleted;
-            if (handler != null)
-            {
-                handler(this, null);
-            }
-        }
-
-        protected virtual void OnExportFailed(Exception e)
-        {
-            EventHandler<ErrorEventArgs> handler = ExportFailed;
-            if (handler != null)
-            {
-                handler(this, new ErrorEventArgs(e));
-            }
-        }
-
-        #endregion
-
         #region Fields
 
         NumberFormatInfo _numberFormatInfo;
@@ -334,14 +312,6 @@ namespace XLToolbox.Csv
         #region Private constant
 
         const string UNFINISHED_EXPORT = "*** UNFINISHED EXPORT ***";
-        #endregion
-
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
-
         #endregion
     }
 }
