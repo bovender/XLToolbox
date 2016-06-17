@@ -1629,6 +1629,19 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to access the windows clipboard, is another program using it?
+        ///
+        ///Error message:
+        ///
+        ///{0}.
+        /// </summary>
+        public static string UnableToAccessClipboard {
+            get {
+                return ResourceManager.GetString("UnableToAccessClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {

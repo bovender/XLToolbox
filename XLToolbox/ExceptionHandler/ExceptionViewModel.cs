@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Reflection;
-using Bovender.Unmanaged;
+using XLToolbox.Unmanaged;
 using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler

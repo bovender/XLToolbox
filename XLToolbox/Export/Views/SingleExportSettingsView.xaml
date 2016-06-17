@@ -38,7 +38,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ChooseFileNameMessage}" EventName="Sent">
             <actions:ChooseFileSaveAction Caption="{x:Static l:Strings.Export}" />
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <!--<i:InvokeCommandAction Command="{Binding CloseViewCommand}" />-->
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding EditPresetsMessage}" EventName="Sent">
             <actions:ShowViewDialogAction View="XLToolbox.Export.Views.PresetsRepositoryView"

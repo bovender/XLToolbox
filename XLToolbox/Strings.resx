@@ -741,4 +741,11 @@ You may want to try again.</value>
   <data name="ImageSizeMegaPixels" xml:space="preserve">
     <value>Image size: {0:0.00} megapixels/{1:0.00} MB uncompressed.</value>
   </data>
+  <data name="UnableToAccessClipboard" xml:space="preserve">
+    <value>Unable to access the windows clipboard, is another program using it?
+
+Error message:
+
+{0}</value>
+  </data>
 </root>

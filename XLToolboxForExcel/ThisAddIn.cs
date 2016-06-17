@@ -26,6 +26,7 @@ using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
 using System.Windows.Threading;
 using NLog;
+using System.Windows;
 
 namespace XLToolboxForExcel
 {

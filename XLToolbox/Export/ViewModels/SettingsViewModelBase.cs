@@ -36,7 +36,7 @@ namespace XLToolbox.Export.ViewModels
     /// can select a preset from a preset repository. The last selected preset
     /// will be relayed to the wrapped Settings object.
     /// </remarks>
-    public abstract class SettingsViewModelBase : ViewModelBase
+    public abstract class SettingsViewModelBase : ProcessViewModelBase
     {
         #region Public properties
 
@@ -89,6 +89,19 @@ namespace XLToolbox.Export.ViewModels
         #region Protected properties 
 
         protected Settings Settings { get; set; }
+
+        protected Exporter Exporter
+        {
+            get
+            {
+                if (_exporter == null)
+                {
+                    _exporter = new Exporter();
+                    ProcessModel = _exporter; // assigning property hooks up events
+                }
+                return _exporter;
+            }
+        }
 
         #endregion
 
@@ -218,14 +231,28 @@ namespace XLToolbox.Export.ViewModels
             );
         }
 
-
         #endregion
 
-        #region Implementation of ViewModelBase
+        #region Implementation of ViewModelBase and ProcessViewModelBase
 
         public override object RevealModelObject()
         {
             return Settings;
+        }
+
+        protected override bool IsProcessing()
+        {
+            return Exporter.IsProcessing;
+        }
+
+        protected override int GetPercentCompleted()
+        {
+            return Exporter.PercentCompleted;
+        }
+
+        protected override void CancelProcess()
+        {
+            Exporter.CancelExport();
         }
 
         #endregion
@@ -249,6 +276,15 @@ namespace XLToolbox.Export.ViewModels
         Message<ViewModelMessageContent> _editPresetsMessage;
         Message<ProcessMessageContent> _exportProcessMessage;
         PresetsRepositoryViewModel _presetsRepositoryViewModel;
+        Exporter _exporter;
+
+        #endregion
+
+        #region Class logger
+
+        protected static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

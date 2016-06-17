@@ -142,6 +142,7 @@
     <Compile Include="Export\Models\BatchExportSettings.cs" />
     <Compile Include="Export\ExportFileName.cs" />
     <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
+    <Compile Include="Export\Models\BitmapCreatedEventArgs.cs" />
     <Compile Include="Export\Models\TiledBitmap.cs" />
     <Compile Include="Export\Models\Transparency.cs" />
     <Compile Include="Export\Models\Unit.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Export\Models\StoreException.cs" />
     <Compile Include="Export\ViewModels\PresetViewModel.cs" />
     <Compile Include="Export\Models\FileType.cs" />
+    <Compile Include="Export\WorkingClipboardException.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
     <Compile Include="Keyboard\Manager.cs" />
@@ -226,6 +228,7 @@
       <DependentUpon>SheetManagerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\UserSettingsViewModel.cs" />
     <Compile Include="UserSettings\UserSettingsView.xaml.cs">

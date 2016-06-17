@@ -18,9 +18,12 @@
 using System;
 using System.ComponentModel;
 using Bovender.Mvvm;
+using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -238,7 +241,7 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Implementation of SettingsViewModelBase
+        #region Implementation of SettingsViewModelBase and ProcessViewModelBase
 
         /// <summary>
         /// Determins the suggested target directory and sends the
@@ -246,24 +249,15 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected override void DoExport()
         {
-            if (CanExport())
-            {
-                Logger.Info("DoExport");
-                // TODO: Make export asynchronous
-                SelectedPreset.Store();
-                UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
-                SaveExportPath();
-                Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
-                ProcessMessageContent pcm = new ProcessMessageContent();
-                pcm.IsIndeterminate = true;
-                Logger.Info("Send process message");
-                ExportProcessMessage.Send(pcm);
-                Exporter exporter = new Exporter();
-                Logger.Info("Export selection");
-                exporter.ExportSelection(Settings as SingleExportSettings);
-                Logger.Info("Send completed message");
-                pcm.CompletedMessage.Send(pcm);
-            }
+            StartProcess();
+            // if (CanExport())
+            // {
+            //     // Logger.Info("DoExport");
+            //     // SelectedPreset.Store();
+            //     // UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
+            //     // SaveExportPath();
+            //     StartProcess();
+            // }
         }
 
         protected override bool CanExport()
@@ -272,6 +266,17 @@ namespace XLToolbox.Export.ViewModels
             return (svm.Selection != null) && (SelectedPreset != null) &&
                 (Settings.Preset != null) && (Settings.Preset.Dpi > 0) &&
                 (Width > 0) && (Height > 0);
+        }
+
+        protected override void Execute()
+        {
+            Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
+            Exporter.ExportSelection(Settings as SingleExportSettings);
+        }
+
+        protected override int GetPercentCompleted()
+        {
+            return Exporter.PercentCompleted;
         }
 
         #endregion
@@ -367,19 +372,11 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private fields
 
-        DelegatingCommand _chooseFileNameCommand;
-        DelegatingCommand _resetDimensionsCommand;
-        bool _dimensionsChanged;
-        EnumProvider<Unit> _unitString;
+        private DelegatingCommand _chooseFileNameCommand;
+        private DelegatingCommand _resetDimensionsCommand;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
-
-        #endregion
-
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+        private EnumProvider<Unit> _unitString;
+        private bool _dimensionsChanged;
 
         #endregion
     }
