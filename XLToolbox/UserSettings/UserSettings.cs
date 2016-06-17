@@ -42,6 +42,7 @@ namespace XLToolbox.UserSettings
                 return Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     Properties.Settings.Default.AppDataFolder,
+                    Properties.Settings.Default.UserFolder,
                     Properties.Settings.Default.UserSettingsFile);
             }
         }

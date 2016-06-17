@@ -228,6 +228,7 @@
       <DependentUpon>SheetManagerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\UserSettingsViewModel.cs" />
     <Compile Include="UserSettings\UserSettingsView.xaml.cs">
