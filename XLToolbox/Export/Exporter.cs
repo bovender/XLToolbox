@@ -53,6 +53,7 @@ namespace XLToolbox.Export
             }
             set
             {
+                Logger.Info("percent: {0}", _percentCompleted);
                 _percentCompleted = value;
             }
         }
@@ -97,8 +98,7 @@ namespace XLToolbox.Export
                 Logger.Info("Beginning export task");
                 try 
 	            {	        
-                    // ExportSelection(settings.Preset, w, h, settings.FileName);
-                    System.Threading.Thread.Sleep(3000);
+                    ExportSelection(settings.Preset, w, h, settings.FileName);
                     IsProcessing = false;
                     if (!_cancelled) OnProcessSucceeded();
 	            }
@@ -206,13 +206,13 @@ namespace XLToolbox.Export
 
         public Exporter()
         {
-            // _dllManager = new DllManager();
-            // _dllManager.LoadDll("freeimage.dll");
-            // _fileTypeToFreeImage = new Dictionary<FileType, FREE_IMAGE_FORMAT>()
-            // {
-            //     { FileType.Png, FREE_IMAGE_FORMAT.FIF_PNG },
-            //     { FileType.Tiff, FREE_IMAGE_FORMAT.FIF_TIFF }
-            // };
+            _dllManager = new DllManager();
+            _dllManager.LoadDll("freeimage.dll");
+            _fileTypeToFreeImage = new Dictionary<FileType, FREE_IMAGE_FORMAT>()
+            {
+                { FileType.Png, FREE_IMAGE_FORMAT.FIF_PNG },
+                { FileType.Tiff, FREE_IMAGE_FORMAT.FIF_TIFF }
+            };
         }
 
         /*
@@ -238,8 +238,8 @@ namespace XLToolbox.Export
         {
             if (calledFromDispose && !_disposed)
             {
-                // _dllManager.UnloadDll("freeimage.dll");
-                // _disposed = true;
+                _dllManager.UnloadDll("freeimage.dll");
+                _disposed = true;
             }
         }
 
@@ -319,8 +319,10 @@ namespace XLToolbox.Export
             Logger.Info("Pixels: x: {0}; y: {1}", px, py);
 
             _tiledBitmap = new TiledBitmap(px, py);
+            PercentCompleted = 25;
             FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, preset.Transparency);
 
+            PercentCompleted = 70;
             if (preset.UseColorProfile)
             {
                 ConvertColorCms(preset, fib);
@@ -329,6 +331,8 @@ namespace XLToolbox.Export
             {
                 ConvertColor(preset, fib);
             }
+
+            PercentCompleted = 85;
             if (preset.ColorSpace == ColorSpace.Monochrome)
             {
                 SetMonochromePalette(fib);
@@ -337,11 +341,13 @@ namespace XLToolbox.Export
             fib.SetResolution(preset.Dpi, preset.Dpi);
             fib.Comment = Versioning.SemanticVersion.BrandName;
             Logger.Info("Saving {0} file", preset.FileType);
+            PercentCompleted = 85;
             fib.Save(
                 fileName,
                 preset.FileType.ToFreeImageFormat(),
                 GetSaveFlags(preset)
             );
+            PercentCompleted = 100;
         }
 
         private void ConvertColorCms(Preset preset, FreeImageBitmap freeImageBitmap)
@@ -369,8 +375,10 @@ namespace XLToolbox.Export
         private void ExportEmf(Metafile metafile, string fileName)
         {
             IntPtr handle = metafile.GetHenhmetafile();
+            PercentCompleted = 50;
             Logger.Info("ExportEmf, handle: {0}", handle);
             Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, fileName);
+            PercentCompleted = 100;
         }
 
         private void ExportAllWorkbooks()
@@ -384,6 +392,7 @@ namespace XLToolbox.Export
 
         private void ExportWorkbook(Workbook workbook)
         {
+            ComputeBatchProgress();
             ((_Workbook)workbook).Activate();
             foreach (dynamic ws in workbook.Sheets)
             {
@@ -394,6 +403,7 @@ namespace XLToolbox.Export
 
         private void ExportSheet(dynamic sheet)
         {
+            ComputeBatchProgress();
             sheet.Activate();
             switch (_batchSettings.Layout)
             {

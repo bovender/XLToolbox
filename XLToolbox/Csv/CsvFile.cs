@@ -113,14 +113,6 @@ namespace XLToolbox.Csv
 
         #endregion
 
-        #region Events
-
-        public event EventHandler<ErrorEventArgs> ExportFailed;
-
-        public event EventHandler<EventArgs> ExportProgressCompleted;
-
-        #endregion
-
         #region Constructor
 
         public CsvFile()
