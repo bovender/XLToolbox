@@ -27,44 +27,32 @@ namespace XLToolbox.Legacy
     {
         private const string ADDIN_RESOURCE_NAME = "XLToolbox.Legacy.XLToolboxLegacyAddin.xlam";
 
-        #region Static methods
-
-        /// <summary>
-        /// Detects if a .XLAM or .XLA version of the XL Toolbox is installed,
-        /// and if so, issues a notice to the user and deactivates the VBA add-in.
-        /// </summary>
-        public static void DeactivateObsoleteVbaAddin()
-        {
-            Logger.Info("DeactivateObsoleteVbaAddin");
-            foreach (Microsoft.Office.Interop.Excel.AddIn addin in Instance.Default.Application.AddIns)
-            {
-                if (addin.Name.StartsWith("Daniels XL Toolbox.xla") && addin.Installed)
-                {
-                    Logger.Info("Found add-in: {0}", addin.Name);
-                    NotificationAction a = new NotificationAction(
-                        Strings.LegacyToolboxDetectedCaption,
-                        Strings.LegacyToolboxDetectedMessage,
-                        Strings.OK);
-                    a.Invoke();
-                    Task.Factory.StartNew(
-                        () =>
-                        {
-                            System.Threading.Thread.Sleep(2000);
-                            addin.Installed = false;
-                            Logger.Info("Uninstalled legacy addin: {0}", addin.Name);
-                        });
-                    break;
-                }
-            }
-        }
-
-        #endregion
-
-        #region Singleton
+        #region Singleton and static methods
 
         public static LegacyToolbox Default
         {
             get { return _lazy.Value; }
+        }
+
+        public static void Initialize()
+        {
+            if (!IsInitialized)
+            {
+                Logger.Info("Trigger initialization");
+                LegacyToolbox l = _lazy.Value;
+            }
+            else
+            {
+                Logger.Info("Initialization was triggered, but instance was already initialized.");
+            }
+        }
+
+        public static bool IsInitialized
+        {
+            get
+            {
+                return _lazy.IsValueCreated;
+            }
         }
 
         #endregion
@@ -99,6 +87,7 @@ namespace XLToolbox.Legacy
                 _disposed = true;
                 if (calledFromPublicMethod)
                 {
+                    Logger.Info("Closing legacy add-in workbook");
                     Instance.Default.Application.Workbooks[ADDIN_RESOURCE_NAME].Close(SaveChanges: false);
                 }
                 try
@@ -107,7 +96,10 @@ namespace XLToolbox.Legacy
                 }
                 catch (Exception e)
                 {
-                    Logger.Warn(e, "When attempting to close the VBA add-in");
+                    if (calledFromPublicMethod) // managed resources still available?
+                    {
+                        Logger.Warn(e, "When attempting to close the VBA add-in");
+                    }
                 }
             }
         }

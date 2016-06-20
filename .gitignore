@@ -16,10 +16,9 @@ publish/release/
 x64/
 win32/
 [Rr]elease/
-[Dd]debug/
+[Dd]ebug/
 Dist/
 build/
 lib/
 source.zip
 7za.exe
-doc/

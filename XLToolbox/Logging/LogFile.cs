@@ -91,7 +91,8 @@ namespace XLToolbox.Logging
                 {
                     _logFolder = System.IO.Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                        Properties.Settings.Default.AppDataFolder);
+                        Properties.Settings.Default.AppDataFolder,
+                        Properties.Settings.Default.UserFolder);
                 }
                 return _logFolder;
             }

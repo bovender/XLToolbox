@@ -16,7 +16,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<Window x:Class="XLToolbox.About.AboutView"
+<Window x:Class="XLToolbox.About.AboutView" x:Name="About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -34,6 +34,11 @@
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="About" EventName="MouseDown">
+            <i:EventTrigger.Actions>
+                <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
                 <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.License}"
@@ -68,6 +73,7 @@
                 <TextBlock TextAlignment="Center">.NET &amp; VSTO © Copyright Microsoft Corp.</TextBlock>
                 <TextBlock TextAlignment="Center">FreeImage © Copyright Hervé Drolon &amp; others</TextBlock>
                 <TextBlock TextAlignment="Center">LittleCMS © Copyright Marti Maria Saguer</TextBlock>
+                <TextBlock TextAlignment="Center">NLog © Copyright Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen</TextBlock>
                 <TextBlock TextAlignment="Center" Foreground="Red" FontWeight="Bold"
                            Text="{x:Static l:Strings.NoWarrantiesSeeLicense}" />
             </StackPanel>

@@ -29,7 +29,7 @@ using System.Threading;
 
 namespace XLToolbox.Csv
 {
-    class CsvExportViewModel : ViewModelBase
+    class CsvExportViewModel : ProcessViewModelBase
     {
         #region Factory
 
@@ -133,30 +133,6 @@ namespace XLToolbox.Csv
             }
         }
 
-        public Message<ProcessMessageContent> ShowExportProgress
-        {
-            get
-            {
-                if (_showExportProgress == null)
-                {
-                    _showExportProgress = new Message<ProcessMessageContent>();
-                }
-                return _showExportProgress;
-            }
-        }
-
-        public Message<StringMessageContent> ExportFailedMessage
-        {
-            get
-            {
-                if (_exportFailedMessage == null)
-                {
-                    _exportFailedMessage = new Message<StringMessageContent>();
-                }
-                return _exportFailedMessage;
-            }
-        }
-
         #endregion
 
         #region Constructors
@@ -168,8 +144,7 @@ namespace XLToolbox.Csv
             : base()
         {
             _csvFile = model;
-            _csvFile.ExportProgressCompleted += CsvFile_ExportProgressCompleted;
-            _csvFile.ExportFailed += CsvFile_ExportFailed;
+            ProcessModel = _csvFile; // also hooks up events
         }
 
         #endregion
@@ -209,68 +184,8 @@ namespace XLToolbox.Csv
             using (WorkbookStorage.Store store = new WorkbookStorage.Store())
             {
                 store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
-
             };
-            _progressTimer = new Timer(UpdateProgress, null, 1000, 300);
-            if (Range != null)
-            {
-                _csvFile.Export(Range);
-            }
-            else
-            {
-                _csvFile.Export();
-            }
-            CloseViewCommand.Execute(null);
-        }
-
-        void CsvFile_ExportProgressCompleted(object sender, EventArgs e)
-        {
-            ExportProcessMessageContent.CompletedMessage.Send();
-        }
-
-        void CsvFile_ExportFailed(object sender, System.IO.ErrorEventArgs e)
-        {
-            ExportFailedMessage.Send(
-                new StringMessageContent(
-                    String.Format(Strings.CsvExportFailed,
-                    e.GetException().Message)));
-        }
-
-        void UpdateProgress(object state)
-        {
-            if (!_showExportProgressWasSent)
-            {
-                _showExportProgressWasSent = true;
-                if (_csvFile.IsProcessing)
-                {
-                    ShowExportProgress.Send(ExportProcessMessageContent);
-                }
-            }
-            if (_csvFile.IsProcessing)
-            {
-                ExportProcessMessageContent.PercentCompleted =
-                   Convert.ToInt32(100d * _csvFile.CellsProcessed / _csvFile.CellsTotal);
-            }
-            else
-            {
-                _progressTimer.Dispose();
-            }
-        }
-
-        #endregion
-
-        #region Private properties
-
-        ProcessMessageContent ExportProcessMessageContent
-        {
-            get
-            {
-                if (_exportProcessMessageContent == null)
-                {
-                    _exportProcessMessageContent = new ProcessMessageContent(() => _csvFile.CancelExport());
-                }
-                return _exportProcessMessageContent;
-            }
+            StartProcess();
         }
 
         #endregion
@@ -281,11 +196,37 @@ namespace XLToolbox.Csv
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _exportCommand;
         Message<FileNameMessageContent> _chooseExportFileNameMessage;
-        ProcessMessageContent _exportProcessMessageContent;
-        Message<ProcessMessageContent> _showExportProgress;
-        Message<StringMessageContent> _exportFailedMessage;
-        Timer _progressTimer;
-        bool _showExportProgressWasSent;
+
+        #endregion
+
+        #region Implementation of ProcessViewModel
+
+        protected override void CancelProcess()
+        {
+            _csvFile.CancelExport();
+        }
+
+        protected override void Execute()
+        {
+            if (Range != null)
+            {
+                _csvFile.Export(Range);
+            }
+            else
+            {
+                _csvFile.Export();
+            }
+        }
+
+        protected override int GetPercentCompleted()
+        {
+            return Convert.ToInt32(100d * _csvFile.CellsProcessed / _csvFile.CellsTotal);
+        }
+
+        protected override bool IsProcessing()
+        {
+            return _csvFile.IsProcessing;
+        }
 
         #endregion
     }

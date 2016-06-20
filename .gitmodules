@@ -1,3 +1,7 @@
 [submodule "publish/VstoAddinInstaller"]
 	path = publish/VstoAddinInstaller
 	url = git@github.com:bovender/VstoAddinInstaller.git
+[submodule "doc"]
+	path = doc
+	url = git@github.com:bovender/XLToolbox.git
+	branch = gh-pages

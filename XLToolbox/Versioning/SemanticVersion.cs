@@ -33,14 +33,19 @@ namespace XLToolbox.Versioning
         /// <returns></returns>
         new public static Bovender.Versioning.SemanticVersion CurrentVersion()
         {
-            Bovender.Versioning.SemanticVersion v = Bovender.Versioning.SemanticVersion.CurrentVersion(
-                Assembly.GetExecutingAssembly()
-                );
-            Logger.Info("Current version: {0}", v);
-            return v;
+            if (_currentVersion == null)
+            {
+                _currentVersion = Bovender.Versioning.SemanticVersion.CurrentVersion(
+                    Assembly.GetExecutingAssembly()
+                    );
+                Logger.Info("Current version: {0}", _currentVersion);
+            }
+            return _currentVersion;
         }
 
         #endregion
+
+        #region Static methods
 
         public static string BrandName
         {
@@ -49,6 +54,14 @@ namespace XLToolbox.Versioning
                 return Properties.Settings.Default.AddinName + " " + CurrentVersion().ToString();
             }
         }
+
+        #endregion
+
+        #region Private static fields
+
+        private static Bovender.Versioning.SemanticVersion _currentVersion;
+
+        #endregion
 
         #region Class logger
 

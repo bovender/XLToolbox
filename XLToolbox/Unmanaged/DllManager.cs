@@ -1,4 +1,4 @@
-﻿/* SubmissionProcessAction.cs
+﻿/* DllManager.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -19,15 +19,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Bovender.Mvvm.Actions;
 
-namespace XLToolbox.ExceptionHandler
+namespace XLToolbox.Unmanaged
 {
-    class SubmissionProcessAction : NotificationAction
+    public class DllManager : Bovender.Unmanaged.DllManager
     {
-        protected override System.Windows.Window CreateView()
+        public override string AlternativeDir
         {
-            return new SubmissionProcessView();
+            get
+            {
+                return System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    Properties.Settings.Default.AppDataFolder
+                    );
+            }
         }
     }
 }

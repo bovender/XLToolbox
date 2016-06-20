@@ -18,9 +18,12 @@
 using System;
 using System.ComponentModel;
 using Bovender.Mvvm;
+using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -43,6 +46,10 @@ namespace XLToolbox.Export.ViewModels
                 _dimensionsChanged = true;
                 OnPropertyChanged("Width");
                 if (PreserveAspect) OnPropertyChanged("Height");
+                OnPropertyChanged("MegaPixels");
+                OnPropertyChanged("MegaPixelsWarning");
+                OnPropertyChanged("MegaBytes");
+                OnPropertyChanged("ImageSize");
             }
         }
 
@@ -58,6 +65,10 @@ namespace XLToolbox.Export.ViewModels
                 _dimensionsChanged = true;
                 OnPropertyChanged("Height");
                 if (PreserveAspect) OnPropertyChanged("Width");
+                OnPropertyChanged("MegaPixels");
+                OnPropertyChanged("MegaPixelsWarning");
+                OnPropertyChanged("MegaBytes");
+                OnPropertyChanged("ImageSize");
             }
         }
 
@@ -101,6 +112,58 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the number of megapixels for the resulting image.
+        /// </summary>
+        public double MegaPixels
+        {
+            get
+            {
+                if (SelectedPreset != null)
+                {
+                    int dpi = SelectedPreset.Dpi;
+                    double mp = Units.AsEnum.ConvertTo(Width, Unit.Inch) * dpi * 
+                        Units.AsEnum.ConvertTo(Height, Unit.Inch) * dpi;
+                    return mp / 1000000;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public double MegaBytes
+        {
+            get
+            {
+                if (SelectedPreset != null)
+	            {
+                    return MegaPixels * SelectedPreset.ColorSpace.AsEnum.ToBPP() / 8 * 1000000 / (1024 * 1024);
+	            }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public string ImageSize
+        {
+            get
+            {
+                return String.Format(Strings.ImageSizeMegaPixels, MegaPixels, MegaBytes);
+            }
+        }
+
+        public bool MegaPixelsWarning
+        {
+            get
+            {
+                return MegaPixels > 30;
+            }
+        }
+        
         #endregion
 
         #region Commands
@@ -178,7 +241,7 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Implementation of SettingsViewModelBase
+        #region Implementation of SettingsViewModelBase and ProcessViewModelBase
 
         /// <summary>
         /// Determins the suggested target directory and sends the
@@ -186,24 +249,15 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected override void DoExport()
         {
-            if (CanExport())
-            {
-                Logger.Info("DoExport");
-                // TODO: Make export asynchronous
-                SelectedPreset.Store();
-                UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
-                SaveExportPath();
-                Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
-                ProcessMessageContent pcm = new ProcessMessageContent();
-                pcm.IsIndeterminate = true;
-                Logger.Info("Send process message");
-                ExportProcessMessage.Send(pcm);
-                Exporter exporter = new Exporter();
-                Logger.Info("Export selection");
-                exporter.ExportSelection(Settings as SingleExportSettings);
-                Logger.Info("Send completed message");
-                pcm.CompletedMessage.Send(pcm);
-            }
+            StartProcess();
+            // if (CanExport())
+            // {
+            //     // Logger.Info("DoExport");
+            //     // SelectedPreset.Store();
+            //     // UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
+            //     // SaveExportPath();
+            //     StartProcess();
+            // }
         }
 
         protected override bool CanExport()
@@ -214,9 +268,29 @@ namespace XLToolbox.Export.ViewModels
                 (Width > 0) && (Height > 0);
         }
 
+        protected override void Execute()
+        {
+            Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
+            Exporter.ExportSelection(Settings as SingleExportSettings);
+        }
+
+        protected override int GetPercentCompleted()
+        {
+            return Exporter.PercentCompleted;
+        }
+
         #endregion
 
         #region Overrides
+
+        protected override void DoEditPresets()
+        {
+            base.DoEditPresets();
+            OnPropertyChanged("MegaBytes");
+            OnPropertyChanged("MegaPixels");
+            OnPropertyChanged("MegaPixelsWarning");
+            OnPropertyChanged("ImageSize");
+        }
 
         protected override void SaveExportPath()
         {
@@ -298,19 +372,11 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private fields
 
-        DelegatingCommand _chooseFileNameCommand;
-        DelegatingCommand _resetDimensionsCommand;
-        bool _dimensionsChanged;
-        EnumProvider<Unit> _unitString;
+        private DelegatingCommand _chooseFileNameCommand;
+        private DelegatingCommand _resetDimensionsCommand;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
-
-        #endregion
-
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+        private EnumProvider<Unit> _unitString;
+        private bool _dimensionsChanged;
 
         #endregion
     }

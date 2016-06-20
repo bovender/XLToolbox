@@ -621,8 +621,7 @@ You may want to try again.</value>
     <value>Bovender framework</value>
   </data>
   <data name="CsvExportFailed" xml:space="preserve">
-    <value>CSV export failed:
-{0}</value>
+    <value>CSV export failed</value>
   </data>
   <data name="HintUseBackslashT" xml:space="preserve">
     <value>Hint: Use \t to separate fields by tabs.</value>
@@ -737,5 +736,28 @@ You may want to try again.</value>
   </data>
   <data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
     <value>It is technically not possible to automatically store the current width of the task pane during shutdown and restore it the next time. However, the initial value here always represents the current task pane width if the worksheet manager is open.</value>
+  </data>
+  <data name="ImageSizeMegaPixels" xml:space="preserve">
+    <value>Image size: {0:0.00} megapixels/{1:0.00} MB uncompressed.</value>
+  </data>
+  <data name="UnableToAccessClipboard" xml:space="preserve">
+    <value>Unable to access the windows clipboard, is another program using it?
+
+Error message:
+
+{0}</value>
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value>Export failed</value>
+  </data>
+  <data name="ExportFailedMessage" xml:space="preserve">
+    <value>An error occurred during export.
+
+The following error message was received:</value>
+  </data>
+  <data name="CsvExportFailedMessage" xml:space="preserve">
+    <value>An error occurred during CSV export.
+
+The following message was received:</value>
   </data>
 </root>

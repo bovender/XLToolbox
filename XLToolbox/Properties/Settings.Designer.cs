@@ -52,7 +52,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/receive.php")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.xltoolbox.net/duCh7ahg.php")]
         public string ExceptionPostUrl {
             get {
                 return ((string)(this["ExceptionPostUrl"]));
@@ -88,10 +88,10 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
-        public string AppDataFolder {
+        [global::System.Configuration.DefaultSettingValueAttribute("user")]
+        public string UserFolder {
             get {
-                return ((string)(this["AppDataFolder"]));
+                return ((string)(this["UserFolder"]));
             }
         }
         
@@ -110,6 +110,15 @@ namespace XLToolbox.Properties {
         public string KeyboardShortcutsUrl {
             get {
                 return ((string)(this["KeyboardShortcutsUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        public string AppDataFolder {
+            get {
+                return ((string)(this["AppDataFolder"]));
             }
         }
     }

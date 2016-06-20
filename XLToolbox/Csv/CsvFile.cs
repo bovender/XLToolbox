@@ -28,7 +28,7 @@ namespace XLToolbox.Csv
     /// <summary>
     /// Provides import/export settings and methods for CSV files.
     /// </summary>
-    public class CsvFile
+    public class CsvFile : Bovender.Mvvm.Models.ProcessModel
     {
         #region Factory
 
@@ -113,21 +113,13 @@ namespace XLToolbox.Csv
 
         #endregion
 
-        #region Events
-
-        public event EventHandler<ErrorEventArgs> ExportFailed;
-
-        public event EventHandler<EventArgs> ExportProgressCompleted;
-
-        #endregion
-
         #region Constructor
 
         public CsvFile()
         {
             FieldSeparator = ",";
             DecimalSeparator = ".";
-            ThousandsSeparator = ",";
+            ThousandsSeparator = "";
         }
 
         #endregion
@@ -136,6 +128,8 @@ namespace XLToolbox.Csv
 
         public void Import()
         {
+            Logger.Info("Importing CSV: FS='{0}', DS='{1}', TS='{2}'",
+                FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvImport = this;
             Excel.ViewModels.Instance.Default.Application.Workbooks.OpenText(
                 FileName,
@@ -169,6 +163,8 @@ namespace XLToolbox.Csv
         /// <param name="range">Range to export.</param>
         public void Export(Range range)
         {
+            Logger.Info("Exporting CSV: FS='{0}', DS='{1}', TS='{2}'",
+                FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvExport = this;
             IsProcessing = true;
             Task t = new Task(() =>
@@ -180,6 +176,7 @@ namespace XLToolbox.Csv
                     // doesn't speed up things (tried it)
                     sw = File.CreateText(FileName);
                     CellsTotal = range.CellsCount();
+                    Logger.Info("Number of cells: {0}", CellsTotal);
                     CellsProcessed = 0;
                     _cancelExport = false;
                     string fs = FieldSeparator;
@@ -232,17 +229,18 @@ namespace XLToolbox.Csv
                         {
                             sw.WriteLine(UNFINISHED_EXPORT);
                             sw.WriteLine("Cancelled by user.");
+                            Logger.Info("CSV export cancelled by user");
                             break;
                         }
                         // }
                     }
                     sw.Close();
-                    if (!_cancelExport) OnExportProgressCompleted();
+                    if (!_cancelExport) OnProcessSucceeded();
                 }
                 catch (IOException e)
                 {
                     IsProcessing = false;
-                    OnExportFailed(e);
+                    OnProcessFailed(e);
                 }
                 catch (Exception e1)
                 {
@@ -253,11 +251,12 @@ namespace XLToolbox.Csv
                         sw.WriteLine(e1.ToString());
                         sw.Close();
                     }
-                    OnExportFailed(e1);
+                    OnProcessFailed(e1);
                 }
                 finally
                 {
                     IsProcessing = false;
+                    Logger.Info("CSV export task finished");
                 }
             });
             t.Start();
@@ -290,28 +289,6 @@ namespace XLToolbox.Csv
             else
             {
                 return s;
-            }
-        }
-
-        #endregion
-
-        #region Protected methods
-
-        protected virtual void OnExportProgressCompleted()
-        {
-            EventHandler<EventArgs> handler = ExportProgressCompleted;
-            if (handler != null)
-            {
-                handler(this, null);
-            }
-        }
-
-        protected virtual void OnExportFailed(Exception e)
-        {
-            EventHandler<ErrorEventArgs> handler = ExportFailed;
-            if (handler != null)
-            {
-                handler(this, new ErrorEventArgs(e));
             }
         }
 

@@ -73,7 +73,8 @@ namespace XLToolbox.UserSettings
             {
                 return System.IO.Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    Properties.Settings.Default.AppDataFolder);
+                    Properties.Settings.Default.AppDataFolder,
+                    Properties.Settings.Default.UserFolder);
             }
         }
 
@@ -115,7 +116,7 @@ namespace XLToolbox.UserSettings
                 if (_editLegacyPreferences == null)
                 {
                     _editLegacyPreferences = new DelegatingCommand(
-                        param => XLToolbox.Dispatcher.Execute(Command.LegacyPrefs));
+                        param => DoOpenLegacyPreferences());
                 }
                 return _editLegacyPreferences;
             }
@@ -175,6 +176,15 @@ namespace XLToolbox.UserSettings
         private bool CanSave()
         {
             return _dirty;
+        }
+
+        private void DoOpenLegacyPreferences()
+        {
+            if (!_dirty)
+            {
+                DoCloseView();
+            }
+            XLToolbox.Dispatcher.Execute(Command.LegacyPrefs);
         }
 
         private void DoOpenProfileFolder()

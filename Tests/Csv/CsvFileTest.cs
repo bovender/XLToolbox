@@ -71,7 +71,7 @@ namespace XLToolbox.Test.Csv
             string fn = System.IO.Path.GetTempFileName();
             csv.FileName = fn;
             bool progressCompletedRaised = false;
-            csv.ExportProgressCompleted += (sender, args) =>
+            csv.ProcessSucceeded += (sender, args) =>
             {
                 progressCompletedRaised = true;
             };
@@ -110,7 +110,7 @@ namespace XLToolbox.Test.Csv
             csv.FileName = fn;
             bool running = true;
             long start = 0;
-            csv.ExportProgressCompleted += (sender, args) =>
+            csv.ProcessSucceeded += (sender, args) =>
             {
                 Console.WriteLine(method + ": *** Export completed ***");
                 long stop = DateTime.Now.Ticks;

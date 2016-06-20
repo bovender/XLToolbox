@@ -352,31 +352,7 @@ namespace XLToolbox.Export.ViewModels
             {
                 ((BatchExportSettings)Settings).Store(Instance.Default.ActiveWorkbook);
                 SaveExportPath();
-                Exporter exporter = new Exporter();
-                ProcessMessageContent processMessageContent =
-                    new ProcessMessageContent(exporter.CancelBatchExport);
-                exporter.BatchExportProgressChanged +=
-                    (object sender, ExportProgressChangedEventArgs args) =>
-                    {
-                        processMessageContent.PercentCompleted = args.PercentCompleted;
-                    };
-                exporter.BatchExportFinished +=
-                    (object sender, ExportFinishedEventArgs args) =>
-                    {
-                        Dispatcher.Invoke(new System.Action(
-                                () =>
-                                {
-                                    processMessageContent.CompletedMessage.Send(processMessageContent);
-                                }
-                            )
-                        );
-                    };
-                processMessageContent.Processing = true;
-                Logger.Info("Send export process message");
-                ExportProcessMessage.Send(processMessageContent);
-                Logger.Info("Begin export");
-                exporter.ExportBatchAsync(Settings as BatchExportSettings);
-                Logger.Info("Finish export");
+                StartProcess();
             }
         }
 
@@ -384,6 +360,15 @@ namespace XLToolbox.Export.ViewModels
         {
             return CanExecuteMatrix[Scope.AsEnum][Objects.AsEnum][Layout.AsEnum] &&
                 (Settings.Preset != null);
+        }
+
+        #endregion
+
+        #region Implementation of ProcessViewModelBase
+        
+        protected override void Execute()
+        {
+            Exporter.ExportBatchAsync(Settings as BatchExportSettings);
         }
 
         #endregion
@@ -786,14 +771,6 @@ namespace XLToolbox.Export.ViewModels
         class LayoutStates : Dictionary<BatchExportLayout, bool> { }
         class ObjectsStates : Dictionary<BatchExportObjects, LayoutStates> { }
         class ScopeStates : Dictionary<BatchExportScope, ObjectsStates> { }
-
-        #endregion
-
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

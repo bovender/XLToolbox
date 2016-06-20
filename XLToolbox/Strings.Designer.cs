@@ -385,12 +385,22 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV export failed:
-        ///{0}.
+        ///   Looks up a localized string similar to CSV export failed.
         /// </summary>
         public static string CsvExportFailed {
             get {
                 return ResourceManager.GetString("CsvExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during CSV export.
+        ///
+        ///The following message was received:.
+        /// </summary>
+        public static string CsvExportFailedMessage {
+            get {
+                return ResourceManager.GetString("CsvExportFailedMessage", resourceCulture);
             }
         }
         
@@ -750,6 +760,26 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export failed.
+        /// </summary>
+        public static string ExportFailed {
+            get {
+                return ResourceManager.GetString("ExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during export.
+        ///
+        ///The following error message was received:.
+        /// </summary>
+        public static string ExportFailedMessage {
+            get {
+                return ResourceManager.GetString("ExportFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to fetch the current version information from the internet.
         ///The error was:
         ///{0}
@@ -867,6 +897,15 @@ namespace XLToolbox {
         public static string IfYouSuspect {
             get {
                 return ResourceManager.GetString("IfYouSuspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image size: {0:0.00} megapixels/{1:0.00} MB uncompressed..
+        /// </summary>
+        public static string ImageSizeMegaPixels {
+            get {
+                return ResourceManager.GetString("ImageSizeMegaPixels", resourceCulture);
             }
         }
         
@@ -1616,6 +1655,19 @@ namespace XLToolbox {
         public static string TransparentWhiteTooltip {
             get {
                 return ResourceManager.GetString("TransparentWhiteTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to access the windows clipboard, is another program using it?
+        ///
+        ///Error message:
+        ///
+        ///{0}.
+        /// </summary>
+        public static string UnableToAccessClipboard {
+            get {
+                return ResourceManager.GetString("UnableToAccessClipboard", resourceCulture);
             }
         }
         

@@ -36,7 +36,7 @@ namespace XLToolbox.Export.ViewModels
     /// can select a preset from a preset repository. The last selected preset
     /// will be relayed to the wrapped Settings object.
     /// </remarks>
-    public abstract class SettingsViewModelBase : ViewModelBase
+    public abstract class SettingsViewModelBase : ProcessViewModelBase
     {
         #region Public properties
 
@@ -90,6 +90,19 @@ namespace XLToolbox.Export.ViewModels
 
         protected Settings Settings { get; set; }
 
+        protected Exporter Exporter
+        {
+            get
+            {
+                if (_exporter == null)
+                {
+                    _exporter = new Exporter();
+                    ProcessModel = _exporter; // assigning property hooks up events
+                }
+                return _exporter;
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -134,18 +147,6 @@ namespace XLToolbox.Export.ViewModels
                     _editPresetsMessage = new Message<ViewModelMessageContent>();
                 }
                 return _editPresetsMessage;
-            }
-        }
-
-        public Message<ProcessMessageContent> ExportProcessMessage
-        {
-            get
-            {
-                if (_exportProcessMessage == null)
-                {
-                    _exportProcessMessage = new Message<ProcessMessageContent>();
-                }
-                return _exportProcessMessage;
             }
         }
 
@@ -210,26 +211,41 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
-        #endregion
-
-        #region Implementation of ViewModelBase
-
-        public override object RevealModelObject()
-        {
-            return Settings;
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private void DoEditPresets()
+        protected virtual void DoEditPresets()
         {
             EditPresetsMessage.Send(
                 new ViewModelMessageContent(PresetViewModels),
                 content => OnPropertyChanged("Presets")
             );
         }
+
+        #endregion
+
+        #region Implementation of ViewModelBase and ProcessViewModelBase
+
+        public override object RevealModelObject()
+        {
+            return Settings;
+        }
+
+        protected override bool IsProcessing()
+        {
+            return Exporter.IsProcessing;
+        }
+
+        protected override int GetPercentCompleted()
+        {
+            return Exporter.PercentCompleted;
+        }
+
+        protected override void CancelProcess()
+        {
+            Exporter.CancelExport();
+        }
+
+        #endregion
+
+        #region Private methods
 
         private void PresetViewModels_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -246,8 +262,16 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _exportCommand;
         DelegatingCommand _editPresetsCommand;
         Message<ViewModelMessageContent> _editPresetsMessage;
-        Message<ProcessMessageContent> _exportProcessMessage;
         PresetsRepositoryViewModel _presetsRepositoryViewModel;
+        Exporter _exporter;
+
+        #endregion
+
+        #region Class logger
+
+        protected static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

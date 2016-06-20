@@ -19,6 +19,7 @@ using System;
 using System.Runtime.InteropServices;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
+using Bovender.Extensions;
 
 namespace XLToolbox.Vba
 {
@@ -61,6 +62,19 @@ namespace XLToolbox.Vba
         #endregion
 
         #region API methods
+
+        /// <summary>
+        /// Returns the current XL Toolbox version as a string.
+        /// </summary>
+        /// <remarks>
+        /// The XL Toolbox follows the semantic versioning scheme,
+        /// see http://semver.org
+        /// </remarks>
+        /// <returns>Current XL Toolbox version</returns>
+        public string Version()
+        {
+            return Versioning.SemanticVersion.CurrentVersion().ToString();
+        }
 
         /// <summary>
         /// Exports the current selection to a graphic file.
@@ -152,6 +166,38 @@ namespace XLToolbox.Vba
                 Logger.Fatal("Parse failure: unknown command");
                 throw new ArgumentException("Unknown command");
             }
+        }
+
+        /// <summary>
+        /// Shows an exception.
+        /// </summary>
+        /// <param name="message">Exception message.</param>
+        public void ShowException(string message)
+        {
+            VbaException e = new VbaException(message);
+            Logger.Warn("VBA code called the XLToolbox.Vba.Api.Throw method", e);
+            ExceptionHandler.ExceptionViewModel vm = new ExceptionHandler.ExceptionViewModel(e);
+            vm.InjectInto<ExceptionHandler.ExceptionView>().ShowDialogInForm();
+        }
+
+        /// <summary>
+        /// Write a message to the log.
+        /// </summary>
+        public void Log(string message)
+        {
+            Logger.Info(String.Format("Log(\"{0}\")", message));
+        }
+
+        /// <summary>
+        /// Returns true if running in debug mode.
+        /// </summary>
+        public bool IsDebugMode()
+        {
+            #if DEBUG
+                return true;
+            #else
+                return false;
+            #endif
         }
 
         #endregion

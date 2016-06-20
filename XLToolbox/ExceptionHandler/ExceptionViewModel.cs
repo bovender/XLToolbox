@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Reflection;
-using Bovender.Unmanaged;
+using XLToolbox.Unmanaged;
 using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler
@@ -79,7 +79,7 @@ namespace XLToolbox.ExceptionHandler
 
         #endregion
 
-        #region constructor
+        #region Constructor
 
         public ExceptionViewModel(Exception e) : base(e) { }
 
@@ -109,7 +109,12 @@ namespace XLToolbox.ExceptionHandler
 
         protected override string DevPath()
         {
-            return @"x:\Code\xltoolbox\NG\";
+            return @"x:\\Code\\xltoolbox\\NG\\|x:\\Code\\bovender\\";
+        }
+
+        protected override Bovender.UserSettings.UserSettingsBase UserSettings
+        {
+            get { return XLToolbox.UserSettings.UserSettings.Default; }
         }
 
         #endregion

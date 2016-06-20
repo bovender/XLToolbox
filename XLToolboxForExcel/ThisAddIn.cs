@@ -26,6 +26,7 @@ using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
 using System.Windows.Threading;
 using NLog;
+using System.Windows;
 
 namespace XLToolboxForExcel
 {
@@ -54,6 +55,10 @@ namespace XLToolboxForExcel
 
             Logger.Info("Begin startup");
 
+            // Register Excel's main window handle to facilitate interop with WPF.
+            Bovender.Win32Window.MainWindowHandleProvider =
+                new Func<IntPtr>(() => (IntPtr)Globals.ThisAddIn.Application.Hwnd);
+
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
@@ -63,9 +68,6 @@ namespace XLToolboxForExcel
             // even for the non-VSTO components of this addin
             Instance.Default = new Instance(Globals.ThisAddIn.Application);
             Ribbon.ExcelApp = Instance.Default.Application;
-
-            // Register Excel's main window handle to facilitate interop with WPF.
-            Bovender.Extensions.WindowExtensions.TopLevelWindow = (IntPtr)Globals.ThisAddIn.Application.Hwnd;
 
             // Make the CustomTaskPanes available for dispatcher methods.
             XLToolbox.Globals.CustomTaskPanes = CustomTaskPanes;
@@ -77,15 +79,21 @@ namespace XLToolboxForExcel
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
             PerformSanityChecks();
-            MaybeCheckForUpdate();
-            GreetUser();
 
-            XLToolbox.Keyboard.Manager.Default.RegisterShortcuts();
+            // Enable the keyboard shortcuts if no settings were previously saved,
+            // i.e. if this appears to be the first run.
+            if (!XLToolbox.UserSettings.UserSettings.Default.WasFromFile)
+            {
+                XLToolbox.Keyboard.Manager.Default.IsEnabled = true;
+            }
 
             if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
             {
                 XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
             }
+
+            MaybeCheckForUpdate();
+            GreetUser();
             Logger.Info("Finished startup");
         }
 
@@ -94,6 +102,13 @@ namespace XLToolboxForExcel
             Logger.Info("Begin shutdown");
             XLToolbox.UserSettings.UserSettings.Default.Running = false;
             XLToolbox.UserSettings.UserSettings.Default.Save();
+
+            if (XLToolbox.Legacy.LegacyToolbox.IsInitialized)
+            {
+                Logger.Info("Disposing legacy add-in");
+                XLToolbox.Legacy.LegacyToolbox.Default.Dispose();
+            }
+
             Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
             if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
             {
@@ -140,7 +155,7 @@ namespace XLToolboxForExcel
             {
                 Logger.Info("Greeting user");
                 GreeterViewModel gvm = new GreeterViewModel();
-                gvm.InjectAndShowInThread<GreeterView>();
+                gvm.InjectAndShowDialogInThread<GreeterView>((IntPtr)Globals.ThisAddIn.Application.Hwnd);
                 XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
             }
         }
@@ -153,7 +168,7 @@ namespace XLToolboxForExcel
         /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
         void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
         {
-            Logger.Fatal("Central exception hander callback: {0}", e);
+            Logger.Error(e.Exception);
             e.IsHandled = true;
             ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
             vm.InjectInto<ExceptionView>().ShowDialogInForm();

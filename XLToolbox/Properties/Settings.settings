@@ -12,7 +12,7 @@
       <Value Profile="(Default)">https://www.xltoolbox.net/</Value>
     </Setting>
     <Setting Name="ExceptionPostUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.xltoolbox.net/receive.php</Value>
+      <Value Profile="(Default)">https://www.xltoolbox.net/duCh7ahg.php</Value>
     </Setting>
     <Setting Name="AddinName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Daniel's XL Toolbox</Value>
@@ -23,14 +23,17 @@
     <Setting Name="WhatsNewUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://www.xltoolbox.net/changelog-ng.html</Value>
     </Setting>
-    <Setting Name="AppDataFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Daniel's XL Toolbox</Value>
+    <Setting Name="UserFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">user</Value>
     </Setting>
     <Setting Name="UserSettingsFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">settings.yml</Value>
     </Setting>
     <Setting Name="KeyboardShortcutsUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://msdn.microsoft.com/en-us/library/office/ff197461.aspx#Anchor_1</Value>
+    </Setting>
+    <Setting Name="AppDataFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Daniel's XL Toolbox</Value>
     </Setting>
   </Settings>
 </SettingsFile>

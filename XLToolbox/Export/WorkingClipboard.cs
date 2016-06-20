@@ -46,7 +46,14 @@ namespace XLToolbox.Export
 
         public WorkingClipboard()
         {
-            Pinvoke.OpenClipboard((IntPtr)Excel.ViewModels.Instance.Default.Application.Hwnd);
+            try
+            {
+                Pinvoke.OpenClipboard((IntPtr)Excel.ViewModels.Instance.Default.Application.Hwnd);
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                throw new WorkingClipboardException("Unable to obtain access to Windows clipboard", e);
+            }
         }
 
         ~WorkingClipboard()
@@ -64,6 +71,7 @@ namespace XLToolbox.Export
             if (!_disposed)
             {
                 _disposed = true;
+                // Free unmanaged resources (Pinvoke class has static methods)
                 Pinvoke.CloseClipboard();
                 if (_emfHandle != IntPtr.Zero)
                 {

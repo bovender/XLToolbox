@@ -1,4 +1,4 @@
-﻿/* SubmissionProcessAction.cs
+﻿/* VbaException.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -16,18 +16,24 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Bovender.Mvvm.Actions;
+using System.Runtime.Serialization;
 
-namespace XLToolbox.ExceptionHandler
+namespace XLToolbox.Vba
 {
-    class SubmissionProcessAction : NotificationAction
+    /// <summary>
+    /// Exception that is raised when VBA code calls the
+    /// <see cref="XLToolbox.Vba.Api.ShowException"/> method.
+    /// </summary>
+    [Serializable]
+    class VbaException : Exception
     {
-        protected override System.Windows.Window CreateView()
-        {
-            return new SubmissionProcessView();
-        }
+        public VbaException() { }
+        public VbaException(string message) : base(message) { }
+        public VbaException(string message,
+            Exception innerException)
+            : base(message, innerException) { }
+        public VbaException(SerializationInfo info,
+            StreamingContext context)
+            : base(info, context) { }
     }
 }

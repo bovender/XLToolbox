@@ -1,4 +1,4 @@
-﻿/* ExportFinishedEventArgs.cs
+﻿/* BitmapCreatedEventArgs.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -20,25 +20,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox.Export
+namespace XLToolbox.Export.Models
 {
-    public class ExportFinishedEventArgs : EventArgs
+    public class BitmapCreatedEventArgs : EventArgs
     {
-        #region Public properties
+        public FreeImageAPI.FreeImageBitmap FreeImageBitmap { get; private set; }
 
-        public int FilesCreated { get; private set; }
-        public bool WasCancelled { get; private set; }
-
-        #endregion
-
-        #region Constructor
-
-        public ExportFinishedEventArgs(int filesCreated, bool wasCancelled)
+        public BitmapCreatedEventArgs(FreeImageAPI.FreeImageBitmap freeImageBitmap)
         {
-            FilesCreated = filesCreated;
-            WasCancelled = WasCancelled;
+            FreeImageBitmap = freeImageBitmap;
         }
-
-        #endregion
     }
 }

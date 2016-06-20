@@ -193,7 +193,7 @@ namespace XLToolbox.Export.ViewModels
                     "Windows did not tell color profile directory");
             }
 
-            using (Bovender.Unmanaged.DllManager dllManager = new Bovender.Unmanaged.DllManager())
+            using (XLToolbox.Unmanaged.DllManager dllManager = new XLToolbox.Unmanaged.DllManager())
             {
                 ColorProfileViewModel vm;
                 ColorProfileViewModelCollection coll;

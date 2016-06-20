@@ -18,9 +18,11 @@
 using System;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
 using XLToolbox.Excel.ViewModels;
+using System.Windows;
 
 namespace XLToolbox.Export
 {
@@ -48,7 +50,9 @@ namespace XLToolbox.Export
             {
                 SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
                 SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
-                svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent; 
+                svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent;
+                svm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
+                svm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {
                     svm.ChooseFileNameCommand.Execute(null);
@@ -68,14 +72,8 @@ namespace XLToolbox.Export
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
-                bvm.ExportProcessMessage.Sent +=
-                    (sender, args) =>
-                    {
-                        ProcessAction a = new ProcessAction();
-                        a.Caption = Strings.BatchExport;
-                        a.CancelButtonText = Strings.Cancel;
-                        a.Invoke(args);
-                    };
+                bvm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
+                bvm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
                 bvm.ChooseFolderCommand.Execute(null);
             }
             else
@@ -88,6 +86,8 @@ namespace XLToolbox.Export
                     bvm = new BatchExportSettingsViewModel();
                     // Do not 'sanitize' the export options, so that the user
                     // can see the selected, but disabled options.
+                    bvm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
+                    bvm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
                     bvm.InjectInto<Views.BatchExportSettingsView>().ShowDialog();
                 }
                 else

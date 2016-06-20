@@ -304,6 +304,7 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>Workbook with only one worksheet.</returns>
         public Workbook CreateWorkbook()
         {
+            Logger.Info("CreateWorkbook");
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
             return Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
@@ -318,6 +319,7 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>Workbook containing the specified number of sheets (not less than 1).</returns>
         public Workbook CreateWorkbook(int numberOfSheets)
         {
+            Logger.Info("CreateWorkbook({0})", numberOfSheets);
             Workbook wb = CreateWorkbook();
             for (int i = 2; i <= numberOfSheets; i++)
             {
@@ -475,6 +477,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (!_disposed)
             {
+                Logger.Info("Instance disposal was triggered");
                 Dispose(true);
                 GC.SuppressFinalize(this);
                 // prevent executing this code again
@@ -512,6 +515,7 @@ namespace XLToolbox.Excel.ViewModels
             if (_application != null)
             {
                 _application.DisplayAlerts = false;
+                Logger.Info("Now quitting Excel.");
                 _application.Quit();
                 _application = null;
             }
@@ -519,11 +523,13 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoQuitInteractively()
         {
+            Logger.Info("DoQuitInteractively");
             CloseAllWorkbooksThenShutdown();
         }
 
         private void DoQuitSavingChanges()
         {
+            Logger.Info("DoQuitSavingChanges");
             ConfirmQuitSavingChangesMessage.Send(
                 new MessageContent(),
                 (MessageContent response) =>
@@ -538,6 +544,7 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         private void ConfirmQuitSavingChanges()
         {
+            Logger.Info("ConfirmQuitSavingChanges");
             foreach (Workbook w in UnsavedWorkbooks)
             {
                 if (w.Path == String.Empty)
@@ -562,6 +569,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoQuitDiscardingChanges()
         {
+            Logger.Info("DoQuitDiscardingChanges");
             ConfirmQuitDiscardingChangesMessage.Send(
                 new MessageContent(),
                 (MessageContent response) =>
@@ -576,6 +584,7 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         private void ConfirmQuitDiscardingChanges()
         {
+            Logger.Info("ConfirmQuitDiscardingChanges");
             foreach (Workbook w in UnsavedWorkbooks)
             {
                 w.Saved = true;
@@ -594,6 +603,7 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>True if all workbooks were closed, false if not.</returns>
         private bool CloseAllWorkbooksThenShutdown()
         {
+            Logger.Info("CloseAllWorkbooksThenShutdown");
             while (Application.Workbooks.Count > 0)
             {
                 // Excel collections are 1-based!
@@ -603,14 +613,18 @@ namespace XLToolbox.Excel.ViewModels
                 // Try if the workbook has been closed
                 if (n == CountOpenWorkbooks) return false;
             }
+            Logger.Info("Examining the situation.");
             if (Application.Workbooks.Count == 0)
             {
+                Logger.Info("No more workbooks left.");
                 CloseViewCommand.Execute(null);
                 Shutdown();
+                Logger.Info("Shutting down.");
                 return true;
             }
             else
             {
+                Logger.Info("Still {0} workbook(s) left!", Application.Workbooks.Count);
                 return false;
             }
         }

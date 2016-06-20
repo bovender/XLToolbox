@@ -1,4 +1,4 @@
-﻿/* ExportProgressChangedEventArgs.cs
+﻿/* WorkingClipboardException.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -16,29 +16,20 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace XLToolbox.Export
 {
-    public class ExportProgressChangedEventArgs : EventArgs
+    [Serializable]
+    class WorkingClipboardException : Exception
     {
-        #region Public properties
-
-        public int PercentCompleted { get; set; }
-
-        #endregion
-
-        #region Constructor
-
-        public ExportProgressChangedEventArgs() : base() { }
-
-        public ExportProgressChangedEventArgs(int percentCompleted)
-        {
-            PercentCompleted = percentCompleted;
-        }
-
-        #endregion
+        public WorkingClipboardException() { }
+        public WorkingClipboardException(string message) : base(message) { }
+        public WorkingClipboardException(string message,
+            Exception innerException)
+            : base(message, innerException) { }
+        public WorkingClipboardException(SerializationInfo info,
+            StreamingContext context)
+            : base(info, context) { }
     }
 }

@@ -1,4 +1,4 @@
-﻿/* ExportException.cs
+﻿/* TileException.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -21,14 +21,14 @@ using System.Runtime.Serialization;
 namespace XLToolbox.Export
 {
     [Serializable]
-    class ExportException : Exception
+    class TileException : Exception
     {
-        public ExportException() { }
-        public ExportException(string message) : base(message) { }
-        public ExportException(string message,
+        public TileException() { }
+        public TileException(string message) : base(message) { }
+        public TileException(string message,
             Exception innerException)
             : base(message, innerException) { }
-        public ExportException(SerializationInfo info,
+        public TileException(SerializationInfo info,
             StreamingContext context)
             : base(info, context) { }
     }

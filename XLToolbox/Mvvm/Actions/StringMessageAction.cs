@@ -24,7 +24,7 @@ using XLToolbox.Mvvm.Views;
 
 namespace XLToolbox.Mvvm.Actions
 {
-    class StringMessageAction : MessageActionBase
+    class StringMessageAction : NotificationAction
     {
         protected override System.Windows.Window CreateView()
         {
