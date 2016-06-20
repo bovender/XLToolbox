@@ -4,8 +4,9 @@
 
 require 'octokit'
 
-http://stackoverflow.com/a/11868440/270712
-branch = `git rev-parse --abbrev-ref HEAD`
+# http://stackoverflow.com/a/11868440/270712
+branch = `git rev-parse --abbrev-ref HEAD`.chomp
+puts "Current branch: '#{branch}'"
 if branch != 'master'
   puts "Not on master. Please check out master branch first."
   exit 1
@@ -14,8 +15,8 @@ end
 client = Octokit::Client.new(netrc: true)
 repo = 'bovender/xltoolbox'
 tag = `git describe`
-tag = 'v7.0.0-beta.4'
-msg = `git tag -n9 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
+# tag = "v7.0.0-beta.7"
+msg = `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
   "\nDownload count for this release: " +
   "![Downloads of #{tag}](https://img.shields.io/github/downloads/bovender/xltoolbox/#{tag}/total.svg?maxAge=2592000)"
 
