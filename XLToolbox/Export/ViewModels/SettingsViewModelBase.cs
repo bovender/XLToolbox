@@ -150,18 +150,6 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
-        public Message<ProcessMessageContent> ExportProcessMessage
-        {
-            get
-            {
-                if (_exportProcessMessage == null)
-                {
-                    _exportProcessMessage = new Message<ProcessMessageContent>();
-                }
-                return _exportProcessMessage;
-            }
-        }
-
         #endregion
 
         #region Constructor
@@ -274,7 +262,6 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _exportCommand;
         DelegatingCommand _editPresetsCommand;
         Message<ViewModelMessageContent> _editPresetsMessage;
-        Message<ProcessMessageContent> _exportProcessMessage;
         PresetsRepositoryViewModel _presetsRepositoryViewModel;
         Exporter _exporter;
 

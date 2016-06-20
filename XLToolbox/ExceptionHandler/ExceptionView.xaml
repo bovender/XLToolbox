@@ -38,6 +38,7 @@
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding SubmitReportMessage}" EventName="Sent">
             <i:EventTrigger.Actions>
+                <ei:CallMethodAction MethodName="Close" />
                 <ex:SubmissionProcessAction />
             </i:EventTrigger.Actions>
         </i:EventTrigger>

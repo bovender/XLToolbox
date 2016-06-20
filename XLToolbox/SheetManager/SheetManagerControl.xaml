@@ -53,8 +53,8 @@
             <i:EventTrigger.Actions>
                 <ba:ConfirmationAction Caption="{x:Static l:Strings.WorksheetManager}"
                                        Message="{x:Static l:Strings.DoYouReallyWantToDeleteCannotBeUndone}"
-                                       OkButtonLabel="{x:Static l:Strings.Yes}"
-                                       CancelButtonLabel="{x:Static l:Strings.No}" />
+                                       OkButtonText="{x:Static l:Strings.Yes}"
+                                       CancelButtonText="{x:Static l:Strings.No}" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding RenameSheetMessage}" EventName="Sent">

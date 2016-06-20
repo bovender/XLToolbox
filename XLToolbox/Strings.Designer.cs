@@ -385,12 +385,22 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV export failed:
-        ///{0}.
+        ///   Looks up a localized string similar to CSV export failed.
         /// </summary>
         public static string CsvExportFailed {
             get {
                 return ResourceManager.GetString("CsvExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during CSV export.
+        ///
+        ///The following message was received:.
+        /// </summary>
+        public static string CsvExportFailedMessage {
+            get {
+                return ResourceManager.GetString("CsvExportFailedMessage", resourceCulture);
             }
         }
         
@@ -746,6 +756,26 @@ namespace XLToolbox {
         public static string ExportCsvFile {
             get {
                 return ResourceManager.GetString("ExportCsvFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export failed.
+        /// </summary>
+        public static string ExportFailed {
+            get {
+                return ResourceManager.GetString("ExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during export.
+        ///
+        ///The following error message was received:.
+        /// </summary>
+        public static string ExportFailedMessage {
+            get {
+                return ResourceManager.GetString("ExportFailedMessage", resourceCulture);
             }
         }
         

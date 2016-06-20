@@ -33,12 +33,12 @@ namespace XLToolbox.ExceptionHandler
     {
         protected override Window CreateSuccessWindow()
         {
-            return Content.InjectInto<SubmissionSuccessView>();
+            return new SubmissionSuccessView();
         }
 
         protected override Window CreateFailureWindow()
         {
-            return Content.InjectInto<SubmissionFailureView>();
+            return new SubmissionFailureView();
         }
 
         protected override Window CreateCancelledWindow()

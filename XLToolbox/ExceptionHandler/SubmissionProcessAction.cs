@@ -23,11 +23,11 @@ using Bovender.Mvvm.Actions;
 
 namespace XLToolbox.ExceptionHandler
 {
-    class SubmissionProcessAction : MessageActionBase
+    class SubmissionProcessAction : NotificationAction
     {
         protected override System.Windows.Window CreateView()
         {
-            return Content.InjectInto<SubmissionProcessView>();
+            return new SubmissionProcessView();
         }
     }
 }

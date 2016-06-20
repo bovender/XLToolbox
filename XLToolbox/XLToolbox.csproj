@@ -131,8 +131,6 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Export\ExportException.cs" />
-    <Compile Include="Export\ExportFinishedEventArgs.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
     <Compile Include="Export\Lcms\Formatters.cs" />
@@ -141,7 +139,6 @@
     <Compile Include="Export\Models\BatchExportScope.cs" />
     <Compile Include="Export\Models\BatchExportSettings.cs" />
     <Compile Include="Export\ExportFileName.cs" />
-    <Compile Include="Export\ExportProgressChangedEventArgs.cs" />
     <Compile Include="Export\Models\BitmapCreatedEventArgs.cs" />
     <Compile Include="Export\Models\TiledBitmap.cs" />
     <Compile Include="Export\Models\Transparency.cs" />

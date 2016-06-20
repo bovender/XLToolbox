@@ -23,7 +23,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:mvvm="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="{x:Static l:Strings.UpdateAvailable}"
         >
@@ -41,7 +41,7 @@
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding DownloadUpdateMessage}" EventName="Sent">
             <mvvm:ProcessAction Assembly="XLToolbox" View="XLToolbox.Versioning.UpdaterProcessView"
-                                Caption="{x:Static l:Strings.DownloadingXLToolboxUpdate}"
+                                Caption="asdf"
                                 Message="{x:Static l:Strings.DownloadingXLToolboxUpdate}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>

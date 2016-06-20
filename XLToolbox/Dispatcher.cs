@@ -167,24 +167,8 @@ namespace XLToolbox
             }
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
-            Bovender.Mvvm.Views.ProcessView processView = new Bovender.Mvvm.Views.ProcessView();
-            vm.ShowProgressMessage.Sent += (sender, args) =>
-            {
-                Logger.Info("Creating process view");
-                args.Content.CancelButtonText = Strings.Cancel;
-                args.Content.Caption = Strings.Export;
-                args.Content.CompletedMessage.Sent += (sender2, args2) =>
-                {
-                    args.Content.CloseViewCommand.Execute(null);
-                };
-                args.Content.InjectInto(processView).Show();
-            };
-            vm.ProcessFailedMessage.Sent += (sender, args) =>
-            {
-                Logger.Info("Received ExportFailedMessage, informing user");
-                MessageBox.Show(args.Content.Exception.Message, Strings.Export,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-            };
+            vm.ShowProgressMessage.Sent += ShowProgressMessage_Sent;
+            vm.ProcessFailedMessage.Sent += ProcessFailedMessage_Sent;
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 
@@ -203,6 +187,8 @@ namespace XLToolbox
                 vm = new BatchExportSettingsViewModel();
             }
             vm.SanitizeOptions();
+            vm.ShowProgressMessage.Sent += ShowProgressMessage_Sent;
+            vm.ProcessFailedMessage.Sent += ProcessFailedMessage_Sent;
             vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialogInForm();
         }
 
@@ -370,10 +356,8 @@ namespace XLToolbox
             Xl.Range range = Instance.Default.Application.Selection as Xl.Range;
             if (range == null)
             {
-                NotificationAction a = new NotificationAction();
-                a.Caption = Strings.RangeSelectionRequired;
-                a.Message = Strings.ActionRequiresSelectionOfCells;
-                a.OkButtonLabel = Strings.OK;
+                NotificationAction a = new NotificationAction(
+                    Strings.RangeSelectionRequired, Strings.ActionRequiresSelectionOfCells, Strings.OK);
                 a.Invoke();
                 return false;
             }
@@ -401,12 +385,34 @@ namespace XLToolbox
                 };
                 args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().Show();
             };
-            vm.ProcessFailedMessage.Sent += (sender2, args2) =>
+            vm.ProcessFailedMessage.Sent += (sender, args) =>
             {
-                MessageBox.Show(args2.Content.Message, Strings.Export,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                Logger.Info("Received ExportFailedMessage, informing user");
+                Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
+                    args.Content, Strings.CsvExportFailed, Strings.CsvExportFailed, Strings.Close);
+                action.Invoke(args);
             };
             return vm;
+        }
+
+        internal static void ShowProgressMessage_Sent(object sender, MessageArgs<ProcessMessageContent> e)
+        {
+            Logger.Info("Creating process view");
+            e.Content.CancelButtonText = Strings.Cancel;
+            e.Content.Caption = Strings.Export;
+            e.Content.CompletedMessage.Sent += (sender2, args2) =>
+            {
+                e.Content.CloseViewCommand.Execute(null);
+            };
+            e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowDialogInForm();
+        }
+
+        internal static void ProcessFailedMessage_Sent(object sender, MessageArgs<ProcessMessageContent> e)
+        {
+            Logger.Info("Received ExportFailedMessage, informing user");
+            Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
+                e.Content, Strings.ExportFailed, Strings.ExportFailedMessage, Strings.Close);
+            action.Invoke(e);
         }
 
         #endregion

@@ -32,13 +32,15 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding CompletedMessage}" EventName="Sent">
+            <ei:CallMethodAction MethodName="Close" />
             <ex:SubmissionCompletedAction />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Margin="10">
         <ProgressBar Width="240" Value="{Binding PercentCompleted}" IsIndeterminate="{Binding IsIndeterminate}" />
         <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Center">
-            <Button Command="{Binding CancelCommand}" Content="{x:Static l:Strings.Cancel}" />
+            <Button Command="{Binding CancelCommand}" Content="{x:Static l:Strings.Cancel}"
+                    IsDefault="True" IsCancel="True"/>
         </StackPanel>
     </StackPanel>
 </Window>

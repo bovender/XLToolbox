@@ -185,7 +185,7 @@ namespace XLToolbox.Vba
         /// </summary>
         public void Log(string message)
         {
-            Logger.Info(message);
+            Logger.Info(String.Format("Log(\"{0}\")", message));
         }
 
         /// <summary>

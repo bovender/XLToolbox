@@ -34,14 +34,14 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding ConfirmQuitDiscardingChangesMessage}" EventName="Sent">
-            <actions:ConfirmationAction CancelButtonLabel="{x:Static l:Strings.Cancel}"
-                                        OkButtonLabel="{x:Static l:Strings.OK}"
+            <actions:ConfirmationAction CancelButtonText="{x:Static l:Strings.Cancel}"
+                                        OkButtonText="{x:Static l:Strings.OK}"
                                         Message="{x:Static l:Strings.AreYouSure}"
                                         Caption="{x:Static l:Strings.QuitDiscardingChanges}" />
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ConfirmQuitSavingChangesMessage}" EventName="Sent">
-            <actions:ConfirmationAction CancelButtonLabel="{x:Static l:Strings.Cancel}"
-                                        OkButtonLabel="{x:Static l:Strings.OK}"
+            <actions:ConfirmationAction CancelButtonText="{x:Static l:Strings.Cancel}"
+                                        OkButtonText="{x:Static l:Strings.OK}"
                                         Message="{x:Static l:Strings.AreYouSure}"
                                         Caption="{x:Static l:Strings.QuitSavingChanges}" />
         </i:EventTrigger>

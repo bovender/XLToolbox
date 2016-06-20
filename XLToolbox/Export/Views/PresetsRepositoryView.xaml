@@ -39,8 +39,8 @@
         <i:EventTrigger SourceObject="{Binding ConfirmRemoveMessage}" EventName="Sent">
             <actions:ConfirmationAction Message="{x:Static l:Strings.ConfirmRemovePreset}"
                                         Caption="{x:Static l:Strings.RemovePreset}"
-                                        OkButtonLabel="{x:Static l:Strings.OK}"
-                                        CancelButtonLabel="{x:Static l:Strings.Cancel}"/>
+                                        OkButtonText="{x:Static l:Strings.OK}"
+                                        CancelButtonText="{x:Static l:Strings.Cancel}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <DockPanel Margin="10">

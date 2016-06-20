@@ -97,7 +97,7 @@ namespace XLToolbox.Export
             {
                 Logger.Info("Beginning export task");
                 try 
-	            {	        
+	            {
                     ExportSelection(settings.Preset, w, h, settings.FileName);
                     IsProcessing = false;
                     if (!_cancelled) OnProcessSucceeded();
