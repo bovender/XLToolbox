@@ -16,7 +16,8 @@ client = Octokit::Client.new(netrc: true)
 repo = 'bovender/xltoolbox'
 tag = `git describe`
 # tag = "v7.0.0-beta.7"
-msg = `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
+msg = 'Version ' +
+  `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
   "\nDownload count for this release: " +
   "![Downloads of #{tag}](https://img.shields.io/github/downloads/bovender/xltoolbox/#{tag}/total.svg?maxAge=2592000)"
 
