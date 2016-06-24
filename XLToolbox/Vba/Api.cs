@@ -39,25 +39,24 @@ namespace XLToolbox.Vba
     /// </code>
     /// </example>
     [ComVisible(true)]
-    [ClassInterface(ClassInterfaceType.AutoDispatch)]
-    [Guid("8DDC0086-3BAB-4D31-B5FD-6DEE3A1C78C9")]
-    public class Api
+    [ClassInterface(ClassInterfaceType.None)]
+    public class Api : IApi
     {
         #region Singleton factory
-
-        static Api _api;
 
         public static Api Default
         {
             get
             {
-                if (_api == null)
-                {
-                    _api = new Api();
-                }
-                return _api;
+                return _lazy.Value;
             }
         }
+
+        private static readonly Lazy<Api> _lazy = new Lazy<Api>(() =>
+        {
+            Logger.Info("Api: Creating instance");
+            return new Api();
+        });
 
         #endregion
 

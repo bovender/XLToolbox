@@ -233,6 +233,7 @@
       <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vba\Api.cs" />
+    <Compile Include="Vba\IApi.cs" />
     <Compile Include="Vba\VbaException.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
