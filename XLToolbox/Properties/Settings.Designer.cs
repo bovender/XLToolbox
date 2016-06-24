@@ -115,7 +115,7 @@ namespace XLToolbox.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Daniel\'s XL Toolbox")]
+        [global::System.Configuration.DefaultSettingValueAttribute("XLToolbox")]
         public string AppDataFolder {
             get {
                 return ((string)(this["AppDataFolder"]));
