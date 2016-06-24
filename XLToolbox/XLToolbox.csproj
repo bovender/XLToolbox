@@ -131,6 +131,7 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExceptionHandler\TestException.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
     <Compile Include="Export\Lcms\Formatters.cs" />

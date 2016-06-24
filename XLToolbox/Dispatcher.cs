@@ -65,7 +65,7 @@ namespace XLToolbox
                     case Command.BatchExportLast: BatchExportLast(); break;
                     case Command.ExportScreenshot: ExportScreenshot(); break;
                     case Command.Donate: OpenDonatePage(); break;
-                    case Command.ThrowError: throw new InsufficientMemoryException();
+                    case Command.ThrowError: throw new ExceptionHandler.TestException("This exception was thrown for testing purposes");
                     case Command.QuitExcel: QuitExcel(); break;
                     case Command.OpenCsv: OpenCsv(); break;
                     case Command.OpenCsvWithParams: OpenCsvWithSettings(); break;
