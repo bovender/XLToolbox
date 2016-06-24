@@ -69,11 +69,16 @@ namespace XLToolbox.SheetManager
         {
             get
             {
-                return _pane.Visible;
+                return _visible;
             }
             set
             {
-                _pane.Visible = value;
+                Logger.Info("Visible: Set: {0}", value);
+                _visible = value;
+                foreach (CustomTaskPane pane in Panes.Values)
+                {
+                    pane.Visible = value;
+                }
             }
         }
 
@@ -81,11 +86,16 @@ namespace XLToolbox.SheetManager
         {
             get
             {
-                return _pane.Width;
+                return _width;
             }
             set
             {
-                _pane.Width = value;
+                Logger.Info("Width: Set: {0}", value);
+                _width = value;
+                foreach (CustomTaskPane pane in Panes.Values)
+                {
+                    pane.Width = value;
+                }
             }
         }
 
@@ -113,11 +123,28 @@ namespace XLToolbox.SheetManager
 
         #endregion
 
+        #region Public methods
+
+        /// <summary>
+        /// Updates the SheetManagerPane for the active window.
+        /// This method should be called from a WindowActivate
+        /// event handler.
+        /// </summary>
+        public void UpdatePanes()
+        {
+
+        }
+        
+        #endregion
+
         #region Constructor
 
         private SheetManagerPane()
         {
-            CreateTaskPane();
+            _width = UserSettings.UserSettings.Default.TaskPaneWidth;
+            _viewModel = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
+            AttachToCurrentWindow();
+            Excel.ViewModels.Instance.Default.Application.WindowActivate += Application_WindowActivate;
         }
 
         #endregion
@@ -133,38 +160,108 @@ namespace XLToolbox.SheetManager
             }
         }
 
-        private void OnVisibilityChanged()
+        private void OnVisibilityChanged(CustomTaskPane senderTaskPane)
         {
-            UserSettings.UserSettings.Default.SheetManagerVisible = _pane.Visible;
-            if (_pane.Visible)
+            if (!_lockVisibleChangeEventHandler)
             {
-                _viewModel.MonitorWorkbook.Execute(null);
-            }
-            else
-            {
-                _viewModel.UnmonitorWorkbook.Execute(null);
-            }
-            EventHandler<SheetManagerEventArgs> h = VisibilityChanged;
-            if (h != null)
-            {
-                h(this, new SheetManagerEventArgs(this));
+                _lockVisibleChangeEventHandler = true;
+                Logger.Info("OnVisibilityChanged");
+
+                // Synchronize the visibility of all task panes.
+                // We cannot use our own Visible property to accomplish this,
+                // because accessing the property of the task pane that raised
+                // the event causes an exception.
+                _visible = senderTaskPane.Visible;
+                foreach (CustomTaskPane p in Panes.Values)
+                {
+                    if (senderTaskPane != p)
+                    {
+                        p.Visible = _visible;
+                    }
+                }
+
+                UserSettings.UserSettings.Default.SheetManagerVisible = Visible;
+                if (Visible)
+                {
+                    _viewModel.MonitorWorkbook.Execute(null);
+                }
+                else
+                {
+                    _viewModel.UnmonitorWorkbook.Execute(null);
+                }
+                EventHandler<SheetManagerEventArgs> h = VisibilityChanged;
+                if (h != null)
+                {
+                    h(this, new SheetManagerEventArgs(this));
+                }
+                _lockVisibleChangeEventHandler = false;
             }
         }
 
-        private void CreateTaskPane()
+        private void Application_WindowActivate(
+            Microsoft.Office.Interop.Excel.Workbook Wb,
+            Microsoft.Office.Interop.Excel.Window Wn)
         {
-            _viewModel = new WorkbookViewModel(Instance.Default.ActiveWorkbook);
-            UserControl userControl = new UserControl();
-            SheetManagerControl view = new SheetManagerControl() { DataContext = _viewModel };
-            ElementHost elementHost = new ElementHost() { Child = view };
-            userControl.Controls.Add(elementHost);
-            elementHost.Dock = DockStyle.Fill;
-            _pane = Globals.CustomTaskPanes.Add(userControl, Strings.WorksheetManager);
-            _pane.Width = UserSettings.UserSettings.Default.TaskPaneWidth;
-            _pane.VisibleChanged += (sender, args) =>
+            Logger.Info("Application_WindowActivate");
+            AttachToCurrentWindow();
+        }
+
+        private void AttachToCurrentWindow()
+        {
+            // If the current window does not yet have our task pane, add it to it
+            IntPtr currentHandle = Bovender.Win32Window.MainWindowHandleProvider();
+            if (!Panes.ContainsKey(currentHandle))
             {
-                OnVisibilityChanged();
-            };
+                Logger.Info("Attaching new WorksheetManager panel to window 0x{0:X08}", currentHandle);
+                UserControl userControl = new UserControl();
+                SheetManagerControl view = new SheetManagerControl() { DataContext = _viewModel };
+                ElementHost elementHost = new ElementHost() { Child = view };
+                userControl.Controls.Add(elementHost);
+                elementHost.Dock = DockStyle.Fill;
+                CustomTaskPane pane = Globals.CustomTaskPanes.Add(userControl, Strings.WorksheetManager);
+                Panes.Add(currentHandle, pane);
+                pane.Width = Width;
+                pane.Visible = Visible;
+                pane.VisibleChanged += (sender, args) =>
+                {
+                    OnVisibilityChanged(sender as CustomTaskPane);
+                };
+            }
+            else
+            {
+                Logger.Info("Window 0x{0:X08} already has a WorksheetManager panel", currentHandle);
+            }
+        }
+
+        #endregion
+
+        #region Private properties
+
+        /// <summary>
+        /// Manages the SheetManager task panes for individual Excel windows.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Excel 2013 is an SDI application, which means it has multiple windows
+        /// for multiple workbooks. Excel 2010 is an MDI application, which means
+        /// that multiple open workbooks were shown in just a single application
+        /// window. The new SDI mode has consequences for task panes, which are
+        /// bound to each window.
+        /// </para>
+        /// <para>
+        /// Inspired by an answer by @antonio-nakic-alfirevic on StackOverflow:
+        /// http://stackoverflow.com/a/24732000/270712
+        /// </para>
+        /// <para>
+        /// More at https://msdn.microsoft.com/en-us/library/office/dn251093.aspx
+        /// </para>
+        /// </remarks>
+        private Dictionary<IntPtr, CustomTaskPane> Panes
+        {
+            get
+            {
+                return _lazyPanes.Value;
+            }
         }
 
         #endregion
@@ -172,20 +269,37 @@ namespace XLToolbox.SheetManager
         #region Private fields
 
         private WorkbookViewModel _viewModel;
-        private CustomTaskPane _pane;
+        private bool _visible;
+        private int _width;
+        private bool _lockVisibleChangeEventHandler;
 
         #endregion
 
         #region Private static fields
 
-        private static Lazy<SheetManagerPane> _lazy = new Lazy<SheetManagerPane>(
+        private static readonly Lazy<SheetManagerPane> _lazy = new Lazy<SheetManagerPane>(
             () =>
             {
+                Logger.Info("Lazily creating SheetManagerPane instance");
                 SheetManagerPane p = new SheetManagerPane();
                 OnInitialized(p);
                 return p;
             }
         );
+
+        private static readonly Lazy<Dictionary<IntPtr, CustomTaskPane>> _lazyPanes =
+            new Lazy<Dictionary<IntPtr, CustomTaskPane>>(() =>
+            {
+                return new Dictionary<IntPtr, CustomTaskPane>();
+            });
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

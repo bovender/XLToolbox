@@ -236,11 +236,11 @@ namespace XLToolboxForExcel
 
         void SheetManagerPane_SheetManagerInitialized(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
         {
-            e.Instance.VisibilityChanged += Instance_VisibilityChanged;
+            e.Instance.VisibilityChanged += SheetManager_VisibilityChanged;
             InvalidateRibbonUi();
         }
 
-        void Instance_VisibilityChanged(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
+        void SheetManager_VisibilityChanged(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
         {
             InvalidateRibbonUi();
         }
