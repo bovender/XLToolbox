@@ -25,7 +25,7 @@
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         bov:WindowState.Save="True" bov:WindowState.CenterScreen="True"
-        ResizeMode="NoResize"
+        ResizeMode="NoResize" Topmost="True"
         ShowInTaskbar="False" Width="480" SizeToContent="Height"
         Title="{x:Static l:Strings.IncompleteShutdown}"
         >
