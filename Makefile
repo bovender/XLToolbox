@@ -8,7 +8,7 @@ help:
 credits: XLToolbox/Resources/html/credits.html
 
 XLToolbox/Resources/html/credits.html: ../web/content/about.haml
-	sed -e '1,/<!-- 8< -->/d; /vim:/d; s/^\(  \)\{3\}//' ../web/content/about.haml | perl -0777 -pe 's/\[([^]]+)\]\([^)]+\)/\1/msg' | pandoc -H XLToolbox/Resources/html/style.html > XLToolbox/Resources/html/credits.html
+	sed -e '1,/<!-- 8< -->/d; /vim:/d; s/^\( \)\{4\}//' ../web/content/about.haml | perl -0777 -pe 's/\[([^]]+)\]\([^)]+\)/\1/msg' | pandoc -H XLToolbox/Resources/html/style.html > XLToolbox/Resources/html/credits.html
 
 publish:
 	git push
