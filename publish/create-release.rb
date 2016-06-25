@@ -22,7 +22,7 @@ prerelease = !!(tag =~ /alpha|beta/) # http://stackoverflow.com/a/7365620/270712
 msg = 'Version ' +
   `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
   "\nDownload count for this release: " +
-  "[![Downloads of #{tag}](https://img.shields.io/github/downloads/bovender/xltoolbox/#{tag}/total.svg?maxAge=2592000)](https://github.com/bovender/XLToolbox/releases/download/#{tag}/XLToolbox-#{version}.exe)"
+  "[![Downloads of #{tag}](https://img.shields.io/github/downloads/bovender/xltoolbox/#{tag}/total.svg?maxAge=60480)](https://github.com/bovender/XLToolbox/releases/download/#{tag}/XLToolbox-#{version}.exe)"
 
 puts "Creating GitHub release for tag '#{tag}'."
 puts "This is a pre-release." if prerelease
