@@ -92,7 +92,7 @@ namespace XLToolboxForExcel
 
             if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
             {
-                XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
+                XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
             MaybeCheckForUpdate();

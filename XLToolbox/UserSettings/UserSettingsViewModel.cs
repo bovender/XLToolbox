@@ -133,9 +133,9 @@ namespace XLToolbox.UserSettings
         {
             UserSettings u = UserSettings.Default;
             _isLoggingEnabled = u.EnableLogging;
-            if (XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible)
+            if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
-                _taskPaneWidth = XLToolbox.SheetManager.SheetManagerPane.Default.Width;
+                _taskPaneWidth = XLToolbox.SheetManager.TaskPaneManager.Default.Width;
             }
             else
             {
@@ -166,9 +166,9 @@ namespace XLToolbox.UserSettings
             UserSettings u = UserSettings.Default;
             u.TaskPaneWidth = TaskPaneWidth;
             u.EnableLogging = IsLoggingEnabled;
-            if (XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible)
+            if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
-                XLToolbox.SheetManager.SheetManagerPane.Default.Width = _taskPaneWidth;
+                XLToolbox.SheetManager.TaskPaneManager.Default.Width = _taskPaneWidth;
             }
             DoCloseView();
         }

@@ -121,5 +121,14 @@ namespace XLToolbox.Properties {
                 return ((string)(this["AppDataFolder"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public int WorkbookMonitorIntervalMilliseconds {
+            get {
+                return ((int)(this["WorkbookMonitorIntervalMilliseconds"]));
+            }
+        }
     }
 }

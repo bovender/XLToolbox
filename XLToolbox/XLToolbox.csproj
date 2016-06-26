@@ -225,7 +225,9 @@
     <Compile Include="SheetManager\SheetManagerControl.xaml.cs">
       <DependentUpon>SheetManagerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="SheetManager\TaskPaneManager.cs" />
+    <Compile Include="SheetManager\SheetManagerTaskPane.cs" />
+    <Compile Include="SheetManager\TaskPaneManagerEventArgs.cs" />
     <Compile Include="Unmanaged\DllManager.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\UserSettingsViewModel.cs" />

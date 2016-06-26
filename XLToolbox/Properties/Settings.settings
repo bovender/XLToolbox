@@ -35,5 +35,8 @@
     <Setting Name="AppDataFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">XLToolbox</Value>
     </Setting>
+    <Setting Name="WorkbookMonitorIntervalMilliseconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

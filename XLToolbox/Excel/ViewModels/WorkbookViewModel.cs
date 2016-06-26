@@ -34,59 +34,6 @@ namespace XLToolbox.Excel.ViewModels
     /// </summary>
     public class WorkbookViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Interval at which to refresh the sheet list when monitoring
-        /// the Workbook (see <see cref="MonitorWorkbook"/> command,
-        /// <see cref="DoMonitorWorkbook"/> method).
-        /// </summary>
-        const int MONITOR_INTERVAL = 700; // ms
-
-        #region Private fields
-
-        private Workbook _workbook;
-        private ObservableCollection<SheetViewModel> _sheets;
-        private SheetViewModel _lastSelectedSheet;
-        private DelegatingCommand _moveSheetUp;
-        private DelegatingCommand _moveSheetsToTop;
-        private DelegatingCommand _moveSheetDown;
-        private DelegatingCommand _moveSheetsToBottom;
-        private DelegatingCommand _deleteSheets;
-        private DelegatingCommand _renameSheet;
-        private DelegatingCommand _monitorWorkbook;
-        private DelegatingCommand _unmonitorWorkbook;
-        private Message<MessageContent> _confirmDeleteMessage;
-        private Message<StringMessageContent> _renameSheetMessage;
-        private bool _monitoring;
-        private string _lastSheetsString;
-
-        #endregion
-
-        #region Protected properties
-
-        protected Workbook Workbook
-        {
-            get
-            {
-                return _workbook;
-            }
-            set
-            {
-                _workbook = value;
-                OnPropertyChanged("Workbook");
-                BuildSheetList();
-                if (_workbook != null)
-                {
-                    DisplayString = _workbook.Name;
-                }
-                else
-                {
-                    DisplayString = String.Empty;
-                }
-            }
-        }
-        
-        #endregion
-
         #region Public properties
 
         public int NumSelectedSheets { get; private set; }
@@ -310,14 +257,27 @@ namespace XLToolbox.Excel.ViewModels
 
         public WorkbookViewModel()
         {
-            Excel.ViewModels.Instance.Default.Application.WorkbookActivate += Application_WorkbookActivate;
-            Excel.ViewModels.Instance.Default.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
+            if (!XLToolbox.Excel.ViewModels.Instance.Default.IsSingleDocumentInterface)
+            {
+                // Change the workbook model only if this is not an SDI application
+                Excel.ViewModels.Instance.Default.Application.WorkbookActivate += Application_WorkbookActivate;
+                Excel.ViewModels.Instance.Default.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
+            }
         }
 
         public WorkbookViewModel(Workbook workbook)
             : this()
         {
             this.Workbook = workbook;
+        }
+
+        #endregion
+
+        #region Implementation of ViewModelBase's abstract methods
+
+        public override object RevealModelObject()
+        {
+            return _workbook;
         }
 
         #endregion
@@ -538,43 +498,44 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoMonitorWorkbook()
         {
-            if (!_monitoring)
+            if (_timer == null)
             {
                 Logger.Info("Begin monitoring workbook");
-                _monitoring = true;
-                Task.Factory.StartNew(() =>
-                {
-                    while (_monitoring)
-                    {
-                        CheckSheetsChanged();
-                        Thread.Sleep(MONITOR_INTERVAL);
-                    }
-                });
+                _timer = new Timer(
+                    CheckSheetsChanged,
+                    null,
+                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds,
+                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds);
             }
         }
 
         private bool CanMonitorWorkbook()
         {
-            return _workbook != null && !_monitoring;
+            return _workbook != null && _timer == null;
         }
 
         private void DoUnmonitorWorkbook()
         {
-            Logger.Info("Stop monitoring workbook");
-            _monitoring = false;
-            CheckSheetsChanged();
+            if (_timer != null)
+            {
+                Logger.Info("Stop monitoring workbook");
+                _timer.Dispose();
+                _timer = null;
+                CheckSheetsChanged(null);
+            }
         }
 
         private bool CanUnmonitorWorkbook()
         {
-            return _monitoring;
+            return _timer == null;
         }
 
-        private void CheckSheetsChanged()
+        private void CheckSheetsChanged(object state)
         {
             string sheetsString = SheetsString;
             if (sheetsString != _lastSheetsString)
             {
+                Logger.Info("CheckSheetsChanged: Change in worksheets detected, rebuilding list");
                 _lastSheetsString = sheetsString;
                 BuildSheetList();
             }
@@ -582,13 +543,50 @@ namespace XLToolbox.Excel.ViewModels
 
         #endregion
 
-        #region Implementation of ViewModelBase's abstract methods
+        #region Private fields
 
-        public override object RevealModelObject()
+        private Workbook _workbook;
+        private ObservableCollection<SheetViewModel> _sheets;
+        private SheetViewModel _lastSelectedSheet;
+        private DelegatingCommand _moveSheetUp;
+        private DelegatingCommand _moveSheetsToTop;
+        private DelegatingCommand _moveSheetDown;
+        private DelegatingCommand _moveSheetsToBottom;
+        private DelegatingCommand _deleteSheets;
+        private DelegatingCommand _renameSheet;
+        private DelegatingCommand _monitorWorkbook;
+        private DelegatingCommand _unmonitorWorkbook;
+        private Message<MessageContent> _confirmDeleteMessage;
+        private Message<StringMessageContent> _renameSheetMessage;
+        private string _lastSheetsString;
+        private Timer _timer;
+
+        #endregion
+
+        #region Protected properties
+
+        protected Workbook Workbook
         {
-            return _workbook;
+            get
+            {
+                return _workbook;
+            }
+            set
+            {
+                _workbook = value;
+                OnPropertyChanged("Workbook");
+                BuildSheetList();
+                if (_workbook != null)
+                {
+                    DisplayString = _workbook.Name;
+                }
+                else
+                {
+                    DisplayString = String.Empty;
+                }
+            }
         }
-
+        
         #endregion
 
         #region Class logger

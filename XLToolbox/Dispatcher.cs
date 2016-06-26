@@ -154,7 +154,7 @@ namespace XLToolbox
 
         static void SheetManager()
         {
-            SheetManagerPane.Default.Visible = true;
+            TaskPaneManager.Default.Visible = true;
             // wvm.InjectAndShowInThread<WorkbookView>();
         }
 
