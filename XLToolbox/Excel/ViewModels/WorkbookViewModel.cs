@@ -16,15 +16,14 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Collections.ObjectModel;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -297,8 +296,8 @@ namespace XLToolbox.Excel.ViewModels
                 SheetViewModel svm;
                 foreach (dynamic sheet in Workbook.Sheets)
                 {
-                    // Directly comparing the Visible property with XlSheetVisibility.xlSheetVisible
-                    // caused exceptions. Therefore we compare directly with the value of 0.
+                    // Need to cats because directly comparing the Visible property with
+                    // XlSheetVisibility.xlSheetVisible caused exceptions.
                     if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
                     {
                         svm = new SheetViewModel(sheet);
@@ -306,7 +305,9 @@ namespace XLToolbox.Excel.ViewModels
                         sheets.Add(svm);
                     }
                 };
+                Workbook.SheetActivate += SheetActivated;
                 Sheets = sheets;
+                SheetActivated(Workbook.ActiveSheet);
             }
             else
             {
@@ -464,6 +465,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoRenameSheet()
         {
+            Logger.Info("DoRenameSheet");
             StringMessageContent content = new StringMessageContent();
             content.Value = _lastSelectedSheet.DisplayString;
             content.Validator = (value) =>
@@ -491,7 +493,12 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (CanRenameSheet() && stringMessage.Confirmed)
             {
+                Logger.Info("ConfirmRenameSheet: confirmed");
                 _lastSelectedSheet.DisplayString = stringMessage.Value;
+            }
+            else
+            {
+                Logger.Info("ConfirmRenameSheet: not confirmed or unable to rename sheet");
             }
         }
 
@@ -542,6 +549,20 @@ namespace XLToolbox.Excel.ViewModels
                 Logger.Info("CheckSheetsChanged: Change in worksheets detected, rebuilding list");
                 _lastSheetsString = sheetsString;
                 BuildSheetList();
+            }
+        }
+
+        private void SheetActivated(dynamic sheet)
+        {
+            if (sheet != null)
+            {
+                SheetViewModel svm = Sheets.FirstOrDefault(s => s.IsSelected);
+                if (svm != null)
+                {
+                    svm.IsSelected = false;
+                }
+                // Excel collection indexes are 1-based; .NET 0-based.
+                Sheets[sheet.Index - 1].IsSelected = true;
             }
         }
 
