@@ -1,17 +1,23 @@
 var classBovender_1_1UserSettings_1_1UserSettingsBase =
 [
     [ "UserSettingsBase", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#ad930705d33cde8c56a207d37cb6d209b", null ],
+    [ "UserSettingsBase", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#ad930705d33cde8c56a207d37cb6d209b", null ],
+    [ "FromFileOrDefault< T >", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a901860b9f900ee5f890072e0348cc3e5", null ],
     [ "FromFileOrDefault< T >", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a901860b9f900ee5f890072e0348cc3e5", null ],
     [ "GetSettingsFilePath", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#af50ac20ddc387e025810508d8c40aacf", null ],
+    [ "GetSettingsFilePath", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#af50ac20ddc387e025810508d8c40aacf", null ],
+    [ "LoadDefaults", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a331ceebd1b5dc026d79938c4ae01e719", null ],
     [ "LoadDefaults", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a331ceebd1b5dc026d79938c4ae01e719", null ],
     [ "Save", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#af351b954ef47500893f0d5b04d874da6", null ],
+    [ "Save", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#af351b954ef47500893f0d5b04d874da6", null ],
     [ "WriteYamlHeader", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a3ff1fd3d29be14127b365b5337a6a79f", null ],
-    [ "CcUserOnExceptionReport", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a19efd71589cf42d35d709c35f2aae09b", null ],
-    [ "Default", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a354c52cc16d276b738ca7a581ffc5369", null ],
-    [ "DownloadFolder", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a32835b0dfa86e02be9d2bc6cb26cb3ee", null ],
-    [ "Email", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a4ec7969bec521425d139175bbab24d87", null ],
-    [ "Exception", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a337b8f31c1459645fe45d0fd44570780", null ],
-    [ "Logger", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a2f50da8af1f2eeed1557092aecd4ce3c", null ],
-    [ "User", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#ac0909c3a1dfdf40ac843d7f8d9deffe8", null ],
-    [ "WasFromFile", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#adcb17bcf3bf7065eedcb5b88a939efef", null ]
+    [ "WriteYamlHeader", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a3ff1fd3d29be14127b365b5337a6a79f", null ],
+    [ "CcUserOnExceptionReport", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a1aae44bd7f5a7206e8e71931e116d008", null ],
+    [ "Default", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a098784af3d083bec5a008bccfd537e98", null ],
+    [ "DownloadFolder", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#addfed534192ae3f62bf2e8cc637786dd", null ],
+    [ "Email", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a39600b4afd8d7f465b49f25b09022c9e", null ],
+    [ "Exception", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#abf59252bf43d53b273729a17b0ac227f", null ],
+    [ "Logger", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#ac06ab66938427e3f5a2c6e59438a23b5", null ],
+    [ "User", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#a72091a42ef156e5f8fac4854944ef977", null ],
+    [ "WasFromFile", "classBovender_1_1UserSettings_1_1UserSettingsBase.html#ac115af8fc936d763a43bfe6e2b394e9b", null ]
 ];

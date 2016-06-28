@@ -107,8 +107,47 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a230105a958f29c41d492399e55dce48c"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1PathHelpers.html#a230105a958f29c41d492399e55dce48c">GetFileNamePart</a> (string path)</td></tr>
 <tr class="memdesc:a230105a958f29c41d492399e55dce48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the file name from <em>path</em> . If <em>path</em>  is an existing directory, an empty string will be returned. Otherwise, the return value of System.IO.Path.GetFileName() will be returned.  <a href="#a230105a958f29c41d492399e55dce48c">More...</a><br /></td></tr>
 <tr class="separator:a230105a958f29c41d492399e55dce48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90e492b3a9e9098e9ee79a893f6efece"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1PathHelpers.html#a90e492b3a9e9098e9ee79a893f6efece">GetDirectoryPart</a> (string path)</td></tr>
+<tr class="memdesc:a90e492b3a9e9098e9ee79a893f6efece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the directory information from <em>path</em> . If <em>path</em>  is an existing directory, the entire <em>path</em>  will be returned. Otherwise, the return value of System.IO.Path.GetDirectoryName() will be returned.  <a href="#a90e492b3a9e9098e9ee79a893f6efece">More...</a><br /></td></tr>
+<tr class="separator:a90e492b3a9e9098e9ee79a893f6efece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a230105a958f29c41d492399e55dce48c"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1PathHelpers.html#a230105a958f29c41d492399e55dce48c">GetFileNamePart</a> (string path)</td></tr>
+<tr class="memdesc:a230105a958f29c41d492399e55dce48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the file name from <em>path</em> . If <em>path</em>  is an existing directory, an empty string will be returned. Otherwise, the return value of System.IO.Path.GetFileName() will be returned.  <a href="#a230105a958f29c41d492399e55dce48c">More...</a><br /></td></tr>
+<tr class="separator:a230105a958f29c41d492399e55dce48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a90e492b3a9e9098e9ee79a893f6efece"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string Bovender.PathHelpers.GetDirectoryPart </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Extracts the directory information from <em>path</em> . If <em>path</em>  is an existing directory, the entire <em>path</em>  will be returned. Otherwise, the return value of System.IO.Path.GetDirectoryName() will be returned. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Path to examine.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><em>path</em>  or result of System.IO.Path.GetFileName().</dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a90e492b3a9e9098e9ee79a893f6efece"></a>
 <div class="memitem">
 <div class="memproto">
@@ -175,8 +214,41 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a230105a958f29c41d492399e55dce48c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string Bovender.PathHelpers.GetFileNamePart </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Extracts the file name from <em>path</em> . If <em>path</em>  is an existing directory, an empty string will be returned. Otherwise, the return value of System.IO.Path.GetFileName() will be returned. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Path to examine.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>String.Empty or return value of System.IO.Path.GetFileName().</dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>packages/Bovender.0.7.0.0/src/<a class="el" href="PathHelpers_8cs.html">PathHelpers.cs</a></li>
+<li>packages/Bovender.0.7.0.0/src/<a class="el" href="Bovender_80_87_80_80_2src_2PathHelpers_8cs.html">PathHelpers.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -184,7 +256,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBovender.html">Bovender</a></li><li class="navelem"><a class="el" href="classBovender_1_1PathHelpers.html">PathHelpers</a></li>
-    <li class="footer">Generated on Tue Jun 7 2016 06:47:25 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 28 2016 14:32:05 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

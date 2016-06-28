@@ -1,6 +1,7 @@
 var namespaceBovender_1_1ExceptionHandler =
 [
     [ "CentralHandler", "classBovender_1_1ExceptionHandler_1_1CentralHandler.html", "classBovender_1_1ExceptionHandler_1_1CentralHandler" ],
+    [ "ExceptionSubmissionException", "classBovender_1_1ExceptionHandler_1_1ExceptionSubmissionException.html", "classBovender_1_1ExceptionHandler_1_1ExceptionSubmissionException" ],
     [ "ExceptionViewModel", "classBovender_1_1ExceptionHandler_1_1ExceptionViewModel.html", "classBovender_1_1ExceptionHandler_1_1ExceptionViewModel" ],
     [ "ManageExceptionEventArgs", "classBovender_1_1ExceptionHandler_1_1ManageExceptionEventArgs.html", "classBovender_1_1ExceptionHandler_1_1ManageExceptionEventArgs" ],
     [ "UnexpectedResponseException", "classBovender_1_1ExceptionHandler_1_1UnexpectedResponseException.html", "classBovender_1_1ExceptionHandler_1_1UnexpectedResponseException" ],

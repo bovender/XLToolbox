@@ -1,3 +1,31 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowState.html" title="Provides an attached property to enable Windows to save and restore their screen position and state..." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node2" href="$classXLToolbox_1_1About_1_1AboutView.html" title="Interaction logic for AboutView.xaml " alt="" coords="244,943,433,969"/>
+<area shape="rect" id="node3" href="$classXLToolbox_1_1Csv_1_1CsvFileView.html" title="Interaction logic for CsvFileView.xaml " alt="" coords="243,993,434,1020"/>
+<area shape="rect" id="node4" href="$classXLToolbox_1_1Excel_1_1Views_1_1QuitView.html" title="Interaction logic for QuitView.xaml " alt="" coords="229,1044,448,1071"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1ExceptionHandler_1_1ExceptionDetailView.html" title="Interaction logic for ExceptionDetailView.xaml " alt="" coords="241,1095,436,1137"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html" title="Interaction logic for ExceptionView.xaml " alt="" coords="241,1161,436,1202"/>
+<area shape="rect" id="node7" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionFailureView.html" title="Interaction logic for SubmissionFailureView.xaml " alt="" coords="241,1226,436,1267"/>
+<area shape="rect" id="node8" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html" title="Interaction logic for SubmissionProcessView.xaml " alt="" coords="241,1291,436,1333"/>
+<area shape="rect" id="node9" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html" title="Interaction logic for SubmissionSuccessView.xaml " alt="" coords="241,1357,436,1398"/>
+<area shape="rect" id="node10" href="$classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html" title="Interaction logic for SingleExportSettingsView.xaml " alt="" coords="237,1422,441,1463"/>
+<area shape="rect" id="node11" href="$classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html" title="Interaction logic for PresetsRepositoryView.xaml " alt="" coords="231,1487,446,1529"/>
+<area shape="rect" id="node12" href="$classXLToolbox_1_1Export_1_1Views_1_1SingleExportSettingsView.html" title="Interaction logic for SingleExportSettingsView.xaml " alt="" coords="235,1553,442,1594"/>
+<area shape="rect" id="node13" href="$classXLToolbox_1_1Greeter_1_1GreeterView.html" title="Interaction logic for GreeterView.xaml " alt="" coords="235,5,442,32"/>
+<area shape="rect" id="node14" href="$classXLToolbox_1_1Keyboard_1_1ManagerView.html" title="Interaction logic for ManagerView.xaml " alt="" coords="225,56,452,83"/>
+<area shape="rect" id="node15" href="$classXLToolbox_1_1Keyboard_1_1ShortcutView.html" title="Interaction logic for ShortcutView.xaml " alt="" coords="226,107,451,133"/>
+<area shape="rect" id="node16" href="$classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingDisabled.html" title="Interaction logic for IncompleteShutdownLoggingDisabled.xaml " alt="" coords="238,158,439,199"/>
+<area shape="rect" id="node17" href="$classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html" title="Interaction logic for IncompleteShutdownLoggingEnabled.xaml " alt="" coords="238,223,439,265"/>
+<area shape="rect" id="node18" href="$classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html" title="Interaction logic for HtmlFileView.xaml " alt="" coords="241,289,437,330"/>
+<area shape="rect" id="node19" href="$classXLToolbox_1_1Mvvm_1_1Views_1_1StringMessageContentView.html" title="Interaction logic for StringMessageContentView.xaml " alt="" coords="237,354,440,395"/>
+<area shape="rect" id="node20" href="$classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html" title="Interaction logic for UserSettingsExceptionView.xaml " alt="" coords="241,419,437,461"/>
+<area shape="rect" id="node21" href="$classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html" title="SheetManagerControl " alt="" coords="233,1721,444,1762"/>
+<area shape="rect" id="node22" href="$classXLToolbox_1_1SheetManager_1_1SheetManagerWindow.html" title="SheetManagerWindow " alt="" coords="233,485,444,526"/>
+<area shape="rect" id="node23" href="$classXLToolbox_1_1UserSettings_1_1UserSettingsView.html" title="UserSettingsView " alt="" coords="241,550,437,591"/>
+<area shape="rect" id="node24" href="$classXLToolbox_1_1Versioning_1_1InstallUpdateView.html" title="InstallUpdateView " alt="" coords="245,615,433,657"/>
+<area shape="rect" id="node25" href="$classXLToolbox_1_1Versioning_1_1NotAuthorizedForUpdateView.html" title="NotAuthorizedForUpdateView " alt="" coords="251,681,426,722"/>
+<area shape="rect" id="node26" href="$classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html" title="UpdateAvailableView " alt="" coords="241,746,436,787"/>
+<area shape="rect" id="node27" href="$classXLToolbox_1_1Versioning_1_1UpdaterProcessView.html" title="UpdaterProcessView " alt="" coords="239,811,438,853"/>
+<area shape="rect" id="node28" href="$classXLToolbox_1_1WindowDownloadUpdate.html" title="WindowDownloadUpdate " alt="" coords="242,877,435,918"/>
+<area shape="rect" id="node32" href="$classBovender_1_1Mvvm_1_1Views_1_1ConfirmationView.html" title="Interaction logic for ConfirmationView.xaml " alt="" coords="207,1669,471,1696"/>
+<area shape="rect" id="node33" href="$classBovender_1_1Mvvm_1_1Views_1_1ProcessView.html" title="Interaction logic for ProcessView.xaml " alt="" coords="219,1619,458,1645"/>
 </map>

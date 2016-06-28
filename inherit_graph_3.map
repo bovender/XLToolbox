@@ -1,18 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classBovender_1_1ExceptionHandler_1_1UnexpectedResponseException.html" title="Bovender.ExceptionHandler.\lUnexpectedResponseException" alt="" coords="142,5,351,47"/>
-<area shape="rect" id="node3" href="$classBovender_1_1ExceptionHandler_1_1UnhandledException.html" title="Bovender.ExceptionHandler.\lUnhandledException" alt="" coords="153,71,341,112"/>
-<area shape="rect" id="node4" href="$classBovender_1_1Unmanaged_1_1DllLoadingFailedException.html" title="Bovender.Unmanaged.DllLoading\lFailedException" alt="" coords="139,136,355,177"/>
-<area shape="rect" id="node5" href="$classBovender_1_1Unmanaged_1_1DllNotFoundException.html" title="Bovender.Unmanaged.DllNot\lFoundException" alt="" coords="151,201,343,243"/>
-<area shape="rect" id="node6" href="$classBovender_1_1Unmanaged_1_1DllSha1MismatchException.html" title="Bovender.Unmanaged.DllSha1\lMismatchException" alt="" coords="146,267,347,308"/>
-<area shape="rect" id="node7" href="$classBovender_1_1Versioning_1_1DownloadCorruptException.html" title="Bovender.Versioning.Download\lCorruptException" alt="" coords="145,332,349,373"/>
-<area shape="rect" id="node8" href="$classBovender_1_1Versioning_1_1InvalidVersionStringException.html" title="Bovender.Versioning.Invalid\lVersionStringException" alt="" coords="155,397,339,439"/>
-<area shape="rect" id="node9" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1InvalidSheetNameException.html" title="XLToolbox.Excel.ViewModels.\lInvalidSheetNameException" alt="" coords="147,463,347,504"/>
-<area shape="rect" id="node10" href="$classXLToolbox_1_1Export_1_1ExportException.html" title="XLToolbox.Export.ExportException" alt="" coords="133,529,360,555"/>
-<area shape="rect" id="node11" href="$classXLToolbox_1_1Export_1_1Models_1_1StoreException.html" title="XLToolbox.Export.Models.\lStoreException" alt="" coords="159,580,335,621"/>
-<area shape="rect" id="node12" href="$classXLToolbox_1_1Vba_1_1VbaException.html" title="Exception that is raised when VBA code calls the XLToolbox.Vba.Api.ShowException method. " alt="" coords="149,646,345,673"/>
-<area shape="rect" id="node13" href="$classXLToolbox_1_1WorkbookStorage_1_1WorkbookStorageException.html" title="XLToolbox.WorkbookStorage.\lWorkbookStorageException" alt="" coords="149,697,345,739"/>
-<area shape="rect" id="node14" href="$classXLToolbox_1_1WorkbookStorage_1_1EmptyKeyException.html" title="XLToolbox.WorkbookStorage.\lEmptyKeyException" alt="" coords="408,632,604,673"/>
-<area shape="rect" id="node15" href="$classXLToolbox_1_1WorkbookStorage_1_1InvalidContextException.html" title="XLToolbox.WorkbookStorage.\lInvalidContextException" alt="" coords="408,697,604,739"/>
-<area shape="rect" id="node17" href="$classXLToolbox_1_1WorkbookStorage_1_1UnkownKeyException.html" title="XLToolbox.WorkbookStorage.\lUnkownKeyException" alt="" coords="408,763,604,804"/>
-<area shape="rect" id="node16" href="$classXLToolbox_1_1WorkbookStorage_1_1UndefinedContextException.html" title="XLToolbox.WorkbookStorage.\lUndefinedContextException" alt="" coords="652,697,848,739"/>
+<area shape="rect" id="node1" href="$classBovender_1_1Extensions_1_1ArrayExtensions.html" title="Extensions methods for arrays. " alt="" coords="5,5,187,47"/>
 </map>

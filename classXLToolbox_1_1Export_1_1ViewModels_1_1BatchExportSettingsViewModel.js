@@ -4,6 +4,7 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel =
     [ "BatchExportSettingsViewModel", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aa6293179126a2fd17076acbf907a25d4", null ],
     [ "CanExport", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#af157ae98ecf64706493aff25505041f6", null ],
     [ "DoExport", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a7815b3f91d791e77f72f833bd6f6af4e", null ],
+    [ "Execute", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a474120258fe0fe8c6d16519face2a295", null ],
     [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a11522cdcb5bc93dac93bb11d85b60bc7", null ],
     [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aad6ef753b2f6f74be04acb3feae2123f", null ],
     [ "SanitizeOptions", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ad3f13dbe3cbf4a1cb887ae4da6450350", null ],
@@ -19,7 +20,6 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel =
     [ "IsSheetLayoutEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#af4749f6aadbd2ef8be92ecf970924de2", null ],
     [ "IsSingleItemsEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aa472d9e9688ee0b05a56d809d69fb389", null ],
     [ "Layout", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a5be61ca7a38fe20ccaf9177571e01249", null ],
-    [ "Logger", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ab208a43eb761f5351d8e9b4e7ce02a5c", null ],
     [ "Objects", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ac5e850d1da554f3e9f03e1175e30be86", null ],
     [ "Path", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#abd12a28568c6afea55bed78215f811dd", null ],
     [ "Scope", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aea3e96ac1f8fda38b97a2ff386385fa1", null ]

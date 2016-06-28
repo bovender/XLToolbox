@@ -7,17 +7,8 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "Exporter.cs", "Exporter_8cs.html", [
       [ "Exporter", "classXLToolbox_1_1Export_1_1Exporter.html", "classXLToolbox_1_1Export_1_1Exporter" ]
     ] ],
-    [ "ExportException.cs", "ExportException_8cs.html", [
-      [ "ExportException", "classXLToolbox_1_1Export_1_1ExportException.html", "classXLToolbox_1_1Export_1_1ExportException" ]
-    ] ],
     [ "ExportFileName.cs", "ExportFileName_8cs.html", [
       [ "ExportFileName", "classXLToolbox_1_1Export_1_1ExportFileName.html", "classXLToolbox_1_1Export_1_1ExportFileName" ]
-    ] ],
-    [ "ExportFinishedEventArgs.cs", "ExportFinishedEventArgs_8cs.html", [
-      [ "ExportFinishedEventArgs", "classXLToolbox_1_1Export_1_1ExportFinishedEventArgs.html", "classXLToolbox_1_1Export_1_1ExportFinishedEventArgs" ]
-    ] ],
-    [ "ExportProgressChangedEventArgs.cs", "ExportProgressChangedEventArgs_8cs.html", [
-      [ "ExportProgressChangedEventArgs", "classXLToolbox_1_1Export_1_1ExportProgressChangedEventArgs.html", "classXLToolbox_1_1Export_1_1ExportProgressChangedEventArgs" ]
     ] ],
     [ "QuickExporter.cs", "QuickExporter_8cs.html", [
       [ "QuickExporter", "classXLToolbox_1_1Export_1_1QuickExporter.html", "classXLToolbox_1_1Export_1_1QuickExporter" ]
@@ -25,7 +16,13 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "ScreenshotExporter.cs", "ScreenshotExporter_8cs.html", [
       [ "ScreenshotExporter", "classXLToolbox_1_1Export_1_1ScreenshotExporter.html", "classXLToolbox_1_1Export_1_1ScreenshotExporter" ]
     ] ],
+    [ "TileException.cs", "TileException_8cs.html", [
+      [ "TileException", "classXLToolbox_1_1Export_1_1TileException.html", "classXLToolbox_1_1Export_1_1TileException" ]
+    ] ],
     [ "WorkingClipboard.cs", "WorkingClipboard_8cs.html", [
       [ "WorkingClipboard", "classXLToolbox_1_1Export_1_1WorkingClipboard.html", "classXLToolbox_1_1Export_1_1WorkingClipboard" ]
+    ] ],
+    [ "WorkingClipboardException.cs", "WorkingClipboardException_8cs.html", [
+      [ "WorkingClipboardException", "classXLToolbox_1_1Export_1_1WorkingClipboardException.html", "classXLToolbox_1_1Export_1_1WorkingClipboardException" ]
     ] ]
 ];

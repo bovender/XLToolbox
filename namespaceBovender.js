@@ -11,5 +11,6 @@ var namespaceBovender =
     [ "CommonHelpers", "classBovender_1_1CommonHelpers.html", "classBovender_1_1CommonHelpers" ],
     [ "FileHelpers", "classBovender_1_1FileHelpers.html", "classBovender_1_1FileHelpers" ],
     [ "PathHelpers", "classBovender_1_1PathHelpers.html", "classBovender_1_1PathHelpers" ],
+    [ "Win32Window", "classBovender_1_1Win32Window.html", "classBovender_1_1Win32Window" ],
     [ "WpfHelpers", "classBovender_1_1WpfHelpers.html", "classBovender_1_1WpfHelpers" ]
 ];

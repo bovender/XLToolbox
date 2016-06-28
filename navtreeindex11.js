@@ -1,0 +1,19 @@
+var NAVTREEINDEX11 =
+{
+"packages_2Bovender_80_88_81_80_2src_2UserSettings_2UserSettingsViewModel_8cs.html":[3,0,0,1,0,7,2],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html":[3,0,0,1,0,8,2],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2":[3,0,0,1,0,8,2,1],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a0b87d66b88c72957dfea8c9605016442":[3,0,0,1,0,8,2,1,7],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a0b87d66b88c72957dfea8c9605016442":[3,0,0,1,0,8,2,1,2],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a6132295fcf5570fb8b0a944ef322a598":[3,0,0,1,0,8,2,1,6],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a6132295fcf5570fb8b0a944ef322a598":[3,0,0,1,0,8,2,1,1],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a6adf97f83acf6453d4a6a4b1070f3754":[3,0,0,1,0,8,2,1,9],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a6adf97f83acf6453d4a6a4b1070f3754":[3,0,0,1,0,8,2,1,4],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a75b9a229bb1873d751a1e0f775ceb2aa":[3,0,0,1,0,8,2,1,3],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a75b9a229bb1873d751a1e0f775ceb2aa":[3,0,0,1,0,8,2,1,8],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a87322391cc6e8948ce9fd5d6cb84fced":[3,0,0,1,0,8,2,1,5],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a87322391cc6e8948ce9fd5d6cb84fced":[3,0,0,1,0,8,2,1,0],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2UpdaterViewModel_8cs.html":[3,0,0,1,0,8,4],
+"packages_2Bovender_80_88_81_80_2src_2Versioning_2Updater_8cs.html":[3,0,0,1,0,8,3],
+"pages.html":[]
+};

@@ -6,6 +6,9 @@ var dir_c78fc9bb7af64403b2bd0cdf0b1e7799 =
     [ "BatchExportSettings.cs", "BatchExportSettings_8cs.html", [
       [ "BatchExportSettings", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings" ]
     ] ],
+    [ "BitmapCreatedEventArgs.cs", "BitmapCreatedEventArgs_8cs.html", [
+      [ "BitmapCreatedEventArgs", "classXLToolbox_1_1Export_1_1Models_1_1BitmapCreatedEventArgs.html", "classXLToolbox_1_1Export_1_1Models_1_1BitmapCreatedEventArgs" ]
+    ] ],
     [ "ColorSpace.cs", "ColorSpace_8cs.html", "ColorSpace_8cs" ],
     [ "FileType.cs", "FileType_8cs.html", "FileType_8cs" ],
     [ "Preset.cs", "Preset_8cs.html", [
@@ -22,6 +25,9 @@ var dir_c78fc9bb7af64403b2bd0cdf0b1e7799 =
     ] ],
     [ "StoreException.cs", "StoreException_8cs.html", [
       [ "StoreException", "classXLToolbox_1_1Export_1_1Models_1_1StoreException.html", "classXLToolbox_1_1Export_1_1Models_1_1StoreException" ]
+    ] ],
+    [ "TiledBitmap.cs", "TiledBitmap_8cs.html", [
+      [ "TiledBitmap", "classXLToolbox_1_1Export_1_1Models_1_1TiledBitmap.html", "classXLToolbox_1_1Export_1_1Models_1_1TiledBitmap" ]
     ] ],
     [ "Transparency.cs", "Transparency_8cs.html", "Transparency_8cs" ],
     [ "Unit.cs", "Unit_8cs.html", "Unit_8cs" ]

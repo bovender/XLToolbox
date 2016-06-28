@@ -14,6 +14,7 @@ var namespaceXLToolbox =
     [ "SheetManager", "namespaceXLToolbox_1_1SheetManager.html", "namespaceXLToolbox_1_1SheetManager" ],
     [ "Test", "namespaceXLToolbox_1_1Test.html", "namespaceXLToolbox_1_1Test" ],
     [ "UnitTests", "namespaceXLToolbox_1_1UnitTests.html", "namespaceXLToolbox_1_1UnitTests" ],
+    [ "Unmanaged", "namespaceXLToolbox_1_1Unmanaged.html", "namespaceXLToolbox_1_1Unmanaged" ],
     [ "UserSettings", "namespaceXLToolbox_1_1UserSettings.html", "namespaceXLToolbox_1_1UserSettings" ],
     [ "Vba", "namespaceXLToolbox_1_1Vba.html", "namespaceXLToolbox_1_1Vba" ],
     [ "Versioning", "namespaceXLToolbox_1_1Versioning.html", "namespaceXLToolbox_1_1Versioning" ],

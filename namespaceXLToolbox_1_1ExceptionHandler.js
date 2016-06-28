@@ -7,5 +7,6 @@ var namespaceXLToolbox_1_1ExceptionHandler =
     [ "SubmissionFailureView", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionFailureView.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionFailureView" ],
     [ "SubmissionProcessAction", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessAction.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessAction" ],
     [ "SubmissionProcessView", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView" ],
-    [ "SubmissionSuccessView", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView" ]
+    [ "SubmissionSuccessView", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView" ],
+    [ "TestException", "classXLToolbox_1_1ExceptionHandler_1_1TestException.html", "classXLToolbox_1_1ExceptionHandler_1_1TestException" ]
 ];

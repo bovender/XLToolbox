@@ -23,10 +23,13 @@ var classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance =
     [ "CountUnsavedWorkbooks", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a8cb85d88c44c6d94e3d00173910d1f60", null ],
     [ "Default", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a97be0bb7ea0f070d51273a37f0695673", null ],
     [ "HumanFriendlyVersion", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a2350c8ee6aa9826d5cf3646eb7382fe9", null ],
+    [ "IsSingleDocumentInterface", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a0b2ddcc7fc0e01657c185269aee8f2a8", null ],
     [ "Logger", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a154f63e7b76d26edced92d87410c8ca4", null ],
+    [ "MajorVersion", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ae88206d65d59bdb5a5ce2bf7e9107bdb", null ],
     [ "QuitDiscardingChangesCommand", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a0c33a77784ea347c0b831bfb14ade09c", null ],
     [ "QuitInteractivelyCommand", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a843869c37879651cfb7cc02eda6f87f7", null ],
     [ "QuitSavingChangesCommand", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ad766609c7f9183009efe3b1d616f2704", null ],
     [ "UnsavedWorkbooks", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a960f8de154e5a8eb2c19b82f43d73824", null ],
-    [ "Workbooks", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ad250089b24bc95bc2514a3febc1bef6d", null ]
+    [ "Workbooks", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ad250089b24bc95bc2514a3febc1bef6d", null ],
+    [ "ShuttingDown", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a61ae11d42eb7ccee157c6eefc539f539", null ]
 ];

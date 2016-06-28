@@ -1,6 +1,7 @@
 var namespaceXLToolbox_1_1Export_1_1Models =
 [
     [ "BatchExportSettings", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings" ],
+    [ "BitmapCreatedEventArgs", "classXLToolbox_1_1Export_1_1Models_1_1BitmapCreatedEventArgs.html", "classXLToolbox_1_1Export_1_1Models_1_1BitmapCreatedEventArgs" ],
     [ "ColorSpaceExtensions", "classXLToolbox_1_1Export_1_1Models_1_1ColorSpaceExtensions.html", "classXLToolbox_1_1Export_1_1Models_1_1ColorSpaceExtensions" ],
     [ "FileTypeExtensions", "classXLToolbox_1_1Export_1_1Models_1_1FileTypeExtensions.html", "classXLToolbox_1_1Export_1_1Models_1_1FileTypeExtensions" ],
     [ "Preset", "classXLToolbox_1_1Export_1_1Models_1_1Preset.html", "classXLToolbox_1_1Export_1_1Models_1_1Preset" ],
@@ -8,5 +9,6 @@ var namespaceXLToolbox_1_1Export_1_1Models =
     [ "Settings", "classXLToolbox_1_1Export_1_1Models_1_1Settings.html", "classXLToolbox_1_1Export_1_1Models_1_1Settings" ],
     [ "SingleExportSettings", "classXLToolbox_1_1Export_1_1Models_1_1SingleExportSettings.html", "classXLToolbox_1_1Export_1_1Models_1_1SingleExportSettings" ],
     [ "StoreException", "classXLToolbox_1_1Export_1_1Models_1_1StoreException.html", "classXLToolbox_1_1Export_1_1Models_1_1StoreException" ],
+    [ "TiledBitmap", "classXLToolbox_1_1Export_1_1Models_1_1TiledBitmap.html", "classXLToolbox_1_1Export_1_1Models_1_1TiledBitmap" ],
     [ "UnitsExtensions", "classXLToolbox_1_1Export_1_1Models_1_1UnitsExtensions.html", "classXLToolbox_1_1Export_1_1Models_1_1UnitsExtensions" ]
 ];

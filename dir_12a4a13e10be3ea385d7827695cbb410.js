@@ -23,5 +23,8 @@ var dir_12a4a13e10be3ea385d7827695cbb410 =
     ] ],
     [ "SubmissionSuccessView.xaml.cs", "SubmissionSuccessView_8xaml_8cs.html", [
       [ "SubmissionSuccessView", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView" ]
+    ] ],
+    [ "TestException.cs", "TestException_8cs.html", [
+      [ "TestException", "classXLToolbox_1_1ExceptionHandler_1_1TestException.html", "classXLToolbox_1_1ExceptionHandler_1_1TestException" ]
     ] ]
 ];

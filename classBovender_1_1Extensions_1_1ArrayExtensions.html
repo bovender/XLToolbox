@@ -107,6 +107,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="memItemLeft" align="right" valign="top">static T[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Extensions_1_1ArrayExtensions.html#a271b751f47bd0fbb8f106e9af2e7fcaa">Slice&lt; T &gt;</a> (this T[] array, int start, int length)</td></tr>
 <tr class="memdesc:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a subarray from an array.  <a href="#a271b751f47bd0fbb8f106e9af2e7fcaa">More...</a><br /></td></tr>
 <tr class="separator:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="memItemLeft" align="right" valign="top">static T[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Extensions_1_1ArrayExtensions.html#a271b751f47bd0fbb8f106e9af2e7fcaa">Slice&lt; T &gt;</a> (this T[] array, int start, int length)</td></tr>
+<tr class="memdesc:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a subarray from an array.  <a href="#a271b751f47bd0fbb8f106e9af2e7fcaa">More...</a><br /></td></tr>
+<tr class="separator:a271b751f47bd0fbb8f106e9af2e7fcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="namespaceBovender_1_1Extensions.html">Extensions</a> methods for arrays. </p>
@@ -174,8 +177,71 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a271b751f47bd0fbb8f106e9af2e7fcaa"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T [] Bovender.Extensions.ArrayExtensions.Slice&lt; T &gt; </td>
+          <td>(</td>
+          <td class="paramtype">this T[]&#160;</td>
+          <td class="paramname"><em>array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a subarray from an array. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of the array elements.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>Source array</td></tr>
+    <tr><td class="paramname">start</td><td>Start index of the slice</td></tr>
+    <tr><td class="paramname">length</td><td>Length of the slice</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Subarray of type <em>T</em>  containing <em>length</em>  elements from <em>array</em> . </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ArgumentOutOfRangeException</td><td>If <em>length</em>  is 0 or less, if start is lower than 0, or if start is larger than the largest index in <em>array</em> .</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>packages/Bovender.0.7.0.0/src/Extensions/<a class="el" href="ArrayExtensions_8cs.html">ArrayExtensions.cs</a></li>
+<li>packages/Bovender.0.7.0.0/src/Extensions/<a class="el" href="Bovender_80_87_80_80_2src_2Extensions_2ArrayExtensions_8cs.html">ArrayExtensions.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -183,7 +249,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBovender.html">Bovender</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Extensions.html">Extensions</a></li><li class="navelem"><a class="el" href="classBovender_1_1Extensions_1_1ArrayExtensions.html">ArrayExtensions</a></li>
-    <li class="footer">Generated on Tue Jun 7 2016 06:47:25 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 28 2016 14:32:05 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

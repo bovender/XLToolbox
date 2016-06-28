@@ -117,11 +117,25 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a864dc505d34e307b57dde659c00c68a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01f1951de65006f5d676d1f669b7dd5f"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a01f1951de65006f5d676d1f669b7dd5f">GetColorDirectory</a> ()</td></tr>
 <tr class="separator:a01f1951de65006f5d676d1f669b7dd5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97a02829f212f36c9c0522886a61d441"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a97a02829f212f36c9c0522886a61d441">OpenClipboard</a> (IntPtr hWndNewOwner)</td></tr>
+<tr class="separator:a97a02829f212f36c9c0522886a61d441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7150a5750eff6f01836ce02065ff3cf5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a7150a5750eff6f01836ce02065ff3cf5">CloseClipboard</a> ()</td></tr>
+<tr class="separator:a7150a5750eff6f01836ce02065ff3cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c7cf80a16721ab6c20e9a4250ee4bc"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#aa1c7cf80a16721ab6c20e9a4250ee4bc">GetClipboardData</a> (uint uFormat)</td></tr>
+<tr class="separator:aa1c7cf80a16721ab6c20e9a4250ee4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc515cdb79d772eb87c04292f61d61d4"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#adc515cdb79d772eb87c04292f61d61d4">CopyEnhMetaFile</a> (IntPtr hemfSrc, string lpszFile)</td></tr>
+<tr class="separator:adc515cdb79d772eb87c04292f61d61d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864dc505d34e307b57dde659c00c68a8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a864dc505d34e307b57dde659c00c68a8">DeleteEnhMetaFile</a> (IntPtr hemf)</td></tr>
+<tr class="separator:a864dc505d34e307b57dde659c00c68a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01f1951de65006f5d676d1f669b7dd5f"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a01f1951de65006f5d676d1f669b7dd5f">GetColorDirectory</a> ()</td></tr>
+<tr class="separator:a01f1951de65006f5d676d1f669b7dd5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7632396a5c1df0229531d92b3930524"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#ab7632396a5c1df0229531d92b3930524">FindWindow</a> (string className)</td></tr>
+<tr class="separator:ab7632396a5c1df0229531d92b3930524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a42ad203e65f3703623c25c29b68b045a"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#a42ad203e65f3703623c25c29b68b045a">CF_ENHMETAFILE</a> = 14</td></tr>
-<tr class="separator:a42ad203e65f3703623c25c29b68b045a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1fe549a85696f9ded335d8a8f175937"><td class="memItemLeft" align="right" valign="top">const uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html#aa1fe549a85696f9ded335d8a8f175937">CF_ENHMETAFILE</a> = 14</td></tr>
+<tr class="separator:aa1fe549a85696f9ded335d8a8f175937"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Wrappers for Win32 API calls. </p>
@@ -138,6 +152,63 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7150a5750eff6f01836ce02065ff3cf5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Bovender.Unmanaged.Pinvoke.CloseClipboard </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adc515cdb79d772eb87c04292f61d61d4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IntPtr Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>hemfSrc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>lpszFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -207,6 +278,54 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a864dc505d34e307b57dde659c00c68a8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Bovender.Unmanaged.Pinvoke.DeleteEnhMetaFile </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>hemf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab7632396a5c1df0229531d92b3930524"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IntPtr Bovender.Unmanaged.Pinvoke.FindWindow </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>className</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa1c7cf80a16721ab6c20e9a4250ee4bc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -219,6 +338,53 @@ Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">uint&#160;</td>
           <td class="paramname"><em>uFormat</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa1c7cf80a16721ab6c20e9a4250ee4bc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IntPtr Bovender.Unmanaged.Pinvoke.GetClipboardData </td>
+          <td>(</td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>uFormat</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a01f1951de65006f5d676d1f669b7dd5f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string Bovender.Unmanaged.Pinvoke.GetColorDirectory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -278,8 +444,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a97a02829f212f36c9c0522886a61d441"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Bovender.Unmanaged.Pinvoke.OpenClipboard </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>hWndNewOwner</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a42ad203e65f3703623c25c29b68b045a"></a>
+<a class="anchor" id="aa1fe549a85696f9ded335d8a8f175937"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -292,7 +482,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>packages/Bovender.0.7.0.0/src/Unmanaged/<a class="el" href="Pinvoke_8cs.html">Pinvoke.cs</a></li>
+<li>packages/Bovender.0.7.0.0/src/Unmanaged/<a class="el" href="Bovender_80_87_80_80_2src_2Unmanaged_2Pinvoke_8cs.html">Pinvoke.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -300,7 +490,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBovender.html">Bovender</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Unmanaged.html">Unmanaged</a></li><li class="navelem"><a class="el" href="classBovender_1_1Unmanaged_1_1Pinvoke.html">Pinvoke</a></li>
-    <li class="footer">Generated on Tue Jun 7 2016 06:47:26 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 28 2016 14:32:05 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

@@ -14,6 +14,7 @@ var dir_9cb3ce49fa489ce1bfdb12de31c036b4 =
     [ "obj", "dir_6c767943a0acee7de52c49edc49d1547.html", "dir_6c767943a0acee7de52c49edc49d1547" ],
     [ "Properties", "dir_21eba2e048f942c171764ab07adc939c.html", "dir_21eba2e048f942c171764ab07adc939c" ],
     [ "SheetManager", "dir_342752029b2654a6547c1694d39f9014.html", "dir_342752029b2654a6547c1694d39f9014" ],
+    [ "Unmanaged", "dir_b8cbbee7a2d720ae4d43e550ce7b2eff.html", "dir_b8cbbee7a2d720ae4d43e550ce7b2eff" ],
     [ "UserSettings", "dir_82f5cc2dfb838ecb9db4053838e256f3.html", "dir_82f5cc2dfb838ecb9db4053838e256f3" ],
     [ "Vba", "dir_2aa1e2ee1a83ee326a188e3112aaecf1.html", "dir_2aa1e2ee1a83ee326a188e3112aaecf1" ],
     [ "Versioning", "dir_7a7a1a5221820d838dfb05c09f02e4bb.html", "dir_7a7a1a5221820d838dfb05c09f02e4bb" ],

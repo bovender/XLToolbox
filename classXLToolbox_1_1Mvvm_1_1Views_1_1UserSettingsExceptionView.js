@@ -4,6 +4,5 @@ var classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView =
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html#a4565eae57f01bbf2080ec1c9db31e50c", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html#a4565eae57f01bbf2080ec1c9db31e50c", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html#a4565eae57f01bbf2080ec1c9db31e50c", null ],
-    [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html#a4565eae57f01bbf2080ec1c9db31e50c", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1UserSettingsExceptionView.html#a4565eae57f01bbf2080ec1c9db31e50c", null ]
 ];

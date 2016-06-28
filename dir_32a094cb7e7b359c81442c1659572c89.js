@@ -6,6 +6,9 @@ var dir_32a094cb7e7b359c81442c1659572c89 =
     [ "Instance.cs", "Instance_8cs.html", [
       [ "Instance", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance" ]
     ] ],
+    [ "InstanceShutdownEventArgs.cs", "InstanceShutdownEventArgs_8cs.html", [
+      [ "InstanceShutdownEventArgs", "classXLToolbox_1_1Excel_1_1ViewModels_1_1InstanceShutdownEventArgs.html", "classXLToolbox_1_1Excel_1_1ViewModels_1_1InstanceShutdownEventArgs" ]
+    ] ],
     [ "InvalidSheetNameException.cs", "InvalidSheetNameException_8cs.html", [
       [ "InvalidSheetNameException", "classXLToolbox_1_1Excel_1_1ViewModels_1_1InvalidSheetNameException.html", "classXLToolbox_1_1Excel_1_1ViewModels_1_1InvalidSheetNameException" ]
     ] ],

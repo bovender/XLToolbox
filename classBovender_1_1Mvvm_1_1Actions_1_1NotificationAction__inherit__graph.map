@@ -1,4 +1,7 @@
 <map id="Bovender.Mvvm.Actions.NotificationAction" name="Bovender.Mvvm.Actions.NotificationAction">
-<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Actions_1_1ConfirmationAction.html" title="Provides an action to confirm or cancel a message. Adds a CancelButtonLabel to the NotificationAction..." alt="" coords="5,259,248,300"/>
-<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="55,95,198,121"/>
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Actions_1_1ConfirmationAction.html" title="Provides an action to confirm or cancel a message. Adds a CancelButtonLabel to the NotificationAction..." alt="" coords="703,5,945,47"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessAction.html" title="XLToolbox.ExceptionHandler.\lSubmissionProcessAction" alt="" coords="727,71,921,112"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1StringMessageAction.html" title="XLToolbox.Mvvm.Actions.String\lMessageAction" alt="" coords="719,136,929,177"/>
+<area shape="rect" id="node2" href="$classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html" title="Abstract base class for MVVM messaging actions. Derived classes must implement a CreateView method th..." alt="" coords="229,46,372,73"/>
+<area shape="rect" id="node7" href="$classXLToolbox_1_1Mvvm_1_1Actions_1_1ShowHtmlAction.html" title="XLToolbox.Mvvm.Actions.Show\lHtmlAction" alt="" coords="993,136,1203,177"/>
 </map>

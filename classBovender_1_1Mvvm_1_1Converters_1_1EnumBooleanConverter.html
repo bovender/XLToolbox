@@ -105,15 +105,23 @@ $(document).ready(function(){initNavTree('classBovender_1_1Mvvm_1_1Converters_1_
 Inheritance diagram for Bovender.Mvvm.Converters.EnumBooleanConverter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter__inherit__graph.png" border="0" usemap="#Bovender_8Mvvm_8Converters_8EnumBooleanConverter_inherit__map" alt="Inheritance graph"/></div>
+<map name="Bovender_8Mvvm_8Converters_8EnumBooleanConverter_inherit__map" id="Bovender_8Mvvm_8Converters_8EnumBooleanConverter_inherit__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for Bovender.Mvvm.Converters.EnumBooleanConverter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter__coll__graph.png" border="0" usemap="#Bovender_8Mvvm_8Converters_8EnumBooleanConverter_coll__map" alt="Collaboration graph"/></div>
+<map name="Bovender_8Mvvm_8Converters_8EnumBooleanConverter_coll__map" id="Bovender_8Mvvm_8Converters_8EnumBooleanConverter_coll__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a362e79ca0f2f8bd228718ee01d7aaff1"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter.html#a362e79ca0f2f8bd228718ee01d7aaff1">Convert</a> (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)</td></tr>
+<tr class="separator:a362e79ca0f2f8bd228718ee01d7aaff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f6e8f07a4686aa400c35e7d5e1a533"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter.html#aa5f6e8f07a4686aa400c35e7d5e1a533">ConvertBack</a> (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)</td></tr>
+<tr class="separator:aa5f6e8f07a4686aa400c35e7d5e1a533"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a362e79ca0f2f8bd228718ee01d7aaff1"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter.html#a362e79ca0f2f8bd228718ee01d7aaff1">Convert</a> (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)</td></tr>
 <tr class="separator:a362e79ca0f2f8bd228718ee01d7aaff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5f6e8f07a4686aa400c35e7d5e1a533"><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter.html#aa5f6e8f07a4686aa400c35e7d5e1a533">ConvertBack</a> (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)</td></tr>
@@ -123,6 +131,52 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Converts enum values to booleans to enable easy use of enumerations with WPF radio buttons. </p>
 <p>Credits to Scott @ <a href="http://stackoverflow.com/a/2908885/270712">http://stackoverflow.com/a/2908885/270712</a> </p>
 <div class="fragment"><div class="line">&lt;![CDATA[</div><div class="line">    &lt;StackPanel&gt;</div><div class="line">        &lt;StackPanel.Resources&gt;          </div><div class="line">            &lt;local:EnumToBooleanConverter x:Key=<span class="stringliteral">&quot;ebc&quot;</span> /&gt;          </div><div class="line">        &lt;/StackPanel.Resources&gt;</div><div class="line">        &lt;RadioButton IsChecked=<span class="stringliteral">&quot;{Binding Path=YourEnumProperty,</span></div><div class="line"><span class="stringliteral">                     Converter={StaticResource ebc},</span></div><div class="line"><span class="stringliteral">                     ConverterParameter={x:Static local:YourEnumType.Enum1}}&quot;</span> /&gt;</div><div class="line">        &lt;RadioButton IsChecked=<span class="stringliteral">&quot;{Binding Path=YourEnumProperty,</span></div><div class="line"><span class="stringliteral">                     Converter={StaticResource ebc},</span></div><div class="line"><span class="stringliteral">                     ConverterParameter={x:Static local:YourEnumType.Enum2}}&quot;</span> /&gt;</div><div class="line">    &lt;/StackPanel&gt;    </div><div class="line">]]&gt;</div></div><!-- fragment --></div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a362e79ca0f2f8bd228718ee01d7aaff1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">object Bovender.Mvvm.Converters.EnumBooleanConverter.Convert </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Type&#160;</td>
+          <td class="paramname"><em>targetType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>parameter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">System.Globalization.CultureInfo&#160;</td>
+          <td class="paramname"><em>culture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a362e79ca0f2f8bd228718ee01d7aaff1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -215,8 +269,54 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa5f6e8f07a4686aa400c35e7d5e1a533"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">object Bovender.Mvvm.Converters.EnumBooleanConverter.ConvertBack </td>
+          <td>(</td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Type&#160;</td>
+          <td class="paramname"><em>targetType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>parameter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">System.Globalization.CultureInfo&#160;</td>
+          <td class="paramname"><em>culture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>packages/Bovender.0.7.0.0/src/Mvvm/Converters/<a class="el" href="EnumBooleanConverter_8cs.html">EnumBooleanConverter.cs</a></li>
+<li>packages/Bovender.0.7.0.0/src/Mvvm/Converters/<a class="el" href="Bovender_80_87_80_80_2src_2Mvvm_2Converters_2EnumBooleanConverter_8cs.html">EnumBooleanConverter.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -224,7 +324,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBovender.html">Bovender</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Mvvm.html">Mvvm</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Mvvm_1_1Converters.html">Converters</a></li><li class="navelem"><a class="el" href="classBovender_1_1Mvvm_1_1Converters_1_1EnumBooleanConverter.html">EnumBooleanConverter</a></li>
-    <li class="footer">Generated on Tue Jun 7 2016 06:47:25 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 28 2016 14:32:05 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

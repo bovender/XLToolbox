@@ -91,10 +91,6 @@ $(document).ready(function(){initNavTree('classBovender_1_1Mvvm_1_1Messaging_1_1
 </script>
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#events">Events</a> &#124;
-<a href="classBovender_1_1Mvvm_1_1Messaging_1_1Message-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Bovender.Mvvm.Messaging.Message&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
@@ -102,44 +98,6 @@ $(document).ready(function(){initNavTree('classBovender_1_1Mvvm_1_1Messaging_1_1
 
 <p>Conveys a message from a view model to a consumer (typically, a view) that has subscribed to the Sent event.  
  <a href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for Bovender.Mvvm.Messaging.Message&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classBovender_1_1Mvvm_1_1Messaging_1_1Message__inherit__graph.png" border="0" usemap="#Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_inherit__map" id="Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_inherit__map">
-<area shape="rect" id="node2" href="interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage.html" title="Defines a Sent event that consumers of a view model can subscribe to in order to listen to the view m..." alt="" coords="44,5,155,32"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Bovender.Mvvm.Messaging.Message&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="classBovender_1_1Mvvm_1_1Messaging_1_1Message__coll__graph.png" border="0" usemap="#Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_coll__map" id="Bovender_8Mvvm_8Messaging_8Message_3_01T_01_4_coll__map">
-<area shape="rect" id="node2" href="interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage.html" title="Defines a Sent event that consumers of a view model can subscribe to in order to listen to the view m..." alt="" coords="44,5,155,32"/>
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a044a3d2758cb94994bc41c89378e8c1d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html#a044a3d2758cb94994bc41c89378e8c1d">Send</a> (T messageContent, Action&lt; T &gt; respond)</td></tr>
-<tr class="memdesc:a044a3d2758cb94994bc41c89378e8c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calling this method will raise the Sent event with a message content and a callback method that can be used by the View to send a return signal.  <a href="#a044a3d2758cb94994bc41c89378e8c1d">More...</a><br /></td></tr>
-<tr class="separator:a044a3d2758cb94994bc41c89378e8c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d085392a7d4ed9f384d007a7b718519"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html#a3d085392a7d4ed9f384d007a7b718519">Send</a> (T messageContent)</td></tr>
-<tr class="memdesc:a3d085392a7d4ed9f384d007a7b718519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raises the Sent event with a <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html">MessageArgs</a> instance that encapsulates the <em>messageContent</em>   <a href="#a3d085392a7d4ed9f384d007a7b718519">More...</a><br /></td></tr>
-<tr class="separator:a3d085392a7d4ed9f384d007a7b718519"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7746b03a811db5c08853156fddbed502"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html#a7746b03a811db5c08853156fddbed502">Send</a> ()</td></tr>
-<tr class="memdesc:a7746b03a811db5c08853156fddbed502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a simple message that does not need responding to.  <a href="#a7746b03a811db5c08853156fddbed502">More...</a><br /></td></tr>
-<tr class="separator:a7746b03a811db5c08853156fddbed502"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
-Events</h2></td></tr>
-<tr class="memitem:a26fd1faa40a8611e07d65e08ecd0909f"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html">MessageArgs</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html#a26fd1faa40a8611e07d65e08ecd0909f">Sent</a></td></tr>
-<tr class="memdesc:a26fd1faa40a8611e07d65e08ecd0909f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consumers of the view model subscribe to this event if they want to listen for the message.  <a href="#a26fd1faa40a8611e07d65e08ecd0909f">More...</a><br /></td></tr>
-<tr class="separator:a26fd1faa40a8611e07d65e08ecd0909f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header events_interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage"><td colspan="2" onclick="javascript:toggleInherit('events_interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage.html">Bovender.Mvvm.Messaging.IMessage&lt; T &gt;</a></td></tr>
-<tr class="memitem:a3db1aaf49a00121d5d326ae6afc336f6 inherit events_interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html">MessageArgs</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage.html#a3db1aaf49a00121d5d326ae6afc336f6">Sent</a></td></tr>
-<tr class="separator:a3db1aaf49a00121d5d326ae6afc336f6 inherit events_interfaceBovender_1_1Mvvm_1_1Messaging_1_1IMessage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Conveys a message from a view model to a consumer (typically, a view) that has subscribed to the Sent event. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -157,124 +115,8 @@ Events</h2></td></tr>
 </dd>
 </dl>
 </div>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a044a3d2758cb94994bc41c89378e8c1d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html">Bovender.Mvvm.Messaging.Message</a>&lt; T &gt;.Send </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>messageContent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Action&lt; T &gt;&#160;</td>
-          <td class="paramname"><em>respond</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calling this method will raise the Sent event with a message content and a callback method that can be used by the View to send a return signal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">messageContent</td><td>Content of the message.</td></tr>
-    <tr><td class="paramname">respond</td><td>Callback method that accepts a parameter of same type as <em>messageContent</em> .</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a3d085392a7d4ed9f384d007a7b718519"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html">Bovender.Mvvm.Messaging.Message</a>&lt; T &gt;.Send </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>messageContent</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Raises the Sent event with a <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html">MessageArgs</a> instance that encapsulates the <em>messageContent</em>  </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">messageContent</td><td>Derivate of <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageContent.html" title="Simple object that encapsulates a boolean value; to be used in MVVM interaction with MessageArgs...">MessageContent</a> that defines the message content.</td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a7746b03a811db5c08853156fddbed502"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html">Bovender.Mvvm.Messaging.Message</a>&lt; T &gt;.Send </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sends a simple message that does not need responding to. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Event Documentation</h2>
-<a class="anchor" id="a26fd1faa40a8611e07d65e08ecd0909f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">EventHandler&lt;<a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html">MessageArgs</a>&lt;T&gt; &gt; <a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html">Bovender.Mvvm.Messaging.Message</a>&lt; T &gt;.Sent</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Consumers of the view model subscribe to this event if they want to listen for the message. </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>packages/Bovender.0.7.0.0/src/Mvvm/Messaging/<a class="el" href="Message_8cs.html">Message.cs</a></li>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>packages/Bovender.0.7.0.0/src/Mvvm/Messaging/<a class="el" href="Bovender_80_87_80_80_2src_2Mvvm_2Messaging_2Message_8cs.html">Message.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -282,7 +124,7 @@ Events</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBovender.html">Bovender</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Mvvm.html">Mvvm</a></li><li class="navelem"><a class="el" href="namespaceBovender_1_1Mvvm_1_1Messaging.html">Messaging</a></li><li class="navelem"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1Message.html">Message</a></li>
-    <li class="footer">Generated on Tue Jun 7 2016 06:47:25 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Jun 28 2016 14:32:05 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>
