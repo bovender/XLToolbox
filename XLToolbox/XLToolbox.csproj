@@ -112,6 +112,7 @@
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Excel\ViewModels\InstanceShutdownEventArgs.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />

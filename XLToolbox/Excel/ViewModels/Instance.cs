@@ -59,6 +59,12 @@ namespace XLToolbox.Excel.ViewModels
 
         #endregion
 
+        #region Events
+
+        public event EventHandler<InstanceShutdownEventArgs> ShuttingDown;
+
+        #endregion
+
         #region Commands
 
         public DelegatingCommand QuitInteractivelyCommand
@@ -540,14 +546,29 @@ namespace XLToolbox.Excel.ViewModels
         /// Shuts down the current instance of Excel; no warning message will be shown.
         /// If an instance of this class exists, an error will be thrown.
         /// </summary>
-        void Shutdown()
+        private void Shutdown()
         {
             if (_application != null)
             {
                 _application.DisplayAlerts = false;
-                Logger.Info("Now quitting Excel.");
+                OnShuttingDown();
+                Logger.Info("Shutdown: Now quitting Excel.");
                 _application.Quit();
                 _application = null;
+            }
+        }
+
+        private void OnShuttingDown()
+        {
+            EventHandler<InstanceShutdownEventArgs> h = ShuttingDown;
+            if (h != null)
+            {
+                Logger.Info("OnShuttingDown: {0} event subscriber(s)", h.GetInvocationList().Length);
+                h(this, new InstanceShutdownEventArgs(Application));
+            }
+            else
+            {
+                Logger.Info("OnShuttingDown: No-one is listening.");
             }
         }
 
@@ -643,13 +664,13 @@ namespace XLToolbox.Excel.ViewModels
                 // Try if the workbook has been closed
                 if (n == CountOpenWorkbooks) return false;
             }
-            Logger.Info("Examining the situation.");
+            Logger.Info("CloseAllWorkbooksThenShutdown: Examining the situation.");
             if (Application.Workbooks.Count == 0)
             {
                 Logger.Info("No more workbooks left.");
                 CloseViewCommand.Execute(null);
                 Shutdown();
-                Logger.Info("Shutting down.");
+                Logger.Info("CloseAllWorkbooksThenShutdown: Shutting down.");
                 return true;
             }
             else

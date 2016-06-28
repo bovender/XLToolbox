@@ -263,6 +263,10 @@ namespace XLToolbox.Excel.ViewModels
                 Excel.ViewModels.Instance.Default.Application.WorkbookActivate += Application_WorkbookActivate;
                 Excel.ViewModels.Instance.Default.Application.WorkbookDeactivate += Application_WorkbookDeactivate;
             }
+            Instance.Default.ShuttingDown += (sender, args) =>
+            {
+                DoUnmonitorWorkbook();
+            };
         }
 
         public WorkbookViewModel(Workbook workbook)
