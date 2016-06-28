@@ -192,7 +192,7 @@ namespace XLToolbox.Legacy
                     app.Run("RunPointChart");
                     break;
                 case Command.Watermark:
-                    app.Run("RuneWatermark");
+                    app.Run("RunWatermark");
                     break;
                 case Command.LegacyPrefs:
                     app.Run("RunPreferences");
