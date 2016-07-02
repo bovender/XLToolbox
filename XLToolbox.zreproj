@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project>
+  <configuration createBackupFiles="False" hideEmptyRows="False" hideTranslatedRows="False" useSpellChecker="True" neutralLanguageCode="en-US" languagesToDisplay="">
+    <globalSetting name="CreateNewFileForm.prefixTextBox.Text">####</globalSetting>
+    <globalSetting name="CreateNewFileForm.prefixCheckBox.Checked">False</globalSetting>
+    <globalSetting name="CreateNewFileForm.referenceLanguageComboBox.SelectedIndex">0</globalSetting>
+    <globalSetting name="CreateNewFileForm.newLanguageComboBox.SelectedIndex">118</globalSetting>
+    <globalSetting name="CreateNewFileForm.copyTextsCheckBox.Checked">True</globalSetting>
+    <globalSetting name="CreateNewFileForm.automaticallyTranslateCheckBox.Checked">False</globalSetting>
+    <globalSetting name="Filter-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+  &lt;property name="ActiveFilterString" /&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <globalSetting name="Sort-ResourceEditorGrid">&lt;XtraSerializer version="1.0" application="View"&gt;
+  &lt;property name="#LayoutVersion" /&gt;
+&lt;/XtraSerializer&gt;</globalSetting>
+    <globalSetting name="autoTranslateForm.prefixTextBox.Text">####</globalSetting>
+    <globalSetting name="autoTranslateForm.prefixCheckBox.Checked">False</globalSetting>
+    <globalSetting name="autoTranslateForm.referenceLanguageComboBoxEdit.SelectedIndex">-1</globalSetting>
+    <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">
+    </globalSetting>
+    <userSetting name="daniel@WIN7.filesInitialDir">X:\Code\xltoolbox\NG\XLToolboxForExcel</userSetting>
+    <description>
+    </description>
+  </configuration>
+  <fileGroups>
+    <fileGroup name="" projectFolderUniqueID="910b8abe-5851-4ec4-8857-bc2accb35ed0" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
+      <file filePath="XLToolbox\Strings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolbox\Strings.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+    <fileGroup name="" projectFolderUniqueID="34ba81be-4635-44d5-af9f-cfe8dc453991" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
+      <file filePath="XLToolboxForExcel\RibbonStrings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <file filePath="XLToolboxForExcel\RibbonStrings.de.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.de.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+      <remarks>
+      </remarks>
+    </fileGroup>
+  </fileGroups>
+  <projectFolders>
+    <projectFolder uniqueID="910b8abe-5851-4ec4-8857-bc2accb35ed0" parentUniqueID="00000000-0000-0000-0000-000000000000" name="XLToolbox" orderPosition="0">
+      <remarks>
+      </remarks>
+      <dynSettings />
+    </projectFolder>
+    <projectFolder uniqueID="34ba81be-4635-44d5-af9f-cfe8dc453991" parentUniqueID="00000000-0000-0000-0000-000000000000" name="XLToolboxForExcel" orderPosition="0">
+      <remarks>
+      </remarks>
+      <dynSettings />
+    </projectFolder>
+    <projectFolder uniqueID="920f2af8-5963-4fe1-aec6-4687ce222d37" parentUniqueID="00000000-0000-0000-0000-000000000000" name="Tests" orderPosition="0">
+      <remarks>
+      </remarks>
+      <dynSettings />
+    </projectFolder>
+  </projectFolders>
+</project>
