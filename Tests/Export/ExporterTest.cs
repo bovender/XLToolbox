@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
@@ -34,11 +35,18 @@ namespace XLToolbox.Test.Export
     [TestFixture]
     class ExporterTest
     {
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
             // Force starting Excel
             Instance i = Instance.Default;
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+        }
+
+        [TestFixtureTearDown]
+        public void TearDown()
+        {
+            Instance.Default.Dispose();
         }
 
         [Test]
@@ -92,7 +100,6 @@ namespace XLToolbox.Test.Export
         }
 
         [Test]
-        [RequiresSTA]
         [TestCase(BatchExportScope.ActiveSheet, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 1)]
         [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 7)]
         [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SheetLayout, 4)]
@@ -124,15 +131,13 @@ namespace XLToolbox.Test.Export
             BatchExporter exporter = new BatchExporter(settings);
             BatchExportSettingsViewModel vm = new BatchExportSettingsViewModel(exporter);
             bool finished = false;
+            bool abort = false;
             vm.ProcessFinishedMessage.Sent += (sender, args) => { finished = true; };
             vm.StartProcess();
-            Task checkFinishedTask = new Task(() =>
-            {
-                while (finished == false) ;
-            });
-            checkFinishedTask.Start();
-            checkFinishedTask.Wait(10000);
-            Assert.IsTrue(finished, "Export progress did not finish, timeout reached.");
+            Timer t = new Timer((obj) => abort = true, null, 8000, Timeout.Infinite);
+            while (!finished && !abort) ;
+            t.Dispose();
+            Assert.IsFalse(abort, "Export progress did not finish, timeout reached.");
             Assert.AreEqual(expectedNumberOfFiles,
                 Directory.GetFiles(settings.Path).Length);
             Directory.Delete(settings.Path, true);

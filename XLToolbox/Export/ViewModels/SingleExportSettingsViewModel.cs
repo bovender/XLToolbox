@@ -318,6 +318,7 @@ namespace XLToolbox.Export.ViewModels
                 return ProcessModel as Exporter;
             }
         }
+        
         #endregion
 
         #region Private methods

@@ -171,6 +171,11 @@ namespace XLToolbox.Export.ViewModels
                 throw new ArgumentNullException("preset", "Cannot select PresetViewModel without Preset");
             }
             PresetViewModel pvm = ViewModels.FirstOrDefault(p => p.IsViewModelOf(preset));
+            if (pvm == null)
+            {
+                pvm = new PresetViewModel(preset);
+                ViewModels.Add(pvm);
+            }
             pvm.IsSelected = true;
         }
 
