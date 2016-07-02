@@ -103,12 +103,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="Csv\CsvFile.cs" />
+    <Compile Include="Csv\CsvExporter.cs" />
+    <Compile Include="Csv\CsvFileBase.cs" />
     <Compile Include="Csv\CsvFileView.xaml.cs">
       <DependentUpon>CsvFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Csv\CsvExportViewModel.cs" />
+    <Compile Include="Csv\CsvImporter.cs" />
     <Compile Include="Csv\CsvImportViewModel.cs" />
+    <Compile Include="Csv\CsvSettings.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
@@ -133,6 +136,7 @@
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExceptionHandler\TestException.cs" />
+    <Compile Include="Export\BatchExporter.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
     <Compile Include="Export\Lcms\Formatters.cs" />

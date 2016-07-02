@@ -51,8 +51,8 @@ namespace XLToolbox.Export
                 SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
                 SingleExportSettingsViewModel svm = new SingleExportSettingsViewModel(settings);
                 svm.ChooseFileNameMessage.Sent += ChooseFileNameMessage_Sent;
-                svm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
-                svm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
+                svm.ShowProgressMessage.Sent += Dispatcher.Exporter_ShowProgress_Sent;
+                svm.ProcessFinishedMessage.Sent += Dispatcher.Exporter_ProcessFinished_Sent;
                 if (svm.ChooseFileNameCommand.CanExecute(null))
                 {
                     svm.ChooseFileNameCommand.Execute(null);
@@ -72,8 +72,8 @@ namespace XLToolbox.Export
             if ((bvm != null) && bvm.ChooseFolderCommand.CanExecute(null))
             {
                 bvm.ChooseFolderMessage.Sent += ChooseFolderMessage_Sent;
-                bvm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
-                bvm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
+                bvm.ShowProgressMessage.Sent += Dispatcher.Exporter_ShowProgress_Sent;
+                bvm.ProcessFinishedMessage.Sent += Dispatcher.Exporter_ProcessFinished_Sent;
                 bvm.ChooseFolderCommand.Execute(null);
             }
             else
@@ -86,8 +86,8 @@ namespace XLToolbox.Export
                     bvm = new BatchExportSettingsViewModel();
                     // Do not 'sanitize' the export options, so that the user
                     // can see the selected, but disabled options.
-                    bvm.ShowProgressMessage.Sent += Dispatcher.ShowProgressMessage_Sent;
-                    bvm.ProcessFailedMessage.Sent += Dispatcher.ProcessFailedMessage_Sent;
+                    bvm.ShowProgressMessage.Sent += Dispatcher.Exporter_ShowProgress_Sent;
+                    bvm.ProcessFinishedMessage.Sent += Dispatcher.Exporter_ProcessFinished_Sent;
                     bvm.InjectInto<Views.BatchExportSettingsView>().ShowDialog();
                 }
                 else

@@ -90,19 +90,6 @@ namespace XLToolbox.Export.ViewModels
 
         protected Settings Settings { get; set; }
 
-        protected Exporter Exporter
-        {
-            get
-            {
-                if (_exporter == null)
-                {
-                    _exporter = new Exporter();
-                    ProcessModel = _exporter; // assigning property hooks up events
-                }
-                return _exporter;
-            }
-        }
-
         #endregion
 
         #region Commands
@@ -154,8 +141,8 @@ namespace XLToolbox.Export.ViewModels
 
         #region Constructor
 
-        public SettingsViewModelBase()
-            : base()
+        public SettingsViewModelBase(Bovender.Mvvm.Models.ProcessModel exporter)
+            : base(exporter)
         { }
 
         #endregion
@@ -228,21 +215,6 @@ namespace XLToolbox.Export.ViewModels
             return Settings;
         }
 
-        protected override bool IsProcessing()
-        {
-            return Exporter.IsProcessing;
-        }
-
-        protected override int GetPercentCompleted()
-        {
-            return Exporter.PercentCompleted;
-        }
-
-        protected override void CancelProcess()
-        {
-            Exporter.CancelExport();
-        }
-
         #endregion
 
         #region Private methods
@@ -263,7 +235,6 @@ namespace XLToolbox.Export.ViewModels
         DelegatingCommand _editPresetsCommand;
         Message<ViewModelMessageContent> _editPresetsMessage;
         PresetsRepositoryViewModel _presetsRepositoryViewModel;
-        Exporter _exporter;
 
         #endregion
 

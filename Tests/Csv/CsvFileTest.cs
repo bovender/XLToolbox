@@ -39,20 +39,13 @@ namespace XLToolbox.Test.Csv
             // For testing we 'hide' a pipe symbol in the field.
             ws.Cells[4, 5] = "wor|d";
             ws.Cells[4, 6] = 88.5;
-            CsvFile csv = new CsvFile();
+            CsvExporter model = new CsvExporter();
             string fn = System.IO.Path.GetTempFileName();
-            csv.FileName = fn;
-            csv.FieldSeparator = "|";
+            model.FileName = fn;
+            model.FieldSeparator = "|";
             // Use a funky decimal separator
-            csv.DecimalSeparator = "~";
-            csv.Export();
-            Task t = new Task(() =>
-            {
-                while (csv.IsProcessing) { }
-            });
-            t.Start();
-            t.Wait(5000);
-            Assert.IsFalse(csv.IsProcessing, "Exporter is still processing!");
+            model.DecimalSeparator = "~";
+            model.Execute();
             string contents = System.IO.File.ReadAllText(fn);
             string expected = String.Format(
                 "hello|13{0}\"wor|d\"|88~5{0}",
@@ -67,24 +60,25 @@ namespace XLToolbox.Test.Csv
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
             ws.Cells[1, 1] = "hello";
             ws.Cells[1000, 16384]= "world";
-            CsvFile csv = new CsvFile();
+            CsvExporter model = new CsvExporter();
+            CsvExportViewModel vm = new CsvExportViewModel(model);
             string fn = System.IO.Path.GetTempFileName();
-            csv.FileName = fn;
+            vm.FileName = fn;
             bool progressCompletedRaised = false;
-            csv.ProcessSucceeded += (sender, args) =>
+            vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
                 progressCompletedRaised = true;
             };
-            csv.Export();
+            vm.StartProcess();
             Task t = new Task(() =>
             {
-                while (csv.IsProcessing) { }
+                while (model.IsProcessing) { }
             });
             t.Start();
             t.Wait(15000);
-            if (csv.IsProcessing)
+            if (vm.IsProcessing)
             {
-                csv.CancelExport();
+                vm.CancelProcess();
                 Assert.Inconclusive("CSV export took too long, did not finish.");
                 // Do not delete the file, leave it for inspection
             }
@@ -105,12 +99,13 @@ namespace XLToolbox.Test.Csv
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
             ws.Cells[1, 1] = "hello";
             ws.Cells[200, 5] = "world";
-            CsvFile csv = new CsvFile();
+            CsvExporter model = new CsvExporter();
+            CsvExportViewModel vm = new CsvExportViewModel(model);
             string fn = System.IO.Path.GetTempFileName();
-            csv.FileName = fn;
+            model.FileName = fn;
             bool running = true;
             long start = 0;
-            csv.ProcessSucceeded += (sender, args) =>
+            vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
                 Console.WriteLine(method + ": *** Export completed ***");
                 long stop = DateTime.Now.Ticks;
@@ -130,7 +125,8 @@ namespace XLToolbox.Test.Csv
             );
             waitTask.Start();
             start = DateTime.Now.Ticks;
-            csv.Export(ws.UsedRange);
+            model.Range = ws.UsedRange;
+            vm.StartProcess();
             waitTask.Wait(-1);
         }
         

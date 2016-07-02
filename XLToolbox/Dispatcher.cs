@@ -167,8 +167,8 @@ namespace XLToolbox
             }
             SingleExportSettings settings = SingleExportSettings.CreateForSelection(preset);
             SingleExportSettingsViewModel vm = new SingleExportSettingsViewModel(settings);
-            vm.ShowProgressMessage.Sent += ShowProgressMessage_Sent;
-            vm.ProcessFailedMessage.Sent += ProcessFailedMessage_Sent;
+            vm.ShowProgressMessage.Sent += Exporter_ShowProgress_Sent;
+            vm.ProcessFinishedMessage.Sent += Exporter_ProcessFinished_Sent;
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
         }
 
@@ -187,8 +187,8 @@ namespace XLToolbox
                 vm = new BatchExportSettingsViewModel();
             }
             vm.SanitizeOptions();
-            vm.ShowProgressMessage.Sent += ShowProgressMessage_Sent;
-            vm.ProcessFailedMessage.Sent += ProcessFailedMessage_Sent;
+            vm.ShowProgressMessage.Sent += Exporter_ShowProgress_Sent;
+            vm.ProcessFinishedMessage.Sent += Exporter_ProcessFinished_Sent;
             vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialogInForm();
         }
 
@@ -385,19 +385,22 @@ namespace XLToolbox
                 };
                 args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().Show();
             };
-            vm.ProcessFailedMessage.Sent += (sender, args) =>
+            vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
-                Logger.Info("Received ExportFailedMessage, informing user");
-                Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
-                    args.Content, Strings.CsvExportFailed, Strings.CsvExportFailed, Strings.Close);
-                action.Invoke(args);
+                if (args.Content.Exception != null)
+                {
+                    Logger.Info("Received ProcessFinishedMessage with exception");
+                    Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
+                        args.Content, Strings.CsvExportFailed, Strings.CsvExportFailed, Strings.Close);
+                    action.Invoke(args);
+                }
             };
             return vm;
         }
 
-        internal static void ShowProgressMessage_Sent(object sender, MessageArgs<ProcessMessageContent> e)
+        internal static void Exporter_ShowProgress_Sent(object sender, MessageArgs<ProcessMessageContent> e)
         {
-            Logger.Info("Creating process view");
+            Logger.Info("Exporter_ShowProgress_Sent: Creating process view");
             e.Content.CancelButtonText = Strings.Cancel;
             e.Content.Caption = Strings.Export;
             e.Content.CompletedMessage.Sent += (sender2, args2) =>
@@ -407,12 +410,19 @@ namespace XLToolbox
             e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowDialogInForm();
         }
 
-        internal static void ProcessFailedMessage_Sent(object sender, MessageArgs<ProcessMessageContent> e)
+        internal static void Exporter_ProcessFinished_Sent(object sender, MessageArgs<ProcessMessageContent> e)
         {
-            Logger.Info("Received ExportFailedMessage, informing user");
-            Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
-                e.Content, Strings.ExportFailed, Strings.ExportFailedMessage, Strings.Close);
-            action.Invoke(e);
+            if (e.Content.Exception != null)
+            {
+                Logger.Info("Exporter_ProcessFinished_Sent: Received ProcessFinishedMessage with exception, informing user");
+                Bovender.Mvvm.Actions.ProcessCompletedAction action = new ProcessCompletedAction(
+                    e.Content, Strings.ExportFailed, Strings.ExportFailedMessage, Strings.Close);
+                action.Invoke(e);
+            }
+            else
+            {
+                Logger.Info("Exporter_ProcessFinished_Sent: Exporter process has finished");
+            }
         }
 
         #endregion

@@ -160,37 +160,7 @@ namespace XLToolbox.UserSettings
 
         public int LastErrorBars { get; set; }
 
-        public Csv.CsvFile CsvImport
-        {
-            get
-            {
-                if (_csvImport == null)
-                {
-                    _csvImport = _csvExport;
-                }
-                return _csvImport;
-            }
-            set
-            {
-                _csvImport = value;
-            }
-        }
-        
-        public Csv.CsvFile CsvExport
-        {
-            get
-            {
-                if (_csvExport == null)
-                {
-                    _csvExport = _csvImport;
-                }
-                return _csvExport;
-            }
-            set
-            {
-                _csvExport = value;
-            }
-        }
+        public Csv.CsvSettings CsvSettings { get; set; }
 
         /// <summary>
         /// Wraps the singleton PresetsRepository's Presets property.
@@ -344,8 +314,6 @@ namespace XLToolbox.UserSettings
         private string _exportPath;
         private BatchExportSettings _batchExportSettings;
         private Unit _lastExportUnit;
-        private Csv.CsvFile _csvImport;
-        private Csv.CsvFile _csvExport;
         private int _taskPaneWidth;
         private DateTime _lastUpdateCheck;
         private int _updateCheckInterval;

@@ -72,10 +72,10 @@ namespace XLToolbox.Export
         /// internal counter.
         /// </summary>
         /// <returns></returns>
-        public string GenerateNext(dynamic worksheet)
+        public string GenerateNext(dynamic sheet)
         {
-            CurrentWorkbookName = worksheet.Parent.Name;
-            CurrentWorksheetName = worksheet.Name;
+            CurrentWorkbookName = sheet.Parent.Name;
+            CurrentWorksheetName = sheet.Name;
             Counter++;
             string s = _regex.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.

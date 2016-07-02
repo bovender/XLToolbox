@@ -24,6 +24,7 @@ using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace XLToolbox.Export.ViewModels
 {
@@ -231,7 +232,7 @@ namespace XLToolbox.Export.ViewModels
         { }
 
         public SingleExportSettingsViewModel(SingleExportSettings singleExportSettings)
-            : base()
+            : base(new Exporter(singleExportSettings))
         {
             Settings = singleExportSettings;
             PresetViewModels.Select(Settings.Preset);
@@ -249,15 +250,14 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected override void DoExport()
         {
-            StartProcess();
-            // if (CanExport())
-            // {
-            //     // Logger.Info("DoExport");
-            //     // SelectedPreset.Store();
-            //     // UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
-            //     // SaveExportPath();
-            //     StartProcess();
-            // }
+            if (CanExport())
+            {
+                Logger.Info("DoExport");
+                SelectedPreset.Store();
+                UserSettings.UserSettings.Default.ExportUnit = Units.AsEnum;
+                SaveExportPath();
+                StartProcess();
+            }
         }
 
         protected override bool CanExport()
@@ -268,15 +268,22 @@ namespace XLToolbox.Export.ViewModels
                 (Width > 0) && (Height > 0);
         }
 
-        protected override void Execute()
+        protected override bool BeforeStartProcess()
         {
             Settings.Preset = SelectedPreset.RevealModelObject() as Preset;
-            Exporter.ExportSelection(Settings as SingleExportSettings);
+            return base.BeforeStartProcess();
         }
 
         protected override int GetPercentCompleted()
         {
-            return Exporter.PercentCompleted;
+            if (Exporter != null)
+            {
+                return Exporter.PercentCompleted;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         #endregion
@@ -299,6 +306,18 @@ namespace XLToolbox.Export.ViewModels
                 System.IO.Path.GetDirectoryName(FileName);
         }
 
+        #endregion
+
+        #region Private properties
+
+        private Exporter Exporter
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                return ProcessModel as Exporter;
+            }
+        }
         #endregion
 
         #region Private methods

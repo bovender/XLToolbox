@@ -36,7 +36,16 @@ namespace XLToolbox.Export
     {
         #region Properties
 
-        public bool IsProcessing { get; private set; }
+        public string FileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to do a quick export or not.
+        /// Quick export means that the selection is exported
+        /// at the original size.
+        /// </summary>
+        public bool QuickExport { get; set; }
+
+        public Preset Preset { get; set; }
 
         public int PercentCompleted
         {
@@ -44,7 +53,7 @@ namespace XLToolbox.Export
             {
                 if (_tiledBitmap != null)
                 {
-                    return _tiledBitmap.PercentCompleted * 80 / 100 + _percentCompleted;
+                    return _tiledBitmap.PercentCompleted * 50 / 100 + _percentCompleted;
                 }
                 else
                 {
@@ -62,149 +71,77 @@ namespace XLToolbox.Export
 
         #region Public methods
 
-        /// <summary>
-        /// Performs a quick export using a given Preset, but
-        /// without altering the size of the current selection:
-        /// The dimension properties of the SingleExportSettings
-        /// object that defines the operation are ignored.
-        /// </summary>
-        /// <param name="preset"></param>
-        public void ExportSelectionQuick(SingleExportSettings settings)
+        public override bool Execute()
         {
-            Logger.Info("ExportSelectionQuick");
-            ExportSelection(settings.Preset, settings.FileName);
-        }
-
-        /// <summary>
-        /// Exports the current selection from Excel to a graphics file
-        /// using the parameters defined in <see cref="exportSettings"/>
-        /// </summary>
-        /// <param name="exportSettings">Parameters for the graphic export.</param>
-        /// <param name="fileName">Target file name.</param>
-        public void ExportSelection(SingleExportSettings settings)
-        {
-            Logger.Info("ExportSelection");
-            if (settings == null)
+            if (Preset == null)
             {
-                Logger.Fatal("SingleExportSettings is null");
-                throw new ArgumentNullException("settings",
-                    "Must have SingleExportSettings object for the export.");
+                throw new InvalidOperationException("Cannot export because no Preset was given");
             }
-            double w = settings.Unit.ConvertTo(settings.Width, Unit.Point);
-            double h = settings.Unit.ConvertTo(settings.Height, Unit.Point);
-            IsProcessing = true;
-            Task t = new Task(() =>
+            if (String.IsNullOrWhiteSpace(FileName) && _settings != null)
             {
-                Logger.Info("Beginning export task");
-                try 
-	            {
-                    ExportSelection(settings.Preset, w, h, settings.FileName);
-                    IsProcessing = false;
-                    if (!_cancelled) OnProcessSucceeded();
-	            }
-                catch (Exception e)
-                {
-                    IsProcessing = false;
-                    Logger.Warn("Exception occurred, raising ExportFailed event");
-                    Logger.Warn(e);
-                    OnProcessFailed(e);
-                }
-                finally
-                {
-                    Logger.Info("Export task finished");
-                }
-            });
-            t.Start();
-        }
-
-        /// <summary>
-        /// Starts a batch export of charts and/or drawing objects
-        /// (shapes) asynchronously. Callers should subscribe to the
-        /// <see cref="ExportProcessChanged"/> and <see cref="ExportFinished"/>
-        /// events to learn about status changes. The operation can
-        /// be cancelled by caling the <see cref="CancelExport"/>
-        /// method.
-        /// </summary>
-        /// <param name="settings">Settings describing the desired operation.</param>
-        public void ExportBatchAsync(BatchExportSettings settings)
-        {
-            Logger.Info("ExportBatchAsync");
-            if (IsProcessing)
-            {
-                Logger.Warn("Cannot respawn, already running");
-                throw new InvalidOperationException(
-                    "Cannot start batch export while an operation is in progress.");
+                FileName = _settings.FileName;
             }
-
-            Task t = new Task(() =>
+            if (String.IsNullOrWhiteSpace(FileName))
             {
-                IsProcessing = true;
-                try
-                {
-                    Instance.Default.DisableScreenUpdating();
-                    switch (_batchSettings.Scope)
-                    {
-                        case BatchExportScope.ActiveSheet:
-                            _numTotal = CountInSheet(Instance.Default.Application.ActiveSheet);
-                            ExportSheet(Instance.Default.Application.ActiveSheet);
-                            break;
-                        case BatchExportScope.ActiveWorkbook:
-                            _numTotal = CountInWorkbook(Instance.Default.ActiveWorkbook);
-                            ExportWorkbook(Instance.Default.ActiveWorkbook);
-                            break;
-                        case BatchExportScope.OpenWorkbooks:
-                            _numTotal = CountInAllWorkbooks();
-                            ExportAllWorkbooks();
-                            break;
-                        default:
-                            throw new NotImplementedException(String.Format(
-                                "Batch export not implemented for {0}",
-                                settings.Scope));
-                    }
-                    IsProcessing = false;
-                    Logger.Info("Finish async task");
-                    if (!_cancelled) OnProcessSucceeded();
-                }
-                catch (Exception e)
-                {
-                    IsProcessing = false;
-                    OnProcessFailed(e);
-                }
-                finally
-                {
-                    IsProcessing = false;
-                    Instance.Default.EnableScreenUpdating();
-                }
-            });
-
-            _batchSettings = settings;
-            _cancelled = false;
-            _batchFileName = new ExportFileName(settings.Path, settings.FileName,
-                settings.Preset.FileType);
-            Logger.Info("Start asynchronous export");
-            t.Start();
-        }
-
-        /// <summary>
-        /// Cancels a running export.
-        /// </summary>
-        public void CancelExport()
-        {
-            if (IsProcessing)
-            {
-                _cancelled = true;
-                if (_tiledBitmap != null)
-                {
-                    _tiledBitmap.Cancel();
-                }
+                throw new InvalidOperationException("Cannot export because no file name was given");
             }
+            bool result = false;
+            double width;
+            double height;
+            if (QuickExport)
+            {
+                if (SelectionViewModel.Selection == null)
+                {
+                    Logger.Fatal("ExportAtOriginalSize: No selection!");
+                    throw new InvalidOperationException("Cannot export because nothing is selected in Excel");
+                }
+                width = SelectionViewModel.Bounds.Width;
+                height = SelectionViewModel.Bounds.Height;
+            }
+            else
+            {
+                if (_settings == null)
+                {
+                    Logger.Fatal("ExportAtOriginalSize: No export settings!");
+                    throw new InvalidOperationException("Cannot export because no export settings were given; want to perform quick export?");
+                }
+                width = _settings.Unit.ConvertTo(_settings.Width, Unit.Point);
+                height = _settings.Unit.ConvertTo(_settings.Height, Unit.Point);
+            }
+            ExportWithDimensions(width, height);
+            return result;
         }
 
         #endregion
 
-        #region Constructor and disposing
+        #region Constructors
 
-        public Exporter()
+        public Exporter(SingleExportSettings settings)
+            : this()
+        {
+            _settings = settings;
+            if (_settings != null)
+	        {
+                Preset = _settings.Preset;
+	        }
+        }
+
+        public Exporter(SingleExportSettings settings, bool quickExport)
+            : this(settings)
+        {
+            QuickExport = quickExport;
+        }
+
+        public Exporter(Preset preset)
+            : this()
+        {
+            // Without SingleExportSettings, we can only perform a quick export
+            QuickExport = true;
+            Preset = preset;
+        }
+
+        protected Exporter()
+            : base()
         {
             _dllManager = new DllManager();
             _dllManager.LoadDll("freeimage.dll");
@@ -215,13 +152,9 @@ namespace XLToolbox.Export
             };
         }
 
-        /*
-        public Exporter(Preset preset)
-            : this()
-        {
-            Preset = preset;
-        }
-         * */
+        #endregion
+
+        #region Disposing
 
         ~Exporter()
         {
@@ -236,34 +169,24 @@ namespace XLToolbox.Export
 
         protected void Dispose(bool calledFromDispose)
         {
-            if (calledFromDispose && !_disposed)
+            if (!_disposed)
             {
-                _dllManager.UnloadDll("freeimage.dll");
+                if (calledFromDispose)
+                {
+                    // Free managed resources
+                    _dllManager.UnloadDll("freeimage.dll");
+                    if (_tiledBitmap != null)
+                    {
+                        _tiledBitmap.Dispose();
+                    }
+                }
                 _disposed = true;
             }
         }
 
         #endregion
 
-        #region Private export methods
-
-        /// <summary>
-        /// Performs the actual graphic export with the dimensions of
-        /// the current selection.
-        /// </summary>
-        /// <param name="preset">Export preset to use.</param>
-        /// <param name="fileName">File name of target file.</param>
-        private void ExportSelection(Preset preset, string fileName)
-        {
-            Logger.Info("ExportSelection(preset, fileName");
-            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
-            if (svm.Selection == null)
-            {
-                Logger.Warn("No selection");
-                throw new InvalidOperationException("Nothing selected in Excel.");
-            }
-            ExportSelection(preset, svm.Bounds.Width, svm.Bounds.Height, fileName);
-        }
+        #region Private methods
 
         /// <summary>
         /// Performs the actual export for a given selection. This method is
@@ -273,13 +196,16 @@ namespace XLToolbox.Export
         /// <param name="widthInPoints">Width of the output graphic.</param>
         /// <param name="heightInPoints">Height of the output graphic.</param>
         /// <param name="fileName">Destination filename (must contain placeholders).</param>
-        private void ExportSelection(Preset preset, double widthInPoints, double heightInPoints,
-            string fileName)
+        private void ExportWithDimensions(double widthInPoints, double heightInPoints)
         {
-            Logger.Info("ExportSelection(preset, widthInPoints, heightInPoints, filename)");
+            if (Preset == null)
+            {
+                Logger.Fatal("ExportWithDimensions: No export preset!");
+                throw new InvalidOperationException("Cannot export without export preset");
+            }
+            Logger.Info("ExportWithDimensions");
             // Copy current selection to clipboard
-            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
-            svm.CopyToClipboard();
+            SelectionViewModel.CopyToClipboard();
                     
             // Get a metafile view of the clipboard content
             // Must not dispose the WorkingClipboard instance before the metafile
@@ -289,321 +215,99 @@ namespace XLToolbox.Export
             {
                 Logger.Info("Get metafile");
                 emf = clipboard.GetMetafile();
-                switch (preset.FileType)
+                switch (Preset.FileType)
                 {
                     case FileType.Emf:
-                        ExportEmf(emf, fileName);
+                        ExportEmf(emf);
                         break;
                     case FileType.Png:
                     case FileType.Tiff:
-                        ExportViaFreeImage(emf, preset, widthInPoints, heightInPoints, fileName);
+                        ExportViaFreeImage(emf, widthInPoints, heightInPoints);
                         break;
                     default:
                         throw new NotImplementedException(String.Format(
-                            "No export implementation for {0}.", preset.FileType));
+                            "No export implementation for {0}.", Preset.FileType));
                 }
             }
         }
 
-        private void ExportViaFreeImage(Metafile metafile,
-            Preset preset, double width, double height, string fileName)
+        private void ExportViaFreeImage(Metafile metafile, double width, double height)
         {
             Logger.Info("ExportViaFreeImage");
-            Logger.Info("Preset: {0}", preset);
+            Logger.Info("Preset: {0}", Preset);
             Logger.Info("Width: {0}; height: {1}", width, height);
             // Calculate the number of pixels needed for the requested
             // output size and resolution; size is given in points (1/72 in),
             // resolution is given in dpi.
-            int px = (int)Math.Round(width / 72 * preset.Dpi);
-            int py = (int)Math.Round(height / 72 * preset.Dpi);
+            int px = (int)Math.Round(width / 72 * Preset.Dpi);
+            int py = (int)Math.Round(height / 72 * Preset.Dpi);
             Logger.Info("Pixels: x: {0}; y: {1}", px, py);
-
+            Cancelling += Exporter_Cancelling;
+            PercentCompleted = 10;
             _tiledBitmap = new TiledBitmap(px, py);
-            PercentCompleted = 25;
-            FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, preset.Transparency);
+            FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, Preset.Transparency);
+            ConvertColor(fib);
+            fib.SetResolution(Preset.Dpi, Preset.Dpi);
+            fib.Comment = Versioning.SemanticVersion.BrandName;
+            PercentCompleted = 30;
+            Logger.Info("Saving {0} file", Preset.FileType);
+            fib.Save(
+                FileName,
+                Preset.FileType.ToFreeImageFormat(),
+                GetSaveFlags()
+            );
+            Cancelling -= Exporter_Cancelling;
+            PercentCompleted = 50;
+        }
 
-            PercentCompleted = 70;
-            if (preset.UseColorProfile)
+        private void ConvertColor(FreeImageBitmap freeImageBitmap)
+        {
+            if (Preset.UseColorProfile)
             {
-                ConvertColorCms(preset, fib);
+                Logger.Info("ConvertColorCms: Convert color using profile");
+                ViewModels.ColorProfileViewModel targetProfile =
+                    ViewModels.ColorProfileViewModel.CreateFromName(Preset.ColorProfile);
+                targetProfile.TransformFromStandardProfile(freeImageBitmap);
+                freeImageBitmap.ConvertColorDepth(Preset.ColorSpace.ToFreeImageColorDepth());
             }
             else
             {
-                ConvertColor(preset, fib);
+                Logger.Info("ConvertColor: Convert color without profile");
+                freeImageBitmap.ConvertColorDepth(Preset.ColorSpace.ToFreeImageColorDepth());
             }
-
-            PercentCompleted = 85;
-            if (preset.ColorSpace == ColorSpace.Monochrome)
+            if (Preset.ColorSpace == ColorSpace.Monochrome)
             {
-                SetMonochromePalette(fib);
+                SetMonochromePalette(freeImageBitmap);
             }
-            
-            fib.SetResolution(preset.Dpi, preset.Dpi);
-            fib.Comment = Versioning.SemanticVersion.BrandName;
-            Logger.Info("Saving {0} file", preset.FileType);
-            PercentCompleted = 85;
-            fib.Save(
-                fileName,
-                preset.FileType.ToFreeImageFormat(),
-                GetSaveFlags(preset)
-            );
-            PercentCompleted = 100;
-        }
-
-        private void ConvertColorCms(Preset preset, FreeImageBitmap freeImageBitmap)
-        {
-            Logger.Info("Convert color using profile");
-            ViewModels.ColorProfileViewModel targetProfile =
-                ViewModels.ColorProfileViewModel.CreateFromName(preset.ColorProfile);
-            targetProfile.TransformFromStandardProfile(freeImageBitmap);
-            freeImageBitmap.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
-        }
-
-        private void ConvertColor(Preset preset, FreeImageBitmap freeImageBitmap)
-        {
-            Logger.Info("Convert color without profile");
-            freeImageBitmap.ConvertColorDepth(preset.ColorSpace.ToFreeImageColorDepth());
         }
 
         private void SetMonochromePalette(FreeImageBitmap freeImageBitmap)
         {
-            Logger.Info("Convert to monochrome");
+            Logger.Info("SetMonochromePalette: Convert to monochrome");
             freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.Black), 0);
             freeImageBitmap.Palette.SetValue(new RGBQUAD(Color.White), 1);
         }
 
-        private void ExportEmf(Metafile metafile, string fileName)
+        private void ExportEmf(Metafile metafile)
         {
+            Logger.Info("ExportEmf: exporting...");
             IntPtr handle = metafile.GetHenhmetafile();
             PercentCompleted = 50;
             Logger.Info("ExportEmf, handle: {0}", handle);
-            Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, fileName);
+            Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, FileName);
             PercentCompleted = 100;
         }
 
-        private void ExportAllWorkbooks()
+        private FREE_IMAGE_SAVE_FLAGS GetSaveFlags()
         {
-            foreach (Workbook wb in Instance.Default.Application.Workbooks)
-            {
-                ExportWorkbook(wb);
-                if (_cancelled) break;
-            }
-        }
-
-        private void ExportWorkbook(Workbook workbook)
-        {
-            ComputeBatchProgress();
-            ((_Workbook)workbook).Activate();
-            foreach (dynamic ws in workbook.Sheets)
-            {
-                ExportSheet(ws);
-                if (_cancelled) break;
-            }
-        }
-
-        private void ExportSheet(dynamic sheet)
-        {
-            ComputeBatchProgress();
-            sheet.Activate();
-            switch (_batchSettings.Layout)
-            {
-                case BatchExportLayout.SheetLayout:
-                    ExportSheetLayout(sheet);
-                    break;
-                case BatchExportLayout.SingleItems:
-                    ExportSheetItems(sheet);
-                    break;
-                default:
-                    throw new NotImplementedException(
-                        String.Format("Export of {0} not implemented.", _batchSettings.Layout)
-                        );
-            }
-        }
-
-        private void ExportSheetLayout(dynamic sheet)
-        {
-            SheetViewModel svm = new SheetViewModel(sheet);
-            switch (_batchSettings.Objects)
-            {
-                case BatchExportObjects.Charts:
-                    svm.SelectCharts();
-                    break;
-                case BatchExportObjects.ChartsAndShapes:
-                    svm.SelectShapes();
-                    break;
-                default:
-                    throw new NotImplementedException(_batchSettings.Objects.ToString());
-            }
-            ExportSelection(
-                _batchSettings.Preset,
-                _batchFileName.GenerateNext(sheet)
-            );
-            ComputeBatchProgress();
-        }
-
-        private void ExportSheetItems(dynamic sheet)
-        {
-            SheetViewModel svm = new SheetViewModel(sheet);
-            if (svm.IsChart)
-            {
-                svm.SelectCharts();
-                ExportSelection(
-                    _batchSettings.Preset,
-                    _batchFileName.GenerateNext(sheet)
-                );
-            }
-            else
-            {
-                switch (_batchSettings.Objects)
-                {
-                    case BatchExportObjects.Charts:
-                        ExportSheetChartItems(svm.Worksheet);
-                        break;
-                    case BatchExportObjects.ChartsAndShapes:
-                        ExportSheetAllItems(svm.Worksheet);
-                        break;
-                    default:
-                        throw new NotImplementedException(
-                            "Single-item export not implemented for " + _batchSettings.Objects.ToString());
-                }
-            }
-            ComputeBatchProgress();
-        }
-
-        private void ExportSheetChartItems(Worksheet worksheet)
-        {
-            // Must use an index-based for loop here.
-            // A foreach loop caused lots of 0x800a03ec errors from Excel
-            // (for whatever reason).
-            ChartObjects cos = worksheet.ChartObjects();
-            for (int i = 1; i <= cos.Count; i++)
-            {
-                cos.Item(i).Select();
-                ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
-                ComputeBatchProgress();
-                if (_cancelled) break;
-            }
-        }
-
-        private void ExportSheetAllItems(Worksheet worksheet)
-        {
-            foreach (Shape sh in worksheet.Shapes)
-            {
-                sh.Select(true);
-                ExportSelection(_batchSettings.Preset, _batchFileName.GenerateNext(worksheet));
-                ComputeBatchProgress();
-                if (_cancelled) break;
-            }
-        }
-
-        #endregion
-
-        #region Private counting methods
-
-        private int CountInAllWorkbooks()
-        {
-            int n = 0;
-            foreach (Workbook wb in Instance.Default.Application.Workbooks)
-            {
-                n += CountInWorkbook(wb);
-            }
-            return n;
-        }
-
-        private int CountInWorkbook(Workbook workbook)
-        {
-            int n = 0;
-            foreach (Worksheet ws in workbook.Worksheets)
-            {
-                n += CountInSheet(ws);
-            }
-            return n;
-        }
-
-        private int CountInSheet(dynamic worksheet)
-        {
-            switch (_batchSettings.Layout)
-            {
-                case BatchExportLayout.SheetLayout:
-                    return CountInSheetLayout(worksheet);
-                case BatchExportLayout.SingleItems:
-                    return CountInSheetItems(worksheet);
-                default:
-                    throw new NotImplementedException(
-                        String.Format("Export of {0} not implemented.", _batchSettings.Layout)
-                        );
-            }
-        }
-
-        /// <summary>
-        /// Returns 1 if the <paramref name="worksheet"/> contains at least
-        /// one chart or drawing object, since all charts/drawing objects will
-        /// be exported together into one file.
-        /// </summary>
-        /// <param name="worksheet">Worksheet to examine.</param>
-        /// <returns>1 if sheet contains charts/drawings, 0 if not.</returns>
-        private int CountInSheetLayout(dynamic worksheet)
-        {
-            SheetViewModel svm = new SheetViewModel(worksheet);
-            switch (_batchSettings.Objects)
-            {
-                case BatchExportObjects.Charts:
-                    return svm.CountCharts() > 0 ? 1 : 0;
-                case BatchExportObjects.ChartsAndShapes:
-                    return svm.CountShapes() > 0 ? 1 : 0;
-                default:
-                    throw new NotImplementedException(String.Format(
-                        "Export of {0} not implemented.", _batchSettings.Objects));
-            }
-        }
-
-        private int CountInSheetItems(dynamic worksheet)
-        {
-            SheetViewModel svm = new SheetViewModel(worksheet);
-            switch (_batchSettings.Objects)
-            {
-                case BatchExportObjects.Charts:
-                    return svm.CountCharts();
-                case BatchExportObjects.ChartsAndShapes:
-                    return svm.CountShapes();
-                default:
-                    throw new NotImplementedException(String.Format(
-                        "Export of {0} not implemented.", _batchSettings.Objects));
-            }
-        }
-
-        /*private FREE_IMAGE_FORMAT FileTypeToFreeImage(FileType fileType)
-        {
-            FREE_IMAGE_FORMAT fif;
-            if (_fileTypeToFreeImage.TryGetValue(fileType, out fif))
-            {
-                return fif;
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    "No FREE_IMAGE_FORMAT match for " + fileType.ToString());
-            }
-        }
-        */
-        #endregion
-
-        #region Private helper methods
-
-        private void ComputeBatchProgress()
-        {
-            PercentCompleted = Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
-        }
-
-        private FREE_IMAGE_SAVE_FLAGS GetSaveFlags(Preset preset)
-        {
-            switch (preset.FileType)
+            Logger.Info("GetSaveFlags");
+            switch (Preset.FileType)
             {
                 case FileType.Png:
                     return FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION |
                            FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED;
                 case FileType.Tiff:
-                    switch (preset.ColorSpace)
+                    switch (Preset.ColorSpace)
                     {
                         case ColorSpace.Monochrome:
                             return FREE_IMAGE_SAVE_FLAGS.TIFF_CCITTFAX4;
@@ -617,41 +321,53 @@ namespace XLToolbox.Export
             }
         }
 
-        /*
-        /// <summary>
-        /// Adds a file extension to the file name if missing.
-        /// </summary>
-        /// <param name="fileName">File name, possibly without extension.</param>
-        /// <returns>File name with extension.</returns>
-        private string SanitizeFileName(Preset preset, string fileName)
+        private void Exporter_Cancelling(object sender, Bovender.Mvvm.Models.ProcessModelEventArgs args)
         {
-            string extension = preset.FileType.ToFileNameExtension();
-            if (!fileName.ToUpper().EndsWith(extension.ToUpper()))
+            if (_tiledBitmap != null)
             {
-                fileName += extension;
+                _tiledBitmap.Cancel();
             }
-            return fileName;
         }
-         */
+
+        #endregion
+
+        #region Protected properties
+
+        protected SelectionViewModel SelectionViewModel
+        {
+            get
+            {
+                if (_selectionViewModel == null)
+                {
+                    _selectionViewModel = new SelectionViewModel(Instance.Default.Application);
+                }
+                return _selectionViewModel;
+            }
+        }
 
         #endregion
 
         #region Private fields
 
         private DllManager _dllManager;
+        private SingleExportSettings _settings;
         private bool _disposed;
-        private BatchExportSettings _batchSettings;
-        private ExportFileName _batchFileName;
-        private bool _cancelled;
-        private int _numTotal;
         private Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
         private TiledBitmap _tiledBitmap;
         private int _percentCompleted;
+        private SelectionViewModel _selectionViewModel;
 
         #endregion
 
         #region Private constants
         #endregion
 
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
+        #endregion
     }
 }
