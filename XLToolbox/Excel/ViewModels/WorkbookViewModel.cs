@@ -353,6 +353,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoMoveSheetUp()
         {
+            _lockEvents = true;
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
@@ -364,10 +365,12 @@ namespace XLToolbox.Excel.ViewModels
                     Sheets.Move(i, i - 1);
                 }
             }
+            _lockEvents = false;
         }
 
         private void DoMoveSheetsToTop()
         {
+            _lockEvents = true;
             int currentTop = 0;
             for (int i = 1; i < Sheets.Count; i++)
             {
@@ -378,6 +381,7 @@ namespace XLToolbox.Excel.ViewModels
                     currentTop++;
                 }
             }
+            _lockEvents = false;
         }
 
         private bool CanMoveSheetUp()
@@ -392,6 +396,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoMoveSheetDown()
         {
+            _lockEvents = true;
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
@@ -403,10 +408,12 @@ namespace XLToolbox.Excel.ViewModels
                     Sheets.Move(i, i + 1);
                 }
             }
+            _lockEvents = false;
         }
 
         private void DoMoveSheetsToBottom()
         {
+            _lockEvents = true;
             int currentBottom = Sheets.Count - 1;
             for (int i = currentBottom-1; i >= 0; i--)
             {
@@ -417,6 +424,7 @@ namespace XLToolbox.Excel.ViewModels
                     currentBottom--;
                 }
             }
+            _lockEvents = false;
         }
 
         private bool CanMoveSheetDown()
@@ -543,18 +551,21 @@ namespace XLToolbox.Excel.ViewModels
 
         private void CheckSheetsChanged(object state)
         {
-            string sheetsString = SheetsString;
-            if (sheetsString != _lastSheetsString)
+            if (!_lockEvents)
             {
-                Logger.Info("CheckSheetsChanged: Change in worksheets detected, rebuilding list");
-                _lastSheetsString = sheetsString;
-                BuildSheetList();
+                string sheetsString = SheetsString;
+                if (sheetsString != _lastSheetsString)
+                {
+                    Logger.Info("CheckSheetsChanged: Change in worksheets detected, rebuilding list");
+                    _lastSheetsString = sheetsString;
+                    BuildSheetList();
+                }
             }
         }
 
         private void SheetActivated(dynamic sheet)
         {
-            if (sheet != null)
+            if (sheet != null && !_lockEvents)
             {
                 SheetViewModel svm = Sheets.FirstOrDefault(s => s.IsSelected);
                 if (svm != null)
@@ -585,6 +596,7 @@ namespace XLToolbox.Excel.ViewModels
         private Message<StringMessageContent> _renameSheetMessage;
         private string _lastSheetsString;
         private Timer _timer;
+        private bool _lockEvents;
 
         #endregion
 

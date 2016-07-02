@@ -553,7 +553,11 @@ namespace XLToolbox.Excel.ViewModels
                 _application.DisplayAlerts = false;
                 OnShuttingDown();
                 Logger.Info("Shutdown: Now quitting Excel.");
-                _application.Quit();
+                System.Threading.Timer t = new System.Threading.Timer((obj) =>
+                {
+                    ((Application)obj).Quit();
+                }, _application, 150, System.Threading.Timeout.Infinite);
+                // _application.Quit();
                 _application = null;
             }
         }
