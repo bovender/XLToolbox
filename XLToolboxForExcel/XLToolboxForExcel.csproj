@@ -227,6 +227,11 @@
     <Compile Include="Ribbon.cs">
       <XmlRibbon>true</XmlRibbon>
     </Compile>
+    <Compile Include="RibbonStrings.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RibbonStrings.de.resx</DependentUpon>
+    </Compile>
     <Compile Include="RibbonStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -241,6 +246,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RibbonStrings.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RibbonStrings.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="RibbonStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RibbonStrings.Designer.cs</LastGenOutput>

@@ -330,6 +330,7 @@ namespace XLToolbox.Excel.ViewModels
                 return MajorVersion >= 15;
             }
         }
+
         #endregion
 
         #region Public methods

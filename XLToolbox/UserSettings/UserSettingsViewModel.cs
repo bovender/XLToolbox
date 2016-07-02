@@ -18,6 +18,7 @@
 using System;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
+using Bovender.Mvvm.Messaging;
 
 namespace XLToolbox.UserSettings
 {
@@ -78,6 +79,23 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public EnumProvider<Language> Language
+        {
+            get
+            {
+                if (_languageProvider == null)
+                {
+                    _languageProvider = new Bovender.Mvvm.EnumProvider<Language>(_language);
+                    _languageProvider.PropertyChanged += (sender, args) =>
+                    {
+                        _language = _languageProvider.AsEnum;
+                        _dirty |= _language != _originalLanguage;
+                    };
+                }
+                return _languageProvider;
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -125,6 +143,19 @@ namespace XLToolbox.UserSettings
         #endregion
 
         #region Messages
+
+        public Message<MessageContent> RestartToTakeEffectMessage
+        {
+            get
+            {
+                if (_restartToChange == null)
+                {
+                    _restartToChange = new Message<MessageContent>();
+                }
+                return _restartToChange;
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -133,6 +164,12 @@ namespace XLToolbox.UserSettings
         {
             UserSettings u = UserSettings.Default;
             _isLoggingEnabled = u.EnableLogging;
+            if (!Enum.TryParse(u.LanguageCode, true, out _language))
+            {
+                Logger.Warn("UserSettingsViewModel: Could not parse language code to enum, falling back to default");
+                _language = XLToolbox.UserSettings.Language.En;
+            }
+            _originalLanguage = _language;
             if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
                 _taskPaneWidth = XLToolbox.SheetManager.TaskPaneManager.Default.Width;
@@ -162,13 +199,19 @@ namespace XLToolbox.UserSettings
 
         private void DoSave()
         {
+            Logger.Info("DoSave");
             _dirty = false;
             UserSettings u = UserSettings.Default;
             u.TaskPaneWidth = TaskPaneWidth;
             u.EnableLogging = IsLoggingEnabled;
+            u.LanguageCode = Language.SelectedItem.Value.ToString();
             if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
                 XLToolbox.SheetManager.TaskPaneManager.Default.Width = _taskPaneWidth;
+            }
+            if (_originalLanguage != _language)
+            {
+                OnRestartToTakeEffect();
             }
             DoCloseView();
         }
@@ -180,8 +223,10 @@ namespace XLToolbox.UserSettings
 
         private void DoOpenLegacyPreferences()
         {
+            Logger.Info("Open legacy preferences");
             if (!_dirty)
             {
+                Logger.Info("(Not dirty, closing view.)");
                 DoCloseView();
             }
             XLToolbox.Dispatcher.Execute(Command.LegacyPrefs);
@@ -189,8 +234,14 @@ namespace XLToolbox.UserSettings
 
         private void DoOpenProfileFolder()
         {
+            Logger.Info("Open profile folder");
             System.Diagnostics.Process.Start(
                 new System.Diagnostics.ProcessStartInfo(ProfileFolderPath));
+        }
+
+        protected void OnRestartToTakeEffect()
+        {
+            RestartToTakeEffectMessage.Send();
         }
 
         #endregion
@@ -200,10 +251,22 @@ namespace XLToolbox.UserSettings
         private DelegatingCommand _saveCommand;
         private DelegatingCommand _openProfileFolderCommand;
         private DelegatingCommand _editLegacyPreferences;
+        private Message<MessageContent> _restartToChange;
         private bool _dirty;
         private int _taskPaneWidth;
         private bool _isLoggingEnabled;
+        private Language _originalLanguage;
+        private Language _language;
+        private EnumProvider<Language> _languageProvider;
         
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
         #endregion
     }
 }

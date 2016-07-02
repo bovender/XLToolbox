@@ -85,6 +85,35 @@ namespace XLToolbox.UserSettings
 
         #region User settings
 
+        public string LanguageCode
+        {
+            get
+            {
+                return _languageCode;
+            }
+            set
+            {
+                string newLang = value.ToLower();
+                switch (newLang)
+                {
+                    case "en":
+                    case "de":
+                        break;
+                    default:
+                        Logger.Warn("LanguageCode: Unknown language code, falling back to default");
+                        newLang = "en";
+                        break;
+                }
+                if (newLang != _languageCode)
+                {
+                    Logger.Info("LanguageCode: Setting language code: {0}", newLang);
+                    _languageCode = newLang;
+                    System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        new System.Globalization.CultureInfo(_languageCode);
+                }
+            }
+        }
+
         public DateTime LastUpdateCheck
         {
             get
@@ -318,6 +347,7 @@ namespace XLToolbox.UserSettings
         private DateTime _lastUpdateCheck;
         private int _updateCheckInterval;
         private string _lastVersionSeen;
+        private string _languageCode;
 
         #endregion
 
