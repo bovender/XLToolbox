@@ -89,6 +89,14 @@ namespace XLToolbox.UserSettings
         {
             get
             {
+                if (String.IsNullOrEmpty(_languageCode))
+                {
+                    // Attempt to set a default value using the setter
+                    // which will fall back to default if the current
+                    // UI language is not available as a translation.
+                    Logger.Info("LanguageCode: Initializing language code...");
+                    LanguageCode = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+                }
                 return _languageCode;
             }
             set
