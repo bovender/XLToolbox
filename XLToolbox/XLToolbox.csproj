@@ -313,6 +313,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Strings.de.resx" />
     <EmbeddedResource Include="VERSION" />
     <None Include="Properties\StoreNames.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
