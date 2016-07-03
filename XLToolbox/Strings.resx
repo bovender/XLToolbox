@@ -525,7 +525,7 @@ You may want to try again.</value>
     <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
   </data>
 	<data name="ApacheDisclaimer" xml:space="preserve">
-    <value>This add-in is distributed under the Apache License, Version 2.0, on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</value>
+    <value>Unless required by applicable law or agreed to in writing, software distributed under the Apache 2.0 License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</value>
   </data>
 	<data name="NoWarrantiesSeeLicense" xml:space="preserve">
     <value>No warranties ‒ see license.</value>

@@ -29,31 +29,31 @@
     </description>
   </configuration>
   <fileGroups>
-    <fileGroup name="" projectFolderUniqueID="910b8abe-5851-4ec4-8857-bc2accb35ed0" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
-      <file filePath="XLToolbox\Strings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolbox\Strings.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="XLToolbox\Strings.de.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolbox\Strings.de.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+    <fileGroup name="" projectFolderUniqueID="34ba81be-4635-44d5-af9f-cfe8dc453991" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="d0a38ccc-3df3-45db-9406-2520af58f019">
+      <file filePath="XLToolboxForExcel\RibbonStrings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.resx" uniqueID="a5f9b943-00d9-4396-9bd8-cd2964a49aa7" />
+      <file filePath="XLToolboxForExcel\RibbonStrings.de.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.de.resx" uniqueID="17a1452b-609e-4dad-8d34-235dc9670757" />
       <remarks>
       </remarks>
     </fileGroup>
-    <fileGroup name="" projectFolderUniqueID="34ba81be-4635-44d5-af9f-cfe8dc453991" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="00000000-0000-0000-0000-000000000000">
-      <file filePath="XLToolboxForExcel\RibbonStrings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
-      <file filePath="XLToolboxForExcel\RibbonStrings.de.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.de.resx" uniqueID="00000000-0000-0000-0000-000000000000" />
+    <fileGroup name="" projectFolderUniqueID="910b8abe-5851-4ec4-8857-bc2accb35ed0" orderPosition="0" ignoreDuringExportAndImport="False" uniqueID="474db391-768d-431d-a30c-e275a6df2d62">
+      <file filePath="XLToolbox\Strings.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolbox\Strings.resx" uniqueID="e2d24007-4680-4e5a-9cc9-279add8a37a0" />
+      <file filePath="XLToolbox\Strings.de.resx" absoluteFilePath="X:\Code\xltoolbox\NG\XLToolbox\Strings.de.resx" uniqueID="cf40bcfa-eca4-45bb-aedd-4826068e9a8a" />
       <remarks>
       </remarks>
     </fileGroup>
   </fileGroups>
   <projectFolders>
+    <projectFolder uniqueID="920f2af8-5963-4fe1-aec6-4687ce222d37" parentUniqueID="00000000-0000-0000-0000-000000000000" name="Tests" orderPosition="0">
+      <remarks>
+      </remarks>
+      <dynSettings />
+    </projectFolder>
     <projectFolder uniqueID="910b8abe-5851-4ec4-8857-bc2accb35ed0" parentUniqueID="00000000-0000-0000-0000-000000000000" name="XLToolbox" orderPosition="0">
       <remarks>
       </remarks>
       <dynSettings />
     </projectFolder>
     <projectFolder uniqueID="34ba81be-4635-44d5-af9f-cfe8dc453991" parentUniqueID="00000000-0000-0000-0000-000000000000" name="XLToolboxForExcel" orderPosition="0">
-      <remarks>
-      </remarks>
-      <dynSettings />
-    </projectFolder>
-    <projectFolder uniqueID="920f2af8-5963-4fe1-aec6-4687ce222d37" parentUniqueID="00000000-0000-0000-0000-000000000000" name="Tests" orderPosition="0">
       <remarks>
       </remarks>
       <dynSettings />
