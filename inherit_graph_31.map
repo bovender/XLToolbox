@@ -1,3 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1EnumViewModel.html" title="View model for enum members. This class is used internally by the EnumProvider. For specific purposes..." alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node2" href="$classBovender_1_1ExceptionHandler_1_1ManageExceptionEventArgs.html" title="Bovender.ExceptionHandler.\lManageExceptionEventArgs" alt="" coords="147,5,335,47"/>
+<area shape="rect" id="node3" href="$classBovender_1_1ExceptionHandler_1_1UploadFailedEventArgs.html" title="Bovender.ExceptionHandler.\lUploadFailedEventArgs" alt="" coords="147,71,335,112"/>
+<area shape="rect" id="node4" href="$classBovender_1_1Mvvm_1_1Messaging_1_1MessageArgs.html" title="Bovender.Mvvm.Messaging.\lMessageArgs\&lt; T \&gt;" alt="" coords="147,136,335,177"/>
+<area shape="rect" id="node5" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1InstanceShutdownEventArgs.html" title="XLToolbox.Excel.ViewModels.\lInstanceShutdownEventArgs" alt="" coords="141,201,341,243"/>
+<area shape="rect" id="node6" href="$classXLToolbox_1_1Excel_1_1ViewModels_1_1SelectionChangedEventArgs.html" title="Event args for the SelectionChanged event of the SelectionViewModel class. " alt="" coords="141,267,341,308"/>
+<area shape="rect" id="node7" href="$classXLToolbox_1_1Export_1_1Models_1_1BitmapCreatedEventArgs.html" title="XLToolbox.Export.Models.\lBitmapCreatedEventArgs" alt="" coords="153,332,329,373"/>
+<area shape="rect" id="node8" href="$classXLToolbox_1_1SheetManager_1_1SheetManagerEventArgs.html" title="XLToolbox.SheetManager.Sheet\lManagerEventArgs" alt="" coords="136,397,347,439"/>
+<area shape="rect" id="node9" href="$classXLToolbox_1_1SheetManager_1_1TaskPaneManagerEventArgs.html" title="XLToolbox.SheetManager.Task\lPaneManagerEventArgs" alt="" coords="139,463,344,504"/>
 </map>

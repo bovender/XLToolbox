@@ -4,6 +4,9 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "Models", "dir_c78fc9bb7af64403b2bd0cdf0b1e7799.html", "dir_c78fc9bb7af64403b2bd0cdf0b1e7799" ],
     [ "ViewModels", "dir_18ceb227df6c15b177c67fe9e755e0b0.html", "dir_18ceb227df6c15b177c67fe9e755e0b0" ],
     [ "Views", "dir_c9f30ba0d057719771eadc1c45f0efb5.html", "dir_c9f30ba0d057719771eadc1c45f0efb5" ],
+    [ "BatchExporter.cs", "BatchExporter_8cs.html", [
+      [ "BatchExporter", "classXLToolbox_1_1Export_1_1BatchExporter.html", "classXLToolbox_1_1Export_1_1BatchExporter" ]
+    ] ],
     [ "Exporter.cs", "Exporter_8cs.html", [
       [ "Exporter", "classXLToolbox_1_1Export_1_1Exporter.html", "classXLToolbox_1_1Export_1_1Exporter" ]
     ] ],

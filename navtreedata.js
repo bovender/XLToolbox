@@ -35,17 +35,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AboutViewModel_8cs.html",
-"Debug_2Csv_2CsvFileView_8g_8cs.html",
-"WorkbookStorageException_8cs.html",
-"classBovender_1_1Mvvm_1_1Actions_1_1ShowViewDialogAction.html",
-"classBovender_1_1Unmanaged_1_1Pinvoke.html#a97a02829f212f36c9c0522886a61d441",
-"classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#a6937966f799d842ce21aaea2a1961206",
-"classXLToolbox_1_1Export_1_1Models_1_1ColorSpaceExtensions.html#ad9688c81a0caee99418d12a72f4b012b",
-"classXLToolbox_1_1Greeter_1_1GreeterViewModel.html",
-"classXLToolbox_1_1Strings.html#a64d140979bbfa1666c17cc9107d31532",
-"classXLToolbox_1_1UserSettings_1_1UserSettings.html",
-"dir_be04fdfa28e6d8249e0edeb18074ed7d.html",
-"packages_2Bovender_80_88_81_80_2src_2UserSettings_2UserSettingsViewModel_8cs.html"
+"CsvFileBase_8cs.html",
+"classBovender_1_1ExceptionHandler_1_1ExceptionViewModel.html#a680dee719fc10a3f3db0d2a3ab6613f1",
+"classBovender_1_1Mvvm_1_1DelegatingCommand.html#a76bbf98d1e216511f8af1329aa8ce519",
+"classBovender_1_1UserSettings_1_1UserSettingsViewModel.html#ada238fbacf0a246fac732f6318a7b905",
+"classXLToolbox_1_1Csv_1_1CsvSettings.html#a3a48df580885b5d070788cbfe7ee1f61",
+"classXLToolbox_1_1Export_1_1Models_1_1SingleExportSettings.html#aa08c376e8ba277a758a90d9c5c02f7ad",
+"classXLToolbox_1_1Keyboard_1_1ShortcutViewModel.html#a8abc2b5c26a76e3449b4b51f554bf880",
+"classXLToolbox_1_1Strings.html#accc84203a72d2d748bed9d5c30c74807",
+"classXLToolbox_1_1Versioning_1_1Updater.html",
+"interfaceXLToolbox_1_1Vba_1_1IApi.html#ac9a5ed757e072082bffb9c340b787463"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
