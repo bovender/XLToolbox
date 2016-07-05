@@ -110,7 +110,7 @@ namespace XLToolboxForExcel
             };
 
             XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
-            XLToolbox.SheetManager.SheetManagerPane.SheetManagerInitialized += SheetManagerPane_SheetManagerInitialized;
+            XLToolbox.SheetManager.TaskPaneManager.Initialized += SheetManagerPane_SheetManagerInitialized;
         }
 
         #endregion
@@ -120,7 +120,7 @@ namespace XLToolboxForExcel
         public void PrepareShutdown()
         {
             // Unsubscribe from the static event
-            XLToolbox.SheetManager.SheetManagerPane.SheetManagerInitialized -= SheetManagerPane_SheetManagerInitialized;
+            XLToolbox.SheetManager.TaskPaneManager.Initialized -= SheetManagerPane_SheetManagerInitialized;
         }
 
         #endregion
@@ -222,25 +222,25 @@ namespace XLToolboxForExcel
 
         public void SheetManagerToggleButton_OnAction(Office.IRibbonControl control, bool pressed)
         {
-            XLToolbox.SheetManager.SheetManagerPane.Default.Visible = pressed;
+            XLToolbox.SheetManager.TaskPaneManager.Default.Visible = pressed;
         }
 
         public bool SheetManagerToggleButton_GetPressed(Office.IRibbonControl control)
         {
-            return XLToolbox.SheetManager.SheetManagerPane.InitializedAndVisible;
+            return XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible;
         }
 
         #endregion
 
         #region Event handlers
 
-        void SheetManagerPane_SheetManagerInitialized(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
+        void SheetManagerPane_SheetManagerInitialized(object sender, XLToolbox.SheetManager.TaskPaneManagerEventArgs e)
         {
-            e.Instance.VisibilityChanged += Instance_VisibilityChanged;
+            e.TaskPaneManager.VisibilityChanged += SheetManager_VisibilityChanged;
             InvalidateRibbonUi();
         }
 
-        void Instance_VisibilityChanged(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
+        void SheetManager_VisibilityChanged(object sender, XLToolbox.SheetManager.SheetManagerEventArgs e)
         {
             InvalidateRibbonUi();
         }

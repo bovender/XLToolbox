@@ -306,10 +306,14 @@ namespace XLToolbox.Export.ViewModels
         { }
 
         public BatchExportSettingsViewModel(BatchExportSettings settings)
-            : base()
+            : this(new BatchExporter(settings as BatchExportSettings))
+        { }
+
+        public BatchExportSettingsViewModel(BatchExporter batchExporter)
+            : base(batchExporter)
         {
-            Settings = settings;
-            PresetViewModels.Select(settings.Preset);
+            Settings = batchExporter.Settings;
+            PresetViewModels.Select(Settings.Preset);
             FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
                 Strings.Workbook, Strings.Worksheet, Strings.Index);
             Scope.PropertyChanged += Scope_PropertyChanged;
@@ -320,8 +324,8 @@ namespace XLToolbox.Export.ViewModels
 
         #endregion
 
-        #region Implementation of SettingsViewModelBase
-
+        #region Implementation of abstract methods
+        
         /// <summary>
         /// Determines the suggested target directory and sends the
         /// ChooseFileNameMessage.
@@ -345,6 +349,18 @@ namespace XLToolbox.Export.ViewModels
             return CanExport();
         }
 
+        protected override int GetPercentCompleted()
+        {
+            if (Exporter != null)
+            {
+                return Exporter.PercentCompleted;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         protected override void DoExport()
         {
             Logger.Info("DoExport");
@@ -358,17 +374,9 @@ namespace XLToolbox.Export.ViewModels
 
         protected override bool CanExport()
         {
-            return CanExecuteMatrix[Scope.AsEnum][Objects.AsEnum][Layout.AsEnum] &&
-                (Settings.Preset != null);
-        }
-
-        #endregion
-
-        #region Implementation of ProcessViewModelBase
-        
-        protected override void Execute()
-        {
-            Exporter.ExportBatchAsync(Settings as BatchExportSettings);
+            return (Settings != null) &&
+                (Settings.Preset != null) &&
+                CanExecuteMatrix[Scope.AsEnum][Objects.AsEnum][Layout.AsEnum];
         }
 
         #endregion
@@ -724,6 +732,15 @@ namespace XLToolbox.Export.ViewModels
                     FillCanExecuteMatrix();
                 }
                 return _canExecuteMatrix;
+            }
+        }
+
+        private BatchExporter Exporter
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                return ProcessModel as BatchExporter;
             }
         }
 

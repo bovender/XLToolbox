@@ -17,27 +17,36 @@
  */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using NUnit.Framework;
-using Microsoft.Office.Interop.Excel;
-using XLToolbox.Export;
-using XLToolbox.Excel.ViewModels;
-using Bovender.Unmanaged;
-using XLToolbox.Export.Models;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
+using Bovender.Unmanaged;
+using XLToolbox.Excel.ViewModels;
+using XLToolbox.Export;
+using XLToolbox.Export.Models;
+using XLToolbox.Export.ViewModels;
 
 namespace XLToolbox.Test.Export
 {
     [TestFixture]
     class ExporterTest
     {
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
             // Force starting Excel
             Instance i = Instance.Default;
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+        }
+
+        [TestFixtureTearDown]
+        public void TearDown()
+        {
+            Instance.Default.Dispose();
         }
 
         [Test]
@@ -68,8 +77,8 @@ namespace XLToolbox.Test.Export
             settings.Width = 160;
             settings.Height = 40;
             File.Delete(settings.FileName);
-            Exporter exporter = new Exporter();
-            exporter.ExportSelection(settings);
+            Exporter exporter = new Exporter(settings);
+            exporter.Execute();
             Assert.IsTrue(File.Exists(settings.FileName));
         }
 
@@ -85,13 +94,12 @@ namespace XLToolbox.Test.Export
             settings.FileName = Path.GetFileNameWithoutExtension(Path.GetTempFileName())
                 + preset.FileType.ToFileNameExtension();
             File.Delete(settings.FileName);
-            Exporter exporter = new Exporter();
-            exporter.ExportSelectionQuick(settings);
+            Exporter exporter = new Exporter(settings, true);
+            exporter.Execute();
             Assert.IsTrue(File.Exists(settings.FileName), "Output file was not created.");
         }
 
         [Test]
-        [RequiresSTA]
         [TestCase(BatchExportScope.ActiveSheet, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 1)]
         [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SingleItems, 7)]
         [TestCase(BatchExportScope.ActiveWorkbook, BatchExportObjects.Charts, BatchExportLayout.SheetLayout, 4)]
@@ -120,17 +128,16 @@ namespace XLToolbox.Test.Export
             settings.Layout = layout;
             settings.Objects = objects;
             settings.Scope = scope;
-            Exporter exporter = new Exporter();
+            BatchExporter exporter = new BatchExporter(settings);
+            BatchExportSettingsViewModel vm = new BatchExportSettingsViewModel(exporter);
             bool finished = false;
-            exporter.ProcessSucceeded += (sender, args) => { finished = true; };
-            exporter.ExportBatchAsync(settings);
-            Task checkFinishedTask = new Task(() =>
-            {
-                while (finished == false) ;
-            });
-            checkFinishedTask.Start();
-            checkFinishedTask.Wait(10000);
-            Assert.IsTrue(finished, "Export progress did not finish, timeout reached.");
+            bool abort = false;
+            vm.ProcessFinishedMessage.Sent += (sender, args) => { finished = true; };
+            vm.StartProcess();
+            Timer t = new Timer((obj) => abort = true, null, 8000, Timeout.Infinite);
+            while (!finished && !abort) ;
+            t.Dispose();
+            Assert.IsFalse(abort, "Export progress did not finish, timeout reached.");
             Assert.AreEqual(expectedNumberOfFiles,
                 Directory.GetFiles(settings.Path).Length);
             Directory.Delete(settings.Path, true);

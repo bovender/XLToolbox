@@ -1,4 +1,5 @@
-﻿/* SheetManagerEventArgs.cs
+﻿using Microsoft.Office.Interop.Excel;
+/* InstanceShutdownEventArgs.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -20,15 +21,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox.SheetManager
+namespace XLToolbox.Excel.ViewModels
 {
-    public class SheetManagerEventArgs : EventArgs
+    public class InstanceShutdownEventArgs : EventArgs
     {
-        public SheetManagerTaskPane TaskPane { get; private set; }
+        public Application Application { get; private set; }
 
-        public SheetManagerEventArgs(SheetManagerTaskPane sheetManagerTaskPane)
+        public InstanceShutdownEventArgs(Application application)
         {
-            TaskPane = sheetManagerTaskPane;
+            Application = application;
         }
     }
 }

@@ -29,20 +29,8 @@ namespace XLToolbox.Greeter
     /// <summary>
     /// View model for the greeter screen.
     /// </summary>
-    public class GreeterViewModel : ViewModelBase
+    public class GreeterViewModel : About.AboutViewModel
     {
-        #region Public properties
-
-        public SemanticVersion Version
-        {
-            get
-            {
-                return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-            }
-        }
-
-        #endregion
-
         #region Commands
 
         public DelegatingCommand WhatsNewCommand
@@ -74,36 +62,6 @@ namespace XLToolbox.Greeter
         }
 
         #endregion
-
-        /*
-        #region MVVM messages
-
-        public Message<MessageContent> WhatsNewMessage
-        {
-            get
-            {
-                if (_whatsNewMessage == null)
-                {
-                    _whatsNewMessage = new Message<MessageContent>();
-                }
-                return _whatsNewMessage;
-            }
-        }
-
-        public Message<MessageContent> DonateMessage
-        {
-            get
-            {
-                if (_donateMessage == null)
-                {
-                    _donateMessage = new Message<MessageContent>();
-                }
-                return _donateMessage;
-            }
-        }
-
-        #endregion
-        */
 
         #region Private methods
 

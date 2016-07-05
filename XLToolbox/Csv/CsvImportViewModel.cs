@@ -22,16 +22,17 @@ using System.Text;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using Bovender.Mvvm;
+using System.Diagnostics;
 
 namespace XLToolbox.Csv
 {
-    class CsvImportViewModel : ViewModelBase
+    public class CsvImportViewModel : ProcessViewModelBase
     {
         #region Factory
 
         public static CsvImportViewModel FromLastUsed()
         {
-            return new CsvImportViewModel(CsvFile.LastImport());
+            return new CsvImportViewModel(CsvImporter.LastImport());
         }
 
         #endregion
@@ -40,40 +41,40 @@ namespace XLToolbox.Csv
 
         public string FileName
         {
-            get { return _csvFile.FileName; }
+            get { return Importer.FileName; }
             set
             {
-                _csvFile.FileName = value;
+                Importer.FileName = value;
                 OnPropertyChanged("FileName");
             }
         }
 
         public string FieldSeparator
         {
-            get { return _csvFile.FieldSeparator; }
+            get { return Importer.FieldSeparator; }
             set
             {
-                _csvFile.FieldSeparator = value;
+                Importer.FieldSeparator = value;
                 OnPropertyChanged("FieldSeparator");
             }
         }
 
         public string DecimalSeparator
         {
-            get { return _csvFile.DecimalSeparator; }
+            get { return Importer.DecimalSeparator; }
             set
             {
-                _csvFile.DecimalSeparator = value;
+                Importer.DecimalSeparator = value;
                 OnPropertyChanged("DecimalSeparator");
             }
         }
 
         public string ThousandsSeparator
         {
-            get { return _csvFile.ThousandsSeparator; }
+            get { return Importer.ThousandsSeparator; }
             set
             {
-                _csvFile.ThousandsSeparator = value;
+                Importer.ThousandsSeparator = value;
                 OnPropertyChanged("ThousandsSeparator");
             }
         }
@@ -129,21 +130,19 @@ namespace XLToolbox.Csv
         #region Constructors
 
         public CsvImportViewModel()
-            : this(new CsvFile()) { }
+            : this(new CsvImporter()) { }
 
-        protected CsvImportViewModel(CsvFile model)
-            : base()
-        {
-            _csvFile = model;
-        }
+        protected CsvImportViewModel(CsvImporter model)
+            : base(model)
+        { }
 
         #endregion
 
-        #region ViewModelBase implementation
+        #region ProcessViewModelBase implementation
 
-        public override object RevealModelObject()
+        protected override int GetPercentCompleted()
         {
-            return _csvFile;
+            return 50; // TODO
         }
 
         #endregion
@@ -164,7 +163,7 @@ namespace XLToolbox.Csv
         {
             if (messageContent.Confirmed)
             {
-                _csvFile.FileName = messageContent.Value;
+                Importer.FileName = messageContent.Value;
                 DoImport();
             }
         }
@@ -175,15 +174,26 @@ namespace XLToolbox.Csv
             {
                 store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
             }
-            _csvFile.Import();
+            Importer.Execute();
             CloseViewCommand.Execute(null);
         }
 
         #endregion
 
+        #region Private properties
+
+        private CsvImporter Importer
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                return ProcessModel as CsvImporter;
+            }
+        }
+        #endregion
+
         #region Private fields
 
-        CsvFile _csvFile;
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _importCommand;
         Message<FileNameMessageContent> _chooseImportFileNameMessage;

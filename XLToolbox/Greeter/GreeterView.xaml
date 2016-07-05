@@ -19,8 +19,10 @@
 <Window x:Class="XLToolbox.Greeter.GreeterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:v="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
+        xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
         Title="{x:Static l:Strings.Welcome}"
         ShowInTaskbar="False" v:WindowState.CenterScreen="True"
         SizeToContent="Height" ResizeMode="NoResize" Width="480"
@@ -28,6 +30,25 @@
     <Window.Resources>
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceName="About" EventName="MouseDown">
+            <i:EventTrigger.Actions>
+                <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ShowLicenseMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.License}"
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/license.html" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ShowCreditsMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.Credits}"
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/credits.html" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <StackPanel Orientation="Vertical" Margin="10">
         <DockPanel>
             <Image DockPanel.Dock="Left"
@@ -46,6 +67,18 @@
         </DockPanel>
         <TextBlock Text="{x:Static l:Strings.ApacheDisclaimer}" TextWrapping="Wrap" TextAlignment="Justify"
                    Margin="0,10,0,0" Foreground="Red"/>
+        <UniformGrid Rows="1" Columns="2">
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink Command="{Binding ShowLicenseCommand}">
+                    <TextBlock Text="{x:Static l:Strings.License}" />
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink Command="{Binding ShowCreditsCommand}">
+                    <TextBlock Text="{x:Static l:Strings.Credits}" />
+                </Hyperlink>
+            </TextBlock>
+        </UniformGrid>
         <UniformGrid Margin="0,15,0,0" Columns="3" Rows="1">
             <Button Padding="10,5,10,5" Margin="0,0,5,0" Content="{x:Static l:Strings.WhatsNew}"
                     Command="{Binding WhatsNewCommand}" />

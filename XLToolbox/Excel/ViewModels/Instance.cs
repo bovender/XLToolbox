@@ -25,6 +25,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -55,6 +56,12 @@ namespace XLToolbox.Excel.ViewModels
             get { return _lazy.Value; }
             set { _lazy = new Lazy<Instance>(() => value); }
         }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<InstanceShutdownEventArgs> ShuttingDown;
 
         #endregion
 
@@ -170,6 +177,24 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
+        /// Gets the major version number of the Excel instance
+        /// as an integer.
+        /// </summary>
+        public int MajorVersion
+        {
+            get
+            {
+                if (_majorVersion == 0)
+	            {
+                    _majorVersion = Convert.ToInt32(
+                        Application.Version.Split('.')[0],
+                        CultureInfo.InvariantCulture);
+	            }
+                return _majorVersion;
+            }
+        }
+
+        /// <summary>
         /// Gets the Excel version and build number in a human-friendly form.
         /// </summary>
         /// <remarks>
@@ -183,39 +208,39 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                Application app = Application;
-                string name = String.Empty;
-                string sp = String.Empty;
-                switch (Convert.ToInt32(app.Version.Split('.')[0]))
+                string versionName = String.Empty;
+                string servicePack = String.Empty;
+                int build = Application.Build;
+                switch (MajorVersion)
                 {
                     // Very old versions are ignored (won't work with VSTO anyway)
-                    case 11: name = "2003"; break;
-                    case 12: name = "2007"; break;
-                    case 14: name = "2010"; break;
-                    case 15: name = "2013"; break;
-                    case 16: name = "365"; break; // I believe (sparse information on the web)
-                }
-                int build = app.Build;
-                switch (app.Version)
-                {
-                    case "15.0":
-                        // 2013 SP information: http://support.microsoft.com/kb/2817430/en-us
-                        if (build >= 4569) { sp = " SP1"; }
+                    case 11:
+                        versionName = "2003";
                         break;
-                    case "14.0":
-                        // 2010 SP information: http://support.microsoft.com/kb/2121559/en-us
-                        if (build >= 7015) { sp = " SP2"; }
-                        else if (build >= 6029) { sp = " SP1"; }
-                        break;
-                    case "12.0":
+                    case 12:
+                        versionName = "2007";
                         // 2007 SP information: http://support.microsoft.com/kb/928116/en-us
-                        if (build >= 6611) { sp = " SP3"; }
-                        else if (build >= 6425) { sp = " SP2"; }
-                        else if (build >= 6241) { sp = " SP1"; }
+                        if (build >= 6611) { servicePack = " SP3"; }
+                        else if (build >= 6425) { servicePack = " SP2"; }
+                        else if (build >= 6241) { servicePack = " SP1"; }
                         break;
+                    case 14:
+                        // 2010 SP information: http://support.microsoft.com/kb/2121559/en-us
+                        versionName = "2010";
+                        if (build >= 7015) { servicePack = " SP2"; }
+                        else if (build >= 6029) { servicePack = " SP1"; }
+                        break;
+                    case 15:
+                        // 2013 SP information: http://support.microsoft.com/kb/2817430/en-us
+                        versionName = "2013";
+                        if (build >= 4569) { servicePack = " SP1"; }
+                        break;
+                    case 16:
+                        versionName = "365";
+                        break; // I believe (sparse information on the web)
                 }
                 return String.Format("{0}{1} ({2}.{3})",
-                    name, sp, app.Version, app.Build);
+                    versionName, servicePack, Application.Version, Application.Build);
             }
         }
 
@@ -291,6 +316,18 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     return 0;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the current Excel instance has an SDI (Excel 2013+)
+        /// or not (Excel 2007/2010).
+        /// </summary>
+        public bool IsSingleDocumentInterface
+        {
+            get
+            {
+                return MajorVersion >= 15;
             }
         }
 
@@ -510,14 +547,33 @@ namespace XLToolbox.Excel.ViewModels
         /// Shuts down the current instance of Excel; no warning message will be shown.
         /// If an instance of this class exists, an error will be thrown.
         /// </summary>
-        void Shutdown()
+        private void Shutdown()
         {
             if (_application != null)
             {
                 _application.DisplayAlerts = false;
-                Logger.Info("Now quitting Excel.");
-                _application.Quit();
+                OnShuttingDown();
+                Logger.Info("Shutdown: Now quitting Excel.");
+                System.Threading.Timer t = new System.Threading.Timer((obj) =>
+                {
+                    ((Application)obj).Quit();
+                }, _application, 150, System.Threading.Timeout.Infinite);
+                // _application.Quit();
                 _application = null;
+            }
+        }
+
+        private void OnShuttingDown()
+        {
+            EventHandler<InstanceShutdownEventArgs> h = ShuttingDown;
+            if (h != null)
+            {
+                Logger.Info("OnShuttingDown: {0} event subscriber(s)", h.GetInvocationList().Length);
+                h(this, new InstanceShutdownEventArgs(Application));
+            }
+            else
+            {
+                Logger.Info("OnShuttingDown: No-one is listening.");
             }
         }
 
@@ -613,13 +669,13 @@ namespace XLToolbox.Excel.ViewModels
                 // Try if the workbook has been closed
                 if (n == CountOpenWorkbooks) return false;
             }
-            Logger.Info("Examining the situation.");
+            Logger.Info("CloseAllWorkbooksThenShutdown: Examining the situation.");
             if (Application.Workbooks.Count == 0)
             {
                 Logger.Info("No more workbooks left.");
                 CloseViewCommand.Execute(null);
                 Shutdown();
-                Logger.Info("Shutting down.");
+                Logger.Info("CloseAllWorkbooksThenShutdown: Shutting down.");
                 return true;
             }
             else
@@ -635,6 +691,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private bool _disposed;
         private Application _application;
+        private int _majorVersion;
         private DelegatingCommand _quitInteractivelyCommand;
         private DelegatingCommand _quitSavingChangesCommand;
         private DelegatingCommand _quitDiscardingChangesCommand;

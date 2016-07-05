@@ -36,14 +36,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <!--
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ...}" EventName="Sent">
-            <actions:... />
-            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+        <i:EventTrigger SourceObject="{Binding RestartToTakeEffectMessage}" EventName="Sent">
+            <actions:NotificationAction Caption="{x:Static l:Strings.UserSettings}"
+                                        Message="{x:Static l:Strings.RestartForChangesToTakeEffect}"
+                                        OkButtonText="{x:Static l:Strings.OK}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    -->
     <StackPanel Margin="15">
         <GroupBox Header="{x:Static l:Strings.WorksheetManager}"
                   Padding="10">
@@ -96,6 +95,15 @@
                 </Hyperlink>
             </TextBlock>
         </GroupBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 10 0 0">
+            <Label Target="{Binding ElementName=languageBox}" Content="{x:Static l:Strings.Language}"
+                   Margin="0 0 10 0"/>
+            <ComboBox x:Name="languageBox"
+                ItemsSource="{Binding Language.Choices}"
+                ToolTip="{Binding Language.ToolTip}"
+                SelectedItem="{Binding Language.SelectedItem}"
+            />
+        </StackPanel>
         <UniformGrid Rows="0" Columns="2" HorizontalAlignment="Right"
                      Margin="0 10 0 0">
             <Button Command="{Binding Path=SaveCommand}"

@@ -54,15 +54,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
-    <Reference Include="Bovender, Version=0.10.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.11.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.10.0.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.11.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.10.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.11.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.10.0.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.11.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -103,15 +103,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="Csv\CsvFile.cs" />
+    <Compile Include="Csv\CsvExporter.cs" />
+    <Compile Include="Csv\CsvFileBase.cs" />
     <Compile Include="Csv\CsvFileView.xaml.cs">
       <DependentUpon>CsvFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Csv\CsvExportViewModel.cs" />
+    <Compile Include="Csv\CsvImporter.cs" />
     <Compile Include="Csv\CsvImportViewModel.cs" />
+    <Compile Include="Csv\CsvSettings.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Excel\ViewModels\InstanceShutdownEventArgs.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
@@ -131,6 +135,8 @@
     <Compile Include="ExceptionHandler\SubmissionSuccessView.xaml.cs">
       <DependentUpon>SubmissionSuccessView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExceptionHandler\TestException.cs" />
+    <Compile Include="Export\BatchExporter.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
     <Compile Include="Export\Lcms\Formatters.cs" />
@@ -224,14 +230,18 @@
     <Compile Include="SheetManager\SheetManagerControl.xaml.cs">
       <DependentUpon>SheetManagerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SheetManager\SheetManagerPane.cs" />
+    <Compile Include="SheetManager\TaskPaneManager.cs" />
+    <Compile Include="SheetManager\SheetManagerTaskPane.cs" />
+    <Compile Include="SheetManager\TaskPaneManagerEventArgs.cs" />
     <Compile Include="Unmanaged\DllManager.cs" />
+    <Compile Include="UserSettings\Language.cs" />
     <Compile Include="UserSettings\UserSettings.cs" />
     <Compile Include="UserSettings\UserSettingsViewModel.cs" />
     <Compile Include="UserSettings\UserSettingsView.xaml.cs">
       <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vba\Api.cs" />
+    <Compile Include="Vba\IApi.cs" />
     <Compile Include="Vba\VbaException.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
@@ -303,6 +313,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Strings.de.resx" />
     <EmbeddedResource Include="VERSION" />
     <None Include="Properties\StoreNames.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

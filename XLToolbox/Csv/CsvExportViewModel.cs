@@ -26,16 +26,17 @@ using Bovender.Mvvm;
 using Microsoft.Office.Interop.Excel;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 namespace XLToolbox.Csv
 {
-    class CsvExportViewModel : ProcessViewModelBase
+    public class CsvExportViewModel : ProcessViewModelBase
     {
         #region Factory
 
         public static CsvExportViewModel FromLastUsed()
         {
-            return new CsvExportViewModel(CsvFile.LastExport());
+            return new CsvExportViewModel(CsvExporter.LastExport());
         }
 
         #endregion
@@ -44,40 +45,40 @@ namespace XLToolbox.Csv
 
         public string FileName
         {
-            get { return _csvFile.FileName; }
+            get { return CsvExporter.FileName; }
             set
             {
-                _csvFile.FileName = value;
+                CsvExporter.FileName = value;
                 OnPropertyChanged("FileName");
             }
         }
 
         public string FieldSeparator
         {
-            get { return _csvFile.FieldSeparator; }
+            get { return CsvExporter.FieldSeparator; }
             set
             {
-                _csvFile.FieldSeparator = value;
+                CsvExporter.FieldSeparator = value;
                 OnPropertyChanged("FieldSeparator");
             }
         }
 
         public string DecimalSeparator
         {
-            get { return _csvFile.DecimalSeparator; }
+            get { return CsvExporter.DecimalSeparator; }
             set
             {
-                _csvFile.DecimalSeparator = value;
+                CsvExporter.DecimalSeparator = value;
                 OnPropertyChanged("DecimalSeparator");
             }
         }
 
         public string ThousandsSeparator
         {
-            get { return _csvFile.ThousandsSeparator; }
+            get { return CsvExporter.ThousandsSeparator; }
             set
             {
-                _csvFile.ThousandsSeparator = value;
+                CsvExporter.ThousandsSeparator = value;
                 OnPropertyChanged("ThousandsSeparator");
             }
         }
@@ -138,24 +139,34 @@ namespace XLToolbox.Csv
         #region Constructors
 
         public CsvExportViewModel()
-            : this(new CsvFile()) { }
+            : this(new CsvExporter()) { }
 
-        protected CsvExportViewModel(CsvFile model)
-            : base()
+        public CsvExportViewModel(CsvExporter model)
+            : base(model)
+        { }
+
+        #endregion
+
+        #region Implementation of ProcessViewModel
+
+        protected override int GetPercentCompleted()
         {
-            _csvFile = model;
-            ProcessModel = _csvFile; // also hooks up events
+            return Convert.ToInt32(100d * CsvExporter.CellsProcessed / CsvExporter.CellsTotal);
         }
 
         #endregion
 
-        #region ViewModelBase implementation
+        #region Private properties
 
-        public override object RevealModelObject()
+        private CsvExporter CsvExporter
         {
-            return _csvFile;
+            [DebuggerStepThrough]
+            get
+            {
+                return ProcessModel as CsvExporter;
+            }
         }
-
+        
         #endregion
 
         #region Private methods
@@ -174,7 +185,7 @@ namespace XLToolbox.Csv
         {
             if (messageContent.Confirmed)
             {
-                _csvFile.FileName = messageContent.Value;
+                CsvExporter.FileName = messageContent.Value;
                 DoExport();
             }
         }
@@ -185,6 +196,7 @@ namespace XLToolbox.Csv
             {
                 store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
             };
+            ((CsvExporter)ProcessModel).Range = Range;
             StartProcess();
         }
 
@@ -192,41 +204,9 @@ namespace XLToolbox.Csv
 
         #region Private fields
 
-        CsvFile _csvFile;
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _exportCommand;
         Message<FileNameMessageContent> _chooseExportFileNameMessage;
-
-        #endregion
-
-        #region Implementation of ProcessViewModel
-
-        protected override void CancelProcess()
-        {
-            _csvFile.CancelExport();
-        }
-
-        protected override void Execute()
-        {
-            if (Range != null)
-            {
-                _csvFile.Export(Range);
-            }
-            else
-            {
-                _csvFile.Export();
-            }
-        }
-
-        protected override int GetPercentCompleted()
-        {
-            return Convert.ToInt32(100d * _csvFile.CellsProcessed / _csvFile.CellsTotal);
-        }
-
-        protected override bool IsProcessing()
-        {
-            return _csvFile.IsProcessing;
-        }
 
         #endregion
     }

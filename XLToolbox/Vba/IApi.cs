@@ -1,4 +1,4 @@
-﻿/* SheetManagerEventArgs.cs
+﻿/* IApi.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -15,20 +15,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace XLToolbox.SheetManager
+using System.Runtime.InteropServices;
+namespace XLToolbox.Vba
 {
-    public class SheetManagerEventArgs : EventArgs
+    [ComVisible(true)]
+    [InterfaceType(ComInterfaceType.InterfaceIsDual)]
+    public interface IApi
     {
-        public SheetManagerTaskPane TaskPane { get; private set; }
-
-        public SheetManagerEventArgs(SheetManagerTaskPane sheetManagerTaskPane)
-        {
-            TaskPane = sheetManagerTaskPane;
-        }
+        string Version();
+        int ExportSelection(
+            string fileName,
+            int dpi,
+            string colorSpace,
+            string transparency);
+        void Execute(string command);
+        void ShowException(string exception);
+        void Log(string message);
+        bool IsDebugMode();
     }
 }

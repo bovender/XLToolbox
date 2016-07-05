@@ -33,12 +33,16 @@ namespace XLToolbox.Mvvm.Actions
 
         protected override Window CreateView()
         {
+            return new HtmlFileView();
+        }
+
+        protected override ViewModelBase GetDataContext(MessageContent messageContent)
+        {
             if (!string.IsNullOrEmpty(HtmlResource))
             {
                 HtmlFileViewModel vm = new HtmlFileViewModel(HtmlResource);
                 vm.Caption = Caption;
-                Window view = vm.InjectInto<HtmlFileView>();
-                return view;
+                return vm;
             }
             else
             {

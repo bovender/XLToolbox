@@ -85,6 +85,43 @@ namespace XLToolbox.UserSettings
 
         #region User settings
 
+        public string LanguageCode
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_languageCode))
+                {
+                    // Attempt to set a default value using the setter
+                    // which will fall back to default if the current
+                    // UI language is not available as a translation.
+                    Logger.Info("LanguageCode: Initializing language code...");
+                    LanguageCode = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+                }
+                return _languageCode;
+            }
+            set
+            {
+                string newLang = value.ToLower();
+                switch (newLang)
+                {
+                    case "en":
+                    case "de":
+                        break;
+                    default:
+                        Logger.Warn("LanguageCode: Unknown language code, falling back to default");
+                        newLang = "en";
+                        break;
+                }
+                if (newLang != _languageCode)
+                {
+                    Logger.Info("LanguageCode: Setting language code: {0}", newLang);
+                    _languageCode = newLang;
+                    System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        new System.Globalization.CultureInfo(_languageCode);
+                }
+            }
+        }
+
         public DateTime LastUpdateCheck
         {
             get
@@ -160,37 +197,7 @@ namespace XLToolbox.UserSettings
 
         public int LastErrorBars { get; set; }
 
-        public Csv.CsvFile CsvImport
-        {
-            get
-            {
-                if (_csvImport == null)
-                {
-                    _csvImport = _csvExport;
-                }
-                return _csvImport;
-            }
-            set
-            {
-                _csvImport = value;
-            }
-        }
-        
-        public Csv.CsvFile CsvExport
-        {
-            get
-            {
-                if (_csvExport == null)
-                {
-                    _csvExport = _csvImport;
-                }
-                return _csvExport;
-            }
-            set
-            {
-                _csvExport = value;
-            }
-        }
+        public Csv.CsvSettings CsvSettings { get; set; }
 
         /// <summary>
         /// Wraps the singleton PresetsRepository's Presets property.
@@ -344,12 +351,11 @@ namespace XLToolbox.UserSettings
         private string _exportPath;
         private BatchExportSettings _batchExportSettings;
         private Unit _lastExportUnit;
-        private Csv.CsvFile _csvImport;
-        private Csv.CsvFile _csvExport;
         private int _taskPaneWidth;
         private DateTime _lastUpdateCheck;
         private int _updateCheckInterval;
         private string _lastVersionSeen;
+        private string _languageCode;
 
         #endregion
 

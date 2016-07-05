@@ -16,20 +16,23 @@
  * limitations under the License.
  */
 using System;
-using Threading = System.Windows.Threading;
 using System.Configuration;
-using Bovender.Versioning;
-using Bovender.Extensions;
-using Ver = XLToolbox.Versioning;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Threading;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
-using System.Windows.Threading;
+using Threading = System.Windows.Threading;
 using NLog;
-using System.Windows;
+using Bovender.Extensions;
+using Bovender.Versioning;
+using Ver = XLToolbox.Versioning;
 
 namespace XLToolboxForExcel
 {
+    [ProgId("DanielsXLToolbox")]
+    [Guid("8DDC0086-3BAB-4D31-B5FD-6DEE3A1C78C9")]
     public partial class ThisAddIn : IDisposable
     {
         #region Startup/Shutdown
@@ -89,7 +92,7 @@ namespace XLToolboxForExcel
 
             if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
             {
-                XLToolbox.SheetManager.SheetManagerPane.Default.Visible = true;
+                XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
             MaybeCheckForUpdate();
@@ -247,6 +250,7 @@ namespace XLToolboxForExcel
 
         protected override object RequestComAddInAutomationService()
         {
+            Logger.Info("RequestComAddInAutomationService");
             return XLToolbox.Vba.Api.Default;
         }
 

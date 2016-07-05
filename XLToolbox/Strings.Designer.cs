@@ -964,6 +964,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sprache.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         public static string Layout {
@@ -1329,6 +1338,15 @@ namespace XLToolbox {
         public static string Resolution {
             get {
                 return ResourceManager.GetString("Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to restart Excel for the changes to take effect..
+        /// </summary>
+        public static string RestartForChangesToTakeEffect {
+            get {
+                return ResourceManager.GetString("RestartForChangesToTakeEffect", resourceCulture);
             }
         }
         

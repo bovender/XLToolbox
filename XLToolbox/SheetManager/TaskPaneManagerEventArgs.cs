@@ -1,4 +1,4 @@
-﻿/* SheetManagerEventArgs.cs
+﻿/* TaskPaneManagerEventArgs.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -22,13 +22,13 @@ using System.Text;
 
 namespace XLToolbox.SheetManager
 {
-    public class SheetManagerEventArgs : EventArgs
+    public class TaskPaneManagerEventArgs : EventArgs
     {
-        public SheetManagerTaskPane TaskPane { get; private set; }
+        public TaskPaneManager TaskPaneManager { get; private set; }
 
-        public SheetManagerEventArgs(SheetManagerTaskPane sheetManagerTaskPane)
+        public TaskPaneManagerEventArgs(TaskPaneManager taskPaneManager)
         {
-            TaskPane = sheetManagerTaskPane;
+            TaskPaneManager = taskPaneManager;
         }
     }
 }

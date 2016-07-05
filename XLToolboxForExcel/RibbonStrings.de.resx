@@ -118,333 +118,333 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="ButtonAboutLabel" xml:space="preserve">
-    <value>About</value>
+    <value>Über</value>
   </data>
 	<data name="ButtonAboutSupertip" xml:space="preserve">
-    <value>Information about the XL Toolbox version, license, and credits</value>
+    <value>Informationen über Daniel's XL Toolbox inkl. Lizenz und Danksagungen</value>
   </data>
 	<data name="ButtonAddSeriesLabel" xml:space="preserve">
-    <value>Add Series</value>
+    <value>Datenreihen hinzufügen</value>
   </data>
 	<data name="ButtonAddSeriesSupertip" xml:space="preserve">
-    <value>Add several data series to the chart.</value>
+    <value>Mehrere Datenreihen hinzufügen</value>
   </data>
 	<data name="ButtonAllocateLabel" xml:space="preserve">
-    <value>Allocate</value>
+    <value>Stratifizieren</value>
   </data>
 	<data name="ButtonAllocateSupertip" xml:space="preserve">
-    <value>Allocate subjects to treatment groups with stratified characteristics, optionally with randomization.</value>
+    <value>Stratifiziert Testsubjekte in Gruppen.</value>
   </data>
 	<data name="ButtonAnnotateLabel" xml:space="preserve">
-    <value>Annotate</value>
+    <value>Beschriften</value>
   </data>
 	<data name="ButtonAnnotateSupertip" xml:space="preserve">
-    <value>Annotate the currently selected chart.</value>
+    <value>Fügt dem ausgewählten Graphen Beschriftungen hinzu</value>
   </data>
 	<data name="ButtonAnova1WayLabel" xml:space="preserve">
-    <value>1-Way ANOVA</value>
+    <value>Einfakt. ANOVA</value>
   </data>
 	<data name="ButtonAnova1WaySupertip" xml:space="preserve">
-    <value>Perform a 1-way analysis of variance (ANOVA) with posthoc tests.</value>
+    <value>Einfaktorielle Varianzanalyse mit Posthoc-Tests.</value>
   </data>
 	<data name="ButtonAnova2WayLabel" xml:space="preserve">
-    <value>2-Way ANOVA</value>
+    <value>Zweifakt. ANOVA</value>
   </data>
 	<data name="ButtonAnova2WaySupertip" xml:space="preserve">
-    <value>Perform a 2-way (2-factor) analysis of variance (ANOVA), optionally with repeated measures analysis.</value>
+    <value>Zweifaktorielle Varianzanalyse mit und ohne wiederholte Messungen.</value>
   </data>
 	<data name="ButtonAutomaticErrorBarsLabel" xml:space="preserve">
-    <value>Auto Error Bars</value>
+    <value>Autom. Fehlerbalken</value>
   </data>
 	<data name="ButtonAutomaticErrorBarsSupertip" xml:space="preserve">
-    <value>Automatically set error bars on the currently selected chart.</value>
+    <value>Setzt automatisch Fehlerbalken in den ausgewählten Graphen</value>
   </data>
 	<data name="ButtonChartDesignLabel" xml:space="preserve">
-    <value>Chart Design</value>
+    <value>Graphdesign</value>
   </data>
 	<data name="ButtonChartDesignSupertip" xml:space="preserve">
-    <value>Apply simple, publication-ready designs to a chart.</value>
+    <value>Einfache Stile auf Graphen anwenden.</value>
   </data>
 	<data name="ButtonCheckForUpdateLabel" xml:space="preserve">
     <value>Update</value>
   </data>
 	<data name="ButtonCheckForUpdateSupertip" xml:space="preserve">
-    <value>Checks if an update to the XL Toolbox addin is available.</value>
+    <value>Prüft, ob ein Update für das XL-Toolbox-Addin verfügbar ist.</value>
   </data>
 	<data name="ButtonCheckForUpdateSupertipDisabled" xml:space="preserve">
-    <value>This command is disabled because an update operation is pending.</value>
+    <value>Dieser Befehl ist derzeit nicht verfügbar, weil ein Update bereits heruntergeladen wurde.</value>
   </data>
 	<data name="ButtonCopyChartLabel" xml:space="preserve">
-    <value>Copy Chart Properties</value>
+    <value>Graph-Eigenschaften kopieren</value>
   </data>
 	<data name="ButtonCopyChartSupertip" xml:space="preserve">
-    <value>Copy some or all properties of the selected chart to one or many other charts.</value>
+    <value>Kopiert Eigenschaften des ausgewählten Diagramms auf andere Diagramme.</value>
   </data>
 	<data name="ButtonCopyPageSetupLabel" xml:space="preserve">
-    <value>Copy page setup</value>
+    <value>Layout kopieren</value>
   </data>
 	<data name="ButtonCopyPageSetupSupertip" xml:space="preserve">
-    <value>Copy the page setup (margins, header, footer) of the current worksheet to other sheets.</value>
+    <value>Kopiert das Seitenformat des aktuellen Tabellenblatts auf andere Tabellenblätter.</value>
   </data>
 	<data name="ButtonCorrelationLabel" xml:space="preserve">
-    <value>Correlation</value>
+    <value>Korrelation</value>
   </data>
 	<data name="ButtonCorrelationSupertip" xml:space="preserve">
-    <value>Perform Pearson's correlation analysis.</value>
+    <value>Pearson-Korrelation.</value>
   </data>
 	<data name="ButtonDonateLabel" xml:space="preserve">
-    <value>Donate</value>
+    <value>Spenden</value>
   </data>
 	<data name="ButtonDonateSupertip" xml:space="preserve">
-    <value>Make a voluntary payment if you find this add-in useful.</value>
+    <value>Leisten Sie eine freiwillige Zahlung ("Spende") für dieses Programm.</value>
   </data>
 	<data name="ButtonExportBatchLabel" xml:space="preserve">
-    <value>Batch export with settings...</value>
+    <value>Mehrfach-Export mit Einstellungen...</value>
   </data>
 	<data name="ButtonExportBatchQuickLabel" xml:space="preserve">
-    <value>Batch Export</value>
+    <value>Mehrfach-Export</value>
   </data>
 	<data name="ButtonExportBatchQuickSupertip" xml:space="preserve">
-    <value>Perform the last batch export again.</value>
+    <value>Mehrfach-Export erneut ausführen</value>
   </data>
 	<data name="ButtonExportBatchSupertip" xml:space="preserve">
-    <value>Export all graphical objects on this worksheet or in the current workbook using detailed settings.</value>
+    <value>Exportiert alle Diagramme und/oder graphische Objekte des aktuellen Tabellenblatts oder der gesamten Arbeitsmappe in Graphikdateien.</value>
   </data>
 	<data name="ButtonExportScreenshotLabel" xml:space="preserve">
     <value>Screenshot</value>
   </data>
 	<data name="ButtonExportScreenshotSupertip" xml:space="preserve">
-    <value>Export the current selection in screenshot quality.</value>
+    <value>Exportiert die aktuelle Auswahl in Screenshot-Auflösung.</value>
   </data>
 	<data name="ButtonExportSelectionLabel" xml:space="preserve">
-    <value>Export with settings...</value>
+    <value>Exportieren mit Einstellungen...</value>
   </data>
 	<data name="ButtonExportSelectionQuickLabel" xml:space="preserve">
-    <value>Export selection</value>
+    <value>Auswahl exportieren</value>
   </data>
 	<data name="ButtonExportSelectionQuickSupertip" xml:space="preserve">
-    <value>Export the currently selected graphical object(s) using the last settings</value>
+    <value>Exportiert die aktuelle Auswahl mit den letzten Einstellungen</value>
   </data>
 	<data name="ButtonExportSelectionSupertip" xml:space="preserve">
-    <value>Export the currently selected graphical object(s) by indicating desired settings.</value>
+    <value>Exportiert die aktuelle Auswahl mit benutzerdefinierten Einstellungen.</value>
   </data>
 	<data name="ButtonExportSettingsLabel" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
 	<data name="ButtonExportSettingsSupertip" xml:space="preserve">
-    <value>View and edit settings for graphic export.</value>
+    <value>Export-Einstellungen bearbeiten</value>
   </data>
 	<data name="ButtonFormulaBuilderLabel" xml:space="preserve">
-    <value>Formula Builder</value>
+    <value>Formelgenerator</value>
   </data>
 	<data name="ButtonFormulaBuilderSupertip" xml:space="preserve">
-    <value>Build formulas for ranges with multiple groups of data.</value>
+    <value>Generiert Formeln für verteilte Daten.</value>
   </data>
 	<data name="ButtonInteractiveErrorBarsLabel" xml:space="preserve">
-    <value>Interactive Error Bars</value>
+    <value>Interaktive Fehlerbalken</value>
   </data>
 	<data name="ButtonInteractiveErrorBarsSupertip" xml:space="preserve">
-    <value>Set error bars on the selected chart in interactive mode.</value>
+    <value>Fehlerbalken interaktiv setzen</value>
   </data>
 	<data name="ButtonLastErrorBarsLabel" xml:space="preserve">
-    <value>ErrorBars</value>
+    <value>Fehlerbalken</value>
   </data>
 	<data name="ButtonLastErrorBarsSupertip" xml:space="preserve">
-    <value>Perform the last error bars operation on the currently selected chart.</value>
+    <value>Führt das letzte Fehlerbalken-Kommando auf dem ausgewählten Diagramm aus.</value>
   </data>
 	<data name="ButtonLinearRegressionLabel" xml:space="preserve">
-    <value>Linear Regression</value>
+    <value>Lineare Regression</value>
   </data>
 	<data name="ButtonLinearRegressionSupertip" xml:space="preserve">
-    <value>Perform linear regression analysis.</value>
+    <value>Lineare Regressionsanalyse durchführen</value>
   </data>
 	<data name="ButtonMoveDataSeriesLeftLabel" xml:space="preserve">
-    <value>Move Left</value>
+    <value>Nach links</value>
   </data>
 	<data name="ButtonMoveDataSeriesLeftSupertip" xml:space="preserve">
-    <value>Move the selected chart's data ranges one column to the left.</value>
+    <value>Verschiebt den Datenbereich des Diagramms um eine Spalte nach links</value>
   </data>
 	<data name="ButtonMoveDataSeriesRightLabel" xml:space="preserve">
-    <value>Move Right</value>
+    <value>Nach rechts</value>
   </data>
 	<data name="ButtonMoveDataSeriesRightSupertip" xml:space="preserve">
-    <value>Move the selected chart's data ranges one column to the right.</value>
+    <value>Verschiebt den Datenbereich des Diagramms um eine Spalte nach rechts</value>
   </data>
 	<data name="ButtonMultiHistoLabel" xml:space="preserve">
-    <value>Multi Histogram</value>
+    <value>Multi-Histogramm</value>
   </data>
 	<data name="ButtonMultiHistoSupertip" xml:space="preserve">
-    <value>Perform groupwise frequency analysis of data by combining one or multiple columns per group.</value>
+    <value>Führt eine Frequenzanalyse durch, wobei mehrere Spalten zu einer Gruppe kombiniert werden können.</value>
   </data>
 	<data name="ButtonOpenCsvLabel" xml:space="preserve">
-    <value>Open CSV...</value>
+    <value>CSV öffnen...</value>
   </data>
 	<data name="ButtonOpenCsvSupertip" xml:space="preserve">
-    <value>Open CSV file using the last import settings.</value>
+    <value>CSV-Datei mit den zuletzt verwendeten Einstellungen öffnen.</value>
   </data>
 	<data name="ButtonOpenCsvWithParamsLabel" xml:space="preserve">
-    <value>Open CSV with params...</value>
+    <value>CSV mit Einstellungen öffnen...</value>
   </data>
 	<data name="ButtonOpenCsvWithParamsSupertip" xml:space="preserve">
-    <value>Edit the parameters and open a CSV file.</value>
+    <value>Einstellungen für CSV-Dateien vor dem Öffnen bearbeiten</value>
   </data>
 	<data name="ButtonOpenFromCellLabel" xml:space="preserve">
-    <value>Open from cell</value>
+    <value>Aus Zelle öffnen</value>
   </data>
 	<data name="ButtonOpenFromCellSupertip" xml:space="preserve">
-    <value>Open the file determined by the file name in the selected cell, or jump to target defined in cell.</value>
+    <value>Öffnet die Datei, deren Dateiname und Pfad in der ausgewählten Tabellenzelle steht.</value>
   </data>
 	<data name="ButtonPointChartLabel" xml:space="preserve">
-    <value>Point Chart</value>
+    <value>Diagramm verweisen</value>
   </data>
 	<data name="ButtonPointChartSupertip" xml:space="preserve">
-    <value>Point the selected chart to a different worksheet, i.e. change the worksheet reference of all data series of this chart.</value>
+    <value>Ändert die Tabellenblatt-Referenz des ausgewählten Diagramms auf ein anderes Tabellenblatt.</value>
   </data>
 	<data name="ButtonPrefsLabel" xml:space="preserve">
-    <value>Legacy Preferences</value>
+    <value>Einstellungen des alten Add-ins</value>
   </data>
 	<data name="ButtonPrefsSupertip" xml:space="preserve">
-    <value>Change the XL Toolbox user preferences. (Legacy XL Toolbox.)</value>
+    <value>Die Einstellungen des alten Toolbox-Addins bearbeiten.</value>
   </data>
 	<data name="ButtonQuitExcelLabel" xml:space="preserve">
-    <value>Quit Excel</value>
+    <value>Excel beenden</value>
   </data>
 	<data name="ButtonQuitExcelSupertip" xml:space="preserve">
-    <value>Quit Excel, closing all workbooks with prompts to save changes.</value>
+    <value>Excel beenden und wahlweise alle offenen Dateien speichern, Änderungen verwerfen, oder bei jeder Datei nachfragen lassen.</value>
   </data>
 	<data name="ButtonRepeatAnovaLabel" xml:space="preserve">
     <value>ANOVA</value>
   </data>
 	<data name="ButtonRepeatAnovaSupertip" xml:space="preserve">
-    <value>Re-show the last ANOVA (1-way or 2-way).</value>
+    <value>Letztes ANOVA-Kommando wiederholen (einfaktoriell oder zweifaktoriell)</value>
   </data>
 	<data name="ButtonSaveCsvLabel" xml:space="preserve">
-    <value>Save CSV...</value>
+    <value>CSV speichern...</value>
   </data>
 	<data name="ButtonSaveCsvRangeLabel" xml:space="preserve">
-    <value>Range to CSV...</value>
+    <value>Auswahl nach CSV...</value>
   </data>
 	<data name="ButtonSaveCsvRangeSupertip" xml:space="preserve">
-    <value>Save the seleced range as a CSV file using the last export settings.</value>
+    <value>Speichert die Markierung in eine CSV-Datei.</value>
   </data>
 	<data name="ButtonSaveCsvRangeWithParamsLabel" xml:space="preserve">
-    <value>Range to CSV with params...</value>
+    <value>Auswahl nach CSV mit Einst. ...</value>
   </data>
 	<data name="ButtonSaveCsvRangeWithParamsSupertip" xml:space="preserve">
-    <value>Edit the parameters and save the current selection as a CSV file.</value>
+    <value>Speichert die Markierung in eine CSV-Datei, gibt zuvor Gelegenheit, die Einstellungen zu bearbeiten.</value>
   </data>
 	<data name="ButtonSaveCsvSupertip" xml:space="preserve">
-    <value>Save the current worksheet as a CSV file using the last export settings.</value>
+    <value>Speichert das ganze Tabellenblatt als CSV-Datei unter Verwendung der letzten Einstellungen.</value>
   </data>
 	<data name="ButtonSaveCsvWithParamsLabel" xml:space="preserve">
-    <value>Save CSV with params...</value>
+    <value>CSV mit Einst. speichern...</value>
   </data>
 	<data name="ButtonSaveCsvWithParamsSupertip" xml:space="preserve">
-    <value>Edit the parameters and save the current worksheet as a CSV file.</value>
+    <value>Speichert das ganze Tabellenblatt als CSV-Datei, gibt zuvor Gelegenheit, die Einstellungen zu bearbeiten.</value>
   </data>
 	<data name="ButtonSelectAllShapesLabel" xml:space="preserve">
-    <value>Select all shapes</value>
+    <value>Alle Graphiken auswählen</value>
   </data>
 	<data name="ButtonSelectAllShapesSupertip" xml:space="preserve">
-    <value>Select all graphical shapes and charts on the current worksheet.</value>
+    <value>Wählt alle Diagramme und Graphik-Elemente aus.</value>
   </data>
 	<data name="ButtonSelectionAssistantLabel" xml:space="preserve">
-    <value>Selection Wizard</value>
+    <value>Auswahl-Helfer</value>
   </data>
 	<data name="ButtonSelectionAssistantSupertip" xml:space="preserve">
-    <value>Quickly select patterns of cells.</value>
+    <value>Erleichert die Auswahl von Zellen mit einem Muster (z.B. jede zweite Spalte)</value>
   </data>
 	<data name="ButtonSeriesBackwardLabel" xml:space="preserve">
-    <value>Move Backward</value>
+    <value>Nach hinten</value>
   </data>
 	<data name="ButtonSeriesBackwardSupertip" xml:space="preserve">
-    <value>Move the selected chart series backward.</value>
+    <value>Verschiebt die ausgewählte Datenreihe nach hinten.</value>
   </data>
 	<data name="ButtonSeriesForwardLabel" xml:space="preserve">
-    <value>Move Forward</value>
+    <value>Nach vorne</value>
   </data>
 	<data name="ButtonSeriesForwardSupertip" xml:space="preserve">
-    <value>Move the selected chart series forward.</value>
+    <value>Verschiebt die ausgewählte Datenreihe nach vorne.</value>
   </data>
 	<data name="ButtonSeriesToBackLabel" xml:space="preserve">
-    <value>Move To Back</value>
+    <value>Hintergrund</value>
   </data>
 	<data name="ButtonSeriesToBackSupertip" xml:space="preserve">
-    <value>Move the selected chart series to the back.</value>
+    <value>Verschiebt die ausgewählte Datenreihe ganz nach hinten.</value>
   </data>
 	<data name="ButtonSeriesToFrontLabel" xml:space="preserve">
-    <value>Move To Front</value>
+    <value>Vordergrund</value>
   </data>
 	<data name="ButtonSeriesToFrontSupertip" xml:space="preserve">
-    <value>Move the selected chart series to the front.</value>
+    <value>Verschiebt die ausgewählte Datenreihe ganz nach vorne</value>
   </data>
 	<data name="ButtonSheetListLabel" xml:space="preserve">
-    <value>Worksheets</value>
+    <value>Arbeitsblätter</value>
   </data>
 	<data name="ButtonSheetListSupertip" xml:space="preserve">
-    <value>Manage worksheets.</value>
+    <value>Öffnet den Arbeitsblatt-Manager (Worksheet Manager).</value>
   </data>
 	<data name="ButtonShortcutsLabel" xml:space="preserve">
-    <value>Keyboard</value>
+    <value>Tastatur</value>
   </data>
 	<data name="ButtonShortcutsSupertip" xml:space="preserve">
-    <value>Edit keyboard shortcuts.</value>
+    <value>Tastatur-Kürzel bearbeiten</value>
   </data>
 	<data name="ButtonSpreadScatterLabel" xml:space="preserve">
-    <value>Spread Scatter</value>
+    <value>Punktwolken verteilen</value>
   </data>
 	<data name="ButtonSpreadScatterSupertip" xml:space="preserve">
-    <value>Spread or jitter the dots of a technical scatter plot.</value>
+    <value>Zieht Punktwolken auseinander, so daß die Punkte sich nicht überlappen.</value>
   </data>
 	<data name="ButtonTransposeWizardLabel" xml:space="preserve">
-    <value>Transpose Wizard</value>
+    <value>Transponieren</value>
   </data>
 	<data name="ButtonTransposeWizardSupertip" xml:space="preserve">
-    <value>Perform complex tranpositions, e.g. data from microtiter plate analyses (PCR, ELISA etc.).</value>
+    <value>Führt komplexe Umarrangements von Daten durch, z.B. Meßergebnisse von Plate Readern oder PCR-Geräten; wahlweise mit Berechnung einer Standardkurve.</value>
   </data>
 	<data name="ButtonUserSettingsLabel" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
 	<data name="ButtonUserSettingsSupertip" xml:space="preserve">
-    <value>Adjust user settings (preferences).</value>
+    <value>Benutzerdefinierte Einstellungen bearbeiten.</value>
   </data>
 	<data name="ButtonWatermarkLabel" xml:space="preserve">
-    <value>Watermark</value>
+    <value>Wasserzeichen</value>
   </data>
 	<data name="ButtonWatermarkSupertip" xml:space="preserve">
-    <value>Add or edit a watermark (small text) in the selected chart.</value>
+    <value>Fügt dem ausgewählten Diagramm ein Wasserzeichen hinzu oder bearbeitet es.</value>
   </data>
 	<data name="GroupAnalysisLabel" xml:space="preserve">
-    <value>Data Analysis</value>
+    <value>Datenanalyse</value>
   </data>
 	<data name="GroupExportLabel" xml:space="preserve">
-    <value>Graphic Export</value>
+    <value>Graphikexport</value>
   </data>
 	<data name="GroupImportExportLabel" xml:space="preserve">
     <value>Import &amp;&amp; Export</value>
   </data>
 	<data name="GroupVisualizationLabel" xml:space="preserve">
-    <value>Data Visualization</value>
+    <value>Visualisierung</value>
   </data>
 	<data name="GroupWorkflowLabel" xml:space="preserve">
-    <value>Work Flow</value>
+    <value>Arbeitserleichterungen</value>
   </data>
 	<data name="MenuAnovaLabel" xml:space="preserve">
     <value>ANOVA</value>
   </data>
 	<data name="MenuChartMiscLabel" xml:space="preserve">
-    <value>Miscellaneous</value>
+    <value>Verschiedenes</value>
   </data>
 	<data name="MenuChartSeriesLabel" xml:space="preserve">
-    <value>Series</value>
+    <value>Serie</value>
   </data>
 	<data name="MenuMiscAnalysesLabel" xml:space="preserve">
-    <value>Miscellaneous</value>
+    <value>Verschiedenes</value>
   </data>
 	<data name="MenuSettingsLabel" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
 	<data name="MenuSettingsSupertip" xml:space="preserve">
-    <value>Customizable user settings, including keyboard shortcuts.</value>
+    <value>Benutzerdefinierte Einstelungen bearbeiten</value>
   </data>
 </root>

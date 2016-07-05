@@ -1,4 +1,4 @@
-﻿/* SheetManagerEventArgs.cs
+﻿/* TestException.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -16,19 +16,20 @@
  * limitations under the License.
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
-namespace XLToolbox.SheetManager
+namespace XLToolbox.ExceptionHandler
 {
-    public class SheetManagerEventArgs : EventArgs
+    [Serializable]
+    class TestException : Exception
     {
-        public SheetManagerTaskPane TaskPane { get; private set; }
-
-        public SheetManagerEventArgs(SheetManagerTaskPane sheetManagerTaskPane)
-        {
-            TaskPane = sheetManagerTaskPane;
-        }
+        public TestException() { }
+        public TestException(string message) : base(message) { }
+        public TestException(string message,
+            Exception innerException)
+            : base(message, innerException) { }
+        public TestException(SerializationInfo info,
+            StreamingContext context)
+            : base(info, context) { }
     }
 }

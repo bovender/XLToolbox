@@ -1,4 +1,4 @@
-﻿/* SheetManagerEventArgs.cs
+﻿/* Language.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -17,18 +17,18 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace XLToolbox.SheetManager
+namespace XLToolbox.UserSettings
 {
-    public class SheetManagerEventArgs : EventArgs
+    public enum Language
     {
-        public SheetManagerTaskPane TaskPane { get; private set; }
+        [Description("English (default)")]
+        En = 0,
 
-        public SheetManagerEventArgs(SheetManagerTaskPane sheetManagerTaskPane)
-        {
-            TaskPane = sheetManagerTaskPane;
-        }
+        [Description("Deutsch")]
+        De = 1
     }
 }
