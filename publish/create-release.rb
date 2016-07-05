@@ -14,13 +14,13 @@ end
 
 client = Octokit::Client.new(netrc: true)
 repo = 'bovender/xltoolbox'
-tag = `git describe`
+tag = `git describe`.chomp
 # tag = "v7.0.0-beta.7"
 version = tag.sub(/^v/, '')
 prerelease = !!(tag =~ /alpha|beta/) # http://stackoverflow.com/a/7365620/270712
 
-msg = 'Version ' +
-  `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
+release_name = "Version #{version}"
+msg = `git tag -n99 -l #{tag} | sed -r '1,2d; s/^\\s{4}//'` +
   "\nDownload count for this release: " +
   "[![Downloads of #{tag}](https://img.shields.io/github/downloads/bovender/xltoolbox/#{tag}/total.svg?maxAge=60480)](https://github.com/bovender/XLToolbox/releases/download/#{tag}/XLToolbox-#{version}.exe)"
 
@@ -28,7 +28,7 @@ puts "Creating GitHub release for tag '#{tag}'."
 puts "This is a pre-release." if prerelease
 
 begin
-  release_url = client.create_release(repo, tag, name: version, body: msg, prerelease: prerelease).rels[:self]
+  release_url = client.create_release(repo, tag, name: release_name, body: msg, prerelease: prerelease).rels[:self]
 rescue Exception => e
   puts "A release for this tag seems to exist already (or something else went wrong)."
   puts e.message
