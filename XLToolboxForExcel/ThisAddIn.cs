@@ -224,6 +224,7 @@ namespace XLToolboxForExcel
                 {
                     vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingDisabled>().ShowDialogInForm();
                 }
+                userSettings.SheetManagerVisible = false;
             }
             if (userSettings.Exception != null)
             {
