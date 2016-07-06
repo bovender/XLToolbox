@@ -557,7 +557,7 @@ namespace XLToolbox.Excel.ViewModels
                 System.Threading.Timer t = new System.Threading.Timer((obj) =>
                 {
                     ((Application)obj).Quit();
-                }, _application, 150, System.Threading.Timeout.Infinite);
+                }, _application, 500, System.Threading.Timeout.Infinite);
                 // _application.Quit();
                 _application = null;
             }
