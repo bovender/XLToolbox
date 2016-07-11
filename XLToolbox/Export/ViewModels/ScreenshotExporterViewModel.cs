@@ -105,7 +105,7 @@ namespace XLToolbox.Export.ViewModels
         private bool CanExportSelection()
         {
             Xl.Application app = Excel.ViewModels.Instance.Default.Application;
-            return !(app == null || app.Selection is Xl.Range);
+            return !(app == null || app.Selection == null);
         }
 
         #endregion
