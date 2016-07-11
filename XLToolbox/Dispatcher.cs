@@ -205,6 +205,7 @@ namespace XLToolbox
             {
                 vm.ChooseFileNameMessage.Sent += (sender, args) =>
                     {
+                        Logger.Info("Choose file name message was received");
                         ChooseFileSaveAction a = new ChooseFileSaveAction();
                         a.Invoke(args);
                     };
