@@ -659,30 +659,45 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>True if all workbooks were closed, false if not.</returns>
         private bool CloseAllWorkbooksThenShutdown()
         {
+            bool workbookNotClosed = false;
             Logger.Info("CloseAllWorkbooksThenShutdown");
-            while (Application.Workbooks.Count > 0)
+            foreach (Workbook workbook in Application.Workbooks)
             {
-                // Excel collections are 1-based!
-                Workbook w = Application.Workbooks[1];
-                int n = CountOpenWorkbooks;
-                w.Close();
-                // Try if the workbook has been closed
-                if (n == CountOpenWorkbooks) return false;
+                bool hidden = true;
+                foreach (Window window in workbook.Windows)
+                {
+                    if (window.Visible == true)
+                    {
+                        hidden = false;
+                        break;
+                    }
+                    else
+                    {
+                        workbook.Saved = true;
+                    }
+                }
+                if (!hidden)
+                {
+                    int oldCount = Application.Workbooks.Count;
+                    workbook.Close();
+                    if (oldCount == Application.Workbooks.Count)
+                    {
+                        workbookNotClosed = true;
+                        break;
+                    }
+                }
             }
-            Logger.Info("CloseAllWorkbooksThenShutdown: Examining the situation.");
-            if (Application.Workbooks.Count == 0)
+            CloseViewCommand.Execute(null);
+            if (!workbookNotClosed)
             {
-                Logger.Info("No more workbooks left.");
-                CloseViewCommand.Execute(null);
                 Shutdown();
-                Logger.Info("CloseAllWorkbooksThenShutdown: Shutting down.");
-                return true;
+                Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
             }
             else
             {
-                Logger.Info("Still {0} workbook(s) left!", Application.Workbooks.Count);
-                return false;
+                Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
             }
+            return !workbookNotClosed;
         }
 
         #endregion
