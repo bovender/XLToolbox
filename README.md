@@ -1,4 +1,4 @@
-XL Toolbox NG (Next Generation) ![Downloads of the NG series](https://img.shields.io/github/downloads/bovender/xltoolbox/total.svg?maxAge=2592000)
+XL Toolbox NG (Next Generation) ![Downloads of the NG series](https://img.shields.io/github/downloads/bovender/xltoolbox/total.svg?maxAge=604800)
 ===============================
 
 ##### Data analysis and visualization for Excel&reg;, for free.
