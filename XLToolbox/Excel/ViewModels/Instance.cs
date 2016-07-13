@@ -618,6 +618,7 @@ namespace XLToolbox.Excel.ViewModels
         private void DoQuitInteractively()
         {
             Logger.Info("DoQuitInteractively");
+            DoCloseView();
             CloseAllWorkbooksThenShutdown();
         }
 
@@ -638,21 +639,27 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         private void ConfirmQuitSavingChanges()
         {
+            DoCloseView();
             Logger.Info("ConfirmQuitSavingChanges");
-            foreach (Workbook w in UnsavedWorkbooks)
+            IEnumerable<Workbook> unsaved = UnsavedWorkbooks;
+            Logger.Info("ConfirmQuitSavingChanges: {0} unsaved workbooks", unsaved.Count());
+            foreach (Workbook w in unsaved)
             {
                 if (w.Path == String.Empty)
                 {
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook has no path, invoking xlDialogSaveAs");
                     // Cast to prevent ambiguity
                     ((_Workbook)w).Activate();
                     Application.Dialogs[XlBuiltInDialog.xlDialogSaveAs].Show();
                 }
                 else
                 {
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook has a path, calling Save()");
                     w.Save();
                 }
                 if (!w.Saved) return;
             }
+            Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
             CloseAllWorkbooksThenShutdown();
         }
 
@@ -697,6 +704,7 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>True if all workbooks were closed, false if not.</returns>
         private bool CloseAllWorkbooksThenShutdown()
         {
+            DoCloseView();
             bool workbookNotClosed = false;
             Logger.Info("CloseAllWorkbooksThenShutdown");
             foreach (Workbook workbook in Application.Workbooks)
@@ -725,7 +733,6 @@ namespace XLToolbox.Excel.ViewModels
                     }
                 }
             }
-            CloseViewCommand.Execute(null);
             if (!workbookNotClosed)
             {
                 Shutdown();
