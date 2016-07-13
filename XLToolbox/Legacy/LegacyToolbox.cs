@@ -63,6 +63,7 @@ namespace XLToolbox.Legacy
         {
             Logger.Info("Initializing LegacyToolbox singleton");
             _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
+            _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
         }
 
         #endregion
@@ -90,15 +91,36 @@ namespace XLToolbox.Legacy
                     Logger.Info("Closing legacy add-in workbook");
                     Instance.Default.Application.Workbooks[ADDIN_RESOURCE_NAME].Close(SaveChanges: false);
                 }
+                string dir = System.IO.Path.GetDirectoryName(_tempFile);
                 try
                 {
+                    // Attempt to delete the temporary file individually. If it lives
+                    // in the temp directory, deleting the entire directory is not
+                    // feasible.
                     System.IO.File.Delete(_tempFile);
                 }
                 catch (Exception e)
                 {
                     if (calledFromPublicMethod) // managed resources still available?
                     {
-                        Logger.Warn(e, "When attempting to close the VBA add-in");
+                        Logger.Warn("Dispose: When attempting to close the VBA add-in:");
+                        Logger.Warn(e);
+                    }
+                }
+                finally
+                {
+                    // Now try to remove the directory, but only if it is not the temp dir.
+                    if (dir != System.IO.Path.GetTempPath())
+                    {
+                        try
+                        {
+                            System.IO.Directory.Delete(dir, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Warn("Dispose: Could not delete path: {0}", dir);
+                            Logger.Warn(e);
+                        }
                     }
                 }
             }

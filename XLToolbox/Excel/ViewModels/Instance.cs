@@ -447,29 +447,67 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
+        /// Fetches a workbook if it is opened. If not workbook is found
+        /// by the given name, this function returns null.
+        /// </summary>
+        /// <param name="workbookName">Workbook to fetch.</param>
+        /// <returns>Workbook or null.</returns>
+        public Workbook FindWorkbook(string workbookName)
+        {
+            Workbook wb = null;
+            try
+            {
+                wb = Application.Workbooks[workbookName];
+            }
+            catch { }
+            return wb;
+        }
+
+        /// <summary>
+        /// Returns true if a workbook is opened.
+        /// </summary>
+        /// <param name="workbookName">Workbook name to query.</param>
+        /// <returns>True if the workbook is opened.</returns>
+        public bool IsWorkbookLoaded(string workbookName)
+        {
+            return FindWorkbook(workbookName) != null;
+        }
+
+        /// <summary>
         /// Loads an embedded resource add-in.
         /// </summary>
-        /// <param name="resource">Addin as 'embedded resource'</param>
+        /// <param name="resourceName">Addin as 'embedded resource'</param>
         /// <returns>File name of the temporary file that the resource
         /// was written to.</returns>
-        internal string LoadAddinFromEmbeddedResource(string resource)
+        internal string LoadAddinFromEmbeddedResource(string resourceName)
         {
             Stream resourceStream = typeof(Instance).Assembly
-                .GetManifestResourceStream(resource);
+                .GetManifestResourceStream(resourceName);
             if (resourceStream == null)
             {
-                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resource);
-                throw new IOException("Unable to open resource stream " + resource);
+                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resourceName);
+                throw new IOException("Unable to open resource stream " + resourceName);
             }
-            string tempDir = Path.GetTempPath();
-            string addinFile = Path.Combine(tempDir, resource);
-            Stream tempStream = File.Create(addinFile);
-            resourceStream.CopyTo(tempStream);
-            tempStream.Close();
-            resourceStream.Close();
-            Application.Workbooks.Open(addinFile);
-            Logger.Info("VBA add-in loaded: {0}", addinFile);
-            return addinFile;
+            string addinPath;
+            Workbook loadedAddin = FindWorkbook(resourceName);
+            if (loadedAddin == null)
+            {
+                string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                Directory.CreateDirectory(tempDir);
+                addinPath = Path.Combine(tempDir, resourceName);
+                Stream tempStream = File.Create(addinPath);
+                resourceStream.CopyTo(tempStream);
+                tempStream.Close();
+                resourceStream.Close();
+                Application.Workbooks.Open(addinPath);
+                Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
+            }
+            else
+            {
+                addinPath = loadedAddin.FullName;
+                Logger.Info("LoadAddinFromEmbeddedResource: Already loaded, path is {0}", addinPath);
+            }
+            return addinPath;
         }
 
         #endregion
