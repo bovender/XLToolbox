@@ -88,8 +88,16 @@ namespace XLToolbox.Legacy
                 _disposed = true;
                 if (calledFromPublicMethod)
                 {
-                    Logger.Info("Closing legacy add-in workbook");
-                    Instance.Default.Application.Workbooks[ADDIN_RESOURCE_NAME].Close(SaveChanges: false);
+                    Microsoft.Office.Interop.Excel.Workbook addin = Instance.Default.FindWorkbook(ADDIN_RESOURCE_NAME);
+                    if (addin != null)
+                    {
+                        Logger.Info("Dispose: Closing legacy add-in");
+                        addin.Close(SaveChanges: false);
+                    }
+                    else
+                    {
+                        Logger.Info("Dispose: Did not find legacy add-in?!");
+                    }
                 }
                 string dir = System.IO.Path.GetDirectoryName(_tempFile);
                 try
