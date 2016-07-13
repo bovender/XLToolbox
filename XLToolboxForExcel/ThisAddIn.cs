@@ -39,18 +39,18 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            // Delete user config file that may be left over from NG developmental
-            // versions. We don't need it anymore and it causes nasty crashes.
-            // Must do this before using NLog!
-            try
-            {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-                if (System.IO.File.Exists(config.FilePath))
-                {
-                    System.IO.File.Delete(config.FilePath);
-                }
-            }
-            catch { }
+            // // Delete user config file that may be left over from NG developmental
+            // // versions. We don't need it anymore and it causes nasty crashes.
+            // // Must do this before using NLog!
+            // try
+            // {
+            //     Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            //     if (System.IO.File.Exists(config.FilePath))
+            //     {
+            //         System.IO.File.Delete(config.FilePath);
+            //     }
+            // }
+            // catch { }
 
 #if DEBUG
             XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
@@ -209,6 +209,11 @@ namespace XLToolboxForExcel
         {
             XLToolbox.UserSettings.UserSettings userSettings = XLToolbox.UserSettings.UserSettings.Default;
             Logger.Info("Performing sanity checks");
+            ExceptionViewModel evm = new ExceptionViewModel(null);
+            Logger.Info("+++ Excel version:   {0}, {1}", evm.ExcelVersion, evm.ExcelBitness);
+            Logger.Info("+++ OS version:      {0}, {1}", evm.OS, evm.OSBitness);
+            Logger.Info("+++ CLR version:     {0}, {1}", evm.CLR, evm.ProcessBitness);
+            Logger.Info("+++ VSTOR version:   {0}", evm.VstoRuntime);
 
             // Deactivating the VBA add-in can cause crashes; we now do it in the installer
             // XLToolbox.Legacy.LegacyToolbox.DeactivateObsoleteVbaAddin();

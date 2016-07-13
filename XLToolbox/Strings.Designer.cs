@@ -151,7 +151,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This add-in is distributed under the Apache License, Version 2.0, on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License..
+        ///   Looks up a localized string similar to Unless required by applicable law or agreed to in writing, software distributed under the Apache 2.0 License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License..
         /// </summary>
         public static string ApacheDisclaimer {
             get {
@@ -1342,7 +1342,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to restart Excel for the changes to take effect..
+        ///   Looks up a localized string similar to You need to restart Excel for the changes to take full effect..
         /// </summary>
         public static string RestartForChangesToTakeEffect {
             get {
@@ -1776,6 +1776,15 @@ namespace XLToolbox {
         public static string VersionParametrized {
             get {
                 return ResourceManager.GetString("VersionParametrized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VSTO Runtime.
+        /// </summary>
+        public static string VstoRuntime {
+            get {
+                return ResourceManager.GetString("VstoRuntime", resourceCulture);
             }
         }
         
