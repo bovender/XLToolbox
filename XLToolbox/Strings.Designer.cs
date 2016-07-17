@@ -1726,6 +1726,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An update is available, but you do not appear to be authorized to install it. Please ask the administrator of your system to upgrade, or download the update from the website and install it manually..
+        /// </summary>
+        public static string UpdateAvailableNotAuthorized {
+            get {
+                return ResourceManager.GetString("UpdateAvailableNotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The update has been successfully downloaded and will be installed when you quit Excel..
         /// </summary>
         public static string UpdateHasBeenDownloaded {

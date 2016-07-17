@@ -58,6 +58,10 @@
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
             <mvvm:NotificationAction Message="{x:Static l:Strings.DownloadedFileCannotBeInstalled}" />
         </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ViewModel.UpdateAvailableButNotAuthorizedMessage}" EventName="Sent">
+            <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
+            <mvvm:NotificationAction Message="{x:Static l:Strings.UpdateAvailableNotAuthorized}" />
+        </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding ViewModel.NetworkFailureMessage}" EventName="Sent">
             <i:InvokeCommandAction Command="{Binding CloseViewCommand}" />
             <mvvm:NotificationAction Message="{x:Static l:Strings.ErrorOccurredWhileDownloading}"

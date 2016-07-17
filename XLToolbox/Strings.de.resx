@@ -766,4 +766,10 @@ Fehlermeldung:</value>
 	<data name="RestartForChangesToTakeEffect" xml:space="preserve">
     <value>Sie müssen Excel neu starten, damit die Änderungen voll wirksam werden.</value>
   </data>
+	<data name="VstoRuntime" xml:space="preserve">
+		<value>VSTO-Laufzeit</value>
+	</data>
+	<data name="UpdateAvailableNotAuthorized" xml:space="preserve">
+		<value>Es ist ein Update verfügbar, aber Sie haben offenbar keine Berechtigung, es zu installieren. Bitte fragen Sie entweder den Administrator dieses Computers, oder laden Sie das Update von der Homepage herunter und installieren Sie es manuell.</value>
+	</data>
 </root>
