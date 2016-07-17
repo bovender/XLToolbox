@@ -447,29 +447,67 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
+        /// Fetches a workbook if it is opened. If not workbook is found
+        /// by the given name, this function returns null.
+        /// </summary>
+        /// <param name="workbookName">Workbook to fetch.</param>
+        /// <returns>Workbook or null.</returns>
+        public Workbook FindWorkbook(string workbookName)
+        {
+            Workbook wb = null;
+            try
+            {
+                wb = Application.Workbooks[workbookName];
+            }
+            catch { }
+            return wb;
+        }
+
+        /// <summary>
+        /// Returns true if a workbook is opened.
+        /// </summary>
+        /// <param name="workbookName">Workbook name to query.</param>
+        /// <returns>True if the workbook is opened.</returns>
+        public bool IsWorkbookLoaded(string workbookName)
+        {
+            return FindWorkbook(workbookName) != null;
+        }
+
+        /// <summary>
         /// Loads an embedded resource add-in.
         /// </summary>
-        /// <param name="resource">Addin as 'embedded resource'</param>
+        /// <param name="resourceName">Addin as 'embedded resource'</param>
         /// <returns>File name of the temporary file that the resource
         /// was written to.</returns>
-        internal string LoadAddinFromEmbeddedResource(string resource)
+        internal string LoadAddinFromEmbeddedResource(string resourceName)
         {
             Stream resourceStream = typeof(Instance).Assembly
-                .GetManifestResourceStream(resource);
+                .GetManifestResourceStream(resourceName);
             if (resourceStream == null)
             {
-                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resource);
-                throw new IOException("Unable to open resource stream " + resource);
+                Logger.Error("LoadAddinFromEmbeddedResource: Unable to read embedded resource '{0}'", resourceName);
+                throw new IOException("Unable to open resource stream " + resourceName);
             }
-            string tempDir = Path.GetTempPath();
-            string addinFile = Path.Combine(tempDir, resource);
-            Stream tempStream = File.Create(addinFile);
-            resourceStream.CopyTo(tempStream);
-            tempStream.Close();
-            resourceStream.Close();
-            Application.Workbooks.Open(addinFile);
-            Logger.Info("VBA add-in loaded: {0}", addinFile);
-            return addinFile;
+            string addinPath;
+            Workbook loadedAddin = FindWorkbook(resourceName);
+            if (loadedAddin == null)
+            {
+                string tempDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                Directory.CreateDirectory(tempDir);
+                addinPath = Path.Combine(tempDir, resourceName);
+                Stream tempStream = File.Create(addinPath);
+                resourceStream.CopyTo(tempStream);
+                tempStream.Close();
+                resourceStream.Close();
+                Application.Workbooks.Open(addinPath);
+                Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
+            }
+            else
+            {
+                addinPath = loadedAddin.FullName;
+                Logger.Info("LoadAddinFromEmbeddedResource: Already loaded, path is {0}", addinPath);
+            }
+            return addinPath;
         }
 
         #endregion
@@ -580,6 +618,7 @@ namespace XLToolbox.Excel.ViewModels
         private void DoQuitInteractively()
         {
             Logger.Info("DoQuitInteractively");
+            DoCloseView();
             CloseAllWorkbooksThenShutdown();
         }
 
@@ -600,21 +639,27 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         private void ConfirmQuitSavingChanges()
         {
+            DoCloseView();
             Logger.Info("ConfirmQuitSavingChanges");
-            foreach (Workbook w in UnsavedWorkbooks)
+            IEnumerable<Workbook> unsaved = UnsavedWorkbooks;
+            Logger.Info("ConfirmQuitSavingChanges: {0} unsaved workbooks", unsaved.Count());
+            foreach (Workbook w in unsaved)
             {
                 if (w.Path == String.Empty)
                 {
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook has no path, invoking xlDialogSaveAs");
                     // Cast to prevent ambiguity
                     ((_Workbook)w).Activate();
                     Application.Dialogs[XlBuiltInDialog.xlDialogSaveAs].Show();
                 }
                 else
                 {
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook has a path, calling Save()");
                     w.Save();
                 }
                 if (!w.Saved) return;
             }
+            Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
             CloseAllWorkbooksThenShutdown();
         }
 
@@ -659,30 +704,45 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>True if all workbooks were closed, false if not.</returns>
         private bool CloseAllWorkbooksThenShutdown()
         {
+            DoCloseView();
+            bool workbookNotClosed = false;
             Logger.Info("CloseAllWorkbooksThenShutdown");
-            while (Application.Workbooks.Count > 0)
+            foreach (Workbook workbook in Application.Workbooks)
             {
-                // Excel collections are 1-based!
-                Workbook w = Application.Workbooks[1];
-                int n = CountOpenWorkbooks;
-                w.Close();
-                // Try if the workbook has been closed
-                if (n == CountOpenWorkbooks) return false;
+                bool hidden = true;
+                foreach (Window window in workbook.Windows)
+                {
+                    if (window.Visible == true)
+                    {
+                        hidden = false;
+                        break;
+                    }
+                    else
+                    {
+                        workbook.Saved = true;
+                    }
+                }
+                if (!hidden)
+                {
+                    int oldCount = Application.Workbooks.Count;
+                    workbook.Close();
+                    if (oldCount == Application.Workbooks.Count)
+                    {
+                        workbookNotClosed = true;
+                        break;
+                    }
+                }
             }
-            Logger.Info("CloseAllWorkbooksThenShutdown: Examining the situation.");
-            if (Application.Workbooks.Count == 0)
+            if (!workbookNotClosed)
             {
-                Logger.Info("No more workbooks left.");
-                CloseViewCommand.Execute(null);
                 Shutdown();
-                Logger.Info("CloseAllWorkbooksThenShutdown: Shutting down.");
-                return true;
+                Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
             }
             else
             {
-                Logger.Info("Still {0} workbook(s) left!", Application.Workbooks.Count);
-                return false;
+                Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
             }
+            return !workbookNotClosed;
         }
 
         #endregion
