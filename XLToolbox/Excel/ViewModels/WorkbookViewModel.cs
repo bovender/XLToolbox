@@ -116,6 +116,32 @@ namespace XLToolbox.Excel.ViewModels
 
         #endregion
 
+        #region Public methods
+
+        /// <summary>
+        /// Finds the index of a given sheet (worksheet or chart sheet)
+        /// in the Sheets collection.
+        /// </summary>
+        /// <param name="sheet">Worksheet or chart sheet</param>
+        /// <returns>Index of the sheet in the Sheets collection</returns>
+        public int IndexOf(dynamic sheet)
+        {
+            string name = sheet.Name;
+            SheetViewModel svm = Sheets.FirstOrDefault(s => s.DisplayString == name);
+            if (svm != null)
+            {
+                Logger.Info("IndexOf: Found view model for this sheet");
+                return Sheets.IndexOf(svm);
+            }
+            else
+	        {
+                Logger.Warn("IndexOf: Requested sheet not found in collection!");
+                throw new ArgumentOutOfRangeException("Sheet not found in collection");
+	        }
+        }
+
+        #endregion
+
         #region Commands
 
         public DelegatingCommand MoveSheetUp
@@ -337,7 +363,10 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     NumSelectedSheets++;
                     _lastSelectedSheet = svm;
-                    svm.Sheet.Activate();
+                    if (_lockEvents <= 0)
+                    {
+                        svm.Sheet.Activate();
+                    }
                 }
                 else
                 {
@@ -560,7 +589,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void CheckSheetsChanged(object state)
         {
-            if (_lockEvents == 0)
+            if (_lockEvents <= 0)
             {
                 _lockEvents += 1;
                 string sheetsString = SheetsString;
@@ -575,7 +604,8 @@ namespace XLToolbox.Excel.ViewModels
 
         private void SheetActivated(dynamic sheet)
         {
-            if (sheet != null && _lockEvents == 0)
+            Logger.Debug("SheetActivated: _lockEvents is {0}", _lockEvents);
+            if (sheet != null && _lockEvents <= 0)
             {
                 _lockEvents += 1;
                 SheetViewModel svm = Sheets.FirstOrDefault(s => s.IsSelected);
@@ -583,16 +613,15 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     svm.IsSelected = false;
                 }
-                int index = sheet.Index;
+                int index = IndexOf(sheet);
                 Logger.Info("SheetActivated: Sheet index is {0}", index);
-                if (index >= 1 && index <= Sheets.Count)
+                if (index >= 0 && index < Sheets.Count)
                 {
-                    // Excel collection indexes are 1-based; .NET 0-based.
-                    Sheets[index - 1].IsSelected = true;
+                    Sheets[index].IsSelected = true;
                 }
                 else
                 {
-                    Logger.Warn("SheetActivated: Index out of bounds!");
+                    Logger.Warn("SheetActivated: Index {0} is out of bounds!", index);
                 }
                 _lockEvents -= 1;
             }
@@ -634,14 +663,16 @@ namespace XLToolbox.Excel.ViewModels
                 _workbook = value;
                 OnPropertyChanged("Workbook");
                 Logger.Info("Workbook_set: _lockEvents is {0}", _lockEvents);
-                BuildSheetList();
-                Workbook.SheetActivate += SheetActivated;
                 if (_workbook != null)
                 {
+                    Logger.Info("Workbook_set: Using new workbook");
+                    BuildSheetList();
+                    _workbook.SheetActivate += SheetActivated;
                     DisplayString = _workbook.Name;
                 }
                 else
                 {
+                    Logger.Info("Workbook_set: value is null!");
                     DisplayString = String.Empty;
                 }
             }
