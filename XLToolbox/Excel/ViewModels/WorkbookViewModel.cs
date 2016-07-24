@@ -292,11 +292,12 @@ namespace XLToolbox.Excel.ViewModels
             NumSelectedSheets = 0;
             if (Workbook != null)
             {
+                _lastSheetsString = SheetsString;
                 ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
                 SheetViewModel svm;
                 foreach (dynamic sheet in Workbook.Sheets)
                 {
-                    // Need to cats because directly comparing the Visible property with
+                    // Need to cast because directly comparing the Visible property with
                     // XlSheetVisibility.xlSheetVisible caused exceptions.
                     if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
                     {
@@ -305,9 +306,17 @@ namespace XLToolbox.Excel.ViewModels
                         sheets.Add(svm);
                     }
                 };
-                Workbook.SheetActivate += SheetActivated;
                 Sheets = sheets;
-                SheetActivated(Workbook.ActiveSheet);
+                dynamic activeSheet = Workbook.ActiveSheet;
+                if (activeSheet != null)
+                {
+                    Logger.Info("BuildSheetList: Selecting active sheet in list");
+                    SheetActivated(Workbook.ActiveSheet);
+                }
+                else
+                {
+                    Logger.Info("BuildSheetList: Cannot select active sheet in list; ActiveSheet is null.");
+                }
             }
             else
             {
@@ -353,7 +362,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoMoveSheetUp()
         {
-            _lockEvents = true;
+            _lockEvents += 1;
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
@@ -365,12 +374,12 @@ namespace XLToolbox.Excel.ViewModels
                     Sheets.Move(i, i - 1);
                 }
             }
-            _lockEvents = false;
+            _lockEvents -= 1;
         }
 
         private void DoMoveSheetsToTop()
         {
-            _lockEvents = true;
+            _lockEvents += 1;
             int currentTop = 0;
             for (int i = 1; i < Sheets.Count; i++)
             {
@@ -381,7 +390,7 @@ namespace XLToolbox.Excel.ViewModels
                     currentTop++;
                 }
             }
-            _lockEvents = false;
+            _lockEvents -= 1;
         }
 
         private bool CanMoveSheetUp()
@@ -396,7 +405,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private void DoMoveSheetDown()
         {
-            _lockEvents = true;
+            _lockEvents += 1;
             // When iterating over the worksheet view models in the Sheets collection
             // as well as over the sheets collection of the workbook, keep in mind
             // that Excel workbook collections are 1-based.
@@ -408,12 +417,12 @@ namespace XLToolbox.Excel.ViewModels
                     Sheets.Move(i, i + 1);
                 }
             }
-            _lockEvents = false;
+            _lockEvents -= 1;
         }
 
         private void DoMoveSheetsToBottom()
         {
-            _lockEvents = true;
+            _lockEvents += 1;
             int currentBottom = Sheets.Count - 1;
             for (int i = currentBottom-1; i >= 0; i--)
             {
@@ -424,7 +433,7 @@ namespace XLToolbox.Excel.ViewModels
                     currentBottom--;
                 }
             }
-            _lockEvents = false;
+            _lockEvents -= 1;
         }
 
         private bool CanMoveSheetDown()
@@ -551,29 +560,41 @@ namespace XLToolbox.Excel.ViewModels
 
         private void CheckSheetsChanged(object state)
         {
-            if (!_lockEvents)
+            if (_lockEvents == 0)
             {
+                _lockEvents += 1;
                 string sheetsString = SheetsString;
                 if (sheetsString != _lastSheetsString)
                 {
                     Logger.Info("CheckSheetsChanged: Change in worksheets detected, rebuilding list");
-                    _lastSheetsString = sheetsString;
                     BuildSheetList();
                 }
+                _lockEvents -= 1;
             }
         }
 
         private void SheetActivated(dynamic sheet)
         {
-            if (sheet != null && !_lockEvents)
+            if (sheet != null && _lockEvents == 0)
             {
+                _lockEvents += 1;
                 SheetViewModel svm = Sheets.FirstOrDefault(s => s.IsSelected);
                 if (svm != null)
                 {
                     svm.IsSelected = false;
                 }
-                // Excel collection indexes are 1-based; .NET 0-based.
-                Sheets[sheet.Index - 1].IsSelected = true;
+                int index = sheet.Index;
+                Logger.Info("SheetActivated: Sheet index is {0}", index);
+                if (index >= 1 && index <= Sheets.Count)
+                {
+                    // Excel collection indexes are 1-based; .NET 0-based.
+                    Sheets[index - 1].IsSelected = true;
+                }
+                else
+                {
+                    Logger.Warn("SheetActivated: Index out of bounds!");
+                }
+                _lockEvents -= 1;
             }
         }
 
@@ -596,7 +617,7 @@ namespace XLToolbox.Excel.ViewModels
         private Message<StringMessageContent> _renameSheetMessage;
         private string _lastSheetsString;
         private Timer _timer;
-        private bool _lockEvents;
+        private int _lockEvents;
 
         #endregion
 
@@ -612,7 +633,9 @@ namespace XLToolbox.Excel.ViewModels
             {
                 _workbook = value;
                 OnPropertyChanged("Workbook");
+                Logger.Info("Workbook_set: _lockEvents is {0}", _lockEvents);
                 BuildSheetList();
+                Workbook.SheetActivate += SheetActivated;
                 if (_workbook != null)
                 {
                     DisplayString = _workbook.Name;

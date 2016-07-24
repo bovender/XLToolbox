@@ -447,7 +447,7 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
-        /// Fetches a workbook if it is opened. If not workbook is found
+        /// Fetches a workbook if it is opened. If no workbook is found
         /// by the given name, this function returns null.
         /// </summary>
         /// <param name="workbookName">Workbook to fetch.</param>
@@ -464,13 +464,40 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
+        /// Fetches an add-in if it is opened. If no add-in is found
+        /// by the given name, this function returns null.
+        /// </summary>
+        /// <param name="addInName">Add-in to fetch.</param>
+        /// <returns>Workbook or null.</returns>
+        public AddIn FindAddIn(string addInName)
+        {
+            AddIn a = null;
+            try
+            {
+                a = Application.AddIns2[addInName];
+            }
+            catch { }
+            return a;
+        }
+
+        /// <summary>
         /// Returns true if a workbook is opened.
         /// </summary>
-        /// <param name="workbookName">Workbook name to query.</param>
+        /// <param name="addInName">Workbook name to query.</param>
         /// <returns>True if the workbook is opened.</returns>
         public bool IsWorkbookLoaded(string workbookName)
         {
             return FindWorkbook(workbookName) != null;
+        }
+
+        /// <summary>
+        /// Returns true if an add-in is loaded.
+        /// </summary>
+        /// <param name="workbookName">Add-in name to query.</param>
+        /// <returns>True if the add-in is loaded.</returns>
+        public bool IsAddInLoaded(string addInName)
+        {
+            return FindAddIn(addInName) != null;
         }
 
         /// <summary>
