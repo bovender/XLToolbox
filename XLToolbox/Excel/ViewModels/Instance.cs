@@ -537,6 +537,17 @@ namespace XLToolbox.Excel.ViewModels
             return addinPath;
         }
 
+        /// <summary>
+        /// Invoke a shutdown of this view model. Note that this does not quit
+        /// Excel. This method is rather intended to be called when Excel is
+        /// quitting already.
+        /// </summary>
+        public void InvokeShutdown()
+        {
+            Logger.Info("InvokeShutdown");
+            OnShuttingDown();
+        }
+
         #endregion
 
         #region Constructors
