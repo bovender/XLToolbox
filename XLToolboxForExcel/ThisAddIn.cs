@@ -39,24 +39,11 @@ namespace XLToolboxForExcel
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            // // Delete user config file that may be left over from NG developmental
-            // // versions. We don't need it anymore and it causes nasty crashes.
-            // // Must do this before using NLog!
-            // try
-            // {
-            //     Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            //     if (System.IO.File.Exists(config.FilePath))
-            //     {
-            //         System.IO.File.Delete(config.FilePath);
-            //     }
-            // }
-            // catch { }
-
 #if DEBUG
             XLToolbox.Logging.LogFile.Default.EnableDebugLogging();
 #endif
 
-            Logger.Info("Begin startup");
+            Logger.Info("ThisAddIn_Startup: Begin startup");
 
             // Register Excel's main window handle to facilitate interop with WPF.
             Bovender.Win32Window.MainWindowHandleProvider =
@@ -81,7 +68,9 @@ namespace XLToolboxForExcel
                 System.IO.Path.Combine(System.IO.Path.GetTempPath() + Properties.Settings.Default.DumpFile);
             AppDomain.CurrentDomain.UnhandledException += Bovender.ExceptionHandler.CentralHandler.AppDomain_UnhandledException;
 
+            Ribbon.SubscribeToEvents();
             PerformSanityChecks();
+            MaybeCheckForUpdate();
 
             // Enable the keyboard shortcuts if no settings were previously saved,
             // i.e. if this appears to be the first run.
@@ -95,14 +84,13 @@ namespace XLToolboxForExcel
                 XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
-            MaybeCheckForUpdate();
             GreetUser();
-            Logger.Info("Finished startup");
+            Logger.Info("ThisAddIn_Startup: Done");
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            Logger.Info("Begin shutdown");
+            Logger.Info("ThisAddIn_Shutdown: Starting to clean up after ourselves");
             XLToolbox.UserSettings.UserSettings.Default.Running = false;
             XLToolbox.UserSettings.UserSettings.Default.Save();
 
@@ -120,12 +108,12 @@ namespace XLToolboxForExcel
                 uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
 
-            Ribbon.PrepareShutdown();
+            Instance.Default.InvokeShutdown();
 
             // Prevent "LocalDataSlot storage has been freed" exceptions;
             // see http://j.mp/localdatastoreslot
             Dispatcher.CurrentDispatcher.InvokeShutdown();
-            Logger.Info("Finish shutdown");
+            Logger.Info("ThisAddIn_Shutdown: Done.");
         }
 
         #endregion
@@ -153,13 +141,16 @@ namespace XLToolboxForExcel
             SemanticVersion lastVersionSeen = new SemanticVersion(
                 XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen);
             SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-            Logger.Info("Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
+            Logger.Info("GreetUser: Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
             if (currentVersion > lastVersionSeen)
             {
-                Logger.Info("Greeting user");
-                GreeterViewModel gvm = new GreeterViewModel();
-                gvm.InjectAndShowDialogInThread<GreeterView>((IntPtr)Globals.ThisAddIn.Application.Hwnd);
-                XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
+                _dispatcher.BeginInvoke((Action)(() =>
+                {
+                    Logger.Info("GreetUser: showing welcome dialog");
+                    XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
+                    GreeterViewModel gvm = new GreeterViewModel();
+                    gvm.InjectInto<GreeterView>().ShowDialogInForm();
+                }));
             }
         }
 
@@ -194,10 +185,7 @@ namespace XLToolboxForExcel
                     Logger.Info("Checking for update");
                     updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
                     {
-                        // Must show the view in a separate thread in order for it to
-                        // receive keyboard input (otherwise, Excel would grab all keyboard
-                        // events).
-                        updaterVM.InjectAndShowInThread<Ver.UpdateAvailableView>();
+                        updaterVM.InjectInto<Ver.UpdateAvailableView>().ShowDialogInForm();
                     };
                     _dispatcher.BeginInvoke(new Action(() => updaterVM.CheckForUpdateCommand.Execute(null)));
                 }

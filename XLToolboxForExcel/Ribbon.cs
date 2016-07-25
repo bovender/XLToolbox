@@ -109,18 +109,22 @@ namespace XLToolboxForExcel
                 { "ButtonShortcuts", Command.Shortcuts },
             };
 
-            XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
-            XLToolbox.SheetManager.TaskPaneManager.Initialized += SheetManagerPane_SheetManagerInitialized;
         }
 
         #endregion
 
-        #region Custom "destructor"
+        #region Public methods
 
-        public void PrepareShutdown()
+        public void SubscribeToEvents()
         {
-            // Unsubscribe from the static event
-            XLToolbox.SheetManager.TaskPaneManager.Initialized -= SheetManagerPane_SheetManagerInitialized;
+            XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
+            XLToolbox.SheetManager.TaskPaneManager.Initialized += SheetManagerPane_SheetManagerInitialized;
+
+            XLToolbox.Excel.ViewModels.Instance.Default.ShuttingDown += (sender, args) =>
+            {
+                XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged -= UpdaterViewModel_PropertyChanged;
+                XLToolbox.SheetManager.TaskPaneManager.Initialized -= SheetManagerPane_SheetManagerInitialized;
+            };
         }
 
         #endregion
