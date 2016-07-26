@@ -63,7 +63,6 @@ namespace XLToolbox.Legacy
         {
             Logger.Info("Initializing LegacyToolbox singleton");
             _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
-            _tempFile = Instance.Default.LoadAddinFromEmbeddedResource(ADDIN_RESOURCE_NAME);
         }
 
         #endregion
@@ -88,15 +87,22 @@ namespace XLToolbox.Legacy
                 _disposed = true;
                 if (calledFromPublicMethod)
                 {
-                    Microsoft.Office.Interop.Excel.Workbook addin = Instance.Default.FindWorkbook(ADDIN_RESOURCE_NAME);
-                    if (addin != null)
-                    {
-                        Logger.Info("Dispose: Closing legacy add-in");
-                        addin.Close(SaveChanges: false);
-                    }
-                    else
-                    {
-                        Logger.Info("Dispose: Did not find legacy add-in?!");
+                    try 
+	                {
+                        Instance.Default.Application.Run("'XltbShutdown'");
+	                }
+	                catch (Exception e)
+	                {
+                        // A COM exception 0x800A9C68 will always occur because the XltbShutdown
+                        // sub makes the add-in vanish before the COM operation is finished.
+                        // However, it appears that there is no better way to close an add-in
+                        // programmatically.
+                        if (!e.Message.Contains("0x800A9C68"))
+                        {
+                            // If calledFromPublicMethod, the logger is still available
+                            Logger.Warn("Dispose: Failed to close legacy add-in!");
+                            Logger.Warn(e);
+                        }
                     }
                 }
                 string dir = System.IO.Path.GetDirectoryName(_tempFile);
@@ -109,9 +115,9 @@ namespace XLToolbox.Legacy
                 }
                 catch (Exception e)
                 {
-                    if (calledFromPublicMethod) // managed resources still available?
+                    if (calledFromPublicMethod) // managed resources including logger still available?
                     {
-                        Logger.Warn("Dispose: When attempting to close the VBA add-in:");
+                        Logger.Warn("Dispose: Failed to delete the legacy temp file!");
                         Logger.Warn(e);
                     }
                 }
@@ -126,8 +132,11 @@ namespace XLToolbox.Legacy
                         }
                         catch (Exception e)
                         {
-                            Logger.Warn("Dispose: Could not delete path: {0}", dir);
-                            Logger.Warn(e);
+                            if (calledFromPublicMethod) // managed resources including logger still available?
+                            {
+                                Logger.Warn("Dispose: Failed to delete path: {0}", dir);
+                                Logger.Warn(e);
+                            }
                         }
                     }
                 }
