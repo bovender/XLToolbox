@@ -163,7 +163,7 @@ namespace XLToolbox
                     Strings.CheckForUpdates,
                     Strings.YouHaveTheLatestVersion,
                     Strings.OK);
-                a.Invoke();
+                a.InvokeWithContent(args.Content);
                 Updater.CanCheck = true;
             };
             releaseInfoVM.ExceptionMessage.Sent += (sender, args) =>
