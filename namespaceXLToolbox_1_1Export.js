@@ -5,6 +5,7 @@ var namespaceXLToolbox_1_1Export =
     [ "ViewModels", "namespaceXLToolbox_1_1Export_1_1ViewModels.html", "namespaceXLToolbox_1_1Export_1_1ViewModels" ],
     [ "Views", "namespaceXLToolbox_1_1Export_1_1Views.html", "namespaceXLToolbox_1_1Export_1_1Views" ],
     [ "BatchExporter", "classXLToolbox_1_1Export_1_1BatchExporter.html", "classXLToolbox_1_1Export_1_1BatchExporter" ],
+    [ "DibBitmap", "classXLToolbox_1_1Export_1_1DibBitmap.html", "classXLToolbox_1_1Export_1_1DibBitmap" ],
     [ "Exporter", "classXLToolbox_1_1Export_1_1Exporter.html", "classXLToolbox_1_1Export_1_1Exporter" ],
     [ "ExportFileName", "classXLToolbox_1_1Export_1_1ExportFileName.html", "classXLToolbox_1_1Export_1_1ExportFileName" ],
     [ "QuickExporter", "classXLToolbox_1_1Export_1_1QuickExporter.html", "classXLToolbox_1_1Export_1_1QuickExporter" ],

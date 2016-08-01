@@ -7,6 +7,9 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "BatchExporter.cs", "BatchExporter_8cs.html", [
       [ "BatchExporter", "classXLToolbox_1_1Export_1_1BatchExporter.html", "classXLToolbox_1_1Export_1_1BatchExporter" ]
     ] ],
+    [ "DibBitmap.cs", "DibBitmap_8cs.html", [
+      [ "DibBitmap", "classXLToolbox_1_1Export_1_1DibBitmap.html", "classXLToolbox_1_1Export_1_1DibBitmap" ]
+    ] ],
     [ "Exporter.cs", "Exporter_8cs.html", [
       [ "Exporter", "classXLToolbox_1_1Export_1_1Exporter.html", "classXLToolbox_1_1Export_1_1Exporter" ]
     ] ],

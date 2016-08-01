@@ -24,7 +24,7 @@ var dir_42606be22f235de2f99744482dfd633f =
     [ "UpdaterProcessView.g.i.cs", "Release_2Versioning_2UpdaterProcessView_8g_8i_8cs.html", [
       [ "UpdaterProcessView", "classXLToolbox_1_1Versioning_1_1UpdaterProcessView.html", "classXLToolbox_1_1Versioning_1_1UpdaterProcessView" ]
     ] ],
-    [ "WindowDownloadUpdate.g.cs", "Release_2Versioning_2WindowDownloadUpdate_8g_8cs.html", [
+    [ "WindowDownloadUpdate.g.cs", "WindowDownloadUpdate_8g_8cs.html", [
       [ "WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", "classXLToolbox_1_1WindowDownloadUpdate" ]
     ] ],
     [ "WindowDownloadUpdate.g.i.cs", "Release_2Versioning_2WindowDownloadUpdate_8g_8i_8cs.html", [

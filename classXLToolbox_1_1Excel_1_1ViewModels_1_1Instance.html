@@ -144,6 +144,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9361369d54e4aa0316af703f93ce9af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a9361369d54e4aa0316af703f93ce9af5">Reset</a> ()</td></tr>
 <tr class="memdesc:a9361369d54e4aa0316af703f93ce9af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug method to reset the <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> application. The result is an application without open workbooks.  <a href="#a9361369d54e4aa0316af703f93ce9af5">More...</a><br /></td></tr>
 <tr class="separator:a9361369d54e4aa0316af703f93ce9af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="memItemLeft" align="right" valign="top">Workbook&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#afd3e21c9dfce7beee81f7696b6a96cd1">FindWorkbook</a> (string workbookName)</td></tr>
+<tr class="memdesc:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null.  <a href="#afd3e21c9dfce7beee81f7696b6a96cd1">More...</a><br /></td></tr>
+<tr class="separator:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a896d12ee593747fe6c11387bd4bea8d6"><td class="memItemLeft" align="right" valign="top">AddIn&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a896d12ee593747fe6c11387bd4bea8d6">FindAddIn</a> (string addInName)</td></tr>
+<tr class="memdesc:a896d12ee593747fe6c11387bd4bea8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches an add-in if it is opened. If no add-in is found by the given name, this function returns null.  <a href="#a896d12ee593747fe6c11387bd4bea8d6">More...</a><br /></td></tr>
+<tr class="separator:a896d12ee593747fe6c11387bd4bea8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ce1911565b39d84b6a57ccfb538cff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a59ce1911565b39d84b6a57ccfb538cff">IsWorkbookLoaded</a> (string workbookName)</td></tr>
+<tr class="memdesc:a59ce1911565b39d84b6a57ccfb538cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if a workbook is opened.  <a href="#a59ce1911565b39d84b6a57ccfb538cff">More...</a><br /></td></tr>
+<tr class="separator:a59ce1911565b39d84b6a57ccfb538cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ca0902eaf43275f468c8c2738823f02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a2ca0902eaf43275f468c8c2738823f02">IsAddInLoaded</a> (string addInName)</td></tr>
+<tr class="memdesc:a2ca0902eaf43275f468c8c2738823f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an add-in is loaded.  <a href="#a2ca0902eaf43275f468c8c2738823f02">More...</a><br /></td></tr>
+<tr class="separator:a2ca0902eaf43275f468c8c2738823f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a7d8c62c3e65e7fe71a1ef9afaa2d17d0">InvokeShutdown</a> ()</td></tr>
+<tr class="memdesc:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke a shutdown of this view model. Note that this does not quit <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>. This method is rather intended to be called when <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> is quitting already.  <a href="#a7d8c62c3e65e7fe71a1ef9afaa2d17d0">More...</a><br /></td></tr>
+<tr class="separator:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06423bf9c33323a54a1764f04148154d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a06423bf9c33323a54a1764f04148154d">Instance</a> ()</td></tr>
 <tr class="memdesc:a06423bf9c33323a54a1764f04148154d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates this class without an <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> instance  <a href="#a06423bf9c33323a54a1764f04148154d">More...</a><br /></td></tr>
 <tr class="separator:a06423bf9c33323a54a1764f04148154d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -574,6 +589,163 @@ Events</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Decreases the internal screen updating counter by one; if the counter reaches 0, the application's screen updating will resume. </p>
+
+</div>
+</div>
+<a class="anchor" id="a896d12ee593747fe6c11387bd4bea8d6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">AddIn XLToolbox.Excel.ViewModels.Instance.FindAddIn </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>addInName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fetches an add-in if it is opened. If no add-in is found by the given name, this function returns null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addInName</td><td>Add-in to fetch.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Workbook or null.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afd3e21c9dfce7beee81f7696b6a96cd1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Workbook XLToolbox.Excel.ViewModels.Instance.FindWorkbook </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>workbookName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">workbookName</td><td>Workbook to fetch.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Workbook or null.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d8c62c3e65e7fe71a1ef9afaa2d17d0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLToolbox.Excel.ViewModels.Instance.InvokeShutdown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Invoke a shutdown of this view model. Note that this does not quit <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>. This method is rather intended to be called when <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> is quitting already. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2ca0902eaf43275f468c8c2738823f02"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool XLToolbox.Excel.ViewModels.Instance.IsAddInLoaded </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>addInName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if an add-in is loaded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">workbookName</td><td>Add-in name to query.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the add-in is loaded.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a59ce1911565b39d84b6a57ccfb538cff"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool XLToolbox.Excel.ViewModels.Instance.IsWorkbookLoaded </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>workbookName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if a workbook is opened. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addInName</td><td>Workbook name to query.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the workbook is opened.</dd></dl>
 
 </div>
 </div>
@@ -1011,7 +1183,7 @@ Events</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Excel_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html">Instance</a></li>
-    <li class="footer">Generated on Mon Jul 4 2016 21:40:55 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Aug 2 2016 00:10:13 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

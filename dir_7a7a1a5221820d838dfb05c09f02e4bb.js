@@ -6,6 +6,12 @@ var dir_7a7a1a5221820d838dfb05c09f02e4bb =
     [ "NotAuthorizedForUpdateView.xaml.cs", "NotAuthorizedForUpdateView_8xaml_8cs.html", [
       [ "NotAuthorizedForUpdateView", "classXLToolbox_1_1Versioning_1_1NotAuthorizedForUpdateView.html", "classXLToolbox_1_1Versioning_1_1NotAuthorizedForUpdateView" ]
     ] ],
+    [ "ReleaseInfo.cs", "ReleaseInfo_8cs.html", [
+      [ "ReleaseInfo", "classXLToolbox_1_1Versioning_1_1ReleaseInfo.html", "classXLToolbox_1_1Versioning_1_1ReleaseInfo" ]
+    ] ],
+    [ "ReleaseInfoViewModel.cs", "ReleaseInfoViewModel_8cs.html", [
+      [ "ReleaseInfoViewModel", "classXLToolbox_1_1Versioning_1_1ReleaseInfoViewModel.html", "classXLToolbox_1_1Versioning_1_1ReleaseInfoViewModel" ]
+    ] ],
     [ "SemanticVersion.cs", "XLToolbox_2Versioning_2SemanticVersion_8cs.html", [
       [ "SemanticVersion", "classXLToolbox_1_1Versioning_1_1SemanticVersion.html", "classXLToolbox_1_1Versioning_1_1SemanticVersion" ]
     ] ],
@@ -18,8 +24,7 @@ var dir_7a7a1a5221820d838dfb05c09f02e4bb =
     [ "UpdaterProcessView.xaml.cs", "UpdaterProcessView_8xaml_8cs.html", [
       [ "UpdaterProcessView", "classXLToolbox_1_1Versioning_1_1UpdaterProcessView.html", "classXLToolbox_1_1Versioning_1_1UpdaterProcessView" ]
     ] ],
-    [ "UpdaterViewModel.cs", "XLToolbox_2Versioning_2UpdaterViewModel_8cs.html", "XLToolbox_2Versioning_2UpdaterViewModel_8cs" ],
-    [ "WindowDownloadUpdate.xaml.cs", "WindowDownloadUpdate_8xaml_8cs.html", [
-      [ "WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", "classXLToolbox_1_1WindowDownloadUpdate" ]
+    [ "UpdaterViewModel.cs", "XLToolbox_2Versioning_2UpdaterViewModel_8cs.html", [
+      [ "UpdaterViewModel", "classXLToolbox_1_1Versioning_1_1UpdaterViewModel.html", "classXLToolbox_1_1Versioning_1_1UpdaterViewModel" ]
     ] ]
 ];

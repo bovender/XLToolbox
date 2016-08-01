@@ -9,10 +9,11 @@ var classXLToolboxForExcel_1_1Ribbon =
     [ "HasSelection", "classXLToolboxForExcel_1_1Ribbon.html#abdcad95e651e961cc278839b4edaef81", null ],
     [ "HasWorkbook", "classXLToolboxForExcel_1_1Ribbon.html#a686b97e693d30c3f2687bb6351afc0d7", null ],
     [ "IsDebug", "classXLToolboxForExcel_1_1Ribbon.html#a8bc623a4e32e352be7a75c4d36a739f5", null ],
-    [ "PrepareShutdown", "classXLToolboxForExcel_1_1Ribbon.html#a756367e02ed95b6206cddcc19f692bc5", null ],
+    [ "IsGraphicExportEnabled", "classXLToolboxForExcel_1_1Ribbon.html#af2b61cd937dbb3d44e2561c54d323a82", null ],
     [ "Ribbon_Load", "classXLToolboxForExcel_1_1Ribbon.html#a2e5b2edee46b225c883a222ca26ec66c", null ],
     [ "Ribbon_LoadImage", "classXLToolboxForExcel_1_1Ribbon.html#a6566b175b487c3471d9e509900af2e0c", null ],
     [ "SheetManagerToggleButton_GetPressed", "classXLToolboxForExcel_1_1Ribbon.html#ac2494da51ea8ad3ee3e67a58c94c4ed3", null ],
     [ "SheetManagerToggleButton_OnAction", "classXLToolboxForExcel_1_1Ribbon.html#aa69af9f0a479ae597c04c2d303e31458", null ],
+    [ "SubscribeToEvents", "classXLToolboxForExcel_1_1Ribbon.html#a15f5e69bca0a76cb67323c6ce3f9432b", null ],
     [ "ExcelApp", "classXLToolboxForExcel_1_1Ribbon.html#a1c883aa5fbd84c71c5c71eaa6454469a", null ]
 ];

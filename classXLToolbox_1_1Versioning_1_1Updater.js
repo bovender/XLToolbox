@@ -1,6 +1,9 @@
 var classXLToolbox_1_1Versioning_1_1Updater =
 [
-    [ "BuildDestinationFileName", "classXLToolbox_1_1Versioning_1_1Updater.html#afed11d1c437768a6354ce839c9ce5774", null ],
-    [ "GetCurrentVersion", "classXLToolbox_1_1Versioning_1_1Updater.html#a9768d731fb1110a0394f1c2d3670b37c", null ],
-    [ "GetVersionInfoUri", "classXLToolbox_1_1Versioning_1_1Updater.html#ade360bb284f04beeac5931a1b959eda8", null ]
+    [ "Updater", "classXLToolbox_1_1Versioning_1_1Updater.html#a44f922dfcd06661792547a79b860eba9", null ],
+    [ "CreateDefault", "classXLToolbox_1_1Versioning_1_1Updater.html#afc6d5308d5a7d9c1d7e97514ddd14967", null ],
+    [ "CanCheck", "classXLToolbox_1_1Versioning_1_1Updater.html#adeb2ab47ead79f43d64272b3f4bcbb2b", null ],
+    [ "Default", "classXLToolbox_1_1Versioning_1_1Updater.html#a21cf6261605e7307b7f234eab8c21bc7", null ],
+    [ "Logger", "classXLToolbox_1_1Versioning_1_1Updater.html#aeca4628b21d9cefef474577a98017d63", null ],
+    [ "CanCheckChanged", "classXLToolbox_1_1Versioning_1_1Updater.html#a0992d970f9cc1821a02a3f36087c3a6d", null ]
 ];

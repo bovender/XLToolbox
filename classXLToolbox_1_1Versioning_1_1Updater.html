@@ -92,7 +92,10 @@ $(document).ready(function(){initNavTree('classXLToolbox_1_1Versioning_1_1Update
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
+<a href="#events">Events</a> &#124;
 <a href="classXLToolbox_1_1Versioning_1_1Updater-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">XLToolbox.Versioning.Updater Class Reference</div>  </div>
@@ -115,61 +118,10 @@ Collaboration diagram for XLToolbox.Versioning.Updater:</div>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ade360bb284f04beeac5931a1b959eda8"><td class="memItemLeft" align="right" valign="top">override Uri&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#ade360bb284f04beeac5931a1b959eda8">GetVersionInfoUri</a> ()</td></tr>
-<tr class="memdesc:ade360bb284f04beeac5931a1b959eda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the URI for the file that provides current version information.  <a href="#ade360bb284f04beeac5931a1b959eda8">More...</a><br /></td></tr>
-<tr class="separator:ade360bb284f04beeac5931a1b959eda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9768d731fb1110a0394f1c2d3670b37c"><td class="memItemLeft" align="right" valign="top">override <a class="el" href="classBovender_1_1Versioning_1_1SemanticVersion.html">Bovender.Versioning.SemanticVersion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#a9768d731fb1110a0394f1c2d3670b37c">GetCurrentVersion</a> ()</td></tr>
-<tr class="memdesc:a9768d731fb1110a0394f1c2d3670b37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version number of the current program.  <a href="#a9768d731fb1110a0394f1c2d3670b37c">More...</a><br /></td></tr>
-<tr class="separator:a9768d731fb1110a0394f1c2d3670b37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afed11d1c437768a6354ce839c9ce5774"><td class="memItemLeft" align="right" valign="top">override string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#afed11d1c437768a6354ce839c9ce5774">BuildDestinationFileName</a> ()</td></tr>
-<tr class="memdesc:afed11d1c437768a6354ce839c9ce5774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the destination file name from the download URI and the destination folder (which is stored in a public property and could be set by a view that subscribes to this view model).  <a href="#afed11d1c437768a6354ce839c9ce5774">More...</a><br /></td></tr>
-<tr class="separator:afed11d1c437768a6354ce839c9ce5774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classBovender_1_1Versioning_1_1Updater"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classBovender_1_1Versioning_1_1Updater')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html">Bovender.Versioning.Updater</a></td></tr>
-<tr class="memitem:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a2677dbe22ae9b14d9a69c13445c78f1e">DoDownload</a> ()</td></tr>
-<tr class="separator:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a857108a3a65836547c8c21cd1f7bd4f3">ConfirmDownload</a> ()</td></tr>
-<tr class="memdesc:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the actual download once the user has confirmed the download destination.  <a href="#a857108a3a65836547c8c21cd1f7bd4f3">More...</a><br /></td></tr>
-<tr class="separator:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a69c1759b146b46111914c4be6d23ad6d">CanDownload</a> ()</td></tr>
-<tr class="separator:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0828b009ff515b6a43d4ca3ba6264e29">OnDownloadUpdateFinished</a> ()</td></tr>
-<tr class="separator:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a9cd08c5cef4975a9253ba25b463374dd">OnCheckForUpdateFinished</a> ()</td></tr>
-<tr class="separator:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#afe3e43875eb8039837bac19d4a710ad1">DoInstallUpdate</a> ()</td></tr>
-<tr class="memdesc:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the update file. This method is called by <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a4953ce32a61bf0cd327d717dd49a9b19" title="Verifies the Sha1 checksum of the file on disk again and executes the file if it is valid...">InstallUpdate()</a> only if the Sha1 checksum of the file meets the expectation.  <a href="#afe3e43875eb8039837bac19d4a710ad1">More...</a><br /></td></tr>
-<tr class="separator:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a51c6f8a82001eaee3fc99036fd9c7551">GetInstallerCommand</a> ()</td></tr>
-<tr class="memdesc:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command to execute in the shell to install the update.  <a href="#a51c6f8a82001eaee3fc99036fd9c7551">More...</a><br /></td></tr>
-<tr class="separator:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0306c694ef98f31e377e74ce3cc4047e">GetInstallerParameters</a> ()</td></tr>
-<tr class="memdesc:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns commandline parameters for the update installer.  <a href="#a0306c694ef98f31e377e74ce3cc4047e">More...</a><br /></td></tr>
-<tr class="separator:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a2677dbe22ae9b14d9a69c13445c78f1e">DoDownload</a> ()</td></tr>
-<tr class="separator:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a857108a3a65836547c8c21cd1f7bd4f3">ConfirmDownload</a> ()</td></tr>
-<tr class="memdesc:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the actual download once the user has confirmed the download destination.  <a href="#a857108a3a65836547c8c21cd1f7bd4f3">More...</a><br /></td></tr>
-<tr class="separator:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a69c1759b146b46111914c4be6d23ad6d">CanDownload</a> ()</td></tr>
-<tr class="separator:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0828b009ff515b6a43d4ca3ba6264e29">OnDownloadUpdateFinished</a> ()</td></tr>
-<tr class="separator:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a9cd08c5cef4975a9253ba25b463374dd">OnCheckForUpdateFinished</a> ()</td></tr>
-<tr class="separator:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#afe3e43875eb8039837bac19d4a710ad1">DoInstallUpdate</a> ()</td></tr>
-<tr class="memdesc:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the update file. This method is called by <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a4953ce32a61bf0cd327d717dd49a9b19" title="Verifies the Sha1 checksum of the file on disk again and executes the file if it is valid...">InstallUpdate()</a> only if the Sha1 checksum of the file meets the expectation.  <a href="#afe3e43875eb8039837bac19d4a710ad1">More...</a><br /></td></tr>
-<tr class="separator:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a51c6f8a82001eaee3fc99036fd9c7551">GetInstallerCommand</a> ()</td></tr>
-<tr class="memdesc:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command to execute in the shell to install the update.  <a href="#a51c6f8a82001eaee3fc99036fd9c7551">More...</a><br /></td></tr>
-<tr class="separator:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0306c694ef98f31e377e74ce3cc4047e">GetInstallerParameters</a> ()</td></tr>
-<tr class="memdesc:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns commandline parameters for the update installer.  <a href="#a0306c694ef98f31e377e74ce3cc4047e">More...</a><br /></td></tr>
-<tr class="separator:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a44f922dfcd06661792547a79b860eba9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#a44f922dfcd06661792547a79b860eba9">Updater</a> (Bovender.Versioning.IReleaseInfo releaseInfo)</td></tr>
+<tr class="separator:a44f922dfcd06661792547a79b860eba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classBovender_1_1Versioning_1_1Updater"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBovender_1_1Versioning_1_1Updater')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html">Bovender.Versioning.Updater</a></td></tr>
 <tr class="memitem:a013928c30f5cc94269e8ed9a311b7e24 inherit pub_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a013928c30f5cc94269e8ed9a311b7e24">CheckForUpdate</a> ()</td></tr>
 <tr class="memdesc:a013928c30f5cc94269e8ed9a311b7e24 inherit pub_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downloads the current version information file asynchronously from the project home page.  <a href="#a013928c30f5cc94269e8ed9a311b7e24">More...</a><br /></td></tr>
@@ -197,6 +149,18 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a4953ce32a61bf0cd327d717dd49a9b19 inherit pub_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a4953ce32a61bf0cd327d717dd49a9b19">InstallUpdate</a> ()</td></tr>
 <tr class="memdesc:a4953ce32a61bf0cd327d717dd49a9b19 inherit pub_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies the Sha1 checksum of the file on disk again and executes the file if it is valid. Does nothing if no update is available.  <a href="#a4953ce32a61bf0cd327d717dd49a9b19">More...</a><br /></td></tr>
 <tr class="separator:a4953ce32a61bf0cd327d717dd49a9b19 inherit pub_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:afc6d5308d5a7d9c1d7e97514ddd14967"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html">Updater</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#afc6d5308d5a7d9c1d7e97514ddd14967">CreateDefault</a> (IReleaseInfo releaseInfo)</td></tr>
+<tr class="separator:afc6d5308d5a7d9c1d7e97514ddd14967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a21cf6261605e7307b7f234eab8c21bc7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html">Updater</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#a21cf6261605e7307b7f234eab8c21bc7">Default</a><code> [get, set]</code></td></tr>
+<tr class="separator:a21cf6261605e7307b7f234eab8c21bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeb2ab47ead79f43d64272b3f4bcbb2b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#adeb2ab47ead79f43d64272b3f4bcbb2b">CanCheck</a><code> [get, set]</code></td></tr>
+<tr class="separator:adeb2ab47ead79f43d64272b3f4bcbb2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_classBovender_1_1Versioning_1_1Updater"><td colspan="2" onclick="javascript:toggleInherit('properties_classBovender_1_1Versioning_1_1Updater')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html">Bovender.Versioning.Updater</a></td></tr>
 <tr class="memitem:af0b03cd4dab85d342163cae923cd4f83 inherit properties_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#af0b03cd4dab85d342163cae923cd4f83">DestinationFolder</a><code> [get, set]</code></td></tr>
 <tr class="separator:af0b03cd4dab85d342163cae923cd4f83 inherit properties_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -227,6 +191,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:afca3d054577d377b0a52f9d0947674de inherit properties_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d4ef83c467027639e83e3fd546f46a3 inherit properties_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">Exception&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a9d4ef83c467027639e83e3fd546f46a3">DownloadException</a><code> [get, protected set]</code></td></tr>
 <tr class="separator:a9d4ef83c467027639e83e3fd546f46a3 inherit properties_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="events"></a>
+Events</h2></td></tr>
+<tr class="memitem:a0992d970f9cc1821a02a3f36087c3a6d"><td class="memItemLeft" align="right" valign="top">static EventHandler&lt; EventArgs &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html#a0992d970f9cc1821a02a3f36087c3a6d">CanCheckChanged</a></td></tr>
+<tr class="separator:a0992d970f9cc1821a02a3f36087c3a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header events_classBovender_1_1Versioning_1_1Updater"><td colspan="2" onclick="javascript:toggleInherit('events_classBovender_1_1Versioning_1_1Updater')"><img src="closed.png" alt="-"/>&#160;Events inherited from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html">Bovender.Versioning.Updater</a></td></tr>
 <tr class="memitem:a6203bd2cdf75ca2fc098181626353299 inherit events_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; EventArgs &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a6203bd2cdf75ca2fc098181626353299">CheckForUpdateFinished</a></td></tr>
 <tr class="memdesc:a6203bd2cdf75ca2fc098181626353299 inherit events_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signals that the current version information has been refreshed.  <a href="#a6203bd2cdf75ca2fc098181626353299">More...</a><br /></td></tr>
@@ -237,9 +206,96 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a37215a0f5fcf4f9bc71e422a279df241 inherit events_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">EventHandler&lt; EventArgs &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a37215a0f5fcf4f9bc71e422a279df241">DownloadUpdateFinished</a></td></tr>
 <tr class="memdesc:a37215a0f5fcf4f9bc71e422a279df241 inherit events_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signals that an update has been downloaded. Subscribers need to check if the update is actually installable.  <a href="#a37215a0f5fcf4f9bc71e422a279df241">More...</a><br /></td></tr>
 <tr class="separator:a37215a0f5fcf4f9bc71e422a279df241 inherit events_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classBovender_1_1Versioning_1_1Updater"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classBovender_1_1Versioning_1_1Updater')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html">Bovender.Versioning.Updater</a></td></tr>
+<tr class="memitem:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">abstract Uri&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a073a45fc9c650ca50e0137655e76b737">GetVersionInfoUri</a> ()</td></tr>
+<tr class="memdesc:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the URI for the file that provides current version information.  <a href="#a073a45fc9c650ca50e0137655e76b737">More...</a><br /></td></tr>
+<tr class="separator:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="classBovender_1_1Versioning_1_1SemanticVersion.html">SemanticVersion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#abeb39792450ec859e60379621b983c38">GetCurrentVersion</a> ()</td></tr>
+<tr class="memdesc:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version number of the current program.  <a href="#abeb39792450ec859e60379621b983c38">More...</a><br /></td></tr>
+<tr class="separator:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a2677dbe22ae9b14d9a69c13445c78f1e">DoDownload</a> ()</td></tr>
+<tr class="separator:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a857108a3a65836547c8c21cd1f7bd4f3">ConfirmDownload</a> ()</td></tr>
+<tr class="memdesc:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the actual download once the user has confirmed the download destination.  <a href="#a857108a3a65836547c8c21cd1f7bd4f3">More...</a><br /></td></tr>
+<tr class="separator:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a69c1759b146b46111914c4be6d23ad6d">CanDownload</a> ()</td></tr>
+<tr class="separator:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0828b009ff515b6a43d4ca3ba6264e29">OnDownloadUpdateFinished</a> ()</td></tr>
+<tr class="separator:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a9cd08c5cef4975a9253ba25b463374dd">OnCheckForUpdateFinished</a> ()</td></tr>
+<tr class="separator:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a89cd2629171c75cb576cb3d50195e9c6">BuildDestinationFileName</a> ()</td></tr>
+<tr class="memdesc:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the destination file name from the download URI and the destination folder (which is stored in a public property and could be set by a view that subscribes to this view model).  <a href="#a89cd2629171c75cb576cb3d50195e9c6">More...</a><br /></td></tr>
+<tr class="separator:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#afe3e43875eb8039837bac19d4a710ad1">DoInstallUpdate</a> ()</td></tr>
+<tr class="memdesc:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the update file. This method is called by <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a4953ce32a61bf0cd327d717dd49a9b19" title="Verifies the Sha1 checksum of the file on disk again and executes the file if it is valid...">InstallUpdate()</a> only if the Sha1 checksum of the file meets the expectation.  <a href="#afe3e43875eb8039837bac19d4a710ad1">More...</a><br /></td></tr>
+<tr class="separator:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a51c6f8a82001eaee3fc99036fd9c7551">GetInstallerCommand</a> ()</td></tr>
+<tr class="memdesc:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command to execute in the shell to install the update.  <a href="#a51c6f8a82001eaee3fc99036fd9c7551">More...</a><br /></td></tr>
+<tr class="separator:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0306c694ef98f31e377e74ce3cc4047e">GetInstallerParameters</a> ()</td></tr>
+<tr class="memdesc:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns commandline parameters for the update installer.  <a href="#a0306c694ef98f31e377e74ce3cc4047e">More...</a><br /></td></tr>
+<tr class="separator:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">abstract Uri&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a073a45fc9c650ca50e0137655e76b737">GetVersionInfoUri</a> ()</td></tr>
+<tr class="memdesc:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the URI for the file that provides current version information.  <a href="#a073a45fc9c650ca50e0137655e76b737">More...</a><br /></td></tr>
+<tr class="separator:a073a45fc9c650ca50e0137655e76b737 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">abstract <a class="el" href="classBovender_1_1Versioning_1_1SemanticVersion.html">SemanticVersion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#abeb39792450ec859e60379621b983c38">GetCurrentVersion</a> ()</td></tr>
+<tr class="memdesc:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version number of the current program.  <a href="#abeb39792450ec859e60379621b983c38">More...</a><br /></td></tr>
+<tr class="separator:abeb39792450ec859e60379621b983c38 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a2677dbe22ae9b14d9a69c13445c78f1e">DoDownload</a> ()</td></tr>
+<tr class="separator:a2677dbe22ae9b14d9a69c13445c78f1e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a857108a3a65836547c8c21cd1f7bd4f3">ConfirmDownload</a> ()</td></tr>
+<tr class="memdesc:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the actual download once the user has confirmed the download destination.  <a href="#a857108a3a65836547c8c21cd1f7bd4f3">More...</a><br /></td></tr>
+<tr class="separator:a857108a3a65836547c8c21cd1f7bd4f3 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a69c1759b146b46111914c4be6d23ad6d">CanDownload</a> ()</td></tr>
+<tr class="separator:a69c1759b146b46111914c4be6d23ad6d inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0828b009ff515b6a43d4ca3ba6264e29">OnDownloadUpdateFinished</a> ()</td></tr>
+<tr class="separator:a0828b009ff515b6a43d4ca3ba6264e29 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a9cd08c5cef4975a9253ba25b463374dd">OnCheckForUpdateFinished</a> ()</td></tr>
+<tr class="separator:a9cd08c5cef4975a9253ba25b463374dd inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a89cd2629171c75cb576cb3d50195e9c6">BuildDestinationFileName</a> ()</td></tr>
+<tr class="memdesc:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the destination file name from the download URI and the destination folder (which is stored in a public property and could be set by a view that subscribes to this view model).  <a href="#a89cd2629171c75cb576cb3d50195e9c6">More...</a><br /></td></tr>
+<tr class="separator:a89cd2629171c75cb576cb3d50195e9c6 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#afe3e43875eb8039837bac19d4a710ad1">DoInstallUpdate</a> ()</td></tr>
+<tr class="memdesc:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the update file. This method is called by <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a4953ce32a61bf0cd327d717dd49a9b19" title="Verifies the Sha1 checksum of the file on disk again and executes the file if it is valid...">InstallUpdate()</a> only if the Sha1 checksum of the file meets the expectation.  <a href="#afe3e43875eb8039837bac19d4a710ad1">More...</a><br /></td></tr>
+<tr class="separator:afe3e43875eb8039837bac19d4a710ad1 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a51c6f8a82001eaee3fc99036fd9c7551">GetInstallerCommand</a> ()</td></tr>
+<tr class="memdesc:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command to execute in the shell to install the update.  <a href="#a51c6f8a82001eaee3fc99036fd9c7551">More...</a><br /></td></tr>
+<tr class="separator:a51c6f8a82001eaee3fc99036fd9c7551 inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a0306c694ef98f31e377e74ce3cc4047e">GetInstallerParameters</a> ()</td></tr>
+<tr class="memdesc:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns commandline parameters for the update installer.  <a href="#a0306c694ef98f31e377e74ce3cc4047e">More...</a><br /></td></tr>
+<tr class="separator:a0306c694ef98f31e377e74ce3cc4047e inherit pro_methods_classBovender_1_1Versioning_1_1Updater"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a44f922dfcd06661792547a79b860eba9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">XLToolbox.Versioning.Updater.Updater </td>
+          <td>(</td>
+          <td class="paramtype">Bovender.Versioning.IReleaseInfo&#160;</td>
+          <td class="paramname"><em>releaseInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="afed11d1c437768a6354ce839c9ce5774"></a>
+<a class="anchor" id="afc6d5308d5a7d9c1d7e97514ddd14967"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -247,28 +303,24 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">override string XLToolbox.Versioning.Updater.BuildDestinationFileName </td>
+          <td class="memname">static <a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html">Updater</a> XLToolbox.Versioning.Updater.CreateDefault </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">IReleaseInfo&#160;</td>
+          <td class="paramname"><em>releaseInfo</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Builds the destination file name from the download URI and the destination folder (which is stored in a public property and could be set by a view that subscribes to this view model). </p>
-<p>Derived classes will typically want to override this, as the base method uses a simple generic file name that contains the version number. </p>
-<dl class="section return"><dt>Returns</dt><dd>Complete path of the destination file.</dd></dl>
-
-<p>Reimplemented from <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a89cd2629171c75cb576cb3d50195e9c6">Bovender.Versioning.Updater</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a9768d731fb1110a0394f1c2d3670b37c"></a>
+<h2 class="groupheader">Property Documentation</h2>
+<a class="anchor" id="adeb2ab47ead79f43d64272b3f4bcbb2b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -276,27 +328,19 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">override <a class="el" href="classBovender_1_1Versioning_1_1SemanticVersion.html">Bovender.Versioning.SemanticVersion</a> XLToolbox.Versioning.Updater.GetCurrentVersion </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">bool XLToolbox.Versioning.Updater.CanCheck</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the version number of the current program. </p>
-<dl class="section return"><dt>Returns</dt><dd>Instance of <a class="el" href="classXLToolbox_1_1Versioning_1_1SemanticVersion.html">SemanticVersion</a> representing the current version number.</dd></dl>
-
-<p>Implements <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#abeb39792450ec859e60379621b983c38">Bovender.Versioning.Updater</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="ade360bb284f04beeac5931a1b959eda8"></a>
+<a class="anchor" id="a21cf6261605e7307b7f234eab8c21bc7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -304,23 +348,36 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">override Uri XLToolbox.Versioning.Updater.GetVersionInfoUri </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html">Updater</a> XLToolbox.Versioning.Updater.Default</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the URI for the file that provides current version information. </p>
-<dl class="section return"><dt>Returns</dt><dd>URI for version info file.</dd></dl>
-
-<p>Implements <a class="el" href="classBovender_1_1Versioning_1_1Updater.html#a073a45fc9c650ca50e0137655e76b737">Bovender.Versioning.Updater</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Event Documentation</h2>
+<a class="anchor" id="a0992d970f9cc1821a02a3f36087c3a6d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">EventHandler&lt;EventArgs&gt; XLToolbox.Versioning.Updater.CanCheckChanged</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -333,7 +390,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Versioning.html">Versioning</a></li><li class="navelem"><a class="el" href="classXLToolbox_1_1Versioning_1_1Updater.html">Updater</a></li>
-    <li class="footer">Generated on Mon Jul 4 2016 21:40:56 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Aug 2 2016 00:10:13 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

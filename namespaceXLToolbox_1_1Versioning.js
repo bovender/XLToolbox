@@ -2,6 +2,8 @@ var namespaceXLToolbox_1_1Versioning =
 [
     [ "InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", "classXLToolbox_1_1Versioning_1_1InstallUpdateView" ],
     [ "NotAuthorizedForUpdateView", "classXLToolbox_1_1Versioning_1_1NotAuthorizedForUpdateView.html", "classXLToolbox_1_1Versioning_1_1NotAuthorizedForUpdateView" ],
+    [ "ReleaseInfo", "classXLToolbox_1_1Versioning_1_1ReleaseInfo.html", "classXLToolbox_1_1Versioning_1_1ReleaseInfo" ],
+    [ "ReleaseInfoViewModel", "classXLToolbox_1_1Versioning_1_1ReleaseInfoViewModel.html", "classXLToolbox_1_1Versioning_1_1ReleaseInfoViewModel" ],
     [ "SemanticVersion", "classXLToolbox_1_1Versioning_1_1SemanticVersion.html", "classXLToolbox_1_1Versioning_1_1SemanticVersion" ],
     [ "UpdateAvailableView", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView" ],
     [ "Updater", "classXLToolbox_1_1Versioning_1_1Updater.html", "classXLToolbox_1_1Versioning_1_1Updater" ],

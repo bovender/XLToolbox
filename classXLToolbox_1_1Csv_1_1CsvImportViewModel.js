@@ -3,7 +3,7 @@ var classXLToolbox_1_1Csv_1_1CsvImportViewModel =
     [ "CsvImportViewModel", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a34472363d2df100bc68713088efc95ef", null ],
     [ "CsvImportViewModel", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#aa0f98234eb506153cebdf6eb5a6ad155", null ],
     [ "FromLastUsed", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#afd1433af308e86fc93660c1b99f5437b", null ],
-    [ "GetPercentCompleted", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a1d69965ac5b678a46aed7338480e4996", null ],
+    [ "UpdateProcessMessageContent", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a29b1ec58dc6aed56076d26383bda42fd", null ],
     [ "ChooseFileNameCommand", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a38048aa56a6d93a9ded58c9eb261bab0", null ],
     [ "ChooseImportFileNameMessage", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a3ad1f80ad51d7621b619377b79e7a42e", null ],
     [ "DecimalSeparator", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a02a0a3af2ccb0fdf8697e264923a28f8", null ],

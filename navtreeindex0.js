@@ -1,8 +1,6 @@
 var NAVTREEINDEX0 =
 {
 "AboutViewModel_8cs.html":[3,0,2,0,1],
-"AboutView_8g_8cs.html":[3,0,2,11,0,0,0],
-"AboutView_8g_8i_8cs.html":[3,0,2,11,0,0,1],
 "AboutView_8xaml_8cs.html":[3,0,2,0,0],
 "Api_8cs.html":[3,0,2,16,0],
 "BatchExportLayout_8cs.html":[3,0,2,4,1,0],
@@ -20,8 +18,6 @@ var NAVTREEINDEX0 =
 "BatchExportScope_8cs.html#acac07de245cdb7f7d1b927af24303df7ae1cedfa084a159502965d3beddc8508d":[3,0,2,4,1,2,0,0],
 "BatchExportSettingsViewModelTest_8cs.html":[3,0,1,2,0],
 "BatchExportSettingsViewModel_8cs.html":[3,0,2,4,2,0],
-"BatchExportSettingsView_8g_8cs.html":[3,0,2,11,0,4,0,0],
-"BatchExportSettingsView_8g_8i_8cs.html":[3,0,2,11,0,4,0,1],
 "BatchExportSettingsView_8xaml_8cs.html":[3,0,2,4,3,0],
 "BatchExportSettings_8cs.html":[3,0,2,4,1,3],
 "BatchExporter_8cs.html":[3,0,2,4,4],
@@ -249,5 +245,9 @@ var NAVTREEINDEX0 =
 "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6afd70049ad1ec6d767e63621283309159":[3,0,2,19,0,7],
 "ContextItems_8cs.html":[3,0,2,18,0],
 "CsvExportViewModel_8cs.html":[3,0,2,1,1],
-"CsvExporter_8cs.html":[3,0,2,1,0]
+"CsvExporter_8cs.html":[3,0,2,1,0],
+"CsvFileBase_8cs.html":[3,0,2,1,2],
+"CsvFileTest_8cs.html":[3,0,1,0,0],
+"CsvFileView_8xaml_8cs.html":[3,0,2,1,3],
+"CsvImportViewModel_8cs.html":[3,0,2,1,5]
 };

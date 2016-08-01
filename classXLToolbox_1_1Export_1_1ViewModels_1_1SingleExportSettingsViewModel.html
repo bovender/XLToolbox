@@ -141,8 +141,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ab9ef69186125bf05f9763eca11eb8d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33fa18885742e5e14c890644af892c71"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html#a33fa18885742e5e14c890644af892c71">BeforeStartProcess</a> ()</td></tr>
 <tr class="separator:a33fa18885742e5e14c890644af892c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95ba329f355d5ee856e6840be6479477"><td class="memItemLeft" align="right" valign="top">override int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html#a95ba329f355d5ee856e6840be6479477">GetPercentCompleted</a> ()</td></tr>
-<tr class="separator:a95ba329f355d5ee856e6840be6479477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2bfa05c85d72a70a6eaad1b0915d91a"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html#ac2bfa05c85d72a70a6eaad1b0915d91a">UpdateProcessMessageContent</a> (<a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html">ProcessMessageContent</a> processMessageContent)</td></tr>
+<tr class="separator:ac2bfa05c85d72a70a6eaad1b0915d91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a639cf881f6855ea0f16b12b8538b65d1"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html#a639cf881f6855ea0f16b12b8538b65d1">DoEditPresets</a> ()</td></tr>
 <tr class="separator:a639cf881f6855ea0f16b12b8538b65d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d9174064711c873263b91bcadd6d8c4"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html#a3d9174064711c873263b91bcadd6d8c4">SaveExportPath</a> ()</td></tr>
@@ -353,29 +353,6 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a95ba329f355d5ee856e6840be6479477"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">override int XLToolbox.Export.ViewModels.SingleExportSettingsViewModel.GetPercentCompleted </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a3d9174064711c873263b91bcadd6d8c4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -400,6 +377,30 @@ Properties</h2></td></tr>
 <p>Saves the current export path for reuse. </p>
 
 <p>Reimplemented from <a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html#a21a453444a43c29bcecb373e4348552e">XLToolbox.Export.ViewModels.SettingsViewModelBase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac2bfa05c85d72a70a6eaad1b0915d91a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">override void XLToolbox.Export.ViewModels.SingleExportSettingsViewModel.UpdateProcessMessageContent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html">ProcessMessageContent</a>&#160;</td>
+          <td class="paramname"><em>processMessageContent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -647,7 +648,7 @@ Properties</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Export.html">Export</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Export_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html">SingleExportSettingsViewModel</a></li>
-    <li class="footer">Generated on Mon Jul 4 2016 21:40:56 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Tue Aug 2 2016 00:10:13 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

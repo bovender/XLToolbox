@@ -3,6 +3,7 @@ var classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel =
     [ "WorkbookViewModel", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#a9685689ad5c3da79a71d3706e7e7fb85", null ],
     [ "WorkbookViewModel", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#af02b72f406975fed62d4195f9d75eb54", null ],
     [ "BuildSheetList", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#a2e84335bd73109e37ced93faa65b8d55", null ],
+    [ "IndexOf", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#ac544d43521467f96242bd5b9ba027fa7", null ],
     [ "RevealModelObject", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#a8f572310702200fe165362ed919e96d6", null ],
     [ "AlwaysOnTop", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#a6da8b729734c572583da534fb8be1faa", null ],
     [ "ConfirmDeleteMessage", "classXLToolbox_1_1Excel_1_1ViewModels_1_1WorkbookViewModel.html#a2d71da4914e6d78d343f2a0e71e7bfdd", null ],
