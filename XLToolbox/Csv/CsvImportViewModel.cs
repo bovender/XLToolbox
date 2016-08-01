@@ -140,9 +140,9 @@ namespace XLToolbox.Csv
 
         #region ProcessViewModelBase implementation
 
-        protected override int GetPercentCompleted()
+        protected override void UpdateProcessMessageContent(ProcessMessageContent processMessageContent)
         {
-            return 50; // TODO
+            processMessageContent.IsIndeterminate = true;
         }
 
         #endregion

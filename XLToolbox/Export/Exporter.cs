@@ -248,7 +248,7 @@ namespace XLToolbox.Export
             FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, Preset.Transparency);
             ConvertColor(fib);
             fib.SetResolution(Preset.Dpi, Preset.Dpi);
-            fib.Comment = Versioning.SemanticVersion.BrandName;
+            fib.Comment = Versioning.SemanticVersion.Current.BrandName;
             PercentCompleted = 30;
             Logger.Info("Saving {0} file", Preset.FileType);
             fib.Save(

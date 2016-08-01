@@ -17,18 +17,18 @@
  */
 using System;
 using System.Windows;
+using Xl = Microsoft.Office.Interop.Excel;
 using Bovender.Extensions;
 using Bovender.Mvvm.Actions;
 using Bovender.Mvvm.Messaging;
-using XLToolbox.ExceptionHandler;
-using XLToolbox.Excel.ViewModels;
-using XLToolbox.About;
-using XLToolbox.Versioning;
-using XLToolbox.SheetManager;
-using XLToolbox.Export.ViewModels;
-using Xl = Microsoft.Office.Interop.Excel;
-using XLToolbox.Export.Models;
 using Bovender.Mvvm.Models;
+using XLToolbox.About;
+using XLToolbox.Excel.ViewModels;
+using XLToolbox.ExceptionHandler;
+using XLToolbox.Export.Models;
+using XLToolbox.Export.ViewModels;
+using XLToolbox.SheetManager;
+using XLToolbox.Versioning;
 
 namespace XLToolbox
 {
@@ -57,7 +57,7 @@ namespace XLToolbox
                 switch (cmd)
                 {
                     case Command.About: About(); break;
-                    case Command.CheckForUpdates: CheckForUpdates(); break;
+                    case Command.CheckForUpdates: CheckForUpdate(); break;
                     case Command.SheetManager: SheetManager(); break;
                     case Command.ExportSelection: ExportSelection(); break;
                     case Command.ExportSelectionLast: ExportSelectionLast(); break;
@@ -137,19 +137,48 @@ namespace XLToolbox
             w.ShowDialogInForm();
         }
 
-        static void CheckForUpdates()
+        static void CheckForUpdate()
         {
-            EventHandler<MessageArgs<ProcessMessageContent>> h =
-                (object sender, MessageArgs<ProcessMessageContent> args) =>
-                {
-                    args.Content.Caption = Strings.CheckingForUpdates;
-                    Window view = args.Content.InjectInto<UpdaterProcessView>();
-                    args.Content.ViewModel.ViewDispatcher = view.Dispatcher;
-                    view.Show();
-                };
-            Versioning.UpdaterViewModel.Instance.CheckForUpdateMessage.Sent += h;
-            Versioning.UpdaterViewModel.Instance.CheckForUpdateCommand.Execute(null);
-            Versioning.UpdaterViewModel.Instance.CheckForUpdateMessage.Sent -= h;
+            Updater.CanCheck = false;
+            ReleaseInfo releaseInfo = new ReleaseInfo();
+            Bovender.Versioning.ReleaseInfoViewModel releaseInfoVM = new Bovender.Versioning.ReleaseInfoViewModel(
+                releaseInfo, XLToolbox.Versioning.SemanticVersion.Current);
+            releaseInfoVM.ShowProgressMessage.Sent += (sender, args) =>
+            {
+                args.Content.Caption = Strings.CheckForUpdates;
+                args.Content.CancelButtonText = Strings.Cancel;
+                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowInForm();
+            };
+            releaseInfoVM.UpdateAvailableMessage.Sent += (sender, args) =>
+            {
+                Logger.Info("CheckForUpdate: UpdateAvailableMessage received");
+                UpdaterViewModel updaterVM = new UpdaterViewModel(Updater.CreateDefault(releaseInfo));
+                updaterVM.ShowUpdateAvailableView();
+            };
+            releaseInfoVM.NoUpdateAvailableMessage.Sent += (sender, args) =>
+            {
+                Logger.Info("CheckForUpdate: NoUpdateAvailableMessage received");
+                ProcessCompletedAction a = new ProcessCompletedAction(
+                    args.Content as ProcessMessageContent,
+                    Strings.CheckForUpdates,
+                    Strings.YouHaveTheLatestVersion,
+                    Strings.OK);
+                a.Invoke();
+                Updater.CanCheck = true;
+            };
+            releaseInfoVM.ExceptionMessage.Sent += (sender, args) =>
+            {
+                Logger.Warn("CheckForUpdate: ExceptionMessage received");
+                Logger.Warn(releaseInfoVM.Exception);
+                ProcessCompletedAction a = new ProcessCompletedAction(
+                    args.Content as ProcessMessageContent,
+                    Strings.CheckForUpdates,
+                    Strings.FetchingVersionInformationFailed,
+                    Strings.OK);
+                a.InvokeWithContent(args.Content);
+                Updater.CanCheck = true;
+            };
+            releaseInfoVM.StartProcess();
         }
 
         static void SheetManager()

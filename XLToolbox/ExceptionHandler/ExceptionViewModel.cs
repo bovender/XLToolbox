@@ -47,7 +47,7 @@ namespace XLToolbox.ExceptionHandler
         {
             get
             {
-                return SemanticVersion.CurrentVersion().ToString();
+                return SemanticVersion.Current.ToString();
             }
         }
 

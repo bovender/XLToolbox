@@ -20,14 +20,13 @@ using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using NLog;
+using Bovender.Extensions;
+using Bovender.Mvvm.Actions;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.ExceptionHandler;
 using XLToolbox.Greeter;
-using Threading = System.Windows.Threading;
-using NLog;
-using Bovender.Extensions;
-using Bovender.Versioning;
-using Ver = XLToolbox.Versioning;
+using XLToolbox.Versioning;
 
 namespace XLToolboxForExcel
 {
@@ -52,7 +51,8 @@ namespace XLToolboxForExcel
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.
-            _dispatcher = Threading.Dispatcher.CurrentDispatcher;
+            _dispatcher = Dispatcher.CurrentDispatcher;
+            Updater.CanCheck = true;
 
             // Make the current Excel instance globally available
             // even for the non-VSTO components of this addin
@@ -70,7 +70,6 @@ namespace XLToolboxForExcel
 
             Ribbon.SubscribeToEvents();
             PerformSanityChecks();
-            MaybeCheckForUpdate();
 
             // Enable the keyboard shortcuts if no settings were previously saved,
             // i.e. if this appears to be the first run.
@@ -84,7 +83,7 @@ namespace XLToolboxForExcel
                 XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
-            GreetUser();
+            if (!GreetUser()) MaybeCheckForUpdate();
             Logger.Info("ThisAddIn_Startup: Done");
         }
 
@@ -100,12 +99,13 @@ namespace XLToolboxForExcel
                 XLToolbox.Legacy.LegacyToolbox.Default.Dispose();
             }
 
-            Bovender.Versioning.UpdaterViewModel uvm = Ver.UpdaterViewModel.Instance;
-            if (uvm.IsUpdatePending && uvm.InstallUpdateCommand.CanExecute(null))
+            if (Updater.Default != null && Updater.Default.Status == Bovender.Versioning.UpdaterStatus.Downloaded)
             {
+                Logger.Info("ThisAddIn_Shutdown: Offering to install update that was previously downloaded");
+                UpdaterViewModel updaterVM = new UpdaterViewModel(Updater.Default);
                 // Must show the InstallUpdateView modally, because otherwise Excel would
                 // continue to shut down and immediately remove the view while doing so.
-                uvm.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
+                updaterVM.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
 
             Instance.Default.InvokeShutdown();
@@ -136,22 +136,24 @@ namespace XLToolboxForExcel
 
         #region Private methods
 
-        private void GreetUser()
+        private bool GreetUser()
         {
+            bool result = false;
             SemanticVersion lastVersionSeen = new SemanticVersion(
                 XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen);
-            SemanticVersion currentVersion = XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-            Logger.Info("GreetUser: Current version: {0}; last was {1}", currentVersion, lastVersionSeen);
-            if (currentVersion > lastVersionSeen)
+            Logger.Info("GreetUser: Current version: {0}; last was {1}", SemanticVersion.Current, lastVersionSeen);
+            if (SemanticVersion.Current > lastVersionSeen)
             {
                 _dispatcher.BeginInvoke((Action)(() =>
                 {
                     Logger.Info("GreetUser: showing welcome dialog");
-                    XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = currentVersion.ToString();
+                    XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = SemanticVersion.Current.ToString();
                     GreeterViewModel gvm = new GreeterViewModel();
                     gvm.InjectInto<GreeterView>().ShowDialogInForm();
                 }));
+                result = true;
             }
+            return result;
         }
 
         /// <summary>
@@ -178,18 +180,18 @@ namespace XLToolboxForExcel
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= XLToolbox.UserSettings.UserSettings.Default.UpdateCheckInterval)
             {
-                _installUpdateView = new Ver.InstallUpdateView();
-                UpdaterViewModel updaterVM = Ver.UpdaterViewModel.Instance;
-                if (updaterVM.CanCheckForUpdate)
+                ReleaseInfoViewModel releaseInfoVM = new ReleaseInfoViewModel();
+                releaseInfoVM.ProcessFinishedMessage.Sent += (sender, args) =>
                 {
-                    Logger.Info("Checking for update");
-                    updaterVM.UpdateAvailableMessage.Sent += (sender, args) =>
+                    if (releaseInfoVM.Status == Bovender.Versioning.ReleaseInfoStatus.InfoAvailable)
                     {
-                        updaterVM.InjectInto<Ver.UpdateAvailableView>().ShowDialogInForm();
-                    };
-                    _dispatcher.BeginInvoke(new Action(() => updaterVM.CheckForUpdateCommand.Execute(null)));
-                }
-                XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
+                        Logger.Info("MaybeCheckForUpdate: Info available, remembering current date");
+                        XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck = DateTime.Today;
+                    }
+                };
+                Logger.Info("MaybeCheckForUpdate: Checking for update");
+                Updater.CanCheck = false;
+                releaseInfoVM.StartProcess();
             }
         }
 
@@ -234,9 +236,8 @@ namespace XLToolboxForExcel
 
         #region Private fields
 
-        private Threading.Dispatcher _dispatcher;
+        private Dispatcher _dispatcher;
         private Ribbon _ribbon;
-        private XLToolbox.Versioning.InstallUpdateView _installUpdateView;
 
         #endregion
 

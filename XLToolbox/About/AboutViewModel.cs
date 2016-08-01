@@ -34,7 +34,7 @@ namespace XLToolbox.About
         {
             get
             {
-                return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
+                return XLToolbox.Versioning.SemanticVersion.Current;
             }
         }
 

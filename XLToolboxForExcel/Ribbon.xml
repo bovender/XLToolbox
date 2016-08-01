@@ -68,7 +68,7 @@
 								getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 						</menu>
 					</splitButton>
-					<splitButton id="SplitButtonExportBatch">
+					<splitButton id="SplitButtonExportBatch" getEnabled="IsGraphicExportEnabled">
 						<button id="ButtonExportBatchQuick" image="export-batch-small.png"
 							getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 						<menu id="MenuExportBatch">

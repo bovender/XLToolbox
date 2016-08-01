@@ -25,49 +25,41 @@ namespace XLToolbox.Versioning
 {
     public class SemanticVersion : Bovender.Versioning.SemanticVersion
     {
-        #region Static 'overrides'
+        #region Current version singleton
 
-        /// <summary>
-        /// Returns the current version of the XL Toolbox addin.
-        /// </summary>
-        /// <returns></returns>
-        new public static Bovender.Versioning.SemanticVersion CurrentVersion()
-        {
-            if (_currentVersion == null)
-            {
-                _currentVersion = Bovender.Versioning.SemanticVersion.CurrentVersion(
-                    Assembly.GetExecutingAssembly()
-                    );
-                Logger.Info("Current version: {0}", _currentVersion);
-            }
-            return _currentVersion;
-        }
-
-        #endregion
-
-        #region Static methods
-
-        public static string BrandName
+        public static SemanticVersion Current
         {
             get
             {
-                return Properties.Settings.Default.AddinName + " " + CurrentVersion().ToString();
+                return _lazy.Value;
+            }
+        }
+
+        private static readonly Lazy<SemanticVersion> _lazy =
+            new Lazy<SemanticVersion>(() => new SemanticVersion());
+
+        #endregion
+
+        #region Public method
+
+        public string BrandName
+        {
+            get
+            {
+                return Properties.Settings.Default.AddinName + " " + ToString();
             }
         }
 
         #endregion
 
-        #region Private static fields
+        #region Constructors
 
-        private static Bovender.Versioning.SemanticVersion _currentVersion;
+        /// <summary>
+        /// Creates an instance with the current XL Toolbox version
+        /// </summary>
+        private SemanticVersion() : base(Assembly.GetExecutingAssembly()) { }
 
-        #endregion
-
-        #region Class logger
-
-        private static NLog.Logger Logger { get { return _logger.Value; } }
-
-        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+        public SemanticVersion(string version) : base(version) { }
 
         #endregion
     }

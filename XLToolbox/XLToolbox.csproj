@@ -54,15 +54,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
-    <Reference Include="Bovender, Version=0.11.3.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.12.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.11.3.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.12.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.11.3.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.12.0.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.11.3.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.12.0.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +244,8 @@
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Vba\IApi.cs" />
     <Compile Include="Vba\VbaException.cs" />
+    <Compile Include="Versioning\ReleaseInfo.cs" />
+    <Compile Include="Versioning\ReleaseInfoViewModel.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
     <Compile Include="Versioning\InstallUpdateView.xaml.cs">
       <DependentUpon>InstallUpdateView.xaml</DependentUpon>
@@ -253,10 +255,6 @@
     </Compile>
     <Compile Include="Versioning\UpdaterProcessView.xaml.cs">
       <DependentUpon>UpdaterProcessView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Versioning\UpdaterViewModel.cs" />
-    <Compile Include="Versioning\WindowDownloadUpdate.xaml.cs">
-      <DependentUpon>WindowDownloadUpdate.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExceptionHandler\ExceptionDetailView.xaml.cs">
       <DependentUpon>ExceptionDetailView.xaml</DependentUpon>
@@ -292,6 +290,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Versioning\Updater.cs" />
+    <Compile Include="Versioning\UpdaterViewModel.cs" />
     <Compile Include="WorkbookStorage\ContextItems.cs" />
     <Compile Include="WorkbookStorage\EmptyKeyException.cs" />
     <Compile Include="WorkbookStorage\InvalidContextException.cs" />
@@ -473,10 +472,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Versioning\UpdaterProcessView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Versioning\WindowDownloadUpdate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

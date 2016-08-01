@@ -19,30 +19,65 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Bov = Bovender.Versioning;
+using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 
 namespace XLToolbox.Versioning
 {
-    /// <summary>
-    /// Provides a singleton instance of Bovender.UpdaterViewModel.
-    /// </summary>
-    public class UpdaterViewModel
+    public class UpdaterViewModel : Bovender.Versioning.UpdaterViewModel
     {
-        #region Singleton factory
+        #region Constructor
 
-        private static readonly Lazy<Bovender.Versioning.UpdaterViewModel> _instance =
-            new Lazy<Bovender.Versioning.UpdaterViewModel>(
-                () => new Bovender.Versioning.UpdaterViewModel(new Updater())
-            );
-
-        public static Bovender.Versioning.UpdaterViewModel Instance
+        public UpdaterViewModel(Updater updater)
+            : base(updater)
         {
-            get
+            XLToolbox.Excel.ViewModels.Instance.Default.ShuttingDown += Instance_ShuttingDown;
+            ShowProgressMessage.Sent += (sender2, args2) =>
             {
-                return _instance.Value;
-            }
+                args2.Content.InjectInto<XLToolbox.Versioning.UpdaterProcessView>().ShowInForm();
+            };
+            DownloadFinishedMessage.Sent += (sender2, args2) =>
+            {
+                Bovender.Mvvm.Actions.ProcessCompletedAction a = new Bovender.Mvvm.Actions.ProcessCompletedAction();
+                a.Caption = XLToolbox.Strings.UpdateAvailable;
+                a.Message = XLToolbox.Strings.UpdateHasBeenDownloaded;
+                a.OkButtonText = XLToolbox.Strings.OK;
+                a.InvokeWithContent(args2.Content);
+            };
+            DownloadFailedMessage.Sent += (sender2, args2) =>
+            {
+                Bovender.Mvvm.Actions.ProcessCompletedAction a = new Bovender.Mvvm.Actions.ProcessCompletedAction();
+                a.Caption = XLToolbox.Strings.UpdateAvailable;
+                a.Message = XLToolbox.Strings.ErrorOccurredWhileDownloading;
+                a.OkButtonText = XLToolbox.Strings.OK;
+                a.InvokeWithContent(args2.Content);
+            };
         }
 
+        #endregion
+
+        #region Public method
+
+        /// <summary>
+        /// Injects this view model into an UpdateAvailableView and shows it as a dialog.
+        /// </summary>
+        public void ShowUpdateAvailableView()
+        {
+            DownloadFolder = UserSettings.UserSettings.Default.DownloadFolder;
+            InjectInto<UpdateAvailableView>().ShowDialogInForm();
+            UserSettings.UserSettings.Default.DownloadFolder = DownloadFolder;
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void Instance_ShuttingDown(object sender, Excel.ViewModels.InstanceShutdownEventArgs e)
+        {
+            CancelProcess();
+            XLToolbox.Excel.ViewModels.Instance.Default.ShuttingDown -= Instance_ShuttingDown;
+        }
+ 
         #endregion
     }
 }
