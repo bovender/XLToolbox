@@ -23,7 +23,7 @@
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:v="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:mvvm="clr-namespace:XLToolbox.Mvvm.Actions"
-        Title="{x:Static l:Strings.Welcome}"
+        Title="{x:Static l:Strings.Welcome}" Topmost="True"
         ShowInTaskbar="False" v:WindowState.CenterScreen="True"
         SizeToContent="Height" ResizeMode="NoResize" Width="480"
         >
