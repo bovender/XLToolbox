@@ -72,7 +72,7 @@ namespace XLToolbox.Vba
         /// <returns>Current XL Toolbox version</returns>
         public string Version()
         {
-            return Versioning.SemanticVersion.CurrentVersion().ToString();
+            return Versioning.SemanticVersion.Current.ToString();
         }
 
         /// <summary>
