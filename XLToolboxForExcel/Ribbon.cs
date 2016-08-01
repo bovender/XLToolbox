@@ -26,6 +26,7 @@ using System.Windows.Resources;
 using Office = Microsoft.Office.Core;
 using CustomUI = DocumentFormat.OpenXml.Office.CustomUI;
 using Xl = Microsoft.Office.Interop.Excel;
+using XLToolbox.Versioning;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 
@@ -117,12 +118,12 @@ namespace XLToolboxForExcel
 
         public void SubscribeToEvents()
         {
-            XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged += UpdaterViewModel_PropertyChanged;
+            Updater.CanCheckChanged += Updater_CanCheckChanged;
             XLToolbox.SheetManager.TaskPaneManager.Initialized += SheetManagerPane_SheetManagerInitialized;
 
             XLToolbox.Excel.ViewModels.Instance.Default.ShuttingDown += (sender, args) =>
             {
-                XLToolbox.Versioning.UpdaterViewModel.Instance.PropertyChanged -= UpdaterViewModel_PropertyChanged;
+                Updater.CanCheckChanged -= Updater_CanCheckChanged;
                 XLToolbox.SheetManager.TaskPaneManager.Initialized -= SheetManagerPane_SheetManagerInitialized;
             };
         }
@@ -209,7 +210,7 @@ namespace XLToolboxForExcel
 
         public bool ButtonCheckForUpdate_GetEnabled(Office.IRibbonControl control)
         {
-            return (XLToolbox.Versioning.UpdaterViewModel.Instance.CanCheckForUpdate);
+            return XLToolbox.Versioning.Updater.CanCheck;
         }
 
         public bool HasWorkbook(Office.IRibbonControl control)
@@ -234,6 +235,11 @@ namespace XLToolboxForExcel
             return XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible;
         }
 
+        public bool IsGraphicExportEnabled(Office.IRibbonControl control)
+        {
+            return true;
+        }
+
         #endregion
 
         #region Event handlers
@@ -249,7 +255,7 @@ namespace XLToolboxForExcel
             InvalidateRibbonUi();
         }
 
-        void UpdaterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        void Updater_CanCheckChanged(object sender, EventArgs e)
         {
             if (_ribbonUi != null)
             {

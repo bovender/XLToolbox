@@ -15,44 +15,68 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Text.RegularExpressions;
+using Bovender.Versioning;
+using Bovender.Mvvm.Actions;
+using Bovender.Extensions;
 
 namespace XLToolbox.Versioning
 {
     public class Updater : Bovender.Versioning.Updater
     {
-        #region Overrides
+        #region Static properties
+        
+        public static Updater Default { get; set; }
 
-        protected override Uri GetVersionInfoUri()
+        public static bool CanCheck { get; set; } // TODO: Find a way around this global variable
+        
+        #endregion
+
+        #region Static event
+        
+        public static event EventHandler<EventArgs> CanCheckChanged;
+
+        #endregion
+
+        #region Public static methods
+
+        public static Updater CreateDefault(IReleaseInfo releaseInfo)
         {
-            return new Uri(Properties.Settings.Default.VersionInfoUrl);
+            Default = new Updater(releaseInfo);
+            return Default;
         }
+        
+        #endregion
 
-        protected override Bovender.Versioning.SemanticVersion GetCurrentVersion()
-        {
-            return XLToolbox.Versioning.SemanticVersion.CurrentVersion();
-        }
+        #region Private static methods
 
-        protected override string BuildDestinationFileName()
+        private static void OnCanCheckChanged()
         {
-            string fn;
-            Regex r = new Regex(@"(?<fn>[^/]+?exe)");
-            Match m = r.Match(DownloadUri.ToString());
-            if (m.Success)
+            EventHandler<EventArgs> h = CanCheckChanged;
+            if (h != null)
             {
-                fn = m.Groups["fn"].Value;
+                h(null, new EventArgs());
             }
-            else
-            {
-                fn = String.Format("XL_Toolbox_{0}.exe", NewVersion.ToString());
-            };
-            return Path.Combine(DestinationFolder, fn);
         }
+        
+        #endregion
+
+        #region Constructor
+
+        public Updater(Bovender.Versioning.IReleaseInfo releaseInfo)
+            : base(releaseInfo)
+        {
+            CurrentVersion = SemanticVersion.Current;
+        }
+        
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

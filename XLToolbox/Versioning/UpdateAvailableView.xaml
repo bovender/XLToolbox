@@ -31,18 +31,8 @@
         <ResourceDictionary Source="/Bovender;component/style.xaml" />
     </Window.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger SourceObject="{Binding ChooseDestinationFolderMessage}" EventName="Sent">
+        <i:EventTrigger SourceObject="{Binding ChooseFolderMessage}" EventName="Sent">
             <mvvm:ChooseFolderAction Description="{x:Static l:Strings.ChooseWhereToSaveUpdateFile}" />
-        </i:EventTrigger>
-        <i:EventTrigger SourceObject="{Binding ReadyToDownloadMessage}" EventName="Sent">
-            <!-- Close this view directly; calling CloseViewCommand would close other views as well. -->
-            <ei:CallMethodAction MethodName="Close" />
-            <i:InvokeCommandAction Command="{Binding DownloadUpdateCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger SourceObject="{Binding DownloadUpdateMessage}" EventName="Sent">
-            <mvvm:ProcessAction Assembly="XLToolbox" View="XLToolbox.Versioning.UpdaterProcessView"
-                                Caption="asdf"
-                                Message="{x:Static l:Strings.DownloadingXLToolboxUpdate}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Orientation="Horizontal" Margin="10">
@@ -69,12 +59,12 @@
                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding NewVersion, Mode=OneTime}"
                            FontWeight="Bold" />
             </Grid>
-            <TextBlock HorizontalAlignment="Left" Text="{Binding UpdateSummary, Mode=OneTime}"
+            <TextBlock HorizontalAlignment="Left" Text="{Binding Summary, Mode=OneTime}"
                        TextWrapping="Wrap" TextAlignment="Justify"
                        Width="{Binding ElementName=header,Path=ActualWidth}" Margin="0,10,0,0" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                 <UniformGrid Columns="2" Rows="1">
-                    <Button Command="{Binding ChooseDestinationFolderCommand}" IsDefault="True"
+                    <Button Command="{Binding ChooseFolderCommand}" IsDefault="True"
                             Content="{x:Static l:Strings.DownloadNow}" Margin="0,0,10,0" Padding="10,5,10,5" />
                     <Button Command="{Binding CloseViewCommand}" IsCancel="True"
                             Content="{x:Static l:Strings.NoThanks}" Padding="10,5,10,5"  />

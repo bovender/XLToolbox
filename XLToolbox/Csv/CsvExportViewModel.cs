@@ -149,9 +149,9 @@ namespace XLToolbox.Csv
 
         #region Implementation of ProcessViewModel
 
-        protected override int GetPercentCompleted()
+        protected override void UpdateProcessMessageContent(ProcessMessageContent processMessageContent)
         {
-            return Convert.ToInt32(100d * CsvExporter.CellsProcessed / CsvExporter.CellsTotal);
+            processMessageContent.PercentCompleted = Convert.ToInt32(100d * CsvExporter.CellsProcessed / CsvExporter.CellsTotal);
         }
 
         #endregion

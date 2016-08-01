@@ -274,15 +274,11 @@ namespace XLToolbox.Export.ViewModels
             return base.BeforeStartProcess();
         }
 
-        protected override int GetPercentCompleted()
+        protected override void UpdateProcessMessageContent(ProcessMessageContent processMessageContent)
         {
             if (Exporter != null)
             {
-                return Exporter.PercentCompleted;
-            }
-            else
-            {
-                return 0;
+                processMessageContent.PercentCompleted = Exporter.PercentCompleted;
             }
         }
 
