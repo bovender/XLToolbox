@@ -128,6 +128,13 @@ namespace XLToolbox.Excel.ViewModels
         {
             string name = sheet.Name;
             SheetViewModel svm = Sheets.FirstOrDefault(s => s.DisplayString == name);
+            if (svm == null)
+            {
+                // If the sheet was not found, rebuild the sheet list.
+                // Maybe the sheet was just added, before the watch timer got active.
+                BuildSheetList();
+                svm = Sheets.FirstOrDefault(s => s.DisplayString == name);
+            }
             if (svm != null)
             {
                 Logger.Info("IndexOf: Found view model for this sheet");
@@ -136,7 +143,7 @@ namespace XLToolbox.Excel.ViewModels
             else
 	        {
                 Logger.Warn("IndexOf: Requested sheet not found in collection!");
-                throw new ArgumentOutOfRangeException("Sheet not found in collection");
+                return -1;
 	        }
         }
 
@@ -153,7 +160,7 @@ namespace XLToolbox.Excel.ViewModels
                     _moveSheetUp = new DelegatingCommand(
                         parameter => { DoMoveSheetUp(); },
                         parameter => { return CanMoveSheetUp(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _moveSheetUp;
             }
@@ -168,7 +175,7 @@ namespace XLToolbox.Excel.ViewModels
                     _moveSheetsToTop = new DelegatingCommand(
                         parameter => { DoMoveSheetsToTop(); },
                         parameter => { return CanMoveSheetsToTop(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _moveSheetsToTop;
             }
@@ -183,7 +190,7 @@ namespace XLToolbox.Excel.ViewModels
                     _moveSheetDown = new DelegatingCommand(
                         parameter => { DoMoveSheetDown(); },
                         parameter => { return CanMoveSheetDown(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _moveSheetDown;
             }
@@ -198,7 +205,7 @@ namespace XLToolbox.Excel.ViewModels
                     _moveSheetsToBottom = new DelegatingCommand(
                         parameter => { DoMoveSheetsToBottom(); },
                         parameter => { return CanMoveSheetsToBottom(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _moveSheetsToBottom;
             }
@@ -213,7 +220,7 @@ namespace XLToolbox.Excel.ViewModels
                     _deleteSheets = new DelegatingCommand(
                         parameter => { DoDeleteSheets(); },
                         parameter => { return CanDeleteSheets(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _deleteSheets;
             }
@@ -228,7 +235,7 @@ namespace XLToolbox.Excel.ViewModels
                     _renameSheet = new DelegatingCommand(
                         parameter => { DoRenameSheet(); },
                         parameter => { return CanRenameSheet(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _renameSheet;
             }
@@ -251,7 +258,7 @@ namespace XLToolbox.Excel.ViewModels
                     _monitorWorkbook = new DelegatingCommand(
                         parameter => { DoMonitorWorkbook(); },
                         parameter => { return CanMonitorWorkbook(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _monitorWorkbook;
             }
@@ -270,7 +277,7 @@ namespace XLToolbox.Excel.ViewModels
                     _unmonitorWorkbook = new DelegatingCommand(
                         parameter => { DoUnmonitorWorkbook(); },
                         parameter => { return CanUnmonitorWorkbook(); },
-                        this).ListenOn("Workbook");
+                        this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _unmonitorWorkbook;
             }
@@ -605,7 +612,7 @@ namespace XLToolbox.Excel.ViewModels
         private void SheetActivated(dynamic sheet)
         {
             Logger.Debug("SheetActivated: _lockEvents is {0}", _lockEvents);
-            if (sheet != null && _lockEvents <= 0)
+            if (sheet != null) // && _lockEvents <= 0)
             {
                 _lockEvents += 1;
                 SheetViewModel svm = Sheets.FirstOrDefault(s => s.IsSelected);
@@ -625,6 +632,7 @@ namespace XLToolbox.Excel.ViewModels
                 }
                 _lockEvents -= 1;
             }
+            Dispatch(() => OnPropertyChanged("ActiveSheet"));
         }
 
         #endregion
