@@ -149,7 +149,7 @@ namespace XLToolboxForExcel
                     Logger.Info("GreetUser: showing welcome dialog");
                     XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = SemanticVersion.Current.ToString();
                     GreeterViewModel gvm = new GreeterViewModel();
-                    gvm.InjectInto<GreeterView>().ShowDialogInForm();
+                    gvm.InjectInto<GreeterView>().ShowInForm();
                 }));
                 result = true;
             }
