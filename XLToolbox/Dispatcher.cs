@@ -262,7 +262,7 @@ namespace XLToolbox
             }
             else
             {
-                Instance.Default.Dispose();
+                Instance.Default.Quit();
             }
         }
 

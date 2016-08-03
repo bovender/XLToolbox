@@ -108,8 +108,6 @@ namespace XLToolboxForExcel
                 updaterVM.InjectInto<XLToolbox.Versioning.InstallUpdateView>().ShowDialogInForm();
             };
 
-            Instance.Default.InvokeShutdown();
-
             // Prevent "LocalDataSlot storage has been freed" exceptions;
             // see http://j.mp/localdatastoreslot
             Dispatcher.CurrentDispatcher.InvokeShutdown();

@@ -26,6 +26,7 @@ using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -538,14 +539,16 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
-        /// Invoke a shutdown of this view model. Note that this does not quit
-        /// Excel. This method is rather intended to be called when Excel is
-        /// quitting already.
+        /// Quits the current instance of Excel; no warning message will be shown.
         /// </summary>
-        public void InvokeShutdown()
+        public void Quit()
         {
-            Logger.Info("InvokeShutdown");
-            OnShuttingDown();
+            if (_application != null)
+            {
+                Logger.Info("Shutdown");
+                _canQuitExcel = true;
+                Dispose();
+            }
         }
 
         #endregion
@@ -568,11 +571,12 @@ namespace XLToolbox.Excel.ViewModels
             _application = application;
         }
 
-        public Instance(bool createNewExcelInstance)
+        private Instance(bool createNewExcelInstance)
             : this()
         {
             if (createNewExcelInstance)
             {
+                _canQuitExcel = true;
                 _application = new Application();
             }
         }
@@ -588,21 +592,27 @@ namespace XLToolbox.Excel.ViewModels
 
         public void Dispose()
         {
-            if (!_disposed)
-            {
-                Logger.Info("Instance disposal was triggered");
-                Dispose(true);
-                GC.SuppressFinalize(this);
-                // prevent executing this code again
-                _disposed = true;
-            }
+            Logger.Info("Dispose");
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool mayFreeManagedObjects)
+        protected virtual void Dispose(bool disposing)
         {
-            if (mayFreeManagedObjects)
+            if (!_disposed)
             {
-                Shutdown();
+                _disposed = true;
+                if (disposing)
+                {
+                    OnShuttingDown();
+                }
+                if (_canQuitExcel && _application != null)
+                {
+                    _application.DisplayAlerts = false;
+                    _application.Quit();
+                    if (Marshal.IsComObject(_application)) Marshal.ReleaseComObject(_application);
+                    _application = null;
+                }
             }
         }
 
@@ -618,26 +628,6 @@ namespace XLToolbox.Excel.ViewModels
         #endregion
 
         #region Private methods
-
-        /// <summary>
-        /// Shuts down the current instance of Excel; no warning message will be shown.
-        /// If an instance of this class exists, an error will be thrown.
-        /// </summary>
-        private void Shutdown()
-        {
-            if (_application != null)
-            {
-                _application.DisplayAlerts = false;
-                OnShuttingDown();
-                Logger.Info("Shutdown: Now quitting Excel.");
-                System.Threading.Timer t = new System.Threading.Timer((obj) =>
-                {
-                    ((Application)obj).Quit();
-                }, _application, 500, System.Threading.Timeout.Infinite);
-                // _application.Quit();
-                _application = null;
-            }
-        }
 
         private void OnShuttingDown()
         {
@@ -773,7 +763,7 @@ namespace XLToolbox.Excel.ViewModels
             }
             if (!workbookNotClosed)
             {
-                Shutdown();
+                Quit();
                 Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
             }
             else
@@ -788,6 +778,7 @@ namespace XLToolbox.Excel.ViewModels
         #region Private instance fields
 
         private bool _disposed;
+        private bool _canQuitExcel;
         private Application _application;
         private int _majorVersion;
         private DelegatingCommand _quitInteractivelyCommand;
@@ -807,8 +798,10 @@ namespace XLToolbox.Excel.ViewModels
         private static Lazy<Instance> _lazy = new Lazy<Instance>(
             () =>
             {
-                Instance i = new Instance(new Application());
-                i.Application.Workbooks.Add();
+                Instance i = new Instance(true);
+                Workbooks w = i.Application.Workbooks;
+                w.Add();
+                if (Marshal.IsComObject(w)) Marshal.ReleaseComObject(w);
                 return i;
             }
         );
