@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Test;
@@ -35,7 +36,13 @@ namespace XLToolbox.Test.Export
 
         #region Setup
 
-        [SetUp]
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
+        {
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+        }
+
+        [SetUp] 
         public void Setup()
         {
             Instance.Default.Reset();
