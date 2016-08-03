@@ -24,6 +24,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -103,6 +104,7 @@ namespace XLToolbox.Excel.ViewModels
                             // Use colon as separator because it is one of the
                             // characters that are illegal in a sheet name.
                             s += sheet.Name + "::";
+                            if (Marshal.IsComObject(sheet)) Marshal.ReleaseComObject(sheet);
                         }
                     }
                     catch (System.Runtime.InteropServices.COMException)
@@ -344,7 +346,8 @@ namespace XLToolbox.Excel.ViewModels
                 if (activeSheet != null)
                 {
                     Logger.Info("BuildSheetList: Selecting active sheet in list");
-                    SheetActivated(Workbook.ActiveSheet);
+                    SheetActivated(activeSheet);
+                    if (Marshal.IsComObject(activeSheet)) Marshal.ReleaseComObject(activeSheet);
                 }
                 else
                 {
@@ -406,7 +409,11 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i+1].Move(before: Workbook.Sheets[i]);
+                    var moving = Workbook.Sheets[i + 1];
+                    var other = Workbook.Sheets[i];
+                    moving.Move(before: other);
+                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
+                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
                     Sheets.Move(i, i - 1);
                 }
             }
@@ -421,7 +428,11 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(before: Workbook.Sheets[currentTop+1]);
+                    var moving = Workbook.Sheets[i + 1];
+                    var other = Workbook.Sheets[currentTop + 1];
+                    moving.Move(before: other);
+                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
+                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
                     Sheets.Move(i, currentTop);
                     currentTop++;
                 }
@@ -449,7 +460,11 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[i + 2]);
+                    var moving = Workbook.Sheets[i + 1];
+                    var other = Workbook.Sheets[i + 2];
+                    moving.Move(after: other);
+                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
+                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
                     Sheets.Move(i, i + 1);
                 }
             }
@@ -464,7 +479,11 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[currentBottom+1]);
+                    var moving = Workbook.Sheets[i + 1];
+                    var other = Workbook.Sheets[currentBottom + 1];
+                    moving.Move(after: other);
+                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
+                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
                     Sheets.Move(i, currentBottom);
                     currentBottom--;
                 }
@@ -503,7 +522,9 @@ namespace XLToolbox.Excel.ViewModels
                     {
                         // Must use sheet name rather than index in collection
                         // because indexes may differ if hidden sheets exist.
-                        Workbook.Sheets[Sheets[i].DisplayString].Delete();
+                        var s = Workbook.Sheets[Sheets[i].DisplayString];
+                        s.Delete();
+                        if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
                         Sheets.RemoveAt(i);
                     }
                 }

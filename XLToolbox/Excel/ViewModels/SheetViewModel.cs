@@ -23,13 +23,14 @@ using System.ComponentModel;
 using Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using Bovender.Mvvm.ViewModels;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.Excel.ViewModels
 {
     /// <summary>
     /// A view model for Excel sheets (worksheets, charts).
     /// </summary>
-    public class SheetViewModel : ViewModelBase
+    public class SheetViewModel : ViewModelBase, IDisposable
     {
         #region Public properties
 
@@ -206,6 +207,30 @@ namespace XLToolbox.Excel.ViewModels
 
         #endregion
 
+        #region Disposing
+
+        ~SheetViewModel()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                if (Marshal.IsComObject(_sheet)) Marshal.ReleaseComObject(_sheet);
+            }
+        }
+
+        #endregion
+
         #region Static Methods
 
         /// <summary>
@@ -243,6 +268,7 @@ namespace XLToolbox.Excel.ViewModels
         #region Private fields
 
         private dynamic _sheet;
+        private bool _disposed;
 
         #endregion
     }
