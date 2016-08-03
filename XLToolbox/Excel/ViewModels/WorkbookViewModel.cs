@@ -689,20 +689,31 @@ namespace XLToolbox.Excel.ViewModels
             }
             set
             {
-                _workbook = value;
-                OnPropertyChanged("Workbook");
-                Logger.Info("Workbook_set: _lockEvents is {0}", _lockEvents);
-                if (_workbook != null)
+                bool _changed = value != _workbook;
+                if (_changed && _workbook != null)
                 {
-                    Logger.Info("Workbook_set: Using new workbook");
-                    BuildSheetList();
-                    _workbook.SheetActivate += SheetActivated;
-                    DisplayString = _workbook.Name;
+                    DoUnmonitorWorkbook();
+                    _workbook.SheetActivate -= SheetActivated;
+                    if (Marshal.IsComObject(_workbook)) Marshal.ReleaseComObject(_workbook);
+                }
+                if (value == null)
+                {
+                    Logger.Info("Workbook_set: value is null");
+                    DisplayString = String.Empty;
+
+                    _workbook = null;
                 }
                 else
                 {
-                    Logger.Info("Workbook_set: value is null!");
-                    DisplayString = String.Empty;
+                    Logger.Info("Workbook_set: Using new workbook");
+                    _workbook = value;
+                    _workbook.SheetActivate += SheetActivated;
+                    DisplayString = _workbook.Name;
+                }
+                if (_changed)
+                {
+                    BuildSheetList();
+                    OnPropertyChanged("Workbook");
                 }
             }
         }
