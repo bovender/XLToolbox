@@ -345,7 +345,10 @@ namespace XLToolbox.Excel.ViewModels
             Logger.Info("CreateWorkbook");
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
-            return Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            Workbooks workbooks = Application.Workbooks;
+            Workbook workbook = workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
+            return workbook;
         }
 
         /// <summary>
@@ -359,10 +362,12 @@ namespace XLToolbox.Excel.ViewModels
         {
             Logger.Info("CreateWorkbook({0})", numberOfSheets);
             Workbook wb = CreateWorkbook();
+            Sheets sheets = wb.Sheets;
             for (int i = 2; i <= numberOfSheets; i++)
             {
-                wb.Sheets.Add(After: wb.Sheets[wb.Sheets.Count]);
+                sheets.Add(After: sheets[sheets.Count]);
             };
+            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
             return wb;
         }
 
@@ -455,12 +460,14 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>Workbook or null.</returns>
         public Workbook FindWorkbook(string workbookName)
         {
+            Workbooks workbooks = Application.Workbooks;
             Workbook wb = null;
             try
             {
-                wb = Application.Workbooks[workbookName];
+                wb = workbooks[workbookName];
             }
             catch { }
+            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
             return wb;
         }
 
@@ -472,12 +479,14 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>Workbook or null.</returns>
         public AddIn FindAddIn(string addInName)
         {
+            AddIns2 addins = Application.AddIns2;
             AddIn a = null;
             try
             {
-                a = Application.AddIns2[addInName];
+                a = addins[addInName];
             }
             catch { }
+            if (Marshal.IsComObject(addins)) Marshal.ReleaseComObject(addins);
             return a;
         }
 
@@ -527,7 +536,9 @@ namespace XLToolbox.Excel.ViewModels
                 resourceStream.CopyTo(tempStream);
                 tempStream.Close();
                 resourceStream.Close();
-                Application.Workbooks.Open(addinPath);
+                Workbooks workbooks = Application.Workbooks;
+                workbooks.Open(addinPath);
+                if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
                 Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
             }
             else

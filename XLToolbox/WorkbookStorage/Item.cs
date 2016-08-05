@@ -18,6 +18,7 @@
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -88,9 +89,11 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasValue)
             {
-                sheet.Cells[row, 1] = Context;
-                sheet.Cells[row, 2] = Key;
-                sheet.Cells[row, 3] = Value.ToString();
+                Range cells = sheet.Cells;
+                cells[row, 1] = Context;
+                cells[row, 2] = Key;
+                cells[row, 3] = Value.ToString();
+                if (Marshal.IsComObject(cells)) Marshal.ReleaseComObject(cells);
                 return true;
             }
             else
@@ -105,10 +108,12 @@ namespace XLToolbox.WorkbookStorage
             // first fetch the cell value as an object, then convert
             // it to a string using String.Format, which accepts
             // null values.
-            object contextValue = sheet.Cells[row, 1].Value();
+            Range cells = sheet.Cells;
+            object contextValue = cells[row, 1].Value();
             Context = String.Format("{0}", contextValue);
-            Key = sheet.Cells[row, 2].Value();
-            Value = sheet.Cells[row, 3].Value();
+            Key = cells[row, 2].Value();
+            Value = cells[row, 3].Value();
+            if (Marshal.IsComObject(cells)) Marshal.ReleaseComObject(cells);
         }
 
         public int AsInt()

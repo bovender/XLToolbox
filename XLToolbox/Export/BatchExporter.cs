@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
@@ -116,11 +117,14 @@ namespace XLToolbox.Export
         private void ExportWorkbook(Workbook workbook)
         {
             ((_Workbook)workbook).Activate();
-            foreach (dynamic ws in workbook.Sheets)
+            Sheets s = workbook.Sheets;
+            foreach (dynamic ws in s)
             {
                 ExportSheet(ws);
                 if (IsCancellationRequested) break;
+                if (Marshal.IsComObject(ws)) Marshal.ReleaseComObject(ws);
             }
+            if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
         }
 
         private void ExportSheet(dynamic sheet)
@@ -196,16 +200,20 @@ namespace XLToolbox.Export
                 ExportSelection(worksheet);
                 if (IsCancellationRequested) break;
             }
+            if (Marshal.IsComObject(cos)) Marshal.ReleaseComObject(cos);
         }
 
         private void ExportSheetAllItems(Worksheet worksheet)
         {
-            foreach (Shape sh in worksheet.Shapes)
+            Shapes shapes = worksheet.Shapes;
+            foreach (Shape sh in shapes)
             {
                 sh.Select(true);
                 ExportSelection(worksheet);
                 if (IsCancellationRequested) break;
+                if (Marshal.IsComObject(sh)) Marshal.ReleaseComObject(sh);
             }
+            if (Marshal.IsComObject(shapes)) Marshal.ReleaseComObject(shapes);
         }
 
         private void ExportSelection(dynamic sheet)
@@ -221,20 +229,26 @@ namespace XLToolbox.Export
         private int CountInAllWorkbooks()
         {
             int n = 0;
-            foreach (Workbook wb in Instance.Default.Application.Workbooks)
+            Workbooks workbooks = Instance.Default.Application.Workbooks;
+            foreach (Workbook wb in workbooks)
             {
                 n += CountInWorkbook(wb);
+                if (Marshal.IsComObject(wb)) Marshal.ReleaseComObject(wb);
             }
+            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
             return n;
         }
 
         private int CountInWorkbook(Workbook workbook)
         {
             int n = 0;
-            foreach (Worksheet ws in workbook.Worksheets)
+            Sheets sheets = workbook.Worksheets;
+            foreach (Worksheet ws in sheets)
             {
                 n += CountInSheet(ws);
+                if (Marshal.IsComObject(ws)) Marshal.ReleaseComObject(ws);
             }
+            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
             return n;
         }
 
@@ -290,20 +304,6 @@ namespace XLToolbox.Export
             }
         }
 
-        /*private FREE_IMAGE_FORMAT FileTypeToFreeImage(FileType fileType)
-        {
-            FREE_IMAGE_FORMAT fif;
-            if (_fileTypeToFreeImage.TryGetValue(fileType, out fif))
-            {
-                return fif;
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    "No FREE_IMAGE_FORMAT match for " + fileType.ToString());
-            }
-        }
-        */
         #endregion
 
         #region Private fields
