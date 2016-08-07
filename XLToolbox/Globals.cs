@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Tests,PublicKey=00240000048000009400000006020000002400005253413100040000010001000fd238794ea4b062ff5ce8b89502543e868a4c1b032b9f6d99f1b77646d5c79e197f5d1f3786c6f8712d7654315382ac8e71775daa68d4124eb2afad3b8b784115095a64a44921cf7c3ed437d6f0b1a99949ce7a26ceda5d2e84f18c7597b428d566712cfb18f8ca4ebff3b537b22acda01f7486c6821fd535197cb443747dc0")]
+
 namespace XLToolbox
 {
     public static class Globals
