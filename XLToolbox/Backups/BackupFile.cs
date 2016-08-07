@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 namespace XLToolbox.Backups
 {
@@ -30,7 +29,65 @@ namespace XLToolbox.Backups
     {
         #region Properties
 
-        public DateTime TimeStamp { get; private set; }
+        /// <summary>
+        /// Gets or sets the path of the backup file.
+        /// </summary>
+        public string Path
+        {
+            get
+            {
+                return _path;
+            }
+            set
+            {
+                _path = value;
+                TimeStamp = new TimeStamp(_path);
+            }
+        }
+
+        /// <summary>
+        /// Gets the TimeStamp object that contains the date and time
+        /// extracted from the Path. If the Path does not contain a
+        /// valid time stamp, the TimeStamp's HasValue property is false.
+        /// </summary>
+        public TimeStamp TimeStamp { get; private set; }
+
+        public int Year
+        {
+            get
+            {
+                return (TimeStamp != null) ? TimeStamp.DateTime.Year : 0;
+            }
+        }
+
+        public int Month
+        {
+            get
+            {
+                return (TimeStamp != null) ? TimeStamp.DateTime.Month : 0;
+            }
+        }
+
+        public int Day
+        {
+            get
+            {
+                return (TimeStamp != null) ? TimeStamp.DateTime.Day : 0;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the file's time stamp equals today's date.
+        /// If the file does not have a valid time stamp, it returns
+        /// false.
+        /// </summary>
+        public bool IsOfToday
+        {
+            get
+            {
+                return (TimeStamp != null) ? TimeStamp.DateTime == DateTime.Today : false;
+            }
+        }
 
         #endregion
 
@@ -46,7 +103,7 @@ namespace XLToolbox.Backups
             bool result = false;
             try 
 	        {	        
-                File.Delete(_path);
+                System.IO.File.Delete(_path);
                 result = true;
 	        }
 	        catch { }
@@ -63,18 +120,7 @@ namespace XLToolbox.Backups
         /// <param name="path"></param>
         public BackupFile(string path)
         {
-            _path = path;
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private void ParseTimeStamp(string path)
-        {
-            string dir = Path.GetDirectoryName(path);
-            string fn = Path.GetFileNameWithoutExtension(path);
-            string ext = Path.GetExtension(path);
+            Path = path;
         }
 
         #endregion

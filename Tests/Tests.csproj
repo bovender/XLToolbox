@@ -119,6 +119,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Backups\BackupFileTest.cs" />
     <Compile Include="Backups\TimeStampTest.cs" />
     <Compile Include="Csv\CsvFileTest.cs" />
     <Compile Include="Excel\InstanceTest.cs" />
