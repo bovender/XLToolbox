@@ -21,13 +21,19 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using NUnit.Framework;
-using XLToolbox.Backups;
+using XLToolbox.Backup;
 
-namespace XLToolbox.Test.Backups
+namespace XLToolbox.Test.Backup
 {
     [TestFixture]
     class BackupFileTest
     {
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
+        {
+            Bovender.Logging.LogFile.Default.EnableDebugLogging();
+        }
+
         [Test]
         [TestCase("Auswertung_2015-12-01_22-55-13.xlsx", 2015, 12, 01, 22, 55, 13)]
         [TestCase("c:\\with\\dirs\\Auswertung_2014-11-01_22-55-13.xlsx", 2014, 11, 01, 22, 55, 13)]
@@ -73,6 +79,21 @@ namespace XLToolbox.Test.Backups
             Assert.IsFalse(File.Exists(fn), "Dummy file should not exist!");
             BackupFile bf = new BackupFile(fn);
             Assert.IsFalse(bf.Delete(), "BackupFile.Delete() should return false");
+        }
+
+        [Test]
+        public void CreateBackup()
+        {
+            string fn = Path.GetTempFileName();
+            string backupDir = Path.GetRandomFileName();
+            Directory.CreateDirectory(backupDir);
+            DateTime dt = new DateTime(2015, 11, 23, 9, 31, 00);
+            File.SetLastWriteTime(fn, dt);
+            BackupFile bf = BackupFile.CreateBackup(fn, backupDir);
+            Assert.IsNotNull(bf);
+            Assert.AreEqual(dt, bf.TimeStamp.DateTime);
+            Directory.Delete(backupDir, true);
+            File.Delete(fn);
         }
     }
 }

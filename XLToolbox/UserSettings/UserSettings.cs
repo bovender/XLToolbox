@@ -193,6 +193,8 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public string BackupDir { get; set; }
+
         public int LastAnova { get; set; }
 
         public int LastErrorBars { get; set; }

@@ -21,12 +21,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace XLToolbox.Backups
+namespace XLToolbox.Backup
 {
     /// <summary>
     /// Defines a time stamp for use in file names.
     /// </summary>
-    internal class TimeStamp
+    public class TimeStamp
     {
         #region Static properties
 

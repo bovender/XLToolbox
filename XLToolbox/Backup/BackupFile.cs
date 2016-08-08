@@ -19,14 +19,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IO = System.IO;
 
-namespace XLToolbox.Backups
+namespace XLToolbox.Backup
 {
     /// <summary>
     /// Represents a backup file with a date stamp in the file name.
     /// </summary>
-    class BackupFile
+    public class BackupFile
     {
+        #region Factory
+
+        /// <summary>
+        /// Creates a new backup by copying the file to backup to the backup dir
+        /// and inserting a time stamp with the last write time into the file name.
+        /// </summary>
+        /// <param name="fileToBackUp">File to back up.</param>
+        /// <param name="backupDir">Backup directory; this must not be rooted.</param>
+        /// <returns>BackupFile object representing the newly created backup file,
+        /// or null if an I/O error occurred.</returns>
+        public static BackupFile CreateBackup(string fileToBackUp, string backupDir)
+        {
+            if (IO.Path.IsPathRooted(backupDir))
+	        {
+                throw new ArgumentException("Backup dir must be relative", "backupDir");
+	        }
+            BackupFile bf = null;
+            try
+            {
+                DateTime dt = IO.File.GetLastWriteTime(fileToBackUp);
+                string fn =IO.Path.GetFileNameWithoutExtension(fileToBackUp) +
+                    dt.ToString(TimeStamp.FormatPattern) +
+                    IO.Path.GetExtension(fileToBackUp);
+                Logger.Info("CreateBackup: Copying file");
+                string dir = IO.Path.Combine(
+                    IO.Path.GetDirectoryName(fileToBackUp),
+                    backupDir);
+                IO.Directory.CreateDirectory(dir);
+                string target = IO.Path.Combine(dir, fn);
+                IO.File.Copy(fileToBackUp, target);
+                Logger.Info("CreateBackup: Copy complete");
+                bf = new BackupFile(target);
+            }
+            catch (IO.IOException e)
+            { 
+                Logger.Warn("CreateBackup: Failed to create backup");
+                Logger.Warn(e);
+            }
+            return bf;
+        }
+
+        #endregion
+
+
         #region Properties
 
         /// <summary>
@@ -86,6 +131,14 @@ namespace XLToolbox.Backups
             get
             {
                 return (TimeStamp != null) ? TimeStamp.DateTime == DateTime.Today : false;
+            }
+        }
+
+        public bool IsValidBackup
+        {
+            get
+            {
+                return (TimeStamp != null) ?  TimeStamp.HasValue : false;
             }
         }
 

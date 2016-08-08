@@ -102,8 +102,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backups\BackupFile.cs" />
-    <Compile Include="Backups\TimeStamp.cs" />
+    <Compile Include="Backup\BackupFile.cs" />
+    <Compile Include="Backup\Backups.cs" />
+    <Compile Include="Backup\TimeStamp.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Csv\CsvExporter.cs" />
     <Compile Include="Csv\CsvFileBase.cs" />

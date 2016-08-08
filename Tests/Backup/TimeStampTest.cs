@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using XLToolbox.Backups;
+using XLToolbox.Backup;
 
-namespace XLToolbox.Test.Backups
+namespace XLToolbox.Test.Backup
 {
     [TestFixture]
     class TimeStampTest
