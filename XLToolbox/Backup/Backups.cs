@@ -28,6 +28,37 @@ namespace XLToolbox.Backup
     /// </summary>
     public class Backups
     {
+        #region Static methods
+
+        public static void Enable()
+        {
+            if (!_enabled)
+            {
+                _enabled = true;
+                XLToolbox.Excel.ViewModels.Instance.Default.Application.WorkbookBeforeSave += Application_WorkbookBeforeSave;
+            }
+        }
+
+        public static void Disable()
+        {
+            if (_enabled)
+            {
+                _enabled = false;
+                XLToolbox.Excel.ViewModels.Instance.Default.Application.WorkbookBeforeSave -= Application_WorkbookBeforeSave;
+            }
+        }
+
+        protected static void Application_WorkbookBeforeSave(
+            Microsoft.Office.Interop.Excel.Workbook Wb,
+            bool SaveAsUI, ref bool Cancel)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static bool _enabled;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -104,7 +135,7 @@ namespace XLToolbox.Backup
                 IEnumerable<string> files = Directory.EnumerateFiles(
                     BackupPath,
                     String.Format("*{0}*", TimeStamp.WildcardPattern),
-                    SearchOption.TopDirectoryOnly);
+                    SearchOption.AllDirectories);
                 Files = files.Select(f => new BackupFile(f)).Where(f => f.IsValidBackup).ToList();
             }
             catch
@@ -131,7 +162,59 @@ namespace XLToolbox.Backup
         /// </summary>
         public void Purge()
         {
+            // Sort files by time stamp reverse
+            Files.Sort((a, b) => b.TimeStamp.DateTime.CompareTo(a.TimeStamp.DateTime));
+            var enumerator = Files.GetEnumerator();
+            enumerator.MoveNext();
 
+            // Keep all backups with today's time stamp.
+            Logger.Info("Purge: Skipping today's files.");
+            while (enumerator.Current != null && enumerator.Current.IsOfToday)
+            {
+                enumerator.MoveNext();
+            }
+
+            // Keep one per day, totalling 7 days
+            DateTime currentDate = DateTime.MinValue;
+            Logger.Info("Puge: Keeping one file per day, totalling 7 files");
+            int count = 0;
+            while (enumerator.Current != null && count < 7)
+            {
+                DateTime d = enumerator.Current.TimeStamp.DateTime.Date;
+                if (d != currentDate)
+                {
+                    currentDate = d;
+                    count++;
+                }
+                else
+                {
+                    enumerator.Current.Delete();
+                }
+                enumerator.MoveNext();
+            }
+
+            // Keep one per month, totalling 12 backups
+            // Set the current date to the 1st day of the month
+            Logger.Info("Puge: Keeping one file per month, totalling 12 files");
+            currentDate = currentDate.AddDays(1 - currentDate.Day);
+            count = 0;
+            while (enumerator.Current != null && count < 12)
+            {
+                DateTime d = enumerator.Current.TimeStamp.DateTime.Date;
+                d = d.AddDays(1 - d.Day);
+                if (d != currentDate)
+                {
+                    currentDate = d;
+                    count++;
+                }
+                else
+                {
+                    enumerator.Current.Delete();
+                }
+                enumerator.MoveNext();
+            }
+
+            Files.RemoveAll(f => f.IsDeleted);
         }
 
         /// <summary>
@@ -182,6 +265,14 @@ namespace XLToolbox.Backup
 
         private string _backupDir;
         private string _backupPath;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

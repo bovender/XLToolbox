@@ -71,8 +71,9 @@ namespace XLToolbox.Backup
 
         #endregion
 
-
         #region Properties
+
+        public bool IsDeleted { get; private set; }
 
         /// <summary>
         /// Gets or sets the path of the backup file.
@@ -130,7 +131,7 @@ namespace XLToolbox.Backup
         {
             get
             {
-                return (TimeStamp != null) ? TimeStamp.DateTime == DateTime.Today : false;
+                return (TimeStamp != null) ? TimeStamp.DateTime.Date == DateTime.Today : false;
             }
         }
 
@@ -160,6 +161,7 @@ namespace XLToolbox.Backup
                 result = true;
 	        }
 	        catch { }
+            IsDeleted = result;
             return result;
         }
         

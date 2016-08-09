@@ -28,6 +28,12 @@ namespace XLToolbox.Test.Backup
     [TestFixture]
     class BackupsTest
     {
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
+        {
+            Bovender.Logging.LogFile.Default.EnableDebugLogging();
+        }
+
         [Test]
         public void BackupDir()
         {
@@ -69,6 +75,62 @@ namespace XLToolbox.Test.Backup
             Backups b = new Backups(Path.Combine(tmpPath, basename) + ".xlsx", backupDir);
             Assert.AreEqual(3, b.Count);
             Directory.Delete(Path.Combine(tmpPath, backupDir), true);
+        }
+
+        [Test]
+        public void Purge()
+        {
+            string tmpPath = Path.GetTempPath();
+            string backupDir = Path.GetRandomFileName();
+            string basename = "myfile";
+            string file = basename + ".xlsx";
+            string backupsStub = Path.Combine(tmpPath, backupDir, basename);
+            DateTime dt = DateTime.Today;
+            string today = dt.ToString("yyyy-MM-dd");
+            string yesterday = dt.AddDays(-1).ToString("yyyy-MM-dd");
+            Directory.CreateDirectory(Path.Combine(tmpPath, backupDir));
+
+            List<string> expected = new List<string>();
+            TouchFile(String.Format("{0}_{1}_09-00-00.xlsx", backupsStub, yesterday));
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, yesterday), expected);
+            TouchFile(String.Format("{0}_{1}_08-00-00.xlsx", backupsStub, today), expected);
+            TouchFile(String.Format("{0}_{1}_09-00-00.xlsx", backupsStub, today), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, today), expected);
+            TouchFile(String.Format("{0}_{1}_11-00-00.xlsx", backupsStub, today), expected);
+            TouchFile(String.Format("{0}_{1}_12-00-00.xlsx", backupsStub, today), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-2).ToString("yyyy-MM-dd")), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-4).ToString("yyyy-MM-dd")), expected);
+            TouchFile(String.Format("{0}_{1}_09-00-00.xlsx", backupsStub, dt.AddDays(-4).ToString("yyyy-MM-dd")));
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-5).ToString("yyyy-MM-dd")), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-6).ToString("yyyy-MM-dd")), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-7).ToString("yyyy-MM-dd")), expected);
+            TouchFile(String.Format("{0}_{1}_10-00-00.xlsx", backupsStub, dt.AddDays(-8).ToString("yyyy-MM-dd")), expected);
+            TouchFile(backupsStub + "_2015-10-08_13-32-12.xlsx", expected);
+            TouchFile(backupsStub + "_2015-10-07_12-00-00.xlsx");
+            TouchFile(backupsStub + "_2014-10-08_13-32-12.xlsx", expected);
+            TouchFile(backupsStub + "_2014-05-15_12-00-00.xlsx", expected);
+            TouchFile(backupsStub + "_2014-01-02_07-32-12.xlsx", expected);
+            TouchFile(backupsStub + "_2015-11-23_16-00-00.xlsx", expected);
+
+            Backups b = new Backups(Path.Combine(tmpPath, basename) + ".xlsx", backupDir);
+            b.Purge();
+
+            List<string> actual = b.Files.Select(f => f.Path).ToList();
+            expected.Sort();
+            actual.Sort();
+            Assert.AreEqual(expected, actual);
+            Directory.Delete(Path.Combine(tmpPath, backupDir), true);
+        }
+
+        private void TouchFile(string fn)
+        {
+            File.Create(fn).Dispose();
+        }
+
+        private void TouchFile(string fn, List<string> rememberList)
+        {
+            TouchFile(fn);
+            rememberList.Add(fn);
         }
     }
 }
