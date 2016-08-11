@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using IO = System.IO;
 
@@ -164,7 +165,28 @@ namespace XLToolbox.Backup
             IsDeleted = result;
             return result;
         }
-        
+
+        /// <summary>
+        /// Opens the workbook represented by this BackupFile.
+        /// </summary>
+        public void Open()
+        {
+            Microsoft.Office.Interop.Excel.Workbooks w = XLToolbox.Excel.ViewModels.Instance.Default.Application.Workbooks;
+            try
+            {
+                w.Open(Path);
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("Open: Failed to open workbook");
+                Logger.Warn(e);
+            }
+            finally
+            {
+                if (Marshal.IsComObject(w)) Marshal.ReleaseComObject(w);
+            }
+        }
+
         #endregion
 
         #region Constructor

@@ -32,18 +32,18 @@ namespace XLToolbox.Backup
 
         public static void Enable()
         {
-            if (!_enabled)
+            if (!IsEnabled)
             {
-                _enabled = true;
+                _isEnabled = true;
                 XLToolbox.Excel.ViewModels.Instance.Default.Application.WorkbookBeforeSave += Application_WorkbookBeforeSave;
             }
         }
 
         public static void Disable()
         {
-            if (_enabled)
+            if (IsEnabled)
             {
-                _enabled = false;
+                _isEnabled = false;
                 XLToolbox.Excel.ViewModels.Instance.Default.Application.WorkbookBeforeSave -= Application_WorkbookBeforeSave;
             }
         }
@@ -52,10 +52,44 @@ namespace XLToolbox.Backup
             Microsoft.Office.Interop.Excel.Workbook Wb,
             bool SaveAsUI, ref bool Cancel)
         {
-            throw new NotImplementedException();
+            string fn = Wb.FullName;
+            if (System.IO.File.Exists(fn))
+            {
+                Logger.Info("Application_WorkbookBeforeSave: Creating backup copy before saving the workbook");
+                string dir = UserSettings.UserSettings.Default.BackupDir;
+                if (String.IsNullOrEmpty(dir)) dir = ".backup";
+                Backups b = new Backups(Wb.FullName, dir);
+                b.Create();
+            }
+            else
+            {
+                Logger.Info("Application_WorkbookBeforeSave: Skipping backup because file does not exist");
+            }
         }
 
-        private static bool _enabled;
+        public static bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled;
+            }
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    if (value)
+                    {
+                        Enable();
+                    }
+                    else
+                    {
+                        Disable();
+                    }
+                }
+            }
+        }
+
+        private static bool _isEnabled;
 
         #endregion
 
@@ -147,11 +181,25 @@ namespace XLToolbox.Backup
         public bool Create()
         {
             bool result = false;
-            try
+            BackupFile bf = BackupFile.CreateBackup(FilePath, BackupDir);
+            if (bf != null)
             {
-                DateTime dt = File.GetLastWriteTime(FilePath);
+                Logger.Info("Create: Created new backup");
+                if (Files != null)
+                {
+                    Files.Add(bf);
+                }
+                else
+                {
+                    Files = new List<BackupFile>() { bf };
+                }
+                Purge();
+                result = true;
             }
-            catch { }
+            else
+            {
+                Logger.Warn("Create: Failed to create backup");
+            }
             return result;
         }
 
