@@ -83,6 +83,8 @@ namespace XLToolboxForExcel
                 XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
+            XLToolbox.Backup.Backups.Enable();
+
             if (!GreetUser()) MaybeCheckForUpdate();
             Logger.Info("ThisAddIn_Startup: Done");
         }

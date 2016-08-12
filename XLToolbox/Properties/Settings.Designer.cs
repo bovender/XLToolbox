@@ -130,5 +130,14 @@ namespace XLToolbox.Properties {
                 return ((int)(this["WorkbookMonitorIntervalMilliseconds"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".backup")]
+        public string DefaultBackupDir {
+            get {
+                return ((string)(this["DefaultBackupDir"]));
+            }
+        }
     }
 }

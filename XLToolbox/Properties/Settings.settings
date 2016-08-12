@@ -38,5 +38,8 @@
     <Setting Name="WorkbookMonitorIntervalMilliseconds" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">700</Value>
     </Setting>
+    <Setting Name="DefaultBackupDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.backup</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

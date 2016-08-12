@@ -169,6 +169,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all backups of this workbook? This cannot be undone..
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteAllBackups {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteAllBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask me.
         /// </summary>
         public static string AskMe {
@@ -192,6 +201,42 @@ namespace XLToolbox {
         public static string AvailableCommands {
             get {
                 return ResourceManager.GetString("AvailableCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup directory for this workbook.
+        /// </summary>
+        public static string BackupDirForThisWorkbook {
+            get {
+                return ResourceManager.GetString("BackupDirForThisWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backups.
+        /// </summary>
+        public static string Backups {
+            get {
+                return ResourceManager.GetString("Backups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic backups affect your privacy: If you want to delete a workbook, you may also want to delete all backup copies of it. When working with backups, always make sure you are editing the current file, not an obsolete backup file. Use the backup feature at your own risk..
+        /// </summary>
+        public static string BackupsDisclaimer {
+            get {
+                return ResourceManager.GetString("BackupsDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backups of this workbook.
+        /// </summary>
+        public static string BackupsForThisWorkbook {
+            get {
+                return ResourceManager.GetString("BackupsForThisWorkbook", resourceCulture);
             }
         }
         
@@ -477,6 +522,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete all.
+        /// </summary>
+        public static string DeleteAll {
+            get {
+                return ResourceManager.GetString("DeleteAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete all backups.
+        /// </summary>
+        public static string DeleteAllBackups {
+            get {
+                return ResourceManager.GetString("DeleteAllBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -635,6 +698,15 @@ namespace XLToolbox {
         public static string EmfFiles {
             get {
                 return ResourceManager.GetString("EmfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable backups.
+        /// </summary>
+        public static string EnableBackups {
+            get {
+                return ResourceManager.GetString("EnableBackups", resourceCulture);
             }
         }
         
@@ -1171,6 +1243,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open workbooks.
         /// </summary>
         public static string OpenWorkbooks {
@@ -1605,6 +1686,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No backups were found for this workbook. Once you start saving the workbook with backups enabled, the backups will be listed here. Note that if you rename the workbook or choose a different backup folder, the backups will no longer be found..
+        /// </summary>
+        public static string ThisWorkbookHasNoBackupsYet {
+            get {
+                return ResourceManager.GetString("ThisWorkbookHasNoBackupsYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thousands separator.
         /// </summary>
         public static string ThousandsSeparator {
@@ -1619,6 +1709,15 @@ namespace XLToolbox {
         public static string TifFiles {
             get {
                 return ResourceManager.GetString("TifFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
             }
         }
         
@@ -1938,6 +2037,15 @@ namespace XLToolbox {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
         

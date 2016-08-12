@@ -193,6 +193,22 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public string BackupDir
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(_backupDir))
+                {
+                    _backupDir = Properties.Settings.Default.DefaultBackupDir;
+                }
+                return _backupDir;
+            }
+            set
+            {
+                _backupDir = value;
+            }
+        }
+
         public int LastAnova { get; set; }
 
         public int LastErrorBars { get; set; }
@@ -356,6 +372,7 @@ namespace XLToolbox.UserSettings
         private int _updateCheckInterval;
         private string _lastVersionSeen;
         private string _languageCode;
+        private string _backupDir;
 
         #endregion
 

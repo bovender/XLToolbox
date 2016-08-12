@@ -72,5 +72,6 @@ namespace XLToolbox
         UserSettings,
         LegacyPrefs,
         Shortcuts,
+        Backups,
     }
 }

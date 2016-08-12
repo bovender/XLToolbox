@@ -102,6 +102,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backup\BackupFile.cs" />
+    <Compile Include="Backup\BackupFilesCollection.cs" />
+    <Compile Include="Backup\BackupFileViewModel.cs" />
+    <Compile Include="Backup\Backups.cs" />
+    <Compile Include="Backup\BackupsView.xaml.cs">
+      <DependentUpon>BackupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup\BackupsViewModel.cs" />
+    <Compile Include="Backup\TimeStamp.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Csv\CsvExporter.cs" />
     <Compile Include="Csv\CsvFileBase.cs" />
@@ -394,6 +403,10 @@
     <Page Include="About\AboutView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Backup\BackupsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Csv\CsvFileView.xaml">
       <SubType>Designer</SubType>

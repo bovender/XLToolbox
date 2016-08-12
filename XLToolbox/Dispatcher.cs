@@ -107,6 +107,7 @@ namespace XLToolbox
                         Legacy.LegacyToolbox.Default.RunCommand(cmd); break;
                     case Command.Shortcuts: EditShortcuts(); break;
                     case Command.SaveAs: SaveAs(); break;
+                    case Command.Backups: ManageBackups(); break;
                     default:
                         Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
@@ -375,6 +376,12 @@ namespace XLToolbox
             {
                 Instance.Default.Application.Dialogs[Xl.XlBuiltInDialog.xlDialogSaveAs].Show();
             }
+        }
+
+        static void ManageBackups()
+        {
+            Backup.BackupsViewModel vm = new Backup.BackupsViewModel(Instance.Default.ActiveWorkbook);
+            vm.InjectInto<Backup.BackupsView>().ShowDialogInForm();
         }
 
         #endregion
