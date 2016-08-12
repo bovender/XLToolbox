@@ -39,7 +39,7 @@ namespace XLToolbox.Backup
             {
                 // Make sure this always matches the formatting pattern
                 // returned by FormatPattern.
-                return "_????-??-??_??-??-??";
+                return "_????????_??????";
             }
         }
 
@@ -52,7 +52,7 @@ namespace XLToolbox.Backup
             {
                 // Make sure this always matches the wildcard pattern
                 // returned by WildcardPattern.
-                return "_yyyy-MM-dd_HH-mm-ss";
+                return "_yyyyMMdd_HHmmss";
             }
         }
 
@@ -68,7 +68,7 @@ namespace XLToolbox.Backup
                 {
                     // This will only work in the 2nd and 3rd milleniums.
                     // Note for people in the 2990s: Y3K problem! ;-)
-                    _regEx = new Regex(@"_[12]\d{3}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}");
+                    _regEx = new Regex(@"_[12]\d{7}_\d{6}");
                 }
                 return _regEx;
             }

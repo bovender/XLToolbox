@@ -28,8 +28,8 @@ namespace XLToolbox.Test.Backup
     class TimeStampTest
     {
         [Test]
-        [TestCase("Auswertung_2015-12-01_22-55-13.xlsx", 2015, 12, 01, 22, 55, 13)]
-        [TestCase("c:\\with\\dirs\\Auswertung_2014-11-01_22-55-13.xlsx", 2014, 11, 01, 22, 55, 13)]
+        [TestCase("Auswertung_20151201_225513.xlsx", 2015, 12, 01, 22, 55, 13)]
+        [TestCase("c:\\with\\dirs\\Auswertung_20141101_225513.xlsx", 2014, 11, 01, 22, 55, 13)]
         public void ParseFileName(string fileName, int yr, int mo, int dy, int hr, int mi, int se)
         {
             TimeStamp ts = new TimeStamp(fileName);
@@ -41,13 +41,13 @@ namespace XLToolbox.Test.Backup
         {
             TimeStamp ts = new TimeStamp();
             ts.DateTime = new DateTime(2015, 11, 23, 10, 30, 00);
-            Assert.AreEqual("_2015-11-23_10-30-00", ts.ToString());
+            Assert.AreEqual("_20151123_103000", ts.ToString());
         }
 
         [Test]
         public void FileNameWithTimeStamp()
         {
-            TimeStamp ts = new TimeStamp("Auswertung_2015-12-01_22-55-13.xlsx");
+            TimeStamp ts = new TimeStamp("Auswertung_20151201_225513.xlsx");
             Assert.IsTrue(ts.HasValue);
         }
 

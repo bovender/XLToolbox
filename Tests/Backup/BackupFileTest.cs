@@ -35,8 +35,8 @@ namespace XLToolbox.Test.Backup
         }
 
         [Test]
-        [TestCase("Auswertung_2015-12-01_22-55-13.xlsx", 2015, 12, 01, 22, 55, 13)]
-        [TestCase("c:\\with\\dirs\\Auswertung_2014-11-01_22-55-13.xlsx", 2014, 11, 01, 22, 55, 13)]
+        [TestCase("Auswertung_20151201_225513.xlsx", 2015, 12, 01, 22, 55, 13)]
+        [TestCase("c:\\with\\dirs\\Auswertung_20141101_225513.xlsx", 2014, 11, 01, 22, 55, 13)]
         public void PathWithTimeStamp(string fileName, int yr, int mo, int dy, int hr, int mi, int se)
         {
             BackupFile bf = new BackupFile(fileName);
