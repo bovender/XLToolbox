@@ -187,6 +187,24 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backups.
+        /// </summary>
+        internal static string ButtonBackupsLabel {
+            get {
+                return ResourceManager.GetString("ButtonBackupsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable or disable automatic backups, and view the current workbook&apos;s backups..
+        /// </summary>
+        internal static string ButtonBackupsSupertip {
+            get {
+                return ResourceManager.GetString("ButtonBackupsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chart Design.
         /// </summary>
         internal static string ButtonChartDesignLabel {
@@ -624,6 +642,24 @@ namespace XLToolboxForExcel {
         internal static string ButtonPrefsSupertip {
             get {
                 return ResourceManager.GetString("ButtonPrefsSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        internal static string ButtonPropertiesLabel {
+            get {
+                return ResourceManager.GetString("ButtonPropertiesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View this workbook&apos;s textual properties and copy them to the clipboard..
+        /// </summary>
+        internal static string ButtonPropertiesSupertip {
+            get {
+                return ResourceManager.GetString("ButtonPropertiesSupertip", resourceCulture);
             }
         }
         

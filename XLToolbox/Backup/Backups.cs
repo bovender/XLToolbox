@@ -171,6 +171,7 @@ namespace XLToolbox.Backup
                     String.Format("*{0}*", TimeStamp.WildcardPattern),
                     SearchOption.AllDirectories);
                 Files = files.Select(f => new BackupFile(f)).Where(f => f.IsValidBackup).ToList();
+                Sort();
             }
             catch
             {
@@ -210,8 +211,7 @@ namespace XLToolbox.Backup
         /// </summary>
         public void Purge()
         {
-            // Sort files by time stamp reverse
-            Files.Sort((a, b) => b.TimeStamp.DateTime.CompareTo(a.TimeStamp.DateTime));
+            Sort();
             var enumerator = Files.GetEnumerator();
             enumerator.MoveNext();
 
@@ -306,6 +306,14 @@ namespace XLToolbox.Backup
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Sorts the files by time stamp, putting the latest first.
+        /// </summary>
+        private void Sort()
+        {
+            Files.Sort((a, b) => b.TimeStamp.DateTime.CompareTo(a.TimeStamp.DateTime));
+        }
 
         #endregion
 

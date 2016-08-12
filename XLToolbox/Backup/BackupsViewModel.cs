@@ -40,6 +40,23 @@ namespace XLToolbox.Backup
             {
                 Backups.IsEnabled = value;
                 OnPropertyChanged("IsEnabled");
+                OnPropertyChanged("IsNewlyEnabled");
+            }
+        }
+
+        public bool IsNewlyEnabled
+        {
+            get
+            {
+                return IsEnabled && !_wasEnabled;
+            }
+        }
+
+        public bool HasBackups
+        {
+            get
+            {
+                return (BackupFiles != null) && (BackupFiles.Count > 0);
             }
         }
 
@@ -121,11 +138,13 @@ namespace XLToolbox.Backup
 
         public BackupsViewModel(Workbook workbook)
         {
+            _wasEnabled = IsEnabled;
             string dir = UserSettings.UserSettings.Default.BackupDir;
             BackupDir = System.IO.Path.Combine(
                 System.IO.Path.GetDirectoryName(workbook.FullName),
                 dir);
             _backups = new Backups(workbook.FullName, dir);
+            BackupFiles = new BackupFilesCollection(_backups);
         }
 
         #endregion
@@ -138,6 +157,7 @@ namespace XLToolbox.Backup
             {
                 Logger.Info("DoOpenBackup");
                 BackupFiles.LastSelected.OpenCommand.Execute(null);
+                CloseViewCommand.Execute(null);
             }
         }
 
@@ -163,6 +183,7 @@ namespace XLToolbox.Backup
                 {
                     Logger.Info("DoDeleteBackup: Removing item from list");
                     BackupFiles.Remove(BackupFiles.LastSelected);
+                    OnPropertyChanged("BackupFiles");
                 }
                 else
                 {
@@ -194,10 +215,12 @@ namespace XLToolbox.Backup
                 foreach (BackupFileViewModel vm in BackupFiles)
                 {
                     vm.DeleteCommand.Execute(null);
+                    vm.IsSelected = vm.IsDeleted;
                 }
                 Logger.Info("DoDeleteAllBackups: Purging list");
-                BackupFiles.ToList().RemoveAll(f => f.IsDeleted);
+                BackupFiles.RemoveSelected();
                 Logger.Info("DoDeleteAllBackups: {0} BackupFiles remaining", BackupFiles.Count);
+                OnPropertyChanged("HasBackups");
             }
             else
             {
@@ -218,6 +241,7 @@ namespace XLToolbox.Backup
 
         #region Fields
 
+        private bool _wasEnabled;
         private Backups _backups;
         private DelegatingCommand _openBackupCommand;
         private DelegatingCommand _deleteBackupCommand;

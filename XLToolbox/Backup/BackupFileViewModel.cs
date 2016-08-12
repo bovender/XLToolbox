@@ -82,7 +82,44 @@ namespace XLToolbox.Backup
 
         public override object RevealModelObject()
         {
-            throw new NotImplementedException();
+            return BackupFile;
+        }
+
+        public override string DisplayString
+        {
+            get
+            {
+                if (BackupFile != null && BackupFile.TimeStamp != null)
+                {
+                    string datePart;
+                    int dayDiff = DateTime.Today.Subtract(BackupFile.TimeStamp.DateTime.Date).Days;
+                    switch (dayDiff)
+                    {
+                        case 0:
+                            datePart = Strings.Today;
+                            break;
+                        case 1:
+                            datePart = Strings.Yesterday;
+                            break;
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                            datePart = BackupFile.TimeStamp.DateTime.ToString("dddd");
+                            break;
+                        default:
+                            datePart = BackupFile.TimeStamp.DateTime.ToShortDateString();
+                            break;
+                    }
+                    return String.Format("{0} {1}", datePart, BackupFile.TimeStamp.DateTime.ToShortTimeString());
+                }
+                else
+                {
+                    return "n/a";
+                }
+            }
         }
 
         #endregion
