@@ -193,6 +193,18 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool EnableBackups
+        {
+            get
+            {
+                return XLToolbox.Backup.Backups.IsEnabled;
+            }
+            set
+            {
+                XLToolbox.Backup.Backups.IsEnabled = value;
+            }
+        }
+
         public string BackupDir
         {
             get

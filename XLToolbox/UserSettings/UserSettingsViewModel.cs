@@ -19,10 +19,11 @@ using System;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
+using System.ComponentModel;
 
 namespace XLToolbox.UserSettings
 {
-    public class UserSettingsViewModel : ViewModelBase
+    public class UserSettingsViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Properties
 
@@ -93,6 +94,53 @@ namespace XLToolbox.UserSettings
                     };
                 }
                 return _languageProvider;
+            }
+        }
+
+        public string BackupDir
+        {
+            get
+            {
+                return _backupDir;
+            }
+            set
+            {
+                _backupDir = value;
+                if (String.IsNullOrWhiteSpace(_backupDir))
+                {
+                    Error = Strings.BackupDirNullOrWhitespaceError;
+                }
+                else if (System.IO.Path.IsPathRooted(_backupDir))
+                {
+                    Error = Strings.BackupDirRootedError;
+                }
+                else
+                {
+                    Error = String.Empty;
+                }
+                OnPropertyChanged("BackupDir");
+            }
+        }
+
+        public bool EnableBackups
+        {
+            get
+            {
+                return _isBackupsEnabled;
+            }
+            set
+            {
+                _isBackupsEnabled = value;
+                OnPropertyChanged("EnableBackups");
+                OnPropertyChanged("FlashBackupsDisclaimer");
+            }
+        }
+
+        public bool FlashBackupsDisclaimer
+        {
+            get
+            {
+                return _isBackupsEnabled && !_wasBackupsEnabled;
             }
         }
 
@@ -178,6 +226,9 @@ namespace XLToolbox.UserSettings
             {
                 _taskPaneWidth = u.TaskPaneWidth;
             }
+            _isBackupsEnabled = Backup.Backups.IsEnabled;
+            _wasBackupsEnabled = _isBackupsEnabled;
+            _backupDir = u.BackupDir;
             PropertyChanged += (sender, args) =>
             {
                 _dirty = true;
@@ -195,6 +246,14 @@ namespace XLToolbox.UserSettings
 
         #endregion
 
+        #region Implementation of IDataErrorInfo
+
+        public string Error { get; private set; }
+
+        public string this[string columnName] { get { return Error; } }
+
+        #endregion
+
         #region Private methods
 
         private void DoSave()
@@ -205,6 +264,8 @@ namespace XLToolbox.UserSettings
             u.TaskPaneWidth = TaskPaneWidth;
             u.EnableLogging = IsLoggingEnabled;
             u.LanguageCode = Language.SelectedItem.Value.ToString();
+            u.BackupDir = BackupDir;
+            u.EnableBackups = EnableBackups;
             if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
                 XLToolbox.SheetManager.TaskPaneManager.Default.Width = _taskPaneWidth;
@@ -218,7 +279,7 @@ namespace XLToolbox.UserSettings
 
         private bool CanSave()
         {
-            return _dirty;
+            return _dirty && String.IsNullOrEmpty(Error);
         }
 
         private void DoOpenLegacyPreferences()
@@ -255,6 +316,9 @@ namespace XLToolbox.UserSettings
         private bool _dirty;
         private int _taskPaneWidth;
         private bool _isLoggingEnabled;
+        private bool _isBackupsEnabled;
+        private bool _wasBackupsEnabled;
+        private string _backupDir;
         private Language _originalLanguage;
         private Language _language;
         private EnumProvider<Language> _languageProvider;

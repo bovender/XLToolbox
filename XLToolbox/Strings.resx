@@ -808,4 +808,16 @@ The following message was received:</value>
   <data name="BackupsDisclaimer" xml:space="preserve">
     <value>Automatic backups affect your privacy: If you want to delete a workbook, you may also want to delete all backup copies of it. When working with backups, always make sure you are editing the current file, not an obsolete backup file. Use the backup feature at your own risk.</value>
   </data>
+  <data name="BackupDir" xml:space="preserve">
+    <value>Backup folder</value>
+  </data>
+  <data name="BackupDirExplanation" xml:space="preserve">
+    <value>The backup folder is always relative to the folder that the workbook is saved in. Do not enter an absolute path here, e.g. "c:\backups" is not allowed.</value>
+  </data>
+  <data name="BackupDirNullOrWhitespaceError" xml:space="preserve">
+    <value>The backup folder must be filled in.</value>
+  </data>
+  <data name="BackupDirRootedError" xml:space="preserve">
+    <value>The backup folder must not be an absolute path (e.g., "c:\backups").</value>
+  </data>
 </root>

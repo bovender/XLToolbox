@@ -22,6 +22,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="clr-namespace:XLToolbox"
+        xmlns:backups="clr-namespace:XLToolbox.Backup"
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         bov:WindowState.Save="True" bov:WindowState.CenterScreen="True"
@@ -54,35 +55,7 @@
             <Button Command="{Binding CloseViewCommand}" Content="{x:Static l:Strings.Close}"
                     IsDefault="True" IsCancel="True"/>
         </StackPanel>
-        <TextBlock DockPanel.Dock="Bottom" Text="{x:Static l:Strings.BackupsDisclaimer}"
-                   Foreground="Crimson" Background="Transparent"
-                   TextWrapping="Wrap" TextAlignment="Justify"
-                   FontSize="10" LineHeight="10" LineStackingStrategy="BlockLineHeight"
-                   Margin="0 7 0 0" Padding="0 3 0 3">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsNewlyEnabled}" Value="True" >
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)"
-                                                        From="Transparent"
-                                                        To="Yellow"
-                                                        Duration="0:0:0.3" />
-                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)"
-                                                        From="Yellow"
-                                                        To="Transparent"
-                                                        BeginTime="0:0:0.3"
-                                                        Duration="0:0:6" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <backups:BackupsDisclaimer DockPanel.Dock="Bottom" />
         <GroupBox Header="{x:Static l:Strings.BackupsForThisWorkbook}"
                   IsEnabled="{Binding IsEnabled}">
             <StackPanel>

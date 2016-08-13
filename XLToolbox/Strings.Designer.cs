@@ -205,11 +205,47 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup folder.
+        /// </summary>
+        public static string BackupDir {
+            get {
+                return ResourceManager.GetString("BackupDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder is always relative to the folder that the workbook is saved in. Do not enter an absolute path here, e.g. &quot;c:\backups&quot; is not allowed..
+        /// </summary>
+        public static string BackupDirExplanation {
+            get {
+                return ResourceManager.GetString("BackupDirExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup directory for this workbook.
         /// </summary>
         public static string BackupDirForThisWorkbook {
             get {
                 return ResourceManager.GetString("BackupDirForThisWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder must be filled in..
+        /// </summary>
+        public static string BackupDirNullOrWhitespaceError {
+            get {
+                return ResourceManager.GetString("BackupDirNullOrWhitespaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder must not be an absolute path (e.g., &quot;c:\backups&quot;)..
+        /// </summary>
+        public static string BackupDirRootedError {
+            get {
+                return ResourceManager.GetString("BackupDirRootedError", resourceCulture);
             }
         }
         

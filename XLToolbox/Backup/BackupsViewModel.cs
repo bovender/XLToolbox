@@ -40,11 +40,11 @@ namespace XLToolbox.Backup
             {
                 Backups.IsEnabled = value;
                 OnPropertyChanged("IsEnabled");
-                OnPropertyChanged("IsNewlyEnabled");
+                OnPropertyChanged("FlashBackupsDisclaimer");
             }
         }
 
-        public bool IsNewlyEnabled
+        public bool FlashBackupsDisclaimer
         {
             get
             {
@@ -144,7 +144,10 @@ namespace XLToolbox.Backup
                 System.IO.Path.GetDirectoryName(workbook.FullName),
                 dir);
             _backups = new Backups(workbook.FullName, dir);
-            BackupFiles = new BackupFilesCollection(_backups);
+            if (_backups.Files != null)
+            {
+                BackupFiles = new BackupFilesCollection(_backups);
+            }
         }
 
         #endregion
