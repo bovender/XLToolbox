@@ -250,6 +250,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup Error.
+        /// </summary>
+        public static string BackupError {
+            get {
+                return ResourceManager.GetString("BackupError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backups.
         /// </summary>
         public static string Backups {
@@ -603,6 +612,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not show this message again.
+        /// </summary>
+        public static string DoNotShowThisMessageAgain {
+            get {
+                return ResourceManager.GetString("DoNotShowThisMessageAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Down.
         /// </summary>
         public static string Down {
@@ -779,6 +797,15 @@ namespace XLToolbox {
         public static string EnterNewSheetName {
             get {
                 return ResourceManager.GetString("EnterNewSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error message:.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
         
@@ -1650,6 +1677,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Suppress error message on failed backup.
+        /// </summary>
+        public static string SuppressFailedBackupErrorMessage {
+            get {
+                return ResourceManager.GetString("SuppressFailedBackupErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SVG files.
         /// </summary>
         public static string SvgFiles {
@@ -1821,6 +1857,15 @@ namespace XLToolbox {
         public static string UnableToAccessClipboard {
             get {
                 return ResourceManager.GetString("UnableToAccessClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create backup copy..
+        /// </summary>
+        public static string UnableToCreateBackupCopy {
+            get {
+                return ResourceManager.GetString("UnableToCreateBackupCopy", resourceCulture);
             }
         }
         

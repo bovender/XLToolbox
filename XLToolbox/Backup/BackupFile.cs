@@ -66,6 +66,7 @@ namespace XLToolbox.Backup
             { 
                 Logger.Warn("CreateBackup: Failed to create backup");
                 Logger.Warn(e);
+                bf = new BackupFile(e);
             }
             return bf;
         }
@@ -144,6 +145,8 @@ namespace XLToolbox.Backup
             }
         }
 
+        public Exception Exception { get; private set; }
+
         #endregion
 
         #region Public methods
@@ -191,13 +194,22 @@ namespace XLToolbox.Backup
 
         #region Constructor
 
+        protected BackupFile() { }
+
         /// <summary>
         /// Creates a new BackupFile object from a given backup file path.
         /// </summary>
         /// <param name="path"></param>
         public BackupFile(string path)
+            : this()
         {
             Path = path;
+        }
+
+        protected BackupFile(Exception exception)
+            : this()
+        {
+            Exception = exception;
         }
 
         #endregion

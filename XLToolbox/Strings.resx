@@ -820,4 +820,19 @@ The following message was received:</value>
   <data name="BackupDirRootedError" xml:space="preserve">
     <value>The backup folder must not be an absolute path (e.g., "c:\backups").</value>
   </data>
+  <data name="BackupError" xml:space="preserve">
+    <value>Backup Error</value>
+  </data>
+  <data name="DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Do not show this message again</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Error message:</value>
+  </data>
+  <data name="UnableToCreateBackupCopy" xml:space="preserve">
+    <value>Unable to create backup copy.</value>
+  </data>
+  <data name="SuppressFailedBackupErrorMessage" xml:space="preserve">
+    <value>Suppress error message on failed backup</value>
+  </data>
 </root>

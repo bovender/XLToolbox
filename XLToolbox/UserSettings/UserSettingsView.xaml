@@ -80,19 +80,25 @@
                 </GroupBox>
                 <GroupBox Header="{x:Static l:Strings.Backups}" Margin="0 10 0 0">
                     <StackPanel>
-                        <CheckBox IsChecked="{Binding EnableBackups}" Content="{x:Static l:Strings.EnableBackups}" />
-                        <DockPanel Margin="0 10 0 0">
-                            <TextBlock DockPanel.Dock="Bottom" Text="{x:Static l:Strings.BackupDirExplanation}"
-                                       FontSize="10" LineHeight="10" LineStackingStrategy="BlockLineHeight"
-                                       TextWrapping="Wrap" TextAlignment="Justify"
-                                       Margin="0 5 0 0"/>
-                            <Label DockPanel.Dock="Left"
-                                   Content="{x:Static l:Strings.BackupDir}" Padding="0"
-                                   Target="{Binding ElementName=backupDir}" />
-                            <TextBox Text="{Binding BackupDir,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                                     x:Name="backupDir" Margin="10 0 0 0"/>
-                        </DockPanel>
+                        <CheckBox IsChecked="{Binding EnableBackups}"
+                                  Content="{x:Static l:Strings.EnableBackups}" />
                         <backups:BackupsDisclaimer />
+                        <StackPanel IsEnabled="{Binding EnableBackups}">
+                            <CheckBox IsChecked="{Binding SuppressBackupFailureMessage}"
+                                      Content="{x:Static l:Strings.SuppressFailedBackupErrorMessage}"
+                                      Margin="0 10 0 0"/>
+                            <DockPanel Margin="0 10 0 0">
+                                <TextBlock DockPanel.Dock="Bottom" Text="{x:Static l:Strings.BackupDirExplanation}"
+                                           FontSize="10" LineHeight="10" LineStackingStrategy="BlockLineHeight"
+                                           TextWrapping="Wrap" TextAlignment="Justify"
+                                           Margin="0 5 0 0"/>
+                                <Label DockPanel.Dock="Left"
+                                       Content="{x:Static l:Strings.BackupDir}" Padding="0"
+                                       Target="{Binding ElementName=backupDir}" />
+                                <TextBox Text="{Binding BackupDir,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                         x:Name="backupDir" Margin="10 0 0 0"/>
+                            </DockPanel>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="{x:Static l:Strings.LegacyPreferences}"

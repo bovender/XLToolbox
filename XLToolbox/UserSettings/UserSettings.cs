@@ -349,6 +349,8 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool SuppressBackupFailureMessage { get; set; }
+
         public bool Running { get; set; }
 
         #endregion

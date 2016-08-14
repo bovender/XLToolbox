@@ -136,6 +136,19 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool SuppressBackupFailureMessage
+        {
+            get
+            {
+                return _suppressBackupFailureMessage;
+            }
+            set
+            {
+                _suppressBackupFailureMessage = value;
+                OnPropertyChanged("SuppressBackupFailureMessage");
+            }
+        }
+
         public bool FlashBackupsDisclaimer
         {
             get
@@ -229,6 +242,7 @@ namespace XLToolbox.UserSettings
             _isBackupsEnabled = Backup.Backups.IsEnabled;
             _wasBackupsEnabled = _isBackupsEnabled;
             _backupDir = u.BackupDir;
+            _suppressBackupFailureMessage = u.SuppressBackupFailureMessage;
             PropertyChanged += (sender, args) =>
             {
                 _dirty = true;
@@ -266,6 +280,7 @@ namespace XLToolbox.UserSettings
             u.LanguageCode = Language.SelectedItem.Value.ToString();
             u.BackupDir = BackupDir;
             u.EnableBackups = EnableBackups;
+            u.SuppressBackupFailureMessage = SuppressBackupFailureMessage;
             if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
                 XLToolbox.SheetManager.TaskPaneManager.Default.Width = _taskPaneWidth;
@@ -318,6 +333,7 @@ namespace XLToolbox.UserSettings
         private bool _isLoggingEnabled;
         private bool _isBackupsEnabled;
         private bool _wasBackupsEnabled;
+        private bool _suppressBackupFailureMessage;
         private string _backupDir;
         private Language _originalLanguage;
         private Language _language;

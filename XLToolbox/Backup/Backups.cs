@@ -59,7 +59,10 @@ namespace XLToolbox.Backup
                 string dir = UserSettings.UserSettings.Default.BackupDir;
                 if (String.IsNullOrEmpty(dir)) dir = ".backup";
                 Backups b = new Backups(Wb.FullName, dir);
-                b.Create();
+                if (!b.Create())
+                {
+                    OnBackupFailed(b.Exception);
+                }
             }
             else
             {
@@ -91,6 +94,21 @@ namespace XLToolbox.Backup
 
         private static bool _isEnabled;
 
+        #endregion
+
+        #region Static events
+
+        public static event EventHandler<Bovender.ExceptionHandler.ManageExceptionEventArgs> BackupFailed;
+
+        private static void OnBackupFailed(Exception exception)
+        {
+            EventHandler<Bovender.ExceptionHandler.ManageExceptionEventArgs> h = BackupFailed;
+            if (h != null)
+            {
+                h(null, new Bovender.ExceptionHandler.ManageExceptionEventArgs(exception));
+            }
+        }
+        
         #endregion
 
         #region Properties
@@ -158,6 +176,8 @@ namespace XLToolbox.Backup
             }
         }
 
+        public Exception Exception { get; private set; }
+
         #endregion
 
         #region Public methods
@@ -183,7 +203,7 @@ namespace XLToolbox.Backup
         {
             bool result = false;
             BackupFile bf = BackupFile.CreateBackup(FilePath, BackupDir);
-            if (bf != null)
+            if (bf.IsValidBackup)
             {
                 Logger.Info("Create: Created new backup");
                 if (Files != null)
@@ -200,6 +220,7 @@ namespace XLToolbox.Backup
             else
             {
                 Logger.Warn("Create: Failed to create backup");
+                Exception = bf.Exception;
             }
             return result;
         }

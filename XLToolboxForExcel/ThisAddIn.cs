@@ -71,6 +71,8 @@ namespace XLToolboxForExcel
             Ribbon.SubscribeToEvents();
             PerformSanityChecks();
 
+            XLToolbox.Backup.Backups.BackupFailed += Backups_BackupFailed;
+
             // Enable the keyboard shortcuts if no settings were previously saved,
             // i.e. if this appears to be the first run.
             if (!XLToolbox.UserSettings.UserSettings.Default.WasFromFile)
@@ -92,6 +94,7 @@ namespace XLToolboxForExcel
             Logger.Info("ThisAddIn_Shutdown: Starting to clean up after ourselves");
             XLToolbox.UserSettings.UserSettings.Default.Running = false;
             XLToolbox.UserSettings.UserSettings.Default.Save();
+            XLToolbox.Backup.Backups.BackupFailed -= Backups_BackupFailed;
 
             if (XLToolbox.Legacy.LegacyToolbox.IsInitialized)
             {
@@ -155,20 +158,6 @@ namespace XLToolboxForExcel
         }
 
         /// <summary>
-        /// Shows an error message to the user when the central exception handler
-        /// (implemented in Bovender.dll) raises the ManageExceptionCallback event.
-        /// </summary>
-        /// <param name="sender">Object where the exception occurred.</param>
-        /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
-        void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
-        {
-            Logger.Error(e.Exception);
-            e.IsHandled = true;
-            ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
-            vm.InjectInto<ExceptionView>().ShowDialogInForm();
-        }
-
-        /// <summary>
         /// Performs an online update check, but only if the specified number of
         /// days between update checks has passed.
         /// </summary>
@@ -228,6 +217,34 @@ namespace XLToolboxForExcel
             userSettings.Running = true;
             userSettings.Save();
             Logger.Info("Sanity checks completed");
+        }
+
+        /// <summary>
+        /// Shows an error message to the user when the central exception handler
+        /// (implemented in Bovender.dll) raises the ManageExceptionCallback event.
+        /// </summary>
+        /// <param name="sender">Object where the exception occurred.</param>
+        /// <param name="e">Instance of ManageExceptionEventArgs with additional information.</param>
+        private void CentralHandler_ManageExceptionCallback(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
+        {
+            Logger.Error(e.Exception);
+            e.IsHandled = true;
+            ExceptionViewModel vm = new ExceptionViewModel(e.Exception);
+            vm.InjectInto<ExceptionView>().ShowDialogInForm();
+        }
+
+        private void Backups_BackupFailed(object sender, Bovender.ExceptionHandler.ManageExceptionEventArgs e)
+        {
+            XLToolbox.Backup.BackupFailedViewModel vm = new XLToolbox.Backup.BackupFailedViewModel(e.Exception);
+            if (!vm.Suppress)
+            {
+                Logger.Info("Backups_BackupFailed: Informing user about failed backup");
+                vm.InjectInto<XLToolbox.Backup.BackupFailedView>().ShowDialogInForm();
+            }
+            else
+            {
+                Logger.Info("Backups_BackupFailed: Failure message suppressed by user");
+            }
         }
 
         #endregion
