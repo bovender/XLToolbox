@@ -136,6 +136,9 @@
     <Compile Include="Excel\ViewModels\Instance.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
+    <Compile Include="Excel\Views\PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Excel\Views\QuitView.xaml.cs">
       <DependentUpon>QuitView.xaml</DependentUpon>
     </Compile>
@@ -391,6 +394,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\open-from-cell.png" />
     <Resource Include="Resources\images\key.png" />
     <Resource Include="Resources\images\import-export-16.png" />
     <Resource Include="Resources\images\import-export.png" />
@@ -424,6 +428,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Csv\CsvFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Excel\Views\PropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

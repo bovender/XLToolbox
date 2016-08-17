@@ -32,7 +32,7 @@
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonSelectAllShapes" imageMso="BlackAndWhiteDontShow" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
-					<button id="ButtonOpenFromCell" size="normal"
+					<button id="ButtonOpenFromCell" size="normal" image="open-from-cell.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonProperties" imageMso="DiagramTargetInsertClassic" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>

@@ -148,6 +148,7 @@ namespace XLToolbox.Keyboard
             SetShortcut(Command.MoveDataSeriesLeft, "^+{LEFT}");
             SetShortcut(Command.MoveDataSeriesRight, "^+{RIGHT}");
             SetShortcut(Command.SelectAllShapes, "^+A");
+            SetShortcut(Command.Properties, "%~");
             RegisterShortcuts();
         }
 

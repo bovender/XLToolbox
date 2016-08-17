@@ -29,6 +29,7 @@ using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
 using XLToolbox.SheetManager;
 using XLToolbox.Versioning;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox
 {
@@ -108,6 +109,7 @@ namespace XLToolbox
                     case Command.Shortcuts: EditShortcuts(); break;
                     case Command.SaveAs: SaveAs(); break;
                     case Command.Backups: ManageBackups(); break;
+                    case Command.Properties: Properties(); break;
                     default:
                         Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
@@ -252,7 +254,7 @@ namespace XLToolbox
 
         static void OpenDonatePage()
         {
-            System.Diagnostics.Process.Start(Properties.Settings.Default.DonateUrl);
+            System.Diagnostics.Process.Start(XLToolbox.Properties.Settings.Default.DonateUrl);
         }
 
         static void QuitExcel()
@@ -382,6 +384,22 @@ namespace XLToolbox
         {
             Backup.BackupsViewModel vm = new Backup.BackupsViewModel(Instance.Default.ActiveWorkbook);
             vm.InjectInto<Backup.BackupsView>().ShowDialogInForm();
+        }
+
+        static void Properties()
+        {
+            Xl.Workbook wb = Instance.Default.ActiveWorkbook;
+            if (wb != null)
+            {
+                Logger.Info("Properties");
+                Excel.ViewModels.WorkbookViewModel vm = new WorkbookViewModel(wb);
+                if (Marshal.IsComObject(wb)) Marshal.ReleaseComObject(wb);
+                vm.InjectInto<Excel.Views.PropertiesView>().ShowDialogInForm();
+            }
+            else
+            {
+                Logger.Info("Properties: There is no active workbook");
+            }
         }
 
         #endregion

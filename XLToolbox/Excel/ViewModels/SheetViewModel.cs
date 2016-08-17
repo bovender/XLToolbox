@@ -98,6 +98,85 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         public bool IsChart { get; private set; }
 
+        /// <summary>
+        /// Returns the name of the sheet suitable for referencing.
+        /// If the name contains certain characters, it will be quoted.
+        /// See https://www.xltoolbox.net/blog/2015/05/excel-address-syntax.html
+        /// </summary>
+        public string RefName
+        {
+            get
+            {
+                if (RefNeedsQuoting)
+                {
+                    return String.Format("'{0}'", _sheet.Name);
+                }
+                else
+                {
+                    return _sheet.Name;
+                }
+            }
+        }
+
+        public string RefNameWithWorkbook
+        {
+            get
+            {
+                string result;
+                Workbook parent = _sheet.Parent;
+                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(parent.FullName);
+                if (RefNeedsQuoting || _charsRequiringQuote.IsMatch(fileNameWithoutExt))
+                {
+                    result = String.Format("'[{0}]{1}'", parent.Name, _sheet.Name);
+                }
+                else
+                {
+                    result = String.Format("[{0}]{1}", parent.Name, _sheet.Name);
+                }
+                if (Marshal.IsComObject(parent)) Marshal.ReleaseComObject(parent);
+                return result;
+            }
+        }
+
+        public string RefNameWithWorkbookAndPath
+        {
+            get
+            {
+                string result;
+                Workbook parent = _sheet.Parent;
+                string path = _sheet.Parent.Path;
+                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(parent.FullName);
+                if (RefNeedsQuoting || _charsRequiringQuote.IsMatch(fileNameWithoutExt))
+                {
+                    result = System.IO.Path.Combine(
+                        String.Format("'{0}", path),
+                        String.Format("[{0}]{1}'", parent.Name, _sheet.Name));
+                }
+                else
+                {
+                    result = System.IO.Path.Combine(
+                        path,
+                        String.Format("[{0}]{1}", parent.Name, _sheet.Name)
+                        );
+                }
+                if (Marshal.IsComObject(parent)) Marshal.ReleaseComObject(parent);
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether or not the sheet name must be quoted in references.
+        /// If the name contains certain characters, it will be quoted.
+        /// See https://www.xltoolbox.net/blog/2015/05/excel-address-syntax.html
+        /// </summary>
+        public bool RefNeedsQuoting
+        {
+            get
+            {
+                return _charsRequiringQuote.IsMatch(_sheet.Name);
+            }
+        }
+
         #endregion
 
         #region Public methods
@@ -269,6 +348,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private dynamic _sheet;
         private bool _disposed;
+        private readonly Regex _charsRequiringQuote = new Regex(@"\W");
 
         #endregion
     }

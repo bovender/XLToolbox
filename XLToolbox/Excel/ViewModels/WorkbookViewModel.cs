@@ -25,6 +25,8 @@ using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -48,6 +50,24 @@ namespace XLToolbox.Excel.ViewModels
             {
                 _sheets = value;
                 OnPropertyChanged("Sheets");
+            }
+        }
+
+        public SheetViewModel ActiveSheet
+        {
+            get
+            {
+                if (_workbook != null)
+                {
+                    var s = _workbook.ActiveSheet;
+                    int i = IndexOf(s);
+                    if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
+                    return Sheets[i];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -113,6 +133,49 @@ namespace XLToolbox.Excel.ViewModels
                     }
                 }
                 return s;
+            }
+        }
+
+        public IList<String> Properties
+        {
+            get
+            {
+                if (_properties == null && _workbook != null)
+                {
+                    SheetViewModel s = ActiveSheet;
+                    _properties = new List<string>();
+                    if (s != null)
+                    {
+                        _properties.Add(s.RefName);
+                        _properties.Add(s.RefNameWithWorkbook);
+                        _properties.Add(s.RefNameWithWorkbookAndPath);
+                    }
+                    else
+                    {
+                        Logger.Warn("Properties: ActiveSheet is null, adding dummy values");
+                        for (int i = 0; i < 3; i++)
+                        {
+                            _properties.Add(String.Empty);
+                        }
+                    }
+                    _properties.Add(_workbook.Name);
+                    _properties.Add(_workbook.Path);
+                    _properties.Add(_workbook.FullName);
+                }
+                return _properties;
+            }
+        }
+
+        public int PreferredPropertyIndex
+        {
+            get
+            {
+                return UserSettings.UserSettings.Default.PreferredPropertyIndex;
+            }
+            set
+            {
+                UserSettings.UserSettings.Default.PreferredPropertyIndex = value;
+                OnPropertyChanged("PreferredPropertyIndex");
             }
         }
 
@@ -282,6 +345,18 @@ namespace XLToolbox.Excel.ViewModels
                         this).ListenOn("Workbook").ListenOn("ActiveSheet");
                 }
                 return _unmonitorWorkbook;
+            }
+        }
+
+        public DelegatingCommand CopyPropertyCommand
+        {
+            get
+            {
+                if (_copyPropertyCommand == null)
+                {
+                    _copyPropertyCommand = new DelegatingCommand(CopyProperty, CanCopyProperty);
+                }
+                return _copyPropertyCommand;
             }
         }
 
@@ -589,8 +664,8 @@ namespace XLToolbox.Excel.ViewModels
                 _timer = new Timer(
                     CheckSheetsChanged,
                     null,
-                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds,
-                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds);
+                    XLToolbox.Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds,
+                    XLToolbox.Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds);
             }
         }
 
@@ -656,6 +731,36 @@ namespace XLToolbox.Excel.ViewModels
             Dispatch(() => OnPropertyChanged("ActiveSheet"));
         }
 
+        private void CopyProperty(object param)
+        {
+            if (CanCopyProperty(null))
+            {
+                Logger.Info("CopyProperty: Copying property to clipboard, index = {0}",
+                    PreferredPropertyIndex);
+                Clipboard.SetText(Properties[PreferredPropertyIndex]);
+                CloseViewCommand.Execute(null);
+            }
+            else
+            {
+                Logger.Warn("CopyProperty: Cannot copy property");
+                if (Properties != null)
+                {
+                    Logger.Warn("CopyProperty: Properties.Count = {0}, PreferredPropertyIndex = {1}",
+                        Properties.Count, PreferredPropertyIndex);
+                }
+                else
+                {
+                    Logger.Warn("CopyProperty: Properties is null");
+                }
+            }
+        }
+
+        private bool CanCopyProperty(object param)
+        {
+            return (Properties != null) && (PreferredPropertyIndex < Properties.Count)
+                && (PreferredPropertyIndex >= 0);
+        }
+
         #endregion
 
         #region Private fields
@@ -671,11 +776,13 @@ namespace XLToolbox.Excel.ViewModels
         private DelegatingCommand _renameSheet;
         private DelegatingCommand _monitorWorkbook;
         private DelegatingCommand _unmonitorWorkbook;
+        private DelegatingCommand _copyPropertyCommand;
         private Message<MessageContent> _confirmDeleteMessage;
         private Message<StringMessageContent> _renameSheetMessage;
         private string _lastSheetsString;
         private Timer _timer;
         private int _lockEvents;
+        private List<String> _properties;
 
         #endregion
 
@@ -694,7 +801,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     DoUnmonitorWorkbook();
                     _workbook.SheetActivate -= SheetActivated;
-                    if (Marshal.IsComObject(_workbook)) Marshal.ReleaseComObject(_workbook);
+                    //if (Marshal.IsComObject(_workbook)) Marshal.ReleaseComObject(_workbook);
                 }
                 if (value == null)
                 {

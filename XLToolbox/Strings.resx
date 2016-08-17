@@ -835,4 +835,10 @@ The following message was received:</value>
   <data name="SuppressFailedBackupErrorMessage" xml:space="preserve">
     <value>Suppress error message on failed backup</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="WorkbookProperties" xml:space="preserve">
+    <value>Workbook Properties</value>
+  </data>
 </root>

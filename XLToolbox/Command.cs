@@ -73,5 +73,6 @@ namespace XLToolbox
         LegacyPrefs,
         Shortcuts,
         Backups,
+        Properties,
     }
 }

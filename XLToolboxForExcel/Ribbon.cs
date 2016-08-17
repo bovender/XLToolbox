@@ -109,6 +109,7 @@ namespace XLToolboxForExcel
                 { "ButtonUserSettings", Command.UserSettings },
                 { "ButtonShortcuts", Command.Shortcuts },
                 { "ButtonBackups", Command.Backups },
+                { "ButtonProperties", Command.Properties },
             };
 
         }

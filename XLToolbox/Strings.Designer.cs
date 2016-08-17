@@ -457,6 +457,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        public static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online..
         /// </summary>
         public static string CrashReportPrivacy {
@@ -2046,6 +2055,15 @@ namespace XLToolbox {
         public static string Workbook {
             get {
                 return ResourceManager.GetString("Workbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workbook Properties.
+        /// </summary>
+        public static string WorkbookProperties {
+            get {
+                return ResourceManager.GetString("WorkbookProperties", resourceCulture);
             }
         }
         

@@ -73,7 +73,7 @@
                         <Button Margin="0 10 0 0"
                             Command="{Binding DeleteAllBackupsCommand}" Content="{x:Static l:Strings.DeleteAll}" />
                     </StackPanel>
-                    <ListBox MinHeight="180"
+                    <ListView MinHeight="180"
                              ItemsSource="{Binding BackupFiles}" DisplayMemberPath="DisplayString"
                              SelectedItem="{Binding BackupFiles.LastSelected}" />
                 </DockPanel>
