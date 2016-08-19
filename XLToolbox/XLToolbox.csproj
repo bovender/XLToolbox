@@ -129,11 +129,14 @@
     <Compile Include="Csv\CsvImportViewModel.cs" />
     <Compile Include="Csv\CsvSettings.cs" />
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="Excel\RangeExtension.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Excel\Models\ColumnHelper.cs" />
     <Compile Include="Excel\ViewModels\InstanceShutdownEventArgs.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
+    <Compile Include="Excel\Models\RangeHelperBase.cs" />
+    <Compile Include="Excel\Models\Reference.cs" />
+    <Compile Include="Excel\Models\RowHelper.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
     <Compile Include="Excel\Views\PropertiesView.xaml.cs">
@@ -142,6 +145,7 @@
     <Compile Include="Excel\Views\QuitView.xaml.cs">
       <DependentUpon>QuitView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Excel\Extensions\WorkbookExtension.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
@@ -204,6 +208,7 @@
     <Compile Include="Export\WorkingClipboardException.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Jumper.cs" />
     <Compile Include="Keyboard\Manager.cs" />
     <Compile Include="Keyboard\ManagerView.xaml.cs">
       <DependentUpon>ManagerView.xaml</DependentUpon>

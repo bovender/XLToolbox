@@ -466,6 +466,24 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jump.
+        /// </summary>
+        internal static string ButtonJumpToTargetLabel {
+            get {
+                return ResourceManager.GetString("ButtonJumpToTargetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jump to a target: Jumps to the cell reference in the current cell, or opens a file or website, or starts a program..
+        /// </summary>
+        internal static string ButtonJumpToTargetSupertip {
+            get {
+                return ResourceManager.GetString("ButtonJumpToTargetSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ErrorBars.
         /// </summary>
         internal static string ButtonLastErrorBarsLabel {
@@ -588,24 +606,6 @@ namespace XLToolboxForExcel {
         internal static string ButtonOpenCsvWithParamsSupertip {
             get {
                 return ResourceManager.GetString("ButtonOpenCsvWithParamsSupertip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open from cell.
-        /// </summary>
-        internal static string ButtonOpenFromCellLabel {
-            get {
-                return ResourceManager.GetString("ButtonOpenFromCellLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open the file determined by the file name in the selected cell, or jump to target defined in cell..
-        /// </summary>
-        internal static string ButtonOpenFromCellSupertip {
-            get {
-                return ResourceManager.GetString("ButtonOpenFromCellSupertip", resourceCulture);
             }
         }
         

@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Text;
 using IO = System.IO;
 
@@ -186,7 +186,7 @@ namespace XLToolbox.Backup
             }
             finally
             {
-                if (Marshal.IsComObject(w)) Marshal.ReleaseComObject(w);
+                w.ReleaseComObject();
             }
         }
 

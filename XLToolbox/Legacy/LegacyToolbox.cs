@@ -152,7 +152,7 @@ namespace XLToolbox.Legacy
             Microsoft.Office.Interop.Excel.Application app = Instance.Default.Application;
             switch (command)
             {
-                case Command.OpenFromCell:
+                case Command.JumpToTarget:
                     app.Run("RunOpenFromCell");
                     break;
                 case Command.CopyPageSetup:

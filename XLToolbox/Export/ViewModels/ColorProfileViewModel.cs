@@ -19,10 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Unmanaged;
+using Bovender.Extensions;
 using XLToolbox.Export.Models;
-using System.Runtime.InteropServices;
 using XLToolbox.Export.Lcms;
 
 namespace XLToolbox.Export.ViewModels

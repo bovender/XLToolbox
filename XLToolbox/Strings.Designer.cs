@@ -1108,6 +1108,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jump to target.
+        /// </summary>
+        public static string JumpToTarget {
+            get {
+                return ResourceManager.GetString("JumpToTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprache.
         /// </summary>
         public static string Language {
@@ -1875,6 +1884,15 @@ namespace XLToolbox {
         public static string UnableToCreateBackupCopy {
             get {
                 return ResourceManager.GetString("UnableToCreateBackupCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to jump to this target. Please check the spelling..
+        /// </summary>
+        public static string UnableToJump {
+            get {
+                return ResourceManager.GetString("UnableToJump", resourceCulture);
             }
         }
         

@@ -18,15 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Office.Interop.Excel;
-using Bovender.Mvvm.ViewModels;
 using System.Collections;
-using Bovender.Mvvm;
-using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
-using System.Runtime.InteropServices;
+using Microsoft.Office.Interop.Excel;
+using Bovender.Extensions;
+using Bovender.Mvvm;
+using Bovender.Mvvm.ViewModels;
+using Bovender.Mvvm.Messaging;
+using XLToolbox.Excel.Extensions;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -150,6 +151,23 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the Application's Workbooks collection. The underlying
+        /// COM object is automatically released when the Instance
+        /// object is disposed.
+        /// </summary>
+        public Workbooks Workbooks
+        {
+            get
+            {
+                if (_workbooks == null)
+                {
+                    _workbooks = Application.Workbooks;
+                }
+                return _workbooks;
+            }
+        }
+
         public Workbook ActiveWorkbook
         {
             get
@@ -245,48 +263,11 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
-        public IEnumerable<Workbook> Workbooks
-        {
-            get
-            {
-                if (Application != null)
-                {
-                    return Application.Workbooks.Cast<Workbook>();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public IEnumerable<Workbook> UnsavedWorkbooks
-        {
-            get
-            {
-                if (Application != null)
-                {
-                    return Workbooks.Where(w => w.Saved == false);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
         public int CountOpenWorkbooks
         {
             get
             {
-                if (Application != null)
-                {
-                    return Application.Workbooks.Count;
-                }
-                else
-                {
-                    return 0;
-                }
+                return Application == null ? 0 : Workbooks.Count;
             }
         }
 
@@ -294,14 +275,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (Application != null)
-                {
-                    return Workbooks.Count<Workbook>(w => w.Saved == false);
-                }
-                else
-                {
-                    return 0;
-                }
+                return CountWorkbooks(wb => !wb.Saved);
             }
         }
 
@@ -309,14 +283,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (Application != null)
-                {
-                    return Workbooks.Count<Workbook>(w => w.Saved == true);
-                }
-                else
-                {
-                    return 0;
-                }
+                return CountWorkbooks(wb => wb.Saved);
             }
         }
 
@@ -345,9 +312,7 @@ namespace XLToolbox.Excel.ViewModels
             Logger.Info("CreateWorkbook");
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
-            Workbooks workbooks = Application.Workbooks;
-            Workbook workbook = workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
+            Workbook workbook = Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             return workbook;
         }
 
@@ -367,8 +332,113 @@ namespace XLToolbox.Excel.ViewModels
             {
                 sheets.Add(After: sheets[sheets.Count]);
             };
-            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
+            sheets.ReleaseComObject();
             return wb;
+        }
+
+        /// <summary>
+        /// Locates a workbook and returns it. If the workbook is loaded already,
+        /// it will not be re-opened. If the workbook cannot be located, this method
+        /// returns null.
+        /// </summary>
+        /// <param name="name">Name (either bare name or full name with path) of the
+        /// workbook being sought. If this is null or whitespace, the active workbook
+        /// is returned.</param>
+        /// <returns>Workbook or null</returns>
+        public Workbook LocateWorkbook(string name)
+        {
+            Predicate<Workbook> predicate;
+
+            if (Path.GetFileName(name) == name)
+            {
+                // Find workbook by name only
+                predicate = new Predicate<Workbook>(wb => wb.Name == name);
+            }
+            else
+            {
+                // Find workbook by full name (including path)
+                predicate = new Predicate<Workbook>(wb => wb.FullName == name);
+            }
+
+            Workbook foundWorkbook = null;
+            if (!String.IsNullOrWhiteSpace(name))
+            {
+                Logger.Info("LocateWorkbook: Locating {0}", name);
+                for (int i = 1; i <= Workbooks.Count; i++)
+                {
+                    Workbook workbook = Workbooks[i];
+                    if (predicate(workbook))
+                    {
+                        Logger.Info("LocateWorkbook: Workbook already loaded");
+                        foundWorkbook = workbook;
+                        break;
+                    }
+                    workbook.ReleaseComObject();
+                }
+                if (foundWorkbook == null)
+                {
+                    Logger.Info("LocateWorkbook: Workbook not loaded, attempting to open it");
+                    try
+                    {
+                        foundWorkbook = Workbooks.Open(name);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Warn("LocateWorkbook: Failed to open workbook");
+                        Logger.Warn(e);
+                    }
+                }
+            }
+            else
+            {
+                Logger.Info("LocateWorkbook: Using active workbook");
+                foundWorkbook = Instance.Default.ActiveWorkbook;
+            }
+            if (foundWorkbook == null)
+            {
+                Logger.Warn("LocateWorkbook: Unable to locate workbook");
+            }
+            return foundWorkbook;
+        }
+
+        /// <summary>
+        /// Locates a worksheet in a given workbook.
+        /// </summary>
+        /// <param name="workbook">Workbook in which to look for the worksheet.
+        /// If this is null, the active workbook is used.</param>
+        /// <param name="name">Name of the worksheet.</param>
+        /// <returns>Worksheet or null if no worksheet by this name exists.</returns>
+        public Worksheet LocateWorksheet(Workbook workbook, string name)
+        {
+            Worksheet worksheet = null;
+            bool createdCOMObject = false;
+            if (workbook == null)
+            {
+                Logger.Info("LocateWorksheet: Workbook is null, using active workbook");
+                workbook = Application.ActiveWorkbook;
+                createdCOMObject = true;
+            }
+            if (workbook == null)
+            {
+                Logger.Fatal("LocateWorksheet: No active workbook present, cannot proceed");
+                throw new ArgumentNullException(
+                    "Unable to locate worksheet because no workbook is given and there is no active workbook either",
+                    "workbook");
+            }
+            Sheets worksheets = workbook.Worksheets;
+            try
+            {
+                Logger.Info("LocateWorksheet: Locating \"{0}\"", name);
+                worksheet = worksheets[name];
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("LocateWorksheet: Unable to locate worksheet, returning null");
+                Logger.Warn(e);
+            }
+            worksheets.ReleaseComObject();
+            if (createdCOMObject) workbook.ReleaseComObject();
+            return worksheet;
         }
 
         /// <summary>
@@ -454,20 +524,20 @@ namespace XLToolbox.Excel.ViewModels
 
         /// <summary>
         /// Fetches a workbook if it is opened. If no workbook is found
-        /// by the given name, this function returns null.
+        /// by the given name, this function returns null. Unlike the
+        /// LocateWorkbook method, this method will not open a workbook
+        /// that is currently not loaded.
         /// </summary>
         /// <param name="workbookName">Workbook to fetch.</param>
         /// <returns>Workbook or null.</returns>
         public Workbook FindWorkbook(string workbookName)
         {
-            Workbooks workbooks = Application.Workbooks;
             Workbook wb = null;
             try
             {
-                wb = workbooks[workbookName];
+                wb = Workbooks[workbookName];
             }
             catch { }
-            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
             return wb;
         }
 
@@ -486,7 +556,7 @@ namespace XLToolbox.Excel.ViewModels
                 a = addins[addInName];
             }
             catch { }
-            if (Marshal.IsComObject(addins)) Marshal.ReleaseComObject(addins);
+            addins.ReleaseComObject();
             return a;
         }
 
@@ -536,9 +606,7 @@ namespace XLToolbox.Excel.ViewModels
                 resourceStream.CopyTo(tempStream);
                 tempStream.Close();
                 resourceStream.Close();
-                Workbooks workbooks = Application.Workbooks;
-                workbooks.Open(addinPath);
-                if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
+                Workbooks.Open(addinPath);
                 Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
             }
             else
@@ -621,8 +689,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _application.DisplayAlerts = false;
                     _application.Quit();
-                    if (Marshal.IsComObject(_application)) Marshal.ReleaseComObject(_application);
-                    _application = null;
+                    _application = (Application)_application.ReleaseComObject();
+                    _workbooks = (Workbooks)_workbooks.ReleaseComObject();
                 }
             }
         }
@@ -680,26 +748,39 @@ namespace XLToolbox.Excel.ViewModels
         {
             DoCloseView();
             Logger.Info("ConfirmQuitSavingChanges");
-            IEnumerable<Workbook> unsaved = UnsavedWorkbooks;
-            Logger.Info("ConfirmQuitSavingChanges: {0} unsaved workbooks", unsaved.Count());
-            foreach (Workbook w in unsaved)
+            Workbook w = null;
+            bool canQuit = true;
+            for (int i = 1; i <= Workbooks.Count; i++)
             {
+                w = Workbooks[i];
                 if (w.Path == String.Empty)
                 {
-                    Logger.Info("ConfirmQuitSavingChanges: Workbook has no path, invoking xlDialogSaveAs");
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook #{0} of {1} has no path, invoking xlDialogSaveAs",
+                        i, Workbooks.Count);
                     // Cast to prevent ambiguity
                     ((_Workbook)w).Activate();
                     Application.Dialogs[XlBuiltInDialog.xlDialogSaveAs].Show();
                 }
                 else
                 {
-                    Logger.Info("ConfirmQuitSavingChanges: Workbook has a path, calling Save()");
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook #{0} of {1} has a path, calling Save()",
+                        i, Workbooks.Count);
                     w.Save();
                 }
-                if (!w.Saved) return;
+                if (!w.Saved)
+                {
+                    Logger.Warn("ConfirmQuitSavingChanges: Workbook #{0} of {1} not saved: not quitting",
+                        i, Workbooks.Count);
+                    canQuit = false;
+                    break;
+                }
             }
-            Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
-            CloseAllWorkbooksThenShutdown();
+            if (canQuit)
+            {
+                Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
+                CloseAllWorkbooksThenShutdown();
+            }
+            w.ReleaseComObject();
         }
 
         private bool CanQuitSavingChanges()
@@ -725,9 +806,17 @@ namespace XLToolbox.Excel.ViewModels
         private void ConfirmQuitDiscardingChanges()
         {
             Logger.Info("ConfirmQuitDiscardingChanges");
-            foreach (Workbook w in UnsavedWorkbooks)
+            Workbook w;
+            for (int i = 1; i <= Workbooks.Count; i++)
             {
+                w = Workbooks[i];
                 w.Saved = true;
+                if (!w.Saved)
+                {
+                    Logger.Warn("ConfirmQuitDiscardingChanges: Workbook #{0} of {1} still not saved!",
+                        i, Workbooks.Count);
+                }
+                w.ReleaseComObject();
             }
             CloseAllWorkbooksThenShutdown();
         }
@@ -744,35 +833,15 @@ namespace XLToolbox.Excel.ViewModels
         private bool CloseAllWorkbooksThenShutdown()
         {
             DoCloseView();
-            bool workbookNotClosed = false;
             Logger.Info("CloseAllWorkbooksThenShutdown");
-            foreach (Workbook workbook in Application.Workbooks)
-            {
-                bool hidden = true;
-                foreach (Window window in workbook.Windows)
+            bool allClosed = WorkWithVisibleWorkbooks(
+                wb =>
                 {
-                    if (window.Visible == true)
-                    {
-                        hidden = false;
-                        break;
-                    }
-                    else
-                    {
-                        workbook.Saved = true;
-                    }
-                }
-                if (!hidden)
-                {
-                    int oldCount = Application.Workbooks.Count;
-                    workbook.Close();
-                    if (oldCount == Application.Workbooks.Count)
-                    {
-                        workbookNotClosed = true;
-                        break;
-                    }
-                }
-            }
-            if (!workbookNotClosed)
+                    int oldCount = Workbooks.Count;
+                    wb.Close();
+                    return Workbooks.Count == oldCount - 1;
+                });
+            if (allClosed)
             {
                 Quit();
                 Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
@@ -781,7 +850,42 @@ namespace XLToolbox.Excel.ViewModels
             {
                 Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
             }
-            return !workbookNotClosed;
+            return allClosed;
+        }
+
+        private int CountWorkbooks(Predicate<Workbook> test)
+        {
+            if (Application != null)
+            {
+                int n = 0;
+                Workbook w;
+                for (int i = 1; i <= Workbooks.Count; i++)
+                {
+                    w = Workbooks[i];
+                    if (test(w)) n++;
+                    w.ReleaseComObject();
+                }
+                return n;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private bool WorkWithVisibleWorkbooks(Predicate<Workbook> operation)
+        {
+            Workbook w;
+            bool success = true;
+            // Work backwards because a workbook may vanish
+            for (int i = Workbooks.Count; i >= 1; i--)
+            {
+                w = Workbooks[i];
+                if (w.IsVisible()) success = operation(w);
+                w.ReleaseComObject();
+                if (!success) break;
+            }
+            return success;
         }
 
         #endregion
@@ -791,6 +895,7 @@ namespace XLToolbox.Excel.ViewModels
         private bool _disposed;
         private bool _canQuitExcel;
         private Application _application;
+        private Workbooks _workbooks;
         private int _majorVersion;
         private DelegatingCommand _quitInteractivelyCommand;
         private DelegatingCommand _quitSavingChangesCommand;
@@ -810,9 +915,7 @@ namespace XLToolbox.Excel.ViewModels
             () =>
             {
                 Instance i = new Instance(true);
-                Workbooks w = i.Application.Workbooks;
-                w.Add();
-                if (Marshal.IsComObject(w)) Marshal.ReleaseComObject(w);
+                i.Workbooks.Add().ReleaseComObject();
                 return i;
             }
         );

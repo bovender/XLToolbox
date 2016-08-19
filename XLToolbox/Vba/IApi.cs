@@ -17,6 +17,8 @@
  */
 
 using System.Runtime.InteropServices;
+using Bovender.Extensions;
+
 namespace XLToolbox.Vba
 {
     [ComVisible(true)]

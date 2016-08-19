@@ -18,7 +18,7 @@
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -93,7 +93,7 @@ namespace XLToolbox.WorkbookStorage
                 cells[row, 1] = Context;
                 cells[row, 2] = Key;
                 cells[row, 3] = Value.ToString();
-                if (Marshal.IsComObject(cells)) Marshal.ReleaseComObject(cells);
+                cells.ReleaseComObject();
                 return true;
             }
             else
@@ -111,9 +111,9 @@ namespace XLToolbox.WorkbookStorage
             Range cells = sheet.Cells;
             object contextValue = cells[row, 1].Value();
             Context = String.Format("{0}", contextValue);
-            Key = cells[row, 2].Value();
-            Value = cells[row, 3].Value();
-            if (Marshal.IsComObject(cells)) Marshal.ReleaseComObject(cells);
+            Key = cells[row, 2].Value2();
+            Value = cells[row, 3].Value2();
+            cells.ReleaseComObject();
         }
 
         public int AsInt()

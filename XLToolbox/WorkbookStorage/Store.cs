@@ -19,7 +19,7 @@ using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
 
@@ -122,7 +122,7 @@ namespace XLToolbox.WorkbookStorage
                         // If the COMException is raised, the worksheet likely does not exist
                         Sheets sheets = Workbook.Worksheets;
                         _storeSheet = sheets.Add();
-                        if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
+                        sheets.ReleaseComObject();
 
                         // xlSheetVeryHidden hides the sheet so much that it cannot be made
                         // visible from the Excel graphical user interface
@@ -343,7 +343,7 @@ namespace XLToolbox.WorkbookStorage
         {
             dynamic activeSheet = Workbook.ActiveSheet;
             Context = activeSheet.Name;
-            if (Marshal.IsComObject(activeSheet)) Marshal.ReleaseComObject(activeSheet);
+            activeSheet.ReleaseComObject();
         }
 
         /// <summary>
@@ -467,14 +467,14 @@ namespace XLToolbox.WorkbookStorage
         {
             Range usedRange = _storeSheet.UsedRange;
             usedRange.Clear();
-            if (Marshal.IsComObject(usedRange)) Marshal.ReleaseComObject(usedRange);
+            usedRange.ReleaseComObject();
 
             // Put an informative string into the first cell;
             // this is also required in order for GetUsedRange() to return
             // the correct range.
             Range cells = _storeSheet.Cells;
             cells[1, 1] = STORESHEETINFO;
-            if (Marshal.IsComObject(cells)) Marshal.ReleaseComObject(cells);
+            cells.ReleaseComObject();
         }
 
         #endregion

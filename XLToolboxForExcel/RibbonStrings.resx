@@ -252,6 +252,12 @@
   <data name="ButtonInteractiveErrorBarsSupertip" xml:space="preserve">
     <value>Set error bars on the selected chart in interactive mode.</value>
   </data>
+  <data name="ButtonJumpToTargetLabel" xml:space="preserve">
+    <value>Jump</value>
+  </data>
+  <data name="ButtonJumpToTargetSupertip" xml:space="preserve">
+    <value>Jump to a target: Jumps to the cell reference in the current cell, or opens a file or website, or starts a program.</value>
+  </data>
   <data name="ButtonLastErrorBarsLabel" xml:space="preserve">
     <value>ErrorBars</value>
   </data>
@@ -293,12 +299,6 @@
   </data>
   <data name="ButtonOpenCsvWithParamsSupertip" xml:space="preserve">
     <value>Edit the parameters and open a CSV file.</value>
-  </data>
-  <data name="ButtonOpenFromCellLabel" xml:space="preserve">
-    <value>Open from cell</value>
-  </data>
-  <data name="ButtonOpenFromCellSupertip" xml:space="preserve">
-    <value>Open the file determined by the file name in the selected cell, or jump to target defined in cell.</value>
   </data>
   <data name="ButtonPointChartLabel" xml:space="preserve">
     <value>Point Chart</value>

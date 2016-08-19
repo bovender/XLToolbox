@@ -841,4 +841,10 @@ The following message was received:</value>
   <data name="WorkbookProperties" xml:space="preserve">
     <value>Workbook Properties</value>
   </data>
+  <data name="JumpToTarget" xml:space="preserve">
+    <value>Jump to target</value>
+  </data>
+  <data name="UnableToJump" xml:space="preserve">
+    <value>Unable to jump to this target. Please check the spelling.</value>
+  </data>
 </root>

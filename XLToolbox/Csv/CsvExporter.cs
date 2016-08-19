@@ -24,7 +24,7 @@ using System.Text;
 using YamlDotNet.Serialization;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 
 namespace XLToolbox.Csv
 {
@@ -113,7 +113,8 @@ namespace XLToolbox.Csv
                 // StreamWriter buffers the output; using a StringBuilder
                 // doesn't speed up things (tried it)
                 sw = File.CreateText(FileName);
-                CellsTotal = Range.CellsCount();
+                XLToolbox.Excel.Models.Reference reference = new Excel.Models.Reference(Range);
+                CellsTotal = reference.CellCount;
                 Logger.Info("Number of cells: {0}", CellsTotal);
                 CellsProcessed = 0;
                 string fs = FieldSeparator;
@@ -158,7 +159,7 @@ namespace XLToolbox.Csv
                             if (IsCancellationRequested) break;
                         }
                         sw.WriteLine();
-                        if (Marshal.IsComObject(values)) Marshal.ReleaseComObject(values);
+                        values.ReleaseComObject();
                     }
                     if (IsCancellationRequested)
                     {
@@ -167,9 +168,9 @@ namespace XLToolbox.Csv
                         Logger.Info("CSV export cancelled by user");
                         break;
                     }
-                    if (Marshal.IsComObject(row)) Marshal.ReleaseComObject(row);
+                    row.ReleaseComObject();
                 }
-                if (Marshal.IsComObject(rows)) Marshal.ReleaseComObject(rows);
+                rows.ReleaseComObject();
                 sw.Close();
             }
             catch (IOException ioException)

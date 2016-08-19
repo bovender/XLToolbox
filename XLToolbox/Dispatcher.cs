@@ -29,7 +29,6 @@ using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
 using XLToolbox.SheetManager;
 using XLToolbox.Versioning;
-using System.Runtime.InteropServices;
 
 namespace XLToolbox
 {
@@ -81,7 +80,7 @@ namespace XLToolbox
                     case Command.InteractiveErrorBars: ErrorBarsInteractive(); break;
                     case Command.LastErrorBars: LastErrorBars(); break;
                     case Command.UserSettings: EditUserSettings(); break;
-                    case Command.OpenFromCell:
+                    case Command.JumpToTarget: JumpToTarget(); break;
                     case Command.CopyPageSetup:
                     case Command.SelectAllShapes:
                     case Command.FormulaBuilder:
@@ -393,12 +392,26 @@ namespace XLToolbox
             {
                 Logger.Info("Properties");
                 Excel.ViewModels.WorkbookViewModel vm = new WorkbookViewModel(wb);
-                if (Marshal.IsComObject(wb)) Marshal.ReleaseComObject(wb);
+                wb.ReleaseComObject();
                 vm.InjectInto<Excel.Views.PropertiesView>().ShowDialogInForm();
             }
             else
             {
                 Logger.Info("Properties: There is no active workbook");
+            }
+        }
+
+        static void JumpToTarget()
+        {
+            Xl.Range r = Instance.Default.Application.Selection as Xl.Range;
+            Jumper j = new Jumper(r.Value2);
+            if (!j.Jump())
+            {
+                NotificationAction a = new NotificationAction(
+                    Strings.JumpToTarget,
+                    Strings.UnableToJump,
+                    Strings.Close);
+                a.Invoke();
             }
         }
 

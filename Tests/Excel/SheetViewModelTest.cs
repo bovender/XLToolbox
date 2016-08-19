@@ -150,12 +150,7 @@ namespace XLToolbox.Test.Excel
         [TestCase("Sheet 1", true)]
         public void RefNeedsQuoting(string sheetName, bool expected)
         {
-            Sheets sheets = Instance.Default.Application.Sheets;
-            Worksheet ws = sheets.Add();
-            ws.Name = sheetName;
-            SheetViewModel svm = new SheetViewModel(ws);
-            Assert.AreEqual(expected, svm.RefNeedsQuoting, sheetName);
-            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
+            Assert.AreEqual(expected, SheetViewModel.RequiresQuote(sheetName), sheetName);
         }
     }
 }

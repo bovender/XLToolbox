@@ -24,7 +24,7 @@ using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
 using System.Threading;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -59,9 +59,9 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (_workbook != null)
                 {
-                    var s = _workbook.ActiveSheet;
+                    dynamic s = _workbook.ActiveSheet;
                     int i = IndexOf(s);
-                    if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
+                    ObjectExtensions.ReleaseDynamicComObject(s);
                     return Sheets[i];
                 }
                 else
@@ -117,19 +117,26 @@ namespace XLToolbox.Excel.ViewModels
                 string s = String.Empty;
                 if (_workbook != null)
                 {
+                    Sheets sheets = null;
                     try
                     {
-                        foreach (dynamic sheet in _workbook.Sheets)
+                        sheets = _workbook.Sheets;
+                        for (int i = 1; i <= sheets.Count; i++)
                         {
+                            dynamic sheet = sheets[i];
                             // Use colon as separator because it is one of the
                             // characters that are illegal in a sheet name.
                             s += sheet.Name + "::";
-                            if (Marshal.IsComObject(sheet)) Marshal.ReleaseComObject(sheet);
+                            // ObjectExtensions.ReleaseDynamicComObject(sheet);
                         }
                     }
                     catch (System.Runtime.InteropServices.COMException)
                     {
                         return _lastSheetsString;
+                    }
+                    finally
+                    {
+                        sheets.ReleaseComObject();
                     }
                 }
                 return s;
@@ -403,26 +410,30 @@ namespace XLToolbox.Excel.ViewModels
             if (Workbook != null)
             {
                 _lastSheetsString = SheetsString;
-                ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
+                ObservableCollection<SheetViewModel> sheetViewModels = new ObservableCollection<SheetViewModel>();
                 SheetViewModel svm;
-                foreach (dynamic sheet in Workbook.Sheets)
+                Sheets excelSheets = Workbook.Sheets;
+                for (int i = 1; i <= excelSheets.Count; i++)
                 {
+                    dynamic sheet = excelSheets[i];
                     // Need to cast because directly comparing the Visible property with
                     // XlSheetVisibility.xlSheetVisible caused exceptions.
                     if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
                     {
                         svm = new SheetViewModel(sheet);
                         svm.PropertyChanged += svm_PropertyChanged;
-                        sheets.Add(svm);
+                        sheetViewModels.Add(svm);
                     }
+                    ObjectExtensions.ReleaseDynamicComObject(sheet);
                 };
-                Sheets = sheets;
+                excelSheets.ReleaseComObject();
+                Sheets = sheetViewModels;
                 dynamic activeSheet = Workbook.ActiveSheet;
                 if (activeSheet != null)
                 {
                     Logger.Info("BuildSheetList: Selecting active sheet in list");
                     SheetActivated(activeSheet);
-                    if (Marshal.IsComObject(activeSheet)) Marshal.ReleaseComObject(activeSheet);
+                    ObjectExtensions.ReleaseDynamicComObject(activeSheet);
                 }
                 else
                 {
@@ -482,15 +493,17 @@ namespace XLToolbox.Excel.ViewModels
             // that Excel workbook collections are 1-based.
             for (int i = 1; i < Sheets.Count; i++)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    var moving = Workbook.Sheets[i + 1];
-                    var other = Workbook.Sheets[i];
+                    var moving = sheets[i + 1];
+                    var other = sheets[i];
                     moving.Move(before: other);
-                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
-                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
+                    moving.ReleaseComObject();
+                    other.ReleaseComObject();
                     Sheets.Move(i, i - 1);
                 }
+                sheets.ReleaseComObject();
             }
             _lockEvents -= 1;
         }
@@ -501,16 +514,18 @@ namespace XLToolbox.Excel.ViewModels
             int currentTop = 0;
             for (int i = 1; i < Sheets.Count; i++)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    var moving = Workbook.Sheets[i + 1];
-                    var other = Workbook.Sheets[currentTop + 1];
+                    var moving = sheets[i + 1];
+                    var other = sheets[currentTop + 1];
                     moving.Move(before: other);
-                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
-                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
+                    moving.ReleaseComObject();
+                    other.ReleaseComObject();
                     Sheets.Move(i, currentTop);
                     currentTop++;
                 }
+                sheets.ReleaseComObject();
             }
             _lockEvents -= 1;
         }
@@ -533,15 +548,17 @@ namespace XLToolbox.Excel.ViewModels
             // that Excel workbook collections are 1-based.
             for (int i = Sheets.Count - 2; i >= 0; i--)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    var moving = Workbook.Sheets[i + 1];
-                    var other = Workbook.Sheets[i + 2];
+                    var moving = sheets[i + 1];
+                    var other = sheets[i + 2];
                     moving.Move(after: other);
-                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
-                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
+                    moving.ReleaseComObject();
+                    other.ReleaseComObject();
                     Sheets.Move(i, i + 1);
                 }
+                sheets.ReleaseComObject();
             }
             _lockEvents -= 1;
         }
@@ -552,16 +569,18 @@ namespace XLToolbox.Excel.ViewModels
             int currentBottom = Sheets.Count - 1;
             for (int i = currentBottom-1; i >= 0; i--)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    var moving = Workbook.Sheets[i + 1];
-                    var other = Workbook.Sheets[currentBottom + 1];
+                    var moving = sheets[i + 1];
+                    var other = sheets[currentBottom + 1];
                     moving.Move(after: other);
-                    if (Marshal.IsComObject(moving)) Marshal.ReleaseComObject(moving);
-                    if (Marshal.IsComObject(other)) Marshal.ReleaseComObject(other);
+                    moving.ReleaseComObject();
+                    other.ReleaseComObject();
                     Sheets.Move(i, currentBottom);
                     currentBottom--;
                 }
+                sheets.ReleaseComObject();
             }
             _lockEvents -= 1;
         }
@@ -591,18 +610,20 @@ namespace XLToolbox.Excel.ViewModels
             if (confirmation.Confirmed)
             {
                 Excel.ViewModels.Instance.Default.DisableDisplayAlerts();
+                Sheets sheets = Workbook.Sheets;
                 for (int i = 0; i < Sheets.Count; i++)
                 {
                     if (Sheets[i].IsSelected)
                     {
                         // Must use sheet name rather than index in collection
                         // because indexes may differ if hidden sheets exist.
-                        var s = Workbook.Sheets[Sheets[i].DisplayString];
+                        var s = sheets[Sheets[i].DisplayString];
                         s.Delete();
-                        if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
+                        s.ReleaseComObject(s);
                         Sheets.RemoveAt(i);
                     }
                 }
+                sheets.ReleaseComObject();
                 Excel.ViewModels.Instance.Default.EnableDisplayAlerts();
             }
         }
@@ -801,7 +822,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     DoUnmonitorWorkbook();
                     _workbook.SheetActivate -= SheetActivated;
-                    //if (Marshal.IsComObject(_workbook)) Marshal.ReleaseComObject(_workbook);
+                    _workbook.ReleaseComObject();
                 }
                 if (value == null)
                 {

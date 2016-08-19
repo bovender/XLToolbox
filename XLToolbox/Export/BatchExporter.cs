@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Text;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
@@ -117,14 +117,16 @@ namespace XLToolbox.Export
         private void ExportWorkbook(Workbook workbook)
         {
             ((_Workbook)workbook).Activate();
-            Sheets s = workbook.Sheets;
-            foreach (dynamic ws in s)
+            Sheets sheets = workbook.Sheets;
+            Worksheet sheet;
+            for (int i = 1; i <= sheets.Count; i++)
             {
-                ExportSheet(ws);
+                sheet = sheets[i];
+                ExportSheet(sheet);
+                sheet.ReleaseComObject();
                 if (IsCancellationRequested) break;
-                if (Marshal.IsComObject(ws)) Marshal.ReleaseComObject(ws);
             }
-            if (Marshal.IsComObject(s)) Marshal.ReleaseComObject(s);
+            sheets.ReleaseComObject();
         }
 
         private void ExportSheet(dynamic sheet)
@@ -196,24 +198,28 @@ namespace XLToolbox.Export
             ChartObjects cos = worksheet.ChartObjects();
             for (int i = 1; i <= cos.Count; i++)
             {
-                cos.Item(i).Select();
+                dynamic item = cos.Item(i);
+                item.Select();
                 ExportSelection(worksheet);
+                ((object)item).ReleaseComObject();
                 if (IsCancellationRequested) break;
             }
-            if (Marshal.IsComObject(cos)) Marshal.ReleaseComObject(cos);
+            cos.ReleaseComObject();
         }
 
         private void ExportSheetAllItems(Worksheet worksheet)
         {
             Shapes shapes = worksheet.Shapes;
-            foreach (Shape sh in shapes)
+            Shape shape;
+            for (int i = 1; i <= shapes.Count; i++)
             {
-                sh.Select(true);
+                shape = shapes.Item(i);
+                shape.Select(true);
                 ExportSelection(worksheet);
+                shape.ReleaseComObject();
                 if (IsCancellationRequested) break;
-                if (Marshal.IsComObject(sh)) Marshal.ReleaseComObject(sh);
             }
-            if (Marshal.IsComObject(shapes)) Marshal.ReleaseComObject(shapes);
+            shapes.ReleaseComObject();
         }
 
         private void ExportSelection(dynamic sheet)
@@ -229,26 +235,27 @@ namespace XLToolbox.Export
         private int CountInAllWorkbooks()
         {
             int n = 0;
-            Workbooks workbooks = Instance.Default.Application.Workbooks;
-            foreach (Workbook wb in workbooks)
+            Workbooks workbooks = Instance.Default.Workbooks;
+            for (int i = 1; i <= workbooks.Count; i++)
             {
-                n += CountInWorkbook(wb);
-                if (Marshal.IsComObject(wb)) Marshal.ReleaseComObject(wb);
+                Workbook workbook = workbooks[i];
+                n += CountInWorkbook(workbook);
+                workbook.ReleaseComObject();
             }
-            if (Marshal.IsComObject(workbooks)) Marshal.ReleaseComObject(workbooks);
             return n;
         }
 
         private int CountInWorkbook(Workbook workbook)
         {
             int n = 0;
-            Sheets sheets = workbook.Worksheets;
-            foreach (Worksheet ws in sheets)
+            Sheets worksheets = workbook.Worksheets;
+            for (int i = 1; i <= worksheets.Count; i++)
             {
-                n += CountInSheet(ws);
-                if (Marshal.IsComObject(ws)) Marshal.ReleaseComObject(ws);
+                Worksheet worksheet = worksheets[i];
+                n += CountInSheet(worksheet);
+                worksheet.ReleaseComObject();
             }
-            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
+            worksheets.ReleaseComObject();
             return n;
         }
 

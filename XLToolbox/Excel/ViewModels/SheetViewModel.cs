@@ -20,10 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
+using Bovender.Extensions;
+using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm.ViewModels;
-using System.Runtime.InteropServices;
+using XLToolbox.Excel.Models;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -32,6 +33,31 @@ namespace XLToolbox.Excel.ViewModels
     /// </summary>
     public class SheetViewModel : ViewModelBase, IDisposable
     {
+        #region Static methods
+
+        /// <summary>
+        /// Determines whether or not a sheet name must be quoted in references.
+        /// If the name contains certain characters, it will be quoted.
+        /// See https://www.xltoolbox.net/blog/2015/05/excel-address-syntax.html
+        /// </summary>
+        public static bool RequiresQuote(string sheetName)
+        {
+            return _charsRequiringQuote.IsMatch(sheetName);
+        }
+
+        /// <summary>
+        /// Determines whether or not a sheet name and workbook path must be quoted in references.
+        /// If the name contains certain characters, it will be quoted.
+        /// See https://www.xltoolbox.net/blog/2015/05/excel-address-syntax.html
+        /// </summary>
+        public static bool RequiresQuote(string workbookPath, string sheetName)
+        {
+            string fn = System.IO.Path.GetFileNameWithoutExtension(workbookPath);
+            return _charsRequiringQuote.IsMatch(workbookPath) || RequiresQuote(sheetName);
+        }
+
+        #endregion
+
         #region Public properties
 
         public override string DisplayString
@@ -73,6 +99,8 @@ namespace XLToolbox.Excel.ViewModels
                         + s);
                 }
                 OnPropertyChanged("Sheet");
+                OnPropertyChanged("MaxRows");
+                OnPropertyChanged("MaxCols");
                 // Set the base class' DisplayString property to prevent
                 // renaming the worksheet that is triggered by writing this
                 // class' DisplayString property.
@@ -107,7 +135,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (RefNeedsQuoting)
+                if (RequiresQuote(_sheet.Name))
                 {
                     return String.Format("'{0}'", _sheet.Name);
                 }
@@ -124,8 +152,8 @@ namespace XLToolbox.Excel.ViewModels
             {
                 string result;
                 Workbook parent = _sheet.Parent;
-                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(parent.FullName);
-                if (RefNeedsQuoting || _charsRequiringQuote.IsMatch(fileNameWithoutExt))
+                string path = _sheet.Parent.FullName;
+                if (RequiresQuote(path, _sheet.Name))
                 {
                     result = String.Format("'[{0}]{1}'", parent.Name, _sheet.Name);
                 }
@@ -133,7 +161,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     result = String.Format("[{0}]{1}", parent.Name, _sheet.Name);
                 }
-                if (Marshal.IsComObject(parent)) Marshal.ReleaseComObject(parent);
+                parent.ReleaseComObject();
                 return result;
             }
         }
@@ -144,9 +172,8 @@ namespace XLToolbox.Excel.ViewModels
             {
                 string result;
                 Workbook parent = _sheet.Parent;
-                string path = _sheet.Parent.Path;
-                string fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(parent.FullName);
-                if (RefNeedsQuoting || _charsRequiringQuote.IsMatch(fileNameWithoutExt))
+                string path = _sheet.Parent.FullName;
+                if (RequiresQuote(path, _sheet.Name))
                 {
                     result = System.IO.Path.Combine(
                         String.Format("'{0}", path),
@@ -159,21 +186,56 @@ namespace XLToolbox.Excel.ViewModels
                         String.Format("[{0}]{1}", parent.Name, _sheet.Name)
                         );
                 }
-                if (Marshal.IsComObject(parent)) Marshal.ReleaseComObject(parent);
+                parent.ReleaseComObject();
                 return result;
             }
         }
 
-        /// <summary>
-        /// Gets whether or not the sheet name must be quoted in references.
-        /// If the name contains certain characters, it will be quoted.
-        /// See https://www.xltoolbox.net/blog/2015/05/excel-address-syntax.html
-        /// </summary>
-        public bool RefNeedsQuoting
+        public long MaxRows
         {
             get
             {
-                return _charsRequiringQuote.IsMatch(_sheet.Name);
+                long result;
+                Workbook workbook = _sheet.Parent;
+                if (workbook.Excel8CompatibilityMode)
+                {
+                    result = 2 ^ 16; // 65,536
+                }
+                else
+                {
+                    result = 2 ^ 20; // 1,048,576
+                }
+                workbook.ReleaseComObject();
+                return result;
+            }
+        }
+
+        public long MaxCols
+        {
+            get
+            {
+                long result;
+                Workbook workbook = _sheet.Parent;
+                if (workbook.Excel8CompatibilityMode)
+                {
+                    result = 2 ^ 8; // 256, "IV"
+                }
+                else
+                {
+                    result = 2 ^ 14; // 16,384, "XFD"
+                }
+                workbook.ReleaseComObject();
+                return result;
+            }
+        }
+
+        public string MaxColNotation
+        {
+            get
+            {
+                ColumnHelper c = new ColumnHelper();
+                c.Number = MaxCols;
+                return c.ToString();
             }
         }
 
@@ -304,7 +366,7 @@ namespace XLToolbox.Excel.ViewModels
             if (!_disposed)
             {
                 _disposed = true;
-                if (Marshal.IsComObject(_sheet)) Marshal.ReleaseComObject(_sheet);
+                ObjectExtensions.ReleaseDynamicComObject(_sheet);
             }
         }
 
@@ -348,7 +410,7 @@ namespace XLToolbox.Excel.ViewModels
 
         private dynamic _sheet;
         private bool _disposed;
-        private readonly Regex _charsRequiringQuote = new Regex(@"\W");
+        private static readonly Regex _charsRequiringQuote = new Regex(@"\W");
 
         #endregion
     }

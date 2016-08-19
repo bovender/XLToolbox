@@ -40,7 +40,7 @@ namespace XLToolbox
         SaveCsvRange,
         SaveCsvRangeWithParams,
         SaveAs,
-        OpenFromCell,
+        JumpToTarget,
         CopyPageSetup,
         SelectAllShapes,
         Anova1Way,
