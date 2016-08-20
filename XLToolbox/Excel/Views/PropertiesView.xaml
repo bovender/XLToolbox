@@ -51,7 +51,22 @@
                     Margin="5 0 0 0" />
         </UniformGrid>
         <ListView x:Name="list"
-                  ItemsSource="{Binding Properties}" SelectedIndex="{Binding PreferredPropertyIndex}"
-                  ItemContainerStyle="{StaticResource ResourceKey=WorkbookProperty}" />
+                  ItemsSource="{Binding Properties}"
+                  SelectedIndex="{Binding PreferredPropertyIndex}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="{Binding Name}"
+                                   FontSize="10" Foreground="DimGray" />
+                        <TextBlock Text="{Binding Value}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding CopyPropertyCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
     </DockPanel>
 </Window>

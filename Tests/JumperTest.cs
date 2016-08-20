@@ -28,6 +28,8 @@ namespace XLToolbox.Test
     class JumperTest
     {
         [Test]
+        [TestCase(@"Sheet3!D100", true, false, false)]
+        [TestCase(@"A1:C3", true, false, false)]
         [TestCase(@"https://www.xltoolbox.net", false, false, true)]
         [TestCase(@"https://5.45.105.43", false, false, true)]
         [TestCase(@"file:///c:/windows/explorer.exe", false, true, false)]

@@ -19,14 +19,15 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Windows;
+using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
-using System.Threading;
 using Bovender.Extensions;
-using System.Collections.Generic;
-using System.Windows;
+using XLToolbox.Excel.Models;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -143,31 +144,30 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
-        public IList<String> Properties
+        public IList<WorkbookProperty> Properties
         {
             get
             {
                 if (_properties == null && _workbook != null)
                 {
                     SheetViewModel s = ActiveSheet;
-                    _properties = new List<string>();
+                    _properties = new List<WorkbookProperty>();
                     if (s != null)
                     {
-                        _properties.Add(s.RefName);
-                        _properties.Add(s.RefNameWithWorkbook);
-                        _properties.Add(s.RefNameWithWorkbookAndPath);
+                        _properties.Add(new WorkbookProperty(Strings.Worksheet, s.RefName));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbook, s.RefNameWithWorkbook));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPath, s.RefNameWithWorkbookAndPath));
                     }
                     else
                     {
                         Logger.Warn("Properties: ActiveSheet is null, adding dummy values");
-                        for (int i = 0; i < 3; i++)
-                        {
-                            _properties.Add(String.Empty);
-                        }
+                        _properties.Add(new WorkbookProperty(Strings.Worksheet, String.Empty));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbook, String.Empty));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPath, String.Empty));
                     }
-                    _properties.Add(_workbook.Name);
-                    _properties.Add(_workbook.Path);
-                    _properties.Add(_workbook.FullName);
+                    _properties.Add(new WorkbookProperty(Strings.Workbook, _workbook.Name));
+                    _properties.Add(new WorkbookProperty(Strings.Folder, _workbook.Path));
+                    _properties.Add(new WorkbookProperty(Strings.WorkbookAndPath, _workbook.FullName));
                 }
                 return _properties;
             }
@@ -758,7 +758,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 Logger.Info("CopyProperty: Copying property to clipboard, index = {0}",
                     PreferredPropertyIndex);
-                Clipboard.SetText(Properties[PreferredPropertyIndex]);
+                Properties[PreferredPropertyIndex].Copy();
                 CloseViewCommand.Execute(null);
             }
             else
@@ -803,7 +803,7 @@ namespace XLToolbox.Excel.ViewModels
         private string _lastSheetsString;
         private Timer _timer;
         private int _lockEvents;
-        private List<String> _properties;
+        private List<WorkbookProperty> _properties;
 
         #endregion
 

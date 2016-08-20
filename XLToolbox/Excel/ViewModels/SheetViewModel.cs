@@ -366,7 +366,11 @@ namespace XLToolbox.Excel.ViewModels
             if (!_disposed)
             {
                 _disposed = true;
-                ObjectExtensions.ReleaseDynamicComObject(_sheet);
+                try
+                {
+                    ObjectExtensions.ReleaseDynamicComObject(_sheet);
+                }
+                catch { }
             }
         }
 

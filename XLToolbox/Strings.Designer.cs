@@ -973,6 +973,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder.
+        /// </summary>
+        public static string Folder {
+            get {
+                return ResourceManager.GetString("Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FreeImage version.
         /// </summary>
         public static string FreeImageVersion {
@@ -1446,6 +1455,15 @@ namespace XLToolbox {
         public static string RangeSelectionRequired {
             get {
                 return ResourceManager.GetString("RangeSelectionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference.
+        /// </summary>
+        public static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
             }
         }
         
@@ -2077,6 +2095,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Workbook with path.
+        /// </summary>
+        public static string WorkbookAndPath {
+            get {
+                return ResourceManager.GetString("WorkbookAndPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Workbook Properties.
         /// </summary>
         public static string WorkbookProperties {
@@ -2091,6 +2118,24 @@ namespace XLToolbox {
         public static string Worksheet {
             get {
                 return ResourceManager.GetString("Worksheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksheet and workbook.
+        /// </summary>
+        public static string WorksheetAndWorkbook {
+            get {
+                return ResourceManager.GetString("WorksheetAndWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksheet and workbook with path.
+        /// </summary>
+        public static string WorksheetAndWorkbookWithPath {
+            get {
+                return ResourceManager.GetString("WorksheetAndWorkbookWithPath", resourceCulture);
             }
         }
         

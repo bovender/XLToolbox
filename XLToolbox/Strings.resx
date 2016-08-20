@@ -847,4 +847,19 @@ The following message was received:</value>
   <data name="UnableToJump" xml:space="preserve">
     <value>Unable to jump to this target. Please check the spelling.</value>
   </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="WorkbookAndPath" xml:space="preserve">
+    <value>Workbook with path</value>
+  </data>
+  <data name="WorksheetAndWorkbook" xml:space="preserve">
+    <value>Worksheet and workbook</value>
+  </data>
+  <data name="WorksheetAndWorkbookWithPath" xml:space="preserve">
+    <value>Worksheet and workbook with path</value>
+  </data>
 </root>

@@ -129,6 +129,7 @@
     <Compile Include="Csv\CsvImportViewModel.cs" />
     <Compile Include="Csv\CsvSettings.cs" />
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="Excel\Models\WorkbookProperty.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
     <Compile Include="Excel\Models\ColumnHelper.cs" />
     <Compile Include="Excel\ViewModels\InstanceShutdownEventArgs.cs" />
