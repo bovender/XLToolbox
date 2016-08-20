@@ -53,7 +53,7 @@ namespace XLToolbox.Excel.ViewModels
         public static bool RequiresQuote(string workbookPath, string sheetName)
         {
             string fn = System.IO.Path.GetFileNameWithoutExtension(workbookPath);
-            return _charsRequiringQuote.IsMatch(workbookPath) || RequiresQuote(sheetName);
+            return _charsRequiringQuote.IsMatch(fn) || RequiresQuote(sheetName);
         }
 
         #endregion
@@ -172,7 +172,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 string result;
                 Workbook parent = _sheet.Parent;
-                string path = _sheet.Parent.FullName;
+                string path = _sheet.Parent.Path;
                 if (RequiresQuote(path, _sheet.Name))
                 {
                     result = System.IO.Path.Combine(

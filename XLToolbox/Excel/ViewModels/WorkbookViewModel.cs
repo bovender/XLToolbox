@@ -155,15 +155,15 @@ namespace XLToolbox.Excel.ViewModels
                     if (s != null)
                     {
                         _properties.Add(new WorkbookProperty(Strings.Worksheet, s.RefName));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbook, s.RefNameWithWorkbook));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPath, s.RefNameWithWorkbookAndPath));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookReference, s.RefNameWithWorkbook));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPathReference, s.RefNameWithWorkbookAndPath));
                     }
                     else
                     {
                         Logger.Warn("Properties: ActiveSheet is null, adding dummy values");
                         _properties.Add(new WorkbookProperty(Strings.Worksheet, String.Empty));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbook, String.Empty));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPath, String.Empty));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookReference, String.Empty));
+                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPathReference, String.Empty));
                     }
                     _properties.Add(new WorkbookProperty(Strings.Workbook, _workbook.Name));
                     _properties.Add(new WorkbookProperty(Strings.Folder, _workbook.Path));

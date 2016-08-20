@@ -24,9 +24,11 @@
         xmlns:l="clr-namespace:XLToolbox"
         xmlns:bov="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
+        xmlns:behaviors="clr-namespace:Bovender.Mvvm.Behaviors;assembly=Bovender"
         bov:WindowState.Save="True" bov:WindowState.CenterScreen="True"
         ShowInTaskbar="False" SizeToContent="WidthAndHeight"
         Title="{x:Static l:Strings.WorkbookProperties}"
+        behaviors:FocusBehavior.FocusFirst="True"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -56,8 +58,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock Text="{Binding Name}"
-                                   FontSize="10" Foreground="DimGray" />
+                        <TextBlock Text="{Binding Name, Converter={StaticResource ResourceKey=allCapsConv}}"
+                                   FontSize="10" Foreground="DimGray"
+                                   />
                         <TextBlock Text="{Binding Value}" />
                     </StackPanel>
                 </DataTemplate>

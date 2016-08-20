@@ -2122,20 +2122,20 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Worksheet and workbook.
+        ///   Looks up a localized string similar to Worksheet and workbook (reference).
         /// </summary>
-        public static string WorksheetAndWorkbook {
+        public static string WorksheetAndWorkbookReference {
             get {
-                return ResourceManager.GetString("WorksheetAndWorkbook", resourceCulture);
+                return ResourceManager.GetString("WorksheetAndWorkbookReference", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Worksheet and workbook with path.
+        ///   Looks up a localized string similar to Worksheet and workbook with path (reference).
         /// </summary>
-        public static string WorksheetAndWorkbookWithPath {
+        public static string WorksheetAndWorkbookWithPathReference {
             get {
-                return ResourceManager.GetString("WorksheetAndWorkbookWithPath", resourceCulture);
+                return ResourceManager.GetString("WorksheetAndWorkbookWithPathReference", resourceCulture);
             }
         }
         
