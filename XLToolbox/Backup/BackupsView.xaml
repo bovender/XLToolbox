@@ -27,7 +27,7 @@
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         bov:WindowState.Save="True" bov:WindowState.CenterScreen="True"
         ShowInTaskbar="False" Width="480" SizeToContent="Height"
-        MinWidth="320" MinHeight="320"
+        MinWidth="320" MinHeight="360" MaxHeight="640"
         ResizeMode="CanResizeWithGrip"
         Title="{x:Static l:Strings.Backups}"
         >
@@ -56,10 +56,18 @@
                     IsDefault="True" IsCancel="True"/>
         </StackPanel>
         <backups:BackupsDisclaimer DockPanel.Dock="Bottom" />
+        <TextBlock FontSize="14" FontWeight="Bold"
+                   DockPanel.Dock="Top"
+                   Foreground="LightGray" TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   Visibility="{Binding HasBackups, Converter={StaticResource ResourceKey=visBoolNegConv}}"
+                   Text="{x:Static l:Strings.ThisWorkbookHasNoBackupsYet}"
+                   />
         <GroupBox Header="{x:Static l:Strings.BackupsForThisWorkbook}"
-                  IsEnabled="{Binding IsEnabled}">
-            <StackPanel>
-                <DockPanel Visibility="{Binding HasBackups,Converter={StaticResource ResourceKey=visBoolConv}}">
+                  IsEnabled="{Binding IsEnabled}"
+                  Visibility="{Binding HasBackups, Converter={StaticResource ResourceKey=visBoolConv}}"
+                  >
+                <DockPanel>
                     <TextBlock DockPanel.Dock="Top" Margin="0 0 0 10">
                         <Hyperlink Command="{Binding OpenBackupDirCommand}">
                             <TextBlock Text="{Binding BackupDir}" />
@@ -73,17 +81,11 @@
                         <Button Margin="0 10 0 0"
                             Command="{Binding DeleteAllBackupsCommand}" Content="{x:Static l:Strings.DeleteAll}" />
                     </StackPanel>
-                    <ListView MinHeight="180"
-                             ItemsSource="{Binding BackupFiles}" DisplayMemberPath="DisplayString"
-                             SelectedItem="{Binding BackupFiles.LastSelected}" />
+                    <ListView ItemsSource="{Binding BackupFiles}"
+                              DisplayMemberPath="DisplayString"
+                              SelectedItem="{Binding BackupFiles.LastSelected}"
+                              />
                 </DockPanel>
-                <TextBlock FontSize="14" FontWeight="Bold"
-                           Foreground="LightGray" TextWrapping="Wrap" TextAlignment="Center"
-                           VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="280"
-                           Visibility="{Binding HasBackups, Converter={StaticResource ResourceKey=visBoolNegConv}}"
-                           Text="{x:Static l:Strings.ThisWorkbookHasNoBackupsYet}"
-                           />
-            </StackPanel>
         </GroupBox>
     </DockPanel>
 </Window>
