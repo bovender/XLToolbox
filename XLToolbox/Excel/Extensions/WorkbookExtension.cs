@@ -41,10 +41,10 @@ namespace XLToolbox.Excel.Extensions
             {
                 window = windows[i];
                 visible = window.Visible;
-                window.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(window);
                 if (visible) break;
             }
-            windows.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(windows);
             return visible;
         }
     }

@@ -41,7 +41,7 @@ namespace XLToolbox.Excel.ViewModels
                 _chart = value;
                 var parent = _chart.Parent;
                 IsEmbedded = (parent is ChartObject);
-                parent.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(parent);
                 OnPropertyChanged("Chart");
                 OnPropertyChanged("IsEmbedded");
             }
@@ -67,7 +67,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 var parent = Chart.Parent;
                 parent.Select();
-                parent.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(parent);
             }
             else
             {

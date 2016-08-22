@@ -186,7 +186,7 @@ namespace XLToolbox.Backup
             }
             finally
             {
-                w.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(w);
             }
         }
 

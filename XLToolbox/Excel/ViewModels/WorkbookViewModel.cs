@@ -62,7 +62,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     dynamic s = _workbook.ActiveSheet;
                     int i = IndexOf(s);
-                    ObjectExtensions.ReleaseDynamicComObject(s);
+                    Bovender.ComHelpers.ReleaseComObject(s);
                     return Sheets[i];
                 }
                 else
@@ -137,7 +137,7 @@ namespace XLToolbox.Excel.ViewModels
                     }
                     finally
                     {
-                        sheets.ReleaseComObject();
+                        Bovender.ComHelpers.ReleaseComObject(sheets);
                     }
                 }
                 return s;
@@ -426,16 +426,16 @@ namespace XLToolbox.Excel.ViewModels
                         svm.PropertyChanged += svm_PropertyChanged;
                         sheetViewModels.Add(svm);
                     }
-                    ObjectExtensions.ReleaseDynamicComObject(sheet);
+                    Bovender.ComHelpers.ReleaseComObject(sheet);
                 };
-                excelSheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(excelSheets);
                 Sheets = sheetViewModels;
                 dynamic activeSheet = Workbook.ActiveSheet;
                 if (activeSheet != null)
                 {
                     Logger.Info("BuildSheetList: Selecting active sheet in list");
                     SheetActivated(activeSheet);
-                    ObjectExtensions.ReleaseDynamicComObject(activeSheet);
+                    Bovender.ComHelpers.ReleaseComObject(activeSheet);
                 }
                 else
                 {
@@ -501,11 +501,11 @@ namespace XLToolbox.Excel.ViewModels
                     var moving = sheets[i + 1];
                     var other = sheets[i];
                     moving.Move(before: other);
-                    moving.ReleaseComObject();
-                    other.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, i - 1);
                 }
-                sheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -522,12 +522,12 @@ namespace XLToolbox.Excel.ViewModels
                     var moving = sheets[i + 1];
                     var other = sheets[currentTop + 1];
                     moving.Move(before: other);
-                    moving.ReleaseComObject();
-                    other.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, currentTop);
                     currentTop++;
                 }
-                sheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -556,11 +556,11 @@ namespace XLToolbox.Excel.ViewModels
                     var moving = sheets[i + 1];
                     var other = sheets[i + 2];
                     moving.Move(after: other);
-                    moving.ReleaseComObject();
-                    other.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, i + 1);
                 }
-                sheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -577,12 +577,12 @@ namespace XLToolbox.Excel.ViewModels
                     var moving = sheets[i + 1];
                     var other = sheets[currentBottom + 1];
                     moving.Move(after: other);
-                    moving.ReleaseComObject();
-                    other.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, currentBottom);
                     currentBottom--;
                 }
-                sheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -621,11 +621,11 @@ namespace XLToolbox.Excel.ViewModels
                         // because indexes may differ if hidden sheets exist.
                         var s = sheets[Sheets[i].DisplayString];
                         s.Delete();
-                        s.ReleaseComObject(s);
+                        Bovender.ComHelpers.ReleaseComObject(s);
                         Sheets.RemoveAt(i);
                     }
                 }
-                sheets.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheets);
                 Excel.ViewModels.Instance.Default.EnableDisplayAlerts();
             }
         }
@@ -824,7 +824,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     DoUnmonitorWorkbook();
                     _workbook.SheetActivate -= SheetActivated;
-                    _workbook.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(_workbook);
                 }
                 if (value == null)
                 {

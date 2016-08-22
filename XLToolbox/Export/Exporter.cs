@@ -259,7 +259,7 @@ namespace XLToolbox.Export
             );
             Cancelling -= Exporter_Cancelling;
             PercentCompleted = 50;
-            fib.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(fib);
         }
 
         private void ConvertColor(FreeImageBitmap freeImageBitmap)

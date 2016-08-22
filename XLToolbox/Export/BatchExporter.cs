@@ -123,10 +123,10 @@ namespace XLToolbox.Export
             {
                 sheet = sheets[i];
                 ExportSheet(sheet);
-                sheet.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(sheet);
                 if (IsCancellationRequested) break;
             }
-            sheets.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(sheets);
         }
 
         private void ExportSheet(dynamic sheet)
@@ -201,10 +201,10 @@ namespace XLToolbox.Export
                 dynamic item = cos.Item(i);
                 item.Select();
                 ExportSelection(worksheet);
-                ((object)item).ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(((object)item));
                 if (IsCancellationRequested) break;
             }
-            cos.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(cos);
         }
 
         private void ExportSheetAllItems(Worksheet worksheet)
@@ -216,10 +216,10 @@ namespace XLToolbox.Export
                 shape = shapes.Item(i);
                 shape.Select(true);
                 ExportSelection(worksheet);
-                shape.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(shape);
                 if (IsCancellationRequested) break;
             }
-            shapes.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(shapes);
         }
 
         private void ExportSelection(dynamic sheet)
@@ -240,7 +240,7 @@ namespace XLToolbox.Export
             {
                 Workbook workbook = workbooks[i];
                 n += CountInWorkbook(workbook);
-                workbook.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(workbook);
             }
             return n;
         }
@@ -253,9 +253,9 @@ namespace XLToolbox.Export
             {
                 Worksheet worksheet = worksheets[i];
                 n += CountInSheet(worksheet);
-                worksheet.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(worksheet);
             }
-            worksheets.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(worksheets);
             return n;
         }
 

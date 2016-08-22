@@ -78,8 +78,8 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(address, range.Address);
             Assert.AreEqual(worksheet.Name, range.Worksheet.Name);
             Assert.AreEqual(workbook.Name, range.Worksheet.Parent.Name);
-            worksheet.ReleaseComObject();
-            worksheets.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(worksheet);
+            Bovender.ComHelpers.ReleaseComObject(worksheets);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace XLToolbox.Test.Excel
                 reference.ReferenceString);
             workbook.Close(SaveChanges: false);
             System.IO.File.Delete(Path.Combine(dir, fn));
-            worksheet.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(worksheet);
         }
     }
 }

@@ -172,7 +172,7 @@ namespace XLToolbox.Excel.ViewModels
                 }
                 if (_range != null)
                 {
-                    _range.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(_range);
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace XLToolbox.Excel.ViewModels
             }
             if (_range != null)
             {
-                _range.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(_range);
             }
         }
 

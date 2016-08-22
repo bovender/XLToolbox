@@ -397,7 +397,7 @@ namespace XLToolbox
             {
                 Logger.Info("Properties");
                 Excel.ViewModels.WorkbookViewModel vm = new WorkbookViewModel(wb);
-                wb.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(wb);
                 vm.InjectInto<Excel.Views.PropertiesView>().ShowDialogInForm();
             }
             else

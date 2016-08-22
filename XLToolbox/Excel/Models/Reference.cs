@@ -440,11 +440,11 @@ namespace XLToolbox.Excel.Models
 
         private void Reset()
         {
-            if (_rangeWasCreated) _range.ReleaseComObject();
-            _cols = (Range)_cols.ReleaseComObject();
-            _rows = (Range)_rows.ReleaseComObject();
-            _workbook = (Workbook)_workbook.ReleaseComObject();
-            _worksheet = (Worksheet)_worksheet.ReleaseComObject();
+            if (_rangeWasCreated) _range = (Range)Bovender.ComHelpers.ReleaseComObject(_range);
+            _cols = (Range)Bovender.ComHelpers.ReleaseComObject(_cols);
+            _rows = (Range)Bovender.ComHelpers.ReleaseComObject(_rows);
+            _workbook = (Workbook)Bovender.ComHelpers.ReleaseComObject(_workbook);
+            _worksheet = (Worksheet)Bovender.ComHelpers.ReleaseComObject(_worksheet);
             _cellCount = 0;
             _referenceString = null;
             Top = null;

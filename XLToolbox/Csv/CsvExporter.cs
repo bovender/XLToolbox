@@ -159,7 +159,7 @@ namespace XLToolbox.Csv
                             if (IsCancellationRequested) break;
                         }
                         sw.WriteLine();
-                        values.ReleaseComObject();
+                        Bovender.ComHelpers.ReleaseComObject(values);
                     }
                     if (IsCancellationRequested)
                     {
@@ -168,9 +168,9 @@ namespace XLToolbox.Csv
                         Logger.Info("CSV export cancelled by user");
                         break;
                     }
-                    row.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(row);
                 }
-                rows.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(rows);
                 sw.Close();
             }
             catch (IOException ioException)

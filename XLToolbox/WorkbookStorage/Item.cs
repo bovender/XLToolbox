@@ -93,7 +93,7 @@ namespace XLToolbox.WorkbookStorage
                 cells[row, 1] = Context;
                 cells[row, 2] = Key;
                 cells[row, 3] = Value.ToString();
-                cells.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(cells);
                 return true;
             }
             else
@@ -113,7 +113,7 @@ namespace XLToolbox.WorkbookStorage
             Context = String.Format("{0}", contextValue);
             Key = cells[row, 2].Value2();
             Value = cells[row, 3].Value2();
-            cells.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(cells);
         }
 
         public int AsInt()

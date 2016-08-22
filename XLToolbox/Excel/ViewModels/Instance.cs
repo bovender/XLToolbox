@@ -332,7 +332,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 sheets.Add(After: sheets[sheets.Count]);
             };
-            sheets.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(sheets);
             return wb;
         }
 
@@ -373,7 +373,7 @@ namespace XLToolbox.Excel.ViewModels
                         foundWorkbook = workbook;
                         break;
                     }
-                    workbook.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(workbook);
                 }
                 if (foundWorkbook == null)
                 {
@@ -436,8 +436,8 @@ namespace XLToolbox.Excel.ViewModels
                 Logger.Warn("LocateWorksheet: Unable to locate worksheet, returning null");
                 Logger.Warn(e);
             }
-            worksheets.ReleaseComObject();
-            if (createdCOMObject) workbook.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(worksheets);
+            if (createdCOMObject) Bovender.ComHelpers.ReleaseComObject(workbook);
             return worksheet;
         }
 
@@ -556,7 +556,7 @@ namespace XLToolbox.Excel.ViewModels
                 a = addins[addInName];
             }
             catch { }
-            addins.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(addins);
             return a;
         }
 
@@ -689,8 +689,8 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _application.DisplayAlerts = false;
                     _application.Quit();
-                    _application = (Application)_application.ReleaseComObject();
-                    _workbooks = (Workbooks)_workbooks.ReleaseComObject();
+                    _application = (Application)Bovender.ComHelpers.ReleaseComObject(_application);
+                    _workbooks = (Workbooks)Bovender.ComHelpers.ReleaseComObject(_workbooks);
                 }
             }
         }
@@ -780,7 +780,7 @@ namespace XLToolbox.Excel.ViewModels
                 Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
                 CloseAllWorkbooksThenShutdown();
             }
-            w.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(w);
         }
 
         private bool CanQuitSavingChanges()
@@ -816,7 +816,7 @@ namespace XLToolbox.Excel.ViewModels
                     Logger.Warn("ConfirmQuitDiscardingChanges: Workbook #{0} of {1} still not saved!",
                         i, Workbooks.Count);
                 }
-                w.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(w);
             }
             CloseAllWorkbooksThenShutdown();
         }
@@ -863,7 +863,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     w = Workbooks[i];
                     if (test(w)) n++;
-                    w.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(w);
                 }
                 return n;
             }
@@ -882,7 +882,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 w = Workbooks[i];
                 if (w.IsVisible()) success = operation(w);
-                w.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(w);
                 if (!success) break;
             }
             return success;
@@ -915,7 +915,8 @@ namespace XLToolbox.Excel.ViewModels
             () =>
             {
                 Instance i = new Instance(true);
-                i.Workbooks.Add().ReleaseComObject();
+                Workbook w = i.Workbooks.Add();
+                Bovender.ComHelpers.ReleaseComObject(w);
                 return i;
             }
         );

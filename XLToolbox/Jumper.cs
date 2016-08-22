@@ -47,7 +47,7 @@ namespace XLToolbox
                 Logger.Info("FromSelection: Cannot create instance, selection is a {0}",
                     selection.GetType().FullName);
             }
-            selection.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(selection);
             return jumper;
         }
 
@@ -137,7 +137,7 @@ namespace XLToolbox
                             Logger.Warn("Jump: Unable to locate target \"{0}\"", path);
                         }
                     }
-                    workbook.ReleaseComObject();
+                    Bovender.ComHelpers.ReleaseComObject(workbook);
                 }
                 else if (IsWebUrl)
                 {

@@ -122,7 +122,7 @@ namespace XLToolbox.WorkbookStorage
                         // If the COMException is raised, the worksheet likely does not exist
                         Sheets sheets = Workbook.Worksheets;
                         _storeSheet = sheets.Add();
-                        sheets.ReleaseComObject();
+                        Bovender.ComHelpers.ReleaseComObject(sheets);
 
                         // xlSheetVeryHidden hides the sheet so much that it cannot be made
                         // visible from the Excel graphical user interface
@@ -343,7 +343,7 @@ namespace XLToolbox.WorkbookStorage
         {
             dynamic activeSheet = Workbook.ActiveSheet;
             Context = activeSheet.Name;
-            activeSheet.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(activeSheet);
         }
 
         /// <summary>
@@ -467,14 +467,14 @@ namespace XLToolbox.WorkbookStorage
         {
             Range usedRange = _storeSheet.UsedRange;
             usedRange.Clear();
-            usedRange.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(usedRange);
 
             // Put an informative string into the first cell;
             // this is also required in order for GetUsedRange() to return
             // the correct range.
             Range cells = _storeSheet.Cells;
             cells[1, 1] = STORESHEETINFO;
-            cells.ReleaseComObject();
+            Bovender.ComHelpers.ReleaseComObject(cells);
         }
 
         #endregion

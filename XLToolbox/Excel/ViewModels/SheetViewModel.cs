@@ -161,7 +161,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     result = String.Format("[{0}]{1}", parent.Name, _sheet.Name);
                 }
-                parent.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(parent);
                 return result;
             }
         }
@@ -186,7 +186,7 @@ namespace XLToolbox.Excel.ViewModels
                         String.Format("[{0}]{1}", parent.Name, _sheet.Name)
                         );
                 }
-                parent.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(parent);
                 return result;
             }
         }
@@ -205,7 +205,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     result = 2 ^ 20; // 1,048,576
                 }
-                workbook.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(workbook);
                 return result;
             }
         }
@@ -224,7 +224,7 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     result = 2 ^ 14; // 16,384, "XFD"
                 }
-                workbook.ReleaseComObject();
+                Bovender.ComHelpers.ReleaseComObject(workbook);
                 return result;
             }
         }
@@ -368,7 +368,7 @@ namespace XLToolbox.Excel.ViewModels
                 _disposed = true;
                 try
                 {
-                    ObjectExtensions.ReleaseDynamicComObject(_sheet);
+                    Bovender.ComHelpers.ReleaseComObject(_sheet);
                 }
                 catch { }
             }
