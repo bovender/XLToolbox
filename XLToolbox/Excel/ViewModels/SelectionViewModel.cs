@@ -21,6 +21,8 @@ using System.Drawing.Imaging;
 using Microsoft.Office.Interop.Excel;
 using Windows = System.Windows;
 using Bovender.Mvvm.ViewModels;
+using Bovender.Extensions;
+using XLToolbox.Excel.Models;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -30,7 +32,7 @@ namespace XLToolbox.Excel.ViewModels
     /// this view model always reflects the current selection
     /// of the Excel application; it is not fixed.
     /// </summary>
-    public class SelectionViewModel : ViewModelBase
+    public class SelectionViewModel : ViewModelBase, IDisposable
     {
         #region Events
 
@@ -48,6 +50,39 @@ namespace XLToolbox.Excel.ViewModels
             get
             {
                 return _app.Selection;
+            }
+        }
+
+        public Range Range
+        {
+            get
+            {
+                if (!_rangeTested)
+                {
+                    _rangeTested = true;
+                    _range = Selection as Range; // may result in null
+                }
+                return _range;
+            }
+        }
+
+        public bool IsRange
+        {
+            get
+            {
+                return Range != null;
+            }
+        }
+
+        public Reference Reference
+        {
+            get
+            {
+                if (IsRange && _reference == null)
+                {
+                    _reference = new Reference(Range);
+                }
+                return _reference;
             }
         }
 
@@ -105,6 +140,41 @@ namespace XLToolbox.Excel.ViewModels
             _app.SheetActivate += Excel_SheetActivate;
             _app.WorkbookActivate += Excel_WorkbookActivate;
             _app.SheetSelectionChange += Excel_SelectionChange;
+        }
+
+        #endregion
+
+        #region Disposal
+
+        ~SelectionViewModel()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                if (disposing)
+                {
+                    // Clean up managed resources
+                    if (_reference != null)
+                    {
+                        _reference.Dispose();
+                    }
+                }
+                if (_range != null)
+                {
+                    _range.ReleaseComObject();
+                }
+            }
         }
 
         #endregion
@@ -197,14 +267,27 @@ namespace XLToolbox.Excel.ViewModels
         private void Invalidate()
         {
             _bounds = Windows.Rect.Empty;
+            _rangeTested = false;
+            if (_reference != null)
+            {
+                _reference.Dispose();
+            }
+            if (_range != null)
+            {
+                _range.ReleaseComObject();
+            }
         }
 
         #endregion
 
         #region Private fields
 
+        private bool _disposed;
         private Application _app;
         private Windows.Rect _bounds;
+        private Range _range;
+        private bool _rangeTested;
+        private Reference _reference;
 
         #endregion
 

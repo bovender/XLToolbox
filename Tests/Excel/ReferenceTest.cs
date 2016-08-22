@@ -19,11 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
+using Bovender.Extensions;
 using XLToolbox.Excel.Models;
 using XLToolbox.Excel.ViewModels;
-using System.Runtime.InteropServices;
 
 namespace XLToolbox.Test.Excel
 {
@@ -77,8 +78,26 @@ namespace XLToolbox.Test.Excel
             Assert.AreEqual(address, range.Address);
             Assert.AreEqual(worksheet.Name, range.Worksheet.Name);
             Assert.AreEqual(workbook.Name, range.Worksheet.Parent.Name);
-            if (Marshal.IsComObject(worksheet)) Marshal.ReleaseComObject(worksheet);
-            if (Marshal.IsComObject(worksheets)) Marshal.ReleaseComObject(worksheets);
+            worksheet.ReleaseComObject();
+            worksheets.ReleaseComObject();
+        }
+
+        [Test]
+        public void BuildReferenceString()
+        {
+            string dir = System.IO.Path.GetTempPath();
+            string fn = Path.GetRandomFileName();
+            Workbook workbook = Instance.Default.ActiveWorkbook;
+            workbook.SaveAs(Path.Combine(dir, fn));
+            Worksheet worksheet = workbook.ActiveSheet as Worksheet;
+            Range range = worksheet.Range["D5:K10"];
+            Reference reference = new Reference(range);
+            Assert.AreEqual(
+                String.Format("{0}[{1}]{2}!{3}",  dir, fn, worksheet.Name, "$D$5:$K$10"),
+                reference.ReferenceString);
+            workbook.Close(SaveChanges: false);
+            System.IO.File.Delete(Path.Combine(dir, fn));
+            worksheet.ReleaseComObject();
         }
     }
 }

@@ -150,20 +150,22 @@ namespace XLToolbox.Excel.ViewModels
             {
                 if (_properties == null && _workbook != null)
                 {
-                    SheetViewModel s = ActiveSheet;
                     _properties = new List<WorkbookProperty>();
-                    if (s != null)
+                    SelectionViewModel selection = new SelectionViewModel(Instance.Default.Application);
+                    if (selection.IsRange)
                     {
-                        _properties.Add(new WorkbookProperty(Strings.Worksheet, s.RefName));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookReference, s.RefNameWithWorkbook));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPathReference, s.RefNameWithWorkbookAndPath));
+                        _properties.Add(new WorkbookProperty(Strings.Selection, selection.Reference.ReferenceString));
                     }
                     else
                     {
-                        Logger.Warn("Properties: ActiveSheet is null, adding dummy values");
-                        _properties.Add(new WorkbookProperty(Strings.Worksheet, String.Empty));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookReference, String.Empty));
-                        _properties.Add(new WorkbookProperty(Strings.WorksheetAndWorkbookWithPathReference, String.Empty));
+                        try
+                        {
+                            _properties.Add(new WorkbookProperty(Strings.Selection, selection.Selection.Name));
+                        }
+                        catch
+                        {
+                            _properties.Add(new WorkbookProperty(Strings.Selection, String.Empty));
+                        }
                     }
                     _properties.Add(new WorkbookProperty(Strings.Workbook, _workbook.Name));
                     _properties.Add(new WorkbookProperty(Strings.Folder, _workbook.Path));

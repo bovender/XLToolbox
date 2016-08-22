@@ -42,7 +42,7 @@ namespace XLToolbox.Excel.Models
             {
                 if (_range != null)
                 {
-                    return _workbook.Path;
+                    return _workbook.FullName;
                 }
                 else
                 {
@@ -131,11 +131,17 @@ namespace XLToolbox.Excel.Models
             {
                 if (_referenceString == null)
                 {
-                    string dir = Path.GetDirectoryName(_workbookPath);
-                    string wbk = Path.GetFileName(_workbookPath);
-                    string q = SheetViewModel.RequiresQuote(_workbookPath, _worksheetName) ? "'" : String.Empty;
-                    _referenceString = String.Format("{0}{1}[{2}]{0}", q, dir, wbk);
-                    Logger.Info("Reference_get: Build reference: {0}", _referenceString);
+                    string path = WorkbookPath;
+                    string dir = Path.GetDirectoryName(path);
+                    string wbk = Path.GetFileName(path);
+                    string q = SheetViewModel.RequiresQuote(path, SheetName) ? "'" : String.Empty;
+                    _referenceString = String.Format(
+                        "{0}{1}{2}{0}!{3}",
+                        q, 
+                        Path.Combine(dir, String.Format("[{0}]", wbk)),
+                        SheetName,
+                        Address);
+                    Logger.Info("Reference_get: Built reference: {0}", _referenceString);
                 }
                 return _referenceString;
             }
@@ -223,7 +229,16 @@ namespace XLToolbox.Excel.Models
                 Reset();
                 _range = value;
                 _rangeWasCreated = false;
-                IsValid = true;
+                if (_range != null)
+                {
+                    _worksheet = _range.Worksheet;
+                    _workbook = _worksheet.Parent;
+                    IsValid = true;
+                }
+                else
+                {
+                    IsValid = false;
+                }
             }
         }
 

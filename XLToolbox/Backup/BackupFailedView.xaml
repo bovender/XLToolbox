@@ -26,7 +26,7 @@
         xmlns:sign="clr-namespace:Bovender.Mvvm.Views;assembly=Bovender"
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         bov:WindowState.CenterScreen="True"
-        ShowInTaskbar="False" Width="360" SizeToContent="Height"
+        ShowInTaskbar="False" Width="420" SizeToContent="Height"
         Title="{x:Static l:Strings.BackupError}"
         >
     <Window.Resources>
