@@ -381,8 +381,13 @@ namespace XLToolbox
 
         static void ManageBackups()
         {
-            Backup.BackupsViewModel vm = new Backup.BackupsViewModel(Instance.Default.ActiveWorkbook);
-            vm.InjectInto<Backup.BackupsView>().ShowDialogInForm();
+            Xl.Workbook wb = Instance.Default.ActiveWorkbook;
+            if (wb != null)
+            {
+                Backup.BackupsViewModel vm = new Backup.BackupsViewModel(wb);
+                vm.InjectInto<Backup.BackupsView>().ShowDialogInForm();
+                Bovender.ComHelpers.ReleaseComObject(wb);
+            }
         }
 
         static void Properties()
