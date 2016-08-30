@@ -137,9 +137,16 @@ namespace XLToolbox.Excel.ViewModels
         {
             _bounds = Windows.Rect.Empty;
             _app = excelApplication;
-            _app.SheetActivate += Excel_SheetActivate;
-            _app.WorkbookActivate += Excel_WorkbookActivate;
-            _app.SheetSelectionChange += Excel_SelectionChange;
+            if (_app != null)
+            {
+                _app.SheetActivate += Excel_SheetActivate;
+                _app.WorkbookActivate += Excel_WorkbookActivate;
+                _app.SheetSelectionChange += Excel_SelectionChange;
+            }
+            else
+            {
+                Logger.Warn("Constructor: excelApplication is null!");
+            }
         }
 
         #endregion
