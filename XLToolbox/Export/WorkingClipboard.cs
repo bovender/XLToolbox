@@ -64,6 +64,7 @@ namespace XLToolbox.Export
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         void Dispose(bool calledFromDispose)
