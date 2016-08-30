@@ -54,15 +54,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
-    <Reference Include="Bovender, Version=0.12.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.12.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.12.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.12.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +102,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backup\BackupFailedView.xaml.cs">
+      <DependentUpon>BackupFailedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup\BackupFailedViewModel.cs" />
+    <Compile Include="Backup\BackupFile.cs" />
+    <Compile Include="Backup\BackupFilesCollection.cs" />
+    <Compile Include="Backup\BackupFileViewModel.cs" />
+    <Compile Include="Backup\Backups.cs" />
+    <Compile Include="Backup\BackupsDisclaimer.xaml.cs">
+      <DependentUpon>BackupsDisclaimer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup\BackupsView.xaml.cs">
+      <DependentUpon>BackupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Backup\BackupsViewModel.cs" />
+    <Compile Include="Backup\TimeStamp.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Csv\CsvExporter.cs" />
     <Compile Include="Csv\CsvFileBase.cs" />
@@ -113,16 +129,24 @@
     <Compile Include="Csv\CsvImportViewModel.cs" />
     <Compile Include="Csv\CsvSettings.cs" />
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="Excel\RangeExtension.cs" />
+    <Compile Include="Excel\Models\WorkbookProperty.cs" />
     <Compile Include="Excel\ViewModels\ChartViewModel.cs" />
+    <Compile Include="Excel\Models\ColumnHelper.cs" />
     <Compile Include="Excel\ViewModels\InstanceShutdownEventArgs.cs" />
     <Compile Include="Excel\ViewModels\InvalidSheetNameException.cs" />
     <Compile Include="Excel\ViewModels\Instance.cs" />
+    <Compile Include="Excel\Models\RangeHelperBase.cs" />
+    <Compile Include="Excel\Models\Reference.cs" />
+    <Compile Include="Excel\Models\RowHelper.cs" />
     <Compile Include="Excel\ViewModels\SelectionChangedEventArgs.cs" />
     <Compile Include="Excel\ViewModels\SelectionViewModel.cs" />
+    <Compile Include="Excel\Views\PropertiesView.xaml.cs">
+      <DependentUpon>PropertiesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Excel\Views\QuitView.xaml.cs">
       <DependentUpon>QuitView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Excel\Extensions\WorkbookExtension.cs" />
     <Compile Include="ExceptionHandler\ExceptionViewModel.cs" />
     <Compile Include="ExceptionHandler\SubmissionCompletedAction.cs" />
     <Compile Include="ExceptionHandler\SubmissionFailureView.xaml.cs">
@@ -185,6 +209,7 @@
     <Compile Include="Export\WorkingClipboardException.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="HelpSystem\Provider.cs" />
+    <Compile Include="Jumper.cs" />
     <Compile Include="Keyboard\Manager.cs" />
     <Compile Include="Keyboard\ManagerView.xaml.cs">
       <DependentUpon>ManagerView.xaml</DependentUpon>
@@ -375,6 +400,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\images\open-from-cell.png" />
     <Resource Include="Resources\images\key.png" />
     <Resource Include="Resources\images\import-export-16.png" />
     <Resource Include="Resources\images\import-export.png" />
@@ -395,7 +421,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Backup\BackupFailedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Backup\BackupsDisclaimer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Backup\BackupsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Csv\CsvFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Excel\Views\PropertiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

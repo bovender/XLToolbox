@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Bovender.Extensions;
 using System.Text;
 
 namespace XLToolbox.Csv
@@ -50,7 +51,7 @@ namespace XLToolbox.Csv
             Logger.Info("Importing CSV: FS='{0}', DS='{1}', TS='{2}'",
                 FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvSettings = Settings;
-            Excel.ViewModels.Instance.Default.Application.Workbooks.OpenText(
+            Excel.ViewModels.Instance.Default.Workbooks.OpenText(
                 FileName,
                 DataType: XlTextParsingType.xlDelimited,
                 Other: true, OtherChar: StringParam(FieldSeparator),

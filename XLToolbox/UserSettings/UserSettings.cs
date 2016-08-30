@@ -193,6 +193,34 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool EnableBackups
+        {
+            get
+            {
+                return XLToolbox.Backup.Backups.IsEnabled;
+            }
+            set
+            {
+                XLToolbox.Backup.Backups.IsEnabled = value;
+            }
+        }
+
+        public string BackupDir
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(_backupDir))
+                {
+                    _backupDir = Properties.Settings.Default.DefaultBackupDir;
+                }
+                return _backupDir;
+            }
+            set
+            {
+                _backupDir = value;
+            }
+        }
+
         public int LastAnova { get; set; }
 
         public int LastErrorBars { get; set; }
@@ -321,6 +349,10 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool SuppressBackupFailureMessage { get; set; }
+
+        public int PreferredPropertyIndex { get; set; }
+
         public bool Running { get; set; }
 
         #endregion
@@ -356,6 +388,7 @@ namespace XLToolbox.UserSettings
         private int _updateCheckInterval;
         private string _lastVersionSeen;
         private string _languageCode;
+        private string _backupDir;
 
         #endregion
 

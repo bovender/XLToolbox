@@ -19,11 +19,15 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Windows;
+using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
-using System.Threading;
+using Bovender.Extensions;
+using XLToolbox.Excel.Models;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -47,6 +51,24 @@ namespace XLToolbox.Excel.ViewModels
             {
                 _sheets = value;
                 OnPropertyChanged("Sheets");
+            }
+        }
+
+        public SheetViewModel ActiveSheet
+        {
+            get
+            {
+                if (_workbook != null)
+                {
+                    dynamic s = _workbook.ActiveSheet;
+                    int i = IndexOf(s);
+                    Bovender.ComHelpers.ReleaseComObject(s);
+                    return Sheets[i];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -96,21 +118,73 @@ namespace XLToolbox.Excel.ViewModels
                 string s = String.Empty;
                 if (_workbook != null)
                 {
+                    Sheets sheets = null;
                     try
                     {
-                        foreach (dynamic sheet in _workbook.Sheets)
+                        sheets = _workbook.Sheets;
+                        for (int i = 1; i <= sheets.Count; i++)
                         {
+                            dynamic sheet = sheets[i];
                             // Use colon as separator because it is one of the
                             // characters that are illegal in a sheet name.
                             s += sheet.Name + "::";
+                            // ObjectExtensions.ReleaseDynamicComObject(sheet);
                         }
                     }
                     catch (System.Runtime.InteropServices.COMException)
                     {
                         return _lastSheetsString;
                     }
+                    finally
+                    {
+                        Bovender.ComHelpers.ReleaseComObject(sheets);
+                    }
                 }
                 return s;
+            }
+        }
+
+        public IList<WorkbookProperty> Properties
+        {
+            get
+            {
+                if (_properties == null && _workbook != null)
+                {
+                    _properties = new List<WorkbookProperty>();
+                    SelectionViewModel selection = new SelectionViewModel(Instance.Default.Application);
+                    if (selection.IsRange)
+                    {
+                        _properties.Add(new WorkbookProperty(Strings.Selection, selection.Reference.ReferenceString));
+                    }
+                    else
+                    {
+                        try
+                        {
+                            _properties.Add(new WorkbookProperty(Strings.Selection, selection.Selection.Name));
+                        }
+                        catch
+                        {
+                            _properties.Add(new WorkbookProperty(Strings.Selection, String.Empty));
+                        }
+                    }
+                    _properties.Add(new WorkbookProperty(Strings.Workbook, _workbook.Name));
+                    _properties.Add(new WorkbookProperty(Strings.Folder, _workbook.Path));
+                    _properties.Add(new WorkbookProperty(Strings.WorkbookAndPath, _workbook.FullName));
+                }
+                return _properties;
+            }
+        }
+
+        public int PreferredPropertyIndex
+        {
+            get
+            {
+                return UserSettings.UserSettings.Default.PreferredPropertyIndex;
+            }
+            set
+            {
+                UserSettings.UserSettings.Default.PreferredPropertyIndex = value;
+                OnPropertyChanged("PreferredPropertyIndex");
             }
         }
 
@@ -283,6 +357,18 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        public DelegatingCommand CopyPropertyCommand
+        {
+            get
+            {
+                if (_copyPropertyCommand == null)
+                {
+                    _copyPropertyCommand = new DelegatingCommand(CopyProperty, CanCopyProperty);
+                }
+                return _copyPropertyCommand;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -326,25 +412,30 @@ namespace XLToolbox.Excel.ViewModels
             if (Workbook != null)
             {
                 _lastSheetsString = SheetsString;
-                ObservableCollection<SheetViewModel> sheets = new ObservableCollection<SheetViewModel>();
+                ObservableCollection<SheetViewModel> sheetViewModels = new ObservableCollection<SheetViewModel>();
                 SheetViewModel svm;
-                foreach (dynamic sheet in Workbook.Sheets)
+                Sheets excelSheets = Workbook.Sheets;
+                for (int i = 1; i <= excelSheets.Count; i++)
                 {
+                    dynamic sheet = excelSheets[i];
                     // Need to cast because directly comparing the Visible property with
                     // XlSheetVisibility.xlSheetVisible caused exceptions.
                     if ((XlSheetVisibility)sheet.Visible == XlSheetVisibility.xlSheetVisible)
                     {
                         svm = new SheetViewModel(sheet);
                         svm.PropertyChanged += svm_PropertyChanged;
-                        sheets.Add(svm);
+                        sheetViewModels.Add(svm);
                     }
+                    Bovender.ComHelpers.ReleaseComObject(sheet);
                 };
-                Sheets = sheets;
+                Bovender.ComHelpers.ReleaseComObject(excelSheets);
+                Sheets = sheetViewModels;
                 dynamic activeSheet = Workbook.ActiveSheet;
                 if (activeSheet != null)
                 {
                     Logger.Info("BuildSheetList: Selecting active sheet in list");
-                    SheetActivated(Workbook.ActiveSheet);
+                    SheetActivated(activeSheet);
+                    Bovender.ComHelpers.ReleaseComObject(activeSheet);
                 }
                 else
                 {
@@ -404,11 +495,17 @@ namespace XLToolbox.Excel.ViewModels
             // that Excel workbook collections are 1-based.
             for (int i = 1; i < Sheets.Count; i++)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i+1].Move(before: Workbook.Sheets[i]);
+                    var moving = sheets[i + 1];
+                    var other = sheets[i];
+                    moving.Move(before: other);
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, i - 1);
                 }
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -419,12 +516,18 @@ namespace XLToolbox.Excel.ViewModels
             int currentTop = 0;
             for (int i = 1; i < Sheets.Count; i++)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(before: Workbook.Sheets[currentTop+1]);
+                    var moving = sheets[i + 1];
+                    var other = sheets[currentTop + 1];
+                    moving.Move(before: other);
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, currentTop);
                     currentTop++;
                 }
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -447,11 +550,17 @@ namespace XLToolbox.Excel.ViewModels
             // that Excel workbook collections are 1-based.
             for (int i = Sheets.Count - 2; i >= 0; i--)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[i + 2]);
+                    var moving = sheets[i + 1];
+                    var other = sheets[i + 2];
+                    moving.Move(after: other);
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, i + 1);
                 }
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -462,12 +571,18 @@ namespace XLToolbox.Excel.ViewModels
             int currentBottom = Sheets.Count - 1;
             for (int i = currentBottom-1; i >= 0; i--)
             {
+                Sheets sheets = Workbook.Sheets;
                 if (Sheets[i].IsSelected)
                 {
-                    Workbook.Sheets[i + 1].Move(after: Workbook.Sheets[currentBottom+1]);
+                    var moving = sheets[i + 1];
+                    var other = sheets[currentBottom + 1];
+                    moving.Move(after: other);
+                    Bovender.ComHelpers.ReleaseComObject(moving);
+                    Bovender.ComHelpers.ReleaseComObject(other);
                     Sheets.Move(i, currentBottom);
                     currentBottom--;
                 }
+                Bovender.ComHelpers.ReleaseComObject(sheets);
             }
             _lockEvents -= 1;
         }
@@ -497,16 +612,20 @@ namespace XLToolbox.Excel.ViewModels
             if (confirmation.Confirmed)
             {
                 Excel.ViewModels.Instance.Default.DisableDisplayAlerts();
+                Sheets sheets = Workbook.Sheets;
                 for (int i = 0; i < Sheets.Count; i++)
                 {
                     if (Sheets[i].IsSelected)
                     {
                         // Must use sheet name rather than index in collection
                         // because indexes may differ if hidden sheets exist.
-                        Workbook.Sheets[Sheets[i].DisplayString].Delete();
+                        var s = sheets[Sheets[i].DisplayString];
+                        s.Delete();
+                        Bovender.ComHelpers.ReleaseComObject(s);
                         Sheets.RemoveAt(i);
                     }
                 }
+                Bovender.ComHelpers.ReleaseComObject(sheets);
                 Excel.ViewModels.Instance.Default.EnableDisplayAlerts();
             }
         }
@@ -568,8 +687,8 @@ namespace XLToolbox.Excel.ViewModels
                 _timer = new Timer(
                     CheckSheetsChanged,
                     null,
-                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds,
-                    Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds);
+                    XLToolbox.Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds,
+                    XLToolbox.Properties.Settings.Default.WorkbookMonitorIntervalMilliseconds);
             }
         }
 
@@ -635,6 +754,36 @@ namespace XLToolbox.Excel.ViewModels
             Dispatch(() => OnPropertyChanged("ActiveSheet"));
         }
 
+        private void CopyProperty(object param)
+        {
+            if (CanCopyProperty(null))
+            {
+                Logger.Info("CopyProperty: Copying property to clipboard, index = {0}",
+                    PreferredPropertyIndex);
+                Properties[PreferredPropertyIndex].Copy();
+                CloseViewCommand.Execute(null);
+            }
+            else
+            {
+                Logger.Warn("CopyProperty: Cannot copy property");
+                if (Properties != null)
+                {
+                    Logger.Warn("CopyProperty: Properties.Count = {0}, PreferredPropertyIndex = {1}",
+                        Properties.Count, PreferredPropertyIndex);
+                }
+                else
+                {
+                    Logger.Warn("CopyProperty: Properties is null");
+                }
+            }
+        }
+
+        private bool CanCopyProperty(object param)
+        {
+            return (Properties != null) && (PreferredPropertyIndex < Properties.Count)
+                && (PreferredPropertyIndex >= 0);
+        }
+
         #endregion
 
         #region Private fields
@@ -650,11 +799,13 @@ namespace XLToolbox.Excel.ViewModels
         private DelegatingCommand _renameSheet;
         private DelegatingCommand _monitorWorkbook;
         private DelegatingCommand _unmonitorWorkbook;
+        private DelegatingCommand _copyPropertyCommand;
         private Message<MessageContent> _confirmDeleteMessage;
         private Message<StringMessageContent> _renameSheetMessage;
         private string _lastSheetsString;
         private Timer _timer;
         private int _lockEvents;
+        private List<WorkbookProperty> _properties;
 
         #endregion
 
@@ -668,20 +819,31 @@ namespace XLToolbox.Excel.ViewModels
             }
             set
             {
-                _workbook = value;
-                OnPropertyChanged("Workbook");
-                Logger.Info("Workbook_set: _lockEvents is {0}", _lockEvents);
-                if (_workbook != null)
+                bool _changed = value != _workbook;
+                if (_changed && _workbook != null)
                 {
-                    Logger.Info("Workbook_set: Using new workbook");
-                    BuildSheetList();
-                    _workbook.SheetActivate += SheetActivated;
-                    DisplayString = _workbook.Name;
+                    DoUnmonitorWorkbook();
+                    _workbook.SheetActivate -= SheetActivated;
+                    Bovender.ComHelpers.ReleaseComObject(_workbook);
+                }
+                if (value == null)
+                {
+                    Logger.Info("Workbook_set: value is null");
+                    DisplayString = String.Empty;
+
+                    _workbook = null;
                 }
                 else
                 {
-                    Logger.Info("Workbook_set: value is null!");
-                    DisplayString = String.Empty;
+                    Logger.Info("Workbook_set: Using new workbook");
+                    _workbook = value;
+                    _workbook.SheetActivate += SheetActivated;
+                    DisplayString = _workbook.Name;
+                }
+                if (_changed)
+                {
+                    BuildSheetList();
+                    OnPropertyChanged("Workbook");
                 }
             }
         }

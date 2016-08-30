@@ -28,11 +28,15 @@
 					<toggleButton id="ButtonSheetList" onAction="SheetManagerToggleButton_OnAction" image="sheets.png"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip"
 						getEnabled="HasWorkbook" getPressed="SheetManagerToggleButton_GetPressed" />
-					<button id="ButtonOpenFromCell" size="normal"
-						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 					<button id="ButtonCopyPageSetup" imageMso="PrintTitles" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
-					<button id="ButtonSelectAllShapes" imageMso="BlackAndWhiteDontShow" size="large"
+					<button id="ButtonSelectAllShapes" imageMso="BlackAndWhiteDontShow" size="normal"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
+					<button id="ButtonJumpToTarget" size="normal" image="open-from-cell.png"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
+					<button id="ButtonProperties" imageMso="DiagramTargetInsertClassic" size="normal"
+						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
+					<button id="ButtonBackups" imageMso="SaveAll" size="normal"
 						getLabel="Control_GetLabel" getSupertip="Control_GetSupertip" onAction="Button_OnAction"/>
 				</group>
 				<group id="GroupImportExport" getLabel="Control_GetLabel"  image="import-export-16.png">

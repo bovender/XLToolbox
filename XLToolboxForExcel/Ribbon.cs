@@ -76,7 +76,7 @@ namespace XLToolboxForExcel
                 { "ButtonSaveCsvWithParams", Command.SaveCsvWithParams },
                 { "ButtonSaveCsvRange", Command.SaveCsvRange },
                 { "ButtonSaveCsvRangeWithParams", Command.SaveCsvRangeWithParams },
-                { "ButtonOpenFromCell", Command.OpenFromCell },
+                { "ButtonJumpToTarget", Command.JumpToTarget },
                 { "ButtonCopyPageSetup", Command.CopyPageSetup },
                 { "ButtonSelectAllShapes", Command.SelectAllShapes },
                 { "ButtonAnova1Way", Command.Anova1Way },
@@ -108,6 +108,8 @@ namespace XLToolboxForExcel
                 { "ButtonPrefs", Command.LegacyPrefs },
                 { "ButtonUserSettings", Command.UserSettings },
                 { "ButtonShortcuts", Command.Shortcuts },
+                { "ButtonBackups", Command.Backups },
+                { "ButtonProperties", Command.Properties },
             };
 
         }

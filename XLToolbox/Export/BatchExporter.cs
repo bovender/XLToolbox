@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bovender.Extensions;
 using System.Text;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
@@ -116,11 +117,16 @@ namespace XLToolbox.Export
         private void ExportWorkbook(Workbook workbook)
         {
             ((_Workbook)workbook).Activate();
-            foreach (dynamic ws in workbook.Sheets)
+            Sheets sheets = workbook.Sheets;
+            Worksheet sheet;
+            for (int i = 1; i <= sheets.Count; i++)
             {
-                ExportSheet(ws);
+                sheet = sheets[i];
+                ExportSheet(sheet);
+                Bovender.ComHelpers.ReleaseComObject(sheet);
                 if (IsCancellationRequested) break;
             }
+            Bovender.ComHelpers.ReleaseComObject(sheets);
         }
 
         private void ExportSheet(dynamic sheet)
@@ -192,20 +198,28 @@ namespace XLToolbox.Export
             ChartObjects cos = worksheet.ChartObjects();
             for (int i = 1; i <= cos.Count; i++)
             {
-                cos.Item(i).Select();
+                dynamic item = cos.Item(i);
+                item.Select();
                 ExportSelection(worksheet);
+                Bovender.ComHelpers.ReleaseComObject(((object)item));
                 if (IsCancellationRequested) break;
             }
+            Bovender.ComHelpers.ReleaseComObject(cos);
         }
 
         private void ExportSheetAllItems(Worksheet worksheet)
         {
-            foreach (Shape sh in worksheet.Shapes)
+            Shapes shapes = worksheet.Shapes;
+            Shape shape;
+            for (int i = 1; i <= shapes.Count; i++)
             {
-                sh.Select(true);
+                shape = shapes.Item(i);
+                shape.Select(true);
                 ExportSelection(worksheet);
+                Bovender.ComHelpers.ReleaseComObject(shape);
                 if (IsCancellationRequested) break;
             }
+            Bovender.ComHelpers.ReleaseComObject(shapes);
         }
 
         private void ExportSelection(dynamic sheet)
@@ -221,9 +235,12 @@ namespace XLToolbox.Export
         private int CountInAllWorkbooks()
         {
             int n = 0;
-            foreach (Workbook wb in Instance.Default.Application.Workbooks)
+            Workbooks workbooks = Instance.Default.Workbooks;
+            for (int i = 1; i <= workbooks.Count; i++)
             {
-                n += CountInWorkbook(wb);
+                Workbook workbook = workbooks[i];
+                n += CountInWorkbook(workbook);
+                Bovender.ComHelpers.ReleaseComObject(workbook);
             }
             return n;
         }
@@ -231,10 +248,14 @@ namespace XLToolbox.Export
         private int CountInWorkbook(Workbook workbook)
         {
             int n = 0;
-            foreach (Worksheet ws in workbook.Worksheets)
+            Sheets worksheets = workbook.Worksheets;
+            for (int i = 1; i <= worksheets.Count; i++)
             {
-                n += CountInSheet(ws);
+                Worksheet worksheet = worksheets[i];
+                n += CountInSheet(worksheet);
+                Bovender.ComHelpers.ReleaseComObject(worksheet);
             }
+            Bovender.ComHelpers.ReleaseComObject(worksheets);
             return n;
         }
 
@@ -290,20 +311,6 @@ namespace XLToolbox.Export
             }
         }
 
-        /*private FREE_IMAGE_FORMAT FileTypeToFreeImage(FileType fileType)
-        {
-            FREE_IMAGE_FORMAT fif;
-            if (_fileTypeToFreeImage.TryGetValue(fileType, out fif))
-            {
-                return fif;
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    "No FREE_IMAGE_FORMAT match for " + fileType.ToString());
-            }
-        }
-        */
         #endregion
 
         #region Private fields

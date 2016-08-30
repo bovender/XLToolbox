@@ -32,10 +32,10 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class WorkbookViewModelTest
     {
-        [TestFixtureTearDown]
-        public void TearDown()
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
         {
-            Instance.Default.Dispose();
+            System.Threading.SynchronizationContext.SetSynchronizationContext(new System.Threading.SynchronizationContext());
         }
 
         [Test]

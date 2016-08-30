@@ -215,8 +215,8 @@ namespace XLToolbox.Export.ViewModels
             foreach (PresetViewModel p in ViewModels) { p.IsSelected = false; }
             ViewModels.Add(pvm);
             pvm.IsSelected = true;
-            OnPropertyChanged("Presets");
-            OnPropertyChanged("SelectedPresets");
+            OnPropertyChanged("ViewModels");
+            OnPropertyChanged("SelectedViewModel");
         }
 
         private void DoDeletePreset()
@@ -235,8 +235,8 @@ namespace XLToolbox.Export.ViewModels
                     if (CanDeletePreset() && messageContent.Confirmed)
                     {
                         ViewModels.RemoveSelected();
-                        OnPropertyChanged("Presets");
-                        OnPropertyChanged("SelectedPreset");
+                        OnPropertyChanged("ViewModels");
+                        OnPropertyChanged("SelectedViewModel");
                     }
                 })
             );
@@ -251,7 +251,7 @@ namespace XLToolbox.Export.ViewModels
         {
             EditSettingsMessage.Send(
                 new ViewModelMessageContent(SelectedViewModel),
-                content => OnPropertyChanged("Presets")
+                content => OnPropertyChanged("ViewModels")
             );
         }
 

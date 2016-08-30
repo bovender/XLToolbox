@@ -22,7 +22,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Text;
 
 namespace XLToolbox.Export
@@ -141,13 +141,15 @@ namespace XLToolbox.Export
             }
         }
 
-        private GCHandle DibHandle
+        private System.Runtime.InteropServices.GCHandle DibHandle
         {
             get
             {
                 if (_handle == null || !_handle.IsAllocated)
                 {
-                    _handle = GCHandle.Alloc(DibBytes, GCHandleType.Pinned);
+                    _handle = System.Runtime.InteropServices.GCHandle.Alloc(
+                        DibBytes,
+                        System.Runtime.InteropServices.GCHandleType.Pinned);
                 }
                 return _handle;
             }
@@ -173,7 +175,8 @@ namespace XLToolbox.Export
                 if (!_headerInitialized)
                 {
                     _headerInitialized = true;
-                    _dibHeader = (BITMAPINFOHEADER)Marshal.PtrToStructure(DibHandle.AddrOfPinnedObject(), _dibHeader.GetType());
+                    _dibHeader = (BITMAPINFOHEADER)System.Runtime.InteropServices.Marshal.PtrToStructure(
+                        DibHandle.AddrOfPinnedObject(), _dibHeader.GetType());
                 }
                 return _dibHeader;
             }
@@ -190,7 +193,7 @@ namespace XLToolbox.Export
         private IntPtr _scan0;
         private BITMAPINFOHEADER _dibHeader;
         private bool _headerInitialized;
-        private GCHandle _handle;
+        private System.Runtime.InteropServices.GCHandle _handle;
 
         #endregion
     }

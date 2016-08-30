@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -64,6 +64,7 @@ namespace XLToolbox.Export
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         void Dispose(bool calledFromDispose)

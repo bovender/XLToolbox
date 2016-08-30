@@ -22,6 +22,7 @@ using System.Text;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel.ViewModels;
 using NUnit.Framework;
+using System.Runtime.InteropServices;
 
 namespace XLToolbox.Test.Excel
 {
@@ -32,15 +33,18 @@ namespace XLToolbox.Test.Excel
     class SheetViewModelTest
     {
         [Test]
-        public void Properties()
+        public void DisplayString()
         {
-            Worksheet ws = Instance.Default.Application.Sheets.Add();
+            Sheets sheets = Instance.Default.Application.Sheets;
+            Worksheet ws = sheets.Add();
             SheetViewModel svm = new SheetViewModel(ws);
             Assert.AreEqual(ws.Name, svm.DisplayString);
 
             svm.DisplayString = "HelloWorld";
             Assert.AreEqual(ws.Name, svm.DisplayString,
                 "DisplayString is not written through to sheet object.");
+
+            if (Marshal.IsComObject(sheets)) Marshal.ReleaseComObject(sheets);
         }
 
         [Test]
@@ -133,6 +137,20 @@ namespace XLToolbox.Test.Excel
                 "SelectCharts() should return true if the sheet contains charts and shapes.");
             Assert.IsTrue(svm.SelectShapes(),
                 "SelectGraphicObjects() should return true if the sheet contains charts and shapes.");
+        }
+
+        [Test]
+        [TestCase("Sheet1", false)]
+        [TestCase("Sheet_1", false)]
+        [TestCase("Sheet-1", true)]
+        [TestCase("Shöüät1", false)]
+        [TestCase("Shéèt1", false)]
+        [TestCase("Sheet;1", true)]
+        [TestCase("Sheet,1", true)]
+        [TestCase("Sheet 1", true)]
+        public void RefNeedsQuoting(string sheetName, bool expected)
+        {
+            Assert.AreEqual(expected, SheetViewModel.RequiresQuote(sheetName), sheetName);
         }
     }
 }

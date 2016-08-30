@@ -40,7 +40,7 @@ namespace XLToolbox
         SaveCsvRange,
         SaveCsvRangeWithParams,
         SaveAs,
-        OpenFromCell,
+        JumpToTarget,
         CopyPageSetup,
         SelectAllShapes,
         Anova1Way,
@@ -72,5 +72,7 @@ namespace XLToolbox
         UserSettings,
         LegacyPrefs,
         Shortcuts,
+        Backups,
+        Properties,
     }
 }

@@ -19,6 +19,7 @@ using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Bovender.Extensions;
 using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
 
@@ -119,7 +120,9 @@ namespace XLToolbox.WorkbookStorage
                         dynamic previousSel = Workbook.Application.Selection;
 
                         // If the COMException is raised, the worksheet likely does not exist
-                        _storeSheet = Workbook.Worksheets.Add();
+                        Sheets sheets = Workbook.Worksheets;
+                        _storeSheet = sheets.Add();
+                        Bovender.ComHelpers.ReleaseComObject(sheets);
 
                         // xlSheetVeryHidden hides the sheet so much that it cannot be made
                         // visible from the Excel graphical user interface
@@ -209,21 +212,21 @@ namespace XLToolbox.WorkbookStorage
 
         public void Dispose()
         {
-            if (!_disposed)
-            {
-                Dispose(true);
-                GC.SuppressFinalize(this);
-                _disposed = true;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!_disposed)
             {
-                if (Dirty)
+                _disposed = true;
+                if (disposing)
                 {
-                    WriteToWorksheet();
+                    if (Dirty)
+                    {
+                        WriteToWorksheet();
+                    }
                 }
             }
         }
@@ -338,7 +341,9 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         public void UseActiveSheet()
         {
-            Context = Workbook.ActiveSheet.Name;
+            dynamic activeSheet = Workbook.ActiveSheet;
+            Context = activeSheet.Name;
+            Bovender.ComHelpers.ReleaseComObject(activeSheet);
         }
 
         /// <summary>
@@ -460,12 +465,16 @@ namespace XLToolbox.WorkbookStorage
 
         private void PrepareStoreSheet()
         {
-            _storeSheet.UsedRange.Clear();
+            Range usedRange = _storeSheet.UsedRange;
+            usedRange.Clear();
+            Bovender.ComHelpers.ReleaseComObject(usedRange);
 
             // Put an informative string into the first cell;
             // this is also required in order for GetUsedRange() to return
             // the correct range.
-            _storeSheet.Cells[1, 1] = STORESHEETINFO;
+            Range cells = _storeSheet.Cells;
+            cells[1, 1] = STORESHEETINFO;
+            Bovender.ComHelpers.ReleaseComObject(cells);
         }
 
         #endregion

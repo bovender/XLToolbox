@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Csv;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace XLToolbox.Test.Csv
@@ -30,6 +31,12 @@ namespace XLToolbox.Test.Csv
     [TestFixture]
     class CsvFileTest
     {
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
+        {
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+        }
+
         [Test]
         public void ExportSimpleCsv()
         {
@@ -64,18 +71,15 @@ namespace XLToolbox.Test.Csv
             CsvExportViewModel vm = new CsvExportViewModel(model);
             string fn = System.IO.Path.GetTempFileName();
             vm.FileName = fn;
+            bool cancel = false;
             bool progressCompletedRaised = false;
             vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
                 progressCompletedRaised = true;
             };
             vm.StartProcess();
-            Task t = new Task(() =>
-            {
-                while (model.IsProcessing) { }
-            });
-            t.Start();
-            t.Wait(15000);
+            while (!progressCompletedRaised && !cancel) { }
+            Timer t = new Timer((obj) => cancel = true, null, 15000, Timeout.Infinite);
             if (vm.IsProcessing)
             {
                 vm.CancelProcess();

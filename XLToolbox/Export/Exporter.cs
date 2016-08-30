@@ -26,6 +26,7 @@ using FreeImageAPI;
 using XLToolbox.Unmanaged;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
+using Bovender.Extensions;
 
 namespace XLToolbox.Export
 {
@@ -258,6 +259,7 @@ namespace XLToolbox.Export
             );
             Cancelling -= Exporter_Cancelling;
             PercentCompleted = 50;
+            Bovender.ComHelpers.ReleaseComObject(fib);
         }
 
         private void ConvertColor(FreeImageBitmap freeImageBitmap)

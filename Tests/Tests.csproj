@@ -44,6 +44,12 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\..\bovender\Bovender\Bovender.csproj">
       <Project>{52405856-03aa-4961-a60a-e8619ad43030}</Project>
@@ -51,15 +57,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29'">
-    <Reference Include="Bovender, Version=0.12.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.12.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.12.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.1.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.12.1.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.1.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -113,8 +119,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Backup\BackupsTest.cs" />
+    <Compile Include="Backup\BackupFileTest.cs" />
+    <Compile Include="Backup\TimeStampTest.cs" />
     <Compile Include="Csv\CsvFileTest.cs" />
+    <Compile Include="Excel\ColumnHelperTest.cs" />
     <Compile Include="Excel\InstanceTest.cs" />
+    <Compile Include="Excel\ReferenceTest.cs" />
+    <Compile Include="Excel\RowHelperTest.cs" />
     <Compile Include="Excel\SelectionViewModelTest.cs" />
     <Compile Include="Excel\WorkbookViewModelTest.cs" />
     <Compile Include="Excel\SheetViewModelTest.cs" />
@@ -130,6 +142,7 @@
     <Compile Include="Export\SingleExportSettingsViewModelTest.cs" />
     <Compile Include="Export\UnitTest.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="JumperTest.cs" />
     <Compile Include="Keyboard\ManagerTest.cs" />
     <Compile Include="Keyboard\ShortcutTest.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -150,6 +163,7 @@
     </None>
     <EmbeddedResource Include="VERSION" />
     <None Include="Tests.licenseheader" />
+    <None Include="xltb.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XLToolbox\XLToolbox.csproj">

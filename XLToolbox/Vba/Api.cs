@@ -17,9 +17,9 @@
  */
 using System;
 using System.Runtime.InteropServices;
+using Bovender.Extensions;
 using XLToolbox.Export.Models;
 using XLToolbox.Export.ViewModels;
-using Bovender.Extensions;
 
 namespace XLToolbox.Vba
 {

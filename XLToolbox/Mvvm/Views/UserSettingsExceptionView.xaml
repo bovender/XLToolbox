@@ -25,6 +25,7 @@
         Title="{x:Static l:Strings.UserSettings}"
         Width="540" Height="280"
         ResizeMode="CanResizeWithGrip"
+        Topmost="True"
         >
     <Window.Resources>
         <ResourceDictionary Source="/Bovender;component/style.xaml" />

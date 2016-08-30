@@ -48,7 +48,9 @@ namespace XLToolbox.UnitTests.Export
             PresetsRepository sr = PresetsRepository.Default;
             for (int i = 0; i < 3; i++)
             {
-                sr.Add(new Preset());
+                Preset p = new Preset();
+                p.Name = String.Format("Test preset #{0}", i);
+                sr.Add(p);
             };
             int oldCount = sr.Presets.Count;
             PresetsRepositoryViewModel srvm = new PresetsRepositoryViewModel();

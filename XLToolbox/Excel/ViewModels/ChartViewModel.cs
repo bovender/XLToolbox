@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
+using Bovender.Extensions;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -38,7 +39,9 @@ namespace XLToolbox.Excel.ViewModels
             set
             {
                 _chart = value;
-                IsEmbedded = (_chart.Parent is ChartObject);
+                var parent = _chart.Parent;
+                IsEmbedded = (parent is ChartObject);
+                Bovender.ComHelpers.ReleaseComObject(parent);
                 OnPropertyChanged("Chart");
                 OnPropertyChanged("IsEmbedded");
             }
@@ -62,7 +65,9 @@ namespace XLToolbox.Excel.ViewModels
             }
             if (IsEmbedded)
             {
-                ((_Chart)Chart).Parent.Select();
+                var parent = Chart.Parent;
+                parent.Select();
+                Bovender.ComHelpers.ReleaseComObject(parent);
             }
             else
             {

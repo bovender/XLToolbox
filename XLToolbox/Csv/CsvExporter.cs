@@ -24,6 +24,7 @@ using System.Text;
 using YamlDotNet.Serialization;
 using Microsoft.Office.Interop.Excel;
 using XLToolbox.Excel;
+using Bovender.Extensions;
 
 namespace XLToolbox.Csv
 {
@@ -112,21 +113,21 @@ namespace XLToolbox.Csv
                 // StreamWriter buffers the output; using a StringBuilder
                 // doesn't speed up things (tried it)
                 sw = File.CreateText(FileName);
-                CellsTotal = Range.CellsCount();
+                XLToolbox.Excel.Models.Reference reference = new Excel.Models.Reference(Range);
+                CellsTotal = reference.CellCount;
                 Logger.Info("Number of cells: {0}", CellsTotal);
                 CellsProcessed = 0;
                 string fs = FieldSeparator;
                 if (fs == "\\t") { fs = "\t"; } // Convert "\t" to tab characters
 
                 // Get all values in an array
-                foreach (Range row in Range.Rows)
+                Range rows = Range.Rows;
+                foreach (Range row in rows)
                 {
                     // object[,] values = range.Value2;
                     object[,] values = row.Value2;
                     if (values != null)
                     {
-                        //for (long row = 1; row <= values.GetLength(0); row++)
-                        //{
                         for (long col = 1; col <= values.GetLength(1); col++)
                         {
                             CellsProcessed++;
@@ -137,7 +138,6 @@ namespace XLToolbox.Csv
                                 sw.Write(fs);
                             }
 
-                            // object value = values[row, col];
                             object value = values[1, col]; // 1-based index!
                             if (value != null)
                             {
@@ -159,6 +159,7 @@ namespace XLToolbox.Csv
                             if (IsCancellationRequested) break;
                         }
                         sw.WriteLine();
+                        Bovender.ComHelpers.ReleaseComObject(values);
                     }
                     if (IsCancellationRequested)
                     {
@@ -167,8 +168,9 @@ namespace XLToolbox.Csv
                         Logger.Info("CSV export cancelled by user");
                         break;
                     }
-                    // }
+                    Bovender.ComHelpers.ReleaseComObject(row);
                 }
+                Bovender.ComHelpers.ReleaseComObject(rows);
                 sw.Close();
             }
             catch (IOException ioException)

@@ -1,4 +1,4 @@
-﻿/* RangeExtension.cs
+﻿/* BackupsDisclaimer.xaml.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -19,26 +19,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Office.Interop.Excel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace XLToolbox.Excel
+namespace XLToolbox.Backup
 {
     /// <summary>
-    /// Extension methods for an Excel range.
+    /// Interaction logic for BackupsDisclaimer.xaml
     /// </summary>
-    public static class RangeExtension
+    public partial class BackupsDisclaimer : UserControl
     {
-        /// <summary>
-        /// Returns the number of cells in a range. The original Range.Count
-        /// method is declared as int, which is too small for the maximum
-        /// number of cells on a modern Excel worksheet
-        /// (2^20 rows * 2^14 columns = 2^34 cells).
-        /// </summary>
-        public static long CellsCount(this Range range)
+        public BackupsDisclaimer()
         {
-            long rows = range.Rows.Count;
-            long cols = range.Columns.Count;
-            return rows * cols;
+            InitializeComponent();
         }
     }
 }

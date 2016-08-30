@@ -22,3 +22,4 @@ build/
 lib/
 source.zip
 7za.exe
+.backup/

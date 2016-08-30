@@ -18,14 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Office.Interop.Excel;
-using Bovender.Mvvm.ViewModels;
 using System.Collections;
-using Bovender.Mvvm;
-using Bovender.Mvvm.Messaging;
 using System.Diagnostics;
 using System.IO;
 using System.Globalization;
+using Microsoft.Office.Interop.Excel;
+using Bovender.Extensions;
+using Bovender.Mvvm;
+using Bovender.Mvvm.ViewModels;
+using Bovender.Mvvm.Messaging;
+using XLToolbox.Excel.Extensions;
 
 namespace XLToolbox.Excel.ViewModels
 {
@@ -149,6 +151,23 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the Application's Workbooks collection. The underlying
+        /// COM object is automatically released when the Instance
+        /// object is disposed.
+        /// </summary>
+        public Workbooks Workbooks
+        {
+            get
+            {
+                if (_workbooks == null)
+                {
+                    _workbooks = Application.Workbooks;
+                }
+                return _workbooks;
+            }
+        }
+
         public Workbook ActiveWorkbook
         {
             get
@@ -244,48 +263,11 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
-        public IEnumerable<Workbook> Workbooks
-        {
-            get
-            {
-                if (Application != null)
-                {
-                    return Application.Workbooks.Cast<Workbook>();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-        public IEnumerable<Workbook> UnsavedWorkbooks
-        {
-            get
-            {
-                if (Application != null)
-                {
-                    return Workbooks.Where(w => w.Saved == false);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
         public int CountOpenWorkbooks
         {
             get
             {
-                if (Application != null)
-                {
-                    return Application.Workbooks.Count;
-                }
-                else
-                {
-                    return 0;
-                }
+                return Application == null ? 0 : Workbooks.Count;
             }
         }
 
@@ -293,14 +275,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (Application != null)
-                {
-                    return Workbooks.Count<Workbook>(w => w.Saved == false);
-                }
-                else
-                {
-                    return 0;
-                }
+                return CountWorkbooks(wb => !wb.Saved);
             }
         }
 
@@ -308,14 +283,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (Application != null)
-                {
-                    return Workbooks.Count<Workbook>(w => w.Saved == true);
-                }
-                else
-                {
-                    return 0;
-                }
+                return CountWorkbooks(wb => wb.Saved);
             }
         }
 
@@ -344,7 +312,8 @@ namespace XLToolbox.Excel.ViewModels
             Logger.Info("CreateWorkbook");
             // Calling the Workbooks.Add method with a XlWBATemplate constand
             // creates a workbook that contains only one sheet.
-            return Application.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            Workbook workbook = Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            return workbook;
         }
 
         /// <summary>
@@ -358,11 +327,118 @@ namespace XLToolbox.Excel.ViewModels
         {
             Logger.Info("CreateWorkbook({0})", numberOfSheets);
             Workbook wb = CreateWorkbook();
+            Sheets sheets = wb.Sheets;
             for (int i = 2; i <= numberOfSheets; i++)
             {
-                wb.Sheets.Add(After: wb.Sheets[wb.Sheets.Count]);
+                sheets.Add(After: sheets[sheets.Count]);
             };
+            Bovender.ComHelpers.ReleaseComObject(sheets);
             return wb;
+        }
+
+        /// <summary>
+        /// Locates a workbook and returns it. If the workbook is loaded already,
+        /// it will not be re-opened. If the workbook cannot be located, this method
+        /// returns null.
+        /// </summary>
+        /// <param name="name">Name (either bare name or full name with path) of the
+        /// workbook being sought. If this is null or whitespace, the active workbook
+        /// is returned.</param>
+        /// <returns>Workbook or null</returns>
+        public Workbook LocateWorkbook(string name)
+        {
+            Predicate<Workbook> predicate;
+
+            if (Path.GetFileName(name) == name)
+            {
+                // Find workbook by name only
+                predicate = new Predicate<Workbook>(wb => wb.Name == name);
+            }
+            else
+            {
+                // Find workbook by full name (including path)
+                predicate = new Predicate<Workbook>(wb => wb.FullName == name);
+            }
+
+            Workbook foundWorkbook = null;
+            if (!String.IsNullOrWhiteSpace(name))
+            {
+                Logger.Info("LocateWorkbook: Locating {0}", name);
+                for (int i = 1; i <= Workbooks.Count; i++)
+                {
+                    Workbook workbook = Workbooks[i];
+                    if (predicate(workbook))
+                    {
+                        Logger.Info("LocateWorkbook: Workbook already loaded");
+                        foundWorkbook = workbook;
+                        break;
+                    }
+                    Bovender.ComHelpers.ReleaseComObject(workbook);
+                }
+                if (foundWorkbook == null)
+                {
+                    Logger.Info("LocateWorkbook: Workbook not loaded, attempting to open it");
+                    try
+                    {
+                        foundWorkbook = Workbooks.Open(name);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Warn("LocateWorkbook: Failed to open workbook");
+                        Logger.Warn(e);
+                    }
+                }
+            }
+            else
+            {
+                Logger.Info("LocateWorkbook: Using active workbook");
+                foundWorkbook = Instance.Default.ActiveWorkbook;
+            }
+            if (foundWorkbook == null)
+            {
+                Logger.Warn("LocateWorkbook: Unable to locate workbook");
+            }
+            return foundWorkbook;
+        }
+
+        /// <summary>
+        /// Locates a worksheet in a given workbook.
+        /// </summary>
+        /// <param name="workbook">Workbook in which to look for the worksheet.
+        /// If this is null, the active workbook is used.</param>
+        /// <param name="name">Name of the worksheet.</param>
+        /// <returns>Worksheet or null if no worksheet by this name exists.</returns>
+        public Worksheet LocateWorksheet(Workbook workbook, string name)
+        {
+            Worksheet worksheet = null;
+            bool createdCOMObject = false;
+            if (workbook == null)
+            {
+                Logger.Info("LocateWorksheet: Workbook is null, using active workbook");
+                workbook = Application.ActiveWorkbook;
+                createdCOMObject = true;
+            }
+            if (workbook == null)
+            {
+                Logger.Fatal("LocateWorksheet: No active workbook present, cannot proceed");
+                throw new ArgumentNullException(
+                    "Unable to locate worksheet because no workbook is given and there is no active workbook either",
+                    "workbook");
+            }
+            Sheets worksheets = workbook.Worksheets;
+            try
+            {
+                Logger.Info("LocateWorksheet: Locating \"{0}\"", name);
+                worksheet = worksheets[name];
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("LocateWorksheet: Unable to locate worksheet, returning null");
+                Logger.Warn(e);
+            }
+            Bovender.ComHelpers.ReleaseComObject(worksheets);
+            if (createdCOMObject) Bovender.ComHelpers.ReleaseComObject(workbook);
+            return worksheet;
         }
 
         /// <summary>
@@ -448,7 +524,9 @@ namespace XLToolbox.Excel.ViewModels
 
         /// <summary>
         /// Fetches a workbook if it is opened. If no workbook is found
-        /// by the given name, this function returns null.
+        /// by the given name, this function returns null. Unlike the
+        /// LocateWorkbook method, this method will not open a workbook
+        /// that is currently not loaded.
         /// </summary>
         /// <param name="workbookName">Workbook to fetch.</param>
         /// <returns>Workbook or null.</returns>
@@ -457,7 +535,7 @@ namespace XLToolbox.Excel.ViewModels
             Workbook wb = null;
             try
             {
-                wb = Application.Workbooks[workbookName];
+                wb = Workbooks[workbookName];
             }
             catch { }
             return wb;
@@ -471,12 +549,14 @@ namespace XLToolbox.Excel.ViewModels
         /// <returns>Workbook or null.</returns>
         public AddIn FindAddIn(string addInName)
         {
+            AddIns2 addins = Application.AddIns2;
             AddIn a = null;
             try
             {
-                a = Application.AddIns2[addInName];
+                a = addins[addInName];
             }
             catch { }
+            Bovender.ComHelpers.ReleaseComObject(addins);
             return a;
         }
 
@@ -526,7 +606,7 @@ namespace XLToolbox.Excel.ViewModels
                 resourceStream.CopyTo(tempStream);
                 tempStream.Close();
                 resourceStream.Close();
-                Application.Workbooks.Open(addinPath);
+                Workbooks.Open(addinPath);
                 Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
             }
             else
@@ -538,14 +618,16 @@ namespace XLToolbox.Excel.ViewModels
         }
 
         /// <summary>
-        /// Invoke a shutdown of this view model. Note that this does not quit
-        /// Excel. This method is rather intended to be called when Excel is
-        /// quitting already.
+        /// Quits the current instance of Excel; no warning message will be shown.
         /// </summary>
-        public void InvokeShutdown()
+        public void Quit()
         {
-            Logger.Info("InvokeShutdown");
-            OnShuttingDown();
+            if (_application != null)
+            {
+                Logger.Info("Shutdown");
+                _canQuitExcel = true;
+                Dispose();
+            }
         }
 
         #endregion
@@ -568,11 +650,12 @@ namespace XLToolbox.Excel.ViewModels
             _application = application;
         }
 
-        public Instance(bool createNewExcelInstance)
+        private Instance(bool createNewExcelInstance)
             : this()
         {
             if (createNewExcelInstance)
             {
+                _canQuitExcel = true;
                 _application = new Application();
             }
         }
@@ -588,21 +671,27 @@ namespace XLToolbox.Excel.ViewModels
 
         public void Dispose()
         {
-            if (!_disposed)
-            {
-                Logger.Info("Instance disposal was triggered");
-                Dispose(true);
-                GC.SuppressFinalize(this);
-                // prevent executing this code again
-                _disposed = true;
-            }
+            Logger.Info("Dispose");
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool mayFreeManagedObjects)
+        protected virtual void Dispose(bool disposing)
         {
-            if (mayFreeManagedObjects)
+            if (!_disposed)
             {
-                Shutdown();
+                _disposed = true;
+                if (disposing)
+                {
+                    OnShuttingDown();
+                }
+                if (_canQuitExcel && _application != null)
+                {
+                    _application.DisplayAlerts = false;
+                    _application.Quit();
+                    _application = (Application)Bovender.ComHelpers.ReleaseComObject(_application);
+                    _workbooks = (Workbooks)Bovender.ComHelpers.ReleaseComObject(_workbooks);
+                }
             }
         }
 
@@ -618,26 +707,6 @@ namespace XLToolbox.Excel.ViewModels
         #endregion
 
         #region Private methods
-
-        /// <summary>
-        /// Shuts down the current instance of Excel; no warning message will be shown.
-        /// If an instance of this class exists, an error will be thrown.
-        /// </summary>
-        private void Shutdown()
-        {
-            if (_application != null)
-            {
-                _application.DisplayAlerts = false;
-                OnShuttingDown();
-                Logger.Info("Shutdown: Now quitting Excel.");
-                System.Threading.Timer t = new System.Threading.Timer((obj) =>
-                {
-                    ((Application)obj).Quit();
-                }, _application, 500, System.Threading.Timeout.Infinite);
-                // _application.Quit();
-                _application = null;
-            }
-        }
 
         private void OnShuttingDown()
         {
@@ -679,26 +748,39 @@ namespace XLToolbox.Excel.ViewModels
         {
             DoCloseView();
             Logger.Info("ConfirmQuitSavingChanges");
-            IEnumerable<Workbook> unsaved = UnsavedWorkbooks;
-            Logger.Info("ConfirmQuitSavingChanges: {0} unsaved workbooks", unsaved.Count());
-            foreach (Workbook w in unsaved)
+            Workbook w = null;
+            bool canQuit = true;
+            for (int i = 1; i <= Workbooks.Count; i++)
             {
+                w = Workbooks[i];
                 if (w.Path == String.Empty)
                 {
-                    Logger.Info("ConfirmQuitSavingChanges: Workbook has no path, invoking xlDialogSaveAs");
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook #{0} of {1} has no path, invoking xlDialogSaveAs",
+                        i, Workbooks.Count);
                     // Cast to prevent ambiguity
                     ((_Workbook)w).Activate();
                     Application.Dialogs[XlBuiltInDialog.xlDialogSaveAs].Show();
                 }
                 else
                 {
-                    Logger.Info("ConfirmQuitSavingChanges: Workbook has a path, calling Save()");
+                    Logger.Info("ConfirmQuitSavingChanges: Workbook #{0} of {1} has a path, calling Save()",
+                        i, Workbooks.Count);
                     w.Save();
                 }
-                if (!w.Saved) return;
+                if (!w.Saved)
+                {
+                    Logger.Warn("ConfirmQuitSavingChanges: Workbook #{0} of {1} not saved: not quitting",
+                        i, Workbooks.Count);
+                    canQuit = false;
+                    break;
+                }
             }
-            Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
-            CloseAllWorkbooksThenShutdown();
+            if (canQuit)
+            {
+                Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
+                CloseAllWorkbooksThenShutdown();
+            }
+            Bovender.ComHelpers.ReleaseComObject(w);
         }
 
         private bool CanQuitSavingChanges()
@@ -724,9 +806,17 @@ namespace XLToolbox.Excel.ViewModels
         private void ConfirmQuitDiscardingChanges()
         {
             Logger.Info("ConfirmQuitDiscardingChanges");
-            foreach (Workbook w in UnsavedWorkbooks)
+            Workbook w;
+            for (int i = 1; i <= Workbooks.Count; i++)
             {
+                w = Workbooks[i];
                 w.Saved = true;
+                if (!w.Saved)
+                {
+                    Logger.Warn("ConfirmQuitDiscardingChanges: Workbook #{0} of {1} still not saved!",
+                        i, Workbooks.Count);
+                }
+                Bovender.ComHelpers.ReleaseComObject(w);
             }
             CloseAllWorkbooksThenShutdown();
         }
@@ -743,44 +833,59 @@ namespace XLToolbox.Excel.ViewModels
         private bool CloseAllWorkbooksThenShutdown()
         {
             DoCloseView();
-            bool workbookNotClosed = false;
             Logger.Info("CloseAllWorkbooksThenShutdown");
-            foreach (Workbook workbook in Application.Workbooks)
-            {
-                bool hidden = true;
-                foreach (Window window in workbook.Windows)
+            bool allClosed = WorkWithVisibleWorkbooks(
+                wb =>
                 {
-                    if (window.Visible == true)
-                    {
-                        hidden = false;
-                        break;
-                    }
-                    else
-                    {
-                        workbook.Saved = true;
-                    }
-                }
-                if (!hidden)
-                {
-                    int oldCount = Application.Workbooks.Count;
-                    workbook.Close();
-                    if (oldCount == Application.Workbooks.Count)
-                    {
-                        workbookNotClosed = true;
-                        break;
-                    }
-                }
-            }
-            if (!workbookNotClosed)
+                    int oldCount = Workbooks.Count;
+                    wb.Close();
+                    return Workbooks.Count == oldCount - 1;
+                });
+            if (allClosed)
             {
-                Shutdown();
+                Quit();
                 Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
             }
             else
             {
                 Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
             }
-            return !workbookNotClosed;
+            return allClosed;
+        }
+
+        private int CountWorkbooks(Predicate<Workbook> test)
+        {
+            if (Application != null)
+            {
+                int n = 0;
+                Workbook w;
+                for (int i = 1; i <= Workbooks.Count; i++)
+                {
+                    w = Workbooks[i];
+                    if (test(w)) n++;
+                    Bovender.ComHelpers.ReleaseComObject(w);
+                }
+                return n;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private bool WorkWithVisibleWorkbooks(Predicate<Workbook> operation)
+        {
+            Workbook w;
+            bool success = true;
+            // Work backwards because a workbook may vanish
+            for (int i = Workbooks.Count; i >= 1; i--)
+            {
+                w = Workbooks[i];
+                if (w.IsVisible()) success = operation(w);
+                Bovender.ComHelpers.ReleaseComObject(w);
+                if (!success) break;
+            }
+            return success;
         }
 
         #endregion
@@ -788,7 +893,9 @@ namespace XLToolbox.Excel.ViewModels
         #region Private instance fields
 
         private bool _disposed;
+        private bool _canQuitExcel;
         private Application _application;
+        private Workbooks _workbooks;
         private int _majorVersion;
         private DelegatingCommand _quitInteractivelyCommand;
         private DelegatingCommand _quitSavingChangesCommand;
@@ -807,8 +914,9 @@ namespace XLToolbox.Excel.ViewModels
         private static Lazy<Instance> _lazy = new Lazy<Instance>(
             () =>
             {
-                Instance i = new Instance(new Application());
-                i.Application.Workbooks.Add();
+                Instance i = new Instance(true);
+                Workbook w = i.Workbooks.Add();
+                Bovender.ComHelpers.ReleaseComObject(w);
                 return i;
             }
         );

@@ -25,7 +25,7 @@ using FreeImageAPI;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Unmanaged;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
+using Bovender.Extensions;
 
 namespace XLToolbox.Export
 {
@@ -55,6 +55,7 @@ namespace XLToolbox.Export
             fi.Save(fileName,
                 FREE_IMAGE_FORMAT.FIF_PNG,
                 FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION | FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED);
+            Bovender.ComHelpers.ReleaseComObject(fi);
         }
 
         #endregion

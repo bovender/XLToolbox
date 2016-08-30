@@ -169,6 +169,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete all backups of this workbook? This cannot be undone..
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteAllBackups {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteAllBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ask me.
         /// </summary>
         public static string AskMe {
@@ -192,6 +201,87 @@ namespace XLToolbox {
         public static string AvailableCommands {
             get {
                 return ResourceManager.GetString("AvailableCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup folder.
+        /// </summary>
+        public static string BackupDir {
+            get {
+                return ResourceManager.GetString("BackupDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder is always relative to the folder that the workbook is saved in. Do not enter an absolute path here, e.g. &quot;c:\backups&quot; is not allowed..
+        /// </summary>
+        public static string BackupDirExplanation {
+            get {
+                return ResourceManager.GetString("BackupDirExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup directory for this workbook.
+        /// </summary>
+        public static string BackupDirForThisWorkbook {
+            get {
+                return ResourceManager.GetString("BackupDirForThisWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder must be filled in..
+        /// </summary>
+        public static string BackupDirNullOrWhitespaceError {
+            get {
+                return ResourceManager.GetString("BackupDirNullOrWhitespaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The backup folder must not be an absolute path (e.g., &quot;c:\backups&quot;)..
+        /// </summary>
+        public static string BackupDirRootedError {
+            get {
+                return ResourceManager.GetString("BackupDirRootedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup Error.
+        /// </summary>
+        public static string BackupError {
+            get {
+                return ResourceManager.GetString("BackupError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backups.
+        /// </summary>
+        public static string Backups {
+            get {
+                return ResourceManager.GetString("Backups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic backups affect your privacy: If you want to delete a workbook, you may also want to delete all backup copies of it. When working with backups, always make sure you are editing the current file, not an obsolete backup file. Use the backup feature at your own risk..
+        /// </summary>
+        public static string BackupsDisclaimer {
+            get {
+                return ResourceManager.GetString("BackupsDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backups of this workbook.
+        /// </summary>
+        public static string BackupsForThisWorkbook {
+            get {
+                return ResourceManager.GetString("BackupsForThisWorkbook", resourceCulture);
             }
         }
         
@@ -367,6 +457,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        public static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privacy statement: The technical details will be published in the bug tracker online. Your name and e-mail (both optional) will ONLY be sent to the developer and NOT be shared. If you enter a comment below, the COMMENT WILL BE PUBLISHED anonymously along with the technical data online..
         /// </summary>
         public static string CrashReportPrivacy {
@@ -477,6 +576,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete all.
+        /// </summary>
+        public static string DeleteAll {
+            get {
+                return ResourceManager.GetString("DeleteAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete all backups.
+        /// </summary>
+        public static string DeleteAllBackups {
+            get {
+                return ResourceManager.GetString("DeleteAllBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -500,6 +617,15 @@ namespace XLToolbox {
         public static string Donate {
             get {
                 return ResourceManager.GetString("Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not show this message again.
+        /// </summary>
+        public static string DoNotShowThisMessageAgain {
+            get {
+                return ResourceManager.GetString("DoNotShowThisMessageAgain", resourceCulture);
             }
         }
         
@@ -639,6 +765,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable backups.
+        /// </summary>
+        public static string EnableBackups {
+            get {
+                return ResourceManager.GetString("EnableBackups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable XL Toolbox keyboard shortcuts.
         /// </summary>
         public static string EnableKeyboardShortcuts {
@@ -671,6 +806,15 @@ namespace XLToolbox {
         public static string EnterNewSheetName {
             get {
                 return ResourceManager.GetString("EnterNewSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error message:.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
         
@@ -829,6 +973,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder.
+        /// </summary>
+        public static string Folder {
+            get {
+                return ResourceManager.GetString("Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FreeImage version.
         /// </summary>
         public static string FreeImageVersion {
@@ -960,6 +1113,15 @@ namespace XLToolbox {
         public static string InvalidKeySequence {
             get {
                 return ResourceManager.GetString("InvalidKeySequence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jump to target.
+        /// </summary>
+        public static string JumpToTarget {
+            get {
+                return ResourceManager.GetString("JumpToTarget", resourceCulture);
             }
         }
         
@@ -1171,6 +1333,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open workbooks.
         /// </summary>
         public static string OpenWorkbooks {
@@ -1284,6 +1455,15 @@ namespace XLToolbox {
         public static string RangeSelectionRequired {
             get {
                 return ResourceManager.GetString("RangeSelectionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference.
+        /// </summary>
+        public static string Reference {
+            get {
+                return ResourceManager.GetString("Reference", resourceCulture);
             }
         }
         
@@ -1533,6 +1713,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Suppress error message on failed backup.
+        /// </summary>
+        public static string SuppressFailedBackupErrorMessage {
+            get {
+                return ResourceManager.GetString("SuppressFailedBackupErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SVG files.
         /// </summary>
         public static string SvgFiles {
@@ -1605,6 +1794,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No backups were found for this workbook. Once you start saving the workbook with backups enabled, the backups will be listed here. Note that if you rename the workbook or choose a different backup folder, the backups will no longer be found..
+        /// </summary>
+        public static string ThisWorkbookHasNoBackupsYet {
+            get {
+                return ResourceManager.GetString("ThisWorkbookHasNoBackupsYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thousands separator.
         /// </summary>
         public static string ThousandsSeparator {
@@ -1619,6 +1817,15 @@ namespace XLToolbox {
         public static string TifFiles {
             get {
                 return ResourceManager.GetString("TifFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
             }
         }
         
@@ -1686,6 +1893,24 @@ namespace XLToolbox {
         public static string UnableToAccessClipboard {
             get {
                 return ResourceManager.GetString("UnableToAccessClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create backup copy..
+        /// </summary>
+        public static string UnableToCreateBackupCopy {
+            get {
+                return ResourceManager.GetString("UnableToCreateBackupCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to jump to this target. Please check the spelling..
+        /// </summary>
+        public static string UnableToJump {
+            get {
+                return ResourceManager.GetString("UnableToJump", resourceCulture);
             }
         }
         
@@ -1870,11 +2095,47 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Workbook with path.
+        /// </summary>
+        public static string WorkbookAndPath {
+            get {
+                return ResourceManager.GetString("WorkbookAndPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workbook Properties.
+        /// </summary>
+        public static string WorkbookProperties {
+            get {
+                return ResourceManager.GetString("WorkbookProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to worksheet.
         /// </summary>
         public static string Worksheet {
             get {
                 return ResourceManager.GetString("Worksheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksheet and workbook (reference).
+        /// </summary>
+        public static string WorksheetAndWorkbookReference {
+            get {
+                return ResourceManager.GetString("WorksheetAndWorkbookReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksheet and workbook with path (reference).
+        /// </summary>
+        public static string WorksheetAndWorkbookWithPathReference {
+            get {
+                return ResourceManager.GetString("WorksheetAndWorkbookWithPathReference", resourceCulture);
             }
         }
         
@@ -1938,6 +2199,15 @@ namespace XLToolbox {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
         
