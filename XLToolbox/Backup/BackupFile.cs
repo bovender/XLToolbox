@@ -177,7 +177,7 @@ namespace XLToolbox.Backup
             Microsoft.Office.Interop.Excel.Workbooks w = XLToolbox.Excel.ViewModels.Instance.Default.Application.Workbooks;
             try
             {
-                w.Open(Path);
+                w.Open(Path, ReadOnly: true);
             }
             catch (Exception e)
             {
