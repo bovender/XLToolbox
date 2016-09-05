@@ -74,5 +74,20 @@ namespace XLToolbox
         Shortcuts,
         Backups,
         Properties,
+        OpenFromCell,
+    }
+
+    public static class CmmandExtensions
+    {
+        public static bool CanHaveKeyboardShortcut(this Command command)
+        {
+            switch (command)
+            {
+                case Command.OpenFromCell:
+                    return false;
+                default:
+                    return true;
+            }
+        }
     }
 }

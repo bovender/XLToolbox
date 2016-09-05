@@ -68,6 +68,15 @@ namespace XLToolbox.Keyboard
             }
         }
 
+        [YamlDotNet.Serialization.YamlIgnore]
+        public bool CanHaveShortcut
+        {
+            get
+            {
+                return Command.CanHaveKeyboardShortcut();
+            }
+        }
+
         /// <summary>
         /// Gets a human-readable representation of the key sequence.
         /// </summary>
@@ -96,7 +105,7 @@ namespace XLToolbox.Keyboard
             get
             {
                 // The match relies on the KeySequence having been converted ToUpper.
-                return _isValid;
+                return _isValid && CanHaveShortcut;
             }
         }
             
