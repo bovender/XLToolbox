@@ -26,8 +26,8 @@
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:backups="clr-namespace:XLToolbox.Backup"
         bov:WindowState.Save="True" bov:WindowState.CenterScreen="True"
-        ShowInTaskbar="False" Width="480" SizeToContent="Height"
-        ResizeMode="NoResize"
+        ShowInTaskbar="False" Width="480" Height="560"
+        ResizeMode="CanResizeWithGrip"
         Title="{x:Static l:Strings.UserSettings}"
         >
     <Window.Resources>
@@ -44,8 +44,20 @@
                                         OkButtonText="{x:Static l:Strings.OK}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <StackPanel Margin="0">
-        <ScrollViewer MaxHeight="320">
+    <DockPanel Margin="0">
+        <UniformGrid DockPanel.Dock="Bottom"
+                     Rows="0" Columns="2" HorizontalAlignment="Right"
+                     Margin="0 15 15 15">
+            <Button Command="{Binding Path=SaveCommand}"
+                    Content="{x:Static l:Strings.OK}"
+                    IsDefault="True"
+                    Margin="0 0 5 0" />
+            <Button Command="{Binding Path=CloseViewCommand}"
+                    Content="{x:Static l:Strings.Cancel}"
+                    IsCancel="True"
+                    Margin="5 0 0 0" />
+        </UniformGrid>
+        <ScrollViewer>
             <StackPanel Margin="15">
                 <GroupBox Header="{x:Static l:Strings.WorksheetManager}"
                           Padding="10">
@@ -132,16 +144,5 @@
             </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <UniformGrid Rows="0" Columns="2" HorizontalAlignment="Right"
-                     Margin="0 15 15 15">
-            <Button Command="{Binding Path=SaveCommand}"
-                    Content="{x:Static l:Strings.OK}"
-                    IsDefault="True"
-                    Margin="0 0 5 0" />
-            <Button Command="{Binding Path=CloseViewCommand}"
-                    Content="{x:Static l:Strings.Cancel}"
-                    IsCancel="True"
-                    Margin="5 0 0 0" />
-        </UniformGrid>
-    </StackPanel>
+    </DockPanel>
 </Window>
