@@ -447,4 +447,22 @@
 	<data name="MenuSettingsSupertip" xml:space="preserve">
     <value>Benutzerdefinierte Einstelungen bearbeiten</value>
   </data>
+	<data name="ButtonBackupsLabel" xml:space="preserve">
+		<value>Backups</value>
+	</data>
+	<data name="ButtonBackupsSupertip" xml:space="preserve">
+		<value>Aktivieren oder deaktivieren Sie automatische Backups, und managen Sie die Backups für die aktuelle Arbeitsmappe.</value>
+	</data>
+	<data name="ButtonJumpToTargetLabel" xml:space="preserve">
+		<value>Springen</value>
+	</data>
+	<data name="ButtonJumpToTargetSupertip" xml:space="preserve">
+		<value>Ziel anspringen: Springt zu einer Zelle oder einem Bereich, oder öffnet eine Datei, ein Programm oder eine Website.</value>
+	</data>
+	<data name="ButtonPropertiesLabel" xml:space="preserve">
+		<value>Eigenschaften</value>
+	</data>
+	<data name="ButtonPropertiesSupertip" xml:space="preserve">
+		<value>Eigenschaften der aktuellen Arbeitsmappe ansehen und in die Zwischenablage kopieren.</value>
+	</data>
 </root>
