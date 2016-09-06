@@ -772,4 +772,94 @@ Fehlermeldung:</value>
 	<data name="UpdateAvailableNotAuthorized" xml:space="preserve">
 		<value>Es ist ein Update verfügbar, aber Sie haben offenbar keine Berechtigung, es zu installieren. Bitte fragen Sie entweder den Administrator dieses Computers, oder laden Sie das Update von der Homepage herunter und installieren Sie es manuell.</value>
 	</data>
+	<data name="BackupDirForThisWorkbook" xml:space="preserve">
+		<value>Backup-Ordner für die aktuelle Arbeitsmappe</value>
+	</data>
+	<data name="Backups" xml:space="preserve">
+		<value>Backups</value>
+	</data>
+	<data name="BackupsForThisWorkbook" xml:space="preserve">
+		<value>Backups für diese Arbeitsmappe</value>
+	</data>
+	<data name="DeleteAll" xml:space="preserve">
+		<value>Alle löschen</value>
+	</data>
+	<data name="EnableBackups" xml:space="preserve">
+		<value>Automatische Backups aktivieren</value>
+	</data>
+	<data name="Open" xml:space="preserve">
+		<value>Öffnen</value>
+	</data>
+	<data name="AreYouSureYouWantToDeleteAllBackups" xml:space="preserve">
+		<value>Wollen Sie wirklich alle Sicherheitskopien der aktuellen Arbeitsmappe löschen? Das kann nicht mehr rückgängig gemacht werden!</value>
+	</data>
+	<data name="DeleteAllBackups" xml:space="preserve">
+		<value>Alle Backups löschen</value>
+	</data>
+	<data name="ThisWorkbookHasNoBackupsYet" xml:space="preserve">
+		<value>Für die aktuelle Arbeitsmappe wurden keine Backups gefunden. Sobald Sie die Datei mit eingeschalteter Backup-Funktion mindestens zweimal speichern, werden Sicherheitskopien angelegt. Beachten Sie, dass nach Umbenennen einer Datei etwaige bereits existierende Backups nicht mehr zugeordnet werden können.</value>
+	</data>
+	<data name="Today" xml:space="preserve">
+		<value>Heute</value>
+	</data>
+	<data name="Yesterday" xml:space="preserve">
+		<value>Gestern</value>
+	</data>
+	<data name="BackupsDisclaimer" xml:space="preserve">
+		<value>Automatische Backups sind ein Datenschutz-Risiko: Falls Sie eine Arbeitsmappe komplett löschen möchten, müssen Sie daran denken, auch alle vorhandenen Backups zu löschen. Außerdem sollten Sie beim Arbeiten mit Sicherheitskopien im Blick behalten, ob Sie mit der aktuellen Datei oder einer älteren Version arbeiten.</value>
+	</data>
+	<data name="BackupDir" xml:space="preserve">
+		<value>Backup-Ordner</value>
+	</data>
+	<data name="BackupDirExplanation" xml:space="preserve">
+		<value>Der Backup-Ordner ist immer relativ zum Ordner, in dem die jeweilige Arbeitsmappe gespeichert ist. Geben Sie also hier keinen absoluten Pfad ein, also z.B. nicht "c:\Backups".</value>
+	</data>
+	<data name="BackupDirNullOrWhitespaceError" xml:space="preserve">
+		<value>Das Backup-Verzeichnis muß angegeben werden</value>
+	</data>
+	<data name="BackupDirRootedError" xml:space="preserve">
+		<value>Das Backup-Verzeichnis darf kein absoluter Pfad sein, also z.B. nicht "c:\Backups".</value>
+	</data>
+	<data name="BackupError" xml:space="preserve">
+		<value>Fehler beim Erstellen eines Backups</value>
+	</data>
+	<data name="DoNotShowThisMessageAgain" xml:space="preserve">
+		<value>Diesen Hinweis nicht mehr anzeigen</value>
+	</data>
+	<data name="ErrorMessage" xml:space="preserve">
+		<value>Fehlermeldung:</value>
+	</data>
+	<data name="UnableToCreateBackupCopy" xml:space="preserve">
+		<value>Es konnte keine Sicherungskopie angelegt werden.</value>
+	</data>
+	<data name="SuppressFailedBackupErrorMessage" xml:space="preserve">
+		<value>Fehlermeldungen zu Sicherungskopien nicht anzeigen</value>
+	</data>
+	<data name="CopyToClipboard" xml:space="preserve">
+		<value>In Zwischenablage kopieren</value>
+	</data>
+	<data name="WorkbookProperties" xml:space="preserve">
+		<value>Eigenschaften der Arbeitsmappe</value>
+	</data>
+	<data name="JumpToTarget" xml:space="preserve">
+		<value>Ziel anspringen</value>
+	</data>
+	<data name="UnableToJump" xml:space="preserve">
+		<value>Das in der aktuellen Tabellenzelle enthaltene Ziel konnte nicht angesprungen werden. Bitte überprüfen Sie die Schreibweise.</value>
+	</data>
+	<data name="Folder" xml:space="preserve">
+		<value>Ordner</value>
+	</data>
+	<data name="Reference" xml:space="preserve">
+		<value>Verweis</value>
+	</data>
+	<data name="WorkbookAndPath" xml:space="preserve">
+		<value>Arbeitsmappe mit Ordner</value>
+	</data>
+	<data name="WorksheetAndWorkbookReference" xml:space="preserve">
+		<value>Tabellenblatt und Arbeitsmappe (Verweis)</value>
+	</data>
+	<data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
+		<value>Tabellenblatt und Arbeitsmappe mit Ordner (Verweis)</value>
+	</data>
 </root>

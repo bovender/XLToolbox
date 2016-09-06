@@ -121,7 +121,15 @@ namespace XLToolbox.Keyboard
         public void SetShortcut(Command command, string keySequence)
         {
             Shortcut shortcut = Shortcuts.First(s => s.Command == command);
-            shortcut.KeySequence = keySequence;
+            if (shortcut.CanHaveShortcut)
+            {
+                shortcut.KeySequence = keySequence;
+            }
+            else
+            {
+                Logger.Warn("SetShortcut: Attempt to set shortcut on command that does not allow it; command: {0}",
+                    shortcut.Command);
+            }
         }
 
         public void UnsetShortcut(Command command)
@@ -177,7 +185,10 @@ namespace XLToolbox.Keyboard
             IEnumerable<Command> commands = ((Command[])Enum.GetValues(typeof(Command))).OrderBy(c => c.ToString());
             foreach (Command command in commands)
             {
-                _shortcuts.Add(new Shortcut(String.Empty, command));
+                if (command.CanHaveKeyboardShortcut())
+                {
+                    _shortcuts.Add(new Shortcut(String.Empty, command));
+                }
             }
         }
 
@@ -191,10 +202,15 @@ namespace XLToolbox.Keyboard
             CreateListOfCommands();
             foreach (Shortcut shortcutInSubset in subset)
             {
-                // Since the _shortcuts list contains shortcuts for all values of the
-                // Command enum, it should be save to use _shortcuts.First without
-                // further checks.
-                _shortcuts.First(s => s.Command == shortcutInSubset.Command).KeySequence = shortcutInSubset.KeySequence;
+                Shortcut existingShortcut = _shortcuts.FirstOrDefault(s => s.Command == shortcutInSubset.Command);
+                if (existingShortcut != null)
+                {
+                    existingShortcut.KeySequence = shortcutInSubset.KeySequence;
+                }
+                else
+                {
+                    Logger.Info("MergeSubset: Discarding invalid shortcut for {0}", shortcutInSubset.Command);
+                }
             }
             RegisterShortcuts();
         }

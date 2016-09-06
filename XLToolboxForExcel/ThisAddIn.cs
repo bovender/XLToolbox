@@ -73,13 +73,6 @@ namespace XLToolboxForExcel
 
             XLToolbox.Backup.Backups.BackupFailed += Backups_BackupFailed;
 
-            // Enable the keyboard shortcuts if no settings were previously saved,
-            // i.e. if this appears to be the first run.
-            if (!XLToolbox.UserSettings.UserSettings.Default.WasFromFile)
-            {
-                XLToolbox.Keyboard.Manager.Default.IsEnabled = true;
-            }
-
             if (XLToolbox.UserSettings.UserSettings.Default.SheetManagerVisible)
             {
                 XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;

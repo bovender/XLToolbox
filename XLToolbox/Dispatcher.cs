@@ -81,6 +81,9 @@ namespace XLToolbox
                     case Command.LastErrorBars: LastErrorBars(); break;
                     case Command.UserSettings: EditUserSettings(); break;
                     case Command.JumpToTarget: JumpToTarget(); break;
+                    case Command.OpenFromCell:
+                        Logger.Warn("Execute: Obsolete command: {0}", cmd);
+                        break;
                     case Command.CopyPageSetup:
                     case Command.SelectAllShapes:
                     case Command.FormulaBuilder:
