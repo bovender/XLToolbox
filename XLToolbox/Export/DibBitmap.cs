@@ -162,7 +162,14 @@ namespace XLToolbox.Export
                 if (_scan0 == IntPtr.Zero)
                 {
                     IntPtr handlePtr = DibHandle.AddrOfPinnedObject();
-                    _scan0 = new IntPtr(handlePtr.ToInt32() + 40);
+                    if (Environment.Is64BitProcess)
+                    {
+                        _scan0 = new IntPtr(handlePtr.ToInt64() + 40);
+                    }
+                    else
+                    {
+                        _scan0 = new IntPtr(handlePtr.ToInt32() + 40);
+                    }
                 }
                 return _scan0;
             }
