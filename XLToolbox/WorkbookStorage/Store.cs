@@ -488,15 +488,21 @@ namespace XLToolbox.WorkbookStorage
         private void PrepareStoreSheet()
         {
             Range usedRange = _storeSheet.UsedRange;
-            usedRange.Clear();
-            Bovender.ComHelpers.ReleaseComObject(usedRange);
+            if (usedRange != null)
+            {
+                usedRange.Clear();
+                Bovender.ComHelpers.ReleaseComObject(usedRange);
+            }
 
             // Put an informative string into the first cell;
             // this is also required in order for GetUsedRange() to return
             // the correct range.
             Range cells = _storeSheet.Cells;
-            cells[1, 1] = STORESHEETINFO;
-            Bovender.ComHelpers.ReleaseComObject(cells);
+            if (cells != null)
+            {
+                cells[1, 1] = STORESHEETINFO;
+                Bovender.ComHelpers.ReleaseComObject(cells);
+            }
         }
 
         #endregion
