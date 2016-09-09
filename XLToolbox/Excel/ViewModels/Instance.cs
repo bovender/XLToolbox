@@ -606,7 +606,7 @@ namespace XLToolbox.Excel.ViewModels
                 resourceStream.CopyTo(tempStream);
                 tempStream.Close();
                 resourceStream.Close();
-                Workbooks.Open(addinPath);
+                Workbooks.Open(addinPath, CorruptLoad: XlCorruptLoad.xlExtractData);
                 Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
             }
             else
