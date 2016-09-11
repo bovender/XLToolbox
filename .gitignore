@@ -23,3 +23,4 @@ lib/
 source.zip
 7za.exe
 .backup/
+*.tmp_proj

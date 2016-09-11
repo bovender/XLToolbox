@@ -102,43 +102,31 @@ namespace XLToolbox.WorkbookStorage
 
         #region Protected properties
 
-        protected Worksheet StoreSheet {
-            get {
-                if (_storeSheet == null) {
+        protected Worksheet StoreSheet
+        {
+            get
+            {
+                if (_storeSheet == null)
+                {
                     if (Workbook == null)
                     {
                         throw new WorkbookStorageException("Cannot access storage worksheet: no workbook is associated");
                     }
+                    Sheets sheets = Workbook.Worksheets;
                     try
                     {
-                        _storeSheet = Workbook.Worksheets[STORESHEETNAME];
+                        _storeSheet = sheets[STORESHEETNAME];
                     }
                     catch (System.Runtime.InteropServices.COMException)
                     {
-                        bool wasSaved = Workbook.Saved;
-                        dynamic previousSheet = Workbook.ActiveSheet;
-                        dynamic previousSel = Workbook.Application.Selection;
-
-                        // If the COMException is raised, the worksheet likely does not exist
-                        Sheets sheets = Workbook.Worksheets;
-                        _storeSheet = sheets.Add();
-                        Bovender.ComHelpers.ReleaseComObject(sheets);
-
-                        // xlSheetVeryHidden hides the sheet so much that it cannot be made
-                        // visible from the Excel graphical user interface
-                        _storeSheet.Visible = XlSheetVisibility.xlSheetVeryHidden;
-
-                        // Give the worksheet a special name
-                        _storeSheet.Name = STORESHEETNAME;
-
-                        previousSheet.Activate();
-                        previousSel.Select();
-                        Workbook.Saved = wasSaved;
+                        CreateStoreWorksheet();
                     }
+                    Bovender.ComHelpers.ReleaseComObject(sheets);
                 }
                 return _storeSheet;
             }
         }
+        
         protected bool Dirty { get; set; }
 
         #endregion
@@ -459,6 +447,40 @@ namespace XLToolbox.WorkbookStorage
             Dirty = false;
         }
 
+        /// <summary>
+        /// Creates a hidden storage worksheet
+        /// </summary>
+        private void CreateStoreWorksheet()
+        {
+            bool wasSaved = Workbook.Saved;
+            dynamic previousSheet = Workbook.ActiveSheet;
+            dynamic previousSel = Workbook.Application.Selection;
+            Sheets sheets = Workbook.Worksheets;
+
+            // If the COMException is raised, the worksheet likely does not exist
+            _storeSheet = sheets.Add();
+
+            // xlSheetVeryHidden hides the sheet so much that it cannot be made
+            // visible from the Excel graphical user interface
+            _storeSheet.Visible = XlSheetVisibility.xlSheetVeryHidden;
+
+            // Give the worksheet a special name
+            _storeSheet.Name = STORESHEETNAME;
+
+            if (previousSheet != null)
+            {
+                previousSheet.Activate();
+                Bovender.ComHelpers.ReleaseComObject(previousSheet);
+            }
+            if (previousSel != null)
+            {
+                previousSel.Select();
+                Bovender.ComHelpers.ReleaseComObject(previousSel);
+            }
+            Workbook.Saved = wasSaved;
+            Bovender.ComHelpers.ReleaseComObject(sheets);
+        }
+
         #endregion
 
         #region Private methods
@@ -466,15 +488,21 @@ namespace XLToolbox.WorkbookStorage
         private void PrepareStoreSheet()
         {
             Range usedRange = _storeSheet.UsedRange;
-            usedRange.Clear();
-            Bovender.ComHelpers.ReleaseComObject(usedRange);
+            if (usedRange != null)
+            {
+                usedRange.Clear();
+                Bovender.ComHelpers.ReleaseComObject(usedRange);
+            }
 
             // Put an informative string into the first cell;
             // this is also required in order for GetUsedRange() to return
             // the correct range.
             Range cells = _storeSheet.Cells;
-            cells[1, 1] = STORESHEETINFO;
-            Bovender.ComHelpers.ReleaseComObject(cells);
+            if (cells != null)
+            {
+                cells[1, 1] = STORESHEETINFO;
+                Bovender.ComHelpers.ReleaseComObject(cells);
+            }
         }
 
         #endregion
