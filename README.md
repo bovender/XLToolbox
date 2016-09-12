@@ -1,4 +1,5 @@
 XL Toolbox NG (Next Generation) ![Downloads of the NG series](https://img.shields.io/github/downloads/bovender/xltoolbox/total.svg?maxAge=604800) [![Beerpay](https://beerpay.io/bovender/XLToolbox/badge.svg?style=flat-square)](https://beerpay.io/bovender/XLToolbox)
+===============================
 
 ##### Data analysis and visualization for Excel&reg;, for free.
 
