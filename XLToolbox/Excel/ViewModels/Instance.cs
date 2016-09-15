@@ -147,6 +147,10 @@ namespace XLToolbox.Excel.ViewModels
             [DebuggerStepThrough]
             get
             {
+                if (_application == null)
+                {
+                    Logger.Warn("Application_get: Returning null!");
+                }
                 return _application;
             }
         }
@@ -535,9 +539,15 @@ namespace XLToolbox.Excel.ViewModels
             Workbook wb = null;
             try
             {
+                Logger.Debug("FindWorkbook: Looking for {0}", workbookName);
                 wb = Workbooks[workbookName];
             }
-            catch { }
+            catch (Exception e)
+            {
+                Logger.Debug("FindWorkbook: Caught an exception");
+                Logger.Debug(e);
+                Logger.Debug("FindWorkbook: Evidently \"{0}\" is not open", workbookName);
+            }
             return wb;
         }
 
@@ -606,7 +616,31 @@ namespace XLToolbox.Excel.ViewModels
                 resourceStream.CopyTo(tempStream);
                 tempStream.Close();
                 resourceStream.Close();
-                Workbooks.Open(addinPath, CorruptLoad: XlCorruptLoad.xlExtractData);
+                try
+                {
+                    Logger.Info("LoadAddinFromEmbeddedResource: Loading...");
+                    Workbooks.Open(addinPath);
+                }
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                    Logger.Warn("LoadAddinFromEmbeddedResource: COM exception caught, falling back to CorruptLoad");
+                    DisableDisplayAlerts();
+                    try
+                    {
+                        Workbooks.Open(addinPath, CorruptLoad: XlCorruptLoad.xlExtractData);
+                    }
+                    catch (System.Runtime.InteropServices.COMException e)
+                    {
+                        Logger.Fatal("LoadAddinFromEmbeddedResource: COM exception occurred after calling Workbooks.Open");
+                        Logger.Fatal(e);
+                        throw new XLToolbox.Excel.ExcelException("Excel failed to load the legacy Toolbox add-in", e);
+                    }
+                    finally
+                    {
+                        EnableDisplayAlerts();
+                    }
+                }
+
                 Logger.Info("LoadAddinFromEmbeddedResource: Loaded {0}", addinPath);
             }
             else
@@ -647,6 +681,10 @@ namespace XLToolbox.Excel.ViewModels
         public Instance(Application application)
             : this()
         {
+            if (application == null)
+            {
+                Logger.Warn("Instance(Application): Got null value!");
+            }
             _application = application;
         }
 

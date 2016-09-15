@@ -54,15 +54,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Debug %28Bovender via NuGet%29|AnyCPU'">
-    <Reference Include="Bovender, Version=0.14.5.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.6.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.14.5.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.6.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Reference Include="Bovender, Version=0.14.5.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
+    <Reference Include="Bovender, Version=0.14.6.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Bovender.0.14.5.0\lib\net40\Bovender.dll</HintPath>
+      <HintPath>..\packages\Bovender.0.14.6.0\lib\net40\Bovender.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="Keyboard\ShortcutViewModel.cs" />
     <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
+    <Compile Include="Excel\ExcelException.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Logging\IncompleteShutdownLoggingDisabled.xaml.cs">
       <DependentUpon>IncompleteShutdownLoggingDisabled.xaml</DependentUpon>
