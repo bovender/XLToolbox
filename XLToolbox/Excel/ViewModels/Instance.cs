@@ -147,6 +147,10 @@ namespace XLToolbox.Excel.ViewModels
             [DebuggerStepThrough]
             get
             {
+                if (_application == null)
+                {
+                    Logger.Warn("Application_get: Returning null!");
+                }
                 return _application;
             }
         }
@@ -677,6 +681,10 @@ namespace XLToolbox.Excel.ViewModels
         public Instance(Application application)
             : this()
         {
+            if (application == null)
+            {
+                Logger.Warn("Instance(Application): Got null value!");
+            }
             _application = application;
         }
 
