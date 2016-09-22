@@ -610,6 +610,24 @@ namespace XLToolboxForExcel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open from cell.
+        /// </summary>
+        internal static string ButtonOpenFromCellLabel {
+            get {
+                return ResourceManager.GetString("ButtonOpenFromCellLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens something from a cell.
+        /// </summary>
+        internal static string ButtonOpenFromCellSupertip {
+            get {
+                return ResourceManager.GetString("ButtonOpenFromCellSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Point Chart.
         /// </summary>
         internal static string ButtonPointChartLabel {
@@ -984,6 +1002,24 @@ namespace XLToolboxForExcel {
         internal static string ButtonWatermarkSupertip {
             get {
                 return ResourceManager.GetString("ButtonWatermarkSupertip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command not available.
+        /// </summary>
+        internal static string DisabledExportLabel {
+            get {
+                return ResourceManager.GetString("DisabledExportLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command is not available, because additional DLL files could not be loaded. See xltoolbox.net/support..
+        /// </summary>
+        internal static string DisabledExportSupertip {
+            get {
+                return ResourceManager.GetString("DisabledExportSupertip", resourceCulture);
             }
         }
         

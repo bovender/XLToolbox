@@ -353,6 +353,8 @@ namespace XLToolbox.UserSettings
 
         public int PreferredPropertyIndex { get; set; }
 
+        public bool SuppressDllWarning { get; set; }
+
         public bool Running { get; set; }
 
         #endregion

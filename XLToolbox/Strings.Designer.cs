@@ -612,6 +612,26 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XL Toolbox DLL files not available.
+        /// </summary>
+        public static string DllNotAvailableCaption {
+            get {
+                return ResourceManager.GetString("DllNotAvailableCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel&apos;s XL Toolbox is unable to load additional required DLL files. As a consequence, some commands have been disabled, notably the graphic export commands.
+        ///Try uninstalling the XL Toolbox via Add/Remove Software, then re-install it using the official installer. Do NOT install the XL Toolbox by double-clicking a &apos;.vsto&apos; file.
+        ///If you need additional help, see xltoolbox.net/support..
+        /// </summary>
+        public static string DllNotAvailableMessage {
+            get {
+                return ResourceManager.GetString("DllNotAvailableMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {

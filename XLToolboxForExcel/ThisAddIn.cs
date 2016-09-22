@@ -78,6 +78,7 @@ namespace XLToolboxForExcel
                 XLToolbox.SheetManager.TaskPaneManager.Default.Visible = true;
             }
 
+            TestDllAvailability();
             if (!GreetUser()) MaybeCheckForUpdate();
             Logger.Info("ThisAddIn_Startup: Done");
         }
@@ -237,6 +238,44 @@ namespace XLToolboxForExcel
             else
             {
                 Logger.Info("Backups_BackupFailed: Failure message suppressed by user");
+            }
+        }
+
+        /// <summary>
+        /// Tests the availability of the FreeImage DLL and issues a warning
+        /// to the user if the DLL is not available.
+        /// </summary>
+        private void TestDllAvailability()
+        {
+            using (Bovender.Unmanaged.DllManager dllManager = new Bovender.Unmanaged.DllManager())
+            {
+                try
+                {
+                    Logger.Info("TestDllAvailability: Testing freeimage.dll");
+                    dllManager.LoadDll("freeimage.dll");
+                }
+                catch (Exception e)
+                {
+                    Logger.Warn("TestDllAvailability: Failed to load DLL");
+                    Logger.Warn(e);
+                    Ribbon.IsGraphicExportEnabled = false;
+                    if (!XLToolbox.UserSettings.UserSettings.Default.SuppressDllWarning)
+                    {
+                        Logger.Warn("TestDllAvailability: Showing warning message");
+                        SuppressibleNotificationAction a = new SuppressibleNotificationAction();
+                        Bovender.Mvvm.Messaging.SuppressibleMessageContent mc = new Bovender.Mvvm.Messaging.SuppressibleMessageContent();
+                        mc.OkButtonText = XLToolbox.Strings.OK;
+                        mc.SuppressMessageText = XLToolbox.Strings.DoNotShowThisMessageAgain;
+                        mc.Caption = XLToolbox.Strings.DllNotAvailableCaption;
+                        mc.Message = XLToolbox.Strings.DllNotAvailableMessage;
+                        a.InvokeWithContent(mc);
+                        XLToolbox.UserSettings.UserSettings.Default.SuppressDllWarning = mc.Suppress;
+                    }
+                    else
+                    {
+                        Logger.Warn("TestDllAvailability: Warning message is suppressed by user");
+                    }
+                }
             }
         }
 

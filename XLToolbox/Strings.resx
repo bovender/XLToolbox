@@ -862,4 +862,12 @@ The following message was received:</value>
 	<data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
     <value>Worksheet and workbook with path (reference)</value>
   </data>
+	<data name="DllNotAvailableCaption" xml:space="preserve">
+    <value>XL Toolbox DLL files not available</value>
+  </data>
+	<data name="DllNotAvailableMessage" xml:space="preserve">
+    <value>Daniel's XL Toolbox is unable to load additional required DLL files. As a consequence, some commands have been disabled, notably the graphic export commands.
+Try uninstalling the XL Toolbox via Add/Remove Software, then re-install it using the official installer. Do NOT install the XL Toolbox by double-clicking a '.vsto' file.
+If you need additional help, see xltoolbox.net/support.</value>
+  </data>
 </root>

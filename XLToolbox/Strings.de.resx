@@ -862,4 +862,12 @@ Fehlermeldung:</value>
 	<data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
 		<value>Tabellenblatt und Arbeitsmappe mit Ordner (Verweis)</value>
 	</data>
+	<data name="DllNotAvailableCaption" xml:space="preserve">
+		<value>XL Toolbox: DLL-Dateien nicht verfügbar</value>
+	</data>
+	<data name="DllNotAvailableMessage" xml:space="preserve">
+		<value>Daniel's XL Toolbox kann zusätzlich benötigte DLL-Dateien nicht laden. Deshalb sind einige Graphikexport-Funktionen deaktiviert.
+Versuchen Sie, das Addin über die Systemsteuerung zu deinstallieren, und installieren Sie es erneut mit dem offiziellen Instalationsprogramm. Sie sollten das Addin NICHT mittels Doppelklick auf eine '.vsto'-Datei installieren.
+Wenn Sie weitere Hilfe benötigen, rufen Sie bitte xltoolbox.net/support auf.</value>
+	</data>
 </root>

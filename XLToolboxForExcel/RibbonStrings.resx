@@ -460,9 +460,15 @@
     <value>Customizable user settings, including keyboard shortcuts.</value>
   </data>
 	<data name="ButtonOpenFromCellLabel" xml:space="preserve">
-		<value>Open from cell</value>
-	</data>
+    <value>Open from cell</value>
+  </data>
 	<data name="ButtonOpenFromCellSupertip" xml:space="preserve">
-		<value>Opens something from a cell</value>
-	</data>
+    <value>Opens something from a cell</value>
+  </data>
+	<data name="DisabledExportLabel" xml:space="preserve">
+    <value>Command not available</value>
+  </data>
+	<data name="DisabledExportSupertip" xml:space="preserve">
+    <value>This command is not available, because additional DLL files could not be loaded. See xltoolbox.net/support.</value>
+  </data>
 </root>
