@@ -412,7 +412,8 @@ namespace XLToolbox
         static void JumpToTarget()
         {
             Xl.Range r = Instance.Default.Application.Selection as Xl.Range;
-            Jumper j = new Jumper(r.Value2);
+            string value = Convert.ToString(r.Value2);
+            Jumper j = new Jumper(value);
             if (!j.Jump())
             {
                 NotificationAction a = new NotificationAction(
