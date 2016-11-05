@@ -1751,6 +1751,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tabularize (align columns with spaces).
+        /// </summary>
+        public static string Tabularize {
+            get {
+                return ResourceManager.GetString("Tabularize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Width of the task pane.
         /// </summary>
         public static string TaskPaneWidth {

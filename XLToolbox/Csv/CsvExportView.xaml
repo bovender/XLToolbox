@@ -1,5 +1,5 @@
 ﻿<!--
-	CsvFileView.xaml
+	CsvExportView.xaml
 	part of Daniel's XL Toolbox NG
 	
 	Copyright 2014-2016 Daniel Kraus
@@ -16,7 +16,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<Window x:Class="XLToolbox.Csv.CsvFileView"
+<Window x:Class="XLToolbox.Csv.CsvExportView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -26,7 +26,7 @@
     Title="{x:Static l:Strings.CsvSettings}"
     WindowStartupLocation="CenterScreen" x:Name="win"
     ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight"
-    MinWidth="240" MinHeight="240" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
+    MinWidth="240" MinHeight="280" MaxHeight="{Binding ElementName=win,Path=MinHeight}"
     bov:WindowState.CenterScreen="True" bov:WindowState.Save="True"
     ShowInTaskbar="False"
     FocusManager.FocusedElement="{Binding ElementName=FieldSeparator}"
@@ -72,6 +72,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <!-- Need to explicitly reference TextBox style; otherwise, first text box
             would not be styled (don't know why, WPF bug?) -->
@@ -81,17 +82,21 @@
             <TextBox Grid.Column="1" Grid.Row="0" x:Name="FieldSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding FieldSeparator}" TextAlignment="Center" />
-            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{x:Static l:Strings.HintUseBackslashT}" />
-            <Label Grid.Column="0" Grid.Row="2" Margin="0 0 0 5"
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                       Padding="5"
+                       Text="{x:Static l:Strings.HintUseBackslashT}" />
+            <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5 5 0 5"
+                    IsChecked="{Binding Tabularize}" Content="{x:Static l:Strings.Tabularize}" />
+            <Label Grid.Column="0" Grid.Row="3" Margin="0 0 0 5"
                    Target="{Binding ElementName=DecimalSeparator}"
                    Content="{x:Static l:Strings.DecimalSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="DecimalSeparator" 
+            <TextBox Grid.Column="1" Grid.Row="3" x:Name="DecimalSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding DecimalSeparator}" TextAlignment="Center" />
-            <Label Grid.Column="0" Grid.Row="3" Margin="0 0 0 5"
+            <Label Grid.Column="0" Grid.Row="4" Margin="0 0 0 5"
                    Target="{Binding ElementName=ThousandsSeparator}"
                    Content="{x:Static l:Strings.ThousandsSeparator}" />
-            <TextBox Grid.Column="1" Grid.Row="3" x:Name="ThousandsSeparator" 
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="ThousandsSeparator" 
                      Margin="0 0 0 5" Style="{StaticResource ResourceKey=tb}"
                      Text="{Binding ThousandsSeparator}" TextAlignment="Center" />
         </Grid>

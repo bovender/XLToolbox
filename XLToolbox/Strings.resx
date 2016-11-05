@@ -870,4 +870,7 @@ The following message was received:</value>
 Try uninstalling the XL Toolbox via Add/Remove Software, then re-install it using the official installer. Do NOT install the XL Toolbox by double-clicking a '.vsto' file.
 If you need additional help, see xltoolbox.net/support.</value>
   </data>
+	<data name="Tabularize" xml:space="preserve">
+    <value>Tabularize (align columns with spaces)</value>
+  </data>
 </root>

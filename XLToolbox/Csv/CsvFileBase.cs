@@ -70,6 +70,18 @@ namespace XLToolbox.Csv
             }
         }
 
+        public bool Tabularize
+        {
+            get
+            {
+                return Settings.Tabularize;
+            }
+            set
+            {
+                Settings.Tabularize = value;
+            }
+        }
+
         public CsvSettings Settings
         {
             get

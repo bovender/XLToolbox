@@ -284,7 +284,7 @@ namespace XLToolbox
 
         static void OpenCsvWithSettings()
         {
-            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialogInForm();
+            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvImportView>().ShowDialogInForm();
         }
 
         static void SaveCsv()
@@ -310,7 +310,7 @@ namespace XLToolbox
 
         static void SaveCsvWithSettings(Xl.Range range)
         {
-            CreateCsvExportViewModel(range).InjectInto<Csv.CsvFileView>().ShowDialogInForm();
+            CreateCsvExportViewModel(range).InjectInto<Csv.CsvExportView>().ShowDialogInForm();
         }
 
         static void SaveCsvRange()

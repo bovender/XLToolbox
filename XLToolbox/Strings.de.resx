@@ -870,4 +870,7 @@ Fehlermeldung:</value>
 Versuchen Sie, das Addin über die Systemsteuerung zu deinstallieren, und installieren Sie es erneut mit dem offiziellen Instalationsprogramm. Sie sollten das Addin NICHT mittels Doppelklick auf eine '.vsto'-Datei installieren.
 Wenn Sie weitere Hilfe benötigen, rufen Sie bitte xltoolbox.net/support auf.</value>
 	</data>
+	<data name="Tabularize" xml:space="preserve">
+		<value>Tabulieren (Spalten angleichen)</value>
+	</data>
 </root>

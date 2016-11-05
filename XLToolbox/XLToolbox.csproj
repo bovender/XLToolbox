@@ -124,9 +124,12 @@
     <Compile Include="Backup\TimeStamp.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Csv\CsvExporter.cs" />
+    <Compile Include="Csv\CsvImportView.xaml.cs">
+      <DependentUpon>CsvImportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Csv\CsvFileBase.cs" />
-    <Compile Include="Csv\CsvFileView.xaml.cs">
-      <DependentUpon>CsvFileView.xaml</DependentUpon>
+    <Compile Include="Csv\CsvExportView.xaml.cs">
+      <DependentUpon>CsvExportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Csv\CsvExportViewModel.cs" />
     <Compile Include="Csv\CsvImporter.cs" />
@@ -438,7 +441,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Csv\CsvFileView.xaml">
+    <Page Include="Csv\CsvImportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Csv\CsvExportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

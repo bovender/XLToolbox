@@ -41,6 +41,8 @@ namespace XLToolbox.Csv
             set { NumberFormatInfo.NumberGroupSeparator = value; }
         }
 
+        public bool Tabularize { get; set; }
+
         /// <summary>
         /// Returns a System.Globalization.NumberFormatInfo object
         /// whose properties are set according to the current
