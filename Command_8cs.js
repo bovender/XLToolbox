@@ -1,5 +1,6 @@
 var Command_8cs =
 [
+    [ "CmmandExtensions", "classXLToolbox_1_1CmmandExtensions.html", "classXLToolbox_1_1CmmandExtensions" ],
     [ "Command", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6", [
       [ "About", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a8f7f4c1ce7a4f933663d10543562b096", null ],
       [ "CheckForUpdates", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a513b8178ba63bcf53b0947fc5465b8c9", null ],
@@ -19,7 +20,7 @@ var Command_8cs =
       [ "SaveCsvRange", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a5aef215ad86203cb4990e098c9219878", null ],
       [ "SaveCsvRangeWithParams", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aca02405c2c77f135e33de4efb63f93ee", null ],
       [ "SaveAs", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a3b9b4779908311c49e2126ca7e8ac8b3", null ],
-      [ "OpenFromCell", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a0557cf735cc90cb65e900826a67191e0", null ],
+      [ "JumpToTarget", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aec4a11bb871f2bdc3110bfdfc845d005", null ],
       [ "CopyPageSetup", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aa9171fa228594e9cf51c6cade59b29b5", null ],
       [ "SelectAllShapes", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6ab1d6c92298b7addb0f2a33366f97daaa", null ],
       [ "Anova1Way", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6ac448a613d87624e60d8ef75f73835f21", null ],
@@ -50,6 +51,9 @@ var Command_8cs =
       [ "Watermark", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aee20bb60493f049175fc10c35acd2272", null ],
       [ "UserSettings", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6acd25e4e0bc2955eff2ba656e95cc5b9a", null ],
       [ "LegacyPrefs", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a8da1093efa24d76d8e38d5e4146a01d2", null ],
-      [ "Shortcuts", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a29e9d8e295b1d5b3002d2d3d5baa4c37", null ]
+      [ "Shortcuts", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a29e9d8e295b1d5b3002d2d3d5baa4c37", null ],
+      [ "Backups", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a1414cdc093d39dd56d0b0d20049e17fc", null ],
+      [ "Properties", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a9fc2d28c05ed9eb1d75ba4465abf15a9", null ],
+      [ "OpenFromCell", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a0557cf735cc90cb65e900826a67191e0", null ]
     ] ]
 ];

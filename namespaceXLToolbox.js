@@ -1,6 +1,7 @@
 var namespaceXLToolbox =
 [
     [ "About", "namespaceXLToolbox_1_1About.html", "namespaceXLToolbox_1_1About" ],
+    [ "Backup", "namespaceXLToolbox_1_1Backup.html", "namespaceXLToolbox_1_1Backup" ],
     [ "Csv", "namespaceXLToolbox_1_1Csv.html", "namespaceXLToolbox_1_1Csv" ],
     [ "Excel", "namespaceXLToolbox_1_1Excel.html", "namespaceXLToolbox_1_1Excel" ],
     [ "ExceptionHandler", "namespaceXLToolbox_1_1ExceptionHandler.html", "namespaceXLToolbox_1_1ExceptionHandler" ],
@@ -19,8 +20,10 @@ var namespaceXLToolbox =
     [ "Vba", "namespaceXLToolbox_1_1Vba.html", "namespaceXLToolbox_1_1Vba" ],
     [ "Versioning", "namespaceXLToolbox_1_1Versioning.html", "namespaceXLToolbox_1_1Versioning" ],
     [ "WorkbookStorage", "namespaceXLToolbox_1_1WorkbookStorage.html", "namespaceXLToolbox_1_1WorkbookStorage" ],
+    [ "CmmandExtensions", "classXLToolbox_1_1CmmandExtensions.html", "classXLToolbox_1_1CmmandExtensions" ],
     [ "Dispatcher", "classXLToolbox_1_1Dispatcher.html", "classXLToolbox_1_1Dispatcher" ],
     [ "Globals", "classXLToolbox_1_1Globals.html", "classXLToolbox_1_1Globals" ],
+    [ "Jumper", "classXLToolbox_1_1Jumper.html", "classXLToolbox_1_1Jumper" ],
     [ "Strings", "classXLToolbox_1_1Strings.html", "classXLToolbox_1_1Strings" ],
     [ "WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", "classXLToolbox_1_1WindowDownloadUpdate" ]
 ];

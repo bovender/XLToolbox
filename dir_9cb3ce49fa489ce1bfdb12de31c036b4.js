@@ -1,6 +1,7 @@
 var dir_9cb3ce49fa489ce1bfdb12de31c036b4 =
 [
     [ "About", "dir_08e79c712d1cddee52de239e4233099c.html", "dir_08e79c712d1cddee52de239e4233099c" ],
+    [ "Backup", "dir_b3cb43ff877250be9b9bb54e9b713c35.html", "dir_b3cb43ff877250be9b9bb54e9b713c35" ],
     [ "Csv", "dir_f1395f81d190bf9493a74eb87d525765.html", "dir_f1395f81d190bf9493a74eb87d525765" ],
     [ "Excel", "dir_4942567c28f23ea8f96d2d27ba5b9939.html", "dir_4942567c28f23ea8f96d2d27ba5b9939" ],
     [ "ExceptionHandler", "dir_12a4a13e10be3ea385d7827695cbb410.html", "dir_12a4a13e10be3ea385d7827695cbb410" ],
@@ -23,6 +24,9 @@ var dir_9cb3ce49fa489ce1bfdb12de31c036b4 =
     [ "Dispatcher.cs", "Dispatcher_8cs.html", "Dispatcher_8cs" ],
     [ "Globals.cs", "Globals_8cs.html", [
       [ "Globals", "classXLToolbox_1_1Globals.html", "classXLToolbox_1_1Globals" ]
+    ] ],
+    [ "Jumper.cs", "Jumper_8cs.html", [
+      [ "Jumper", "classXLToolbox_1_1Jumper.html", "classXLToolbox_1_1Jumper" ]
     ] ],
     [ "Strings.Designer.cs", "Strings_8Designer_8cs.html", [
       [ "Strings", "classXLToolbox_1_1Strings.html", "classXLToolbox_1_1Strings" ]

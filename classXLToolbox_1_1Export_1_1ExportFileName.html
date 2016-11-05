@@ -109,9 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa17d49f1a92d5acebe5736856a87eeae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87913e446248c74d588a53ad78646cb7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#a87913e446248c74d588a53ad78646cb7">ExportFileName</a> (string directory, string template, <a class="el" href="namespaceXLToolbox_1_1Export_1_1Models.html#ade0a0b19ea182ca5428576a26b74c2b2">FileType</a> fileType)</td></tr>
 <tr class="separator:a87913e446248c74d588a53ad78646cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3efb42e1b6b837dc0945fd4f8f6681ee"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#a3efb42e1b6b837dc0945fd4f8f6681ee">GenerateNext</a> (dynamic sheet)</td></tr>
-<tr class="memdesc:a3efb42e1b6b837dc0945fd4f8f6681ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the next file name to use; this will increase the internal counter.  <a href="#a3efb42e1b6b837dc0945fd4f8f6681ee">More...</a><br /></td></tr>
-<tr class="separator:a3efb42e1b6b837dc0945fd4f8f6681ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1137b40a57cead3d055b7219856065"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#a2a1137b40a57cead3d055b7219856065">GenerateNext</a> (dynamic sheet, dynamic selection)</td></tr>
+<tr class="memdesc:a2a1137b40a57cead3d055b7219856065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the next file name to use; this will increase the internal counter.  <a href="#a2a1137b40a57cead3d055b7219856065">More...</a><br /></td></tr>
+<tr class="separator:a2a1137b40a57cead3d055b7219856065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -125,6 +125,8 @@ Properties</h2></td></tr>
 <tr class="separator:a023d8885f189edbfa5d302abe8723a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a631378ce47897184647e5bf6da89fd69"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#a631378ce47897184647e5bf6da89fd69">CurrentWorksheetName</a><code> [get, set]</code></td></tr>
 <tr class="separator:a631378ce47897184647e5bf6da89fd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab13a4af4ac67153cfcfbd30e98177fdf"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#ab13a4af4ac67153cfcfbd30e98177fdf">CurrentObjectName</a><code> [get, set]</code></td></tr>
+<tr class="separator:ab13a4af4ac67153cfcfbd30e98177fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae63e829dacc919dcfadb66bb30493a10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceXLToolbox_1_1Export_1_1Models.html#ade0a0b19ea182ca5428576a26b74c2b2">FileType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html#ae63e829dacc919dcfadb66bb30493a10">FileType</a><code> [get]</code></td></tr>
 <tr class="separator:ae63e829dacc919dcfadb66bb30493a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -206,7 +208,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a3efb42e1b6b837dc0945fd4f8f6681ee"></a>
+<a class="anchor" id="a2a1137b40a57cead3d055b7219856065"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -217,8 +219,18 @@ Properties</h2></td></tr>
           <td class="memname">string XLToolbox.Export.ExportFileName.GenerateNext </td>
           <td>(</td>
           <td class="paramtype">dynamic&#160;</td>
-          <td class="paramname"><em>sheet</em></td><td>)</td>
+          <td class="paramname"><em>sheet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">dynamic&#160;</td>
+          <td class="paramname"><em>selection</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -248,6 +260,26 @@ Properties</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">get</span><span class="mlabel">protected set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab13a4af4ac67153cfcfbd30e98177fdf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string XLToolbox.Export.ExportFileName.CurrentObjectName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -363,7 +395,7 @@ Properties</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Export.html">Export</a></li><li class="navelem"><a class="el" href="classXLToolbox_1_1Export_1_1ExportFileName.html">ExportFileName</a></li>
-    <li class="footer">Generated on Tue Aug 2 2016 00:10:13 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Sat Nov 5 2016 22:31:52 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

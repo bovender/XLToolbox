@@ -1,7 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Csv_1_1CsvExportViewModel.html" title="XLToolbox.Csv.CsvExportView\lModel" alt="" coords="217,5,424,47"/>
-<area shape="rect" id="node3" href="$classXLToolbox_1_1Csv_1_1CsvImportViewModel.html" title="XLToolbox.Csv.CsvImportView\lModel" alt="" coords="217,71,424,112"/>
-<area shape="rect" id="node4" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html" title="Abstract base class for the SingleExportSettingsViewModel and BatchExportSettingsViewModel classes..." alt="" coords="218,136,423,177"/>
-<area shape="rect" id="node5" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html" title="View model for the Settings class. " alt="" coords="473,103,679,144"/>
-<area shape="rect" id="node6" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1SingleExportSettingsViewModel.html" title="View model for the Settings class. " alt="" coords="472,168,680,209"/>
+<area shape="rect" id="node2" href="$classXamlGeneratedNamespace_1_1GeneratedInternalTypeHelper.html" title="GeneratedInternalTypeHelper " alt="" coords="185,5,432,47"/>
 </map>

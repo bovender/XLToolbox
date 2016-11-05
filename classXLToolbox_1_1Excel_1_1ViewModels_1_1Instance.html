@@ -129,6 +129,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adae05fd3cbc3db8ae6562ad67481aad1"><td class="memItemLeft" align="right" valign="top">Workbook&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#adae05fd3cbc3db8ae6562ad67481aad1">CreateWorkbook</a> (int numberOfSheets)</td></tr>
 <tr class="memdesc:adae05fd3cbc3db8ae6562ad67481aad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a workbook containing the specified number of sheets (not less than 1).  <a href="#adae05fd3cbc3db8ae6562ad67481aad1">More...</a><br /></td></tr>
 <tr class="separator:adae05fd3cbc3db8ae6562ad67481aad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00712c876c97a93c3b5f5b07a0a18e99"><td class="memItemLeft" align="right" valign="top">Workbook&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a00712c876c97a93c3b5f5b07a0a18e99">LocateWorkbook</a> (string name)</td></tr>
+<tr class="memdesc:a00712c876c97a93c3b5f5b07a0a18e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locates a workbook and returns it. If the workbook is loaded already, it will not be re-opened. If the workbook cannot be located, this method returns null.  <a href="#a00712c876c97a93c3b5f5b07a0a18e99">More...</a><br /></td></tr>
+<tr class="separator:a00712c876c97a93c3b5f5b07a0a18e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2833d2ec90caff5de44212b5cc06b642"><td class="memItemLeft" align="right" valign="top">Worksheet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a2833d2ec90caff5de44212b5cc06b642">LocateWorksheet</a> (Workbook workbook, string name)</td></tr>
+<tr class="memdesc:a2833d2ec90caff5de44212b5cc06b642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locates a worksheet in a given workbook.  <a href="#a2833d2ec90caff5de44212b5cc06b642">More...</a><br /></td></tr>
+<tr class="separator:a2833d2ec90caff5de44212b5cc06b642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbca6bce3171c6a772b93ecb3bc165bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#acbca6bce3171c6a772b93ecb3bc165bd">DisableScreenUpdating</a> ()</td></tr>
 <tr class="memdesc:acbca6bce3171c6a772b93ecb3bc165bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables screen updating. Increases an internal counter to be able to handle cascading calls to this method.  <a href="#acbca6bce3171c6a772b93ecb3bc165bd">More...</a><br /></td></tr>
 <tr class="separator:acbca6bce3171c6a772b93ecb3bc165bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,7 +151,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9361369d54e4aa0316af703f93ce9af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug method to reset the <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> application. The result is an application without open workbooks.  <a href="#a9361369d54e4aa0316af703f93ce9af5">More...</a><br /></td></tr>
 <tr class="separator:a9361369d54e4aa0316af703f93ce9af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="memItemLeft" align="right" valign="top">Workbook&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#afd3e21c9dfce7beee81f7696b6a96cd1">FindWorkbook</a> (string workbookName)</td></tr>
-<tr class="memdesc:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null.  <a href="#afd3e21c9dfce7beee81f7696b6a96cd1">More...</a><br /></td></tr>
+<tr class="memdesc:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null. Unlike the LocateWorkbook method, this method will not open a workbook that is currently not loaded.  <a href="#afd3e21c9dfce7beee81f7696b6a96cd1">More...</a><br /></td></tr>
 <tr class="separator:afd3e21c9dfce7beee81f7696b6a96cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a896d12ee593747fe6c11387bd4bea8d6"><td class="memItemLeft" align="right" valign="top">AddIn&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a896d12ee593747fe6c11387bd4bea8d6">FindAddIn</a> (string addInName)</td></tr>
 <tr class="memdesc:a896d12ee593747fe6c11387bd4bea8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches an add-in if it is opened. If no add-in is found by the given name, this function returns null.  <a href="#a896d12ee593747fe6c11387bd4bea8d6">More...</a><br /></td></tr>
@@ -156,17 +162,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2ca0902eaf43275f468c8c2738823f02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a2ca0902eaf43275f468c8c2738823f02">IsAddInLoaded</a> (string addInName)</td></tr>
 <tr class="memdesc:a2ca0902eaf43275f468c8c2738823f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an add-in is loaded.  <a href="#a2ca0902eaf43275f468c8c2738823f02">More...</a><br /></td></tr>
 <tr class="separator:a2ca0902eaf43275f468c8c2738823f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a7d8c62c3e65e7fe71a1ef9afaa2d17d0">InvokeShutdown</a> ()</td></tr>
-<tr class="memdesc:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invoke a shutdown of this view model. Note that this does not quit <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>. This method is rather intended to be called when <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> is quitting already.  <a href="#a7d8c62c3e65e7fe71a1ef9afaa2d17d0">More...</a><br /></td></tr>
-<tr class="separator:a7d8c62c3e65e7fe71a1ef9afaa2d17d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac445f0189282ebe8c5a21e8acf16920a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ac445f0189282ebe8c5a21e8acf16920a">Quit</a> ()</td></tr>
+<tr class="memdesc:ac445f0189282ebe8c5a21e8acf16920a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quits the current instance of <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>; no warning message will be shown.  <a href="#ac445f0189282ebe8c5a21e8acf16920a">More...</a><br /></td></tr>
+<tr class="separator:ac445f0189282ebe8c5a21e8acf16920a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06423bf9c33323a54a1764f04148154d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a06423bf9c33323a54a1764f04148154d">Instance</a> ()</td></tr>
 <tr class="memdesc:a06423bf9c33323a54a1764f04148154d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates this class without an <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> instance  <a href="#a06423bf9c33323a54a1764f04148154d">More...</a><br /></td></tr>
 <tr class="separator:a06423bf9c33323a54a1764f04148154d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6df53cd4dfef8330701d0e0b258ac9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#af6df53cd4dfef8330701d0e0b258ac9b">Instance</a> (<a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a4b66d3c780c43e7b38e6dddfcfb37b59">Application</a> application)</td></tr>
 <tr class="memdesc:af6df53cd4dfef8330701d0e0b258ac9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance using <em>application</em>  as <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> instance.  <a href="#af6df53cd4dfef8330701d0e0b258ac9b">More...</a><br /></td></tr>
 <tr class="separator:af6df53cd4dfef8330701d0e0b258ac9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a724bedff3e177fa9c0401bf3b6570d24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a724bedff3e177fa9c0401bf3b6570d24">Instance</a> (bool createNewExcelInstance)</td></tr>
-<tr class="separator:a724bedff3e177fa9c0401bf3b6570d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa39672faf0f73d43f0e418b049b1aa6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#aa39672faf0f73d43f0e418b049b1aa6b">Dispose</a> ()</td></tr>
 <tr class="separator:aa39672faf0f73d43f0e418b049b1aa6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fff8bb29e9fca24b54d20ad4753a875"><td class="memItemLeft" align="right" valign="top">override object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a9fff8bb29e9fca24b54d20ad4753a875">RevealModelObject</a> ()</td></tr>
@@ -212,8 +216,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a1b90ab0906994a74f1ae170bd92f0a38"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a1b90ab0906994a74f1ae170bd92f0a38">Dispose</a> (bool mayFreeManagedObjects)</td></tr>
-<tr class="separator:a1b90ab0906994a74f1ae170bd92f0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9a43ab6a1c282126b034222082edff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a3a9a43ab6a1c282126b034222082edff">Dispose</a> (bool disposing)</td></tr>
+<tr class="separator:a3a9a43ab6a1c282126b034222082edff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html">Bovender.Mvvm.ViewModels.ViewModelBase</a></td></tr>
 <tr class="memitem:a621fda93eadee2b20e86edd145ccf78f inherit pro_methods_classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html#a621fda93eadee2b20e86edd145ccf78f">OnPropertyChanged</a> (string propertyName)</td></tr>
 <tr class="separator:a621fda93eadee2b20e86edd145ccf78f inherit pro_methods_classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,6 +254,9 @@ Properties</h2></td></tr>
 <tr class="separator:a8c7b2dd50186983ffeda0335b3ddb217"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b66d3c780c43e7b38e6dddfcfb37b59"><td class="memItemLeft" align="right" valign="top">Application&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a4b66d3c780c43e7b38e6dddfcfb37b59">Application</a><code> [get]</code></td></tr>
 <tr class="separator:a4b66d3c780c43e7b38e6dddfcfb37b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4657f8461969a1a0a1717a60c48c56"><td class="memItemLeft" align="right" valign="top">Workbooks&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a1e4657f8461969a1a0a1717a60c48c56">Workbooks</a><code> [get]</code></td></tr>
+<tr class="memdesc:a1e4657f8461969a1a0a1717a60c48c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Application's Workbooks collection. The underlying COM object is automatically released when the <a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html" title="Provide access to an instance of Excel that the components are to work with. ">Instance</a> object is disposed.  <a href="#a1e4657f8461969a1a0a1717a60c48c56">More...</a><br /></td></tr>
+<tr class="separator:a1e4657f8461969a1a0a1717a60c48c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac020bcd7c51cbee6ec2ea2d761f749f"><td class="memItemLeft" align="right" valign="top">Workbook&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#aac020bcd7c51cbee6ec2ea2d761f749f">ActiveWorkbook</a><code> [get]</code></td></tr>
 <tr class="separator:aac020bcd7c51cbee6ec2ea2d761f749f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5622b63375e3adae60a3dc62e5101b4b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a5622b63375e3adae60a3dc62e5101b4b">ActivePath</a><code> [get]</code></td></tr>
@@ -261,10 +268,6 @@ Properties</h2></td></tr>
 <tr class="memitem:a2350c8ee6aa9826d5cf3646eb7382fe9"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a2350c8ee6aa9826d5cf3646eb7382fe9">HumanFriendlyVersion</a><code> [get]</code></td></tr>
 <tr class="memdesc:a2350c8ee6aa9826d5cf3646eb7382fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> version and build number in a human-friendly form.  <a href="#a2350c8ee6aa9826d5cf3646eb7382fe9">More...</a><br /></td></tr>
 <tr class="separator:a2350c8ee6aa9826d5cf3646eb7382fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad250089b24bc95bc2514a3febc1bef6d"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; Workbook &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ad250089b24bc95bc2514a3febc1bef6d">Workbooks</a><code> [get]</code></td></tr>
-<tr class="separator:ad250089b24bc95bc2514a3febc1bef6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a960f8de154e5a8eb2c19b82f43d73824"><td class="memItemLeft" align="right" valign="top">IEnumerable&lt; Workbook &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a960f8de154e5a8eb2c19b82f43d73824">UnsavedWorkbooks</a><code> [get]</code></td></tr>
-<tr class="separator:a960f8de154e5a8eb2c19b82f43d73824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb4957f0f6e42636c71da916d6e64c82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#acb4957f0f6e42636c71da916d6e64c82">CountOpenWorkbooks</a><code> [get]</code></td></tr>
 <tr class="separator:acb4957f0f6e42636c71da916d6e64c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cb85d88c44c6d94e3d00173910d1f60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a8cb85d88c44c6d94e3d00173910d1f60">CountUnsavedWorkbooks</a><code> [get]</code></td></tr>
@@ -357,30 +360,6 @@ Events</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a724bedff3e177fa9c0401bf3b6570d24"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">XLToolbox.Excel.ViewModels.Instance.Instance </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>createNewExcelInstance</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -518,7 +497,7 @@ Events</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1b90ab0906994a74f1ae170bd92f0a38"></a>
+<a class="anchor" id="a3a9a43ab6a1c282126b034222082edff"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -529,7 +508,7 @@ Events</h2></td></tr>
           <td class="memname">virtual void XLToolbox.Excel.ViewModels.Instance.Dispose </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>mayFreeManagedObjects</em></td><td>)</td>
+          <td class="paramname"><em>disposing</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -647,7 +626,7 @@ Events</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null. </p>
+<p>Fetches a workbook if it is opened. If no workbook is found by the given name, this function returns null. Unlike the LocateWorkbook method, this method will not open a workbook that is currently not loaded. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">workbookName</td><td>Workbook to fetch.</td></tr>
@@ -655,31 +634,6 @@ Events</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Workbook or null.</dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a7d8c62c3e65e7fe71a1ef9afaa2d17d0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void XLToolbox.Excel.ViewModels.Instance.InvokeShutdown </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Invoke a shutdown of this view model. Note that this does not quit <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>. This method is rather intended to be called when <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a> is quitting already. </p>
 
 </div>
 </div>
@@ -746,6 +700,108 @@ Events</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the workbook is opened.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a00712c876c97a93c3b5f5b07a0a18e99"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Workbook XLToolbox.Excel.ViewModels.Instance.LocateWorkbook </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Locates a workbook and returns it. If the workbook is loaded already, it will not be re-opened. If the workbook cannot be located, this method returns null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name (either bare name or full name with path) of the workbook being sought. If this is null or whitespace, the active workbook is returned.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Workbook or null</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2833d2ec90caff5de44212b5cc06b642"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Worksheet XLToolbox.Excel.ViewModels.Instance.LocateWorksheet </td>
+          <td>(</td>
+          <td class="paramtype">Workbook&#160;</td>
+          <td class="paramname"><em>workbook</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Locates a worksheet in a given workbook. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">workbook</td><td>Workbook in which to look for the worksheet. If this is null, the active workbook is used.</td></tr>
+    <tr><td class="paramname">name</td><td>Name of the worksheet.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Worksheet or null if no worksheet by this name exists.</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac445f0189282ebe8c5a21e8acf16920a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLToolbox.Excel.ViewModels.Instance.Quit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Quits the current instance of <a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a>; no warning message will be shown. </p>
 
 </div>
 </div>
@@ -1121,7 +1177,7 @@ Events</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a960f8de154e5a8eb2c19b82f43d73824"></a>
+<a class="anchor" id="a1e4657f8461969a1a0a1717a60c48c56"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1129,7 +1185,7 @@ Events</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IEnumerable&lt;Workbook&gt; XLToolbox.Excel.ViewModels.Instance.UnsavedWorkbooks</td>
+          <td class="memname">Workbooks XLToolbox.Excel.ViewModels.Instance.Workbooks</td>
         </tr>
       </table>
   </td>
@@ -1139,25 +1195,7 @@ Events</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="ad250089b24bc95bc2514a3febc1bef6d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IEnumerable&lt;Workbook&gt; XLToolbox.Excel.ViewModels.Instance.Workbooks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Gets the Application's Workbooks collection. The underlying COM object is automatically released when the <a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html" title="Provide access to an instance of Excel that the components are to work with. ">Instance</a> object is disposed. </p>
 
 </div>
 </div>
@@ -1183,7 +1221,7 @@ Events</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceXLToolbox.html">XLToolbox</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Excel.html">Excel</a></li><li class="navelem"><a class="el" href="namespaceXLToolbox_1_1Excel_1_1ViewModels.html">ViewModels</a></li><li class="navelem"><a class="el" href="classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html">Instance</a></li>
-    <li class="footer">Generated on Tue Aug 2 2016 00:10:13 for Daniel&#39;s XL Toolbox NG by
+    <li class="footer">Generated on Sat Nov 5 2016 22:31:52 for Daniel&#39;s XL Toolbox NG by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
   </ul>

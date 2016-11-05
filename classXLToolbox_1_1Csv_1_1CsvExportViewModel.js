@@ -12,5 +12,6 @@ var classXLToolbox_1_1Csv_1_1CsvExportViewModel =
     [ "FieldSeparator", "classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#a529c51bdc765dff83715d2dd193f7bf7", null ],
     [ "FileName", "classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#a09ac994f134e773e23fcdf508f78b95b", null ],
     [ "Range", "classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#a087bef82bd7ec071241617a0ae595f31", null ],
+    [ "Tabularize", "classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#a9ad058e600279c3901b0a23271dc1700", null ],
     [ "ThousandsSeparator", "classXLToolbox_1_1Csv_1_1CsvExportViewModel.html#adf64c996ef6f7d70eb2265d976a517b4", null ]
 ];

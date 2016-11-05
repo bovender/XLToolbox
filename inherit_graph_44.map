@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBovender_1_1Versioning_1_1Updater.html" title="Fetches version information from the internet and raises an UpdateAvailable event if a new version is..." alt="" coords="5,5,197,32"/>
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Versioning_1_1Updater.html" title="XLToolbox.Versioning.Updater" alt="" coords="245,5,444,32"/>
+<area shape="rect" id="node1" href="$classBovender_1_1UserSettings_1_1UserSettingsBase.html" title="Base class for persistent settings; a replacement for the UserSettings.UserSettingsBase system which ..." alt="" coords="5,5,195,47"/>
+<area shape="rect" id="node2" href="$classXLToolbox_1_1UserSettings_1_1UserSettings.html" title="XL Toolbox user settings. Should be used as singleton. " alt="" coords="243,5,439,47"/>
 </map>

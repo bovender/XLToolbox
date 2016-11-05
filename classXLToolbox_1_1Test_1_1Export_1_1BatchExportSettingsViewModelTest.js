@@ -26,5 +26,6 @@ var classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest =
     [ "StatesWithTwoChartsAndOneShape", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#a18f137fa7837aa806d063f8da443b6ab", null ],
     [ "StatesWithTwoChartsInOtherWorkbook", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#a50944050af864605cf0a219c30c4479e", null ],
     [ "StatesWithTwoShapesAndNoChart", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#a4521da062bec8c3e5a748d7717a93ac8", null ],
-    [ "TearDown", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#a1764c4a712c2e6602784e91411c53774", null ]
+    [ "TearDown", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#a1764c4a712c2e6602784e91411c53774", null ],
+    [ "TestFixtureSetup", "classXLToolbox_1_1Test_1_1Export_1_1BatchExportSettingsViewModelTest.html#aa524aff99c4c4f425631fccfd6337623", null ]
 ];

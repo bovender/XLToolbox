@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelCollection.html" title="Bovender.Mvvm.ViewModels.\lViewModelCollection\&lt; Preset,\l PresetViewModel \&gt;" alt="" coords="5,5,204,61"/>
-<area shape="rect" id="node2" href="$classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModelCollection.html" title="XLToolbox.Export.ViewModels.\lPresetViewModelCollection" alt="" coords="252,13,457,54"/>
+<area shape="rect" id="node1" href="$classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelCollection.html" title="Bovender.Mvvm.ViewModels.\lViewModelCollection\&lt; BackupFile,\l BackupFileViewModel \&gt;" alt="" coords="5,5,231,61"/>
+<area shape="rect" id="node2" href="$classXLToolbox_1_1Backup_1_1BackupFilesCollection.html" title="XLToolbox.Backup.BackupFiles\lCollection" alt="" coords="279,13,487,54"/>
 </map>

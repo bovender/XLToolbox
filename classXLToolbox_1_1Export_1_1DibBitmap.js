@@ -5,7 +5,7 @@ var classXLToolbox_1_1Export_1_1DibBitmap =
     [ "Dispose", "classXLToolbox_1_1Export_1_1DibBitmap.html#ab1a4361f4607c14c8266d985c81e55ab", null ],
     [ "Bitmap", "classXLToolbox_1_1Export_1_1DibBitmap.html#af7608a00bf0db28cb9c1747455bf8825", null ],
     [ "DibBytes", "classXLToolbox_1_1Export_1_1DibBitmap.html#a41cdd72dc9e2ca311c0b731298a486ba", null ],
-    [ "DibHandle", "classXLToolbox_1_1Export_1_1DibBitmap.html#a9c55a4f4ff25c96b32e15f9fbfc17629", null ],
+    [ "DibHandle", "classXLToolbox_1_1Export_1_1DibBitmap.html#a733c57ca5402501aad500c34e4c4c2ea", null ],
     [ "DibHeader", "classXLToolbox_1_1Export_1_1DibBitmap.html#aeb95982b76ba6e7d611fdbb14e92971d", null ],
     [ "Height", "classXLToolbox_1_1Export_1_1DibBitmap.html#a6685a661033880dcf12abbbb12bcb903", null ],
     [ "Scan0", "classXLToolbox_1_1Export_1_1DibBitmap.html#a387588166e11768703aae17f5af6d2c3", null ],

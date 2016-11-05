@@ -8,6 +8,6 @@ var classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest =
     [ "MoveSheetsUp", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#a24650c08ec1fb2e792715327389f3f0d", null ],
     [ "RenameSheet", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#ab7188df40e1205dd74799c6ab8064e64", null ],
     [ "SelectSheet", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#ad843ddf9b38cd78c8e36ed33080b768e", null ],
-    [ "TearDown", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#a98b286d5fa1308f0d84e6aff07b87ac5", null ],
+    [ "TestFixtureSetup", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#a87e192d52c636f9429f6035589c4785f", null ],
     [ "WorkbookViewModelProperties", "classXLToolbox_1_1Test_1_1Excel_1_1WorkbookViewModelTest.html#a0bbf884afa8830e22c72a7f8c167f9c0", null ]
 ];

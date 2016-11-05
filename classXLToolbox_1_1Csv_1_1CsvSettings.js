@@ -4,5 +4,6 @@ var classXLToolbox_1_1Csv_1_1CsvSettings =
     [ "DecimalSeparator", "classXLToolbox_1_1Csv_1_1CsvSettings.html#a214a1296ea1d6a14f2d8a9bd14323c8d", null ],
     [ "FieldSeparator", "classXLToolbox_1_1Csv_1_1CsvSettings.html#a0015f44e09404a3453e70cf5464a4eac", null ],
     [ "NumberFormatInfo", "classXLToolbox_1_1Csv_1_1CsvSettings.html#a3a48df580885b5d070788cbfe7ee1f61", null ],
+    [ "Tabularize", "classXLToolbox_1_1Csv_1_1CsvSettings.html#a06e0c148de4dd8f73d0a8d5b93eb866f", null ],
     [ "ThousandsSeparator", "classXLToolbox_1_1Csv_1_1CsvSettings.html#a2577d9168f6984a7d6de4cd66505f40f", null ]
 ];
