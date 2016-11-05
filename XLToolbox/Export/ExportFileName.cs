@@ -46,15 +46,18 @@ namespace XLToolbox.Export
             Template = template;
             Counter = 0;
             FileType = fileType;
-            SetExtension();
             _placeholderReplacements = new Dictionary<string, Func<string>>()
             {
                 { Strings.Workbook.ToUpper(), () =>
                     { return Path.GetFileNameWithoutExtension(this.CurrentWorkbookName); } },
                 { Strings.Worksheet.ToUpper(), () => { return this.CurrentWorksheetName; } },
                 { Strings.Index.ToUpper(), () => { return String.Format("{0:000}", Counter); } },
+                { Strings.Name.ToUpper(), () => { return this.CurrentObjectName; } },
             };
             Directory = String.Empty;
+            _upperTemplate = template.ToUpper();
+            _needIndex = !(_upperTemplate.Contains("{" + Strings.Index.ToUpper() + "}") || _upperTemplate.Contains("{" + Strings.Name.ToUpper() + "}"));
+            SetExtension();
         }
 
         public ExportFileName(string directory, string template, FileType fileType)
@@ -72,11 +75,19 @@ namespace XLToolbox.Export
         /// internal counter.
         /// </summary>
         /// <returns></returns>
-        public string GenerateNext(dynamic sheet)
+        public string GenerateNext(dynamic sheet, dynamic selection)
         {
+            Counter++;
             CurrentWorkbookName = sheet.Parent.Name;
             CurrentWorksheetName = sheet.Name;
-            Counter++;
+            try
+            {
+                CurrentObjectName = selection.Name;
+            }
+            catch
+            {
+                CurrentObjectName = String.Format("unnamed_{0}", Counter);
+            }
             string s = _regex.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.
             return Path.Combine(Directory, InsertIndexIfMissing(Template, s) + _extension);
@@ -109,7 +120,7 @@ namespace XLToolbox.Export
 
         private string InsertIndexIfMissing(string template, string fileName)
         {
-            if (!template.Contains("{" + Strings.Index + "}"))
+            if (_needIndex)
             {
                 return Path.GetFileNameWithoutExtension(fileName) +
                     String.Format("{0:000}", Counter) +
@@ -123,7 +134,7 @@ namespace XLToolbox.Export
 
         private void SetExtension()
         {
-            if (String.IsNullOrWhiteSpace(Template) || !Template.ToUpper().EndsWith(FileType.ToFileNameExtension().ToUpper()))
+            if (String.IsNullOrWhiteSpace(Template) || !_upperTemplate.EndsWith(FileType.ToFileNameExtension().ToUpper()))
             {
                 _extension = FileType.ToFileNameExtension();
             }
@@ -140,6 +151,7 @@ namespace XLToolbox.Export
         protected string Template { get; private set; }
         protected string CurrentWorkbookName { get; set; }
         protected string CurrentWorksheetName { get; set; }
+        protected string CurrentObjectName { get; set; }
         protected FileType FileType { get; private set; }
 
         #endregion
@@ -148,6 +160,8 @@ namespace XLToolbox.Export
 
         Dictionary<string, Func<string>> _placeholderReplacements;
         string _extension;
+        string _upperTemplate;
+        bool _needIndex;
         private static readonly Regex _regex = new Regex(@"{[^}]+}");
 
         #endregion

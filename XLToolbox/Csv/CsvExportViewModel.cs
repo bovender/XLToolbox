@@ -83,6 +83,19 @@ namespace XLToolbox.Csv
             }
         }
 
+        public bool Tabularize
+        {
+            get
+            {
+                return CsvExporter.Tabularize;
+            }
+            set
+            {
+                CsvExporter.Tabularize = value;
+                OnPropertyChanged("EqualWidths");
+            }
+        }
+
         /// <summary>
         /// Gets or sets the range to be exported.
         /// </summary>

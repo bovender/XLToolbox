@@ -612,6 +612,26 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XL Toolbox DLL files not available.
+        /// </summary>
+        public static string DllNotAvailableCaption {
+            get {
+                return ResourceManager.GetString("DllNotAvailableCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel&apos;s XL Toolbox is unable to load additional required DLL files. As a consequence, some commands have been disabled, notably the graphic export commands.
+        ///Try uninstalling the XL Toolbox via Add/Remove Software, then re-install it using the official installer. Do NOT install the XL Toolbox by double-clicking a &apos;.vsto&apos; file.
+        ///If you need additional help, see xltoolbox.net/support..
+        /// </summary>
+        public static string DllNotAvailableMessage {
+            get {
+                return ResourceManager.GetString("DllNotAvailableMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate.
         /// </summary>
         public static string Donate {
@@ -955,7 +975,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use {workbook}, {worksheet} and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click &quot;Export&quot;..
+        ///   Looks up a localized string similar to Use {workbook}, {worksheet}, {name} (chart name) and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click &quot;Export&quot;..
         /// </summary>
         public static string FileNameTemplateHint {
             get {
@@ -1727,6 +1747,15 @@ namespace XLToolbox {
         public static string SvgFiles {
             get {
                 return ResourceManager.GetString("SvgFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabularize (align columns with spaces).
+        /// </summary>
+        public static string Tabularize {
+            get {
+                return ResourceManager.GetString("Tabularize", resourceCulture);
             }
         }
         

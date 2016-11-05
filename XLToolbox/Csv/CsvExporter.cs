@@ -21,10 +21,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using YamlDotNet.Serialization;
 using Microsoft.Office.Interop.Excel;
-using XLToolbox.Excel;
+using YamlDotNet.Serialization;
+using Bovender;
 using Bovender.Extensions;
+using XLToolbox.Excel;
 
 namespace XLToolbox.Csv
 {
@@ -117,8 +118,28 @@ namespace XLToolbox.Csv
                 CellsTotal = reference.CellCount;
                 Logger.Info("Number of cells: {0}", CellsTotal);
                 CellsProcessed = 0;
-                string fs = FieldSeparator;
-                if (fs == "\\t") { fs = "\t"; } // Convert "\t" to tab characters
+                _fieldSeparator = FieldSeparator;
+                _needEscape = true;
+                string columnSpacer = String.Empty;
+                switch (_fieldSeparator)
+                {
+                    case "\\t":
+                        _fieldSeparator = "\t";
+                        break;
+                    case "":
+                        columnSpacer = " ";
+                        _needEscape = false;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Get columns widths, if tabularization is requested
+                int[] columnWidths = null;
+                if (Tabularize)
+	            {
+                    columnWidths = ColumnWidths(Range); // this array is 1-based!
+	            }
 
                 // Get all values in an array
                 Range rows = Range.Rows;
@@ -132,29 +153,20 @@ namespace XLToolbox.Csv
                         {
                             CellsProcessed++;
 
-                            // If this is not the first field in the line, write a field separator.
+                            // If this is not the first field in the line,
+                            // write a column spacer and a field separator.
                             if (col > 1)
                             {
-                                sw.Write(fs);
+                                sw.Write(columnSpacer);
+                                sw.Write(_fieldSeparator);
                             }
 
                             object value = values[1, col]; // 1-based index!
-                            if (value != null)
+                            string field = ValueToString(value);
+                            sw.Write(field);
+                            if (Tabularize)
                             {
-                                if (value is string)
-                                {
-                                    string s = value as string;
-                                    if (s.Contains(fs) || s.Contains("\""))
-                                    {
-                                        s = "\"" + s.Replace("\"", "\"\"") + "\"";
-                                    }
-                                    sw.Write(s);
-                                }
-                                else
-                                {
-                                    double d = Convert.ToDouble(value);
-                                    sw.Write(d.ToString(NumberFormatInfo));
-                                }
+                                sw.Write(new String(' ', columnWidths[col] - field.Length));
                             }
                             if (IsCancellationRequested) break;
                         }
@@ -213,6 +225,72 @@ namespace XLToolbox.Csv
                 return null;
             }
         }
+
+        /// <summary>
+        /// Determines each column's width.
+        /// </summary>
+        /// <param name="range">Range with columns to examine.</param>
+        /// <returns>An array of integers representing column widths.
+        /// Caveat: This array is 1-based!</returns>
+        private int[] ColumnWidths(Range range)
+        {
+            Range columns = range.Columns;
+            long numColumns = columns.Count;
+            int[] widths = new int[numColumns+1];
+            Logger.Info("ColumnWidths: Computing widths of {0} columns", numColumns);
+            for (long i = 1; i <= numColumns; i++)
+            {
+                Range column = columns[i];
+                Range cells = column.Cells;
+                for (int j = 1; j <= cells.Count; j++)
+                {
+                    Range cell = cells[j];
+                    int w = ValueToString(cell.Value2).Length;
+                    if (w > widths[i])
+                    {
+                        widths[i] = w;
+                    }
+                    ComHelpers.ReleaseComObject(cell);
+                }
+                ComHelpers.ReleaseComObject(cells);
+                ComHelpers.ReleaseComObject(column);
+            }
+            ComHelpers.ReleaseComObject(columns);
+            return widths;
+        }
+
+        private string ValueToString(dynamic value)
+        {
+            string s;
+            if (value != null)
+            {
+                if (value is string)
+                {
+                    s = value as string;
+                    if (_needEscape && (s.Contains(_fieldSeparator) || s.Contains("\"") || s.Contains("\r") || s.Contains("\n")))
+                    {
+                        s = "\"" + s.Replace("\"", "\"\"") + "\"";
+                    }
+                }
+                else
+                {
+                    double d = Convert.ToDouble(value);
+                    s = d.ToString(NumberFormatInfo);
+                }
+            }
+            else
+            {
+                s = String.Empty;
+            }
+            return s;
+        }
+
+        #endregion
+
+        #region Private fields
+
+        private bool _needEscape;
+        private string _fieldSeparator;
 
         #endregion
 

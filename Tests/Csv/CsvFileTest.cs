@@ -62,6 +62,56 @@ namespace XLToolbox.Test.Csv
         }
 
         [Test]
+        public void ExportTabularCsv()
+        {
+            Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
+            ws.Cells[3, 5] = "hello";
+            ws.Cells[3, 6] = "13";
+            // For testing we 'hide' a pipe symbol in the field.
+            ws.Cells[4, 5] = "wor|d";
+            ws.Cells[4, 6] = 88.5;
+            CsvExporter model = new CsvExporter();
+            string fn = System.IO.Path.GetTempFileName();
+            model.FileName = fn;
+            model.FieldSeparator = "|";
+            model.Tabularize = true;
+            // Use a funky decimal separator
+            model.DecimalSeparator = "~";
+            model.Execute();
+            string contents = System.IO.File.ReadAllText(fn);
+            string expected = String.Format(
+                "hello  |13  {0}\"wor|d\"|88~5{0}",
+                Environment.NewLine);
+            Assert.AreEqual(expected, contents);
+            System.IO.File.Delete(fn);
+        }
+
+        [Test]
+        public void ExportTabularCsvWithoutSeparator()
+        {
+            Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();
+            ws.Cells[3, 5] = "hello";
+            ws.Cells[3, 6] = "13";
+            // For testing we 'hide' a pipe symbol in the field.
+            ws.Cells[4, 5] = "wor|d";
+            ws.Cells[4, 6] = 88.5;
+            CsvExporter model = new CsvExporter();
+            string fn = System.IO.Path.GetTempFileName();
+            model.FileName = fn;
+            model.FieldSeparator = "";
+            model.Tabularize = true;
+            // Use a funky decimal separator
+            model.DecimalSeparator = "~";
+            model.Execute();
+            string contents = System.IO.File.ReadAllText(fn);
+            string expected = String.Format(
+                "hello 13  {0}wor|d 88~5{0}",
+                Environment.NewLine);
+            Assert.AreEqual(expected, contents);
+            System.IO.File.Delete(fn);
+        }
+
+        [Test]
         public void ExportLargeCsv()
         {
             Worksheet ws = Instance.Default.ActiveWorkbook.Worksheets.Add();

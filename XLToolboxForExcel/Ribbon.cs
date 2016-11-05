@@ -111,8 +111,14 @@ namespace XLToolboxForExcel
                 { "ButtonBackups", Command.Backups },
                 { "ButtonProperties", Command.Properties },
             };
-
+            IsGraphicExportEnabled = true;
         }
+
+        #endregion
+
+        #region Properties
+
+        public bool IsGraphicExportEnabled { get; set; }
 
         #endregion
 
@@ -196,6 +202,18 @@ namespace XLToolboxForExcel
             return supertip;
         }
 
+        public string Control_GetSupertipExport(Office.IRibbonControl control)
+        {
+            if (IsGraphicExportEnabled)
+            {
+                return Control_GetSupertip(control);
+            }
+            else
+            {
+                return RibbonStrings.DisabledExportSupertip;
+            }
+        }
+
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this._ribbonUi = ribbonUI;
@@ -237,9 +255,9 @@ namespace XLToolboxForExcel
             return XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible;
         }
 
-        public bool IsGraphicExportEnabled(Office.IRibbonControl control)
+        public bool GetGraphicExportEnabled(Office.IRibbonControl control)
         {
-            return true;
+            return IsGraphicExportEnabled;
         }
 
         #endregion

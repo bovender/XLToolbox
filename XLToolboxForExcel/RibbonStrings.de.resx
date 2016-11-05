@@ -465,4 +465,10 @@
 	<data name="ButtonPropertiesSupertip" xml:space="preserve">
 		<value>Eigenschaften der aktuellen Arbeitsmappe ansehen und in die Zwischenablage kopieren.</value>
 	</data>
+	<data name="DisabledExportLabel" xml:space="preserve">
+		<value>Befehl nicht verfügbar</value>
+	</data>
+	<data name="DisabledExportSupertip" xml:space="preserve">
+		<value>Diese Funktion ist deaktiviert, weil zusätzlich benötigte DLL-Dateien nicht geladen werden konnten. Siehe xltoolbox.net/support.</value>
+	</data>
 </root>

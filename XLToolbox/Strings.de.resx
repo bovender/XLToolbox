@@ -521,7 +521,7 @@ Evtl. müssen Sie es noch einmal versuchen.</value>
     <value>Dateinamen-Schema</value>
   </data>
 	<data name="FileNameTemplateHint" xml:space="preserve">
-    <value>Verwenden Sie {Arbeitsmappe}, {Tabellenblatt} und {Index} (jeweils mit geschweiften Klammern) als Platzhalter. Die Dateinamen-Erweiterung können Sie weglassen. Nach dem Zielordner werden Sie gefragt, wenn Sie auf "exportieren" klicken.</value>
+    <value>Verwenden Sie {Arbeitsmappe}, {Tabellenblatt}, {Name} (Diagrammname) und {Index} (jeweils mit geschweiften Klammern) als Platzhalter. Die Dateinamen-Erweiterung können Sie weglassen. Nach dem Zielordner werden Sie gefragt, wenn Sie auf "exportieren" klicken.</value>
     <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
   </data>
 	<data name="ApacheDisclaimer" xml:space="preserve">
@@ -861,5 +861,16 @@ Fehlermeldung:</value>
 	</data>
 	<data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
 		<value>Tabellenblatt und Arbeitsmappe mit Ordner (Verweis)</value>
+	</data>
+	<data name="DllNotAvailableCaption" xml:space="preserve">
+		<value>XL Toolbox: DLL-Dateien nicht verfügbar</value>
+	</data>
+	<data name="DllNotAvailableMessage" xml:space="preserve">
+		<value>Daniel's XL Toolbox kann zusätzlich benötigte DLL-Dateien nicht laden. Deshalb sind einige Graphikexport-Funktionen deaktiviert.
+Versuchen Sie, das Addin über die Systemsteuerung zu deinstallieren, und installieren Sie es erneut mit dem offiziellen Instalationsprogramm. Sie sollten das Addin NICHT mittels Doppelklick auf eine '.vsto'-Datei installieren.
+Wenn Sie weitere Hilfe benötigen, rufen Sie bitte xltoolbox.net/support auf.</value>
+	</data>
+	<data name="Tabularize" xml:space="preserve">
+		<value>Tabulieren (Spalten angleichen)</value>
 	</data>
 </root>

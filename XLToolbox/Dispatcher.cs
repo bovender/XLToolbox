@@ -284,7 +284,7 @@ namespace XLToolbox
 
         static void OpenCsvWithSettings()
         {
-            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvFileView>().ShowDialogInForm();
+            Csv.CsvImportViewModel.FromLastUsed().InjectInto<Csv.CsvImportView>().ShowDialogInForm();
         }
 
         static void SaveCsv()
@@ -310,7 +310,7 @@ namespace XLToolbox
 
         static void SaveCsvWithSettings(Xl.Range range)
         {
-            CreateCsvExportViewModel(range).InjectInto<Csv.CsvFileView>().ShowDialogInForm();
+            CreateCsvExportViewModel(range).InjectInto<Csv.CsvExportView>().ShowDialogInForm();
         }
 
         static void SaveCsvRange()
@@ -412,7 +412,8 @@ namespace XLToolbox
         static void JumpToTarget()
         {
             Xl.Range r = Instance.Default.Application.Selection as Xl.Range;
-            Jumper j = new Jumper(r.Value2);
+            string value = Convert.ToString(r.Value2);
+            Jumper j = new Jumper(value);
             if (!j.Jump())
             {
                 NotificationAction a = new NotificationAction(
