@@ -314,8 +314,11 @@ namespace XLToolbox.Export.ViewModels
         {
             Settings = batchExporter.Settings;
             PresetViewModels.Select(Settings.Preset);
-            FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
-                Strings.Workbook, Strings.Worksheet, Strings.Index);
+            if (String.IsNullOrEmpty(FileName))
+            {
+                FileName = String.Format("{{{0}}}_{{{1}}}_{{{2}}}",
+                    Strings.Workbook, Strings.Worksheet, Strings.Index);
+            }
             Scope.PropertyChanged += Scope_PropertyChanged;
             Objects.PropertyChanged += Objects_PropertyChanged;
             Layout.PropertyChanged += Layout_PropertyChanged;
