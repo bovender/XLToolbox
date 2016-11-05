@@ -20,11 +20,11 @@
     <globalSetting name="autoTranslateForm.referenceLanguageComboBoxEdit.SelectedIndex">-1</globalSetting>
     <globalSetting name="autoTranslateForm.languagesToTranslateCheckListBox">
     </globalSetting>
-    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="2064426735" /&gt;&lt;item type="2" checksum="719940206" /&gt;&lt;/items&gt;</globalSetting>
+    <globalSetting name="projectMruItems">&lt;?xml version='1.0' encoding='utf-8'?&gt;&lt;items&gt;&lt;item type="2" checksum="2064426735" /&gt;&lt;/items&gt;</globalSetting>
     <userSetting name="daniel@WIN7.filesInitialDir">X:\Code\xltoolbox\NG\XLToolboxForExcel</userSetting>
     <userSetting name="daniel@WIN7.FindText">
     </userSetting>
-    <userSetting name="daniel@WIN7.RecentFiles">X:\Code\xltoolbox\NG\XLToolbox\Strings.resx;X:\Code\xltoolbox\NG\XLToolbox\Strings.de.resx###***###X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.resx;X:\Code\xltoolbox\NG\XLToolboxForExcel\RibbonStrings.de.resx</userSetting>
+    <userSetting name="daniel@WIN7.RecentFiles">X:\Code\xltoolbox\NG\XLToolbox\Strings.resx;X:\Code\xltoolbox\NG\XLToolbox\Strings.de.resx</userSetting>
     <description>
     </description>
   </configuration>

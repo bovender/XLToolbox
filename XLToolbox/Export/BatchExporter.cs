@@ -161,7 +161,7 @@ namespace XLToolbox.Export
                 default:
                     throw new NotImplementedException(Settings.Objects.ToString());
             }
-            _exporter.FileName = _batchFileName.GenerateNext(sheet);
+            _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
             _exporter.Execute();
         }
 
@@ -224,7 +224,7 @@ namespace XLToolbox.Export
 
         private void ExportSelection(dynamic sheet)
         {
-            _exporter.FileName = _batchFileName.GenerateNext(sheet);
+            _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
             _exporter.Execute();
         }
 

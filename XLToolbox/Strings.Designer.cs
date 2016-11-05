@@ -975,7 +975,7 @@ namespace XLToolbox {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use {workbook}, {worksheet} and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click &quot;Export&quot;..
+        ///   Looks up a localized string similar to Use {workbook}, {worksheet}, {name} (chart name) and {index} as placeholders. File extension can be omitted. Target directory will be queried when you click &quot;Export&quot;..
         /// </summary>
         public static string FileNameTemplateHint {
             get {

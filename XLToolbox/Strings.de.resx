@@ -521,7 +521,7 @@ Evtl. müssen Sie es noch einmal versuchen.</value>
     <value>Dateinamen-Schema</value>
   </data>
 	<data name="FileNameTemplateHint" xml:space="preserve">
-    <value>Verwenden Sie {Arbeitsmappe}, {Tabellenblatt} und {Index} (jeweils mit geschweiften Klammern) als Platzhalter. Die Dateinamen-Erweiterung können Sie weglassen. Nach dem Zielordner werden Sie gefragt, wenn Sie auf "exportieren" klicken.</value>
+    <value>Verwenden Sie {Arbeitsmappe}, {Tabellenblatt}, {Name} (Diagrammname) und {Index} (jeweils mit geschweiften Klammern) als Platzhalter. Die Dateinamen-Erweiterung können Sie weglassen. Nach dem Zielordner werden Sie gefragt, wenn Sie auf "exportieren" klicken.</value>
     <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
   </data>
 	<data name="ApacheDisclaimer" xml:space="preserve">
