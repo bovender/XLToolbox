@@ -20,8 +20,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Bovender.Extensions;
 using System.Text;
+using System.IO;
+using Bovender.Extensions;
+using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.Csv
 {
@@ -46,21 +48,60 @@ namespace XLToolbox.Csv
 
         #region Implementation of ProcessModel
 
+        /// <summary>
+        /// Opens a text file 
+        /// </summary>
+        /// <returns></returns>
         public override bool Execute()
         {
+            bool result;
+
             Logger.Info("Importing CSV: FS='{0}', DS='{1}', TS='{2}'",
                 FieldSeparator, DecimalSeparator, ThousandsSeparator);
             UserSettings.UserSettings.Default.CsvSettings = Settings;
-            Excel.ViewModels.Instance.Default.Workbooks.OpenText(
-                FileName,
-                DataType: XlTextParsingType.xlDelimited,
-                Other: true, OtherChar: StringParam(FieldSeparator),
-                DecimalSeparator: StringParam(DecimalSeparator),
-                ThousandsSeparator: StringParam(ThousandsSeparator),
-                Local: false, ConsecutiveDelimiter: false,
-                Origin: XlPlatform.xlWindows
-                );
-            return true;
+
+            if (Path.GetExtension(FileName).ToUpper() == ".TXT")
+            {
+                Logger.Info("Execute: .txt file, opening directly");
+                OpenText(FileName);
+                result = true;
+            }
+            else
+            {
+                Logger.Info("Execute: Not a .txt file, creating temporary copy");
+                string tempName = Path.ChangeExtension(Path.GetTempFileName(), ".txt");
+                Logger.Debug("Execute: {0}", tempName);
+                File.Copy(FileName, tempName, true);
+                Instance.Default.DisableScreenUpdating();
+                try
+                {
+                    OpenText(tempName);
+                    Workbook tempWb = Instance.Default.ActiveWorkbook;
+                    Worksheet sheet = tempWb.ActiveSheet as Worksheet;
+                    Logger.Info("Execute: Copying sheet");
+                    sheet.Name = Path.GetFileName(FileName).TruncateWithEllipsis(31);
+                    tempWb.Saved = true;
+                    sheet.Copy();
+                    tempWb.Close();
+                    Bovender.ComHelpers.ReleaseComObject(sheet);
+                    Bovender.ComHelpers.ReleaseComObject(tempWb);
+                    Logger.Info("Execute: Deleting temporary file");
+                    File.Delete(tempName);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Logger.Warn("Execute: Caught exception");
+                    Logger.Warn(e);
+                    result = false;
+                }
+                finally
+                {
+                    Instance.Default.EnableScreenUpdating();
+                }
+            }
+
+            return result;
         }
         
         #endregion
@@ -98,6 +139,19 @@ namespace XLToolbox.Csv
             {
                 return s;
             }
+        }
+
+        private void OpenText(string fileName)
+        {
+            Excel.ViewModels.Instance.Default.Workbooks.OpenText(
+                fileName,
+                DataType: XlTextParsingType.xlDelimited,
+                Other: true, OtherChar: StringParam(FieldSeparator),
+                DecimalSeparator: StringParam(DecimalSeparator),
+                ThousandsSeparator: StringParam(ThousandsSeparator),
+                Local: false, ConsecutiveDelimiter: false,
+                Origin: XlPlatform.xlWindows
+                );
         }
 
         #endregion
