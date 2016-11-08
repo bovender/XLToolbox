@@ -93,7 +93,7 @@ namespace XLToolbox.Csv
                 {
                     Logger.Warn("Execute: Caught exception");
                     Logger.Warn(e);
-                    result = false;
+                    throw e;
                 }
                 finally
                 {
