@@ -22,7 +22,8 @@ namespace XLToolbox
     /// </summary>
     public enum Command
     {
-        About,
+        // Start with value 1 to prevent subtle bugs with YAML serialization/deserialization
+        About = 1,
         CheckForUpdates,
         ThrowError,
         SheetManager,
