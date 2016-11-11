@@ -24,6 +24,7 @@
         xmlns:actions="clr-namespace:Bovender.Mvvm.Actions;assembly=Bovender"
         xmlns:settings="clr-namespace:Bovender.Mvvm.Views.Settings;assembly=Bovender"
         settings:WindowState.Save="True" ResizeMode="CanResizeWithGrip"
+        settings:WindowState.CenterScreen="True"
         ShowInTaskbar="False"
         Width="480" Height="520" MinWidth="400" MinHeight="520"
         Title="{x:Static l:Strings.EditExportPreset}"
