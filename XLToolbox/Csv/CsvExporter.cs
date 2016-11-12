@@ -124,7 +124,7 @@ namespace XLToolbox.Csv
                 {
                    _fieldSeparator = "\t";
                 }
-                if (String.IsNullOrEmpty(_fieldSeparator))
+                if (String.IsNullOrWhiteSpace(_fieldSeparator))
                 {
                     _needEscape = false;
                 }
