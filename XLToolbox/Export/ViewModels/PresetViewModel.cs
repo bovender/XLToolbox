@@ -116,6 +116,7 @@ namespace XLToolbox.Export.ViewModels
                         {
                             _preset.FileType = _fileTypeProvider.AsEnum;
                             UpdateCmykEnabledState();
+                            SanitizeSettings();
                             OnPropertyChanged("FileType." + args.PropertyName);
                             OnPropertyChanged("IsColorSpaceEnabled");
                             OnPropertyChanged("IsDpiEnabled");
@@ -165,6 +166,7 @@ namespace XLToolbox.Export.ViewModels
                                 {
                                     _mustUseColorProfile = false;
                                 }
+                                SanitizeSettings();
 
                                 OnPropertyChanged("IsUseColorProfileEnabled");
                                 OnPropertyChanged("UseColorProfile");
@@ -359,6 +361,26 @@ namespace XLToolbox.Export.ViewModels
             ColorSpace.GetViewModel(Models.ColorSpace.Cmyk).IsEnabled =
                 ColorProfiles.HasProfilesForColorSpace(Models.ColorSpace.Cmyk) &&
                 _preset.FileType.SupportsCmyk();
+        }
+
+        /// <summary>
+        /// Ensures that only valid options are chosen by falling back to defaults
+        /// if necessary
+        /// </summary>
+        private void SanitizeSettings()
+        {
+            if (ColorSpace.AsEnum == Models.ColorSpace.Cmyk && !_preset.FileType.SupportsCmyk())
+            {
+                // Fall back to a default colorspace
+                ColorSpace.AsEnum = Models.ColorSpace.Rgb;
+            }
+            // Transparency is a yes/no decision, no need to change the setting per se
+            // The combobox is disabled if the file type/color space do not support
+            // transparency, and the actual value is not important it is not supported
+            // if (!(Transparency.AsEnum == Models.Transparency.WhiteCanvas) && !IsTransparencyEnabled)
+            // {
+            //     Transparency.AsEnum = Models.Transparency.WhiteCanvas;
+            // }
         }
 
         #endregion

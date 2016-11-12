@@ -23,13 +23,12 @@ using FreeImageAPI;
 
 namespace XLToolbox.Export.Models
 {
-    // TODO: Add CMYK colorspace.
     public enum ColorSpace
     {
-        Monochrome,
-        GrayScale,
-        Rgb,
-        Cmyk
+        Rgb = 0,
+        Monochrome = 1,
+        GrayScale = 2,
+        Cmyk = 3
     }
 
     public static class ColorSpaceExtensions

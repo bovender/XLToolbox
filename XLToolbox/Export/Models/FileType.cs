@@ -28,13 +28,13 @@ namespace XLToolbox.Export.Models
     public enum FileType
     {
         [Description("TIFF")]
-        Tiff,
+        Tiff = 1,
         [Description("PNG")]
-        Png,
+        Png = 2,
         // [Description("SVG")]
         // Svg,
         [Description("EMF")]
-        Emf
+        Emf = 3
     }
 
     public static class FileTypeExtensions

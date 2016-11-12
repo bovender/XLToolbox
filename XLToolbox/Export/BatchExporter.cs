@@ -64,6 +64,7 @@ namespace XLToolbox.Export
         
         public override bool Execute()
         {
+            Logger.Info("Execute: Start with template '{0}'", Settings.FileName);
             _batchFileName = new ExportFileName(
                 Settings.Path,
                 Settings.FileName,
@@ -91,12 +92,22 @@ namespace XLToolbox.Export
                             "Batch export not implemented for {0}",
                             Settings.Scope));
                 }
-                Instance.Default.EnableScreenUpdating();
+            }
+            catch (System.Runtime.InteropServices.ExternalException exe)
+            {
+                Logger.Fatal("Execute: Caught an external exception");
+                Logger.Fatal("Execute: External error code: {0}", exe.ErrorCode);
+                Logger.Fatal(exe);
             }
             catch (Exception e)
             {
-                Instance.Default.EnableScreenUpdating();
+                Logger.Fatal("Execute: Caught an exception");
+                Logger.Fatal(e);
                 throw e;
+            }
+            finally
+            {
+                Instance.Default.EnableScreenUpdating();
             }
             return result;
         }
@@ -107,6 +118,7 @@ namespace XLToolbox.Export
 
         private void ExportAllWorkbooks()
         {
+            Logger.Info("ExportAllWorkbooks");
             foreach (Workbook wb in Instance.Default.Application.Workbooks)
             {
                 ExportWorkbook(wb);
@@ -118,6 +130,7 @@ namespace XLToolbox.Export
         {
             ((_Workbook)workbook).Activate();
             Sheets sheets = workbook.Sheets;
+            Logger.Info("ExportWorkbook: {0} sheet(s)", sheets.Count);
             Worksheet sheet;
             for (int i = 1; i <= sheets.Count; i++)
             {
@@ -131,6 +144,7 @@ namespace XLToolbox.Export
 
         private void ExportSheet(dynamic sheet)
         {
+            Logger.Info("ExportSheet");
             sheet.Activate();
             switch (Settings.Layout)
             {
@@ -141,6 +155,7 @@ namespace XLToolbox.Export
                     ExportSheetItems(sheet);
                     break;
                 default:
+                    Logger.Fatal("ExportSheet: Layout '{0}' not implemented!", Settings.Layout);
                     throw new NotImplementedException(
                         String.Format("Export of {0} not implemented.", Settings.Layout)
                         );
@@ -149,6 +164,7 @@ namespace XLToolbox.Export
 
         private void ExportSheetLayout(dynamic sheet)
         {
+            Logger.Info("ExportSheetLayout");
             SheetViewModel svm = new SheetViewModel(sheet);
             switch (Settings.Objects)
             {
@@ -159,6 +175,7 @@ namespace XLToolbox.Export
                     svm.SelectShapes();
                     break;
                 default:
+                    Logger.Fatal("ExportSheetLayout: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(Settings.Objects.ToString());
             }
             _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
@@ -167,6 +184,7 @@ namespace XLToolbox.Export
 
         private void ExportSheetItems(dynamic sheet)
         {
+            Logger.Info("ExportSheetItems");
             SheetViewModel svm = new SheetViewModel(sheet);
             if (svm.IsChart)
             {
@@ -184,6 +202,7 @@ namespace XLToolbox.Export
                         ExportSheetAllItems(svm.Worksheet);
                         break;
                     default:
+                        Logger.Fatal("ExportSheetItems: Object type '{0}' not implemented!", Settings.Objects);
                         throw new NotImplementedException(
                             "Single-item export not implemented for " + Settings.Objects.ToString());
                 }
@@ -196,6 +215,7 @@ namespace XLToolbox.Export
             // A foreach loop caused lots of 0x800a03ec errors from Excel
             // (for whatever reason).
             ChartObjects cos = worksheet.ChartObjects();
+            Logger.Info("ExportSheetChartItems: {0} object(s)", cos.Count);
             for (int i = 1; i <= cos.Count; i++)
             {
                 dynamic item = cos.Item(i);
@@ -210,6 +230,7 @@ namespace XLToolbox.Export
         private void ExportSheetAllItems(Worksheet worksheet)
         {
             Shapes shapes = worksheet.Shapes;
+            Logger.Info("ExportSheetAllItems: {0} item(s)", shapes.Count);
             Shape shape;
             for (int i = 1; i <= shapes.Count; i++)
             {
@@ -224,6 +245,7 @@ namespace XLToolbox.Export
 
         private void ExportSelection(dynamic sheet)
         {
+            Logger.Info("ExportSelection");
             _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
             _exporter.Execute();
         }
@@ -234,6 +256,7 @@ namespace XLToolbox.Export
 
         private int CountInAllWorkbooks()
         {
+            Logger.Info("CountInAllWorkbooks: Counting...");
             int n = 0;
             Workbooks workbooks = Instance.Default.Workbooks;
             for (int i = 1; i <= workbooks.Count; i++)
@@ -242,11 +265,13 @@ namespace XLToolbox.Export
                 n += CountInWorkbook(workbook);
                 Bovender.ComHelpers.ReleaseComObject(workbook);
             }
+            Logger.Info("CountInAllWorkbooks: ... {0}", n);
             return n;
         }
 
         private int CountInWorkbook(Workbook workbook)
         {
+            Logger.Info("CountInWorkbook: Counting...");
             int n = 0;
             Sheets worksheets = workbook.Worksheets;
             for (int i = 1; i <= worksheets.Count; i++)
@@ -256,11 +281,13 @@ namespace XLToolbox.Export
                 Bovender.ComHelpers.ReleaseComObject(worksheet);
             }
             Bovender.ComHelpers.ReleaseComObject(worksheets);
+            Logger.Info("CountInWorkbook: ... {0}", n);
             return n;
         }
 
         private int CountInSheet(dynamic worksheet)
         {
+            Logger.Info("CountInSheet");
             switch (Settings.Layout)
             {
                 case BatchExportLayout.SheetLayout:
@@ -268,6 +295,7 @@ namespace XLToolbox.Export
                 case BatchExportLayout.SingleItems:
                     return CountInSheetItems(worksheet);
                 default:
+                    Logger.Fatal("CountInSheet: Layout '{0}' not implemented!", Settings.Layout);
                     throw new NotImplementedException(
                         String.Format("Export of {0} not implemented.", Settings.Layout)
                         );
@@ -283,6 +311,7 @@ namespace XLToolbox.Export
         /// <returns>1 if sheet contains charts/drawings, 0 if not.</returns>
         private int CountInSheetLayout(dynamic worksheet)
         {
+            Logger.Info("CountInSheetLayout");
             SheetViewModel svm = new SheetViewModel(worksheet);
             switch (Settings.Objects)
             {
@@ -291,6 +320,7 @@ namespace XLToolbox.Export
                 case BatchExportObjects.ChartsAndShapes:
                     return svm.CountShapes() > 0 ? 1 : 0;
                 default:
+                    Logger.Fatal("CountInSheetLayout: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(String.Format(
                         "Export of {0} not implemented.", Settings.Objects));
             }
@@ -298,6 +328,7 @@ namespace XLToolbox.Export
 
         private int CountInSheetItems(dynamic worksheet)
         {
+            Logger.Info("CountInSheetItems");
             SheetViewModel svm = new SheetViewModel(worksheet);
             switch (Settings.Objects)
             {
@@ -306,6 +337,7 @@ namespace XLToolbox.Export
                 case BatchExportObjects.ChartsAndShapes:
                     return svm.CountShapes();
                 default:
+                    Logger.Fatal("CountInSheetItems: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(String.Format(
                         "Export of {0} not implemented.", Settings.Objects));
             }
@@ -320,5 +352,13 @@ namespace XLToolbox.Export
         private ExportFileName _batchFileName;
 	 
 	    #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
+
+        #endregion
     }
 }
