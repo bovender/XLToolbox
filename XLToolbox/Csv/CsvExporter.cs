@@ -120,18 +120,13 @@ namespace XLToolbox.Csv
                 CellsProcessed = 0;
                 _fieldSeparator = FieldSeparator;
                 _needEscape = true;
-                string columnSpacer = String.Empty;
-                switch (_fieldSeparator)
+                if (_fieldSeparator == "\\t")
                 {
-                    case "\\t":
-                        _fieldSeparator = "\t";
-                        break;
-                    case "":
-                        columnSpacer = " ";
-                        _needEscape = false;
-                        break;
-                    default:
-                        break;
+                   _fieldSeparator = "\t";
+                }
+                if (String.IsNullOrEmpty(_fieldSeparator))
+                {
+                    _needEscape = false;
                 }
 
                 // Get columns widths, if tabularization is requested
@@ -157,7 +152,6 @@ namespace XLToolbox.Csv
                             // write a column spacer and a field separator.
                             if (col > 1)
                             {
-                                sw.Write(columnSpacer);
                                 sw.Write(_fieldSeparator);
                             }
 
