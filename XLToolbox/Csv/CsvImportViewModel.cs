@@ -151,10 +151,10 @@ namespace XLToolbox.Csv
 
         private void DoChooseFileName()
         {
-            WorkbookStorage.Store store = new WorkbookStorage.Store();
+            Logger.Info("DoChooseFileName: Sending ChooseImportFileNameMessage");
             ChooseImportFileNameMessage.Send(
                 new FileNameMessageContent(
-                    store.Get("csv_path", Excel.ViewModels.Instance.Default.ActivePath),
+                    UserSettings.UserSettings.Default.CsvPath,
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
                 ConfirmChooseFileName);
         }
@@ -170,10 +170,9 @@ namespace XLToolbox.Csv
 
         private void DoImport()
         {
-            using (WorkbookStorage.Store store = new WorkbookStorage.Store())
-            {
-                store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
-            }
+            Logger.Info("DoImport: Storing settings");
+            UserSettings.UserSettings.Default.CsvPath = System.IO.Path.GetDirectoryName(FileName);
+            Logger.Info("DoImport: Executing import");
             Importer.Execute();
             CloseViewCommand.Execute(null);
         }
@@ -197,6 +196,14 @@ namespace XLToolbox.Csv
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _importCommand;
         Message<FileNameMessageContent> _chooseImportFileNameMessage;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

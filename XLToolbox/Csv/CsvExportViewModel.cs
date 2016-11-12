@@ -152,7 +152,10 @@ namespace XLToolbox.Csv
         #region Constructors
 
         public CsvExportViewModel()
-            : this(new CsvExporter()) { }
+            : this(new CsvExporter())
+        {
+            Logger.Info("Constructed CsvExportViewModel with new CsvExporter");
+        }
 
         public CsvExportViewModel(CsvExporter model)
             : base(model)
@@ -186,8 +189,10 @@ namespace XLToolbox.Csv
 
         private void DoChooseFileName()
         {
+            Logger.Info("DoChooseFileName: Retrieving previous settings");
             WorkbookStorage.Store store = new WorkbookStorage.Store();
-            string defaultPath = Excel.ViewModels.Instance.Default.ActivePath;
+            string defaultPath = UserSettings.UserSettings.Default.CsvPath;
+            Logger.Info("DoChooseFileName: Sending ChooseExportFileNameMessage");
             ChooseExportFileNameMessage.Send(
                 new FileNameMessageContent(store.Get("csv_path", defaultPath),
                     "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
@@ -198,18 +203,27 @@ namespace XLToolbox.Csv
         {
             if (messageContent.Confirmed)
             {
+                Logger.Info("ConfirmChooseFileName: File name confirmed");
                 CsvExporter.FileName = messageContent.Value;
                 DoExport();
+            }
+            else
+            {
+                Logger.Info("ConfirmChooseFileName: Not confirmed, doing nothing");
             }
         }
 
         private void DoExport()
         {
+            Logger.Info("DoExport: Storing settings");
+            string path = System.IO.Path.GetDirectoryName(FileName);
             using (WorkbookStorage.Store store = new WorkbookStorage.Store())
             {
-                store.Put("csv_path", System.IO.Path.GetDirectoryName(FileName));
+                store.Put("csv_path", path);
             };
+            UserSettings.UserSettings.Default.CsvPath = path;
             ((CsvExporter)ProcessModel).Range = Range;
+            Logger.Info("DoExport: Starting process");
             StartProcess();
         }
 
@@ -220,6 +234,14 @@ namespace XLToolbox.Csv
         DelegatingCommand _chooseFileNameCommand;
         DelegatingCommand _exportCommand;
         Message<FileNameMessageContent> _chooseExportFileNameMessage;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

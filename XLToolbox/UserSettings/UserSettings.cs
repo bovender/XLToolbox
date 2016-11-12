@@ -227,6 +227,22 @@ namespace XLToolbox.UserSettings
 
         public Csv.CsvSettings CsvSettings { get; set; }
 
+        public string CsvPath
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_csvPath))
+                {
+                    _csvPath = ExportPath;
+                }
+                return _csvPath;
+            }
+            set
+            {
+                _csvPath = value;
+            }
+        }
+
         /// <summary>
         /// Wraps the singleton PresetsRepository's Presets property.
         /// </summary>
@@ -391,6 +407,7 @@ namespace XLToolbox.UserSettings
         private string _lastVersionSeen;
         private string _languageCode;
         private string _backupDir;
+        private string _csvPath;
 
         #endregion
 
