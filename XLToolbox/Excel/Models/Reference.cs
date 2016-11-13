@@ -36,6 +36,9 @@ namespace XLToolbox.Excel.Models
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the FullName of the workbook.
+        /// </summary>
         public string WorkbookPath
         {
             get
@@ -148,7 +151,7 @@ namespace XLToolbox.Excel.Models
             set
             {
                 Reset();
-                _referenceString = value;
+                _referenceString = value.TrimStart('=');
                 Match m = null;
                 // Prevent argument null exceptions if the reference string is empty
                 if (!String.IsNullOrEmpty(_referenceString))
@@ -440,7 +443,8 @@ namespace XLToolbox.Excel.Models
 
         private void Reset()
         {
-            if (_rangeWasCreated) _range = (Range)Bovender.ComHelpers.ReleaseComObject(_range);
+            if (_rangeWasCreated) Bovender.ComHelpers.ReleaseComObject(_range);
+            _range = null;
             _cols = (Range)Bovender.ComHelpers.ReleaseComObject(_cols);
             _rows = (Range)Bovender.ComHelpers.ReleaseComObject(_rows);
             _workbook = (Workbook)Bovender.ComHelpers.ReleaseComObject(_workbook);
@@ -470,7 +474,7 @@ namespace XLToolbox.Excel.Models
             Match m = _addressPattern.Value.Match(_address);
             if (!m.Success)
             {
-                Logger.Fatal("NormalizeAddress: Invalid address \"{0}\"", _address);
+                Logger.Fatal("ParseAddress: Invalid address \"{0}\"", _address);
                 throw new InvalidOperationException("Invalid address");
             }
             Top = new RowHelper(m.Groups["top"].Value);
@@ -482,6 +486,10 @@ namespace XLToolbox.Excel.Models
             }
         }
 
+        /// <summary>
+        /// Normalizes the address by putting the top left cell first,
+        /// the bottom right cell last.
+        /// </summary>
         private void NormalizeAddress()
         {
             if (IsRectangle)

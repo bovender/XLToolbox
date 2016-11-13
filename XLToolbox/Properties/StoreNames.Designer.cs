@@ -40,5 +40,14 @@ namespace XLToolbox.Properties {
                 return ((string)(this["ExportPreset"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("csv_range")]
+        public string CsvRange {
+            get {
+                return ((string)(this["CsvRange"]));
+            }
+        }
     }
 }

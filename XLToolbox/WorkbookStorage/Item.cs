@@ -90,9 +90,9 @@ namespace XLToolbox.WorkbookStorage
             if (HasValue)
             {
                 Range cells = sheet.Cells;
-                cells[row, 1] = Context;
-                cells[row, 2] = Key;
-                cells[row, 3] = Value.ToString();
+                cells[row, 1].Value2 = Context;
+                cells[row, 2].Value2 = Key;
+                cells[row, 3].Value2 = Value.ToString();
                 Bovender.ComHelpers.ReleaseComObject(cells);
                 return true;
             }
@@ -112,7 +112,7 @@ namespace XLToolbox.WorkbookStorage
             object contextValue = cells[row, 1].Value();
             Context = String.Format("{0}", contextValue);
             Key = cells[row, 2].Value2();
-            Value = cells[row, 3].Value2();
+            Value = cells[row, 3].Formula();
             Bovender.ComHelpers.ReleaseComObject(cells);
         }
 

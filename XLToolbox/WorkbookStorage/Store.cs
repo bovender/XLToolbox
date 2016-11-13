@@ -208,6 +208,24 @@ namespace XLToolbox.WorkbookStorage
             }
         }
 
+        /// <summary>
+        /// Creates a new Store instance with the active sheet as
+        /// current context.
+        /// </summary>
+        /// <param name="activeSheetContext">True if the active
+        /// sheet is the desired context.</param>
+        public Store(bool activeSheetContext)
+            : this()
+        {
+            if (activeSheetContext && Workbook != null)
+            {
+                dynamic sheet = Workbook.ActiveSheet;
+                Context = sheet.Name;
+                Bovender.ComHelpers.ReleaseComObject(sheet);
+            }
+        }
+
+
         #endregion
 
         #region Disposing and destructing
