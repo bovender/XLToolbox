@@ -189,6 +189,11 @@ namespace XLToolbox.Excel.Models
             }
         }
 
+        /// <summary>
+        /// Gets whether the reference is formally valid.
+        /// Does not check whether the references workbook and
+        /// worksheet actually exist.
+        /// </summary>
         public bool IsValid { get; private set; }
 
         /// <summary>
