@@ -342,7 +342,7 @@ namespace XLToolbox.Export.ViewModels
                 path = LoadExportPath();
             }
             ChooseFolderMessage.Send(
-                new FileNameMessageContent(path),
+                new FileNameMessageContent(path, null),
                 (content) => ConfirmFolder(content)
             );
         }
