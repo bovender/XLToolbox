@@ -23,9 +23,9 @@ using System.Text;
 using System.Windows;
 using FreeImageAPI;
 using XLToolbox.Excel.ViewModels;
-using XLToolbox.Unmanaged;
 using System.Drawing.Imaging;
 using Bovender.Extensions;
+using Bovender.Unmanaged;
 
 namespace XLToolbox.Export
 {

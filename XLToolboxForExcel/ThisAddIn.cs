@@ -48,6 +48,11 @@ namespace XLToolboxForExcel
             Bovender.Win32Window.MainWindowHandleProvider =
                 new Func<IntPtr>(() => (IntPtr)Globals.ThisAddIn.Application.Hwnd);
 
+            Bovender.Unmanaged.DllManager.AlternativeDir = System.IO.Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    XLToolbox.Properties.Settings.Default.AppDataFolder
+                    );
+
             // Get a hold of the current dispatcher so we can create an
             // update notification window from a different thread
             // when checking for updates.

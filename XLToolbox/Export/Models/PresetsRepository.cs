@@ -154,14 +154,18 @@ namespace XLToolbox.Export.Models
 
         #region Constructor
 
-        /// <summary>
-        /// Default constructor, calls the base constructor, does nothing more.
-        /// </summary>
         private PresetsRepository()
             : base()
         {
+            _dllManager = new Bovender.Unmanaged.DllManager("lcms2.dll");
             Presets = new ObservableCollection<Preset>() { new Preset() };
         }
+
+        #endregion
+
+        #region Private fields
+
+        Bovender.Unmanaged.DllManager _dllManager;
 
         #endregion
     }

@@ -23,10 +23,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using FreeImageAPI;
-using XLToolbox.Unmanaged;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
 using Bovender.Extensions;
+using Bovender.Unmanaged;
 
 namespace XLToolbox.Export
 {

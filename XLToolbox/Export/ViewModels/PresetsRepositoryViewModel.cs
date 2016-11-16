@@ -273,6 +273,7 @@ namespace XLToolbox.Export.ViewModels
 
         #region Private fields
 
+        Bovender.Unmanaged.DllManager _dllManager;
         DelegatingCommand _addCommand;
         DelegatingCommand _removeCommand;
         DelegatingCommand _editCommand;
