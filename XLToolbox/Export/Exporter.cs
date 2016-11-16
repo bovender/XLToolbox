@@ -46,7 +46,38 @@ namespace XLToolbox.Export
         /// </summary>
         public bool QuickExport { get; set; }
 
-        public Preset Preset { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Preset Preset
+        {
+            get
+            {
+                if (_settings != null)
+                {
+                    Logger.Info("Preset_get: Giving preference to Settings object");
+                    return _settings.Preset;
+                }
+                else
+                {
+                    Logger.Info("Preset_get: Setting private field");
+                    return _preset;
+                }
+            }
+            set
+            {
+                if (_settings != null)
+                {
+                    Logger.Info("Preset_set: Giving preference to Settings object");
+                    _settings.Preset = value;
+                }
+                else
+                {
+                    Logger.Info("Preset_set: Setting private field");
+                    _preset = value;
+                }
+            }
+        }
 
         public int PercentCompleted
         {
@@ -353,6 +384,7 @@ namespace XLToolbox.Export
 
         private DllManager _dllManager;
         private SingleExportSettings _settings;
+        private Preset _preset;
         private bool _disposed;
         private Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
         private TiledBitmap _tiledBitmap;
