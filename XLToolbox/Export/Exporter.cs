@@ -76,7 +76,7 @@ namespace XLToolbox.Export
         {
             if (Preset == null)
             {
-                throw new InvalidOperationException("Cannot export because no Preset was given");
+                throw new InvalidOperationException("Execute: Cannot export because no Preset was given");
             }
             if (String.IsNullOrWhiteSpace(FileName) && _settings != null)
             {
@@ -84,7 +84,7 @@ namespace XLToolbox.Export
             }
             if (String.IsNullOrWhiteSpace(FileName))
             {
-                throw new InvalidOperationException("Cannot export because no file name was given");
+                throw new InvalidOperationException("Execute: Cannot export because no file name was given");
             }
             bool result = false;
             double width;
@@ -93,8 +93,8 @@ namespace XLToolbox.Export
             {
                 if (SelectionViewModel.Selection == null)
                 {
-                    Logger.Fatal("ExportAtOriginalSize: No selection!");
-                    throw new InvalidOperationException("Cannot export because nothing is selected in Excel");
+                    Logger.Fatal("ExportAtOriginalSize: Quick export: No selection!");
+                    throw new InvalidOperationException("Execute: Cannot export because nothing is selected in Excel");
                 }
                 width = SelectionViewModel.Bounds.Width;
                 height = SelectionViewModel.Bounds.Height;
@@ -103,7 +103,7 @@ namespace XLToolbox.Export
             {
                 if (_settings == null)
                 {
-                    Logger.Fatal("ExportAtOriginalSize: No export settings!");
+                    Logger.Fatal("Execute: No export settings!");
                     throw new InvalidOperationException("Cannot export because no export settings were given; want to perform quick export?");
                 }
                 width = _settings.Unit.ConvertTo(_settings.Width, Unit.Point);
@@ -204,7 +204,7 @@ namespace XLToolbox.Export
                 Logger.Fatal("ExportWithDimensions: No export preset!");
                 throw new InvalidOperationException("Cannot export without export preset");
             }
-            Logger.Info("ExportWithDimensions");
+            Logger.Info("ExportWithDimensions: Preset: {0}", Preset);
             // Copy current selection to clipboard
             SelectionViewModel.CopyToClipboard();
                     

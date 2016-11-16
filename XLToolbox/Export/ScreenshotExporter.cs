@@ -65,13 +65,16 @@ namespace XLToolbox.Export
         private FreeImageBitmap CreateFreeImageDirectly()
         {
             FreeImageBitmap fi;
-            using (DllManager dllManager = new DllManager())
+            using (DllManager dllManager = new DllManager("FreeImage.dll"))
             {
-                dllManager.LoadDll("FreeImage.DLL");
-                Instance.Default.Application.Selection.Copy();
+                dynamic selection = Instance.Default.Application.Selection;
+                Logger.Info("CreateFreeImageDirectly: Selection is a '{0}'",
+                    Microsoft.VisualBasic.Information.TypeName(selection));
+                selection.Copy();
                 MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
                 Logger.Info("CreateFreeImageDirectly: Create FreeImage bitmap");
                 fi = FreeImageBitmap.FromStream(data);
+                Bovender.ComHelpers.ReleaseComObject(selection);
             }
             return fi;
         }

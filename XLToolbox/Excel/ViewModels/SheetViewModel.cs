@@ -254,10 +254,15 @@ namespace XLToolbox.Excel.ViewModels
             if (!IsChart)
             {
                 // The Shapes collection holds the chart objects as well.
-                return Worksheet.Shapes.Count;
+                Shapes shapes = Worksheet.Shapes;
+                int count = shapes.Count;
+                Logger.Info("CountShapes: {0}", count);
+                Bovender.ComHelpers.ReleaseComObject(shapes);
+                return count;
             }
             else
             {
+                Logger.Info("CountShapes: Sheet is a chart sheet, returning 1");
                 return 1;
             }
         }
@@ -266,10 +271,15 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (!IsChart)
             {
-                return ((Worksheet)Sheet).ChartObjects().Count;
+                ChartObjects cos = ((Worksheet)Sheet).ChartObjects();
+                int count = cos.Count;
+                Logger.Info("CountCharts: {0}", count);
+                Bovender.ComHelpers.ReleaseComObject(cos);
+                return count;
             }
             else
             {
+                Logger.Info("CountCharts: Sheet is a chart sheet, returning 1");
                 return 1;
             }
         }
@@ -284,17 +294,26 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (!IsChart && this.Worksheet.Shapes.Count > 0)
             {
+                Logger.Info("SelectShapes: Selecting first shape");
                 // The Shapes collection holds the chart objects as well.
                 // Select the first shape, replacing the previous selection.
-                Worksheet.Shapes.Item(1).Select(true);
-                foreach (Shape shape in this.Worksheet.Shapes)
+                Shapes shapes = Worksheet.Shapes;
+                dynamic item = shapes.Item(1);
+                item.Select(true);
+                Bovender.ComHelpers.ReleaseComObject(item);
+                Logger.Info("SelectShapes: Adding all other shapes to selection");
+                for (int i = 1; i <= shapes.Count; i++)
                 {
+                    dynamic shape = shapes.Item(i);
                     shape.Select(false);
+                    Bovender.ComHelpers.ReleaseComObject(shape);
                 }
+                Bovender.ComHelpers.ReleaseComObject(shapes);
                 return true;
             }
             else 
             {
+                Logger.Info("SelectShapes: Apparently no shapes, deferring to SelectCharts");
                 // Select the chart sheet, if any.
                 return SelectCharts();
             }
@@ -309,6 +328,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             if (IsChart)
             {
+                Logger.Info("SelectCharts: Is a chart sheet");
                 // Cast to _Chart to prevent compile-time warning
                 // about ambiguity of method and event name.
                 ((_Chart)Chart).Select(true);
@@ -316,19 +336,27 @@ namespace XLToolbox.Excel.ViewModels
             }
             else
             {
-                if (this.Worksheet.ChartObjects().Count > 0)
+                ChartObjects cos = Worksheet.ChartObjects();
+                if (cos.Count > 0)
                 {
                     // Select first chart object to replace current selection.
                     // Remember that Excel collections are 1 based!
-                    this.Worksheet.ChartObjects(1).Select(true);
-                    foreach (ChartObject co in this.Worksheet.ChartObjects())
+                    Logger.Info("SelectCharts: Selecting first chart; total: {0}", cos.Count);
+                    ChartObject chart = cos.Item(1);
+                    chart.Select(true);
+                    Logger.Info("SelectCharts: Adding other charts to selection");
+                    for (int i = 1; i <= cos.Count; i++)
                     {
-                        co.Select(false);
+                        chart = cos.Item(i);
+                        chart.Select(false);
+                        Bovender.ComHelpers.ReleaseComObject(chart);
                     }
+                    Bovender.ComHelpers.ReleaseComObject(cos);
                     return true;
                 }
                 else
                 {
+                    Logger.Info("SelectCharts: No chart objects found, returning false");
                     return false;
                 }
             }
@@ -343,7 +371,7 @@ namespace XLToolbox.Excel.ViewModels
         public SheetViewModel(object sheet)
             : this()
         {
-            this.Sheet = sheet;
+            Sheet = sheet;
         }
 
         #endregion
@@ -366,11 +394,13 @@ namespace XLToolbox.Excel.ViewModels
             if (!_disposed)
             {
                 _disposed = true;
-                try
-                {
-                    Bovender.ComHelpers.ReleaseComObject(_sheet);
-                }
-                catch { }
+                // Do not release the sheet COM object here as it was not
+                // created in our scope!
+                // try
+                // {
+                //     Bovender.ComHelpers.ReleaseComObject(_sheet);
+                // }
+                // catch { }
             }
         }
 
@@ -415,6 +445,14 @@ namespace XLToolbox.Excel.ViewModels
         private dynamic _sheet;
         private bool _disposed;
         private static readonly Regex _charsRequiringQuote = new Regex(@"\W");
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

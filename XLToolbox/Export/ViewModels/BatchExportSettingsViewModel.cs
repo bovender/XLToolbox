@@ -44,10 +44,12 @@ namespace XLToolbox.Export.ViewModels
             BatchExportSettings settings = BatchExportSettings.FromLastUsed();
             if (settings != null)
             {
+                Logger.Info("FromLastUsed(): Got last used settings, creating view model");
                 return new BatchExportSettingsViewModel(settings);
             }
             else
             {
+                Logger.Info("FromLastUsed(): Did not get last used settings, returning null");
                 return null;
             }
         }
@@ -66,10 +68,12 @@ namespace XLToolbox.Export.ViewModels
             BatchExportSettings settings = BatchExportSettings.FromLastUsed(workbookContext);
             if (settings != null)
             {
+                Logger.Info("FromLastUsed(workbookContext): Got settings for workbook context, creating view model");
                 return new BatchExportSettingsViewModel(settings);
             }
             else
             {
+                Logger.Info("FromLastUsed(workbookContext): Did not get settings for workbook context");
                 return BatchExportSettingsViewModel.FromLastUsed();
             }
         }
@@ -238,6 +242,7 @@ namespace XLToolbox.Export.ViewModels
         /// </remarks>
         public void SanitizeOptions()
         {
+            Logger.Info("SanitizeOptions");
             if (!CanExport()) {
                 if ((Scope.AsEnum == BatchExportScope.ActiveSheet) && !IsActiveSheetEnabled)
                     Scope.AsEnum = BatchExportScope.ActiveWorkbook;
@@ -358,6 +363,10 @@ namespace XLToolbox.Export.ViewModels
             {
                 processMessageContent.PercentCompleted = Exporter.PercentCompleted;
             }
+            else
+            {
+                Logger.Warn("UpdateProcessMessageContent: Exporter is null!");
+            }
         }
 
         protected override void DoExport()
@@ -416,6 +425,7 @@ namespace XLToolbox.Export.ViewModels
 
         private void UpdateStates()
         {
+            Logger.Info("UpdateStates");
             AnalyzeOpenWorkbooks();
             SetScopeState();
             SetObjectsState();
@@ -424,6 +434,7 @@ namespace XLToolbox.Export.ViewModels
 
         private void AnalyzeOpenWorkbooks()
         {
+            Logger.Info("AnalyzeOpenWorkboks");
             AnalyzeActiveSheet();
             AnalyzeOtherSheets();
             AnalyzeOtherWorkbooks();
@@ -433,6 +444,7 @@ namespace XLToolbox.Export.ViewModels
         {
             if (Instance.Default.Application.ActiveSheet != null)
             {
+                Logger.Info("AnalyzeActiveSheet");
                 SheetViewModel sheetVM = new SheetViewModel(Instance.Default.Application.ActiveSheet);
                 int charts = sheetVM.CountCharts();
                 int shapes = sheetVM.CountShapes() - charts;
@@ -442,33 +454,51 @@ namespace XLToolbox.Export.ViewModels
                 _activeSheetHasManyObjects = charts + shapes > 1;
                 _activeSheetName = sheetVM.DisplayString;
             }
+            else
+            {
+                Logger.Info("AnalyzeActiveSheet: No active sheet");
+            }
         }
 
         private void AnalyzeOtherSheets()
         {
+            Logger.Info("AnalyzeOtherSheets");
             _otherSheetsHaveCharts = false;
             _otherSheetsHaveManyCharts = false;
             _otherSheetsHaveShapes = false;
             _otherSheetsHaveManyObjects = false;
             int charts;
             int shapes;
-            foreach (object sheet in Instance.Default.Application.ActiveWorkbook.Sheets)
+            object sheet;
+            Sheets sheets = Instance.Default.ActiveWorkbook.Sheets;
+            Logger.Info("AnalyzeOtherSheets: {0} sheet(s) in active workbook", sheets.Count);
+            for (int i = 1; i <= sheets.Count; i++)
             {
+                sheet = sheets[i];
                 SheetViewModel svm = new SheetViewModel(sheet);
                 if (svm.DisplayString != _activeSheetName)
                 {
                     charts = svm.CountCharts();
                     shapes = svm.CountShapes() - charts;
+                    Logger.Info("AnalyzeOtherSheets: [{0}]: charts: {1}, shapes: {2}", i, charts, shapes);
                     _otherSheetsHaveCharts |= charts > 0;
                     _otherSheetsHaveManyCharts |= charts > 1;
                     _otherSheetsHaveShapes |= shapes > 0;
                     _otherSheetsHaveManyObjects |= charts + shapes > 1;
                 }
+                else
+                {
+                    Logger.Info("AnalyzeOtherSheets: [{0}]: is active sheet", i);
+                }
+                Bovender.ComHelpers.ReleaseComObject(sheet);
             }
+            Logger.Info("AnalyzeOtherSheets: Releasing sheets object");
+            Bovender.ComHelpers.ReleaseComObject(sheets);
         }
 
         private void AnalyzeOtherWorkbooks()
         {
+            Logger.Info("AnalyzeOtherWorkbooks");
             string activeWorkbookName = Instance.Default.ActiveWorkbook.Name;
             _otherWorkbooksHaveCharts = false;
             _otherWorkbooksHaveManyCharts = false;
@@ -476,12 +506,18 @@ namespace XLToolbox.Export.ViewModels
             _otherWorkbooksHaveManyObjects = false;
             int charts;
             int shapes;
-            foreach (Workbook workbook in Instance.Default.Application.Workbooks)
+            Workbooks workbooks = Instance.Default.Application.Workbooks;
+            Logger.Info("AnalyzeOtherWorkbooks: {0} workbook(s) are currently open", workbooks.Count);
+            for (int i = 1; i <= workbooks.Count; i++)
             {
+                Logger.Info("AnalyzeOtherWorkbooks: [{0}]", i);
+                Workbook workbook = workbooks[i];
                 if (workbook.Name != activeWorkbookName)
                 {
-                    foreach (object sheet in workbook.Sheets)
+                    Sheets sheets = workbook.Sheets;
+                    for (int j = 1; j <= sheets.Count; j++)
                     {
+                        object sheet = sheets[j];
                         SheetViewModel svm = new SheetViewModel(sheet);
                         charts = svm.CountCharts();
                         shapes = svm.CountShapes() - charts;
@@ -489,9 +525,18 @@ namespace XLToolbox.Export.ViewModels
                         _otherWorkbooksHaveManyCharts |= charts > 1;
                         _otherWorkbooksHaveShapes |= shapes > 0;
                         _otherWorkbooksHaveManyObjects |= charts + shapes > 1;
+                        Bovender.ComHelpers.ReleaseComObject(sheet);
                     }
+                    Bovender.ComHelpers.ReleaseComObject(sheets);
                 }
+                else
+                {
+                    Logger.Info("AnalyzeOtherWorkbooks: [{0}] is the active workbook", i);
+                }
+                Bovender.ComHelpers.ReleaseComObject(workbook);
             }
+            Logger.Info("AnalyzeOtherWorkbooks: Releasing workbooks object");
+            Bovender.ComHelpers.ReleaseComObject(workbooks);
         }
 
         private void FillCanExecuteMatrix()
@@ -680,16 +725,15 @@ namespace XLToolbox.Export.ViewModels
 
         private void ConfirmFolder(FileNameMessageContent messageContent)
         {
-            Logger.Info("ConfirmFolder");
             if (messageContent.Confirmed)
             {
-                Logger.Info("Confirmed");
+                Logger.Info("ConfirmFolder: Confirmed");
                 ((BatchExportSettings)Settings).Path = messageContent.Value;
                 DoExport();
             }
             else
             {
-                Logger.Info("Not confirmed");
+                Logger.Info("ConfirmFolder: Not confirmed");
             }
         }
 
@@ -704,6 +748,7 @@ namespace XLToolbox.Export.ViewModels
                 case BatchExportObjects.ChartsAndShapes:
                     return svm.CountShapes() > 0;
                 default:
+                    Logger.Fatal("CanExportFromSheet: Unknown case: {0}", Objects.AsEnum);
                     throw new InvalidOperationException(
                         "Cannot handle " + Objects.SelectedItem);
             }
@@ -711,11 +756,18 @@ namespace XLToolbox.Export.ViewModels
 
         private bool CanExportFromWorkbook(Workbook workbook)
         {
-            foreach (object sheet in workbook.Sheets)
+            bool result = false;
+            Sheets sheets = workbook.Sheets;
+            for (int i = 1; i <= sheets.Count; i++)
             {
-                if (CanExportFromSheet(sheet)) return true;
+                object sheet = sheets[i];
+                if (CanExportFromSheet(sheet)) result = true;
+                Bovender.ComHelpers.ReleaseComObject(sheet);
+                if (result) break;
             }
-            return false;
+            Logger.Info("CanExportFromWorkbook: {0}", result);
+            Bovender.ComHelpers.ReleaseComObject(sheets);
+            return result;
         }
 
         #endregion
@@ -787,6 +839,14 @@ namespace XLToolbox.Export.ViewModels
         class LayoutStates : Dictionary<BatchExportLayout, bool> { }
         class ObjectsStates : Dictionary<BatchExportObjects, LayoutStates> { }
         class ScopeStates : Dictionary<BatchExportScope, ObjectsStates> { }
+
+        #endregion
+
+        #region Class logger
+
+        new private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

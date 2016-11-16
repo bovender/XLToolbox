@@ -43,10 +43,12 @@ namespace XLToolbox.Export.ViewModels
             Preset p = Preset.FromLastUsed();
             if (p != null)
             {
+                Logger.Info("FromLastUsed(): Got last used preset, creating view model for it");
                 return new PresetViewModel(p);
             }
             else
             {
+                Logger.Info("FromLastUsed(): No last used preset, returning null");
                 return null;
             }
         }
@@ -56,10 +58,12 @@ namespace XLToolbox.Export.ViewModels
             Preset p = Preset.FromLastUsed(workbookContext);
             if (p != null)
             {
+                Logger.Info("FromLastUsed(workbookContext): Got preset, creating view model for it");
                 return new PresetViewModel(p);
             }
             else
             {
+                Logger.Info("FromLastUsed(workbookContext): No last used preset, returning null");
                 return null;
             }
         }
@@ -330,11 +334,13 @@ namespace XLToolbox.Export.ViewModels
 
         public void Store(Workbook workbookContext)
         {
+            Logger.Info("Store with workbook context");
             _preset.Store(workbookContext);
         }
 
         public void Store()
         {
+            Logger.Info("Store without workbook context");
             _preset.Store();
         }
 
@@ -372,6 +378,7 @@ namespace XLToolbox.Export.ViewModels
             if (ColorSpace.AsEnum == Models.ColorSpace.Cmyk && !_preset.FileType.SupportsCmyk())
             {
                 // Fall back to a default colorspace
+                Logger.Info("SanitizeSettings: Falling back to RGB");
                 ColorSpace.AsEnum = Models.ColorSpace.Rgb;
             }
             // Transparency is a yes/no decision, no need to change the setting per se
@@ -403,6 +410,14 @@ namespace XLToolbox.Export.ViewModels
         {
             return _preset;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

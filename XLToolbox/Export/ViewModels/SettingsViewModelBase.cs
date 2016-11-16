@@ -169,6 +169,7 @@ namespace XLToolbox.Export.ViewModels
         /// <returns>Default export path.</returns>
         protected string LoadExportPath()
         {
+            Logger.Info("LoadExportPath");
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             Store store = new Store(wb);
             string defaultPath = UserSettings.UserSettings.Default.ExportPath;
@@ -191,6 +192,7 @@ namespace XLToolbox.Export.ViewModels
         /// </summary>
         protected virtual void SaveExportPath()
         {
+            Logger.Info("SaveExportPath");
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
             using (Store store = new Store(wb))
             {
@@ -200,6 +202,7 @@ namespace XLToolbox.Export.ViewModels
 
         protected virtual void DoEditPresets()
         {
+            Logger.Info("DoEditPresets");
             EditPresetsMessage.Send(
                 new ViewModelMessageContent(PresetViewModels),
                 content => OnPropertyChanged("Presets")

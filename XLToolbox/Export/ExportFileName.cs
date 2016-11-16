@@ -78,6 +78,7 @@ namespace XLToolbox.Export
         public string GenerateNext(dynamic sheet, dynamic selection)
         {
             Counter++;
+            Logger.Info("GenerateNext: New counter: {0}", Counter);
             CurrentWorkbookName = sheet.Parent.Name;
             CurrentWorksheetName = sheet.Name;
             try
@@ -86,6 +87,7 @@ namespace XLToolbox.Export
             }
             catch
             {
+                Logger.Info("GenerateNext: Selection has no name property, using fallback 'unnamed'");
                 CurrentObjectName = String.Format("unnamed_{0}", Counter);
             }
             string s = _regex.Replace(Template, SubstituteVariable);
