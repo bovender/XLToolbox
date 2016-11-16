@@ -98,7 +98,7 @@ namespace XLToolbox.Test.Csv
             CsvExporter model = new CsvExporter();
             string fn = System.IO.Path.GetTempFileName();
             model.FileName = fn;
-            model.FieldSeparator = "";
+            model.FieldSeparator = " ";
             model.Tabularize = true;
             // Use a funky decimal separator
             model.DecimalSeparator = "~";

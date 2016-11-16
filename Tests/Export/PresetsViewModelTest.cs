@@ -76,6 +76,7 @@ namespace XLToolbox.UnitTests.Export
             // These assertions will fail if there is not a RGB and a CMYK profile
             // installed on the test system!
             PresetViewModel pvm = new PresetViewModel();
+            pvm.FileType.AsEnum = FileType.Tiff;
             pvm.ColorSpace.AsEnum = ColorSpace.Rgb;
             Assert.IsFalse(pvm.UseColorProfile,
                 "'Use color profile' was checked by default");
