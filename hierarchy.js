@@ -5,7 +5,8 @@ var hierarchy =
     ] ],
     [ "ApplicationSettingsBase", null, [
       [ "Bovender.Mvvm.Views.Settings.WindowSettings", "classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowSettings.html", null ],
-      [ "Bovender.Mvvm.Views.Settings.WindowSettings", "classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowSettings.html", null ]
+      [ "Bovender.Mvvm.Views.Settings.WindowSettings", "classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowSettings.html", null ],
+      [ "XLToolbox.Properties.Settings", "classXLToolbox_1_1Properties_1_1Settings.html", null ]
     ] ],
     [ "Bovender.Extensions.ArrayExtensions", "classBovender_1_1Extensions_1_1ArrayExtensions.html", null ],
     [ "XLToolbox.Backup.BackupFile", "classXLToolbox_1_1Backup_1_1BackupFile.html", null ],
@@ -129,9 +130,12 @@ var hierarchy =
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
+      [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
+      [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
       [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
-      [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
+      [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
+      [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Excel.Views.PropertiesView", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html", null ],
@@ -253,9 +257,7 @@ var hierarchy =
       [ "XLToolbox.UserSettings.UserSettingsViewModel", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html", null ]
     ] ],
     [ "IDisposable", null, [
-      [ "Bovender.Unmanaged.DllManager", "classBovender_1_1Unmanaged_1_1DllManager.html", [
-        [ "XLToolbox.Unmanaged.DllManager", "classXLToolbox_1_1Unmanaged_1_1DllManager.html", null ]
-      ] ],
+      [ "Bovender.Unmanaged.DllManager", "classBovender_1_1Unmanaged_1_1DllManager.html", null ],
       [ "Bovender.Unmanaged.DllManager", "classBovender_1_1Unmanaged_1_1DllManager.html", null ],
       [ "XLToolbox.Excel.Models.Reference", "classXLToolbox_1_1Excel_1_1Models_1_1Reference.html", null ],
       [ "XLToolbox.Excel.ViewModels.Instance", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html", null ],
@@ -528,9 +530,12 @@ var hierarchy =
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
+      [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
+      [ "XLToolbox.Csv.CsvExportView", "classXLToolbox_1_1Csv_1_1CsvExportView.html", null ],
       [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
       [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
-      [ "XLToolbox.Csv.CsvFileView", "classXLToolbox_1_1Csv_1_1CsvFileView.html", null ],
+      [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
+      [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],
       [ "XLToolbox.Csv.CsvImportView", "classXLToolbox_1_1Csv_1_1CsvImportView.html", null ],

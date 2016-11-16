@@ -11,5 +11,6 @@ var classXLToolbox_1_1Csv_1_1CsvImportViewModel =
     [ "FileName", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#ae021cf743890ab7b47a1abfc91ecebe3", null ],
     [ "ImportCommand", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a86f1f00a299fda395e9a83c5c228a08b", null ],
     [ "Importer", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#acd3412292f69d434a364a65b819af515", null ],
+    [ "Logger", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#ac4f78f1ca44bdf54527d181d585567da", null ],
     [ "ThousandsSeparator", "classXLToolbox_1_1Csv_1_1CsvImportViewModel.html#a27d169ee22dda16d25815df5c1b862d2", null ]
 ];

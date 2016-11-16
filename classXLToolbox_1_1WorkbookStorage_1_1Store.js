@@ -2,6 +2,7 @@ var classXLToolbox_1_1WorkbookStorage_1_1Store =
 [
     [ "Store", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a9d548001028a773ed7c8ac2a65390361", null ],
     [ "Store", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ad402dc5b36a7af5d078464cfdab1132b", null ],
+    [ "Store", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#afe557fe0d6cb855a1e0fbfc104701140", null ],
     [ "Dispose", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#aae6aedfc269fee33d0a989fdc1e2d3d2", null ],
     [ "Dispose", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ac93c71e443e56a7797a3ec450ef5ee01", null ],
     [ "Flush", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a5cf6ed86a8356c8f080fc4e452b81a50", null ],
@@ -22,6 +23,7 @@ var classXLToolbox_1_1WorkbookStorage_1_1Store =
     [ "Context", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#af14467875f641164c1bd9f4b3eb1360d", null ],
     [ "Dirty", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#ac571bf8278794cd577773c55012e1a57", null ],
     [ "Items", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a6c067932f942df55c93c1e5a61d226af", null ],
+    [ "Logger", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a01f538d3538d026faaa0bcc8f2f82ca8", null ],
     [ "StoreSheet", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a3bc48bf68b3ba245b5607dc1c900cbad", null ],
     [ "Workbook", "classXLToolbox_1_1WorkbookStorage_1_1Store.html#a46cc18cfce3b902aee767397e7839e10", null ]
 ];

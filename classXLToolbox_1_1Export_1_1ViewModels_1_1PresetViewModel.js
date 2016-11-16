@@ -20,6 +20,7 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel =
     [ "IsDpiEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a59936b6874c926e7aaf4ba69d8439fa7", null ],
     [ "IsTransparencyEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a26b93b993042e3a651f60d56eeaab44e", null ],
     [ "IsUseColorProfileEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a6b3bb94a8f4febc961fa9325b9940baa", null ],
+    [ "Logger", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#ad58b2e21e281ace7c3e1aa9fa4349f2c", null ],
     [ "Name", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a92197e6797199beab012dd478ca64efe", null ],
     [ "ToolTip", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#a5a00504f84d6f823213595e2908c8fcc", null ],
     [ "Transparency", "classXLToolbox_1_1Export_1_1ViewModels_1_1PresetViewModel.html#adba0d7af8e2d033c2ae3138af2dae1a8", null ],

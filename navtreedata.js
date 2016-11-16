@@ -35,18 +35,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AboutViewModel_8cs.html",
-"Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6acd42500d5aa30351795d3f82f798e2ea",
-"SheetManagerTaskPane_8cs.html",
-"classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html#a5005b1d1888321813515107e63e90d37",
-"classBovender_1_1Text_1_1Multiline.html#a6809ed95abba0f4a584cd4e679884440",
-"classBovender_1_1Versioning_1_1UpdaterViewModel.html#af80afc59226008c180e101d8dc45a61b",
-"classXLToolbox_1_1Excel_1_1Models_1_1RangeHelperBase.html#a0d7dacdbecf88ecfec911be25adc1665",
-"classXLToolbox_1_1Export_1_1BatchExporter.html#a7c5dc9ad3968663ee616768a1aee3bda",
-"classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html#afb1ea86768caae8823e66e4213bfec73",
-"classXLToolbox_1_1Strings.html#a1bccce58f40dff3b74ebe8ae8688daac",
-"classXLToolbox_1_1Test_1_1Csv_1_1CsvFileTest.html",
-"classXLToolbox_1_1Versioning_1_1Updater.html#a21cf6261605e7307b7f234eab8c21bc7",
-"functions_n.html"
+"Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aca02405c2c77f135e33de4efb63f93ee",
+"SelectionViewModel_8cs.html#ae0d91d8dcc6dac686f447d10fedad53a",
+"classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html#a06e7328d4e4dfd3364ca616062701834",
+"classBovender_1_1Text_1_1Multiline.html",
+"classBovender_1_1Versioning_1_1UpdaterViewModel.html#ae67ce1ce2d6bed7c0358a74331f188cb",
+"classXLToolbox_1_1Excel_1_1Models_1_1ColumnHelper.html",
+"classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html#ab23add46bec18d2331e82f9602d86ed8",
+"classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html#a0d17c7b3ec911f9624c16fd9f240b92b",
+"classXLToolbox_1_1SheetManager_1_1TaskPaneManager.html",
+"classXLToolbox_1_1Strings.html#af6ab0796d3870f3a851bff713ba43d43",
+"classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4",
+"functions_func_b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

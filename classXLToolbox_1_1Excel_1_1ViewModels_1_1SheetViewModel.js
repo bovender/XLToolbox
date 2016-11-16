@@ -14,6 +14,7 @@ var classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel =
     [ "Chart", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#a6bbab2c9b426e0c210c5896aa95e0948", null ],
     [ "DisplayString", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#a77ffe4939862318b610eeb12cfa3fd1a", null ],
     [ "IsChart", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#aecbb9412df75a32f40d859c0865a0ecf", null ],
+    [ "Logger", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#a32d303510294325189b1fee9828f662a", null ],
     [ "MaxColNotation", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#ae3a0c286b742b4b9ee25c9fc9cf4aca8", null ],
     [ "MaxCols", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#a83ab1d84d5d223b99ead77439d735d5a", null ],
     [ "MaxRows", "classXLToolbox_1_1Excel_1_1ViewModels_1_1SheetViewModel.html#afb04895047034e7d57d535405a80c13a", null ],

@@ -5,6 +5,7 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel =
     [ "RevealModelObject", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#add22c8366be0e0056278edf1b4982ba8", null ],
     [ "SelectIfExists", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#a6f2b132cf5072b3f5e574ccd18afbe5d", null ],
     [ "ColorSpace", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#acc5326296b9b804c0649e7fc893bb86c", null ],
+    [ "Logger", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#ae06e3e664bd1b583f932af38782ccab7", null ],
     [ "Profiles", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#af89900cb96387739bdc8aa24a9d03b61", null ],
     [ "SelectedProfile", "classXLToolbox_1_1Export_1_1ViewModels_1_1ColorProfileRepositoryViewModel.html#aa99d863c82af99d5ba6e74420316fa3b", null ]
 ];

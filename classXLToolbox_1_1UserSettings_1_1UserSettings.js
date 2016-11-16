@@ -6,6 +6,7 @@ var classXLToolbox_1_1UserSettings_1_1UserSettings =
     [ "WriteYamlHeader", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a771992268ad16bfae15b29c5ff550dea", null ],
     [ "BackupDir", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#ae1b2da0ebc387306005ebc4f601af2a0", null ],
     [ "BatchExportSettings", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a4f7ca966661a95bebab43ef89d2badb6", null ],
+    [ "CsvPath", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a06bc313cab2acaa33fd0c6742679d568", null ],
     [ "CsvSettings", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a7b25574f11a612ff10ea688a7861a30c", null ],
     [ "Default", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a3ae77c201997c983ee3544d4a6c10e65", null ],
     [ "EnableBackups", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a11ca657de24cbb97a3d83c64c01fa3d2", null ],
