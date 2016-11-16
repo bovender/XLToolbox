@@ -38,7 +38,9 @@ namespace XLToolbox.Export
             {
                 if (_batchFileName != null && _numTotal != 0)
                 {
-                    return Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
+                    int percent = Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
+                    Logger.Info("PercentCompleted: {0}", percent);
+                    return percent;
                 }
                 else
                 {
@@ -218,10 +220,11 @@ namespace XLToolbox.Export
             Logger.Info("ExportSheetChartItems: {0} object(s)", cos.Count);
             for (int i = 1; i <= cos.Count; i++)
             {
+                Logger.Info("ExportSheetChartItems: [{0}]", i);
                 dynamic item = cos.Item(i);
                 item.Select();
                 ExportSelection(worksheet);
-                Bovender.ComHelpers.ReleaseComObject(((object)item));
+                Bovender.ComHelpers.ReleaseComObject((object)item);
                 if (IsCancellationRequested) break;
             }
             Bovender.ComHelpers.ReleaseComObject(cos);
@@ -246,7 +249,9 @@ namespace XLToolbox.Export
         private void ExportSelection(dynamic sheet)
         {
             Logger.Info("ExportSelection");
-            _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
+            Logger.Info("ExportSelection: Sheet: {0}", sheet.Name);
+            dynamic selection = Instance.Default.Application.Selection;
+            _exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
             _exporter.Execute();
         }
 
