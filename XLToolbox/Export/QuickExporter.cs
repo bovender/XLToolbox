@@ -88,7 +88,7 @@ namespace XLToolbox.Export
                     // can see the selected, but disabled options.
                     bvm.ShowProgressMessage.Sent += Dispatcher.Exporter_ShowProgress_Sent;
                     bvm.ProcessFinishedMessage.Sent += Dispatcher.Exporter_ProcessFinished_Sent;
-                    bvm.InjectInto<Views.BatchExportSettingsView>().ShowDialog();
+                    bvm.InjectInto<Views.BatchExportSettingsView>().ShowDialogInForm();
                 }
                 else
                 {

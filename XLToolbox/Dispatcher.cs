@@ -462,7 +462,7 @@ namespace XLToolbox
                 {
                     args.Content.CloseViewCommand.Execute(null);
                 };
-                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().Show();
+                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowInForm();
             };
             vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
@@ -486,7 +486,7 @@ namespace XLToolbox
             {
                 e.Content.CloseViewCommand.Execute(null);
             };
-            e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowDialogInForm();
+            e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowInForm();
         }
 
         internal static void Exporter_ProcessFinished_Sent(object sender, MessageArgs<ProcessMessageContent> e)
