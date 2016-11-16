@@ -133,7 +133,7 @@ namespace XLToolbox.Export
             ((_Workbook)workbook).Activate();
             Sheets sheets = workbook.Sheets;
             Logger.Info("ExportWorkbook: {0} sheet(s)", sheets.Count);
-            Worksheet sheet;
+            dynamic sheet;
             for (int i = 1; i <= sheets.Count; i++)
             {
                 sheet = sheets[i];
@@ -278,27 +278,27 @@ namespace XLToolbox.Export
         {
             Logger.Info("CountInWorkbook: Counting...");
             int n = 0;
-            Sheets worksheets = workbook.Worksheets;
-            for (int i = 1; i <= worksheets.Count; i++)
+            Sheets sheets = workbook.Sheets;
+            for (int i = 1; i <= sheets.Count; i++)
             {
-                Worksheet worksheet = worksheets[i];
-                n += CountInSheet(worksheet);
-                Bovender.ComHelpers.ReleaseComObject(worksheet);
+                dynamic sheet = sheets[i];
+                n += CountInSheet(sheet);
+                Bovender.ComHelpers.ReleaseComObject(sheet);
             }
-            Bovender.ComHelpers.ReleaseComObject(worksheets);
+            Bovender.ComHelpers.ReleaseComObject(sheets);
             Logger.Info("CountInWorkbook: ... {0}", n);
             return n;
         }
 
-        private int CountInSheet(dynamic worksheet)
+        private int CountInSheet(dynamic sheet)
         {
             Logger.Info("CountInSheet");
             switch (Settings.Layout)
             {
                 case BatchExportLayout.SheetLayout:
-                    return CountInSheetLayout(worksheet);
+                    return CountInSheetLayout(sheet);
                 case BatchExportLayout.SingleItems:
-                    return CountInSheetItems(worksheet);
+                    return CountInSheetItems(sheet);
                 default:
                     Logger.Fatal("CountInSheet: Layout '{0}' not implemented!", Settings.Layout);
                     throw new NotImplementedException(
@@ -308,16 +308,16 @@ namespace XLToolbox.Export
         }
 
         /// <summary>
-        /// Returns 1 if the <paramref name="worksheet"/> contains at least
+        /// Returns 1 if the <paramref name="sheet"/> contains at least
         /// one chart or drawing object, since all charts/drawing objects will
         /// be exported together into one file.
         /// </summary>
-        /// <param name="worksheet">Worksheet to examine.</param>
+        /// <param name="sheet">Worksheet to examine.</param>
         /// <returns>1 if sheet contains charts/drawings, 0 if not.</returns>
-        private int CountInSheetLayout(dynamic worksheet)
+        private int CountInSheetLayout(dynamic sheet)
         {
             Logger.Info("CountInSheetLayout");
-            SheetViewModel svm = new SheetViewModel(worksheet);
+            SheetViewModel svm = new SheetViewModel(sheet);
             switch (Settings.Objects)
             {
                 case BatchExportObjects.Charts:
