@@ -23,10 +23,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using FreeImageAPI;
-using XLToolbox.Unmanaged;
 using XLToolbox.Excel.ViewModels;
 using XLToolbox.Export.Models;
 using Bovender.Extensions;
+using Bovender.Unmanaged;
 
 namespace XLToolbox.Export
 {
@@ -46,7 +46,38 @@ namespace XLToolbox.Export
         /// </summary>
         public bool QuickExport { get; set; }
 
-        public Preset Preset { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Preset Preset
+        {
+            get
+            {
+                if (_settings != null)
+                {
+                    Logger.Info("Preset_get: Giving preference to Settings object");
+                    return _settings.Preset;
+                }
+                else
+                {
+                    Logger.Info("Preset_get: Setting private field");
+                    return _preset;
+                }
+            }
+            set
+            {
+                if (_settings != null)
+                {
+                    Logger.Info("Preset_set: Giving preference to Settings object");
+                    _settings.Preset = value;
+                }
+                else
+                {
+                    Logger.Info("Preset_set: Setting private field");
+                    _preset = value;
+                }
+            }
+        }
 
         public int PercentCompleted
         {
@@ -76,7 +107,7 @@ namespace XLToolbox.Export
         {
             if (Preset == null)
             {
-                throw new InvalidOperationException("Cannot export because no Preset was given");
+                throw new InvalidOperationException("Execute: Cannot export because no Preset was given");
             }
             if (String.IsNullOrWhiteSpace(FileName) && _settings != null)
             {
@@ -84,7 +115,7 @@ namespace XLToolbox.Export
             }
             if (String.IsNullOrWhiteSpace(FileName))
             {
-                throw new InvalidOperationException("Cannot export because no file name was given");
+                throw new InvalidOperationException("Execute: Cannot export because no file name was given");
             }
             bool result = false;
             double width;
@@ -93,8 +124,8 @@ namespace XLToolbox.Export
             {
                 if (SelectionViewModel.Selection == null)
                 {
-                    Logger.Fatal("ExportAtOriginalSize: No selection!");
-                    throw new InvalidOperationException("Cannot export because nothing is selected in Excel");
+                    Logger.Fatal("ExportAtOriginalSize: Quick export: No selection!");
+                    throw new InvalidOperationException("Execute: Cannot export because nothing is selected in Excel");
                 }
                 width = SelectionViewModel.Bounds.Width;
                 height = SelectionViewModel.Bounds.Height;
@@ -103,7 +134,7 @@ namespace XLToolbox.Export
             {
                 if (_settings == null)
                 {
-                    Logger.Fatal("ExportAtOriginalSize: No export settings!");
+                    Logger.Fatal("Execute: No export settings!");
                     throw new InvalidOperationException("Cannot export because no export settings were given; want to perform quick export?");
                 }
                 width = _settings.Unit.ConvertTo(_settings.Width, Unit.Point);
@@ -204,7 +235,7 @@ namespace XLToolbox.Export
                 Logger.Fatal("ExportWithDimensions: No export preset!");
                 throw new InvalidOperationException("Cannot export without export preset");
             }
-            Logger.Info("ExportWithDimensions");
+            Logger.Info("ExportWithDimensions: Preset: {0}", Preset);
             // Copy current selection to clipboard
             SelectionViewModel.CopyToClipboard();
                     
@@ -353,6 +384,7 @@ namespace XLToolbox.Export
 
         private DllManager _dllManager;
         private SingleExportSettings _settings;
+        private Preset _preset;
         private bool _disposed;
         private Dictionary<FileType, FREE_IMAGE_FORMAT> _fileTypeToFreeImage;
         private TiledBitmap _tiledBitmap;

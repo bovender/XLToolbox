@@ -238,6 +238,16 @@ namespace XLToolbox.Export.ViewModels
             PresetViewModels.Select(Settings.Preset);
             // Need to explicitly set the selected enum value in the EnumProvider<Unit> collection.
             Units.AsEnum = singleExportSettings.Unit;
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == "SelectedPreset")
+                {
+                    OnPropertyChanged("MegaPixels");
+                    OnPropertyChanged("MegaPixelsWarning");
+                    OnPropertyChanged("MegaBytes");
+                    OnPropertyChanged("ImageSize");
+                }
+            };
         }
 
         #endregion

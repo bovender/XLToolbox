@@ -315,6 +315,7 @@ namespace XLToolbox
 
         static void SaveCsvRange()
         {
+            StoreOrRestoreCsvSelection();
             if (CheckSelectionIsRange())
             {
                 SaveCsv(Instance.Default.Application.Selection as Xl.Range);
@@ -323,6 +324,7 @@ namespace XLToolbox
 
         static void SaveCsvRangeWithSettings()
         {
+            StoreOrRestoreCsvSelection();
             if (CheckSelectionIsRange())
             {
                 SaveCsvWithSettings(Instance.Default.Application.Selection as Xl.Range);
@@ -460,7 +462,7 @@ namespace XLToolbox
                 {
                     args.Content.CloseViewCommand.Execute(null);
                 };
-                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().Show();
+                args.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowInForm();
             };
             vm.ProcessFinishedMessage.Sent += (sender, args) =>
             {
@@ -484,7 +486,7 @@ namespace XLToolbox
             {
                 e.Content.CloseViewCommand.Execute(null);
             };
-            e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowDialogInForm();
+            e.Content.InjectInto<Bovender.Mvvm.Views.ProcessView>().ShowInForm();
         }
 
         internal static void Exporter_ProcessFinished_Sent(object sender, MessageArgs<ProcessMessageContent> e)
@@ -499,6 +501,49 @@ namespace XLToolbox
             else
             {
                 Logger.Info("Exporter_ProcessFinished_Sent: Exporter process has finished");
+            }
+        }
+
+        static void StoreOrRestoreCsvSelection()
+        {
+            SelectionViewModel svm = new SelectionViewModel(Instance.Default.Application);
+            if (svm.IsRange)
+            {
+                Logger.Info("RestoreLastCsvSelection: Current selection is range");
+                Excel.Models.Reference reference = new Excel.Models.Reference(svm.Range);
+
+                // If there currently is no range selection (only 1 cell selected), restore the previously
+                // saved range.
+                if (reference.CellCount == 1)
+                {
+                    Logger.Info("RestoreLastCsvSelection: Selection is a single cell: Attempting to restore");
+                    using (WorkbookStorage.Store store = new WorkbookStorage.Store(true))
+                    {
+                        reference.ReferenceString = store.Get(XLToolbox.Properties.StoreNames.Default.CsvRange, String.Empty);
+                        if (reference.IsValid)
+                        {
+                            Logger.Info("RestoreLastCsvSelection: Activating the range");
+                            reference.Activate();
+                        }
+                        else
+                        {
+                            Logger.Warn("RestoreLastCsvSelection: Invalid reference");
+                        }
+                    }
+                }
+                else
+                {
+                    Logger.Info("RestoreLastCsvSelection: Selection is range of cells: Storing");
+                    using (WorkbookStorage.Store store = new WorkbookStorage.Store(true))
+                    {
+                        store.Put(XLToolbox.Properties.StoreNames.Default.CsvRange, "=" + reference.ReferenceString);
+                    }
+
+                }
+            }
+            else
+            {
+                Logger.Info("RestoreLastCsvSelection: Current selection is not a range");
             }
         }
 

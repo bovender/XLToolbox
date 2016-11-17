@@ -22,6 +22,7 @@ using System.IO;
 using Bovender.Extensions;
 using System.Xml.Serialization;
 using XLToolbox.Excel.ViewModels;
+using System.Diagnostics;
 
 namespace XLToolbox.WorkbookStorage
 {
@@ -43,6 +44,7 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         public Workbook Workbook
         {
+            [DebuggerStepThrough]
             get
             {
                 return _workbook;
@@ -51,15 +53,18 @@ namespace XLToolbox.WorkbookStorage
             {
                 if (Dirty)
                 {
+                    Logger.Info("Workbook_set: Store is 'dirty', writing first");
                     WriteToWorksheet();
                 }
                 _workbook = value;
                 if (_workbook != null)
                 {
+                    Logger.Info("Workbook_set: New workbook, reading from store sheet");
                     ReadFromWorksheet();
                 }
                 else
                 {
+                    Logger.Info("Workbook_set: No workbook, clearing contexts");
                     _contexts.Clear();
                 }
             }
@@ -81,19 +86,25 @@ namespace XLToolbox.WorkbookStorage
                 /// If context is not an empty string, it denotes a worksheet
                 /// in the associated workbook. The setter will test if the workbook
                 /// does indeed contain such a worksheet, throwing an exception if not.
-                if (value.Length > 0) {
-                    try {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    try
+                    {
                         object o = Workbook.Sheets[value];
+                        Logger.Info("Context_set: Setting new worksheet context");
                         _context = value;
                     }
-                    catch (System.Runtime.InteropServices.COMException e) {
+                    catch (System.Runtime.InteropServices.COMException e)
+                    {
+                        Logger.Fatal("Context_set: Invalid context '{0}' because no such sheet exists", _context);
+                        Logger.Fatal(e);
                         throw new InvalidContextException(
                             String.Format("Workbook has no sheet named {0}", _context), e);
                     }
                 }
                 else
                 {
-                    _context = value;
+                    Logger.Info("Context_set: Using global context");
+                    _context = String.Empty;
                 }
             }
         }
@@ -110,6 +121,7 @@ namespace XLToolbox.WorkbookStorage
                 {
                     if (Workbook == null)
                     {
+                        Logger.Fatal("StoreSheet_Get: Workbook is null!");
                         throw new WorkbookStorageException("Cannot access storage worksheet: no workbook is associated");
                     }
                     Sheets sheets = Workbook.Worksheets;
@@ -176,7 +188,9 @@ namespace XLToolbox.WorkbookStorage
         /// instance is running (see <see cref="ExcelInstance"/>).</exception>
         public Store()
             : this(Instance.Default.ActiveWorkbook)
-        { }
+        {
+            Logger.Info("Constructing new Store with active workbook");
+        }
 
         /// <summary>
         /// Instantiates the class and associates it with a workbook.
@@ -184,10 +198,33 @@ namespace XLToolbox.WorkbookStorage
         /// <param name="workbook">Workbook object to associate the storage with.</param>
         public Store(Workbook workbook) : base()
         {
+            Logger.Info("Constructing new Store");
             _context = "";
             _contexts = new Dictionary<string, ContextItems>();
             this.Workbook = workbook;
+            if (workbook == null)
+            {
+                Logger.Warn("Store: Workbook is null!");
+            }
         }
+
+        /// <summary>
+        /// Creates a new Store instance with the active sheet as
+        /// current context.
+        /// </summary>
+        /// <param name="activeSheetContext">True if the active
+        /// sheet is the desired context.</param>
+        public Store(bool activeSheetContext)
+            : this()
+        {
+            if (activeSheetContext && Workbook != null)
+            {
+                dynamic sheet = Workbook.ActiveSheet;
+                Context = sheet.Name;
+                Bovender.ComHelpers.ReleaseComObject(sheet);
+            }
+        }
+
 
         #endregion
 
@@ -232,19 +269,23 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
+                Logger.Info("Get: int: got value");
                 int i = Convert.ToInt32(GetDynamicValue(key));
                 if (i < min)
                 {
+                    Logger.Warn("Get: int: returning min");
                     i = min;
                 }
                 else if (i > max)
                 {
+                    Logger.Warn("Get: int: returning max");
                     i = max;
                 }
                 return i;
             }
             else
             {
+                Logger.Info("Get: int: returning default");
                 return def;
             }
         }
@@ -253,10 +294,12 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
+                Logger.Info("Get: string: got value");
                 return Convert.ToString(GetDynamicValue(key));
             }
             else
             {
+                Logger.Info("Get: string: returning default");
                 return def;
             }
         }
@@ -265,10 +308,12 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasKey(key))
             {
+                Logger.Info("Get: bool: got value");
                 return Convert.ToBoolean(GetDynamicValue(key));
             }
             else
             {
+                Logger.Info("Get: bool: returning default");
                 return def;
             }
         }
@@ -281,6 +326,7 @@ namespace XLToolbox.WorkbookStorage
         /// <returns>Deserialized object of type T, or null.</returns>
         public T Get<T>(string key) where T : class, new()
         {
+            Logger.Info("Get<T>: Type is {0}", typeof(T).AssemblyQualifiedName);
             string xml = Get(key, String.Empty);
             if (!String.IsNullOrEmpty(xml))
             {
@@ -290,34 +336,41 @@ namespace XLToolbox.WorkbookStorage
                 {
                     return xmlSer.Deserialize(sr) as T;
                 }
-                catch
+                catch (Exception e)
                 {
+                    Logger.Warn("Get<T>: Deserialization failed!");
+                    Logger.Warn(e);
                     return null;
                 }
             }
             else
             {
+                Logger.Warn("Get<T>: No serialization string!");
                 return null;
             }
         }
 
         public void Put(string key, int i)
         {
+            Logger.Info("Put: int");
             PutObject(key, i);
         }
 
         public void Put(string key, string s)
         {
+            Logger.Info("Put: String");
             PutObject(key, s);
         }
 
         public void Put(string key, bool b)
         {
+            Logger.Info("Put: bool");
             PutObject(key, b);
         }
 
         public void Put<T>(string key, T obj) where T: class, new()
         {
+            Logger.Info("Put<T>: Type is {0}", typeof(T).AssemblyQualifiedName);
             XmlSerializer xmlSer = new XmlSerializer(typeof(T));
             StringWriter sw = new StringWriter();
             xmlSer.Serialize(sw, obj);
@@ -372,12 +425,15 @@ namespace XLToolbox.WorkbookStorage
         {
             if (key.Length == 0)
             {
+                Logger.Fatal("PutObject: Empty key!");
                 throw new EmptyKeyException();
             };
             if (HasKey(key))
             {
+                Logger.Info("PutObject: Removing existing key '{0}'", key);
                 Items.Remove(key);
             };
+            Logger.Info("PutObject: Adding key '{0}'", key);
             Item item = new Item(key, Context, o);
             Items.Add(item.Key, item);
             Dirty = true;
@@ -388,10 +444,12 @@ namespace XLToolbox.WorkbookStorage
             Item item;
             if (Items.TryGetValue(key, out item))
             {
+                Logger.Info("GetDynamicValue: Got value for key '{0}'", key);
                 return item.Value;
             }
             else
             {
+                Logger.Fatal("GetDynamicValue: Unknown key '{0}' in context '{1}'", key, _context);
                 throw new UnkownKeyException(String.Format("Context {0} has no key {1}", _context, key));
             }
         }
@@ -401,6 +459,11 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         protected void ReadFromWorksheet()
         {
+            if (Workbook == null)
+            {
+                Logger.Warn("ReadFromWorksheet: No workbook; exiting...");
+            }
+
             _contexts.Clear();
             Range r = StoreSheet.UsedRange;
 
@@ -408,9 +471,11 @@ namespace XLToolbox.WorkbookStorage
             // use (e.g., flags).
             Item item;
             ContextItems context;
+            Logger.Info("ReadFromWorksheet: Reading rows...");
             for (int row = FIRSTROW; row <= r.Rows.Count; row++)
             {
                 item = new Item(_storeSheet, row);
+                Logger.Info("ReadFromWorksheet: ... {0}::{1}", item.Context, item.Key);
                 if (_contexts.ContainsKey(item.Context))
                 {
                     context = _contexts[item.Context];
@@ -429,6 +494,8 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         protected void WriteToWorksheet()
         {
+            if (Workbook == null) return;
+
             // Delete the used range first
             PrepareStoreSheet();
 
@@ -452,11 +519,17 @@ namespace XLToolbox.WorkbookStorage
         /// </summary>
         private void CreateStoreWorksheet()
         {
+            if (Workbook == null)
+            {
+                Logger.Warn("CreateStoreWorksheet: No workbook; exiting...");
+            }
+
             bool wasSaved = Workbook.Saved;
             dynamic previousSheet = Workbook.ActiveSheet;
             dynamic previousSel = Workbook.Application.Selection;
             Sheets sheets = Workbook.Worksheets;
 
+            Logger.Info("CreateStoreWorksheet: Adding new sheet");
             // If the COMException is raised, the worksheet likely does not exist
             _storeSheet = sheets.Add();
 
@@ -469,11 +542,13 @@ namespace XLToolbox.WorkbookStorage
 
             if (previousSheet != null)
             {
+                Logger.Info("CreateStoreWorksheet: Activating previously active sheet");
                 previousSheet.Activate();
                 Bovender.ComHelpers.ReleaseComObject(previousSheet);
             }
             if (previousSel != null)
             {
+                Logger.Info("CreateStoreWorksheet: Selecting previous selection");
                 previousSel.Select();
                 Bovender.ComHelpers.ReleaseComObject(previousSel);
             }
@@ -487,9 +562,16 @@ namespace XLToolbox.WorkbookStorage
 
         private void PrepareStoreSheet()
         {
+            if (Workbook == null)
+            {
+                Logger.Warn("PrepareStoreSheet: No workbook; exiting...");
+            }
+
+            Logger.Info("PrepareStoreSheet: Preparing sheet");
             Range usedRange = _storeSheet.UsedRange;
             if (usedRange != null)
             {
+                Logger.Info("PrepareStoreSheet: Clearing used range");
                 usedRange.Clear();
                 Bovender.ComHelpers.ReleaseComObject(usedRange);
             }
@@ -500,10 +582,19 @@ namespace XLToolbox.WorkbookStorage
             Range cells = _storeSheet.Cells;
             if (cells != null)
             {
+                Logger.Info("PrepareStoreSheet: Writing informative header");
                 cells[1, 1] = STORESHEETINFO;
                 Bovender.ComHelpers.ReleaseComObject(cells);
             }
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

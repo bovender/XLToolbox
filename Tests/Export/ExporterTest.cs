@@ -41,6 +41,7 @@ namespace XLToolbox.Test.Export
             // Force starting Excel
             Instance i = Instance.Default;
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
+            Bovender.Logging.LogFile.Default.EnableDebugLogging();
         }
 
         [TestFixtureTearDown]

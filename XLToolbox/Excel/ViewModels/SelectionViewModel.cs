@@ -109,8 +109,11 @@ namespace XLToolbox.Excel.ViewModels
 
         public void CopyToClipboard()
         {
-            Logger.Info("CopyToClipboard");
-            _app.Selection.Copy();
+            dynamic selection = _app.Selection;
+            Logger.Info("CopyToClipboard: Selection is a '{0}'",
+                Microsoft.VisualBasic.Information.TypeName(selection));
+            selection.Copy();
+            Bovender.ComHelpers.ReleaseComObject(selection);
         }
 
         public void SaveToEmf(string fileName)

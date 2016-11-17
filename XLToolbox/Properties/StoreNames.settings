@@ -8,5 +8,8 @@
     <Setting Name="ExportPreset" Type="System.String" Scope="Application">
       <Value Profile="(Default)">export_preset</Value>
     </Setting>
+    <Setting Name="CsvRange" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">csv_range</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

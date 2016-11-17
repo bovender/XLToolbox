@@ -38,7 +38,9 @@ namespace XLToolbox.Export
             {
                 if (_batchFileName != null && _numTotal != 0)
                 {
-                    return Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
+                    int percent = Convert.ToInt32(100d * _batchFileName.Counter / _numTotal);
+                    Logger.Info("PercentCompleted: {0}", percent);
+                    return percent;
                 }
                 else
                 {
@@ -131,7 +133,7 @@ namespace XLToolbox.Export
             ((_Workbook)workbook).Activate();
             Sheets sheets = workbook.Sheets;
             Logger.Info("ExportWorkbook: {0} sheet(s)", sheets.Count);
-            Worksheet sheet;
+            dynamic sheet;
             for (int i = 1; i <= sheets.Count; i++)
             {
                 sheet = sheets[i];
@@ -218,10 +220,11 @@ namespace XLToolbox.Export
             Logger.Info("ExportSheetChartItems: {0} object(s)", cos.Count);
             for (int i = 1; i <= cos.Count; i++)
             {
+                Logger.Info("ExportSheetChartItems: [{0}]", i);
                 dynamic item = cos.Item(i);
                 item.Select();
                 ExportSelection(worksheet);
-                Bovender.ComHelpers.ReleaseComObject(((object)item));
+                Bovender.ComHelpers.ReleaseComObject((object)item);
                 if (IsCancellationRequested) break;
             }
             Bovender.ComHelpers.ReleaseComObject(cos);
@@ -246,7 +249,9 @@ namespace XLToolbox.Export
         private void ExportSelection(dynamic sheet)
         {
             Logger.Info("ExportSelection");
-            _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
+            Logger.Info("ExportSelection: Sheet: {0}", sheet.Name);
+            dynamic selection = Instance.Default.Application.Selection;
+            _exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
             _exporter.Execute();
         }
 
@@ -273,27 +278,27 @@ namespace XLToolbox.Export
         {
             Logger.Info("CountInWorkbook: Counting...");
             int n = 0;
-            Sheets worksheets = workbook.Worksheets;
-            for (int i = 1; i <= worksheets.Count; i++)
+            Sheets sheets = workbook.Sheets;
+            for (int i = 1; i <= sheets.Count; i++)
             {
-                Worksheet worksheet = worksheets[i];
-                n += CountInSheet(worksheet);
-                Bovender.ComHelpers.ReleaseComObject(worksheet);
+                dynamic sheet = sheets[i];
+                n += CountInSheet(sheet);
+                Bovender.ComHelpers.ReleaseComObject(sheet);
             }
-            Bovender.ComHelpers.ReleaseComObject(worksheets);
+            Bovender.ComHelpers.ReleaseComObject(sheets);
             Logger.Info("CountInWorkbook: ... {0}", n);
             return n;
         }
 
-        private int CountInSheet(dynamic worksheet)
+        private int CountInSheet(dynamic sheet)
         {
             Logger.Info("CountInSheet");
             switch (Settings.Layout)
             {
                 case BatchExportLayout.SheetLayout:
-                    return CountInSheetLayout(worksheet);
+                    return CountInSheetLayout(sheet);
                 case BatchExportLayout.SingleItems:
-                    return CountInSheetItems(worksheet);
+                    return CountInSheetItems(sheet);
                 default:
                     Logger.Fatal("CountInSheet: Layout '{0}' not implemented!", Settings.Layout);
                     throw new NotImplementedException(
@@ -303,16 +308,16 @@ namespace XLToolbox.Export
         }
 
         /// <summary>
-        /// Returns 1 if the <paramref name="worksheet"/> contains at least
+        /// Returns 1 if the <paramref name="sheet"/> contains at least
         /// one chart or drawing object, since all charts/drawing objects will
         /// be exported together into one file.
         /// </summary>
-        /// <param name="worksheet">Worksheet to examine.</param>
+        /// <param name="sheet">Worksheet to examine.</param>
         /// <returns>1 if sheet contains charts/drawings, 0 if not.</returns>
-        private int CountInSheetLayout(dynamic worksheet)
+        private int CountInSheetLayout(dynamic sheet)
         {
             Logger.Info("CountInSheetLayout");
-            SheetViewModel svm = new SheetViewModel(worksheet);
+            SheetViewModel svm = new SheetViewModel(sheet);
             switch (Settings.Objects)
             {
                 case BatchExportObjects.Charts:

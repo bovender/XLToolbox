@@ -128,10 +128,12 @@ namespace XLToolbox.Export.ViewModels
             ColorProfileViewModelCollection c;
             if (_profiles.TryGetValue(colorSpace, out c))
             {
+                Logger.Info("HasProfilesForColorSpace: {0} profile(s) for {1}", c.Count, colorSpace);
                 return c.Count > 0;
             }
             else
             {
+                Logger.Info("HasProfilesForColorSpace: No profiles for {0}", colorSpace);
                 return false;
             }
         }
@@ -187,13 +189,15 @@ namespace XLToolbox.Export.ViewModels
         private void BuildCollections()
         {
             string dir = Bovender.Unmanaged.Pinvoke.GetColorDirectory();
+            Logger.Info("BuildCollections: Dir: {0}", dir);
             if (String.IsNullOrEmpty(dir))
             {
+                Logger.Fatal("BuildCollections: No color profile directory!");
                 throw new InvalidOperationException(
                     "Windows did not tell color profile directory");
             }
 
-            using (XLToolbox.Unmanaged.DllManager dllManager = new XLToolbox.Unmanaged.DllManager())
+            using (Bovender.Unmanaged.DllManager dllManager = new Bovender.Unmanaged.DllManager())
             {
                 ColorProfileViewModel vm;
                 ColorProfileViewModelCollection coll;
@@ -236,6 +240,14 @@ namespace XLToolbox.Export.ViewModels
         private ColorSpace _colorSpace;
 
         private bool _updating;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

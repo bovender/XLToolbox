@@ -1,4 +1,5 @@
-﻿/* ExceptionViewModel.cs
+﻿using Bovender.Unmanaged;
+/* ExceptionViewModel.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -18,7 +19,6 @@
 using System;
 using System.Collections.Specialized;
 using System.Reflection;
-using XLToolbox.Unmanaged;
 using XLToolbox.Versioning;
 
 namespace XLToolbox.ExceptionHandler

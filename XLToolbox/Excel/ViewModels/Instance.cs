@@ -314,7 +314,7 @@ namespace XLToolbox.Excel.ViewModels
         public Workbook CreateWorkbook()
         {
             Logger.Info("CreateWorkbook");
-            // Calling the Workbooks.Add method with a XlWBATemplate constand
+            // Calling the Workbooks.Add method with a XlWBATemplate constant
             // creates a workbook that contains only one sheet.
             Workbook workbook = Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             return workbook;
@@ -695,6 +695,7 @@ namespace XLToolbox.Excel.ViewModels
             {
                 _canQuitExcel = true;
                 _application = new Application();
+                _createdInstance = true;
             }
         }
 
@@ -727,8 +728,12 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     _application.DisplayAlerts = false;
                     _application.Quit();
-                    _application = (Application)Bovender.ComHelpers.ReleaseComObject(_application);
                     _workbooks = (Workbooks)Bovender.ComHelpers.ReleaseComObject(_workbooks);
+                    if (_createdInstance)
+                    {
+                        Bovender.ComHelpers.ReleaseComObject(_application);
+                    }
+                    _application = null;
                 }
             }
         }
@@ -931,6 +936,7 @@ namespace XLToolbox.Excel.ViewModels
         #region Private instance fields
 
         private bool _disposed;
+        private bool _createdInstance;
         private bool _canQuitExcel;
         private Application _application;
         private Workbooks _workbooks;
