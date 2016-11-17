@@ -151,11 +151,11 @@ namespace XLToolbox.Excel.Models
             set
             {
                 Reset();
-                _referenceString = value.TrimStart('=');
                 Match m = null;
                 // Prevent argument null exceptions if the reference string is empty
-                if (!String.IsNullOrEmpty(_referenceString))
+                if (!String.IsNullOrEmpty(value))
                 {
+                    _referenceString = value.TrimStart('=');
                     m = _referencePattern.Value.Match(_referenceString);
                 }
                 if (m != null && m.Success)
