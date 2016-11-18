@@ -199,11 +199,11 @@ namespace XLToolboxForExcel
                 XLToolbox.Logging.LogFileViewModel vm = new XLToolbox.Logging.LogFileViewModel();
                 if (userSettings.EnableLogging)
                 {
-                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingEnabled>().ShowDialogInForm();
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingEnabled>().ShowInForm();
                 }
                 else
                 {
-                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingDisabled>().ShowDialogInForm();
+                    vm.InjectInto<XLToolbox.Logging.IncompleteShutdownLoggingDisabled>().ShowInForm();
                 }
                 userSettings.SheetManagerVisible = false;
             }
