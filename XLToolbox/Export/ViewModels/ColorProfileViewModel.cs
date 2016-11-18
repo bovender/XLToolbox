@@ -140,7 +140,7 @@ namespace XLToolbox.Export.ViewModels
 
             // Create transform with perceptual intent (0) and no special options (0)
             cmsHTransform t = cmsCreateTransform(
-                standardProfile, GetLcmsPixelFormat(freeImageBitmap),
+                standardProfile, Lcms.Formatters.TYPE_BGRA_8,
                 targetProfile, GetLcmsPixelFormat(ColorSpace),
                 0, 0);
             if (t == cmsHTransform.Zero)
