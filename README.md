@@ -39,6 +39,10 @@ repository:
 - Change the startup project of the XLToolbox solution to 
   `XLToolboxForExcel` by right-clicking on this project.
 
+When building the DLLs, make sure to use the `Release` configuration to 
+avoid additional dependencies that may not be met on all target systems 
+when the `Debug` configuration is used (namely, `MSCVR120D.DLL`).
+
 
 Notes regarding Debug configuration
 --------------------------------

@@ -57,7 +57,6 @@ namespace XLToolbox.Export
             : base()
         {
             Settings = settings;
-            _exporter = new Exporter(settings.Preset);
         }
 
         #endregion
@@ -180,8 +179,8 @@ namespace XLToolbox.Export
                     Logger.Fatal("ExportSheetLayout: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(Settings.Objects.ToString());
             }
-            _exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
-            _exporter.Execute();
+            Exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
+            Exporter.Execute();
         }
 
         private void ExportSheetItems(dynamic sheet)
@@ -251,8 +250,8 @@ namespace XLToolbox.Export
             Logger.Info("ExportSelection");
             Logger.Info("ExportSelection: Sheet: {0}", sheet.Name);
             dynamic selection = Instance.Default.Application.Selection;
-            _exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
-            _exporter.Execute();
+            Exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
+            Exporter.Execute();
         }
 
         #endregion
@@ -345,6 +344,25 @@ namespace XLToolbox.Export
                     Logger.Fatal("CountInSheetItems: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(String.Format(
                         "Export of {0} not implemented.", Settings.Objects));
+            }
+        }
+
+        #endregion
+
+        #region Private properties
+
+        /// <summary>
+        /// Creates a new exporter object using the current settings' preset.
+        /// </summary>
+        private Exporter Exporter
+        {
+            get
+            {
+                if (_exporter == null)
+                {
+                    _exporter = new Exporter(Settings.Preset);
+                }
+                return _exporter;
             }
         }
 
