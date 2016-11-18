@@ -164,11 +164,6 @@ namespace XLToolbox.Export.ViewModels
                                 {
                                     _preset.UseColorProfile = true;
                                     this.Transparency.AsEnum = Models.Transparency.WhiteCanvas;
-                                    _mustUseColorProfile = true;
-                                }
-                                else
-                                {
-                                    _mustUseColorProfile = false;
                                 }
                                 SanitizeSettings();
 
@@ -243,18 +238,24 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Gets whether the "Use color profile" option is enabled.
+        /// </summary>
+        /// <remarks>
+        /// To be able to use color profiles, there must be at least one color
+        /// profile file, and the chosen file type must be a bitmap format.
+        /// On the other hand, if the color type is CMYK, using a color
+        /// profile is mandatory and the option is disabled (cannot be toggled
+        /// by the user).
+        /// </remarks>
         public bool IsUseColorProfileEnabled
         {
             get
             {
-                return (ColorProfiles.Profiles.Count > 0)
-                    && !_preset.IsVectorType
-                    && !_mustUseColorProfile;
-            }
-            protected set
-            {
-                _mustUseColorProfile = value;
-                OnPropertyChanged("IsUseColorProfileEnabled");
+                return (ColorProfiles.Profiles.Count > 0) // must have color profiles
+                    && !_preset.IsVectorType // must not be a vector type
+                    && !(ColorSpace.AsEnum == Models.ColorSpace.Cmyk);
             }
         }
 
