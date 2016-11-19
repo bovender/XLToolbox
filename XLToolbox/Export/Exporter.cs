@@ -107,6 +107,7 @@ namespace XLToolbox.Export
         {
             if (Preset == null)
             {
+                Logger.Fatal("Execute: No preset!");
                 throw new InvalidOperationException("Execute: Cannot export because no Preset was given");
             }
             if (String.IsNullOrWhiteSpace(FileName) && _settings != null)
@@ -115,6 +116,7 @@ namespace XLToolbox.Export
             }
             if (String.IsNullOrWhiteSpace(FileName))
             {
+                Logger.Fatal("Execute: No filename!");
                 throw new InvalidOperationException("Execute: Cannot export because no file name was given");
             }
             bool result = false;
@@ -124,7 +126,7 @@ namespace XLToolbox.Export
             {
                 if (SelectionViewModel.Selection == null)
                 {
-                    Logger.Fatal("ExportAtOriginalSize: Quick export: No selection!");
+                    Logger.Fatal("Execute: Quick export: No selection!");
                     throw new InvalidOperationException("Execute: Cannot export because nothing is selected in Excel");
                 }
                 width = SelectionViewModel.Bounds.Width;
@@ -245,7 +247,7 @@ namespace XLToolbox.Export
             Metafile emf;
             using (WorkingClipboard clipboard = new WorkingClipboard())
             {
-                Logger.Info("Get metafile");
+                Logger.Info("ExportWithDimensions: Get metafile");
                 emf = clipboard.GetMetafile();
                 switch (Preset.FileType)
                 {
@@ -265,15 +267,14 @@ namespace XLToolbox.Export
 
         private void ExportViaFreeImage(Metafile metafile, double width, double height)
         {
-            Logger.Info("ExportViaFreeImage");
-            Logger.Info("Preset: {0}", Preset);
-            Logger.Info("Width: {0}; height: {1}", width, height);
+            Logger.Info("ExportViaFreeImage: Preset: {0}", Preset);
+            Logger.Info("ExportViaFreeImage: Width: {0}; height: {1}", width, height);
             // Calculate the number of pixels needed for the requested
             // output size and resolution; size is given in points (1/72 in),
             // resolution is given in dpi.
             int px = (int)Math.Round(width / 72 * Preset.Dpi);
             int py = (int)Math.Round(height / 72 * Preset.Dpi);
-            Logger.Info("Pixels: x: {0}; y: {1}", px, py);
+            Logger.Info("ExportViaFreeImage: Pixels: x: {0}; y: {1}", px, py);
             Cancelling += Exporter_Cancelling;
             PercentCompleted = 10;
             _tiledBitmap = new TiledBitmap(px, py);
@@ -307,7 +308,7 @@ namespace XLToolbox.Export
         {
             if (Preset.UseColorProfile)
             {
-                Logger.Info("ConvertColorCms: Convert color using profile");
+                Logger.Info("ConvertColor: Convert color using profile");
                 ViewModels.ColorProfileViewModel targetProfile =
                     ViewModels.ColorProfileViewModel.CreateFromName(Preset.ColorProfile);
                 targetProfile.TransformFromStandardProfile(freeImageBitmap);
@@ -343,7 +344,7 @@ namespace XLToolbox.Export
 
         private FREE_IMAGE_SAVE_FLAGS GetSaveFlags()
         {
-            Logger.Info("GetSaveFlags");
+            Logger.Info("GetSaveFlags: {0}", Preset.FileType);
             switch (Preset.FileType)
             {
                 case FileType.Png:
