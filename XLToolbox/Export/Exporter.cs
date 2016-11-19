@@ -282,15 +282,25 @@ namespace XLToolbox.Export
             fib.SetResolution(Preset.Dpi, Preset.Dpi);
             fib.Comment = Versioning.SemanticVersion.Current.BrandName;
             PercentCompleted = 30;
-            Logger.Info("Saving {0} file", Preset.FileType);
-            fib.Save(
-                FileName,
-                Preset.FileType.ToFreeImageFormat(),
-                GetSaveFlags()
-            );
-            Cancelling -= Exporter_Cancelling;
-            PercentCompleted = 50;
-            Bovender.ComHelpers.ReleaseComObject(fib);
+            Logger.Info("ExportViaFreeImage: Saving {0} file", Preset.FileType);
+            try
+            {
+                fib.Save(
+                    FileName,
+                    Preset.FileType.ToFreeImageFormat(),
+                    GetSaveFlags()
+                );
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                Cancelling -= Exporter_Cancelling;
+                PercentCompleted = 50;
+                Bovender.ComHelpers.ReleaseComObject(fib);
+            }
         }
 
         private void ConvertColor(FreeImageBitmap freeImageBitmap)
