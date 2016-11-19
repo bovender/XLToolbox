@@ -64,7 +64,7 @@ namespace XLToolbox.Versioning
         public void ShowUpdateAvailableView()
         {
             DownloadFolder = UserSettings.UserSettings.Default.DownloadFolder;
-            InjectInto<UpdateAvailableView>().ShowDialogInForm();
+            InjectInto<UpdateAvailableView>().ShowInForm();
             UserSettings.UserSettings.Default.DownloadFolder = DownloadFolder;
         }
 

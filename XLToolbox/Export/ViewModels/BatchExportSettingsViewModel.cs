@@ -375,7 +375,6 @@ namespace XLToolbox.Export.ViewModels
             if (CanExport())
             {
                 ((BatchExportSettings)Settings).Store(Instance.Default.ActiveWorkbook);
-                SaveExportPath();
                 StartProcess();
             }
         }
@@ -407,16 +406,6 @@ namespace XLToolbox.Export.ViewModels
         private void Layout_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             ((BatchExportSettings)Settings).Layout = Layout.AsEnum;
-        }
-
-        #endregion
-
-        #region Overrides
-
-        protected override void SaveExportPath()
-        {
-            base.SaveExportPath();
-            XLToolbox.UserSettings.UserSettings.Default.ExportPath = Path;
         }
 
         #endregion
