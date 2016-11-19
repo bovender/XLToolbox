@@ -400,7 +400,6 @@ namespace XLToolbox.Export.ViewModels
         EnumProvider<FileType> _fileTypeProvider;
         TransparencyProvider _transparencyProvider;
         bool _customName;
-        bool _mustUseColorProfile;
         ColorProfileRepositoryViewModel _colorProfiles;
 
         #endregion
