@@ -57,12 +57,7 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (!_rangeTested)
-                {
-                    _rangeTested = true;
-                    _range = Selection as Range; // may result in null
-                }
-                return _range;
+                return Selection as Range;
             }
         }
 
@@ -78,11 +73,15 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (IsRange && _reference == null)
+                if (IsRange)
                 {
-                    _reference = new Reference(Range);
+                    return new Reference(Range);
                 }
-                return _reference;
+                else
+                {
+                    Logger.Warn("Reference: Selection is not a Range, returning null!");
+                    return null;
+                }
             }
         }
 
@@ -90,16 +89,12 @@ namespace XLToolbox.Excel.ViewModels
         {
             get
             {
-                if (_bounds == Windows.Rect.Empty)
+                if (Selection == null)
                 {
-                    if (Selection == null)
-                    {
-                        throw new InvalidOperationException(
-                            "Cannot compute bounds of selection because nothing is selected in Excel.");
-                    }
-                    _bounds = ComputeBounds();
+                    throw new InvalidOperationException(
+                        "Cannot compute bounds of selection because nothing is selected in Excel.");
                 }
-                return _bounds;
+                return ComputeBounds();
             }
         }
 
@@ -138,7 +133,6 @@ namespace XLToolbox.Excel.ViewModels
         public SelectionViewModel(Application excelApplication)
             :base()
         {
-            _bounds = Windows.Rect.Empty;
             _app = excelApplication;
             if (_app != null)
             {
@@ -175,14 +169,6 @@ namespace XLToolbox.Excel.ViewModels
                 if (disposing)
                 {
                     // Clean up managed resources
-                    if (_reference != null)
-                    {
-                        _reference.Dispose();
-                    }
-                }
-                if (_range != null)
-                {
-                    Bovender.ComHelpers.ReleaseComObject(_range);
                 }
             }
         }
@@ -193,19 +179,16 @@ namespace XLToolbox.Excel.ViewModels
 
         void Excel_WorkbookActivate(Workbook Wb)
         {
-            Invalidate();
             OnSelectionChanged();
         }
 
         void Excel_SheetActivate(object Sh)
         {
-            Invalidate();
             OnSelectionChanged();
         }
 
         void Excel_SelectionChange(object Sh, Range Target)
         {
-            Invalidate();
             OnSelectionChanged();
         }
 
@@ -274,30 +257,12 @@ namespace XLToolbox.Excel.ViewModels
             return r;
         }
 
-        private void Invalidate()
-        {
-            _bounds = Windows.Rect.Empty;
-            _rangeTested = false;
-            if (_reference != null)
-            {
-                _reference.Dispose();
-            }
-            if (_range != null)
-            {
-                Bovender.ComHelpers.ReleaseComObject(_range);
-            }
-        }
-
         #endregion
 
         #region Private fields
 
         private bool _disposed;
         private Application _app;
-        private Windows.Rect _bounds;
-        private Range _range;
-        private bool _rangeTested;
-        private Reference _reference;
 
         #endregion
 
