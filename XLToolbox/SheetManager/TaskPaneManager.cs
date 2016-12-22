@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Tools;
-/* SheetManagerPane.cs
+﻿/* SheetManagerPane.cs
  * part of Daniel's XL Toolbox NG
  * 
  * Copyright 2014-2016 Daniel Kraus
@@ -20,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Office.Tools;
 using XLToolbox.Excel.ViewModels;
 
 namespace XLToolbox.SheetManager

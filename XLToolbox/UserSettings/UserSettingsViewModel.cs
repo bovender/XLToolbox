@@ -69,6 +69,19 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool DebugLogging
+        {
+            get
+            {
+                return _debugLogging;
+            }
+            set
+            {
+                _debugLogging = value;
+                OnPropertyChanged("DebugLogging");
+            }
+        }
+
         public string ProfileFolderPath
         {
             get
@@ -225,6 +238,7 @@ namespace XLToolbox.UserSettings
         {
             UserSettings u = UserSettings.Default;
             _isLoggingEnabled = u.EnableLogging;
+            _debugLogging = u.DebugLogging;
             if (!Enum.TryParse(u.LanguageCode, true, out _language))
             {
                 Logger.Warn("UserSettingsViewModel: Could not parse language code to enum, falling back to default");
@@ -277,6 +291,7 @@ namespace XLToolbox.UserSettings
             UserSettings u = UserSettings.Default;
             u.TaskPaneWidth = TaskPaneWidth;
             u.EnableLogging = IsLoggingEnabled;
+            u.DebugLogging = DebugLogging;
             u.LanguageCode = Language.SelectedItem.Value.ToString();
             u.BackupDir = BackupDir;
             u.EnableBackups = EnableBackups;
@@ -331,6 +346,7 @@ namespace XLToolbox.UserSettings
         private bool _dirty;
         private int _taskPaneWidth;
         private bool _isLoggingEnabled;
+        private bool _debugLogging;
         private bool _isBackupsEnabled;
         private bool _wasBackupsEnabled;
         private bool _suppressBackupFailureMessage;
