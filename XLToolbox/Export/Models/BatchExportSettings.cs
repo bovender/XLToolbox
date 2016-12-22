@@ -57,21 +57,23 @@ namespace XLToolbox.Export.Models
         /// if no such object exists.</returns>
         public static BatchExportSettings FromLastUsed(Workbook workbookContext)
         {
-            Store store = new Store(workbookContext);
-            BatchExportSettings settings = store.Get<BatchExportSettings>(
-                typeof(BatchExportSettings).ToString()
-                );
-            if (settings != null && settings.Preset != null)
+            using (Store store = new Store(workbookContext))
             {
-                // Replace the Preset object in the settings with the equivalent
-                // one from the PresetsRepository, or add
-                // it to the repository if no Preset with the same checksum hash exists.
-                settings.Preset = PresetsRepository.Default.FindOrAdd(settings.Preset);
-                return settings;
-            }
-            else
-            {
-                return BatchExportSettings.FromLastUsed();
+                BatchExportSettings settings = store.Get<BatchExportSettings>(
+                    typeof(BatchExportSettings).ToString()
+                    );
+                if (settings != null && settings.Preset != null)
+                {
+                    // Replace the Preset object in the settings with the equivalent
+                    // one from the PresetsRepository, or add
+                    // it to the repository if no Preset with the same checksum hash exists.
+                    settings.Preset = PresetsRepository.Default.FindOrAdd(settings.Preset);
+                    return settings;
+                }
+                else
+                {
+                    return BatchExportSettings.FromLastUsed();
+                }
             }
         }
 

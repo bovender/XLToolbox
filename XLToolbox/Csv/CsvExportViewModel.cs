@@ -190,13 +190,15 @@ namespace XLToolbox.Csv
         private void DoChooseFileName()
         {
             Logger.Info("DoChooseFileName: Retrieving previous settings");
-            WorkbookStorage.Store store = new WorkbookStorage.Store();
-            string defaultPath = UserSettings.UserSettings.Default.CsvPath;
-            Logger.Info("DoChooseFileName: Sending ChooseExportFileNameMessage");
-            ChooseExportFileNameMessage.Send(
-                new FileNameMessageContent(store.Get("csv_path", defaultPath),
-                    "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
-                ConfirmChooseFileName);
+            using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+            {
+                string defaultPath = UserSettings.UserSettings.Default.CsvPath;
+                Logger.Info("DoChooseFileName: Sending ChooseExportFileNameMessage");
+                ChooseExportFileNameMessage.Send(
+                    new FileNameMessageContent(store.Get("csv_path", defaultPath),
+                        "CSV files|*.csv;*.txt;*.dat|All files|*.*"),
+                    ConfirmChooseFileName);
+            }
         }
 
         private void ConfirmChooseFileName(FileNameMessageContent messageContent)

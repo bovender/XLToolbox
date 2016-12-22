@@ -89,6 +89,7 @@ namespace XLToolbox.WorkbookStorage
         {
             if (HasValue)
             {
+                Logger.Debug("WriteToSheet: {0}::{1}::{2}", Context, Key, Value);
                 Range cells = sheet.Cells;
                 cells[row, 1].Value2 = Context;
                 cells[row, 2].Value2 = Key;
@@ -98,6 +99,7 @@ namespace XLToolbox.WorkbookStorage
             }
             else
             {
+                Logger.Warn("WriteToSheet: Item has no value: {0}::{1}", Context, Key);
                 return false;
             }
         }
@@ -113,6 +115,7 @@ namespace XLToolbox.WorkbookStorage
             Context = String.Format("{0}", contextValue);
             Key = cells[row, 2].Value2();
             Value = cells[row, 3].Formula();
+            Logger.Debug("ReadFromSheet: {0}::{1}::{2}", Context, Key, Value);
             Bovender.ComHelpers.ReleaseComObject(cells);
         }
 
@@ -135,6 +138,14 @@ namespace XLToolbox.WorkbookStorage
         {
             return (T)Value;
         }
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

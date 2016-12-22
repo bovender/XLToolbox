@@ -189,6 +189,24 @@ namespace XLToolbox.UserSettings
                 if (value || LogFile.IsInitializedAndEnabled)
                 {
                     LogFile.Default.IsFileLoggingEnabled = value;
+                    LogFile.Default.LogLevel = DebugLogging ? NLog.LogLevel.Debug : NLog.LogLevel.Info;
+                }
+            }
+        }
+
+        public bool DebugLogging
+        {
+            get
+            {
+                return _debugLogging;
+            }
+            set
+            {
+                _debugLogging = value;
+                // Avoid superfluous initialization of the LogFile singleton instance
+                if (LogFile.IsInitializedAndEnabled)
+                {
+                    LogFile.Default.LogLevel = value ? NLog.LogLevel.Debug : NLog.LogLevel.Info;
                 }
             }
         }
@@ -408,6 +426,7 @@ namespace XLToolbox.UserSettings
         private string _languageCode;
         private string _backupDir;
         private string _csvPath;
+        private bool _debugLogging;
 
         #endregion
 

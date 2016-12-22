@@ -549,6 +549,15 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debug logging (detailed).
+        /// </summary>
+        public static string DebugLogging {
+            get {
+                return ResourceManager.GetString("DebugLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decimal separator.
         /// </summary>
         public static string DecimalSeparator {

@@ -810,7 +810,9 @@ namespace XLToolbox.Excel.ViewModels
                         i, Workbooks.Count);
                     w.Save();
                 }
-                if (!w.Saved)
+                bool saved = w.Saved;
+                Bovender.ComHelpers.ReleaseComObject(w);
+                if (!saved)
                 {
                     Logger.Warn("ConfirmQuitSavingChanges: Workbook #{0} of {1} not saved: not quitting",
                         i, Workbooks.Count);
@@ -823,7 +825,6 @@ namespace XLToolbox.Excel.ViewModels
                 Logger.Info("ConfirmQuitSavingChanges: Proceeding to shutdown");
                 CloseAllWorkbooksThenShutdown();
             }
-            Bovender.ComHelpers.ReleaseComObject(w);
         }
 
         private bool CanQuitSavingChanges()
