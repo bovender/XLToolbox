@@ -51,20 +51,22 @@ namespace XLToolbox.Export.Models
         /// <returns>Preset object or null.</returns>
         public static Preset FromLastUsed(Workbook workbookContext)
         {
-            Store store = new Store(workbookContext);
-            Preset preset = store.Get<Preset>(Properties.StoreNames.Default.ExportPreset);
+            using (Store store = new Store(workbookContext))
+            {
+                Preset preset = store.Get<Preset>(Properties.StoreNames.Default.ExportPreset);
 
-            if (preset != null)
-            {
-                // Return the equivalent Preset object from the current collection, or
-                // add the preset retrieved from the workbook to the current collection.
-                return PresetsRepository.Default.FindOrAdd(preset);
-            }
-            else
-            {
-                // Did not get a Preset from the workbook's Store, so let's try
-                // and offer the last used Preset from the UserSettings.
-                return FromLastUsed();
+                if (preset != null)
+                {
+                    // Return the equivalent Preset object from the current collection, or
+                    // add the preset retrieved from the workbook to the current collection.
+                    return PresetsRepository.Default.FindOrAdd(preset);
+                }
+                else
+                {
+                    // Did not get a Preset from the workbook's Store, so let's try
+                    // and offer the last used Preset from the UserSettings.
+                    return FromLastUsed();
+                }
             }
         }
 

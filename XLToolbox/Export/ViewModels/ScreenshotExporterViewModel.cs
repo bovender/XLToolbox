@@ -76,14 +76,16 @@ namespace XLToolbox.Export.ViewModels
             if (CanExportSelection())
             {
                 string defaultPath = UserSettings.UserSettings.Default.ExportPath;
-                WorkbookStorage.Store store = new WorkbookStorage.Store();
-                string path = store.Get(
-                    Properties.StoreNames.Default.ExportPath, defaultPath);
-                ChooseFileNameMessage.Send(
-                    new FileNameMessageContent(
-                        path,
-                        FileType.Png.ToFileFilter()),
-                    DoExportSelection);
+                using (WorkbookStorage.Store store = new WorkbookStorage.Store())
+                {
+                    string path = store.Get(
+                        Properties.StoreNames.Default.ExportPath, defaultPath);
+                    ChooseFileNameMessage.Send(
+                        new FileNameMessageContent(
+                            path,
+                            FileType.Png.ToFileFilter()),
+                        DoExportSelection);
+                }
             }
         }
 

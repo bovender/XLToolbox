@@ -171,20 +171,22 @@ namespace XLToolbox.Export.ViewModels
         {
             Logger.Info("LoadExportPath");
             Workbook wb = Excel.ViewModels.Instance.Default.ActiveWorkbook;
-            Store store = new Store(wb);
-            string defaultPath = UserSettings.UserSettings.Default.ExportPath;
-            if (String.IsNullOrEmpty(defaultPath))
+            using (Store store = new Store(wb))
             {
-                if (wb != null && !String.IsNullOrEmpty(wb.Path))
+                string defaultPath = UserSettings.UserSettings.Default.ExportPath;
+                if (String.IsNullOrEmpty(defaultPath))
                 {
-                    defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
+                    if (wb != null && !String.IsNullOrEmpty(wb.Path))
+                    {
+                        defaultPath = System.IO.Path.GetDirectoryName(wb.Path);
+                    }
+                    else
+                    {
+                        defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    }
                 }
-                else
-                {
-                    defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                }
+                return store.Get(Properties.StoreNames.Default.ExportPath, defaultPath);
             }
-            return store.Get(Properties.StoreNames.Default.ExportPath, defaultPath);
         }
 
         /// <summary>
