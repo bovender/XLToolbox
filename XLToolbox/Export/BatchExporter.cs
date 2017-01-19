@@ -145,21 +145,31 @@ namespace XLToolbox.Export
 
         private void ExportSheet(dynamic sheet)
         {
-            Logger.Info("ExportSheet");
-            sheet.Activate();
-            switch (Settings.Layout)
+            Logger.Debug("ExportSheet: {0}", sheet.Name);
+            // Cannot use XlSheetVisibility.xlSheetVisible (-1) directly, because the Visible
+            // property may be an integer propery of the dynamic object.
+            if ((sheet.Visible == -1) && (CountInSheet(sheet) > 0))
             {
-                case BatchExportLayout.SheetLayout:
-                    ExportSheetLayout(sheet);
-                    break;
-                case BatchExportLayout.SingleItems:
-                    ExportSheetItems(sheet);
-                    break;
-                default:
-                    Logger.Fatal("ExportSheet: Layout '{0}' not implemented!", Settings.Layout);
-                    throw new NotImplementedException(
-                        String.Format("Export of {0} not implemented.", Settings.Layout)
-                        );
+                Logger.Info("ExportSheet");
+                sheet.Activate();
+                switch (Settings.Layout)
+                {
+                    case BatchExportLayout.SheetLayout:
+                        ExportSheetLayout(sheet);
+                        break;
+                    case BatchExportLayout.SingleItems:
+                        ExportSheetItems(sheet);
+                        break;
+                    default:
+                        Logger.Fatal("ExportSheet: Layout '{0}' not implemented!", Settings.Layout);
+                        throw new NotImplementedException(
+                            String.Format("Export of {0} not implemented.", Settings.Layout)
+                            );
+                }
+            }
+            else
+            {
+                Logger.Info("ExportSheet: Sheet not visible or nothing on it to export");
             }
         }
 
