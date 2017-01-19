@@ -66,10 +66,7 @@ namespace XLToolbox.Export
         public override bool Execute()
         {
             Logger.Info("Execute: Start with template '{0}'", Settings.FileName);
-            _batchFileName = new ExportFileName(
-                Settings.Path,
-                Settings.FileName,
-                Settings.Preset.FileType);
+            _batchFileName = new ExportFileName(Settings);
             bool result = false;
             try
             {

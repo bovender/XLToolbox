@@ -49,7 +49,7 @@ namespace XLToolbox.UnitTests.Export
                 "{" + Strings.Workbook + "}",
                 "{" + Strings.Worksheet + "}",
                 "{" + Strings.Index + "}");
-            ExportFileName efn = new ExportFileName(exportTemplate, FileType.Png);
+            ExportFileName efn = new ExportFileName(exportTemplate, FileType.Png, null);
             string result = efn.GenerateNext(ws, null);
             string expectedResult = String.Format(basicTemplate, wb.Name, ws.Name, "001");
             Assert.AreEqual(expectedResult, result);
@@ -63,7 +63,7 @@ namespace XLToolbox.UnitTests.Export
         {
             string basicTemplate = "templateWithoutIndex{0}.tif";
             string exportTemplate = String.Format(basicTemplate, "");
-            ExportFileName efn = new ExportFileName(exportTemplate, FileType.Tiff);
+            ExportFileName efn = new ExportFileName(exportTemplate, FileType.Tiff, null);
             string result = efn.GenerateNext(ws, null);
             string expectedResult = String.Format(basicTemplate, "001");
             Assert.AreEqual(expectedResult, result);
@@ -78,7 +78,7 @@ namespace XLToolbox.UnitTests.Export
             FileType ft = FileType.Png;
             string basicTemplate = "templateWithoutIndex{0}";
             string exportTemplate = String.Format(basicTemplate, "");
-            ExportFileName efn = new ExportFileName(exportTemplate, ft);
+            ExportFileName efn = new ExportFileName(exportTemplate, ft, null);
             string result = efn.GenerateNext(ws, null);
             string expectedResult = String.Format(basicTemplate, "001");
             Assert.AreEqual(
@@ -98,7 +98,7 @@ namespace XLToolbox.UnitTests.Export
                 "{" + Strings.Workbook + "}",
                 "{" + Strings.Worksheet + "}",
                 "{" + Strings.Index + "}");
-            ExportFileName efn = new ExportFileName(exportTemplate, ft);
+            ExportFileName efn = new ExportFileName(exportTemplate, ft, null);
             string result = efn.GenerateNext(ws, null);
             string expectedResult = String.Format(
                 basicTemplate + ft.ToFileNameExtension(), wb.Name, ws.Name, "001");
@@ -118,7 +118,7 @@ namespace XLToolbox.UnitTests.Export
                 "{" + Strings.Workbook + "}",
                 "{" + Strings.Worksheet + "}",
                 "{" + Strings.Index + "}");
-            ExportFileName efn = new ExportFileName(exportTemplate, ft);
+            ExportFileName efn = new ExportFileName(exportTemplate, ft, null);
             string result = efn.GenerateNext(ws, null);
             string expectedResult = String.Format(
                 basicTemplate, wb.Name, ws.Name, "001");
