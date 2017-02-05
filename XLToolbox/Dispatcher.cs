@@ -204,12 +204,20 @@ namespace XLToolbox
             vm.ShowProgressMessage.Sent += Exporter_ShowProgress_Sent;
             vm.ProcessFinishedMessage.Sent += Exporter_ProcessFinished_Sent;
             vm.InjectInto<Export.Views.SingleExportSettingsView>().ShowDialogInForm();
+            // NotificationAction a = new NotificationAction();
+            // a.Caption = Strings.ScreenshotExport;
+            // a.Message = Strings.GraphicHasNoCopyMethod;
+            // a.Invoke();
         }
 
         static void ExportSelectionLast()
         {
             Export.QuickExporter quickExporter = new Export.QuickExporter();
             quickExporter.ExportSelection();
+            // NotificationAction a = new NotificationAction();
+            // a.Caption = Strings.ScreenshotExport;
+            // a.Message = Strings.GraphicHasNoCopyMethod;
+            // a.Invoke();
         }
 
         static void BatchExport()
@@ -224,12 +232,20 @@ namespace XLToolbox
             vm.ShowProgressMessage.Sent += Exporter_ShowProgress_Sent;
             vm.ProcessFinishedMessage.Sent += Exporter_ProcessFinished_Sent;
             vm.InjectInto<Export.Views.BatchExportSettingsView>().ShowDialogInForm();
+            // NotificationAction a = new NotificationAction();
+            // a.Caption = Strings.ScreenshotExport;
+            // a.Message = Strings.GraphicHasNoCopyMethod;
+            // a.Invoke();
         }
 
         static void BatchExportLast()
         {
             Export.QuickExporter quickExporter = new Export.QuickExporter();
             quickExporter.ExportBatch();
+            // NotificationAction a = new NotificationAction();
+            // a.Caption = Strings.ScreenshotExport;
+            // a.Message = Strings.GraphicHasNoCopyMethod;
+            // a.Invoke();
         }
 
         static void ExportScreenshot()
@@ -239,9 +255,19 @@ namespace XLToolbox
             {
                 vm.ChooseFileNameMessage.Sent += (sender, args) =>
                     {
-                        Logger.Info("Choose file name message was received");
-                        ChooseFileSaveAction a = new ChooseFileSaveAction();
-                        a.Invoke(args);
+                        try
+                        {
+                            Logger.Info("Choose file name message was received");
+                            ChooseFileSaveAction a = new ChooseFileSaveAction();
+                            a.Invoke(args);
+                        }
+                        catch (Excel.CopyException)
+                        {
+                            NotificationAction a = new NotificationAction();
+                            a.Caption = Strings.ScreenshotExport;
+                            a.Message = Strings.GraphicHasNoCopyMethod;
+                            a.Invoke();
+                        }
                     };
                 vm.ExportSelectionCommand.Execute(null);
             }

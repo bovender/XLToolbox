@@ -47,6 +47,7 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         public dynamic Selection
         {
+            [System.Diagnostics.DebuggerStepThrough]
             get
             {
                 return _app.Selection;
@@ -98,17 +99,61 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        public string Name
+        {
+            get
+            {
+                if (Selection != null)
+                {
+                    try
+                    {
+                        return Selection.Name;
+                    }
+                    catch (Exception)
+                    {
+                        Logger.Warn("Name: Accessing the Name property on the dynamic Selection throws an exception");
+                        return null;
+                    }
+                }
+                else
+                {
+                    Logger.Warn("Name: Null has no name!");
+                    return null;
+                }
+            }
+        }
+
         #endregion
 
         #region Public methods
 
-        public void CopyToClipboard()
+        /// <summary>
+        /// Copies the current selection to the clipboard. Returns true on success,
+        /// false on failure.
+        /// </summary>
+        /// <returns></returns>
+        public bool CopyToClipboard()
         {
+            bool result = false;
             dynamic selection = _app.Selection;
             Logger.Info("CopyToClipboard: Selection is a '{0}'",
                 Microsoft.VisualBasic.Information.TypeName(selection));
-            selection.Copy();
-            Bovender.ComHelpers.ReleaseComObject(selection);
+            try
+            {
+                selection.Copy();
+                result = true;
+            }
+            catch (Exception e)
+            {
+                Logger.Warn("CopyToClipboard: An exception was raised by selection.Copy()");
+                Logger.Warn(e);
+                throw new Excel.CopyException(Strings.GraphicHasNoCopyMethod, e);
+            }
+            finally
+            {
+                Bovender.ComHelpers.ReleaseComObject(selection);
+            }
+            return result;
         }
 
         public void SaveToEmf(string fileName)

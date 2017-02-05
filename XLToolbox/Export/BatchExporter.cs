@@ -186,7 +186,9 @@ namespace XLToolbox.Export
                     Logger.Fatal("ExportSheetLayout: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(Settings.Objects.ToString());
             }
-            Exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
+            dynamic selection = Instance.Default.Application.Selection;
+            Exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
+            Bovender.ComHelpers.ReleaseComObject(selection);
             Exporter.Execute();
         }
 

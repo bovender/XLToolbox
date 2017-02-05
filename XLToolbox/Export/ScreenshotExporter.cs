@@ -49,13 +49,16 @@ namespace XLToolbox.Export
                 Logger.Info("ExportSelection: Exporting directly");
                 fi = CreateFreeImageDirectly();
             }
-            
-            Logger.Info("ExportSelection: Save to file");
-            fi.SetResolution(102.42f, 102.42f);
-            fi.Save(fileName,
-                FREE_IMAGE_FORMAT.FIF_PNG,
-                FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION | FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED);
-            Bovender.ComHelpers.ReleaseComObject(fi);
+
+            if (fi != null)
+            {
+                Logger.Info("ExportSelection: Save to file");
+                fi.SetResolution(102.42f, 102.42f);
+                fi.Save(fileName,
+                    FREE_IMAGE_FORMAT.FIF_PNG,
+                    FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION | FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED);
+                Bovender.ComHelpers.ReleaseComObject(fi);
+            }
         }
 
         #endregion
@@ -67,14 +70,10 @@ namespace XLToolbox.Export
             FreeImageBitmap fi;
             using (DllManager dllManager = new DllManager("FreeImage.dll"))
             {
-                dynamic selection = Instance.Default.Application.Selection;
-                Logger.Info("CreateFreeImageDirectly: Selection is a '{0}'",
-                    Microsoft.VisualBasic.Information.TypeName(selection));
-                selection.Copy();
+                if (!CopySelection()) return null;
                 MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
                 Logger.Info("CreateFreeImageDirectly: Create FreeImage bitmap");
                 fi = FreeImageBitmap.FromStream(data);
-                Bovender.ComHelpers.ReleaseComObject(selection);
             }
             return fi;
         }
@@ -86,7 +85,8 @@ namespace XLToolbox.Export
             {
                 dllManager.LoadDll("FreeImage.DLL");
                 Logger.Info("CreateFreeImageViaDIB: Copy to clipboard and get data from it");
-                Instance.Default.Application.Selection.Copy();
+                if (!CopySelection()) return null;
+                
                 MemoryStream stream = Clipboard.GetData(System.Windows.DataFormats.Dib) as MemoryStream;
                 using (DibBitmap dibBitmap = new DibBitmap(stream))
                 {
@@ -100,6 +100,22 @@ namespace XLToolbox.Export
                 }
             }
             return fi;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Copies the current selection to the clipboard.
+        /// </summary>
+        private bool CopySelection()
+        {
+            using (SelectionViewModel selection = new SelectionViewModel(Instance.Default.Application))
+            {
+                selection.CopyToClipboard();
+            }
+            return true;
         }
 
         #endregion
