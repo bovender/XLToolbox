@@ -1029,6 +1029,24 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The graphic cannot be exported because Excel does not permit copying it. Unfortunately, this is a permanent problem..
+        /// </summary>
+        public static string GraphicHasNoCopyMethod {
+            get {
+                return ResourceManager.GetString("GraphicHasNoCopyMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one graphic cannot be exported because Excel does not permit copying it. Unfortunately, this is a permanent problem. The graphic that triggered this message has been selected..
+        /// </summary>
+        public static string GraphicHasNoCopyMethodIsSelected {
+            get {
+                return ResourceManager.GetString("GraphicHasNoCopyMethodIsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grays.
         /// </summary>
         public static string GrayScale {

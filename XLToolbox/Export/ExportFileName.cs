@@ -41,11 +41,17 @@ namespace XLToolbox.Export
 
         #region Constructors
 
-        public ExportFileName(string template, FileType fileType)
+        // TODO: Clean up those constructor signatures
+        public ExportFileName(BatchExportSettings settings)
+            : this(settings.Path, settings.FileName, settings.Preset.FileType, settings)
+        { }
+
+        public ExportFileName(string template, FileType fileType, BatchExportSettings settings)
         {
             Template = template;
             Counter = 0;
             FileType = fileType;
+            _settings = settings;
             _placeholderReplacements = new Dictionary<string, Func<string>>()
             {
                 { Strings.Workbook.ToUpper(), () =>
@@ -56,12 +62,12 @@ namespace XLToolbox.Export
             };
             Directory = String.Empty;
             _upperTemplate = template.ToUpper();
-            _needIndex = !(_upperTemplate.Contains("{" + Strings.Index.ToUpper() + "}") || _upperTemplate.Contains("{" + Strings.Name.ToUpper() + "}"));
+            _needIndex = NeedToAddIndex(_upperTemplate);
             SetExtension();
         }
 
-        public ExportFileName(string directory, string template, FileType fileType)
-            : this(template, fileType)
+        public ExportFileName(string directory, string template, FileType fileType, BatchExportSettings settings)
+            : this(template, fileType, settings)
         {
             Directory = directory;
         }
@@ -95,7 +101,7 @@ namespace XLToolbox.Export
             }
             string s = _regex.Replace(Template, SubstituteVariable);
             // If no index placeholder exists in the template, add the index at the end.
-            return Path.Combine(Directory, InsertIndexIfMissing(Template, s) + _extension);
+            return Path.Combine(Directory, InsertIndexIfNeeded(Template, s) + _extension);
         }
 
         #endregion
@@ -123,18 +129,57 @@ namespace XLToolbox.Export
             }
         }
 
-        private string InsertIndexIfMissing(string template, string fileName)
+        private string InsertIndexIfNeeded(string template, string fileName)
         {
             if (_needIndex)
             {
                 return Path.GetFileNameWithoutExtension(fileName) +
-                    String.Format("{0:000}", Counter) +
+                    String.Format("({0:000})", Counter) +
                     Path.GetExtension(fileName);
             }
             else
             {
                 return fileName;
             }
+        }
+
+        /// <summary>
+        /// Determines whether an incremental index is required to generate unique
+        /// file names.
+        /// </summary>
+        /// <remarks>
+        /// If the layout of the objects on a worksheet is to be preserved during
+        /// batch export, the file names will be unique if the template contains the
+        /// worksheet name; or the workbook name and worksheet name if exporting
+        /// from all workbooks, because a worksheet name may be present in several
+        /// workbooks. If individual items are exported, either a name
+        /// placeholder or an index placeholder must be present. An extra index
+        /// is never needed if the template contains an index placeholder already.
+        /// </remarks>
+        /// <param name="uppercaseTemplate">File name template, converted to upper case</param>
+        private bool NeedToAddIndex(string uppercaseTemplate)
+        {
+            if (_upperTemplate.Contains("{" + Strings.Index.ToUpper() + "}")) return false;
+
+            bool need;
+            if ((_settings != null) && (_settings.Layout == BatchExportLayout.SheetLayout))
+            {
+                if (_settings.Scope == BatchExportScope.OpenWorkbooks)
+                {
+                    need = !(_upperTemplate.Contains("{" + Strings.Workbook.ToUpper() + "}") &&
+                            _upperTemplate.Contains("{" + Strings.Worksheet.ToUpper() + "}"));
+                }
+                else
+                {
+                    need = !(_upperTemplate.Contains("{" + Strings.Worksheet.ToUpper() + "}"));
+                }
+            }
+            else
+            {
+                need = !(_upperTemplate.Contains("{" + Strings.Index.ToUpper() + "}") ||
+                    _upperTemplate.Contains("{" + Strings.Name.ToUpper() + "}"));
+            }
+            return need;
         }
 
         private void SetExtension()
@@ -167,6 +212,7 @@ namespace XLToolbox.Export
         string _extension;
         string _upperTemplate;
         bool _needIndex;
+        BatchExportSettings _settings;
         private static readonly Regex _regex = new Regex(@"{[^}]+}");
 
         #endregion

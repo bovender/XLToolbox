@@ -1,6 +1,6 @@
 ; #define DEBUG
 #define VERSIONFILE "..\VERSION"
-#define PUB_YEARS "2016"
+#define PUB_YEARS "2017"
 #define TARGET_HOST "excel"
 #define APP_GUID "{{35AD3250-5F75-4C7D-BCE0-41377E280430}"
 #define ADDIN_NAME "Daniel's XL Toolbox"

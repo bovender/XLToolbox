@@ -278,7 +278,7 @@ namespace XLToolbox.Export
             Cancelling += Exporter_Cancelling;
             PercentCompleted = 10;
             _tiledBitmap = new TiledBitmap(px, py);
-            FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, Preset.Transparency);
+            FreeImageBitmap fib = _tiledBitmap.CreateFreeImageBitmap(metafile, EffectiveTransparency());
             ConvertColor(fib);
             fib.SetResolution(Preset.Dpi, Preset.Dpi);
             fib.Comment = Versioning.SemanticVersion.Current.BrandName;
@@ -292,15 +292,16 @@ namespace XLToolbox.Export
                     GetSaveFlags()
                 );
             }
-            catch
+            catch (Exception e)
             {
+                Logger.Fatal("ExportViaFreeImage: FreeImageBitmap.Save() threw an exception!");
+                Logger.Fatal(e);
                 throw;
             }
             finally
             {
                 Cancelling -= Exporter_Cancelling;
                 PercentCompleted = 50;
-                Bovender.ComHelpers.ReleaseComObject(fib);
             }
         }
 
@@ -371,6 +372,25 @@ namespace XLToolbox.Export
             {
                 _tiledBitmap.Cancel();
             }
+        }
+
+        /// <summary>
+        /// Determines the effective transparency, which takes the file type into account.
+        /// </summary>
+        private Transparency EffectiveTransparency()
+        {
+            Transparency t;
+            if (Preset.FileType.SupportsTransparency() && Preset.ColorSpace.SupportsTransparency())
+            {
+                t = Preset.Transparency;
+                Logger.Info("SetTransparency: Transparency supported, passing through {0}", t);
+            }
+            else
+            {
+                t = Transparency.WhiteCanvas;
+                Logger.Info("SetTransparency: Transparency not supported, using {0}", t);
+            }
+            return t;
         }
 
         #endregion

@@ -39,9 +39,8 @@ namespace XLToolbox.Export
         /// </summary>
         public void ExportSelection()
         {
-            Logger.Info("ExportSelection");
             Preset preset = Preset.FromLastUsed(Instance.Default.Application.ActiveWorkbook);
-            Logger.Info("Preset.FromLastUsed: {0}", preset);
+            Logger.Info("ExportSelection: Preset.FromLastUsed: {0}", preset);
             if (preset == null)
             {
                 Dispatcher.Execute(Command.ExportSelection);

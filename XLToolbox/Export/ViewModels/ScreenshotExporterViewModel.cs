@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Bovender;
 using Bovender.Mvvm;
 using Bovender.Mvvm.ViewModels;
 using Bovender.Mvvm.Messaging;
@@ -125,6 +126,14 @@ namespace XLToolbox.Export.ViewModels
 
         private DelegatingCommand _exportSelectionCommand;
         private Message<FileNameMessageContent> _chooseFileNameMessage;
+
+        #endregion
+
+        #region Class logger
+
+        private static NLog.Logger Logger { get { return _logger.Value; } }
+
+        private static readonly Lazy<NLog.Logger> _logger = new Lazy<NLog.Logger>(() => NLog.LogManager.GetCurrentClassLogger());
 
         #endregion
     }

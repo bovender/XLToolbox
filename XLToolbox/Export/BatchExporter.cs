@@ -66,10 +66,7 @@ namespace XLToolbox.Export
         public override bool Execute()
         {
             Logger.Info("Execute: Start with template '{0}'", Settings.FileName);
-            _batchFileName = new ExportFileName(
-                Settings.Path,
-                Settings.FileName,
-                Settings.Preset.FileType);
+            _batchFileName = new ExportFileName(Settings);
             bool result = false;
             try
             {
@@ -145,21 +142,31 @@ namespace XLToolbox.Export
 
         private void ExportSheet(dynamic sheet)
         {
-            Logger.Info("ExportSheet");
-            sheet.Activate();
-            switch (Settings.Layout)
+            Logger.Debug("ExportSheet: {0}", sheet.Name);
+            // Cannot use XlSheetVisibility.xlSheetVisible (-1) directly, because the Visible
+            // property may be an integer propery of the dynamic object.
+            if ((sheet.Visible == -1) && (CountInSheet(sheet) > 0))
             {
-                case BatchExportLayout.SheetLayout:
-                    ExportSheetLayout(sheet);
-                    break;
-                case BatchExportLayout.SingleItems:
-                    ExportSheetItems(sheet);
-                    break;
-                default:
-                    Logger.Fatal("ExportSheet: Layout '{0}' not implemented!", Settings.Layout);
-                    throw new NotImplementedException(
-                        String.Format("Export of {0} not implemented.", Settings.Layout)
-                        );
+                Logger.Info("ExportSheet");
+                sheet.Activate();
+                switch (Settings.Layout)
+                {
+                    case BatchExportLayout.SheetLayout:
+                        ExportSheetLayout(sheet);
+                        break;
+                    case BatchExportLayout.SingleItems:
+                        ExportSheetItems(sheet);
+                        break;
+                    default:
+                        Logger.Fatal("ExportSheet: Layout '{0}' not implemented!", Settings.Layout);
+                        throw new NotImplementedException(
+                            String.Format("Export of {0} not implemented.", Settings.Layout)
+                            );
+                }
+            }
+            else
+            {
+                Logger.Info("ExportSheet: Sheet not visible or nothing on it to export");
             }
         }
 
@@ -179,7 +186,9 @@ namespace XLToolbox.Export
                     Logger.Fatal("ExportSheetLayout: Object type '{0}' not implemented!", Settings.Objects);
                     throw new NotImplementedException(Settings.Objects.ToString());
             }
-            Exporter.FileName = _batchFileName.GenerateNext(sheet, Instance.Default.Application.Selection);
+            dynamic selection = Instance.Default.Application.Selection;
+            Exporter.FileName = _batchFileName.GenerateNext(sheet, selection);
+            Bovender.ComHelpers.ReleaseComObject(selection);
             Exporter.Execute();
         }
 
