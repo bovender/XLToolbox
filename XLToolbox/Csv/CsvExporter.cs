@@ -133,7 +133,9 @@ namespace XLToolbox.Csv
                 int[] columnWidths = null;
                 if (Tabularize)
 	            {
+                    CellsTotal *= 2;
                     columnWidths = ColumnWidths(Range); // this array is 1-based!
+                    if (IsCancellationRequested) return result;
 	            }
 
                 // Get all values in an array
@@ -230,7 +232,7 @@ namespace XLToolbox.Csv
         {
             Range columns = range.Columns;
             long numColumns = columns.Count;
-            int[] widths = new int[numColumns+1];
+            int[] widths = new int[numColumns + 1];
             Logger.Info("ColumnWidths: Computing widths of {0} columns", numColumns);
             for (long i = 1; i <= numColumns; i++)
             {
@@ -245,9 +247,11 @@ namespace XLToolbox.Csv
                         widths[i] = w;
                     }
                     ComHelpers.ReleaseComObject(cell);
+                    if (IsCancellationRequested) break;
                 }
                 ComHelpers.ReleaseComObject(cells);
                 ComHelpers.ReleaseComObject(column);
+                if (IsCancellationRequested) break;
             }
             ComHelpers.ReleaseComObject(columns);
             return widths;
