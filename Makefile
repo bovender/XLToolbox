@@ -15,4 +15,4 @@ publish:
 	git push --tags
 	publish/create-release.rb
 update-bovender:
-	find XLToolbox XLToolboxForExcel Tests -name '*.csproj' -o -name 'packages.config' -print0 | xargs -0 sed -i 's/0\.16\.0/0.16.1/'
+	find XLToolbox XLToolboxForExcel Tests -name '*.csproj' -o -name 'packages.config' -print0 | xargs -0 sed -i 's/0\.16\.1/0.16.2/'
