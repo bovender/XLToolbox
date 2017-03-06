@@ -877,24 +877,31 @@ namespace XLToolbox.Excel.ViewModels
         private bool CloseAllWorkbooksThenShutdown()
         {
             DoCloseView();
-            Logger.Info("CloseAllWorkbooksThenShutdown");
-            bool allClosed = WorkWithVisibleWorkbooks(
-                wb =>
+            // Must use a task in order to prevent hangs.
+            System.Threading.Tasks.Task.Factory.StartNew((System.Action)(() =>
+            {
+                Logger.Info("CloseAllWorkbooksThenShutdown");
+                bool allClosed = WorkWithVisibleWorkbooks(
+                    wb =>
+                    {
+                        int oldCount = Workbooks.Count;
+                        wb.Close();
+                        return Workbooks.Count == oldCount - 1;
+                    });
+                if (allClosed)
                 {
-                    int oldCount = Workbooks.Count;
-                    wb.Close();
-                    return Workbooks.Count == oldCount - 1;
-                });
-            if (allClosed)
-            {
-                Quit();
-                Logger.Info("CloseAllWorkbooksThenShutdown: Shutdown was invoked...");
-            }
-            else
-            {
-                Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
-            }
-            return allClosed;
+                    Logger.Info("CloseAllWorkbooksThenShutdown: Now quitting...");
+                    // Call the Quit method on the Application object rather than the Quit method
+                    // on the ViewModel to let others have a chance to use the ViewModel during
+                    // the shutdown process.
+                    _application.Quit();
+                }
+                else
+                {
+                    Logger.Info("CloseAllWorkbooksThenShutdown: At least one workbook was not closed; not shutting down.");
+                }
+            }));
+            return true;
         }
 
         private int CountWorkbooks(Predicate<Workbook> test)
@@ -919,16 +926,20 @@ namespace XLToolbox.Excel.ViewModels
 
         private bool WorkWithVisibleWorkbooks(Predicate<Workbook> operation)
         {
+            Logger.Debug("WorkWithVisibleWorkbooks: Iterating backwards...");
             Workbook w;
             bool success = true;
+            int count = Workbooks.Count;
             // Work backwards because a workbook may vanish
-            for (int i = Workbooks.Count; i >= 1; i--)
+            for (int i = count; i >= 1; i--)
             {
+                Logger.Debug("WorkWithVisibleWorkbooks: Processing #{0} of {1}", i, count);
                 w = Workbooks[i];
                 if (w.IsVisible()) success = operation(w);
                 Bovender.ComHelpers.ReleaseComObject(w);
                 if (!success) break;
             }
+            Logger.Debug("WorkWithVisibleWorkbooks: Success: {0}", success);
             return success;
         }
 
