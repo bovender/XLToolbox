@@ -144,13 +144,17 @@ namespace XLToolboxForExcel
             Logger.Info("GreetUser: Current version: {0}; last was {1}", SemanticVersion.Current, lastVersionSeen);
             if (SemanticVersion.Current > lastVersionSeen)
             {
-                _dispatcher.BeginInvoke((Action)(() =>
-                {
-                    Logger.Info("GreetUser: showing welcome dialog");
-                    XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = SemanticVersion.Current.ToString();
-                    GreeterViewModel gvm = new GreeterViewModel();
-                    gvm.InjectInto<GreeterView>().ShowInForm();
-                }));
+                System.Threading.Timer timer = new System.Threading.Timer(
+                    (obj) => { 
+                        _dispatcher.BeginInvoke((Action)(() =>
+                        {
+                            Logger.Info("GreetUser: showing welcome dialog");
+                            XLToolbox.UserSettings.UserSettings.Default.LastVersionSeen = SemanticVersion.Current.ToString();
+                            GreeterViewModel gvm = new GreeterViewModel();
+                            gvm.InjectInto<GreeterView>().ShowInForm();
+                        }));
+                    },
+                    null, 250, System.Threading.Timeout.Infinite);
                 result = true;
             }
             return result;
