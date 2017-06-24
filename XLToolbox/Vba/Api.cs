@@ -175,8 +175,8 @@ namespace XLToolbox.Vba
         {
             VbaException e = new VbaException(message);
             Logger.Warn("VBA code called the XLToolbox.Vba.Api.Throw method", e);
-            ExceptionHandler.ExceptionViewModel vm = new ExceptionHandler.ExceptionViewModel(e);
-            vm.InjectInto<ExceptionHandler.ExceptionView>().ShowDialogInForm();
+            VbaExceptionViewModel vm = new VbaExceptionViewModel(e);
+            vm.InjectInto<VbaExceptionView>().ShowDialogInForm();
         }
 
         /// <summary>
