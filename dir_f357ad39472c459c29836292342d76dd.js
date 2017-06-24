@@ -12,6 +12,7 @@ var dir_f357ad39472c459c29836292342d76dd =
     [ "Mvvm", "dir_69cb7195093722af0946857e47139046.html", "dir_69cb7195093722af0946857e47139046" ],
     [ "SheetManager", "dir_8be0a739163d95b3031ae78c51af676a.html", "dir_8be0a739163d95b3031ae78c51af676a" ],
     [ "UserSettings", "dir_9ca11d92abcaf93ce9f9910ff68dc503.html", "dir_9ca11d92abcaf93ce9f9910ff68dc503" ],
+    [ "Vba", "dir_fe9650d7f365e230aa638682104265bd.html", "dir_fe9650d7f365e230aa638682104265bd" ],
     [ "Versioning", "dir_a99a082aa36a7cd7ff8ae9725c7db31f.html", "dir_a99a082aa36a7cd7ff8ae9725c7db31f" ],
     [ "GeneratedInternalTypeHelper.g.cs", "Debug_2GeneratedInternalTypeHelper_8g_8cs.html", [
       [ "GeneratedInternalTypeHelper", "classXamlGeneratedNamespace_1_1GeneratedInternalTypeHelper.html", "classXamlGeneratedNamespace_1_1GeneratedInternalTypeHelper" ]

@@ -70,6 +70,7 @@ var hierarchy =
       [ "Bovender.Versioning.DownloadCorruptException", "classBovender_1_1Versioning_1_1DownloadCorruptException.html", null ],
       [ "Bovender.Versioning.InvalidVersionStringException", "classBovender_1_1Versioning_1_1InvalidVersionStringException.html", null ],
       [ "Bovender.Versioning.InvalidVersionStringException", "classBovender_1_1Versioning_1_1InvalidVersionStringException.html", null ],
+      [ "XLToolbox.Excel.CopyException", "classXLToolbox_1_1Excel_1_1CopyException.html", null ],
       [ "XLToolbox.Excel.ExcelException", "classXLToolbox_1_1Excel_1_1ExcelException.html", null ],
       [ "XLToolbox.Excel.ViewModels.InvalidSheetNameException", "classXLToolbox_1_1Excel_1_1ViewModels_1_1InvalidSheetNameException.html", null ],
       [ "XLToolbox.ExceptionHandler.TestException", "classXLToolbox_1_1ExceptionHandler_1_1TestException.html", null ],
@@ -225,6 +226,8 @@ var hierarchy =
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
+      [ "XLToolbox.Vba.VbaExceptionView", "classXLToolbox_1_1Vba_1_1VbaExceptionView.html", null ],
+      [ "XLToolbox.Vba.VbaExceptionView", "classXLToolbox_1_1Vba_1_1VbaExceptionView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
@@ -325,7 +328,8 @@ var hierarchy =
         [ "XLToolbox.Keyboard.ManagerViewModel", "classXLToolbox_1_1Keyboard_1_1ManagerViewModel.html", null ],
         [ "XLToolbox.Keyboard.ShortcutViewModel", "classXLToolbox_1_1Keyboard_1_1ShortcutViewModel.html", null ],
         [ "XLToolbox.Logging.LogFileViewModel", "classXLToolbox_1_1Logging_1_1LogFileViewModel.html", null ],
-        [ "XLToolbox.UserSettings.UserSettingsViewModel", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html", null ]
+        [ "XLToolbox.UserSettings.UserSettingsViewModel", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html", null ],
+        [ "XLToolbox.Vba.VbaExceptionViewModel", "classXLToolbox_1_1Vba_1_1VbaExceptionViewModel.html", null ]
       ] ],
       [ "Bovender.Mvvm.ViewModels.ViewModelBase", "classBovender_1_1Mvvm_1_1ViewModels_1_1ViewModelBase.html", null ]
     ] ],
@@ -507,6 +511,10 @@ var hierarchy =
       [ "XLToolbox.Keyboard.ShortcutViewModelCollection", "classXLToolbox_1_1Keyboard_1_1ShortcutViewModelCollection.html", null ]
     ] ],
     [ "Window", null, [
+      [ "Bovender.Mvvm.Views.NotificationView", "classBovender_1_1Mvvm_1_1Views_1_1NotificationView.html", null ],
+      [ "Bovender.Mvvm.Views.NotificationView", "classBovender_1_1Mvvm_1_1Views_1_1NotificationView.html", null ]
+    ] ],
+    [ "Window", null, [
       [ "Bovender.Mvvm.Views.ConfirmationView", "classBovender_1_1Mvvm_1_1Views_1_1ConfirmationView.html", null ],
       [ "Bovender.Mvvm.Views.ConfirmationView", "classBovender_1_1Mvvm_1_1Views_1_1ConfirmationView.html", null ],
       [ "Bovender.Mvvm.Views.ProcessView", "classBovender_1_1Mvvm_1_1Views_1_1ProcessView.html", null ],
@@ -642,6 +650,9 @@ var hierarchy =
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
       [ "XLToolbox.UserSettings.UserSettingsView", "classXLToolbox_1_1UserSettings_1_1UserSettingsView.html", null ],
+      [ "XLToolbox.Vba.VbaExceptionView", "classXLToolbox_1_1Vba_1_1VbaExceptionView.html", null ],
+      [ "XLToolbox.Vba.VbaExceptionView", "classXLToolbox_1_1Vba_1_1VbaExceptionView.html", null ],
+      [ "XLToolbox.Vba.VbaExceptionView", "classXLToolbox_1_1Vba_1_1VbaExceptionView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
       [ "XLToolbox.Versioning.InstallUpdateView", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html", null ],
@@ -667,10 +678,6 @@ var hierarchy =
       [ "XLToolbox.WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", null ],
       [ "XLToolbox.WindowDownloadUpdate", "classXLToolbox_1_1WindowDownloadUpdate.html", null ],
       [ "XLToolboxForExcel.Splash", "classXLToolboxForExcel_1_1Splash.html", null ]
-    ] ],
-    [ "Window", null, [
-      [ "Bovender.Mvvm.Views.NotificationView", "classBovender_1_1Mvvm_1_1Views_1_1NotificationView.html", null ],
-      [ "Bovender.Mvvm.Views.NotificationView", "classBovender_1_1Mvvm_1_1Views_1_1NotificationView.html", null ]
     ] ],
     [ "Bovender.Extensions.WindowExtensions", "classBovender_1_1Extensions_1_1WindowExtensions.html", null ],
     [ "Bovender.Mvvm.Views.Settings.WindowState", "classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowState.html", null ],

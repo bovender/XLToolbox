@@ -1,7 +1,6 @@
 var NAVTREE =
 [
   [ "Daniel's XL Toolbox NG", "index.html", [
-    [ "README-DOCS", "md_README-DOCS.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -36,17 +35,18 @@ var NAVTREEINDEX =
 [
 "AboutViewModel_8cs.html",
 "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aca02405c2c77f135e33de4efb63f93ee",
-"SelectionViewModel_8cs.html#ae0d91d8dcc6dac686f447d10fedad53a",
-"classBovender_1_1Mvvm_1_1Actions_1_1MessageActionBase.html#a06e7328d4e4dfd3364ca616062701834",
-"classBovender_1_1Text_1_1Multiline.html",
-"classBovender_1_1Versioning_1_1UpdaterViewModel.html#ae67ce1ce2d6bed7c0358a74331f188cb",
-"classXLToolbox_1_1Excel_1_1Models_1_1ColumnHelper.html",
-"classXLToolbox_1_1ExceptionHandler_1_1SubmissionSuccessView.html#ab23add46bec18d2331e82f9602d86ed8",
-"classXLToolbox_1_1Export_1_1ViewModels_1_1SettingsViewModelBase.html#a0d17c7b3ec911f9624c16fd9f240b92b",
-"classXLToolbox_1_1SheetManager_1_1TaskPaneManager.html",
-"classXLToolbox_1_1Strings.html#af6ab0796d3870f3a851bff713ba43d43",
-"classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4",
-"functions_func_b.html"
+"SelectionViewModel_8cs.html",
+"classBovender_1_1Mvvm_1_1Actions_1_1FileFolderActionBase.html",
+"classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowState.html#a60af1ba9d4d6c19c95a0e31abdfc1347",
+"classBovender_1_1Versioning_1_1UpdaterViewModel.html#a86e3e5e24c6dcec2d9fdf30bc88d6cb1",
+"classXLToolbox_1_1Csv_1_1CsvSettings.html#aa73530a94cfff2fbd4c48ed9a981c4b0",
+"classXLToolbox_1_1ExceptionHandler_1_1SubmissionFailureView.html#ade7104c4c0754053ddf4fc0c625da32e",
+"classXLToolbox_1_1Export_1_1ViewModels_1_1PresetsRepositoryViewModel.html",
+"classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21",
+"classXLToolbox_1_1Strings.html#ae5c0ae689ec300c365285778c3ddce4a",
+"classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a994f585630c502a237a38092ae727357",
+"dir_c78fc9bb7af64403b2bd0cdf0b1e7799.html",
+"packages_2Bovender_80_87_80_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a75b9a229bb1873d751a1e0f775ceb2aa"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -22,6 +22,7 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "ScreenshotExporter.cs", "ScreenshotExporter_8cs.html", [
       [ "ScreenshotExporter", "classXLToolbox_1_1Export_1_1ScreenshotExporter.html", "classXLToolbox_1_1Export_1_1ScreenshotExporter" ]
     ] ],
+    [ "Status.cs", "Status_8cs.html", "Status_8cs" ],
     [ "TileException.cs", "TileException_8cs.html", [
       [ "TileException", "classXLToolbox_1_1Export_1_1TileException.html", "classXLToolbox_1_1Export_1_1TileException" ]
     ] ],

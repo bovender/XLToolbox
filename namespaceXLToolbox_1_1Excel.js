@@ -4,5 +4,6 @@ var namespaceXLToolbox_1_1Excel =
     [ "Models", "namespaceXLToolbox_1_1Excel_1_1Models.html", "namespaceXLToolbox_1_1Excel_1_1Models" ],
     [ "ViewModels", "namespaceXLToolbox_1_1Excel_1_1ViewModels.html", "namespaceXLToolbox_1_1Excel_1_1ViewModels" ],
     [ "Views", "namespaceXLToolbox_1_1Excel_1_1Views.html", "namespaceXLToolbox_1_1Excel_1_1Views" ],
+    [ "CopyException", "classXLToolbox_1_1Excel_1_1CopyException.html", "classXLToolbox_1_1Excel_1_1CopyException" ],
     [ "ExcelException", "classXLToolbox_1_1Excel_1_1ExcelException.html", "classXLToolbox_1_1Excel_1_1ExcelException" ]
 ];

@@ -4,6 +4,7 @@ var classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel =
     [ "OnRestartToTakeEffect", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a554293bec70558cadd75b4c8f98c4168", null ],
     [ "RevealModelObject", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ad314152eeca7c77c51169ec77e2a542a", null ],
     [ "BackupDir", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#abf89b29627b7877dfa70e057d7733a78", null ],
+    [ "DebugLogging", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ab9b3bdb09126c576a904f75868707562", null ],
     [ "EditLegacyPreferencesCommand", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ab1a4f8a58dfaf2c72e44d247870ff895", null ],
     [ "EnableBackups", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ad5c0c9710585a7040dc399d6c39fc0e7", null ],
     [ "Error", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a994f585630c502a237a38092ae727357", null ],

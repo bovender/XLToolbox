@@ -8,6 +8,7 @@ var classXLToolbox_1_1UserSettings_1_1UserSettings =
     [ "BatchExportSettings", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a4f7ca966661a95bebab43ef89d2badb6", null ],
     [ "CsvPath", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a06bc313cab2acaa33fd0c6742679d568", null ],
     [ "CsvSettings", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a7b25574f11a612ff10ea688a7861a30c", null ],
+    [ "DebugLogging", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a290065553dec52e7b591e6221ea91208", null ],
     [ "Default", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a3ae77c201997c983ee3544d4a6c10e65", null ],
     [ "EnableBackups", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a11ca657de24cbb97a3d83c64c01fa3d2", null ],
     [ "EnableLogging", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#ad64f0b6f54eadff2367f70d7be87feb5", null ],

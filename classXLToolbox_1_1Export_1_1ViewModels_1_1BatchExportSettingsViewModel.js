@@ -8,7 +8,6 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel =
     [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a11522cdcb5bc93dac93bb11d85b60bc7", null ],
     [ "FromLastUsed", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aad6ef753b2f6f74be04acb3feae2123f", null ],
     [ "SanitizeOptions", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ad3f13dbe3cbf4a1cb887ae4da6450350", null ],
-    [ "SaveExportPath", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a29df2e5d43fd7f136129705ca3a1e43c", null ],
     [ "UpdateProcessMessageContent", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a0618b9bdc595fea5b9b6b00eb80afe87", null ],
     [ "CanExecuteMatrix", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a9b990ac5781b258c44a911b65cabec8b", null ],
     [ "ChooseFolderCommand", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ac1bfe05184e805be1614f95c60ce8705", null ],

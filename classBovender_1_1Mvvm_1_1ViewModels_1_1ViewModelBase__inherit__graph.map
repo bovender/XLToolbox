@@ -24,6 +24,7 @@
 <area shape="rect" id="node32" href="$classXLToolbox_1_1Keyboard_1_1ShortcutViewModel.html" title="XLToolbox.Keyboard.Shortcut\lViewModel" alt="" coords="471,1443,667,1484"/>
 <area shape="rect" id="node33" href="$classXLToolbox_1_1Logging_1_1LogFileViewModel.html" title="XLToolbox.Logging.LogFile\lViewModel" alt="" coords="479,1508,658,1549"/>
 <area shape="rect" id="node34" href="$classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html" title="XLToolbox.UserSettings.User\lSettingsViewModel" alt="" coords="471,1573,667,1615"/>
+<area shape="rect" id="node35" href="$classXLToolbox_1_1Vba_1_1VbaExceptionViewModel.html" title="XLToolbox.Vba.VbaException\lViewModel" alt="" coords="471,1639,667,1680"/>
 <area shape="rect" id="node4" href="$classXLToolbox_1_1ExceptionHandler_1_1ExceptionViewModel.html" title="XLToolbox.ExceptionHandler.\lExceptionViewModel" alt="" coords="727,5,922,47"/>
 <area shape="rect" id="node7" href="$classBovender_1_1Mvvm_1_1Messaging_1_1StringMessageContent.html" title="Encapsulates a string message that is part of the content that a view model sends to a consumer (view..." alt="" coords="731,104,919,145"/>
 <area shape="rect" id="node9" href="$classBovender_1_1Mvvm_1_1Messaging_1_1ViewModelMessageContent.html" title="Message content that holds a reference to a view model. " alt="" coords="731,169,919,211"/>
