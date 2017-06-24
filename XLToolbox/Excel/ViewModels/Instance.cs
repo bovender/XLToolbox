@@ -55,7 +55,15 @@ namespace XLToolbox.Excel.ViewModels
 
         public static Instance Default
         {
-            get { return _lazy.Value; }
+            get
+            {
+                Instance i;
+                lock (_valueLocker)
+                {
+                    i = _lazy.Value; 
+                }
+                return i;
+            }
             set { _lazy = new Lazy<Instance>(() => value); }
         }
 
@@ -976,6 +984,8 @@ namespace XLToolbox.Excel.ViewModels
                 return i;
             }
         );
+
+        private static readonly object _valueLocker = new object();
 
         #endregion
 

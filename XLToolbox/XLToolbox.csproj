@@ -277,6 +277,10 @@
     <Compile Include="Vba\Api.cs" />
     <Compile Include="Vba\IApi.cs" />
     <Compile Include="Vba\VbaException.cs" />
+    <Compile Include="Vba\VbaExceptionView.xaml.cs">
+      <DependentUpon>VbaExceptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vba\VbaExceptionViewModel.cs" />
     <Compile Include="Versioning\ReleaseInfo.cs" />
     <Compile Include="Versioning\ReleaseInfoViewModel.cs" />
     <Compile Include="Versioning\SemanticVersion.cs" />
@@ -514,6 +518,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserSettings\UserSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vba\VbaExceptionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

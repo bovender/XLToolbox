@@ -873,4 +873,22 @@ Wenn Sie weitere Hilfe benötigen, rufen Sie bitte xltoolbox.net/support auf.</v
 	<data name="Tabularize" xml:space="preserve">
 		<value>Tabulieren (Spalten angleichen)</value>
 	</data>
+	<data name="DebugLogging" xml:space="preserve">
+		<value>Entwickler-Log (umfangreich, LANGSAM)</value>
+	</data>
+	<data name="GraphicHasNoCopyMethod" xml:space="preserve">
+		<value>Diese Graphic kann leider nicht exportiert werden, weil Excel nicht zuläßt, sie programmatisch in die Zwischenablage zu kopieren. Das ist leider kein Problem, das von der XL Toolbox gelöst werden kann.</value>
+	</data>
+	<data name="GraphicHasNoCopyMethodIsSelected" xml:space="preserve">
+		<value>Mindestens eine Graphik kann nicht exportiert werden, weil Excel nicht zuläßt, daß sie programmatisch in die Zwischenablage kopiert wird. Das ist leider kein Problem, das die XL Toolbox lösen kann.</value>
+	</data>
+	<data name="VbaException" xml:space="preserve">
+		<value>Fehler im alten XL-Toolbox-Addin</value>
+	</data>
+	<data name="VbaExceptionExplanation" xml:space="preserve">
+		<value>Ein Fehler ist im alten, übernommenen Teil der XL Toolbox aufgetreten. Das alte Add-In funktioniert im allgemeinen sehr gut, und das seit vielen Jahren. Bitte überprüfen Sie, daß sie die Daten korrekt eingegeben oder den richtigen Graphen ausgewählt haben. Die Anleitungen auf www.xltoolbox.net könnten Ihnen hierbei helfen.</value>
+	</data>
+	<data name="VbaExceptionExplanationFuture" xml:space="preserve">
+		<value>Die alten Teile des Add-Ins werden nach und nach modernisiert und toleranter für Fehleingaben gemacht, so daß dieser Fehler dann hoffentlich nicht mehr auftreten wird.</value>
+	</data>
 </root>

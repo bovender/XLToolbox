@@ -2061,6 +2061,33 @@ namespace XLToolbox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legacy XL Toolbox Error.
+        /// </summary>
+        public static string VbaException {
+            get {
+                return ResourceManager.GetString("VbaException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred in the &apos;legacy&apos; part of the XL Toolbox add-in. The legacy parts are time-tested and usually work very well. Please make sure that you have selected the correct data or graph for the command. You may find the documentation at www.xltoolbox.net helpful..
+        /// </summary>
+        public static string VbaExceptionExplanation {
+            get {
+                return ResourceManager.GetString("VbaExceptionExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step by step, legacy XL Toolbox commands will be modernized, so hopefully in the future, this error will no longer occur..
+        /// </summary>
+        public static string VbaExceptionExplanationFuture {
+            get {
+                return ResourceManager.GetString("VbaExceptionExplanationFuture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version {0}.
         /// </summary>
         public static string VersionParametrized {
