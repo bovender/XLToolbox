@@ -490,13 +490,21 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         public void DisableDisplayAlerts()
         {
+            Logger.Debug("DisableDisplayAlerts: counter = {0}", _disableDisplayAlerts);
             if (_disableDisplayAlerts == 0)
             {
-                Logger.Info("Disable displaying of alerts");
                 _wasDisplayingAlerts = Application.DisplayAlerts;
             }
-            Application.DisplayAlerts = false;
-            _disableDisplayAlerts++;
+            try
+            {
+                Application.DisplayAlerts = false;
+                _disableDisplayAlerts++;
+            }
+            catch (System.Runtime.InteropServices.COMException e)
+            {
+                Logger.Warn("DisableDisplayAlerts: COMException occurrred");
+                Logger.Warn(e);
+            }
         }
 
         /// <summary>
@@ -507,12 +515,20 @@ namespace XLToolbox.Excel.ViewModels
         /// </summary>
         public void EnableDisplayAlerts()
         {
-            _disableDisplayAlerts--;
-            if (_disableDisplayAlerts <= 0)
+            Logger.Debug("EnableDisplayAlerts: counter = {0}", _disableDisplayAlerts);
+            if (_disableDisplayAlerts == 1)
             {
-                Logger.Info("Enable displaying of alerts");
-                _disableDisplayAlerts = 0;
-                Application.DisplayAlerts = _wasDisplayingAlerts;
+                try
+                {
+                    Logger.Debug("EnableDisplayAlerts: _wasDisplayingAlerts = {0}", _wasDisplayingAlerts);
+                    Application.DisplayAlerts = _wasDisplayingAlerts;
+                    _disableDisplayAlerts--;
+                }
+                catch (System.Runtime.InteropServices.COMException e)
+                {
+                    Logger.Warn("EnableDisplayAlerts: COMException occurrred");
+                    Logger.Warn(e);
+                }
             }
         }
 
