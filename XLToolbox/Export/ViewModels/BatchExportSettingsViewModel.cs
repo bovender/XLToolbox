@@ -169,6 +169,7 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 _isOpenWorkbooksEnabled = value;
+                if (!value && Scope.AsEnum == BatchExportScope.OpenWorkbooks) Scope.AsEnum = BatchExportScope.ActiveWorkbook;
                 OnPropertyChanged("IsAllWorkbooksEnabled");
             }
         }
@@ -195,6 +196,7 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 _isChartsAndShapesEnabled = value;
+                if (!value && Objects.AsEnum == BatchExportObjects.ChartsAndShapes) Objects.AsEnum = BatchExportObjects.Charts;
                 OnPropertyChanged("IsChartsAndShapesEnabled");
             }
         }
@@ -221,7 +223,8 @@ namespace XLToolbox.Export.ViewModels
             set
             {
                 _isSheetLayoutEnabled = value;
-                OnPropertyChanged("IsPreserveLayoutEnabled");
+                if (!value && Layout.AsEnum == BatchExportLayout.SheetLayout) Layout.AsEnum = BatchExportLayout.SingleItems;
+                OnPropertyChanged("IsSheetLayoutEnabled");
             }
         }
        
