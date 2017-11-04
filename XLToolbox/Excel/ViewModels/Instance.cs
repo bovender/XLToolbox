@@ -649,18 +649,28 @@ namespace XLToolbox.Excel.ViewModels
                 {
                     Logger.Warn("LoadAddinFromEmbeddedResource: COM exception caught, falling back to CorruptLoad");
                     DisableDisplayAlerts();
+
+                    // Temporarily set locale to en-US to prevent errors on opening add-in
+                    // See https://stackoverflow.com/a/27756126/270712
+                    Logger.Info("LoadAddinFromEmbeddedResource: Temporarily setting locale to en-US");
+                    System.Globalization.CultureInfo oldLocale = System.Threading.Thread.CurrentThread.CurrentCulture;
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
                     try
                     {
-                        Workbooks.Open(addinPath, CorruptLoad: XlCorruptLoad.xlExtractData);
+                        // Workbooks.Open(addinPath, CorruptLoad: XlCorruptLoad.xlExtractData);
+                        Workbooks.Open(addinPath);
                     }
                     catch (System.Runtime.InteropServices.COMException e)
                     {
-                        Logger.Fatal("LoadAddinFromEmbeddedResource: COM exception occurred after calling Workbooks.Open");
+                        Logger.Fatal("LoadAddinFromEmbeddedResource: COM exception occurred when calling Workbooks.Open");
                         Logger.Fatal(e);
                         throw new XLToolbox.Excel.ExcelException("Excel failed to load the legacy Toolbox add-in", e);
                     }
                     finally
                     {
+                        Logger.Info("LoadAddinFromEmbeddedResource: Setting locale back to #{0}", oldLocale.ToString());
+                        System.Threading.Thread.CurrentThread.CurrentCulture = oldLocale;
                         EnableDisplayAlerts();
                     }
                 }
