@@ -339,7 +339,9 @@ namespace XLToolbox.Export
             IntPtr handle = metafile.GetHenhmetafile();
             PercentCompleted = 50;
             Logger.Info("ExportEmf, handle: {0}", handle);
-            Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, FileName);
+            IntPtr copy = Bovender.Unmanaged.Pinvoke.CopyEnhMetaFile(handle, FileName);
+            Logger.Info("Deleting meta file handle: {0}", copy);
+            Bovender.Unmanaged.Pinvoke.DeleteEnhMetaFile(copy);
             PercentCompleted = 100;
         }
 
