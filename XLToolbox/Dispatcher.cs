@@ -440,7 +440,7 @@ namespace XLToolbox
         static void JumpToTarget()
         {
             Xl.Range r = Instance.Default.Application.Selection as Xl.Range;
-            string value = (r == null) ? String.Empty : Convert.ToString(r.Value2);
+            string value = (r == null) ? String.Empty : Convert.ToString(r.Formula);
             Jumper j = new Jumper(value);
             if (!j.Jump())
             {
