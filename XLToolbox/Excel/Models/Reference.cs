@@ -170,7 +170,7 @@ namespace XLToolbox.Excel.Models
                     NormalizeAddress();
                     BuildAddress();
                     Logger.Debug("Reference_set: path = \"{0}\", workbook = \"{1}\"", path, workbook);
-                    _workbookPath = Path.Combine(path, workbook);
+                    _workbookPath = String.IsNullOrEmpty(path) ? workbook : Path.Combine(path, workbook);
                     if (_workbookPath.StartsWith("'") && _worksheetName.EndsWith("'"))
                     {
                         Logger.Debug("Reference_set: stripping single quotes");
@@ -526,7 +526,7 @@ namespace XLToolbox.Excel.Models
         private static readonly Lazy<Regex> _addressPattern =
             new Lazy<Regex>(() => new Regex("^" + ADDRESS_PATTERN + "$"));
         private static readonly Lazy<Regex> _referencePattern =
-            new Lazy<Regex>(() => new Regex(@"^((" + WORKBOOK_PATTERN + ")?" + WORKSHEET_PATTERN + @"!)?" + ADDRESS_PATTERN + "$"));
+            new Lazy<Regex>(() => new Regex(@"^((?<quote>')?(" + WORKBOOK_PATTERN + ")?" + WORKSHEET_PATTERN + @"(?(quote)')!)?" + ADDRESS_PATTERN + "$"));
         private bool _disposed;
         private bool _rangeWasCreated;
         private string _workbookPath;
