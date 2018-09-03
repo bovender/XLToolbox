@@ -146,7 +146,7 @@ License
 -------
 
     Daniel's XL Toolbox NG
-    Copyright (C) 2014-2016  Daniel Kraus <bovender@bovender.de>, <daniel@xltoolbox.net>
+    Copyright (C) 2014-2018  Daniel Kraus <bovender@bovender.de>, <daniel@xltoolbox.net>
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
