@@ -29,7 +29,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel Kraus")]
 [assembly: AssemblyProduct("XLToolboxNG")]
-[assembly: AssemblyCopyright("Copyright © Daniel Kraus 2014-2016")]
+[assembly: AssemblyCopyright("Copyright © Daniel Kraus 2014-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
