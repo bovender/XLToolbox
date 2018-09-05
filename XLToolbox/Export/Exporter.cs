@@ -195,6 +195,11 @@ namespace XLToolbox.Export
             Dispose(false);
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
         protected void Dispose(bool calledFromDispose)
         {
             if (!_disposed)

@@ -32,7 +32,7 @@ namespace XLToolbox.Export
     /// <summary>
     /// Exports graphical data in screenshot quality to a file.
     /// </summary>
-    public class ScreenshotExporter : IExporter
+    public class ScreenshotExporter : IExporter, IDisposable
     {
         #region IExporter interface
 
@@ -83,7 +83,42 @@ namespace XLToolbox.Export
                 fi.Save(fileName,
                     FREE_IMAGE_FORMAT.FIF_PNG,
                     FREE_IMAGE_SAVE_FLAGS.PNG_Z_BEST_COMPRESSION | FREE_IMAGE_SAVE_FLAGS.PNG_INTERLACED);
-                Bovender.ComHelpers.ReleaseComObject(fi);
+                fi.Dispose();
+                // Bovender.ComHelpers.ReleaseComObject(fi);
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public ScreenshotExporter()
+        {
+            _dllManager = new DllManager();
+            _dllManager.LoadDll("FreeImage.DLL");
+        }
+
+        #endregion
+
+        #region IDisposable
+
+        ~ScreenshotExporter()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed && disposing)
+            {
+                _disposed = true;
+                _dllManager.Dispose();
             }
         }
 
@@ -93,44 +128,45 @@ namespace XLToolbox.Export
 
         private FreeImageBitmap CreateFreeImageDirectly()
         {
-            FreeImageBitmap fi;
-            using (DllManager dllManager = new DllManager("FreeImage.dll"))
-            {
-                if (!CopySelection()) return null;
-                MemoryStream data = null;
-                Bovender.WpfHelpers.MainDispatcher.Invoke((Action)(() => data = Clipboard.GetData("PNG") as MemoryStream));
-                
-                // using (WorkingClipboard clipboard = new WorkingClipboard())
-                // {
-                //     data = clipboard.GetData("PNG") as MemoryStream;
-                // };
-                Logger.Info("CreateFreeImageDirectly: Create FreeImage bitmap");
-                fi = FreeImageBitmap.FromStream(data);
-            }
+            if (!CopySelection()) return null;
+            FreeImageBitmap fi = null;
+            MemoryStream data = new MemoryStream();
+            Bovender.WpfHelpers.MainDispatcher.Invoke((Action)(
+                () => {
+                    data = Clipboard.GetData("PNG") as MemoryStream;
+                    Logger.Info("CreateFreeImageDirectly: Create FreeImage bitmap");
+                    // Must clear the clipboard now. Excel will segfault on exit otherwise...
+                    Clipboard.Clear();
+                })
+            );
+            fi = new FreeImageBitmap(data);
+            data.Dispose();
             return fi;
         }
 
         private FreeImageBitmap CreateFreeImageViaDIB()
         {
+            if (!CopySelection()) return null;
             FreeImageBitmap fi;
-            using (DllManager dllManager = new DllManager())
-            {
-                dllManager.LoadDll("FreeImage.DLL");
-                Logger.Info("CreateFreeImageViaDIB: Copy to clipboard and get data from it");
-                if (!CopySelection()) return null;
-                
-                MemoryStream stream = Clipboard.GetData(System.Windows.DataFormats.Dib) as MemoryStream;
-                using (DibBitmap dibBitmap = new DibBitmap(stream))
+            MemoryStream stream = null;
+            Bovender.WpfHelpers.MainDispatcher.Invoke((Action)(
+                () =>
                 {
-                    Logger.Info("CreateFreeImageViaDIB: Create FreeImage bitmap");
-                    fi = new FreeImageBitmap(dibBitmap.Bitmap);
-                    bool convertType = fi.ConvertType(FREE_IMAGE_TYPE.FIT_BITMAP, true);
-                    Logger.Debug("CreateFreeImageViaDIB: FreeImageBitmap.ConvertType returned {0}", convertType);
-                    bool convertColorDepth = fi.ConvertColorDepth(FREE_IMAGE_COLOR_DEPTH.FICD_24_BPP); // won't work with 32 bpp!
-                    Logger.Debug("CreateFreeImageViaDIB: FreeImageBitmap.ConvertColorDepth returned {0}", convertColorDepth);
-                    fi.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
-                }
+                    Logger.Info("CreateFreeImageViaDIB: Copy to clipboard and get data from it");
+                    stream = Clipboard.GetData(System.Windows.DataFormats.Dib) as MemoryStream;
+                })
+            );
+            using (DibBitmap dibBitmap = new DibBitmap(stream))
+            {
+                Logger.Info("CreateFreeImageViaDIB: Create FreeImage bitmap");
+                fi = new FreeImageBitmap(dibBitmap.Bitmap);
+                bool convertType = fi.ConvertType(FREE_IMAGE_TYPE.FIT_BITMAP, true);
+                Logger.Debug("CreateFreeImageViaDIB: FreeImageBitmap.ConvertType returned {0}", convertType);
+                bool convertColorDepth = fi.ConvertColorDepth(FREE_IMAGE_COLOR_DEPTH.FICD_24_BPP); // won't work with 32 bpp!
+                Logger.Debug("CreateFreeImageViaDIB: FreeImageBitmap.ConvertColorDepth returned {0}", convertColorDepth);
+                fi.RotateFlip(System.Drawing.RotateFlipType.RotateNoneFlipY);
             }
+            stream.Dispose();
             return fi;
         }
 
@@ -150,6 +186,8 @@ namespace XLToolbox.Export
 
         #region Private fields
 
+        DllManager _dllManager;
+        bool _disposed;
         string _fileName;
 
         #endregion
