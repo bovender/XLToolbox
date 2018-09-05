@@ -170,6 +170,19 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool EnableUpdateChecks
+        {
+            get
+            {
+                return _enableUpdateChecks;
+            }
+            set
+            {
+                _enableUpdateChecks = value;
+                OnPropertyChanged("EnableUpdateChecks");
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -254,6 +267,7 @@ namespace XLToolbox.UserSettings
                 _taskPaneWidth = u.TaskPaneWidth;
             }
             _isBackupsEnabled = Backup.Backups.IsEnabled;
+            _enableUpdateChecks = u.EnableUpdateChecks;
             _wasBackupsEnabled = _isBackupsEnabled;
             _backupDir = u.BackupDir;
             _suppressBackupFailureMessage = u.SuppressBackupFailureMessage;
@@ -296,6 +310,7 @@ namespace XLToolbox.UserSettings
             u.BackupDir = BackupDir;
             u.EnableBackups = EnableBackups;
             u.SuppressBackupFailureMessage = SuppressBackupFailureMessage;
+            u.EnableUpdateChecks = EnableUpdateChecks;
             if (XLToolbox.SheetManager.TaskPaneManager.InitializedAndVisible)
             {
                 XLToolbox.SheetManager.TaskPaneManager.Default.Width = _taskPaneWidth;
@@ -344,6 +359,7 @@ namespace XLToolbox.UserSettings
         private DelegatingCommand _editLegacyPreferences;
         private Message<MessageContent> _restartToChange;
         private bool _dirty;
+        private bool _enableUpdateChecks;
         private int _taskPaneWidth;
         private bool _isLoggingEnabled;
         private bool _debugLogging;

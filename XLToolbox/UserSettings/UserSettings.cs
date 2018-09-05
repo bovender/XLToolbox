@@ -153,6 +153,8 @@ namespace XLToolbox.UserSettings
             }
         }
 
+        public bool EnableUpdateChecks { get; set; }
+
         public int UpdateCheckInterval
         {
             get

@@ -163,10 +163,15 @@ namespace XLToolboxForExcel
 
         /// <summary>
         /// Performs an online update check, but only if the specified number of
-        /// days between update checks has passed.
+        /// days between update checks has passed and if the user has consented.
         /// </summary>
         private void MaybeCheckForUpdate()
         {
+            if (XLToolbox.UserSettings.UserSettings.Default.EnableUpdateChecks == false)
+            {
+                Logger.Info("MaybeCheckForUpdate: Update checks not enabled by user.");
+                return;
+            }
             DateTime lastCheck = XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck;
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= XLToolbox.UserSettings.UserSettings.Default.UpdateCheckInterval)

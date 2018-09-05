@@ -31,6 +31,23 @@ namespace XLToolbox.Greeter
     /// </summary>
     public class GreeterViewModel : About.AboutViewModel
     {
+        #region Properties
+
+        public bool EnableUpdateChecks
+        {
+            get
+            {
+                return UserSettings.UserSettings.Default.EnableUpdateChecks;
+            }
+            set
+            {
+                UserSettings.UserSettings.Default.EnableUpdateChecks = value;
+                OnPropertyChanged("EnableUpdateChecks");
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         public DelegatingCommand WhatsNewCommand

@@ -86,6 +86,20 @@ namespace XLToolbox.About
             }
         }
 
+        public DelegatingCommand ShowPrivacyCommand
+        {
+            get
+            {
+                if (_showPrivacyCommand == null)
+                {
+                    _showPrivacyCommand = new DelegatingCommand(
+                        (param) => ShowPrivacyMessage.Send()
+                        );
+                }
+                return _showPrivacyCommand;
+            }
+        }
+
         #endregion
 
         #region MVVM messaging events
@@ -114,6 +128,18 @@ namespace XLToolbox.About
             }
         }
 
+        public Message<MessageContent> ShowPrivacyMessage
+        {
+            get
+            {
+                if (_showPrivacyMessage == null)
+                {
+                    _showPrivacyMessage = new Message<MessageContent>();
+                }
+                return _showPrivacyMessage;
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -134,8 +160,10 @@ namespace XLToolbox.About
         private DelegatingCommand _showWebsiteCommand;
         private DelegatingCommand _showLicenseCommand;
         private DelegatingCommand _showCreditsCommand;
+        private DelegatingCommand _showPrivacyCommand;
         private Message<MessageContent> _showLicenseMessage;
         private Message<MessageContent> _showCreditsMessage;
+        private Message<MessageContent> _showPrivacyMessage;
 
         #endregion
 

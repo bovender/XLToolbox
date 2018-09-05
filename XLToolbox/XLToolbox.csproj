@@ -413,6 +413,7 @@
     <Content Include="lib\x64\lcms2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\html\privacy.html" />
     <Resource Include="Resources\images\open-from-cell.png" />
     <Resource Include="Resources\images\key.png" />
     <Resource Include="Resources\images\import-export-16.png" />
