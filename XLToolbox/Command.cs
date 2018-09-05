@@ -76,6 +76,7 @@ namespace XLToolbox
         Backups,
         Properties,
         OpenFromCell,
+        ClearPivotCache,
     }
 
     public static class CmmandExtensions

@@ -157,6 +157,7 @@ namespace XLToolbox.Keyboard
             SetShortcut(Command.MoveDataSeriesRight, "^+{RIGHT}");
             SetShortcut(Command.SelectAllShapes, "^+A");
             SetShortcut(Command.Properties, "%~");
+            SetShortcut(Command.ClearPivotCache, "^+{F5}");
             RegisterShortcuts();
         }
 

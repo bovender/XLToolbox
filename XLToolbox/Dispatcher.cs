@@ -112,6 +112,7 @@ namespace XLToolbox
                     case Command.SaveAs: SaveAs(); break;
                     case Command.Backups: ManageBackups(); break;
                     case Command.Properties: Properties(); break;
+                    case Command.ClearPivotCache: ClearPivotCache(); break;
                     default:
                         Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
@@ -450,6 +451,11 @@ namespace XLToolbox
                     Strings.Close);
                 a.Invoke();
             }
+        }
+
+        static void ClearPivotCache()
+        {
+            Excel.ViewModels.Instance.Default.ClearPivotCache();
         }
 
         #endregion

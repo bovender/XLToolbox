@@ -698,6 +698,32 @@ namespace XLToolbox.Excel.ViewModels
             }
         }
 
+        public void ClearPivotCache()
+        {
+            foreach (Workbook workbook in Application.Workbooks)
+            {
+                Logger.Info("ClearPivotCache: Workbook: {0}", workbook.Name);
+                foreach (Worksheet worksheet in workbook.Worksheets)
+                {
+                    Logger.Info("ClearPivotCache: -- Worksheet: {0}", worksheet.Name);
+                    foreach (PivotTable pivotTable in worksheet.PivotTables())
+                    {
+                        Logger.Info("ClearPivotCache: -- -- Pivot table: {0}", pivotTable.Name);
+                        pivotTable.PivotCache().MissingItemsLimit = XlPivotTableMissingItems.xlMissingItemsNone;
+                        Bovender.ComHelpers.ReleaseComObject(pivotTable);
+                    }
+                    Bovender.ComHelpers.ReleaseComObject(worksheet);
+                }
+                Logger.Info("ClearPivotCache: -- ... refreshing caches...");
+                foreach (PivotCache pivotCache in workbook.PivotCaches())
+                {
+                    pivotCache.Refresh();
+                }
+                Bovender.ComHelpers.ReleaseComObject(workbook);
+            }
+            Logger.Info("ClearPivotCache: Done.");
+        }
+
         #endregion
 
         #region Constructors
