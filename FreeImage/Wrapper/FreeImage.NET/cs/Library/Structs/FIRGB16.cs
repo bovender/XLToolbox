@@ -238,7 +238,7 @@ namespace FreeImageAPI
 		/// Tests whether the specified <see cref="FIRGB16"/> structure is equivalent to this <see cref="FIRGB16"/> structure.
 		/// </summary>
 		/// <param name="other">A <see cref="FIRGB16"/> structure to compare to this instance.</param>
-		/// <returns><b>true</b> if <paramref name="other"/> is a <see cref="FIRGB16"/> structure
+		/// <returns><b>true</b> if <paramref name="obj"/> is a <see cref="FIRGB16"/> structure
 		/// equivalent to this <see cref="FIRGB16"/> structure; otherwise, <b>false</b>.</returns>
 		public bool Equals(FIRGB16 other)
 		{

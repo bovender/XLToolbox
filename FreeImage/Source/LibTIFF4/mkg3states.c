@@ -1,5 +1,3 @@
-/* "$Id: mkg3states.c,v 1.8 2013/11/29 22:22:01 drolon Exp $ */
-
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -383,8 +381,11 @@ main(int argc, char* argv[])
     FILE* fd;
     char* outputfile;
     int c;
+
+#if !HAVE_DECL_OPTARG
     extern int optind;
     extern char* optarg;
+#endif
 
     while ((c = getopt(argc, argv, "c:s:bp")) != -1)
 	switch (c) {

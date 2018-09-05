@@ -1,5 +1,3 @@
-/* $Id: tiffio.hxx,v 1.8 2013/11/29 22:22:01 drolon Exp $ */
-
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
