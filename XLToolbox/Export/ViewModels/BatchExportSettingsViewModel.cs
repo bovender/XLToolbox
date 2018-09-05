@@ -134,6 +134,28 @@ namespace XLToolbox.Export.ViewModels
             }
         }
 
+        public bool Screenshot
+        {
+            get
+            {
+                return ((BatchExportSettings)Settings).Screenshot;
+            }
+            set
+            {
+                ((BatchExportSettings)Settings).Screenshot = value;
+                OnPropertyChanged("Screenshot");
+                OnPropertyChanged("IsPresetEnabled");
+            }
+        }
+
+        public bool IsPresetEnabled
+        {
+            get
+            {
+                return !Screenshot;
+            }
+        }
+
         public bool IsActiveSheetEnabled
         {
             get

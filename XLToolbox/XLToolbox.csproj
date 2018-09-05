@@ -170,6 +170,7 @@
     <Compile Include="ExceptionHandler\TestException.cs" />
     <Compile Include="Export\BatchExporter.cs" />
     <Compile Include="Export\DibBitmap.cs" />
+    <Compile Include="Export\IExporter.cs" />
     <Compile Include="Export\Lcms\ColorSpaceSignature.cs" />
     <Compile Include="Export\Lcms\FileExtension.cs" />
     <Compile Include="Export\Lcms\Formatters.cs" />

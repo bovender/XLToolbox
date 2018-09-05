@@ -85,6 +85,7 @@ namespace XLToolbox.Export.Models
         public BatchExportObjects Objects { get; set; }
         public BatchExportLayout Layout { get; set; }
         public String Path { get; set; }
+        public bool Screenshot { get; set; }
 
         #endregion
 

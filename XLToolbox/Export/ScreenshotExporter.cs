@@ -32,8 +32,34 @@ namespace XLToolbox.Export
     /// <summary>
     /// Exports graphical data in screenshot quality to a file.
     /// </summary>
-    public class ScreenshotExporter
+    public class ScreenshotExporter : IExporter
     {
+        #region IExporter interface
+
+        public string FileName
+        {
+            get
+            {
+                return _fileName;
+            }
+            set
+            {
+                _fileName = value;
+            }
+        }
+
+        public bool Execute()
+        {
+            if (String.IsNullOrWhiteSpace(FileName))
+            {
+                throw new ArgumentException("Cannot execute screenshot export without FileName");
+            }
+            ExportSelection(FileName);
+            return true;
+        }
+
+        #endregion
+
         #region Public methods
 
         public void ExportSelection(string fileName)
@@ -71,7 +97,13 @@ namespace XLToolbox.Export
             using (DllManager dllManager = new DllManager("FreeImage.dll"))
             {
                 if (!CopySelection()) return null;
-                MemoryStream data = Clipboard.GetData("PNG") as MemoryStream;
+                MemoryStream data = null;
+                Bovender.WpfHelpers.MainDispatcher.Invoke((Action)(() => data = Clipboard.GetData("PNG") as MemoryStream));
+                
+                // using (WorkingClipboard clipboard = new WorkingClipboard())
+                // {
+                //     data = clipboard.GetData("PNG") as MemoryStream;
+                // };
                 Logger.Info("CreateFreeImageDirectly: Create FreeImage bitmap");
                 fi = FreeImageBitmap.FromStream(data);
             }
@@ -102,10 +134,6 @@ namespace XLToolbox.Export
             return fi;
         }
 
-        #endregion
-
-        #region Private methods
-
         /// <summary>
         /// Copies the current selection to the clipboard.
         /// </summary>
@@ -117,6 +145,12 @@ namespace XLToolbox.Export
             }
             return true;
         }
+
+        #endregion
+
+        #region Private fields
+
+        string _fileName;
 
         #endregion
 

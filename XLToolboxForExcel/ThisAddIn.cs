@@ -57,6 +57,7 @@ namespace XLToolboxForExcel
             // update notification window from a different thread
             // when checking for updates.
             _dispatcher = Dispatcher.CurrentDispatcher;
+            Bovender.WpfHelpers.MainDispatcher = _dispatcher;
             Updater.CanCheck = true;
 
             // Make the current Excel instance globally available

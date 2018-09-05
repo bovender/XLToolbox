@@ -33,7 +33,7 @@ namespace XLToolbox.Export
     /// <summary>
     /// Provides methods to export the current selection from Excel.
     /// </summary>
-    public class Exporter : Bovender.Mvvm.Models.ProcessModel, IDisposable
+    public class Exporter : Bovender.Mvvm.Models.ProcessModel, IExporter, IDisposable
     {
         #region Properties
 
@@ -193,12 +193,6 @@ namespace XLToolbox.Export
         ~Exporter()
         {
             Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected void Dispose(bool calledFromDispose)
