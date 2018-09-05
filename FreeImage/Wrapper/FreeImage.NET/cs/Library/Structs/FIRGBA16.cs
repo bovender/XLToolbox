@@ -242,7 +242,7 @@ namespace FreeImageAPI
 		/// Tests whether the specified <see cref="FIRGBA16"/> structure is equivalent to this <see cref="FIRGBA16"/> structure.
 		/// </summary>
 		/// <param name="other">A <see cref="FIRGBA16"/> structure to compare to this instance.</param>
-		/// <returns><b>true</b> if <paramref name="other"/> is a <see cref="FIRGBA16"/> structure
+		/// <returns><b>true</b> if <paramref name="obj"/> is a <see cref="FIRGBA16"/> structure
 		/// equivalent to this <see cref="FIRGBA16"/> structure; otherwise, <b>false</b>.</returns>
 		public bool Equals(FIRGBA16 other)
 		{

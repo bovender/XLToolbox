@@ -2,7 +2,7 @@
 /* BatchExporter.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -363,13 +363,22 @@ namespace XLToolbox.Export
         /// <summary>
         /// Creates a new exporter object using the current settings' preset.
         /// </summary>
-        private Exporter Exporter
+        private IExporter Exporter
         {
             get
             {
                 if (_exporter == null)
                 {
-                    _exporter = new Exporter(Settings.Preset);
+                    if (Settings.Screenshot)
+                    {
+                        Logger.Info("Exporter_get: creating new ScreenshotExporter instance");
+                        _exporter = new ScreenshotExporter();
+                    }
+                    else
+                    {
+                        Logger.Info("Exporter_get: creating new Exporter instance");
+                        _exporter = new Exporter(Settings.Preset);
+                    }
                 }
                 return _exporter;
             }
@@ -379,7 +388,7 @@ namespace XLToolbox.Export
 
         #region Private fields
 
-        private Exporter _exporter;
+        private IExporter _exporter;
         private int _numTotal;
         private ExportFileName _batchFileName;
 	 

@@ -297,9 +297,9 @@ namespace FreeImageAPI.Metadata
 		/// <param name="flags">A bitfield that controls which fields should be searched in.</param>
 		/// <returns>A list containing all found metadata tags.</returns>
 		/// <exception cref="ArgumentNullException">
-		/// <paramref name="searchPattern"/> is null.</exception>
+		/// <typeparamref name="searchPattern"/> is null.</exception>
 		/// <exception cref="ArgumentException">
-		/// <paramref name="searchPattern"/> is empty.</exception>
+		/// <typeparamref name="searchPattern"/> is empty.</exception>
 		public List<MetadataTag> RegexSearch(string searchPattern, MD_SEARCH_FLAGS flags)
 		{
 			if (searchPattern == null)

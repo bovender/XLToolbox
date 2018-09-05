@@ -182,6 +182,9 @@ namespace FreeImageAPI
 		/// size of the new <see cref="FreeImageBitmap"/>.</param>
 		/// <exception cref="Exception">The operation failed.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="newSize.Width"/> or <paramref name="newSize.Height"/> are less or equal zero.
+		/// </exception>
 		public FreeImageBitmap(FreeImageBitmap original, Size newSize)
 			: this(original, newSize.Width, newSize.Height)
 		{
@@ -258,6 +261,9 @@ namespace FreeImageAPI
 		/// </remarks>
 		/// <exception cref="Exception">The operation failed.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="newSize.Width"/> or <paramref name="newSize.Height"/> are less or equal zero.
+		/// </exception>
 		public FreeImageBitmap(Image original, Size newSize)
 			: this(original as Bitmap, newSize.Width, newSize.Height)
 		{
@@ -334,6 +340,9 @@ namespace FreeImageAPI
 		/// </remarks>
 		/// <exception cref="Exception">The operation failed.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// <paramref name="newSize.Width"/> or <paramref name="newSize.Height"/> are less or equal zero.
+		/// </exception>
 		public FreeImageBitmap(Bitmap original, Size newSize)
 			: this(original, newSize.Width, newSize.Height)
 		{
@@ -811,6 +820,7 @@ namespace FreeImageAPI
 		/// <param name="type">The type for the new <see cref="FreeImageBitmap"/>.</param>
 		/// <param name="scan0">Pointer to an array of bytes that contains the pixel data.</param>
 		/// <exception cref="Exception">The operation failed.</exception>
+		/// <exception cref="ArgumentException"><paramref name="format"/> is invalid.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
 		public FreeImageBitmap(int width, int height, int stride, int bpp, FREE_IMAGE_TYPE type, IntPtr scan0)
@@ -857,6 +867,7 @@ namespace FreeImageAPI
 		/// <param name="type">The type for the new <see cref="FreeImageBitmap"/>.</param>
 		/// <param name="bits">Array of bytes containing the bitmap data.</param>
 		/// <exception cref="Exception">The operation failed.</exception>
+		/// <exception cref="ArgumentException"><paramref name="format"/> is invalid.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">
 		/// <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
 		/// <exception cref="ArgumentNullException"><paramref name="bits"/> is null</exception>
@@ -3597,6 +3608,12 @@ namespace FreeImageAPI
 		/// <param name="swap">If true, source and destination palette indices are swapped, that is,
 		/// each destination index is also mapped to the corresponding source index.</param>
 		/// <returns>The total number of pixels changed.</returns>
+		/// <exception cref="ArgumentNullException">
+		/// <paramref name="srccolors"/> or <paramref name="dstcolors"/> is a null reference.
+		/// </exception>
+		/// <exception cref="ArgumentException">
+		/// <paramref name="srccolors"/> has a different length than <paramref name="dstcolors"/>.
+		/// </exception>
 		public uint ApplyPaletteIndexMapping(byte[] srcindices, byte[] dstindices, uint count, bool swap)
 		{
 			EnsureNotDisposed();
@@ -4005,7 +4022,7 @@ namespace FreeImageAPI
 		/// <returns>The number of adjustments applied to the resulting lookup table
 		/// compared to a blind lookup table.</returns>
 		/// <exception cref="ArgumentNullException"><paramref name="lookUpTable"/> is null.</exception>
-		/// <exception cref="ArgumentException"><paramref name="lookUpTable"/>.Length is not 256.</exception>
+		/// <exception cref="ArgumentException"><paramref name="lookUpTable.Length"/> is not 256.</exception>
 		public static int GetAdjustColorsLookupTable(byte[] lookUpTable, double brightness, double contrast, double gamma, bool invert)
 		{
 			if (lookUpTable == null)

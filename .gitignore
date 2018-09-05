@@ -22,5 +22,6 @@ build/
 lib/
 source.zip
 7za.exe
-.backup/
+.[Bb]ackup/
+[Bb]ackup/
 *.tmp_proj

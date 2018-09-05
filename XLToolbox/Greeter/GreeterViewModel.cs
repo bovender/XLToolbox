@@ -1,7 +1,7 @@
 ﻿/* GreeterViewModel.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,23 @@ namespace XLToolbox.Greeter
     /// </summary>
     public class GreeterViewModel : About.AboutViewModel
     {
+        #region Properties
+
+        public bool EnableUpdateChecks
+        {
+            get
+            {
+                return UserSettings.UserSettings.Default.EnableUpdateChecks;
+            }
+            set
+            {
+                UserSettings.UserSettings.Default.EnableUpdateChecks = value;
+                OnPropertyChanged("EnableUpdateChecks");
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         public DelegatingCommand WhatsNewCommand

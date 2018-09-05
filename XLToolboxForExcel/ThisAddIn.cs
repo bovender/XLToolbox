@@ -1,7 +1,7 @@
 ﻿/* ThisAddIn.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,7 @@ namespace XLToolboxForExcel
             // update notification window from a different thread
             // when checking for updates.
             _dispatcher = Dispatcher.CurrentDispatcher;
+            Bovender.WpfHelpers.MainDispatcher = _dispatcher;
             Updater.CanCheck = true;
 
             // Make the current Excel instance globally available
@@ -162,10 +163,15 @@ namespace XLToolboxForExcel
 
         /// <summary>
         /// Performs an online update check, but only if the specified number of
-        /// days between update checks has passed.
+        /// days between update checks has passed and if the user has consented.
         /// </summary>
         private void MaybeCheckForUpdate()
         {
+            if (XLToolbox.UserSettings.UserSettings.Default.EnableUpdateChecks == false)
+            {
+                Logger.Info("MaybeCheckForUpdate: Update checks not enabled by user.");
+                return;
+            }
             DateTime lastCheck = XLToolbox.UserSettings.UserSettings.Default.LastUpdateCheck;
             DateTime today = DateTime.Today;
             if ((today - lastCheck).Days >= XLToolbox.UserSettings.UserSettings.Default.UpdateCheckInterval)

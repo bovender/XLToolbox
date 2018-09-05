@@ -1,7 +1,7 @@
 ﻿/* Dispatcher.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,6 +112,7 @@ namespace XLToolbox
                     case Command.SaveAs: SaveAs(); break;
                     case Command.Backups: ManageBackups(); break;
                     case Command.Properties: Properties(); break;
+                    case Command.ClearPivotCache: ClearPivotCache(); break;
                     default:
                         Logger.Fatal("No case has been implemented yet for this command");
                         throw new NotImplementedException("Don't know what to do with " + cmd.ToString());
@@ -440,7 +441,7 @@ namespace XLToolbox
         static void JumpToTarget()
         {
             Xl.Range r = Instance.Default.Application.Selection as Xl.Range;
-            string value = (r == null) ? String.Empty : Convert.ToString(r.Value2);
+            string value = (r == null) ? String.Empty : Convert.ToString(r.Formula);
             Jumper j = new Jumper(value);
             if (!j.Jump())
             {
@@ -450,6 +451,11 @@ namespace XLToolbox
                     Strings.Close);
                 a.Invoke();
             }
+        }
+
+        static void ClearPivotCache()
+        {
+            Excel.ViewModels.Instance.Default.ClearPivotCache();
         }
 
         #endregion

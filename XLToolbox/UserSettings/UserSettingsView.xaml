@@ -2,7 +2,7 @@
 	WPF Window with Bovender's namespaces1.xaml
 	part of Daniel's XL Toolbox NG
 	
-	Copyright 2014-2016 Daniel Kraus
+	Copyright 2014-2018 Daniel Kraus
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -59,6 +59,13 @@
         </UniformGrid>
         <ScrollViewer>
             <StackPanel Margin="15">
+                <GroupBox Header="{x:Static l:Strings.CheckForUpdates}" Margin="0,0,0,10">
+                    <StackPanel>
+                        <CheckBox Content="{x:Static l:Strings.EnableUpdateChecks}" IsChecked="{Binding EnableUpdateChecks}" />
+                        <TextBlock Text="{x:Static l:Strings.UpdatesPrivacy}"  TextWrapping="Wrap"
+                           Margin="0,10,0,0" />
+                    </StackPanel>
+                </GroupBox>
                 <GroupBox Header="{x:Static l:Strings.WorksheetManager}"
                           Padding="10">
                     <GroupItem>

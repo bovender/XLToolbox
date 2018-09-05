@@ -1,7 +1,7 @@
 ﻿/* BatchExportSettingsViewModel.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,6 +131,28 @@ namespace XLToolbox.Export.ViewModels
             {
                 ((BatchExportSettings)Settings).Path = value;
                 OnPropertyChanged("Path");
+            }
+        }
+
+        public bool Screenshot
+        {
+            get
+            {
+                return ((BatchExportSettings)Settings).Screenshot;
+            }
+            set
+            {
+                ((BatchExportSettings)Settings).Screenshot = value;
+                OnPropertyChanged("Screenshot");
+                OnPropertyChanged("IsPresetEnabled");
+            }
+        }
+
+        public bool IsPresetEnabled
+        {
+            get
+            {
+                return !Screenshot;
             }
         }
 

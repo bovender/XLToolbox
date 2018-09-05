@@ -2,7 +2,7 @@
 	GreeterView.xaml
 	part of Daniel's XL Toolbox NG
 	
-	Copyright 2014-2016 Daniel Kraus
+	Copyright 2014-2018 Daniel Kraus
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -48,6 +48,12 @@
                                      HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/credits.html" />
             </i:EventTrigger.Actions>
         </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding ShowPrivacyMessage}" EventName="Sent">
+            <i:EventTrigger.Actions>
+                <mvvm:ShowHtmlAction Caption="{x:Static l:Strings.Privacy}"
+                                     HtmlResource="pack://application:,,,/XLToolbox;component/Resources/html/privacy.html" />
+            </i:EventTrigger.Actions>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <StackPanel Orientation="Vertical" Margin="10">
         <DockPanel>
@@ -67,7 +73,14 @@
         </DockPanel>
         <TextBlock Text="{x:Static l:Strings.ApacheDisclaimer}" TextWrapping="Wrap" TextAlignment="Justify"
                    Margin="0,10,0,0" Foreground="Red"/>
-        <UniformGrid Rows="1" Columns="2">
+        <GroupBox Header="{x:Static l:Strings.CheckForUpdates}" Margin="0,10,0,0">
+            <StackPanel>
+                <CheckBox Content="{x:Static l:Strings.EnableUpdateChecks}" IsChecked="{Binding EnableUpdateChecks}" />
+                <TextBlock Text="{x:Static l:Strings.UpdatesPrivacy}"  TextWrapping="Wrap"
+                           Margin="0,10,0,0" />
+            </StackPanel>
+        </GroupBox>
+        <UniformGrid Rows="1" Columns="3" Margin="0,10,0,0">
             <TextBlock HorizontalAlignment="Center">
                 <Hyperlink Command="{Binding ShowLicenseCommand}">
                     <TextBlock Text="{x:Static l:Strings.License}" />
@@ -76,6 +89,11 @@
             <TextBlock HorizontalAlignment="Center">
                 <Hyperlink Command="{Binding ShowCreditsCommand}">
                     <TextBlock Text="{x:Static l:Strings.Credits}" />
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink Command="{Binding ShowPrivacyCommand}">
+                    <TextBlock Text="{x:Static l:Strings.Privacy}" />
                 </Hyperlink>
             </TextBlock>
         </UniformGrid>

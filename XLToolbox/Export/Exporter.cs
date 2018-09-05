@@ -1,7 +1,7 @@
 ﻿/* Exporter.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace XLToolbox.Export
     /// <summary>
     /// Provides methods to export the current selection from Excel.
     /// </summary>
-    public class Exporter : Bovender.Mvvm.Models.ProcessModel, IDisposable
+    public class Exporter : Bovender.Mvvm.Models.ProcessModel, IExporter, IDisposable
     {
         #region Properties
 
@@ -198,7 +198,6 @@ namespace XLToolbox.Export
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected void Dispose(bool calledFromDispose)

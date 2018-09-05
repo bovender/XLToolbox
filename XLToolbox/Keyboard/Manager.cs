@@ -1,7 +1,7 @@
 ﻿/* Manager.cs
  * part of Daniel's XL Toolbox NG
  * 
- * Copyright 2014-2016 Daniel Kraus
+ * Copyright 2014-2018 Daniel Kraus
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -157,6 +157,7 @@ namespace XLToolbox.Keyboard
             SetShortcut(Command.MoveDataSeriesRight, "^+{RIGHT}");
             SetShortcut(Command.SelectAllShapes, "^+A");
             SetShortcut(Command.Properties, "%~");
+            SetShortcut(Command.ClearPivotCache, "^+{F5}");
             RegisterShortcuts();
         }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,836 +59,848 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AnErrorHasOccurred" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Fehler!</value>
   </data>
-	<data name="Cancel" xml:space="preserve">
+  <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
-	<data name="CheckForUpdates" xml:space="preserve">
+  <data name="CheckForUpdates" xml:space="preserve">
     <value>Auf Update prüfen</value>
   </data>
-	<data name="CheckingForUpdates" xml:space="preserve">
+  <data name="CheckingForUpdates" xml:space="preserve">
     <value>Suche nach Update...</value>
   </data>
-	<data name="ChooseWhereToSaveUpdateFile" xml:space="preserve">
+  <data name="ChooseWhereToSaveUpdateFile" xml:space="preserve">
     <value>Bitte geben Sie den Speicherort für das Update an</value>
   </data>
-	<data name="Close" xml:space="preserve">
+  <data name="Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
-	<data name="DownloadedFileCannotBeInstalled" xml:space="preserve">
+  <data name="DownloadedFileCannotBeInstalled" xml:space="preserve">
     <value>Das Update kann nicht installiert werden, weil die Prüfsumme für die heruntergeladene Datei falsch ist. Das kann an einem Übertragungsfehler liegen oder an einem Festplattenfehler oder jemand hat die Datei manipuliert. Das Update wird jedenfalls nicht installiert.</value>
   </data>
-	<data name="DownloadingXLToolboxUpdate" xml:space="preserve">
+  <data name="DownloadingXLToolboxUpdate" xml:space="preserve">
     <value>Lade XL-Toolbox-Update herunter</value>
   </data>
-	<data name="DownloadNow" xml:space="preserve">
+  <data name="DownloadNow" xml:space="preserve">
     <value>Jetzt herunterladen</value>
   </data>
-	<data name="FetchingVersionInformationFailed" xml:space="preserve">
+  <data name="FetchingVersionInformationFailed" xml:space="preserve">
     <value>Die Update-Informationen konnten nicht heruntergeladen werden.
 Folgende Fehlermeldung kam zurück:
 {0}
 
 Bitte überprüfen Sie auch Ihre Internetverbindung.</value>
   </data>
-	<data name="NewVersion" xml:space="preserve">
+  <data name="NewVersion" xml:space="preserve">
     <value>Neue Version:</value>
   </data>
-	<data name="NewVersionAvailableForDownload" xml:space="preserve">
+  <data name="NewVersionAvailableForDownload" xml:space="preserve">
     <value>Eine neue Version von Daniel's XL Toolbox steht zum Download bereit.</value>
   </data>
-	<data name="OK" xml:space="preserve">
+  <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-	<data name="UpdateAvailable" xml:space="preserve">
+  <data name="UpdateAvailable" xml:space="preserve">
     <value>Update verfügbar</value>
   </data>
-	<data name="XLToolboxError" xml:space="preserve">
+  <data name="XLToolboxError" xml:space="preserve">
     <value>Fehler beim XL-Toolbox-Addin!</value>
   </data>
-	<data name="YouHave" xml:space="preserve">
+  <data name="YouHave" xml:space="preserve">
     <value>Das hier ist:</value>
   </data>
-	<data name="UpdateHasBeenDownloaded" xml:space="preserve">
+  <data name="UpdateHasBeenDownloaded" xml:space="preserve">
     <value>Das Update wurde heruntergeladen. Wenn Sie mit der Arbeit fertig sind und Excel beenden, wird es installiert.</value>
   </data>
-	<data name="Donate" xml:space="preserve">
+  <data name="Donate" xml:space="preserve">
     <value>Spenden</value>
   </data>
-	<data name="ThisIsVersion" xml:space="preserve">
+  <data name="ThisIsVersion" xml:space="preserve">
     <value>Das hier ist:</value>
   </data>
-	<data name="Welcome" xml:space="preserve">
+  <data name="Welcome" xml:space="preserve">
     <value>Willkommen</value>
   </data>
-	<data name="WelcomeToXLToolbox" xml:space="preserve">
+  <data name="WelcomeToXLToolbox" xml:space="preserve">
     <value>Willkommen bei Daniel's XL Toolbox</value>
   </data>
-	<data name="WhatsNew" xml:space="preserve">
+  <data name="WhatsNew" xml:space="preserve">
     <value>Was ist neu?</value>
   </data>
-	<data name="YourVoluntaryPaymentIsAppreciated" xml:space="preserve">
+  <data name="YourVoluntaryPaymentIsAppreciated" xml:space="preserve">
     <value>Zeigen Sie Ihre Anerkennung durch eine freiwillige Zahlung ("Spende"). Der Button unten führt Sie zur Homepage.</value>
   </data>
-	<data name="ClearForm" xml:space="preserve">
+  <data name="ClearForm" xml:space="preserve">
     <value>Felder löschen</value>
   </data>
-	<data name="EMailOptional" xml:space="preserve">
+  <data name="EMailOptional" xml:space="preserve">
     <value>E-Mail (optional)</value>
   </data>
-	<data name="NameOptional" xml:space="preserve">
+  <data name="NameOptional" xml:space="preserve">
     <value>Name (optional)</value>
   </data>
-	<data name="PleaseSendCrashReport" xml:space="preserve">
+  <data name="PleaseSendCrashReport" xml:space="preserve">
     <value>Bitte senden Sie einen Fehlerbericht. Wenn Sie Ihren Namen und E-Mail angeben, ermöglichen Sie dem Entwickler die Kontaktaufnahme zwecks erleichterter Fehlerbehebung. Klicken Sie auf "Techn. Informationen", um den Inhalt des Fehlerberichts zu sehen.</value>
   </data>
-	<data name="SendCrashReport" xml:space="preserve">
+  <data name="SendCrashReport" xml:space="preserve">
     <value>Bericht senden</value>
   </data>
-	<data name="TechnicalInformationEllipsis" xml:space="preserve">
+  <data name="TechnicalInformationEllipsis" xml:space="preserve">
     <value>Techn. Informationen...</value>
   </data>
-	<data name="SendMeACopy" xml:space="preserve">
+  <data name="SendMeACopy" xml:space="preserve">
     <value>Mir eine Kopie senden</value>
   </data>
-	<data name="ClrVersion" xml:space="preserve">
+  <data name="ClrVersion" xml:space="preserve">
     <value>CLR-Version</value>
   </data>
-	<data name="ExcelBitness" xml:space="preserve">
+  <data name="ExcelBitness" xml:space="preserve">
     <value>Excel-Bitness</value>
   </data>
-	<data name="ExcelVersion" xml:space="preserve">
+  <data name="ExcelVersion" xml:space="preserve">
     <value>Excel-Version</value>
   </data>
-	<data name="Exception" xml:space="preserve">
+  <data name="Exception" xml:space="preserve">
     <value>Ausnahme</value>
   </data>
-	<data name="InnerException" xml:space="preserve">
+  <data name="InnerException" xml:space="preserve">
     <value>Innere Ausnahme</value>
   </data>
-	<data name="InnerMessage" xml:space="preserve">
+  <data name="InnerMessage" xml:space="preserve">
     <value>Innere Beschreibung</value>
   </data>
-	<data name="Message" xml:space="preserve">
+  <data name="Message" xml:space="preserve">
     <value>Beschreibung</value>
   </data>
-	<data name="OSBitness" xml:space="preserve">
+  <data name="OSBitness" xml:space="preserve">
     <value>Betriebssystem-Bitness</value>
   </data>
-	<data name="OSVersion" xml:space="preserve">
+  <data name="OSVersion" xml:space="preserve">
     <value>Betriebssystem-Version</value>
   </data>
-	<data name="StackTrace" xml:space="preserve">
+  <data name="StackTrace" xml:space="preserve">
     <value>Funktionsaufrufstapel</value>
   </data>
-	<data name="TechnicalInformation" xml:space="preserve">
+  <data name="TechnicalInformation" xml:space="preserve">
     <value>Technische Informationen</value>
   </data>
-	<data name="XLToolboxVersion" xml:space="preserve">
+  <data name="XLToolboxVersion" xml:space="preserve">
     <value>XL-Toolbox-Version</value>
   </data>
-	<data name="SendingErrorReportFailed" xml:space="preserve">
+  <data name="SendingErrorReportFailed" xml:space="preserve">
     <value>Der Fehlerbericht konnte nicht gesendet werden.
 Folgende Meldung kam zurück:
 {0}</value>
   </data>
-	<data name="SendingErrorReportSuccessful" xml:space="preserve">
+  <data name="SendingErrorReportSuccessful" xml:space="preserve">
     <value>Der Fehlerbericht wurde erfolgreich gesendet.</value>
   </data>
-	<data name="SendingEllipsis" xml:space="preserve">
+  <data name="SendingEllipsis" xml:space="preserve">
     <value>Senden...</value>
   </data>
-	<data name="CommentOptional" xml:space="preserve">
+  <data name="CommentOptional" xml:space="preserve">
     <value>Öffentl. Kommentar (opt.)</value>
   </data>
-	<data name="CrashReportPrivacy" xml:space="preserve">
+  <data name="CrashReportPrivacy" xml:space="preserve">
     <value>Datenschutzerklärung: Die technischen Informationen werden in der öffentlichen XL-Toolbox-Fehlerliste veröffentlicht. Name und E-Mail (optional) werden jedoch NUR an den Programmierer gesendet und NICHT veröffentlicht. Falls Sie einen Kommentar eingeben, wird dieser EBENFALLS veröffentlicht.</value>
   </data>
-	<data name="UpdateWillBeInstalledNow" xml:space="preserve">
+  <data name="UpdateWillBeInstalledNow" xml:space="preserve">
     <value>Das vor einer Weile heruntergeladene XL-Toolbox-Update wird jetzt installiert.</value>
   </data>
-	<data name="YouHaveTheLatestVersion" xml:space="preserve">
+  <data name="YouHaveTheLatestVersion" xml:space="preserve">
     <value>Sie haben die neueste XL-Toolbox-Version. Es ist kein Update verfügbar.</value>
   </data>
-	<data name="AboutXLToolbox" xml:space="preserve">
+  <data name="AboutXLToolbox" xml:space="preserve">
     <value>Über Daniel's XL Toolbox</value>
   </data>
-	<data name="VersionParametrized" xml:space="preserve">
+  <data name="VersionParametrized" xml:space="preserve">
     <value>Version {0}</value>
   </data>
-	<data name="Credits" xml:space="preserve">
+  <data name="Credits" xml:space="preserve">
     <value>Danksagungen</value>
   </data>
-	<data name="License" xml:space="preserve">
+  <data name="License" xml:space="preserve">
     <value>Lizenz</value>
   </data>
-	<data name="Website" xml:space="preserve">
+  <data name="Website" xml:space="preserve">
     <value>Website</value>
   </data>
-	<data name="XLToolboxLicense" xml:space="preserve">
+  <data name="XLToolboxLicense" xml:space="preserve">
     <value>XL-Toolbox-Lizenz</value>
   </data>
-	<data name="DataAnalysisAndVisualizationForExcelForFree" xml:space="preserve">
+  <data name="DataAnalysisAndVisualizationForExcelForFree" xml:space="preserve">
     <value>Datenanalyse und Datenvisualisierung für Excel</value>
   </data>
-	<data name="DownloadUrlIs" xml:space="preserve">
+  <data name="DownloadUrlIs" xml:space="preserve">
     <value>Die URL für das Update ist:</value>
   </data>
-	<data name="IfYouAreTheOwnerOfThisComputer" xml:space="preserve">
+  <data name="IfYouAreTheOwnerOfThisComputer" xml:space="preserve">
     <value>Sie können das Update manuell herunterladen und zu installieren versuchen. Möglicherweise müssen Sie nach Rechtsklick auf die Datei den Befehl "Als Administrator ausführen" wählen.</value>
   </data>
-	<data name="NotAuthorizedToUpdate" xml:space="preserve">
+  <data name="NotAuthorizedToUpdate" xml:space="preserve">
     <value>Nicht für das Update authorisiert.</value>
   </data>
-	<data name="ThisIsFreeSoftware" xml:space="preserve">
+  <data name="ThisIsFreeSoftware" xml:space="preserve">
     <value>Dies ist freie und kostenlose Software.</value>
   </data>
-	<data name="YouDoNotHaveWritePermissionsUpdate" xml:space="preserve">
+  <data name="YouDoNotHaveWritePermissionsUpdate" xml:space="preserve">
     <value>Sie haben leider keine Schreibberechtigung für den Installationsordner der XL Toolbox. Deshalb können Sie das Update nicht ausführen. Bitte wenden Sie sich an Ihren System-Administrator, um das Update auszuführen.</value>
   </data>
-	<data name="NoThanks" xml:space="preserve">
+  <data name="NoThanks" xml:space="preserve">
     <value>Nein, danke.</value>
   </data>
-	<data name="FreeImageVersion" xml:space="preserve">
+  <data name="FreeImageVersion" xml:space="preserve">
     <value>FreeImage-Version</value>
   </data>
-	<data name="NotAvailable" xml:space="preserve">
+  <data name="NotAvailable" xml:space="preserve">
     <value>Nicht verfügbar</value>
   </data>
-	<data name="WorksheetManager" xml:space="preserve">
+  <data name="WorksheetManager" xml:space="preserve">
     <value>Tabellenblatt-Manager</value>
   </data>
-	<data name="Bottom" xml:space="preserve">
+  <data name="Bottom" xml:space="preserve">
     <value>Nach unten</value>
   </data>
-	<data name="Down" xml:space="preserve">
+  <data name="Down" xml:space="preserve">
     <value>Runter</value>
   </data>
-	<data name="Top" xml:space="preserve">
+  <data name="Top" xml:space="preserve">
     <value>Nach oben</value>
   </data>
-	<data name="Up" xml:space="preserve">
+  <data name="Up" xml:space="preserve">
     <value>Hoch</value>
   </data>
-	<data name="Delete" xml:space="preserve">
+  <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
   </data>
-	<data name="DoYouReallyWantToDeleteCannotBeUndone" xml:space="preserve">
+  <data name="DoYouReallyWantToDeleteCannotBeUndone" xml:space="preserve">
     <value>Wollen Sie wirklich löschen? Das kann nicht rückgängig gemacht werden!</value>
   </data>
-	<data name="No" xml:space="preserve">
+  <data name="No" xml:space="preserve">
     <value>Nein</value>
   </data>
-	<data name="Yes" xml:space="preserve">
+  <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
-	<data name="EnterNewSheetName" xml:space="preserve">
+  <data name="EnterNewSheetName" xml:space="preserve">
     <value>Bitte neuen Namen eingeben (1-31 Zeichen, darf [] /\ *? nicht enthalten).</value>
   </data>
-	<data name="Rename" xml:space="preserve">
+  <data name="Rename" xml:space="preserve">
     <value>Umbenennen</value>
   </data>
-	<data name="ReportNotSuccessfullySubmitted" xml:space="preserve">
+  <data name="ReportNotSuccessfullySubmitted" xml:space="preserve">
     <value>Bericht nicht abgeschickt.</value>
   </data>
-	<data name="ReportSuccessfullySubmitted" xml:space="preserve">
+  <data name="ReportSuccessfullySubmitted" xml:space="preserve">
     <value>Der Bericht wurde erfolgreich abgeschickt.</value>
   </data>
-	<data name="ErrorOccurredWhileDownloading" xml:space="preserve">
+  <data name="ErrorOccurredWhileDownloading" xml:space="preserve">
     <value>Beim Herunterladen ist ein Fehler aufgetreten:
 
 "{0}".
 
 Evtl. müssen Sie es noch einmal versuchen.</value>
   </data>
-	<data name="Index" xml:space="preserve">
+  <data name="Index" xml:space="preserve">
     <value>Index</value>
     <comment>For use as placeholder in file name templates</comment>
   </data>
-	<data name="Workbook" xml:space="preserve">
+  <data name="Workbook" xml:space="preserve">
     <value>Arbeitsmappe</value>
     <comment>For use as placeholder in file name templates</comment>
   </data>
-	<data name="Worksheet" xml:space="preserve">
+  <data name="Worksheet" xml:space="preserve">
     <value>Tabellenblatt</value>
     <comment>For use as placeholder in file name templates</comment>
   </data>
-	<data name="Edit" xml:space="preserve">
+  <data name="Edit" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-	<data name="Export" xml:space="preserve">
+  <data name="Export" xml:space="preserve">
     <value>Exportieren</value>
   </data>
-	<data name="Height" xml:space="preserve">
+  <data name="Height" xml:space="preserve">
     <value>Höhe</value>
   </data>
-	<data name="PreserveAspectRatio" xml:space="preserve">
+  <data name="PreserveAspectRatio" xml:space="preserve">
     <value>Seitenverhältnis fixieren</value>
   </data>
-	<data name="Reset" xml:space="preserve">
+  <data name="Reset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
-	<data name="SingleGraphicExport" xml:space="preserve">
+  <data name="SingleGraphicExport" xml:space="preserve">
     <value>Einzelexport</value>
   </data>
-	<data name="Width" xml:space="preserve">
+  <data name="Width" xml:space="preserve">
     <value>Breite</value>
   </data>
-	<data name="Output" xml:space="preserve">
+  <data name="Output" xml:space="preserve">
     <value>Ausgabe</value>
   </data>
-	<data name="Preset" xml:space="preserve">
+  <data name="Preset" xml:space="preserve">
     <value>Vorgabe</value>
   </data>
-	<data name="Selection" xml:space="preserve">
+  <data name="Selection" xml:space="preserve">
     <value>Auswahl</value>
   </data>
-	<data name="EditExportPreset" xml:space="preserve">
+  <data name="EditExportPreset" xml:space="preserve">
     <value>Export-Vorgabe bearbeiten</value>
   </data>
-	<data name="Add" xml:space="preserve">
+  <data name="Add" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
-	<data name="AllFiles" xml:space="preserve">
+  <data name="AllFiles" xml:space="preserve">
     <value>Alle Dateien</value>
   </data>
-	<data name="ColorSpace" xml:space="preserve">
+  <data name="ColorSpace" xml:space="preserve">
     <value>Farbmodell</value>
   </data>
-	<data name="Details" xml:space="preserve">
+  <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
-	<data name="EmfFiles" xml:space="preserve">
+  <data name="EmfFiles" xml:space="preserve">
     <value>EMF-Dateien (*.emf)</value>
   </data>
-	<data name="FileType" xml:space="preserve">
+  <data name="FileType" xml:space="preserve">
     <value>Dateityp</value>
   </data>
-	<data name="GplDisclaimer" xml:space="preserve">
+  <data name="GplDisclaimer" xml:space="preserve">
     <value>Dieses Programm </value>
   </data>
-	<data name="Layout" xml:space="preserve">
+  <data name="Layout" xml:space="preserve">
     <value>Layout</value>
   </data>
-	<data name="Objects" xml:space="preserve">
+  <data name="Objects" xml:space="preserve">
     <value>Objekte</value>
   </data>
-	<data name="PngFiles" xml:space="preserve">
+  <data name="PngFiles" xml:space="preserve">
     <value>PNG-Dateien (*.png)</value>
   </data>
-	<data name="Resolution" xml:space="preserve">
+  <data name="Resolution" xml:space="preserve">
     <value>Auflösung</value>
   </data>
-	<data name="Scope" xml:space="preserve">
+  <data name="Scope" xml:space="preserve">
     <value>Bereich</value>
   </data>
-	<data name="SvgFiles" xml:space="preserve">
+  <data name="SvgFiles" xml:space="preserve">
     <value>SVG-Dateien</value>
   </data>
-	<data name="TifFiles" xml:space="preserve">
+  <data name="TifFiles" xml:space="preserve">
     <value>TIFF-Dateien (*.tif)</value>
   </data>
-	<data name="Unit" xml:space="preserve">
+  <data name="Unit" xml:space="preserve">
     <value>Einheit</value>
   </data>
-	<data name="Cmyk" xml:space="preserve">
+  <data name="Cmyk" xml:space="preserve">
     <value>CMYK</value>
   </data>
-	<data name="GrayScale" xml:space="preserve">
+  <data name="GrayScale" xml:space="preserve">
     <value>Graustufen</value>
   </data>
-	<data name="Monochrome" xml:space="preserve">
+  <data name="Monochrome" xml:space="preserve">
     <value>Schwarz/Weiß</value>
   </data>
-	<data name="Name" xml:space="preserve">
+  <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-	<data name="Rgb" xml:space="preserve">
+  <data name="Rgb" xml:space="preserve">
     <value>RGB</value>
   </data>
-	<data name="Transparency" xml:space="preserve">
+  <data name="Transparency" xml:space="preserve">
     <value>Transparenz</value>
   </data>
-	<data name="TransparentCanvas" xml:space="preserve">
+  <data name="TransparentCanvas" xml:space="preserve">
     <value>Transparente Leinwand</value>
   </data>
-	<data name="TransparentCanvasTooltip" xml:space="preserve">
+  <data name="TransparentCanvasTooltip" xml:space="preserve">
     <value>Zeichnet die Graphik auf transparenter Leinwand. Wenn die exportierte Graphik eine weiße Hintergrundfläche enthält (z.B. ein Diagramm mit weißer Diagrammfläche), wird die Transparenz damit übermalt. In einem solchen Fall ist die Option "Transparentes Weiß" zu erwägen.</value>
   </data>
-	<data name="TransparentWhite" xml:space="preserve">
+  <data name="TransparentWhite" xml:space="preserve">
     <value>Transparentes Weiß</value>
   </data>
-	<data name="TransparentWhiteTooltip" xml:space="preserve">
+  <data name="TransparentWhiteTooltip" xml:space="preserve">
     <value>Zeichnet alle weißen Farben transparent.</value>
   </data>
-	<data name="WhiteCanvas" xml:space="preserve">
+  <data name="WhiteCanvas" xml:space="preserve">
     <value>Weiße Leinwand</value>
   </data>
-	<data name="WhiteCanvasTooltip" xml:space="preserve">
+  <data name="WhiteCanvasTooltip" xml:space="preserve">
     <value>Zeichnet die Graphik auf weißer Leinwand ohne Transparenz.</value>
   </data>
-	<data name="ConfirmRemovePreset" xml:space="preserve">
+  <data name="ConfirmRemovePreset" xml:space="preserve">
     <value>Wollen Sie diese Vorgabe wirklich entfernen?</value>
   </data>
-	<data name="RemovePreset" xml:space="preserve">
+  <data name="RemovePreset" xml:space="preserve">
     <value>Vorgabe entfernen</value>
   </data>
-	<data name="ActiveSheet" xml:space="preserve">
+  <data name="ActiveSheet" xml:space="preserve">
     <value>Aktuelles Tabellenblatt</value>
   </data>
-	<data name="ActiveWorkbook" xml:space="preserve">
+  <data name="ActiveWorkbook" xml:space="preserve">
     <value>Aktuelle Arbeitsmappe</value>
   </data>
-	<data name="BatchExport" xml:space="preserve">
+  <data name="BatchExport" xml:space="preserve">
     <value>Mehrfachexport</value>
   </data>
-	<data name="ChartsAndShapes" xml:space="preserve">
+  <data name="ChartsAndShapes" xml:space="preserve">
     <value>Alle graphischen Objekte</value>
   </data>
-	<data name="ChartsOnly" xml:space="preserve">
+  <data name="ChartsOnly" xml:space="preserve">
     <value>Nur Diagramme</value>
   </data>
-	<data name="AllOpenWorkbooks" xml:space="preserve">
+  <data name="AllOpenWorkbooks" xml:space="preserve">
     <value>Alle offenen Arbeitsmappen</value>
   </data>
-	<data name="PreserveLayout" xml:space="preserve">
+  <data name="PreserveLayout" xml:space="preserve">
     <value>Layout wie im Tabellenblatt</value>
   </data>
-	<data name="SingleItems" xml:space="preserve">
+  <data name="SingleItems" xml:space="preserve">
     <value>Einzelne Graphikobjekte</value>
   </data>
-	<data name="FileNameTemplate" xml:space="preserve">
+  <data name="FileNameTemplate" xml:space="preserve">
     <value>Dateinamen-Schema</value>
   </data>
-	<data name="FileNameTemplateHint" xml:space="preserve">
+  <data name="FileNameTemplateHint" xml:space="preserve">
     <value>Verwenden Sie {Arbeitsmappe}, {Tabellenblatt}, {Name} (Diagrammname) und {Index} (jeweils mit geschweiften Klammern) als Platzhalter. Die Dateinamen-Erweiterung können Sie weglassen. Nach dem Zielordner werden Sie gefragt, wenn Sie auf "exportieren" klicken.</value>
     <comment>Should contain localized versions of Strings.Workbook and Strings.Worksheet</comment>
   </data>
-	<data name="ApacheDisclaimer" xml:space="preserve">
+  <data name="ApacheDisclaimer" xml:space="preserve">
     <value>Sofern nicht gemäß geltendem Recht vorgeschrieben oder schriftlich vereinbart, erfolgt die Bereitstellung dieser im Rahmen der Apache-Lizenz verbreiteten Software OHNE GEWÄHR ODER VORBEHALTE – ganz gleich, ob ausdrücklich oder stillschweigend. Informationen über die jeweiligen Bedingungen für Genehmigungen und Einschränkungen im Rahmen der Lizenz finden Sie in der Lizenz.</value>
   </data>
-	<data name="NoWarrantiesSeeLicense" xml:space="preserve">
+  <data name="NoWarrantiesSeeLicense" xml:space="preserve">
     <value>Ohne Garantie ‒ siehe Lizenzbedingungen</value>
   </data>
-	<data name="ExceptionReportSubmission" xml:space="preserve">
+  <data name="ExceptionReportSubmission" xml:space="preserve">
     <value>Fehlerbericht-Einsendung</value>
   </data>
-	<data name="ExceptionReportSubmissionFailed" xml:space="preserve">
+  <data name="ExceptionReportSubmissionFailed" xml:space="preserve">
     <value>Fehlerbericht konnte nicht abgeschickt werden.</value>
   </data>
-	<data name="SubmittingReport" xml:space="preserve">
+  <data name="SubmittingReport" xml:space="preserve">
     <value>Sende Bericht</value>
   </data>
-	<data name="ColorManagement" xml:space="preserve">
+  <data name="ColorManagement" xml:space="preserve">
     <value>Farbmanagement</value>
   </data>
-	<data name="ColorProfile" xml:space="preserve">
+  <data name="ColorProfile" xml:space="preserve">
     <value>Farbprofil</value>
   </data>
-	<data name="UseColorManagement" xml:space="preserve">
+  <data name="UseColorManagement" xml:space="preserve">
     <value>Farbmanagement verwenden</value>
   </data>
-	<data name="XLToolboxUpdate" xml:space="preserve">
+  <data name="XLToolboxUpdate" xml:space="preserve">
     <value>Daniel's XL Toolbox Update</value>
   </data>
-	<data name="AlwaysOnTop" xml:space="preserve">
+  <data name="AlwaysOnTop" xml:space="preserve">
     <value>Immer zuoberst</value>
   </data>
-	<data name="ScreenshotExport" xml:space="preserve">
+  <data name="ScreenshotExport" xml:space="preserve">
     <value>Export in Screenshot-Qualität</value>
   </data>
-	<data name="ScreenshotExportRequiresGraphic" xml:space="preserve">
+  <data name="ScreenshotExportRequiresGraphic" xml:space="preserve">
     <value>Der Screenshot-Export funktioniert nur mit graphischen Objekten. Bitte markieren Sie eine Graphik (Zeichnung oder Diagramm).</value>
   </data>
-	<data name="AskMe" xml:space="preserve">
+  <data name="AskMe" xml:space="preserve">
     <value>Mich fragen</value>
   </data>
-	<data name="DiscardAll" xml:space="preserve">
+  <data name="DiscardAll" xml:space="preserve">
     <value>Alle verwerfen</value>
   </data>
-	<data name="HowDoYouWantToQuit" xml:space="preserve">
+  <data name="HowDoYouWantToQuit" xml:space="preserve">
     <value>Wie wollen Sie beenden?</value>
   </data>
-	<data name="QuitExcel" xml:space="preserve">
+  <data name="QuitExcel" xml:space="preserve">
     <value>Excel beenden</value>
   </data>
-	<data name="SaveAll" xml:space="preserve">
+  <data name="SaveAll" xml:space="preserve">
     <value>Alle speichern</value>
   </data>
-	<data name="UnsavedWorkbooks" xml:space="preserve">
+  <data name="UnsavedWorkbooks" xml:space="preserve">
     <value>nicht gespeicherte Arbeitsmappen</value>
   </data>
-	<data name="OpenWorkbooks" xml:space="preserve">
+  <data name="OpenWorkbooks" xml:space="preserve">
     <value>Geöffnete Arbeitsmappen</value>
   </data>
-	<data name="AreYouSure" xml:space="preserve">
+  <data name="AreYouSure" xml:space="preserve">
     <value>Sind Sie sicher?</value>
   </data>
-	<data name="AskMeAsNeeded" xml:space="preserve">
+  <data name="AskMeAsNeeded" xml:space="preserve">
     <value>Mich jeweils fragen</value>
   </data>
-	<data name="QuitDiscardingChanges" xml:space="preserve">
+  <data name="QuitDiscardingChanges" xml:space="preserve">
     <value>Excel beenden und Änderungen verwerfen</value>
   </data>
-	<data name="QuitSavingChanges" xml:space="preserve">
+  <data name="QuitSavingChanges" xml:space="preserve">
     <value>Excel beenden und alle Änderungen speichern</value>
   </data>
-	<data name="CsvSettings" xml:space="preserve">
+  <data name="CsvSettings" xml:space="preserve">
     <value>CSV-Einstellungen</value>
   </data>
-	<data name="DecimalSeparator" xml:space="preserve">
+  <data name="DecimalSeparator" xml:space="preserve">
     <value>Dezimaltrennzeichen</value>
   </data>
-	<data name="FieldSeparator" xml:space="preserve">
+  <data name="FieldSeparator" xml:space="preserve">
     <value>Datenfeld-Trennzeichen</value>
   </data>
-	<data name="ThousandsSeparator" xml:space="preserve">
+  <data name="ThousandsSeparator" xml:space="preserve">
     <value>Tausendertrennzeichen</value>
   </data>
-	<data name="ExportCsvFile" xml:space="preserve">
+  <data name="ExportCsvFile" xml:space="preserve">
     <value>CSV exportieren</value>
   </data>
-	<data name="ImportCsvFile" xml:space="preserve">
+  <data name="ImportCsvFile" xml:space="preserve">
     <value>CSV importieren</value>
   </data>
-	<data name="ActionRequiresSelectionOfCells" xml:space="preserve">
+  <data name="ActionRequiresSelectionOfCells" xml:space="preserve">
     <value>Diese Aktion benötigt eine Zellauswahl.</value>
   </data>
-	<data name="RangeSelectionRequired" xml:space="preserve">
+  <data name="RangeSelectionRequired" xml:space="preserve">
     <value>Es müssen Zellen ausgewählt sein</value>
   </data>
-	<data name="BovenderFramework" xml:space="preserve">
+  <data name="BovenderFramework" xml:space="preserve">
     <value>Bovender-Framework</value>
   </data>
-	<data name="CsvExportFailed" xml:space="preserve">
+  <data name="CsvExportFailed" xml:space="preserve">
     <value>CSV-Export fehlgeschlagen</value>
   </data>
-	<data name="HintUseBackslashT" xml:space="preserve">
+  <data name="HintUseBackslashT" xml:space="preserve">
     <value>Verwenden Sie \t für Tabulator.</value>
   </data>
-	<data name="LegacyToolboxDetectedCaption" xml:space="preserve">
+  <data name="LegacyToolboxDetectedCaption" xml:space="preserve">
     <value>Obsolete XL Toolbox version found</value>
   </data>
-	<data name="LegacyToolboxDetectedMessage" xml:space="preserve">
+  <data name="LegacyToolboxDetectedMessage" xml:space="preserve">
     <value>Eine veraltete XL-Toolbox-Version wurde gefunden. Sie wird jetzt deaktiviert. Sie können alte Toolbox-Befehle auch in der neuen Version verwenden. Die alte Version können Sie über die Systemsteuerung deinstallieren.</value>
   </data>
-	<data name="DefaultUserSettingsWillBeUsed" xml:space="preserve">
+  <data name="DefaultUserSettingsWillBeUsed" xml:space="preserve">
     <value>Es werden jetzt die Standardeinstellungen verwendet.</value>
   </data>
-	<data name="ThisIsTheErrorMessage" xml:space="preserve">
+  <data name="ThisIsTheErrorMessage" xml:space="preserve">
     <value>Die Fehlermeldung lautet:</value>
   </data>
-	<data name="UserSettings" xml:space="preserve">
+  <data name="UserSettings" xml:space="preserve">
     <value>Persönliche Einstellungen</value>
   </data>
-	<data name="UserSettingsCouldNotBeLoaded" xml:space="preserve">
+  <data name="UserSettingsCouldNotBeLoaded" xml:space="preserve">
     <value>Ihre persönlichen XL-Toolbox-Einstellungen konnten nicht geladen werden.</value>
   </data>
-	<data name="AvailableCommands" xml:space="preserve">
+  <data name="AvailableCommands" xml:space="preserve">
     <value>Verfügbare Befehle</value>
   </data>
-	<data name="EditKeyboardShortcuts" xml:space="preserve">
+  <data name="EditKeyboardShortcuts" xml:space="preserve">
     <value>Tastaturkürzel bearbeiten</value>
   </data>
-	<data name="AltModifier" xml:space="preserve">
+  <data name="AltModifier" xml:space="preserve">
     <value>% ALT</value>
   </data>
-	<data name="CommandColon" xml:space="preserve">
+  <data name="CommandColon" xml:space="preserve">
     <value>Befehl:</value>
   </data>
-	<data name="CtrlModifier" xml:space="preserve">
+  <data name="CtrlModifier" xml:space="preserve">
     <value>^ STRG</value>
   </data>
-	<data name="CtrlShiftPgUp" xml:space="preserve">
+  <data name="CtrlShiftPgUp" xml:space="preserve">
     <value>^+{PgUp} STRG UMSCH BILD-HOCH</value>
   </data>
-	<data name="EditShortcut" xml:space="preserve">
+  <data name="EditShortcut" xml:space="preserve">
     <value>Tastaturkürzel bearbeiten</value>
   </data>
-	<data name="EnableKeyboardShortcuts" xml:space="preserve">
+  <data name="EnableKeyboardShortcuts" xml:space="preserve">
     <value>Tastaturkürzel aktivieren</value>
   </data>
-	<data name="Example" xml:space="preserve">
+  <data name="Example" xml:space="preserve">
     <value>Beispiel</value>
   </data>
-	<data name="Legend" xml:space="preserve">
+  <data name="Legend" xml:space="preserve">
     <value>Legende</value>
   </data>
-	<data name="ModifierKeysColon" xml:space="preserve">
+  <data name="ModifierKeysColon" xml:space="preserve">
     <value>Hilfstasten:</value>
   </data>
-	<data name="ShiftModifier" xml:space="preserve">
+  <data name="ShiftModifier" xml:space="preserve">
     <value>+ UMSCH</value>
   </data>
-	<data name="ShortcutsHelp" xml:space="preserve">
+  <data name="ShortcutsHelp" xml:space="preserve">
     <value>Mehr Informationen über Tastaturkürzel (Microsoft-Website)</value>
   </data>
-	<data name="SpecialKeys" xml:space="preserve">
+  <data name="SpecialKeys" xml:space="preserve">
     <value>{F1}, {PgUp}, ... Spezialtasten</value>
   </data>
-	<data name="EnableShortcuts" xml:space="preserve">
+  <data name="EnableShortcuts" xml:space="preserve">
     <value>Enable XL Toolbox keyboard shortcuts</value>
   </data>
-	<data name="InvalidKeySequence" xml:space="preserve">
+  <data name="InvalidKeySequence" xml:space="preserve">
     <value>(Ungültige Tastaturkombination.)</value>
   </data>
-	<data name="DoYouWantToEnableLogging" xml:space="preserve">
+  <data name="DoYouWantToEnableLogging" xml:space="preserve">
     <value>Wollen Sie die technische Protokollierung jetzt aktivieren?</value>
   </data>
-	<data name="DoYouWantToExamineLogs" xml:space="preserve">
+  <data name="DoYouWantToExamineLogs" xml:space="preserve">
     <value>Wollen Sie die Log-Datei jetzt ansehen?</value>
   </data>
-	<data name="IfYouSuspect" xml:space="preserve">
+  <data name="IfYouSuspect" xml:space="preserve">
     <value>Wenn Sie glauben, ein Fehler in Daniel's XL Toolbox könnte die Ursache sein, schalten Sie bitte die technische Protokollierung (Log-Datei) ein. Das kann bei der Fehlersuche helfen.</value>
   </data>
-	<data name="IncompleteShutdown" xml:space="preserve">
+  <data name="IncompleteShutdown" xml:space="preserve">
     <value>Excel wurde zuletzt nicht ordentlich beendet</value>
   </data>
-	<data name="LoggingWasEnabled" xml:space="preserve">
+  <data name="LoggingWasEnabled" xml:space="preserve">
     <value>Sie haben ja schon die technische Protokollierung (Log-Datei) aktiviert. Die Log-Datei enthält möglicherweise Informationen, die für die Fehlersuche nützlich sind. Bitte senden Sie die Log-Datei doch an support@xltoolbox.net.</value>
   </data>
-	<data name="XLToolboxNotShutDownProperly" xml:space="preserve">
+  <data name="XLToolboxNotShutDownProperly" xml:space="preserve">
     <value>Das XL-Toolbox-Addin ist beim letzten Mal nicht sauber beendet worden.</value>
   </data>
-	<data name="CurrentLogColon" xml:space="preserve">
+  <data name="CurrentLogColon" xml:space="preserve">
     <value>Aktuelle Log-Datei:</value>
   </data>
-	<data name="EnableLogging" xml:space="preserve">
+  <data name="EnableLogging" xml:space="preserve">
     <value>Protokollierung aktivieren</value>
   </data>
-	<data name="EditLegacyToolboxPreferences" xml:space="preserve">
+  <data name="EditLegacyToolboxPreferences" xml:space="preserve">
     <value>Einstellungen der alten XL Toolbox bearbeiten</value>
   </data>
-	<data name="LegacyPreferences" xml:space="preserve">
+  <data name="LegacyPreferences" xml:space="preserve">
     <value>Einstellungen der alten Toolbox-Funktionen</value>
   </data>
-	<data name="Logging" xml:space="preserve">
+  <data name="Logging" xml:space="preserve">
     <value>Technische Protokollierung</value>
   </data>
-	<data name="SettingsAndLogFolder" xml:space="preserve">
+  <data name="SettingsAndLogFolder" xml:space="preserve">
     <value>Ordner für Einstellungen und Logdateien</value>
   </data>
-	<data name="SomeFeaturesAreContainedInLegacyAddin" xml:space="preserve">
+  <data name="SomeFeaturesAreContainedInLegacyAddin" xml:space="preserve">
     <value>Einige Funktionen stammen noch aus der alten Toolbox-Version (vor Version 7); ihre Einstellungen können Sie hier bearbeiten.</value>
   </data>
-	<data name="TaskPaneWidth" xml:space="preserve">
+  <data name="TaskPaneWidth" xml:space="preserve">
     <value>Breite des Aufgabenbereichs</value>
   </data>
-	<data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
+  <data name="TaskPaneWidthCannotBeAutomaticallySaved" xml:space="preserve">
     <value>Es ist technisch nicht möglich, die momentane Breite des Aufgabenbereichs beim Herunterfahren automatisch zu speichern und beim nächsten Start wiederherzustellen. Allerdings ist der hier angegebene Wert immer die tatsächliche momentane Breite des Aufgabenbereichs, sofern der Aufgabenbereich sichtbar ist.</value>
   </data>
-	<data name="ImageSizeMegaPixels" xml:space="preserve">
+  <data name="ImageSizeMegaPixels" xml:space="preserve">
     <value>Bildgröße: {0:0.00} Megapixel/{1:0.00} MB unkomprimiert.</value>
   </data>
-	<data name="UnableToAccessClipboard" xml:space="preserve">
+  <data name="UnableToAccessClipboard" xml:space="preserve">
     <value>Das Betriebssystem gewährt keinen Zugriff auf die Zwischenablage; wird sie vielleicht von einem anderen Programm blockiert?
 
 Fehlermeldung:
 
 {0}</value>
   </data>
-	<data name="ExportFailed" xml:space="preserve">
+  <data name="ExportFailed" xml:space="preserve">
     <value>Export fehlgeschlagen</value>
   </data>
-	<data name="ExportFailedMessage" xml:space="preserve">
+  <data name="ExportFailedMessage" xml:space="preserve">
     <value>Beim Export ist ein Fehler aufgetreten.
 
 Fehlermeldung:</value>
   </data>
-	<data name="CsvExportFailedMessage" xml:space="preserve">
+  <data name="CsvExportFailedMessage" xml:space="preserve">
     <value>Beim CSV-Export ist leider ein Fehler aufgetreten.
 
 Fehlermeldung:</value>
   </data>
-	<data name="Language" xml:space="preserve">
+  <data name="Language" xml:space="preserve">
     <value>Sprache</value>
   </data>
-	<data name="RestartForChangesToTakeEffect" xml:space="preserve">
+  <data name="RestartForChangesToTakeEffect" xml:space="preserve">
     <value>Sie müssen Excel neu starten, damit die Änderungen voll wirksam werden.</value>
   </data>
-	<data name="VstoRuntime" xml:space="preserve">
-		<value>VSTO-Laufzeit</value>
-	</data>
-	<data name="UpdateAvailableNotAuthorized" xml:space="preserve">
-		<value>Es ist ein Update verfügbar, aber Sie haben offenbar keine Berechtigung, es zu installieren. Bitte fragen Sie entweder den Administrator dieses Computers, oder laden Sie das Update von der Homepage herunter und installieren Sie es manuell.</value>
-	</data>
-	<data name="BackupDirForThisWorkbook" xml:space="preserve">
-		<value>Backup-Ordner für die aktuelle Arbeitsmappe</value>
-	</data>
-	<data name="Backups" xml:space="preserve">
-		<value>Backups</value>
-	</data>
-	<data name="BackupsForThisWorkbook" xml:space="preserve">
-		<value>Backups für diese Arbeitsmappe</value>
-	</data>
-	<data name="DeleteAll" xml:space="preserve">
-		<value>Alle löschen</value>
-	</data>
-	<data name="EnableBackups" xml:space="preserve">
-		<value>Automatische Backups aktivieren</value>
-	</data>
-	<data name="Open" xml:space="preserve">
-		<value>Öffnen</value>
-	</data>
-	<data name="AreYouSureYouWantToDeleteAllBackups" xml:space="preserve">
-		<value>Wollen Sie wirklich alle Sicherheitskopien der aktuellen Arbeitsmappe löschen? Das kann nicht mehr rückgängig gemacht werden!</value>
-	</data>
-	<data name="DeleteAllBackups" xml:space="preserve">
-		<value>Alle Backups löschen</value>
-	</data>
-	<data name="ThisWorkbookHasNoBackupsYet" xml:space="preserve">
-		<value>Für die aktuelle Arbeitsmappe wurden keine Backups gefunden. Sobald Sie die Datei mit eingeschalteter Backup-Funktion mindestens zweimal speichern, werden Sicherheitskopien angelegt. Beachten Sie, dass nach Umbenennen einer Datei etwaige bereits existierende Backups nicht mehr zugeordnet werden können.</value>
-	</data>
-	<data name="Today" xml:space="preserve">
-		<value>Heute</value>
-	</data>
-	<data name="Yesterday" xml:space="preserve">
-		<value>Gestern</value>
-	</data>
-	<data name="BackupsDisclaimer" xml:space="preserve">
-		<value>Automatische Backups sind ein Datenschutz-Risiko: Falls Sie eine Arbeitsmappe komplett löschen möchten, müssen Sie daran denken, auch alle vorhandenen Backups zu löschen. Außerdem sollten Sie beim Arbeiten mit Sicherheitskopien im Blick behalten, ob Sie mit der aktuellen Datei oder einer älteren Version arbeiten.</value>
-	</data>
-	<data name="BackupDir" xml:space="preserve">
-		<value>Backup-Ordner</value>
-	</data>
-	<data name="BackupDirExplanation" xml:space="preserve">
-		<value>Der Backup-Ordner ist immer relativ zum Ordner, in dem die jeweilige Arbeitsmappe gespeichert ist. Geben Sie also hier keinen absoluten Pfad ein, also z.B. nicht "c:\Backups".</value>
-	</data>
-	<data name="BackupDirNullOrWhitespaceError" xml:space="preserve">
-		<value>Das Backup-Verzeichnis muß angegeben werden</value>
-	</data>
-	<data name="BackupDirRootedError" xml:space="preserve">
-		<value>Das Backup-Verzeichnis darf kein absoluter Pfad sein, also z.B. nicht "c:\Backups".</value>
-	</data>
-	<data name="BackupError" xml:space="preserve">
-		<value>Fehler beim Erstellen eines Backups</value>
-	</data>
-	<data name="DoNotShowThisMessageAgain" xml:space="preserve">
-		<value>Diesen Hinweis nicht mehr anzeigen</value>
-	</data>
-	<data name="ErrorMessage" xml:space="preserve">
-		<value>Fehlermeldung:</value>
-	</data>
-	<data name="UnableToCreateBackupCopy" xml:space="preserve">
-		<value>Es konnte keine Sicherungskopie angelegt werden.</value>
-	</data>
-	<data name="SuppressFailedBackupErrorMessage" xml:space="preserve">
-		<value>Fehlermeldungen zu Sicherungskopien nicht anzeigen</value>
-	</data>
-	<data name="CopyToClipboard" xml:space="preserve">
-		<value>In Zwischenablage kopieren</value>
-	</data>
-	<data name="WorkbookProperties" xml:space="preserve">
-		<value>Eigenschaften der Arbeitsmappe</value>
-	</data>
-	<data name="JumpToTarget" xml:space="preserve">
-		<value>Ziel anspringen</value>
-	</data>
-	<data name="UnableToJump" xml:space="preserve">
-		<value>Das in der aktuellen Tabellenzelle enthaltene Ziel konnte nicht angesprungen werden. Bitte überprüfen Sie die Schreibweise.</value>
-	</data>
-	<data name="Folder" xml:space="preserve">
-		<value>Ordner</value>
-	</data>
-	<data name="Reference" xml:space="preserve">
-		<value>Verweis</value>
-	</data>
-	<data name="WorkbookAndPath" xml:space="preserve">
-		<value>Arbeitsmappe mit Ordner</value>
-	</data>
-	<data name="WorksheetAndWorkbookReference" xml:space="preserve">
-		<value>Tabellenblatt und Arbeitsmappe (Verweis)</value>
-	</data>
-	<data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
-		<value>Tabellenblatt und Arbeitsmappe mit Ordner (Verweis)</value>
-	</data>
-	<data name="DllNotAvailableCaption" xml:space="preserve">
-		<value>XL Toolbox: DLL-Dateien nicht verfügbar</value>
-	</data>
-	<data name="DllNotAvailableMessage" xml:space="preserve">
-		<value>Daniel's XL Toolbox kann zusätzlich benötigte DLL-Dateien nicht laden. Deshalb sind einige Graphikexport-Funktionen deaktiviert.
+  <data name="VstoRuntime" xml:space="preserve">
+    <value>VSTO-Laufzeit</value>
+  </data>
+  <data name="UpdateAvailableNotAuthorized" xml:space="preserve">
+    <value>Es ist ein Update verfügbar, aber Sie haben offenbar keine Berechtigung, es zu installieren. Bitte fragen Sie entweder den Administrator dieses Computers, oder laden Sie das Update von der Homepage herunter und installieren Sie es manuell.</value>
+  </data>
+  <data name="BackupDirForThisWorkbook" xml:space="preserve">
+    <value>Backup-Ordner für die aktuelle Arbeitsmappe</value>
+  </data>
+  <data name="Backups" xml:space="preserve">
+    <value>Backups</value>
+  </data>
+  <data name="BackupsForThisWorkbook" xml:space="preserve">
+    <value>Backups für diese Arbeitsmappe</value>
+  </data>
+  <data name="DeleteAll" xml:space="preserve">
+    <value>Alle löschen</value>
+  </data>
+  <data name="EnableBackups" xml:space="preserve">
+    <value>Automatische Backups aktivieren</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteAllBackups" xml:space="preserve">
+    <value>Wollen Sie wirklich alle Sicherheitskopien der aktuellen Arbeitsmappe löschen? Das kann nicht mehr rückgängig gemacht werden!</value>
+  </data>
+  <data name="DeleteAllBackups" xml:space="preserve">
+    <value>Alle Backups löschen</value>
+  </data>
+  <data name="ThisWorkbookHasNoBackupsYet" xml:space="preserve">
+    <value>Für die aktuelle Arbeitsmappe wurden keine Backups gefunden. Sobald Sie die Datei mit eingeschalteter Backup-Funktion mindestens zweimal speichern, werden Sicherheitskopien angelegt. Beachten Sie, dass nach Umbenennen einer Datei etwaige bereits existierende Backups nicht mehr zugeordnet werden können.</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Heute</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Gestern</value>
+  </data>
+  <data name="BackupsDisclaimer" xml:space="preserve">
+    <value>Automatische Backups sind ein Datenschutz-Risiko: Falls Sie eine Arbeitsmappe komplett löschen möchten, müssen Sie daran denken, auch alle vorhandenen Backups zu löschen. Außerdem sollten Sie beim Arbeiten mit Sicherheitskopien im Blick behalten, ob Sie mit der aktuellen Datei oder einer älteren Version arbeiten.</value>
+  </data>
+  <data name="BackupDir" xml:space="preserve">
+    <value>Backup-Ordner</value>
+  </data>
+  <data name="BackupDirExplanation" xml:space="preserve">
+    <value>Der Backup-Ordner ist immer relativ zum Ordner, in dem die jeweilige Arbeitsmappe gespeichert ist. Geben Sie also hier keinen absoluten Pfad ein, also z.B. nicht "c:\Backups".</value>
+  </data>
+  <data name="BackupDirNullOrWhitespaceError" xml:space="preserve">
+    <value>Das Backup-Verzeichnis muß angegeben werden</value>
+  </data>
+  <data name="BackupDirRootedError" xml:space="preserve">
+    <value>Das Backup-Verzeichnis darf kein absoluter Pfad sein, also z.B. nicht "c:\Backups".</value>
+  </data>
+  <data name="BackupError" xml:space="preserve">
+    <value>Fehler beim Erstellen eines Backups</value>
+  </data>
+  <data name="DoNotShowThisMessageAgain" xml:space="preserve">
+    <value>Diesen Hinweis nicht mehr anzeigen</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Fehlermeldung:</value>
+  </data>
+  <data name="UnableToCreateBackupCopy" xml:space="preserve">
+    <value>Es konnte keine Sicherungskopie angelegt werden.</value>
+  </data>
+  <data name="SuppressFailedBackupErrorMessage" xml:space="preserve">
+    <value>Fehlermeldungen zu Sicherungskopien nicht anzeigen</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>In Zwischenablage kopieren</value>
+  </data>
+  <data name="WorkbookProperties" xml:space="preserve">
+    <value>Eigenschaften der Arbeitsmappe</value>
+  </data>
+  <data name="JumpToTarget" xml:space="preserve">
+    <value>Ziel anspringen</value>
+  </data>
+  <data name="UnableToJump" xml:space="preserve">
+    <value>Das in der aktuellen Tabellenzelle enthaltene Ziel konnte nicht angesprungen werden. Bitte überprüfen Sie die Schreibweise.</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Ordner</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Verweis</value>
+  </data>
+  <data name="WorkbookAndPath" xml:space="preserve">
+    <value>Arbeitsmappe mit Ordner</value>
+  </data>
+  <data name="WorksheetAndWorkbookReference" xml:space="preserve">
+    <value>Tabellenblatt und Arbeitsmappe (Verweis)</value>
+  </data>
+  <data name="WorksheetAndWorkbookWithPathReference" xml:space="preserve">
+    <value>Tabellenblatt und Arbeitsmappe mit Ordner (Verweis)</value>
+  </data>
+  <data name="DllNotAvailableCaption" xml:space="preserve">
+    <value>XL Toolbox: DLL-Dateien nicht verfügbar</value>
+  </data>
+  <data name="DllNotAvailableMessage" xml:space="preserve">
+    <value>Daniel's XL Toolbox kann zusätzlich benötigte DLL-Dateien nicht laden. Deshalb sind einige Graphikexport-Funktionen deaktiviert.
 Versuchen Sie, das Addin über die Systemsteuerung zu deinstallieren, und installieren Sie es erneut mit dem offiziellen Instalationsprogramm. Sie sollten das Addin NICHT mittels Doppelklick auf eine '.vsto'-Datei installieren.
 Wenn Sie weitere Hilfe benötigen, rufen Sie bitte xltoolbox.net/support auf.</value>
-	</data>
-	<data name="Tabularize" xml:space="preserve">
-		<value>Tabulieren (Spalten angleichen)</value>
-	</data>
-	<data name="DebugLogging" xml:space="preserve">
-		<value>Entwickler-Log (umfangreich, LANGSAM)</value>
-	</data>
-	<data name="GraphicHasNoCopyMethod" xml:space="preserve">
-		<value>Diese Graphic kann leider nicht exportiert werden, weil Excel nicht zuläßt, sie programmatisch in die Zwischenablage zu kopieren. Das ist leider kein Problem, das von der XL Toolbox gelöst werden kann.</value>
-	</data>
-	<data name="GraphicHasNoCopyMethodIsSelected" xml:space="preserve">
-		<value>Mindestens eine Graphik kann nicht exportiert werden, weil Excel nicht zuläßt, daß sie programmatisch in die Zwischenablage kopiert wird. Das ist leider kein Problem, das die XL Toolbox lösen kann.</value>
-	</data>
-	<data name="VbaException" xml:space="preserve">
-		<value>Fehler im alten XL-Toolbox-Addin</value>
-	</data>
-	<data name="VbaExceptionExplanation" xml:space="preserve">
-		<value>Ein Fehler ist im alten, übernommenen Teil der XL Toolbox aufgetreten. Das alte Add-In funktioniert im allgemeinen sehr gut, und das seit vielen Jahren. Bitte überprüfen Sie, daß sie die Daten korrekt eingegeben oder den richtigen Graphen ausgewählt haben. Die Anleitungen auf www.xltoolbox.net könnten Ihnen hierbei helfen.</value>
-	</data>
-	<data name="VbaExceptionExplanationFuture" xml:space="preserve">
-		<value>Die alten Teile des Add-Ins werden nach und nach modernisiert und toleranter für Fehleingaben gemacht, so daß dieser Fehler dann hoffentlich nicht mehr auftreten wird.</value>
-	</data>
+  </data>
+  <data name="Tabularize" xml:space="preserve">
+    <value>Tabulieren (Spalten angleichen)</value>
+  </data>
+  <data name="DebugLogging" xml:space="preserve">
+    <value>Entwickler-Log (umfangreich, LANGSAM)</value>
+  </data>
+  <data name="GraphicHasNoCopyMethod" xml:space="preserve">
+    <value>Diese Graphic kann leider nicht exportiert werden, weil Excel nicht zuläßt, sie programmatisch in die Zwischenablage zu kopieren. Das ist leider kein Problem, das von der XL Toolbox gelöst werden kann.</value>
+  </data>
+  <data name="GraphicHasNoCopyMethodIsSelected" xml:space="preserve">
+    <value>Mindestens eine Graphik kann nicht exportiert werden, weil Excel nicht zuläßt, daß sie programmatisch in die Zwischenablage kopiert wird. Das ist leider kein Problem, das die XL Toolbox lösen kann.</value>
+  </data>
+  <data name="VbaException" xml:space="preserve">
+    <value>Fehler im alten XL-Toolbox-Addin</value>
+  </data>
+  <data name="VbaExceptionExplanation" xml:space="preserve">
+    <value>Ein Fehler ist im alten, übernommenen Teil der XL Toolbox aufgetreten. Das alte Add-In funktioniert im allgemeinen sehr gut, und das seit vielen Jahren. Bitte überprüfen Sie, daß sie die Daten korrekt eingegeben oder den richtigen Graphen ausgewählt haben. Die Anleitungen auf www.xltoolbox.net könnten Ihnen hierbei helfen.</value>
+  </data>
+  <data name="VbaExceptionExplanationFuture" xml:space="preserve">
+    <value>Die alten Teile des Add-Ins werden nach und nach modernisiert und toleranter für Fehleingaben gemacht, so daß dieser Fehler dann hoffentlich nicht mehr auftreten wird.</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Datenschutz</value>
+  </data>
+  <data name="EnableUpdateChecks" xml:space="preserve">
+    <value>Automatische Updates aktivieren</value>
+  </data>
+  <data name="UpdatePrivacy" xml:space="preserve">
+    <value>Wenn nach Updates gesucht wird, wird Ihre IP-Adresse für begrenzte Zeit auf dem XL-Toolbox-Webserver gespeichert. Bitte lesen Sie die Hinweise zum Datenschutz, um mehr zu erfahren.</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>Automatische Updates</value>
+  </data>
 </root>

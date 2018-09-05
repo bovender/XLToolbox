@@ -39,20 +39,20 @@
 #endif
 
 typedef struct tagTGAHEADER {
-	BYTE id_length;				// ID length
-	BYTE color_map_type;		// color map type
-	BYTE image_type;			// image type
+	BYTE id_length;				//! length of the image ID field
+	BYTE color_map_type;		//! whether a color map is included
+	BYTE image_type;			//! compression and color types
 
-	WORD cm_first_entry;		// first entry index
-	WORD cm_length;				// color map length
-	BYTE cm_size;				// color map entry size, in bits
+	WORD cm_first_entry;		//! first entry index (offset into the color map table)
+	WORD cm_length;				//! color map length (number of entries)
+	BYTE cm_size;				//! color map entry size, in bits (number of bits per pixel)
 
-	WORD is_xorigin;			// X-origin of image
-	WORD is_yorigin;			// Y-origin of image
-	WORD is_width;				// image width
-	WORD is_height;				// image height
-	BYTE is_pixel_depth;		// pixel depth
-	BYTE is_image_descriptor;	// image descriptor
+	WORD is_xorigin;			//! X-origin of image (absolute coordinate of lower-left corner for displays where origin is at the lower left)
+	WORD is_yorigin;			//! Y-origin of image (as for X-origin)
+	WORD is_width;				//! image width
+	WORD is_height;				//! image height
+	BYTE is_pixel_depth;		//! bits per pixel
+	BYTE is_image_descriptor;	//! image descriptor, bits 3-0 give the alpha channel depth, bits 5-4 give direction
 } TGAHEADER;
 
 typedef struct tagTGAEXTENSIONAREA {
@@ -358,7 +358,7 @@ MimeType() {
 static BOOL 
 isTARGA20(FreeImageIO *io, fi_handle handle) {
 	const unsigned sizeofSig = 18;
-	BYTE signature[sizeofSig];
+	BYTE signature[sizeofSig] = { 0 };
 	// tga_signature = "TRUEVISION-XFILE." (TGA 2.0 only)
 	BYTE tga_signature[sizeofSig] = { 84, 82, 85, 69, 86, 73, 83, 73, 79, 78, 45, 88, 70, 73, 76, 69, 46, 0 };
 	// get the start offset
@@ -367,8 +367,11 @@ isTARGA20(FreeImageIO *io, fi_handle handle) {
 	io->seek_proc(handle, 0, SEEK_END);
 	const long eof = io->tell_proc(handle);
 	// read the signature
-	io->seek_proc(handle, start_offset + eof - sizeofSig, SEEK_SET);
-	io->read_proc(&signature, 1, sizeofSig, handle);
+	const long start_of_signature = start_offset + eof - sizeofSig;
+	if (start_of_signature > 0) {
+		io->seek_proc(handle, start_of_signature, SEEK_SET);
+		io->read_proc(&signature, 1, sizeofSig, handle);
+	}
 	// rewind
 	io->seek_proc(handle, start_offset, SEEK_SET);
 		
@@ -387,7 +390,9 @@ Validate(FreeImageIO *io, fi_handle handle) {
 		
 		// get the header
 		TGAHEADER header;
-		io->read_proc(&header, sizeof(tagTGAHEADER), 1, handle);
+		if (io->read_proc(&header, sizeof(tagTGAHEADER), 1, handle) < 1) {
+			return FALSE;
+		}
 #ifdef FREEIMAGE_BIGENDIAN
 		SwapHeader(&header);
 #endif
@@ -399,15 +404,15 @@ Validate(FreeImageIO *io, fi_handle handle) {
 			return FALSE;
 		}
 		// if the color map type is 1 then we validate the map entry information...
-		if(header.color_map_type > 0) {
-			// It doesn't make any sense if the first entry is larger than the color map table
+		if(header.color_map_type == 1) {
+			// it doesn't make any sense if the first entry is larger than the color map table
 			if(header.cm_first_entry >= header.cm_length) {
 				return FALSE;
 			}
-		}
-		// check header.cm_size, don't allow 0 or anything bigger than 32
-		if(header.cm_size == 0 || header.cm_size > 32) {
-			return FALSE;
+			// check header.cm_size, don't allow 0 or anything bigger than 32
+			if(header.cm_size == 0 || header.cm_size > 32) {
+				return FALSE;
+			}
 		}
 		// the width/height shouldn't be 0, right ?
 		if(header.is_width == 0 || header.is_height == 0) {
@@ -415,9 +420,9 @@ Validate(FreeImageIO *io, fi_handle handle) {
 		}
 		// let's now verify all the types that are supported by FreeImage (this is our final verification)
 		switch(header.image_type) {
-			case TGA_CMAP	:
+			case TGA_CMAP:
 			case TGA_RGB:
-			case TGA_MONO	:
+			case TGA_MONO:
 			case TGA_RLECMAP:
 			case TGA_RLERGB:
 			case TGA_RLEMONO:
@@ -435,8 +440,6 @@ Validate(FreeImageIO *io, fi_handle handle) {
 				return FALSE;
 		}
 	}
-
-	return FALSE;
 }
 
 static BOOL DLL_CALLCONV
@@ -1339,7 +1342,7 @@ Save(FreeImageIO *io, FIBITMAP *dib, fi_handle handle, int page, int flags, void
 	header.is_width = (WORD)FreeImage_GetWidth(dib);
 	header.is_height = (WORD)FreeImage_GetHeight(dib);
 	header.is_pixel_depth = (BYTE)bpp;
-	header.is_image_descriptor = 0;
+	header.is_image_descriptor = (bpp == 32 ? 8 : 0);
 
 	if (palette) {
 		header.color_map_type = 1;
