@@ -1,5 +1,3 @@
-/* $Id: tif_zip.c,v 1.8 2013/11/29 22:22:01 drolon Exp $ */
-
 /*
  * Copyright (c) 1995-1997 Sam Leffler
  * Copyright (c) 1995-1997 Silicon Graphics, Inc.
@@ -36,7 +34,7 @@
  * of the library: this code assumes the 1.0 API and also depends on
  * the ability to write the zlib header multiple times (one per strip)
  * which was not possible with versions prior to 0.95.  Note also that
- * older versions of this codec avoided this bug by supressing the header
+ * older versions of this codec avoided this bug by suppressing the header
  * entirely.  This means that files written with the old library cannot
  * be read; they should be converted to a different compression scheme
  * and then reconverted.
@@ -47,7 +45,7 @@
  * last found at ftp://ftp.uu.net/pub/archiving/zip/zlib/zlib-0.99.tar.gz.
  */
 #include "tif_predict.h"
-#include "../ZLib/zlib.h"
+#include "zlib.h"
 
 #include <stdio.h>
 
@@ -107,7 +105,11 @@ ZIPSetupDecode(TIFF* tif)
 	    sp->state = 0;
 	}
 
-	if (inflateInit(&sp->stream) != Z_OK) {
+	/* This function can possibly be called several times by */
+	/* PredictorSetupDecode() if this function succeeds but */
+	/* PredictorSetup() fails */
+	if ((sp->state & ZSTATE_INIT_DECODE) == 0 &&
+	    inflateInit(&sp->stream) != Z_OK) {
 		TIFFErrorExt(tif->tif_clientdata, module, "%s", SAFE_MSG(sp));
 		return (0);
 	} else {
@@ -135,7 +137,7 @@ ZIPPreDecode(TIFF* tif, uint16 s)
 	assert(sizeof(sp->stream.avail_in)==4);  /* if this assert gets raised,
 	    we need to simplify this code to reflect a ZLib that is likely updated
 	    to deal with 8byte memory sizes, though this code will respond
-	    apropriately even before we simplify it */
+	    appropriately even before we simplify it */
 	sp->stream.avail_in = (uInt) tif->tif_rawcc;
 	if ((tmsize_t)sp->stream.avail_in != tif->tif_rawcc)
 	{
@@ -162,7 +164,7 @@ ZIPDecode(TIFF* tif, uint8* op, tmsize_t occ, uint16 s)
 	assert(sizeof(sp->stream.avail_out)==4);  /* if this assert gets raised,
 	    we need to simplify this code to reflect a ZLib that is likely updated
 	    to deal with 8byte memory sizes, though this code will respond
-	    apropriately even before we simplify it */
+	    appropriately even before we simplify it */
 	sp->stream.avail_out = (uInt) occ;
 	if ((tmsize_t)sp->stream.avail_out != occ)
 	{
@@ -239,8 +241,8 @@ ZIPPreEncode(TIFF* tif, uint16 s)
 	assert(sizeof(sp->stream.avail_out)==4);  /* if this assert gets raised,
 	    we need to simplify this code to reflect a ZLib that is likely updated
 	    to deal with 8byte memory sizes, though this code will respond
-	    apropriately even before we simplify it */
-	sp->stream.avail_out = tif->tif_rawdatasize;
+	    appropriately even before we simplify it */
+	sp->stream.avail_out = (uInt)tif->tif_rawdatasize;
 	if ((tmsize_t)sp->stream.avail_out != tif->tif_rawdatasize)
 	{
 		TIFFErrorExt(tif->tif_clientdata, module, "ZLib cannot deal with buffers this size");
@@ -266,7 +268,7 @@ ZIPEncode(TIFF* tif, uint8* bp, tmsize_t cc, uint16 s)
 	assert(sizeof(sp->stream.avail_in)==4);  /* if this assert gets raised,
 	    we need to simplify this code to reflect a ZLib that is likely updated
 	    to deal with 8byte memory sizes, though this code will respond
-	    apropriately even before we simplify it */
+	    appropriately even before we simplify it */
 	sp->stream.avail_in = (uInt) cc;
 	if ((tmsize_t)sp->stream.avail_in != cc)
 	{
@@ -460,7 +462,7 @@ bad:
 		     "No space for ZIP state block");
 	return (0);
 }
-#endif /* ZIP_SUPORT */
+#endif /* ZIP_SUPPORT */
 
 /* vim: set ts=8 sts=8 sw=8 noet: */
 /*
