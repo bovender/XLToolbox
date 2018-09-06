@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 # Creates an XL Toolbox NG release on GitHub
-# (c) 2016 Daniel Kraus (bovender)
+# (c) 2016-2018 Daniel Kraus (bovender)
 
 require 'octokit'
 
