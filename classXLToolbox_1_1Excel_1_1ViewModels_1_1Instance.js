@@ -2,6 +2,7 @@ var classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance =
 [
     [ "Instance", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a06423bf9c33323a54a1764f04148154d", null ],
     [ "Instance", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#af6df53cd4dfef8330701d0e0b258ac9b", null ],
+    [ "ClearPivotCache", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a5f091b6a19bfb2db62eb3e4e32b5e827", null ],
     [ "CreateWorkbook", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#ae849aa68b4839befd591edc7a4c395d0", null ],
     [ "CreateWorkbook", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#adae05fd3cbc3db8ae6562ad67481aad1", null ],
     [ "DisableDisplayAlerts", "classXLToolbox_1_1Excel_1_1ViewModels_1_1Instance.html#a03897c0ad738d7ad45f77d912aa43231", null ],

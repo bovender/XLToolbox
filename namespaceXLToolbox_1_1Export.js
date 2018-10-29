@@ -8,6 +8,7 @@ var namespaceXLToolbox_1_1Export =
     [ "DibBitmap", "classXLToolbox_1_1Export_1_1DibBitmap.html", "classXLToolbox_1_1Export_1_1DibBitmap" ],
     [ "Exporter", "classXLToolbox_1_1Export_1_1Exporter.html", "classXLToolbox_1_1Export_1_1Exporter" ],
     [ "ExportFileName", "classXLToolbox_1_1Export_1_1ExportFileName.html", "classXLToolbox_1_1Export_1_1ExportFileName" ],
+    [ "IExporter", "interfaceXLToolbox_1_1Export_1_1IExporter.html", "interfaceXLToolbox_1_1Export_1_1IExporter" ],
     [ "QuickExporter", "classXLToolbox_1_1Export_1_1QuickExporter.html", "classXLToolbox_1_1Export_1_1QuickExporter" ],
     [ "ScreenshotExporter", "classXLToolbox_1_1Export_1_1ScreenshotExporter.html", "classXLToolbox_1_1Export_1_1ScreenshotExporter" ],
     [ "TileException", "classXLToolbox_1_1Export_1_1TileException.html", "classXLToolbox_1_1Export_1_1TileException" ],

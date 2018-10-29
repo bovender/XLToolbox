@@ -54,6 +54,7 @@ var Command_8cs =
       [ "Shortcuts", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a29e9d8e295b1d5b3002d2d3d5baa4c37", null ],
       [ "Backups", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a1414cdc093d39dd56d0b0d20049e17fc", null ],
       [ "Properties", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a9fc2d28c05ed9eb1d75ba4465abf15a9", null ],
-      [ "OpenFromCell", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a0557cf735cc90cb65e900826a67191e0", null ]
+      [ "OpenFromCell", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a0557cf735cc90cb65e900826a67191e0", null ],
+      [ "ClearPivotCache", "Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a98d8dd3c3135b0e08972bd94ec051b70", null ]
     ] ]
 ];

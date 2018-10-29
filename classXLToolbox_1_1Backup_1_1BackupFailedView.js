@@ -4,5 +4,7 @@ var classXLToolbox_1_1Backup_1_1BackupFailedView =
     [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Backup_1_1BackupFailedView.html#a6208a6c341fbcc78c14e82f976747abc", null ]
 ];

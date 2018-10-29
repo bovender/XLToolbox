@@ -4,5 +4,7 @@ var classXLToolbox_1_1Csv_1_1CsvImportView =
     [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Csv_1_1CsvImportView.html#a0ae73b56ae2d9a1e06d3cd685456dc4d", null ]
 ];

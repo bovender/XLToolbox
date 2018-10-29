@@ -4,5 +4,7 @@ var classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView =
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1BatchExportSettingsView.html#aca189ef8e7080ca31e977847a18209fb", null ]
 ];

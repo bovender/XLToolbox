@@ -5,5 +5,6 @@ var classXLToolbox_1_1Versioning_1_1InstallUpdateView =
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1InstallUpdateView.html#a53be44a7232e40d0f629dc983789eaa4", null ]
 ];

@@ -4,5 +4,7 @@ var classXLToolbox_1_1ExceptionHandler_1_1ExceptionView =
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1ExceptionView.html#a4d37f4cc042a6fbf57995285f190c276", null ]
 ];

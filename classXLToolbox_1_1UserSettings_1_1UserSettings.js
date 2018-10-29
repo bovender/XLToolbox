@@ -12,6 +12,7 @@ var classXLToolbox_1_1UserSettings_1_1UserSettings =
     [ "Default", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a3ae77c201997c983ee3544d4a6c10e65", null ],
     [ "EnableBackups", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a11ca657de24cbb97a3d83c64c01fa3d2", null ],
     [ "EnableLogging", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#ad64f0b6f54eadff2367f70d7be87feb5", null ],
+    [ "EnableUpdateChecks", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#ad597be396bc6b211ebadcdb203beb88e", null ],
     [ "ExportPath", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#a58f3a99dccd29994f5b171d4ed27d3c2", null ],
     [ "ExportPreset", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#ac1e8535fe6b43b181f3cef01316e50a2", null ],
     [ "ExportPresets", "classXLToolbox_1_1UserSettings_1_1UserSettings.html#aa708aec2d7fe3437dfdf8b73666aa05d", null ],

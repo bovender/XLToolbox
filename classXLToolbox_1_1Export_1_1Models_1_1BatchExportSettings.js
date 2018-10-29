@@ -9,5 +9,6 @@ var classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings =
     [ "Layout", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#adeaf3bfb831cc007f1783430a5cb3ef3", null ],
     [ "Objects", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#aa971d6de48840c211cdb2d314daa75ae", null ],
     [ "Path", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#a3916e01dc612434e3816dc644c123431", null ],
-    [ "Scope", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#aa5e96d9941f60b78831bca427d4a5986", null ]
+    [ "Scope", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#aa5e96d9941f60b78831bca427d4a5986", null ],
+    [ "Screenshot", "classXLToolbox_1_1Export_1_1Models_1_1BatchExportSettings.html#afe29cfb3f59f1afd23e0475c0e96775c", null ]
 ];

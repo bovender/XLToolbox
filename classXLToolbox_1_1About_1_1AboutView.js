@@ -4,5 +4,7 @@ var classXLToolbox_1_1About_1_1AboutView =
     [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1About_1_1AboutView.html#a316ed169fb54ed8224bff6ad8884934b", null ]
 ];

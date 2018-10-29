@@ -16,6 +16,9 @@ var dir_c4c784f004f6b2618062b8bf144d472e =
     [ "ExportFileName.cs", "ExportFileName_8cs.html", [
       [ "ExportFileName", "classXLToolbox_1_1Export_1_1ExportFileName.html", "classXLToolbox_1_1Export_1_1ExportFileName" ]
     ] ],
+    [ "IExporter.cs", "IExporter_8cs.html", [
+      [ "IExporter", "interfaceXLToolbox_1_1Export_1_1IExporter.html", "interfaceXLToolbox_1_1Export_1_1IExporter" ]
+    ] ],
     [ "QuickExporter.cs", "QuickExporter_8cs.html", [
       [ "QuickExporter", "classXLToolbox_1_1Export_1_1QuickExporter.html", "classXLToolbox_1_1Export_1_1QuickExporter" ]
     ] ],

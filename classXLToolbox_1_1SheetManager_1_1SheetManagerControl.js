@@ -4,5 +4,7 @@ var classXLToolbox_1_1SheetManager_1_1SheetManagerControl =
     [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ],
     [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ],
     [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ],
     [ "InitializeComponent", "classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21", null ]
 ];

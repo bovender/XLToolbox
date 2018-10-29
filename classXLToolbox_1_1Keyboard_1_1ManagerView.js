@@ -4,5 +4,7 @@ var classXLToolbox_1_1Keyboard_1_1ManagerView =
     [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Keyboard_1_1ManagerView.html#a3f795a2b9c3e13b8f4ad535ad63d1d3a", null ]
 ];

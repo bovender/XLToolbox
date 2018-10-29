@@ -4,5 +4,7 @@ var classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView =
     [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Excel_1_1Views_1_1PropertiesView.html#a898738e5816ebfb48670cfe5b1716e1b", null ]
 ];

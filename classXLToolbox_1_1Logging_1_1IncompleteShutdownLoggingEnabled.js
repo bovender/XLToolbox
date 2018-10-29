@@ -4,5 +4,7 @@ var classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled =
     [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Logging_1_1IncompleteShutdownLoggingEnabled.html#a3f5c350c9feadbcb453863acfa762488", null ]
 ];

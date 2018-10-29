@@ -1,6 +1,9 @@
 var NAVTREE =
 [
   [ "Daniel's XL Toolbox NG", "index.html", [
+    [ "NUnit 3.10.1 - March 12, 2018", "md_packages_NUnit_83_810_81_CHANGES.html", null ],
+    [ "NUnit 3.7.1 - June 6, 2017", "md_packages_NUnit_83_87_81_CHANGES.html", null ],
+    [ "PRIVACY", "md_PRIVACY.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -34,19 +37,19 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AboutViewModel_8cs.html",
-"Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6aca02405c2c77f135e33de4efb63f93ee",
-"SelectionViewModel_8cs.html",
-"classBovender_1_1Mvvm_1_1Actions_1_1FileFolderActionBase.html",
-"classBovender_1_1Mvvm_1_1Views_1_1Settings_1_1WindowState.html#a60af1ba9d4d6c19c95a0e31abdfc1347",
-"classBovender_1_1Versioning_1_1UpdaterViewModel.html#a86e3e5e24c6dcec2d9fdf30bc88d6cb1",
-"classXLToolbox_1_1Csv_1_1CsvSettings.html#aa73530a94cfff2fbd4c48ed9a981c4b0",
-"classXLToolbox_1_1ExceptionHandler_1_1SubmissionFailureView.html#ade7104c4c0754053ddf4fc0c625da32e",
-"classXLToolbox_1_1Export_1_1ViewModels_1_1PresetsRepositoryViewModel.html",
-"classXLToolbox_1_1SheetManager_1_1SheetManagerControl.html#aa3f9dabd4d605cca40e3483795aeab21",
-"classXLToolbox_1_1Strings.html#ae5c0ae689ec300c365285778c3ddce4a",
-"classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a994f585630c502a237a38092ae727357",
-"dir_c78fc9bb7af64403b2bd0cdf0b1e7799.html",
-"packages_2Bovender_80_87_80_80_2src_2Versioning_2SemanticVersion_8cs.html#ac53307bea4a7acb61627a1125877cdc2a75b9a229bb1873d751a1e0f775ceb2aa"
+"Command_8cs.html#aa18dfdbf75ff409e0b031a08ff5677c6a8f7f4c1ce7a4f933663d10543562b096",
+"Release_2Csv_2CsvExportView_8g_8cs.html",
+"classBovender_1_1ExceptionHandler_1_1UnhandledException.html#a0e3d18de5ef5d42265f3d63bfb44ba82",
+"classBovender_1_1Mvvm_1_1Messaging_1_1ProcessMessageContent.html#ac713ac2f3f82256a14f4696aa71bafbb",
+"classBovender_1_1Versioning_1_1SemanticVersion.html#aebc0efc968cc32971b8b6660d099e8ee",
+"classXLToolbox_1_1Backup_1_1BackupsView.html#a2668136199ddcf72456944b3bf08067b",
+"classXLToolbox_1_1Excel_1_1ViewModels_1_1SelectionChangedEventArgs.html#a9281d372e26f9c75a561efca79188539",
+"classXLToolbox_1_1Export_1_1Models_1_1PresetsRepository.html#ade317a03923e1da51fc1714ab3f01ed3",
+"classXLToolbox_1_1Jumper.html#aabc4e356a36b10f52a1d2fcb8961c375",
+"classXLToolbox_1_1Strings.html#a3a3fc9299e9e1d9a020b45770c523513",
+"classXLToolbox_1_1Test_1_1Excel_1_1SheetViewModelTest.html#a587b43bb87de1e3bf08cf78e79260106",
+"classXLToolbox_1_1Versioning_1_1UpdaterProcessView.html",
+"functions_func_i.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

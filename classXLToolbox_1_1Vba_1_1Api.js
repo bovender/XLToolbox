@@ -7,5 +7,6 @@ var classXLToolbox_1_1Vba_1_1Api =
     [ "ShowException", "classXLToolbox_1_1Vba_1_1Api.html#ae71f6327f23eb62b112122f709ba3541", null ],
     [ "Version", "classXLToolbox_1_1Vba_1_1Api.html#a2521d52eb8ebf8fc04c3962d2a27c341", null ],
     [ "Default", "classXLToolbox_1_1Vba_1_1Api.html#aca006a7b51ead6ddddc33d0e1fe0eaa3", null ],
+    [ "LastLog", "classXLToolbox_1_1Vba_1_1Api.html#a21b88c8e67d7c47b1541ba8d0e03b7bd", null ],
     [ "Logger", "classXLToolbox_1_1Vba_1_1Api.html#ae4b807c3283b4e1849c4681cc572018d", null ]
 ];

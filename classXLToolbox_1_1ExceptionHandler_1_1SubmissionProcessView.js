@@ -5,5 +5,6 @@ var classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView =
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html#a95ec5468b5e0cbee30f3d14d7b5db87a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html#a95ec5468b5e0cbee30f3d14d7b5db87a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html#a95ec5468b5e0cbee30f3d14d7b5db87a", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html#a95ec5468b5e0cbee30f3d14d7b5db87a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1ExceptionHandler_1_1SubmissionProcessView.html#a95ec5468b5e0cbee30f3d14d7b5db87a", null ]
 ];

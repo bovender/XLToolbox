@@ -4,5 +4,7 @@ var classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView =
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Export_1_1Views_1_1PresetsRepositoryView.html#ab85c61a060c446e9e3202d314e632dd7", null ]
 ];

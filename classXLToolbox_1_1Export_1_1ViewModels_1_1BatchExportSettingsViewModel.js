@@ -18,11 +18,13 @@ var classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel =
     [ "IsChartsAndShapesEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#af3b1a7d3c5d0f436caf0aee5ff8e1265", null ],
     [ "IsChartsEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a1d860f1dcf52a9f25419b594dc3565d5", null ],
     [ "IsOpenWorkbooksEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a056ea62286e23d4bf9e4cfd78e5a8985", null ],
+    [ "IsPresetEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a040a28b3d9eb3f09512e3f3b60a07cd1", null ],
     [ "IsSheetLayoutEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#af4749f6aadbd2ef8be92ecf970924de2", null ],
     [ "IsSingleItemsEnabled", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aa472d9e9688ee0b05a56d809d69fb389", null ],
     [ "Layout", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a5be61ca7a38fe20ccaf9177571e01249", null ],
     [ "Logger", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a69028063aee97d23232765c953a18556", null ],
     [ "Objects", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#ac5e850d1da554f3e9f03e1175e30be86", null ],
     [ "Path", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#abd12a28568c6afea55bed78215f811dd", null ],
-    [ "Scope", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aea3e96ac1f8fda38b97a2ff386385fa1", null ]
+    [ "Scope", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#aea3e96ac1f8fda38b97a2ff386385fa1", null ],
+    [ "Screenshot", "classXLToolbox_1_1Export_1_1ViewModels_1_1BatchExportSettingsViewModel.html#a26197ceb79ab92ed2c5299fc825074e6", null ]
 ];

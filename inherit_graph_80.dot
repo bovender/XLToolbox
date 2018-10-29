@@ -1,0 +1,8 @@
+digraph "Graphical Class Hierarchy"
+{
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="XLToolbox.Test.Backup.Time\lStampTest",height=0.2,width=0.4,color="black",URL="$classXLToolbox_1_1Test_1_1Backup_1_1TimeStampTest.html"];
+}

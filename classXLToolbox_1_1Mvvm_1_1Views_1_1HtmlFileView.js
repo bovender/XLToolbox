@@ -4,5 +4,7 @@ var classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView =
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Mvvm_1_1Views_1_1HtmlFileView.html#a0a7d5accf1802ad7f8e483376be6fddc", null ]
 ];

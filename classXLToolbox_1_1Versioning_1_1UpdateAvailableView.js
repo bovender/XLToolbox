@@ -4,5 +4,7 @@ var classXLToolbox_1_1Versioning_1_1UpdateAvailableView =
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Versioning_1_1UpdateAvailableView.html#af510b61468dcad40ba26ffb99e402a3f", null ]
 ];

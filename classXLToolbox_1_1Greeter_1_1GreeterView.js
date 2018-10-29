@@ -4,5 +4,7 @@ var classXLToolbox_1_1Greeter_1_1GreeterView =
     [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ],
+    [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ],
     [ "InitializeComponent", "classXLToolbox_1_1Greeter_1_1GreeterView.html#acae1973b87f9412cb18bcdb529f6ea9a", null ]
 ];

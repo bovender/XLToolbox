@@ -7,6 +7,7 @@ var classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel =
     [ "DebugLogging", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ab9b3bdb09126c576a904f75868707562", null ],
     [ "EditLegacyPreferencesCommand", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ab1a4f8a58dfaf2c72e44d247870ff895", null ],
     [ "EnableBackups", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#ad5c0c9710585a7040dc399d6c39fc0e7", null ],
+    [ "EnableUpdateChecks", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a202da88e2f47bdf1deb51dc991ca3d40", null ],
     [ "Error", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a994f585630c502a237a38092ae727357", null ],
     [ "FlashBackupsDisclaimer", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a245deee31a2a721aec008568a2f4c5b9", null ],
     [ "IsLoggingEnabled", "classXLToolbox_1_1UserSettings_1_1UserSettingsViewModel.html#a5f2453d7cc92a0ba5320a191984f4fc9", null ],
