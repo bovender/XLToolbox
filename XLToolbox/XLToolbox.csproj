@@ -223,6 +223,7 @@
     <Compile Include="Keyboard\ShortcutViewModel.cs" />
     <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Excel\ExcelException.cs" />
+    <Compile Include="Legacy\UnhandledLegacyException.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Logging\IncompleteShutdownLoggingDisabled.xaml.cs">
       <DependentUpon>IncompleteShutdownLoggingDisabled.xaml</DependentUpon>

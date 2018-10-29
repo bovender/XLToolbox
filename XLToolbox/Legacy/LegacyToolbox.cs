@@ -150,94 +150,102 @@ namespace XLToolbox.Legacy
         public void RunCommand(Command command)
         {
             Microsoft.Office.Interop.Excel.Application app = Instance.Default.Application;
-            switch (command)
+            try
             {
-                case Command.JumpToTarget:
-                    app.Run("RunOpenFromCell");
-                    break;
-                case Command.CopyPageSetup:
-                    app.Run("RunCopyPageSetup");
-                    break;
-                case Command.SelectAllShapes:
-                    app.Run("RunSelectAllShapes");
-                    break;
-                case Command.Anova1Way:
-                    app.Run("RunANOVA");
-                    break;
-                case Command.Anova2Way:
-                    app.Run("RunANOVA2Way");
-                    break;
-                case Command.FormulaBuilder:
-                    app.Run("RunFormulaBuilder");
-                    break;
-                case Command.SelectionAssistant:
-                    app.Run("RunSelectionAssistant");
-                    break;
-                case Command.LinearRegression:
-                    app.Run("RunLinearRegression");
-                    break;
-                case Command.Correlation:
-                    app.Run("RunCorrelation");
-                    break;
-                case Command.TransposeWizard:
-                    app.Run("RunTransposeWizard");
-                    break;
-                case Command.MultiHisto:
-                    app.Run("RunMultiHistogram");
-                    break;
-                case Command.Allocate:
-                    app.Run("RunGroupAllocation");
-                    break;
-                case Command.AutomaticErrorBars:
-                    app.Run("RunErrorBarsAuto");
-                    break;
-                case Command.InteractiveErrorBars:
-                    app.Run("RunErrorBarsInteractive");
-                    break;
-                case Command.ChartDesign:
-                    app.Run("RunChartDesign");
-                    break;
-                case Command.MoveDataSeriesLeft:
-                    app.Run("RunMoveDataSeriesLeft");
-                    break;
-                case Command.MoveDataSeriesRight:
-                    app.Run("RunMoveDataSeriesRight");
-                    break;
-                case Command.Annotate:
-                    app.Run("RunChartAnnotation");
-                    break;
-                case Command.SpreadScatter:
-                    app.Run("RunSpreadScatter");
-                    break;
-                case Command.SeriesToFront:
-                    app.Run("RunSeriesToFront");
-                    break;
-                case Command.SeriesForward:
-                    app.Run("RunSeriesForward");
-                    break;
-                case Command.SeriesBackward:
-                    app.Run("RunSeriesBackward");
-                    break;
-                case Command.SeriesToBack:
-                    app.Run("RunSeriesToBack");
-                    break;
-                case Command.AddSeries:
-                    app.Run("RunAddSeries");
-                    break;
-                case Command.CopyChart:
-                    app.Run("RunCopyChart");
-                    break;
-                case Command.PointChart:
-                    app.Run("RunPointChart");
-                    break;
-                case Command.Watermark:
-                    app.Run("RunWatermark");
-                    break;
-                case Command.LegacyPrefs:
-                    app.Run("RunPreferences");
-                    break;
-                default:
-                    throw new InvalidOperationException("Unknown legacy command " + command.ToString());
+                switch (command)
+                {
+                    case Command.JumpToTarget:
+                        app.Run("RunOpenFromCell");
+                        break;
+                    case Command.CopyPageSetup:
+                        app.Run("RunCopyPageSetup");
+                        break;
+                    case Command.SelectAllShapes:
+                        app.Run("RunSelectAllShapes");
+                        break;
+                    case Command.Anova1Way:
+                        app.Run("RunANOVA");
+                        break;
+                    case Command.Anova2Way:
+                        app.Run("RunANOVA2Way");
+                        break;
+                    case Command.FormulaBuilder:
+                        app.Run("RunFormulaBuilder");
+                        break;
+                    case Command.SelectionAssistant:
+                        app.Run("RunSelectionAssistant");
+                        break;
+                    case Command.LinearRegression:
+                        app.Run("RunLinearRegression");
+                        break;
+                    case Command.Correlation:
+                        app.Run("RunCorrelation");
+                        break;
+                    case Command.TransposeWizard:
+                        app.Run("RunTransposeWizard");
+                        break;
+                    case Command.MultiHisto:
+                        app.Run("RunMultiHistogram");
+                        break;
+                    case Command.Allocate:
+                        app.Run("RunGroupAllocation");
+                        break;
+                    case Command.AutomaticErrorBars:
+                        app.Run("RunErrorBarsAuto");
+                        break;
+                    case Command.InteractiveErrorBars:
+                        app.Run("RunErrorBarsInteractive");
+                        break;
+                    case Command.ChartDesign:
+                        app.Run("RunChartDesign");
+                        break;
+                    case Command.MoveDataSeriesLeft:
+                        app.Run("RunMoveDataSeriesLeft");
+                        break;
+                    case Command.MoveDataSeriesRight:
+                        app.Run("RunMoveDataSeriesRight");
+                        break;
+                    case Command.Annotate:
+                        app.Run("RunChartAnnotation");
+                        break;
+                    case Command.SpreadScatter:
+                        app.Run("RunSpreadScatter");
+                        break;
+                    case Command.SeriesToFront:
+                        app.Run("RunSeriesToFront");
+                        break;
+                    case Command.SeriesForward:
+                        app.Run("RunSeriesForward");
+                        break;
+                    case Command.SeriesBackward:
+                        app.Run("RunSeriesBackward");
+                        break;
+                    case Command.SeriesToBack:
+                        app.Run("RunSeriesToBack");
+                        break;
+                    case Command.AddSeries:
+                        app.Run("RunAddSeries");
+                        break;
+                    case Command.CopyChart:
+                        app.Run("RunCopyChart");
+                        break;
+                    case Command.PointChart:
+                        app.Run("RunPointChart");
+                        break;
+                    case Command.Watermark:
+                        app.Run("RunWatermark");
+                        break;
+                    case Command.LegacyPrefs:
+                        app.Run("RunPreferences");
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unknown legacy command " + command.ToString());
+                }
+
+            }
+            catch (System.Runtime.InteropServices.COMException e)
+            {
+                throw new UnhandledLegacyException(String.Format("Unhandled VBA exception in #{0}", Vba.Api.Default.LastLog), e);
             }
         }
 
