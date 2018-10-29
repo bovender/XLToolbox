@@ -60,6 +60,12 @@ namespace XLToolbox.Vba
 
         #endregion
 
+        #region Public properties
+
+        public string LastLog { get; protected set; }
+
+        #endregion
+
         #region API methods
 
         /// <summary>
@@ -184,6 +190,7 @@ namespace XLToolbox.Vba
         /// </summary>
         public void Log(string message)
         {
+            LastLog = message;
             Logger.Info(String.Format("Log(\"{0}\")", message));
         }
 

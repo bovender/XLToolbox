@@ -92,8 +92,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="YamlDotNet, Version=4.2.1.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.Signed.4.2.1\lib\net35\YamlDotNet.dll</HintPath>
+    <Reference Include="YamlDotNet, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.Signed.5.2.1\lib\net35\YamlDotNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -223,6 +223,7 @@
     <Compile Include="Keyboard\ShortcutViewModel.cs" />
     <Compile Include="Keyboard\ShortcutViewModelCollection.cs" />
     <Compile Include="Excel\ExcelException.cs" />
+    <Compile Include="Legacy\UnhandledLegacyException.cs" />
     <Compile Include="Legacy\LegacyToolbox.cs" />
     <Compile Include="Logging\IncompleteShutdownLoggingDisabled.xaml.cs">
       <DependentUpon>IncompleteShutdownLoggingDisabled.xaml</DependentUpon>
