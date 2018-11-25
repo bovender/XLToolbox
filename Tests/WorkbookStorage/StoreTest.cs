@@ -27,11 +27,13 @@ namespace XLToolbox.Test.WorkbookStorage
     public class StoreTest
     {
         [Test]
-        [ExpectedException(typeof(InvalidContextException))]
         public void InvalidContextCausesException()
         {
             Store storage = new Store();
-            storage.Context = "made-up context that does not exist";
+            Assert.Throws<InvalidContextException>(() =>
+            {
+                storage.Context = "made-up context that does not exist";
+            });
         }
 
         [Test]
@@ -83,19 +85,23 @@ namespace XLToolbox.Test.WorkbookStorage
         }
 
         [Test]
-        [ExpectedException(typeof(EmptyKeyException))]
         public void DoNotAllowPutWithEmptyKey()
         {
             Store store = new Store();
-            store.Put("", 123);
+            Assert.Throws<EmptyKeyException>(() =>
+            {
+                store.Put("", 123);
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(EmptyKeyException))]
         public void DoNotAllowGetWithEmptyKey()
         {
             Store store = new Store();
-            string s = store.Get("", "not possible");
+            Assert.Throws<EmptyKeyException>(() =>
+            {
+                string s = store.Get("", "not possible");
+            });
         }
 
         [Test]

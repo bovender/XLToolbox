@@ -32,7 +32,7 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class WorkbookViewModelTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void TestFixtureSetup()
         {
             System.Threading.SynchronizationContext.SetSynchronizationContext(new System.Threading.SynchronizationContext());

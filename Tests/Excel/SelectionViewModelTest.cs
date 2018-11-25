@@ -83,7 +83,7 @@ namespace XLToolbox.UnitTests.Excel
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(System.Threading.ApartmentState.STA)]
         public void CopyRangeToClipboard()
         {
             Clipboard.SetText("xltoolbox test", TextDataFormat.Text);
@@ -94,7 +94,7 @@ namespace XLToolbox.UnitTests.Excel
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(System.Threading.ApartmentState.STA)]
         public void CopyChartsToClipboard()
         {
             Clipboard.SetText("xltoolbox test", TextDataFormat.Text);
@@ -109,7 +109,7 @@ namespace XLToolbox.UnitTests.Excel
         }
 
         [Test]
-        [RequiresSTA]
+        [Apartment(System.Threading.ApartmentState.STA)]
         public void SaveToEmf()
         {
             svm.SaveToEmf(System.IO.Path.GetTempFileName());

@@ -36,7 +36,7 @@ namespace XLToolbox.Test.Export
 
         #region Setup
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void TestFixtureSetup()
         {
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
