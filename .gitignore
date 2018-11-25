@@ -25,3 +25,4 @@ source.zip
 .[Bb]ackup/
 [Bb]ackup/
 *.tmp_proj
+.vs/
