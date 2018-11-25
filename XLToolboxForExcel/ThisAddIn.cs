@@ -16,9 +16,7 @@
  * limitations under the License.
  */
 using System;
-using System.Configuration;
 using System.Runtime.InteropServices;
-using System.Windows;
 using System.Windows.Threading;
 using NLog;
 using Bovender.Extensions;
