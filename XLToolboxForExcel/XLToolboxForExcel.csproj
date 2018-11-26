@@ -45,6 +45,13 @@
     <FriendlyName>Daniel%27s XL Toolbox NG</FriendlyName>
     <OfficeApplicationDescription>Data analysis and visualization for Excel, for free.</OfficeApplicationDescription>
     <LoadBehavior>16</LoadBehavior>
+    <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -140,28 +147,46 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="Bovender, Version=0.17.3.0, Culture=neutral, PublicKeyToken=df1c15557d8b6df8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bovender.0.17.3\lib\net40\Bovender.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Bovender, Version=0.18.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bovender\Bovender\bin\Debug\Bovender.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="FreeImageNET">
-      <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\$(Configuration)\FreeImageNET.dll</HintPath>
+      <HintPath>..\FreeImage\Wrapper\FreeImage.NET\cs\Library\bin\Debug\FreeImageNET.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.12\lib\net40\NLog.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\NLog.4.5.11\lib\net40-client\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
@@ -172,34 +197,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="YamlDotNet, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.Signed.5.2.1\lib\net35\YamlDotNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Office.Tools, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Office.Tools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Office.Tools.Excel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Tools.Excel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.Common.v4.0.Utilities, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <Private>False</Private>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <Private>False</Private>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <!--
@@ -237,6 +244,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RibbonStrings.de.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -291,13 +299,14 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>XLToolboxForExcel_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>17FBE340F80DCA631927E12DF0926398A7A31762</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8994EF923FFA620E49E0985F38504CAA1EDD9969</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>xltb.snk</AssemblyOriginatorKeyFile>
@@ -318,7 +327,7 @@
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
-        <ProjectProperties HostName="Excel" HostPackage="{20A848B8-E01F-4801-962E-25DB0FF57389}" OfficeVersion="14.0" VstxVersion="4.0" ApplicationType="Excel" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\14.0\Excel\InstallRoot\Path#excel.exe" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
+        <ProjectProperties HostName="Excel" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="Excel" Language="cs" TemplatesPath="VSTOTemplates" DebugInfoExeName="#Software\Microsoft\Office\16.0\Excel\InstallRoot\Path#excel.exe" DebugInfoCommandLine="/x " AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
         <Host Name="Excel" GeneratedCodeNamespace="XLToolboxForExcel" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
           <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" PublishedHash="5A661CFB5890B4AD30C2090998BDF262077FC700" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
         </Host>

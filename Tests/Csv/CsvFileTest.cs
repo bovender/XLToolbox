@@ -31,7 +31,7 @@ namespace XLToolbox.Test.Csv
     [TestFixture]
     class CsvFileTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void TestFixtureSetup()
         {
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());

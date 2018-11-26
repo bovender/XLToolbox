@@ -28,7 +28,7 @@ namespace XLToolbox.Test.Backup
     [TestFixture]
     class BackupFileTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void TestFixtureSetup()
         {
             Bovender.Logging.LogFile.Default.EnableDebugLogging();

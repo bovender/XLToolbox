@@ -21,7 +21,7 @@
 #define INSTALLER_IMAGE_LARGE "installbanner.bmp"
 #define INSTALLER_IMAGE_SMALL "icon-48.bmp"
 
-#define DEVENV "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com"
+#define DEVENV "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.com"
 #define CSPROJ "x:\Code\xltoolbox\NG\NG.sln"
 
 #ifdef DEBUG

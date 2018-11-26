@@ -35,7 +35,7 @@ namespace XLToolbox.Test.Export
     [TestFixture]
     class ExporterTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void SetUp()
         {
             // Force starting Excel
@@ -44,7 +44,7 @@ namespace XLToolbox.Test.Export
             Bovender.Logging.LogFile.Default.EnableDebugLogging();
         }
 
-        [TestFixtureTearDown]
+        [TearDown]
         public void TearDown()
         {
             Instance.Default.Dispose();

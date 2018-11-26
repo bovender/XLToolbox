@@ -31,7 +31,7 @@ namespace XLToolbox.Test.Excel
     [TestFixture]
     class ReferenceTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void TestFixtureSetup()
         {
             Bovender.Logging.LogFile.Default.EnableDebugLogging();
